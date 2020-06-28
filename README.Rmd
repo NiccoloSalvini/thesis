@@ -1,0 +1,72 @@
+---
+title: "Thesis"
+output: 
+  github_document:
+    toc: TRUE
+    toc_depth: 3
+    fig_width: 5
+    fig_height: 5
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
+
+
+
+```{r global.options, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,  
+  strip.white = TRUE,                 # if FALSE knitr will not remove white spaces at the beg or end
+  fig.path = "figures/",              # file path to the directory DESTINATION where knitr shall store the
+  fig.width=12,                       # the width for plots created by code chunk
+  fig.height=8,                       # the height for plots created by code chunk
+  cache = FALSE                       # if TRUE knitr will cache the results to reuse in future knits
+)
+
+
+knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center image 
+  if (before) {                                                      # add imgcenter = TRUE
+    htmltools::HTML("<p align='center'>")                            # to the chunk options
+  } else {
+    htmltools::HTML("</p>")
+  }
+})
+
+
+```
+
+
+
+<img src="images/logo.png" align="right" height="80" />
+ 
+# "Spatial Machine Learning modelling: End-to-End web app solution"
+
+_author_: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
+_date_: `r format(Sys.Date(), "%d %B, %Y")`
+
+
+<br> <br> 
+
+
+```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "FIRENZE", fig.retina=1}
+knitr::include_graphics("images/FIRENZE.jpeg") 
+```
+
+### Introduction:
+
+This repo contains my master thesis project which is once again a collection of various works done for single themed exams. What I did was fronting different angles of the same problem. I started by collecting all the data from various sources by scraping, and then passing through shiny web app development and in the end getting deep with methodologies and modelling into spatial analysis. This project virtually sums up the effort I have been putting into the real estate market starting from september 2018.
+
+### Deployment happens:
+
+### Description:
+
+### Visuals:
+
+### Usage:
+
+### Project Status:
+
+### Next Features:
+
+### License:
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licenza Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Quest'opera è distribuita con Licenza <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribuzione 4.0 Internazionale</a>.

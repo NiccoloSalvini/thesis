@@ -1,6 +1,6 @@
 --- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+title: "Spatial Machine Learning modelling: End-to-End web app solution"
+author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook

@@ -1,3 +1,71 @@
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "[Get Started](https://bookdown.org/yihui/bookdown/get-started.html)" at https://bookdown.org/yihui/bookdown/ for how to compile this example into HTML. You may generate a copy of the book in `bookdown::pdf_book` format by calling `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')`. More detailed instructions are available here https://bookdown.org/yihui/bookdown/build-the-book.html.
+Thesis
+================
 
-You can find the preview of this example at https://bookdown.org/yihui/bookdown-demo/.
+  - [“Spatial Machine Learning modelling: End-to-End web app
+    solution”](#spatial-machine-learning-modelling-end-to-end-web-app-solution)
+      - [Introduction:](#introduction)
+      - [Deployment happens:](#deployment-happens)
+      - [Description:](#description)
+      - [Visuals:](#visuals)
+      - [Usage:](#usage)
+      - [Project Status:](#project-status)
+      - [Next Features:](#next-features)
+      - [License:](#license)
+
+<!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
+
+<img src="images/logo.png" align="right" height="80" />
+
+# “Spatial Machine Learning modelling: End-to-End web app solution”
+
+*author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
+*date*: 28 giugno, 2020
+
+<br> <br>
+
+<p align="center">
+
+<div class="figure">
+
+<img src="images/FIRENZE.jpeg" alt="FIRENZE" width="1433" />
+
+<p class="caption">
+
+FIRENZE
+
+</p>
+
+</div>
+
+</p>
+
+### Introduction:
+
+This repo contains my master thesis project which is once again a
+collection of various works done for single themed exams. What I did was
+fronting different angles of the same problem. I started by collecting
+all the data from various sources by scraping, and then passing through
+shiny web app development and in the end getting deep with methodologies
+and modelling into spatial analysis. This project virtually sums up the
+effort I have been putting into the real estate market starting from
+september
+2018.
+
+### Deployment happens:
+
+### Description:
+
+### Visuals:
+
+### Usage:
+
+### Project Status:
+
+### Next Features:
+
+### License:
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licenza Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Quest’opera
+è distribuita con Licenza
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+Commons Attribuzione 4.0 Internazionale</a>.
