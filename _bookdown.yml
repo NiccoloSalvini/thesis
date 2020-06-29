@@ -1,4 +1,4 @@
-book_filename: "bookdown-demo"
+book_filename: "Niccolo_Salvini_Thesis"
 rmd_files:
     - "index.Rmd"
     - "01-intro.Rmd"
@@ -6,7 +6,7 @@ rmd_files:
     - "03-method.Rmd"
     - "04-application.Rmd"
     - "05-summary.Rmd"
-    - "06-references.Rmd"
+    - "references.Rmd"
 language:
   ui:
     chapter_name: "Chapter "
