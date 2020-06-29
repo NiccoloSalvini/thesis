@@ -19,7 +19,7 @@ Thesis
 # “Spatial Machine Learning modelling: End-to-End web app solution”
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 28 giugno, 2020
+*date*: 30 giugno, 2020
 
 <br> <br>
 
@@ -27,11 +27,11 @@ Thesis
 
 <div class="figure">
 
-<img src="images/FIRENZE.jpeg" alt="FIRENZE" width="1433" />
+<img src="images/spatial.png" alt="spatial" width="588" />
 
 <p class="caption">
 
-FIRENZE
+spatial
 
 </p>
 
@@ -41,12 +41,12 @@ FIRENZE
 
 ### Introduction:
 
-This repo contains my master thesis project which is once again a
-collection of various works done for single themed exams. What I did was
-fronting different angles of the same problem. I started by collecting
-all the data from various sources by scraping, and then passing through
-shiny web app development and in the end getting deep with methodologies
-and modelling into spatial analysis. This project virtually sums up the
+This repo contains my master thesis project which is a collection of
+various works done for single exams. What I did was fronting different
+angles of the same problem. I started by collecting all the data from
+various sources by **Scraping**, and then passing through **Shiny** web
+app development and in the end getting deep with methodologies and
+modelling into **Spatial Analysis**. This project virtually sums up the
 effort I have been putting into the real estate market starting from
 september
 2018.
