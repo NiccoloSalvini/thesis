@@ -1,8 +1,8 @@
 Thesis
 ================
 
-  - [“Spatial Machine Learning modelling: End-to-End web app
-    solution”](#spatial-machine-learning-modelling-end-to-end-web-app-solution)
+  - [Spatial Machine Learning modelling: End-to-End web App
+    solution](#spatial-machine-learning-modelling-end-to-end-web-app-solution)
       - [Introduction:](#introduction)
       - [Deployment happens:](#deployment-happens)
       - [Description:](#description)
@@ -15,7 +15,7 @@ Thesis
 
 <img src="images/logo.png" align="right" height="80" />
 
-# “Spatial Machine Learning modelling: End-to-End web app solution”
+# Spatial Machine Learning modelling: End-to-End web App solution
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
 *date*: 30 giugno,
@@ -25,8 +25,6 @@ Thesis
 
 <br>
 <br>
-
-<p align="center">
 
 <div class="figure">
 
@@ -39,8 +37,6 @@ Spatial Data Analysis
 </p>
 
 </div>
-
-</p>
 
 ### Introduction:
 
