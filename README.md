@@ -13,22 +13,24 @@ Thesis
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
 
-[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
-
 <img src="images/logo.png" align="right" height="80" />
 
 # “Spatial Machine Learning modelling: End-to-End web app solution”
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 30 giugno, 2020
+*date*: 30 giugno,
+2020
 
-<br> <br>
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
+
+<br>
+<br>
 
 <p align="center">
 
 <div class="figure">
 
-<img src="images/spatial.png" alt="Spatial Data Analysis" width="588" />
+<img src="images/spatial.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
 
 <p class="caption">
 
@@ -37,12 +39,6 @@ Spatial Data Analysis
 </p>
 
 </div>
-
-</p>
-
-<p align="center">
-
-![Spatial Data Analysis Rayshader](images/spatial_visualization.gif)
 
 </p>
 
