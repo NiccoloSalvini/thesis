@@ -47,10 +47,13 @@ _date_: `r format(Sys.Date(), "%d %B, %Y")`
 <br> <br> 
 
 
-```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "spatial", fig.retina=1}
+```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis", fig.retina=1}
 knitr::include_graphics("images/spatial.png") 
 ```
 
+```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis Rayshader", fig.retina=1}
+knitr::include_graphics("images/spatial_visualization.gif") 
+```
 ### Introduction:
 
 This repo contains my master thesis project which is a collection of various works done for single exams. What I did was fronting different angles of the same problem. I started by collecting all the data from various sources by **Scraping**, and then passing through **Shiny** web app development and in the end getting deep with methodologies and modelling into **Spatial Analysis**. This project virtually sums up the effort I have been putting into the real estate market starting from september 2018.
@@ -58,8 +61,6 @@ This repo contains my master thesis project which is a collection of various wor
 ### Deployment happens:
 
 ### Description:
-
-### Visuals:
 
 ### Usage:
 
