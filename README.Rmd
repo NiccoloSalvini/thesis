@@ -35,6 +35,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 ```
 
 
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini / Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini / Thesis)
 
 <img src="images/logo.png" align="right" height="80" />
  
@@ -47,11 +48,11 @@ _date_: `r format(Sys.Date(), "%d %B, %Y")`
 <br> <br> 
 
 
-```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis", fig.retina=1}
+```{r img1, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis", fig.retina=1}
 knitr::include_graphics("images/spatial.png") 
 ```
 
-```{r FIRENZE, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis Rayshader", fig.retina=1}
+```{r img2, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis Rayshader", fig.retina=1}
 knitr::include_graphics("images/spatial_visualization.gif") 
 ```
 ### Introduction:

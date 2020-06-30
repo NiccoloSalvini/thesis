@@ -6,13 +6,14 @@ Thesis
       - [Introduction:](#introduction)
       - [Deployment happens:](#deployment-happens)
       - [Description:](#description)
-      - [Visuals:](#visuals)
       - [Usage:](#usage)
       - [Project Status:](#project-status)
       - [Next Features:](#next-features)
       - [License:](#license)
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
+
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
 
 <img src="images/logo.png" align="right" height="80" />
 
@@ -27,15 +28,21 @@ Thesis
 
 <div class="figure">
 
-<img src="images/spatial.png" alt="spatial" width="588" />
+<img src="images/spatial.png" alt="Spatial Data Analysis" width="588" />
 
 <p class="caption">
 
-spatial
+Spatial Data Analysis
 
 </p>
 
 </div>
+
+</p>
+
+<p align="center">
+
+![Spatial Data Analysis Rayshader](images/spatial_visualization.gif)
 
 </p>
 
@@ -54,8 +61,6 @@ september
 ### Deployment happens:
 
 ### Description:
-
-### Visuals:
 
 ### Usage:
 
