@@ -39,7 +39,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 
 <img src="images/logo.png" align="right" height="80" />
  
-# "Spatial Machine Learning modelling: End-to-End web app solution"
+# Spatial Machine Learning modelling: End-to-End web App solution
 
 _author_: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
 _date_: `r format(Sys.Date(), "%d %B, %Y")`
@@ -49,7 +49,7 @@ _date_: `r format(Sys.Date(), "%d %B, %Y")`
 <br> <br> 
 
 
-```{r img1, echo=FALSE, imgcenter = TRUE, fig.cap = "Spatial Data Analysis", fig.retina=1, fig.align='default', fig.show='hold', out.width="50%"}
+```{r img1, echo=FALSE, fig.cap = "Spatial Data Analysis", fig.retina=1, fig.align='default', fig.show='hold', out.width="50%"}
 knitr::include_graphics("images/spatial.png") 
 knitr::include_graphics("images/spatial_visualization.gif") 
 ```
