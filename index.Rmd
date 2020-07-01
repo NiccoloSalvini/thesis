@@ -3,7 +3,6 @@ title: "Spatial Machine Learning modelling: End-to-End web app solution"
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
 date: "`r format(Sys.Date(), '%d %B, %Y')`"
-favicon: "favicon.ico"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -12,7 +11,6 @@ biblio-style: apalike
 link-citations: yes
 github-repo: NiccoloSalvini/Thesis
 favicon: "images/favicon.ico" 
-cover-image: "images/cover.png"
 description: "Niccolò Salvini master's thesis"
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"  
 fontsize: 12pt
