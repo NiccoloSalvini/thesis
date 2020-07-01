@@ -6,9 +6,7 @@ Thesis
       - [Introduction:](#introduction)
       - [Deployment happens:](#deployment-happens)
       - [Description:](#description)
-      - [Usage:](#usage)
       - [Project Status:](#project-status)
-      - [Next Features:](#next-features)
       - [License:](#license)
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
@@ -18,7 +16,7 @@ Thesis
 # Spatial Machine Learning modelling: End-to-End web App solution
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 30 giugno,
+*date*: 01 July,
 2020
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
@@ -47,18 +45,21 @@ various sources by **Scraping**, and then passing through **Shiny** web
 app development and in the end getting deep with methodologies and
 modelling into **Spatial Analysis**. This project virtually sums up the
 effort I have been putting into the real estate market starting from
-september
-2018.
+september 2018.
 
 ### Deployment happens:
 
-### Description:
+You can interact, modify and download (pdf epub) the Thesis
+**[HERE](https://niccolosalvini.github.io/Thesis/)**
 
-### Usage:
+### Description:
 
 ### Project Status:
 
-### Next Features:
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/Thesis)
+
+–\> travis CI
+badge
 
 ### License:
 

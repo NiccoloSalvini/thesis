@@ -61,13 +61,16 @@ This repo contains my master thesis project which is a collection of various wor
 
 ### Deployment happens:
 
-### Description:
+You can interact, modify and download (pdf epub) the Thesis **[HERE](https://niccolosalvini.github.io/Thesis/)**
 
-### Usage:
+### Description:
 
 ### Project Status:
 
-### Next Features:
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/Thesis)
+
+--> travis CI badge 
+
 
 ### License:
 
