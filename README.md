@@ -5,8 +5,6 @@ Thesis
     solution](#spatial-machine-learning-modelling-end-to-end-web-app-solution)
       - [Introduction:](#introduction)
       - [Deployment happens:](#deployment-happens)
-      - [Description:](#description)
-      - [Project Status:](#project-status)
       - [License:](#license)
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
@@ -51,15 +49,6 @@ september 2018.
 
 You can interact, modify and download (pdf epub) the Thesis
 **[HERE](https://niccolosalvini.github.io/Thesis/)**
-
-### Description:
-
-### Project Status:
-
-[![HitCount](http://hits.dwyl.com/NiccoloSalvini/Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/Thesis)
-
-–\> travis CI
-badge
 
 ### License:
 

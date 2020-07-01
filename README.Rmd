@@ -2,7 +2,7 @@
 title: "Thesis"
 output: 
   github_document:
-    toc: TRUE
+    toc: false
     toc_depth: 3
     fig_width: 5
     fig_height: 5
@@ -15,8 +15,7 @@ output:
 ```{r global.options, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,  
-  strip.white = TRUE,                 # if FALSE knitr will not remove white spaces at the beg or end
-  fig.path = "figures/",              # file path to the directory DESTINATION where knitr shall store the
+  strip.white = TRUE,                 # if FALSE knitr will not remove white spaces at the beg or end       
   fig.width=12,                       # the width for plots created by code chunk
   fig.height=8,                       # the height for plots created by code chunk
   cache = FALSE                       # if TRUE knitr will cache the results to reuse in future knits
@@ -62,15 +61,6 @@ This repo contains my master thesis project which is a collection of various wor
 ### Deployment happens:
 
 You can interact, modify and download (pdf epub) the Thesis **[HERE](https://niccolosalvini.github.io/Thesis/)**
-
-### Description:
-
-### Project Status:
-
-[![HitCount](http://hits.dwyl.com/NiccoloSalvini/Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/Thesis)
-
---> travis CI badge 
-
 
 ### License:
 
