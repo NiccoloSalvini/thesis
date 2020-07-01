@@ -1,12 +1,6 @@
 Thesis
 ================
 
-  - [Spatial Machine Learning modelling: End-to-End web App
-    solution](#spatial-machine-learning-modelling-end-to-end-web-app-solution)
-      - [Introduction:](#introduction)
-      - [Deployment happens:](#deployment-happens)
-      - [License:](#license)
-
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
 
 <img src="images/logo.png" align="right" height="80" />
