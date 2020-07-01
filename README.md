@@ -8,7 +8,7 @@ Thesis
 # Spatial Machine Learning modelling: End-to-End web App solution
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 01 July,
+*date*: 02 July,
 2020
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
