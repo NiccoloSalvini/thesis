@@ -45,6 +45,14 @@ _date_: `r format(Sys.Date(), "%d %B, %Y")`
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini / Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini / Thesis)
 
+<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">
+
+[![Generic badge](https://img.shields.io/badge/Github Pages Deploy-PASSING-<COLOR>.svg)](https://shields.io/)
+
+
+[![Website ](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
+
+
 <br> <br> 
 
 
