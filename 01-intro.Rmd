@@ -3,4 +3,4 @@
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
 We are living in the big data era, so we could be brought to think that evrething is a "one click" distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and  citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
-Since I am living in italy and my goal is to analyse market [...]
+Since I am living in italy and my goal is to analyse market [...] [@abelson_structure_1996; @akima_akima_2016; @baddeley_spatial_2015; @baddeley_spatstat_2005; @knitr2015; @R-base; @R-bookdown]
