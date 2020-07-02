@@ -11,8 +11,11 @@ Thesis
 *date*: 02 July,
 2020
 
-[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">[![Generic
-badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg)](https://shields.io/)[![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
+[![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
+<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">
+[![Generic
+badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg)](https://shields.io/)
+[![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
 
 <br>
 <br>
