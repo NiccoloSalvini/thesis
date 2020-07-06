@@ -1,11 +1,13 @@
 bookdown::gitbook:
   css: style.css
+  includes:
+    in_header: google_analytics.html
   config:
     toc:
       before: |
         <li><a href="./">Spatial Machine Learning Modelling: End-to-End web App solution</a></li>
       after: |
-        <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repo</a></li>
+        <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
     edit:
       link: https://github.com/NiccoloSalvini/Thesis/edit/master/%s
