@@ -1,4 +1,0 @@
-# Literature
-
-Here is a review of existing methods.
-[@lovelace_geocomputation_2019; @R-rvest]
