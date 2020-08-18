@@ -5,4 +5,13 @@
 We are living in the big data era, so we could be brought to think that evrething is a "one click" distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and  citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
 Since I am living in italy and my [@lovelace_geocomputation_2019] goal is to an [@R-furrr] alyse market 
 
+The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainity. The expression data is the new oil has neven been so appropirate in these times. 
+On the other hand is not for sure easy to assing a price amount to data due to its untangible nature.
+the most straightfoprward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure self explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to  process or to store. 
+
+
+During an interesting conversation with some friends we had a discussion on how data should be treated: as a sort of currency or a sort of commodity (raw material). 
+some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semifinished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the 
+
+
 
