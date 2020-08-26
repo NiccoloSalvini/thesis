@@ -25,4 +25,4 @@ dove ogni segmento della stringa rispecchia una caratteristica del laptop del ri
 - DOM parsing
 - Riconoscimento dell'annotazione semantica
 - Aggregazione verticaleù
--  Text pattern matching
+- Text pattern matching
