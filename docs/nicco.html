@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Introduction | Spatial Machine Learning modelling: End-to-End web app solution</title>
+  <title>Chapter 4 nicco | Spatial Machine Learning modelling: End-to-End web app solution</title>
   <meta name="description" content="Niccolò Salvini master’s thesis" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Introduction | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta property="og:title" content="Chapter 4 nicco | Spatial Machine Learning modelling: End-to-End web app solution" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Introduction | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta name="twitter:title" content="Chapter 4 nicco | Spatial Machine Learning modelling: End-to-End web app solution" />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="index.html"/>
-<link rel="next" href="scraping.html"/>
+<link rel="prev" href="methods.html"/>
+<link rel="next" href="applications.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -85,12 +85,15 @@
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
-<li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a><ul>
-<li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
-<li class="chapter" data-level="4.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>4.2</b> Example two</a></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><i class="fa fa-check"></i><b>3.1</b> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="4" data-path="nicco.html"><a href="nicco.html"><i class="fa fa-check"></i><b>4</b> nicco</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
@@ -113,34 +116,33 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<p>We are living in the big data era, so we could be brought to think that evrething is a “one click” distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
-Since I am living in italy and my <span class="citation">(Lovelace, Nowosad, and Muenchow <a href="#ref-lovelace_geocomputation_2019">2019</a>)</span> goal is to an <span class="citation">(Vaughan and Dancho <a href="#ref-R-furrr">2018</a>)</span> alyse market</p>
-<p>The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainity. The expression data is the new oil has neven been so appropirate in these times.
-On the other hand is not for sure easy to assing a price amount to data due to its untangible nature.
-the most straightfoprward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure self explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to process or to store.</p>
-<p>During an interesting conversation with some friends we had a discussion on how data should be treated: as a sort of currency or a sort of commodity (raw material).
-some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semifinished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the</p>
+<div id="nicco" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> nicco</h1>
+<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-lovelace_geocomputation_2019">
-<p>Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. CRC Press.</p>
-</div>
-<div id="ref-R-furrr">
-<p>Vaughan, Davis, and Matt Dancho. 2018. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://CRAN.R-project.org/package=furrr">https://CRAN.R-project.org/package=furrr</a>.</p>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="scraping.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="applications.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -172,7 +174,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/01-intro.Rmd",
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/03-method.Rmd",
 "text": "Edit"
 },
 "history": {

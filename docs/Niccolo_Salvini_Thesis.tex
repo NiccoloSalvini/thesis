@@ -3,6 +3,7 @@
 %
 \documentclass[
   12pt,
+  a4paper,
 ]{book}
 \usepackage{lmodern}
 \usepackage{setspace}
@@ -92,7 +93,7 @@
 
 \title{Spatial Machine Learning modelling: End-to-End web app solution}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{06 luglio, 2020}
+\date{08 settembre, 2020}
 
 \begin{document}
 \maketitle
@@ -113,16 +114,77 @@
 We are living in the big data era, so we could be brought to think that evrething is a ``one click'' distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
 Since I am living in italy and my \citep{lovelace_geocomputation_2019} goal is to an \citep{R-furrr} alyse market
 
-\hypertarget{literature}{%
-\chapter{Literature}\label{literature}}
+The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainity. The expression data is the new oil has neven been so appropirate in these times.
+On the other hand is not for sure easy to assing a price amount to data due to its untangible nature.
+the most straightfoprward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure self explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to process or to store.
 
-Here is a review of existing methods.
+During an interesting conversation with some friends we had a discussion on how data should be treated: as a sort of currency or a sort of commodity (raw material).
+some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semifinished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the
+
+\hypertarget{scraping}{%
+\chapter{Scraping}\label{scraping}}
+
 \citep{lovelace_geocomputation_2019, R-rvest}
+
+Lo web scraping è una tecnica di estrazione dei dati da pagine internet statiche o dinamiche in maniera automatica e simulatanea \citep{wiki:xxx}. L'impossibilità di reperire dati aperti aggiornati riguardo l'affitto sul mercato italiano mi ha spinto a sviluppare sofisticate tecniche di estrazione di dati orientate ad alleggerire lo sforzo e aumentare la velocità di reperimento: da una parte nel preprocessing del dataset, nella successiva del fragente del modelling, per finire con la reattività di risposta dell'applicazione.
+Le informazioni sui siti appaiono ordinate e semplici, tuttavia ogni sito web ha una propria architettura e un proprio linguaggio. Per architettura intendo struttura gerarchica secondo cui è organizatto un sito internet: una semplificazione della struttura di un sito web può essere un insieme di cartelle innestate una dentro l'altra collegate tra loro da riferimenti tramite l'url. la natura gerarchica della struttura prevede che si usi un linguaggio che fa propria questa caratteristica, HTML è il preferito. L'html si organizza in nodi ed angoli, esattamente come un grafo; che aggiunta la componente gerarchica fa sì che questo sia un albero. Difatti spesso ci si riferisce alla struttura delle pagine web come html tree. Ogni elemento nella pagina ha un suo preciso posto nel codice sorgente della stessa e ha un preciso valore o più valori. Possiamo immaginare ogni nodo della pagina come una lista di valori che è collegata ad un nodo precedente detto padre da una struttura gerarchica superiore, ed eventiualmente ad un nodo successivo detto figlio. Pertanto tutte le informazioni che giacciono sotto al nodo padre sono parenti del nodo padre e sono direttamente collegate (directed nel senso dell'interpretazione), parallelamente ci saranno altri nodi padre che saranno adiacenti al nodo padre, i quali avranno nodi figli e così via.
+La complessità della pagina e del codice è tanto maggiore quanto il livello dell'albero aumenta, tanto più l'albero è folto tanto più sarà difficile individurare il ramo o la foglia che ci interessa. Ragionevolemnte accade lo stesso per la funzione di scraping e il tempo di scraping.
+Html organizza i contenuti e le relazioni tra loro, il css (Cascading Style Sheets) invece si occupa dello stile e della formattazione degli stessi. il css è uno strumento molto potente in mano ad uno scraper perchè permette di recuperare informazioni simili tra loro ma che occupano nodi con posizione gerarchica diversa all'interno della pagina. Pertanto una volta letto l'html della pagina sarà necessario recuperare la query css per raccogliere tutti gli elementi di interesse tramite la funzione di scraping.
+Successivamente occorre notare che l'encoding da html a stringa di testo non è quasi mai lineare, spesso occorre riformattare, cancellare spazi, convertire la natura dell'oggetto etc.
+Il successivo elemento di complessità incontrato durante questa prima fase è stato interfacciarsi con un server attento alle richieste get degli utenti. i dati viaggiano in pacchetti da un server che ospita un sito internet al nostro laptop. tutte le volte che cerchiamo di accedere ad un sito stiamo mandando una richiesta di ricezione di pacchetti dati ad un server in qualche luogo remoto del mondo. Quandi bussiamo alla porta del server se non siamo sospetti e superiamo i criteri autostabiliti dal server questo risponde, e lo fa con un numero che spazia da 200 a 500, due esempi: 200 se la risposta è positiva, 404 se la risposta è negativa. I criteri secondo cui gli utenti sono calssificati secondo utente normale o utente sospetto (aka bot) sono sintetizzati in un documento di testo chiamato robot.txt. Questo file di testo raccoglie tra le altre due infromazioni principali il delay time, cioè il tempo preferito dal server che deve intercorrere tra una richiesta dati e la successiva e quale utente è autorizzato ad accedere. Ogni utente posside un indirizzo IP che nelle richieste a server si codifica in user agent, cioè una stringa di testo dove vengono raccolte le infromzioni significative circa il dispositivo da cui provengono le richieste, un esempio:
+
+`Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+
+dove ogni segmento della stringa rispecchia una caratteristica del laptop del richiedente, Chrome/54.0.2840.71 è la versione del browser chrome da cui proviene la richiesta Safari/537.36', è il motore di ricerca etc.
+
+\begin{itemize}
+\tightlist
+\item
+  Copia e incolla manuale
+\item
+  Web scraper
+\item
+  HTML parsing
+\item
+  Analisi con Visione computerizzata
+\item
+  DOM parsing
+\item
+  Riconoscimento dell'annotazione semantica
+\item
+  Aggregazione verticaleù
+\item
+  Text pattern matching
+\end{itemize}
 
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}
 
 We describe our methods in this chapter.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin arcu eget nulla convallis, in sagittis metus tincidunt. Integer vitae erat convallis, lobortis nunc id, commodo ipsum. Nam sem sem, tristique vitae dolor eget, laoreet aliquet libero. Nulla non feugiat diam. Ut vehicula, ante vitae rhoncus volutpat, eros orci viverra sem, ac tincidunt sem ex at sapien. Nam et odio condimentum, viverra nisl vitae, tempor nisl. Integer euismod convallis augue quis iaculis. Nulla at leo non nisi sollicitudin molestie vel at purus.
+
+Nam tincidunt tellus et mattis luctus. Vivamus quis velit at nunc fermentum cursus. Duis elementum in nibh quis luctus. Suspendisse eget sem sit amet quam mattis egestas. Morbi ullamcorper metus eu dolor dapibus, id ultrices tellus euismod. Suspendisse malesuada felis vel tincidunt ullamcorper. Proin placerat auctor urna vel finibus. Sed non dictum orci. Ut volutpat pretium massa, in iaculis mi consectetur quis. Curabitur vitae condimentum nisi, sit amet consectetur justo. Curabitur non fermentum diam. Pellentesque vehicula laoreet elementum. Donec non porttitor ante, ut fermentum ante. In mollis consequat nisl euismod lobortis.
+
+Vestibulum scelerisque dui eget est cursus, ut vestibulum libero pretium. Donec non viverra ligula. Suspendisse a viverra purus, in laoreet ligula. Nunc posuere libero ipsum, non vehicula massa gravida id. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas tortor risus, accumsan vitae luctus a, molestie non augue. Nam felis arcu, volutpat vitae eros nec, sollicitudin aliquam orci. Sed sit amet consectetur dui. Morbi finibus, est at blandit consectetur, diam massa ultrices libero, ac dapibus nisl ex id urna. Donec venenatis, nibh malesuada ultricies varius, justo tellus maximus ante, vehicula viverra dolor lorem vitae lacus. Donec nec ultricies ex. Proin vehicula interdum ex a tincidunt.
+
+Duis varius ornare velit, non finibus purus lacinia eget. Fusce fringilla arcu in mauris fermentum, at consequat mauris suscipit. Etiam cursus felis ut consequat maximus. Vestibulum auctor sollicitudin nisl, eget molestie enim faucibus sit amet. Aenean luctus non ligula scelerisque maximus. Aenean finibus, nulla sit amet interdum ornare, justo nisl tempor diam, sit amet sollicitudin lacus tortor sit amet mi. Aliquam erat volutpat. Quisque vehicula facilisis ligula ut porta. Aenean eleifend arcu luctus ligula congue lacinia. Proin nunc mauris, cursus vel risus at, dapibus imperdiet est. Fusce eget nisi nec eros vehicula ullamcorper. Integer feugiat vulputate lacus id posuere. Nunc tincidunt, ante ac convallis elementum, ipsum elit rutrum risus, vitae dapibus augue leo in lacus.
+
+Integer et aliquam mi, ac blandit arcu. Integer sit amet tristique orci. Aenean consectetur tempor diam, id finibus massa tempus non. Cras sagittis nibh vitae aliquet laoreet. Sed facilisis luctus mi. Donec est sapien, porta consectetur varius in, pulvinar sed ligula. Suspendisse potenti. Maecenas porta neque at accumsan eleifend. Proin porta imperdiet ipsum, sed viverra purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris dapibus libero ac ultrices commodo. Donec dictum lectus id urna volutpat, vitae eleifend neque gravida. Mauris aliquam augue ac eros sagittis interdum. Sed dapibus placerat bibendum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet lacus ut maximus tempus. Integer dolor massa, ornare vitae ultrices pharetra, lacinia ut felis. Phasellus et vulputate mi, eu ultricies nisi. Phasellus interdum risus tristique tortor fermentum, blandit vehicula turpis elementum. Nullam eget arcu faucibus, blandit lacus ut, pharetra felis. Praesent malesuada mattis augue vel convallis. Curabitur sodales sollicitudin nunc, eget gravida risus condimentum non. Cras laoreet eget erat eget dapibus. Vivamus volutpat consequat libero at dapibus. Nulla convallis sapien neque, sit amet scelerisque enim luctus at. Praesent vehicula convallis purus. In a metus nec tellus mattis vestibulum. Vestibulum ultrices eleifend quam eu tincidunt.
+
+Phasellus mauris elit, volutpat sit amet suscipit ut, scelerisque sed quam. Quisque maximus, justo non porta sollicitudin, ante lorem placerat nulla, nec commodo mi mauris eget risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ornare eleifend sem quis mollis. Proin vestibulum tristique erat, eu suscipit neque ornare et. Aenean scelerisque, nibh nec rutrum varius, justo nulla ultrices erat, non maximus mi massa vel mi. Integer ante arcu, accumsan vitae quam nec, faucibus cursus leo. Donec feugiat nunc quis orci ornare dignissim. Vivamus posuere enim et odio pretium, non tincidunt diam finibus. Praesent ut odio vitae magna euismod tempus. Ut laoreet nibh quis iaculis faucibus. Vivamus neque turpis, tempus ac orci id, volutpat laoreet nunc.
+
+Nulla congue nunc elit, sit amet convallis urna lacinia eget. In massa erat, tempor eu erat ac, luctus sollicitudin felis. Curabitur urna ipsum, condimentum vel hendrerit a, imperdiet maximus ipsum. Morbi maximus malesuada efficitur. Phasellus id velit nec quam efficitur efficitur. Aenean a diam ut enim vehicula auctor ac nec sapien. Mauris in dapibus ex, quis consectetur ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at iaculis nulla. Aliquam turpis lacus, fermentum a malesuada eu, ornare sed libero. Fusce dictum fermentum ipsum, quis congue libero lacinia vel. Sed in finibus ligula. Vestibulum sagittis vel ex a mattis. Phasellus suscipit justo at augue porttitor pellentesque.
+
+Nulla sed tellus vel nisl rutrum mattis a et est. Aenean dolor nunc, placerat quis enim a, fermentum malesuada enim. Aliquam erat volutpat. In ut est non velit vehicula hendrerit. Pellentesque eu erat finibus, viverra velit ac, tempus odio. Suspendisse potenti. Curabitur vulputate metus non ligula maximus sollicitudin. Donec facilisis augue sed urna lobortis, eu tempus mi ultrices. Aliquam fringilla sagittis felis, ac commodo arcu porttitor at. Ut lorem ex, gravida a porttitor in, feugiat vel ex. Aliquam consequat finibus ante, sed commodo sem. Ut ac mollis dui. Curabitur nec eros congue, pulvinar quam at, tincidunt dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu elit vulputate, scelerisque felis ut, accumsan nunc.
+
+In non odio et risus rhoncus viverra nec in odio. Ut viverra metus eget nisi molestie sodales. Vestibulum ligula felis, malesuada quis vehicula eu, bibendum finibus diam. Donec ut rhoncus odio, tristique sodales orci. Praesent a ex lectus. Maecenas tristique sapien lorem, vel lobortis lorem porta sodales. Suspendisse ligula justo, iaculis id lorem eu, consequat vulputate lectus. Nunc molestie lacus at elit tempor, at rhoncus justo hendrerit. Nullam luctus lectus ac orci interdum, vitae varius libero pellentesque. Nunc lacinia erat lectus. Sed sit amet venenatis quam. Mauris interdum mauris sem, sit amet interdum eros tincidunt a.
+
+Nam at dolor dui. Praes ent efficitur leo erat, id blandit neque ultrices non. Morbi eget dignissim eros. Praesent rhoncus maximus accumsan. Quisque et consectetur odio, id vehicula leo. Integer tempor diam augue, nec rhoncus ex suscipit id. Sed nec tempor tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat tincidunt tortor quis efficitur. Maecenas pellentesque dapibus nisi, sed commodo augue. Fusce condimentum dignissim quam id feugiat. Mauris maximus ex vel enim viverra, eget placerat massa consectetur. Integer pellentesque finibus ipsum, quis vestibulum elit ultrices a. Vivamus nunc velit, lobortis at hendrerit non, laoreet nec urna.
+
+Vestibulum ullamcorper, lacus sed malesuada porta, lectus nisi lacinia augue, at mollis lorem purus sit amet metus. Quisque et mauris leo. Donec id risus id nisl auctor gravida. Suspendisse sed tempor risus. Integer ornare sem quis turpis accumsan finibus. Morbi in ex dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id laoreet erat. Curabitur tempor faucibus turpis, a bibendum turpis dignissim tempor.
 
 \hypertarget{applications}{%
 \chapter{Applications}\label{applications}}

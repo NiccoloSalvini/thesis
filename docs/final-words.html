@@ -84,7 +84,7 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a></li>
+<li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
 <li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a><ul>
 <li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
@@ -143,11 +143,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"linkedin": false,
+"linkedin": true,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -168,7 +169,8 @@ gitbook.start({
 },
 "download": ["Niccolo_Salvini_Thesis.pdf", "Niccolo_Salvini_Thesis.epub"],
 "toc": {
-"collapse": "subsection"
+"collapse": "section",
+"scroll_highlight": true
 }
 });
 });

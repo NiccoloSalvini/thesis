@@ -12,6 +12,7 @@ link-citations: yes
 github-repo: NiccoloSalvini/Thesis
 favicon: "images/favicon.ico" 
 description: "Niccolò Salvini master's thesis"
+papersize: a4
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"  
 fontsize: 12pt
 linestretch: 1.5

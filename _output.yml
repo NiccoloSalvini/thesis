@@ -4,6 +4,8 @@ bookdown::gitbook:
     in_header: google_analytics.html
   config:
     toc:
+      collapse: section
+      scroll_highlight: yes
       before: |
         <li><a href="./">Spatial Machine Learning Modelling: End-to-End web App solution</a></li>
       after: |
@@ -12,6 +14,12 @@ bookdown::gitbook:
     edit:
       link: https://github.com/NiccoloSalvini/Thesis/edit/master/%s
       text: "Edit"
+    sharing:
+      facebook: yes
+      twitter: yes
+      google: no
+      linkedin: yes
+      all: ['facebook', 'google', 'twitter', 'linkedin']
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
