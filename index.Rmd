@@ -6,6 +6,7 @@ date: "`r format(Sys.Date(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
+classoption: oneside
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
@@ -13,7 +14,7 @@ github-repo: NiccoloSalvini/Thesis
 favicon: "images/favicon.ico" 
 description: "Niccolò Salvini master's thesis"
 papersize: a4
-geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"  
+geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  
 fontsize: 12pt
 linestretch: 1.5
 toc-depth: 1
