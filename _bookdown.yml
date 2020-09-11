@@ -3,9 +3,10 @@ rmd_files:
     - "index.Rmd"
     - "01-intro.Rmd"
     - "02-scraping.Rmd"
-    - "03-method.Rmd"
-    - "04-application.Rmd"
-    - "05-summary.Rmd"
+    - "03-infrastructure.Rmd"
+    - "04-method.Rmd"
+    - "05-application.Rmd"
+    - "06-summary.Rmd"
     - "references.Rmd"
 language:
   ui:

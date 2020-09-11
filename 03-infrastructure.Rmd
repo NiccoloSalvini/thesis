@@ -1,0 +1,26 @@
+# Infrastructure {#Infrastructure}
+
+<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
+  
+The scraping functions, as they are designed, produce two .csv extension (if the boolean `write = TRUE`) files that should be joined by a primary key. But for the sake of 
+In order to gove the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
+Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
+At frist a choice has to be made: either we provide a csv file day by day to feed the application, or we exploit some portable and fast solutions as API.
+
+**(va prafrasato)**
+
+API [@RedHat] is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.
+
+APIs let your product or service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
+
+APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.
+
+```{r API, echo=FALSE, fig.cap = "API functioning", fig.retina=1}
+knitr::include_graphics("images/API-page-graphic.png") 
+```
+
+Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it's important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.
+
+**(va prafrasato)**
+
+Since website are continously changed API philoposhy results in the best choice since it can be easily adapted to future changes
