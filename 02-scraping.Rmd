@@ -1,6 +1,6 @@
 # Scraping
 
-[@lovelace_geocomputation_2019; @R-rvest]
+[@lovelace_geocomputation_2019]
 
 
 Lo web scraping è una tecnica di estrazione dei dati da pagine internet statiche o dinamiche in maniera automatica e simulatanea [@wiki:xxx].  L'impossibilità di reperire dati aperti aggiornati riguardo l'affitto sul mercato italiano mi ha spinto a sviluppare sofisticate tecniche di estrazione di dati orientate ad alleggerire lo sforzo e aumentare la velocità di reperimento: da una parte nel preprocessing del dataset, nella successiva del fragente del modelling, per finire con la reattività di risposta dell'applicazione. 

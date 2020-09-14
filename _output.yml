@@ -22,6 +22,8 @@ bookdown::gitbook:
       all: ['facebook', 'google', 'twitter', 'linkedin']
     download: ["pdf", "epub"]
 bookdown::pdf_book:
+  latex_engine: xelatex
+  citation_package: natbib
   includes:
     in_header: preamble.tex
     before_body: title-page.tex

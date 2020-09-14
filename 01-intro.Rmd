@@ -14,30 +14,33 @@ Main themes:
 
 
 
-We are living in the big data era, so we could be brought to think that evrething is a "one click" distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and  citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
-Since I am living in italy and my [@lovelace_geocomputation_2019] goal is to an [@R-furrr] alyse market 
+We are living in the big data era, so we could be brought to think that everything is a "one click" distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and  citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favor of the position that all data should be open.
+Since I am living in italy and my [@lovelace_geocomputation_2019] goal is to an alyse market 
 
 
-The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainity. The expression data is the new oil has neven been so appropirate in these times. 
-On the other hand is not for sure easy to assing a price amount to data due to its untangible nature.
-the most straightfoprward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure self explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to  process or to store. 
+The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainty. The expression data is the new oil has never been so appropriate in these times. 
+On the other hand is not for sure easy to assign a price amount to data due to its untangible nature.
+the most straightforward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure selrmarkdown::pandoc_available("1.2")
+f explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to  process or to store. 
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+  (\#eq:binom)
+\end{equation} 
 
 
 During an interesting conversation with some friends we had a discussion on how data should be treated: as a sort of currency or a sort of commodity (raw material). 
-some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semifinished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the 
+some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semi-finished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the 
 
 
-Durante una conversazione con alcuni amici 
+Durante una conversazione con alcuni amici^[footnote a caso]
 
 
-```{r casuale, echo=FALSE, fig.cap = "API functioning", fig.align='center', fig.width=7, fig.height=6}
-knitr::include_graphics("images/spatial.png") 
-```
 
 La ricerca che ho inteso fare sul mercato degli affitti a Milano mi ha aperto le porte a comprendere come poco digitalizzata e all'avanguardia sia la nostra amata penisola. L'indisposizione ai dati aperti, coperta da un sottile velo di ipocrisia chiamato privacy (ma quale?), ha reso non solo impossibile reperire i dati geospaziali tramite API di alcune aree dell'italia, ma ha reso necessario che costruissi delle funzioni che li estressero, appoggiandomi a cavilli. La questione è legale e relativaemnte complessa, e di certo la tesi non si indirizza a questi problemi, ma i dati che sono stato capace di scoprire e di farlo nella assoluta legalità si appoggiano ad una mancanza di autorizzazioni al trattamento che Immobiliare.it ha nel suo sito.
 Un altro esempio di ritardo tecnologico riguarda l'assenza dei dati di elevazione su alcuni territori italiani. 
 Se per esempio immobilaire, come ha fatto un altro grosso player sul mercato, avesse apposto una checkbox obbigatoria da contrassegnare con relativi termini e trattamento dei dati io non avrei potuto accedere ai dati. La situazione aldifuori dell'italia è abbastanza uniforme, eccetto qualche paese noto come Germania e Francia, e meno noto come la Polonia, con tutte altre piattaforme e regole di trattamento dati. La domanda quindi sorge spontanea, perchè i dati degli italiani e degli europei sono meno accessibili dei dati degli americani? 
-Mentre in America è sufficiente richiamare un API con latitudine e longitudine della quadrettatura di terra necessaria per ottenere i dati di elevazione (.tif), in Italia l'unica soluzione è pagare google che tramite le sue private API è in grado di venderceli dietro autenticazione.
+Mentre in America è sufficiente richiamare un API con latitudine e longitudine della quadrettatura di terra necessaria per ottenere i [dati](https://it.wikipedia.org/wiki/Dato) di elevazione (.tif), in Italia l'unica soluzione è pagare google che tramite le sue private API è in grado di venderceli dietro autenticazione.
 La risposta aldilà dei confini della legge presumibilmente risiede in un congiunturale ritardo di infrastrutture tecnologiche condivise e di indirizzo comune europeo sulla questione. 
 L'esigenza di dati aperti nasce per la risoluzione di problemi comuni a tutti, i dati sanitari hanno la missione di tentare risolvere problemi di natura sanitaria, i dati economici auspicabilmente curano probelmi o asimmentrie di un mercato. Il mercato degli affitti a Milano gode di sempiteerna gloria e ha visto la crescita degli affitti e dei prezzi degli immobili di paripasso al punto che una bolla è stata presunta. Diversi fattori hanno reso tale il fenomeno e diverse opinioni si sono spese sul tema. Alcuni pensano che dopo Expo la città abbia goduto di una spinta economia e innovativa che l'ha resa un'isola felice in mezzo ad un'italia che affanna. Altri ritengono che Milano goda di ottime infrastrutture, ma che la sua notorietà  ed il suo appeal si sia sostituito a tutto quello che manca nelle altre città, ma che in Milano appare. La mia opinione è che sia una media di questi due pareri. 
 Un altro fattore è imporatante nella descrizione del fenomeno: l'asimmetria di infromazione tra chi cerca casa a Milano venendo da fuori e colui che affitta. Tale asimmetria viene ancora più esasperata al crescere della fretta che l'entrante ha nel trovare la locazione opportuna. La scelta diventa in molti casi antieconomica, nello specifico la domanda si genuflette all'offerta e accetta le svattaggiose condizioni proposte. 

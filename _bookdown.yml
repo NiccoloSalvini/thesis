@@ -7,7 +7,7 @@ rmd_files:
     - "04-method.Rmd"
     - "05-application.Rmd"
     - "06-summary.Rmd"
-    - "references.Rmd"
+    - "99-references.Rmd"
 language:
   ui:
     chapter_name: "Chapter "

@@ -15,15 +15,9 @@ APIs let your product or service communicate with other products and services wi
 
 APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.
 
-```{r API, echo=FALSE, fig.cap = "API functioning"}
-knitr::include_graphics("images/API-page-graphic.png") 
-```
+![API functioning](images/API-page-graphic.png)
 
 Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it's important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.
-
-```{r nicco, echo=FALSE, fig.cap = "API functioning"}
-knitr::include_graphics("images/FIRENZE.jpeg") 
-```
 
 
 **(va prafrasato)**
