@@ -86,7 +86,10 @@
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a></li>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-an-api-is"><i class="fa fa-check"></i><b>3.2</b> What an API is</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
 <li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -118,11 +121,57 @@
 <div id="Infrastructure" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Infrastructure</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<p>The scraping functions, as they are designed, produce two .csv extension (if the boolean <code>write = TRUE</code>) files that should be joined by a primary key. But for the sake of
-In order to gove the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
+<p>In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting (“$” sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML and CSS language, as soon as something changes the other needs to be updated and back and forth. The debugging handlers nested in the functions helped the maintainer to grasps what it is not working properly and make easy to adapt and modify the CSS query.
+The same philosophy has been adapted to the software architecture chosen for this project.
+First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist pretty full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs. Developers in RStudio and its contributors have created an entire new paradigm called Shiny, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same interface (RStudio) and with a unique language. The front end file stores all the layout and UI styling code, on the other hand the server file takes the back-end code and makes interaction within the UI possible. This comes at a cost of flexibility and customization, nevertheless each sub unit well interacts with each of the others. Many open source projects are gravitating around this framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(<span class="citeproc-not-found" data-reference-id="reactr"><strong>???</strong></span>)</span> that allows user to implement the power of React (Javasript type language) that is widely spread for front end development. All of this was possible, once again, by the R community but a greater contribution come from digging up the right path along which everything come natural.</p>
+<p>The main technologies used are:</p>
+<ul>
+<li>Scheduler cron job</li>
+<li>Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span></li>
+<li>Plumber REST API <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span></li>
+<li>Docker containers</li>
+<li>AWS (Amazon Web Services) EC2</li>
+</ul>
+<p>On top of that each single part of this thesis has been compiled by a Latex engine wrapped into a website hosted by GitHub. The present work is addressed at: <a href="https://niccolosalvini.github.io/Thesis/">link</a> and can be interactively explored since it is composed by static HTML files.</p>
+<p>Once the functions are set they need to be executed at a certain time. An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. So as rule of thumb a daily data extraction might be a good option.
+The infrastructure takes care of the issue by making the scraping script be executed by a scheduler.</p>
+<div id="scheduler" class="section level2">
+<h2><span class="header-section-number">3.1</span> Scheduler</h2>
+<p>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
+<ul>
+<li>Short term scheduler: it can trigger and queue the “ready to go” tasks
+<ul>
+<li>with pre-emption</li>
+<li>without pre-emption
+The ST scheduler selects the process and It gains control of the CPU by the dispatcher. OIn this context we can define latency as the time needed to stop a process and to start a new one.</li>
+</ul></li>
+<li>Medium term scheduler</li>
+<li>Long term scheduler</li>
+</ul>
+<p>for some other useful but beyond the scope information, such as the scheduling algorithm the reader can refer to <span class="citation">(Wikiversità <a href="#ref-wiki:scheduler" role="doc-biblioref">2020</a>)</span>.</p>
+<p>The scheduler in this context cosists in a .sh (shell file, sort of text file) composed by a set of instructions that are being executed by the computer on daily basis. This file has to be in the same WD ( working directory) of the project in order to make it working. Some common issues can occur when new files coming after the execution of the scheduled main script are generated, but the path isnt explicitly specified. This can lead to the partial or incomplete generation of the file since the shell file is executed within the folder but is triggered by some other location on the computer.
+Each OS has its own scheduler and syntax to call it. Since we are interested in Ubuntu machines the scheduler is said to be a cron job. Later it will be clear why Ubuntu is the option to pursue.</p>
+<p><strong>va parafrasato</strong></p>
+<p>The software utility cron also known as cron job is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals. The origin of the name cron is from the Greek word for time, χρόνος (chronos)</p>
+<p>The actions of cron are driven by a crontab (cron table) file, a configuration file that specifies shell commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. Users can have their own individual crontab files and often there is a system-wide crontab file (usually in /etc or a subdirectory of /etc) that only system administrators can edit.</p>
+<p>Each line of a crontab file represents a job, and looks like this:</p>
+<div class="figure">
+<img src="images/crontab.PNG" alt="" />
+<p class="caption">crontab</p>
+</div>
+<p>Each line of a crontab file represents a job. This example runs a shell program called scheduler.sh at 23:45 (11:45 PM) every Saturday.</p>
+<p>45 23 * * 6 /home/oracle/scripts/scheduler.sh</p>
+<p>Some rather unusual scheduling definitions and syntax for cronjobs can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span></p>
+<p><strong>va parafrasato</strong></p>
+<p>Since now we have a system that extract data with on a daily basis relyng on the computational power of the machine on which the system is installed. The third crucial technology that should be introduced</p>
+<p>The scraping functions, in the way they are designed, can produce two .csv extension (if the boolean <code>write = TRUE</code>) files that at some point should be joined by a primary key. But for the sake of
+In order to give the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
 Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
-At frist a choice has to be made: either we provide a csv file day by day to feed the application, or we exploit some portable and fast solutions as API.</p>
-<p><strong>(va prafrasato)</strong></p>
+The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.</p>
+<p><strong>va parafrasato</strong></p>
+</div>
+<div id="what-an-api-is" class="section level2">
+<h2><span class="header-section-number">3.2</span> What an API is</h2>
 <p>API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.</p>
 <p>APIs let your product or service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.</p>
 <p>APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.</p>
@@ -132,8 +181,24 @@ At frist a choice has to be made: either we provide a csv file day by day to fee
 </div>
 <p>Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it’s important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.</p>
 <p><strong>(va prafrasato)</strong></p>
-<p>Since website are continously changed API philoposhy results in the best choice since it can be easily adapted to future changes</p>
+<p>Since website are continuously changed for many reasons API philosophy results in the smartest choice since it makes easy to access data and flex API endpoints to the needle.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-shiny">
+<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2020. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.</p>
+</div>
+<div id="ref-plumber">
+<p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
+</div>
+<div id="ref-wiki:cronjob">
+<p>Wikipedia contributors. 2020. “Cron — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592">https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592</a>.</p>
+</div>
+<div id="ref-wiki:scheduler">
+<p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
+</div>
 </div>
             </section>
 

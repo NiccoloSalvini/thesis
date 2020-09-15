@@ -7,7 +7,7 @@ site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
 classoption: oneside
-bibliography: refs.bib
+bibliography: [refs.bib, Rpackages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: NiccoloSalvini/Thesis
@@ -30,6 +30,4 @@ links-as-notes: true
 
 ```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
 ```
-
-
 
