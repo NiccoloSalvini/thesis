@@ -74,7 +74,7 @@ For now the computational power comes from the machine on which the system is in
 In 2013, Docker introduced what would become the industry standard for containers. A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
 
-### What is Docker
+### What is Docker?
 
 Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
 
@@ -85,10 +85,11 @@ Docker leveraged existing computing concepts around containers and specifically 
 A question might come up about why a Virtual Machine could not be a preferable container for our specified task. Well, Containers and virtual machines have similar resource isolation and allocation benefits, but function differently because containers virtualize the operating system instead of hardware. Containers are more portable and efficient.
 
 ![docker container vs VM](images/container-vm-whatcontainer_2.png)
+
 **from docker **
 
 
-### Why Docker is a top skill
+### What are the main andvantages of using Docker
 
 
 **va parafrasato from Matt Dancho**   
@@ -103,34 +104,9 @@ In 2015 - Businesses need reports to make better decisions
 In 2020 - Businesses need apps to empower better decision making at all levels of the organization
 This transition is challenging the Data Scientist to learn new technologies to stay relevant…
 
-As a matter of fact, it is no longer sufficient to just know machine learning algorithms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing technologies, or build a solid, portable and scalable infrastructure.
-To do so, we need to learn from the Programmers the basics of Software Engineering that can help in our quest to unleash data science at scale and unlock business value.
-
-### Dockerfile 
-
-Docker can build images automatically by sort of interpreting the instructions from a Dockerfile. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI command line to assemble an image. Executing the command from shell in docker build users can trigger the building that executes several command-line instructions in chronological succession of steps.
-The Dockerfile used to trigger the build of the docker image has this following set of instructions:
-
-![dockerfile](images/dockerfile.PNG)
-
-
-- `FROM rocker/r-ver:4.0.0` : the command imports an image already written by the rocker team (authored contributors for the R docker project) that contains the base-R version 4.0.0. Since recently with the 4.0 version the RStudio team has created a repository management server for its packages to organize and centralize R packages (offline access and checkpoints). This will shorten the installation time and secure packages since they all can be freezed into a version that make the whole system works.
-
-
-- `RUN R -e "install.packages(c('plumber','tibble','magrittr','rvest','tidyr','...',dependencies=TRUE)` : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their represctive and shared dependencies the option `dependencies=TRUE` must be set boolean TRUE. 
-
-
-- `EXPOSE 8000` :  the commands instructs Docker that the container listens on the specified network ports at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP.
-
-- `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker to execute the Rscript extension file main.R that triggers the API building.
-
-**va parafrasato from Matt Dancho**
-
-### What are the main Advantages for Docker
-
-**from RedHat **
-
-Docker brings in an API for container management [@red_hat_customer_portal], an image format and a possibility to use a remote registry for sharing containers. This scheme benefits both developers and system administrators with advantages such as:
+As a matter of fact, it is no longer sufficient to just know machine learning algorithms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing obsolete/old technologies with the new ones, or build a solid, portable and scalable infrastructure to better the processes.
+In order to do so, It is strictly needed to learn from programmers the basics of Software Engineering. The extremely good news is that no data scientist whatsoever needs to be a perfect software engineer, but at least he has to know how to integrate already built techonlogies with its work. This truly can help in the quest to unleash data science at scale and unlock real business value.
+The way Docker does that are many [@red_hat_customer_portal]:
 
 - _Rapid application deployment_ : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.
 - _Portability across machines_ :an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.
@@ -139,12 +115,30 @@ Docker brings in an API for container management [@red_hat_customer_portal], an 
 - _Lightweight footprint and minimal overhead_ : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.
 - _Simplified maintenance_ :Docker reduces effort and risk of problems with application dependencies.
 
-So, Docker technology is a more granular, controllable, microservices-based approach that places greater value on efficiency.
+The way all of this is possible is a dockerfile that determines the instruction that docker has to perform to abstract the environment.
 
-**from RedHat **
+### Dockerfile 
+
+Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a specific cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
+The Dockerfile used to trigger the build of the docker image has this following set of instructions:
+
+![dockerfile](images/dockerfile.PNG)
 
 
+- `FROM rocker/r-ver:4.0.0` : the command imports an image already written by the rocker team (authored contributors for the R docker project) that contains the base-R version 4.0.0. Recently with the 4.0 version the RStudio team has created a repository management server for its packages that organizes and centralizes R packages (offline access and checkpoints). This will shorten the installation time and secure packages since they all can be freezed into a version that make the whole system works.
 
+
+- `RUN R -e "install.packages(c('plumber','tibble','...',dependencies=TRUE)` : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their dependencies the option `dependencies=TRUE` is needed. 
+
+
+- `EXPOSE 8000` :  the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is reccomended [@docker_documentation_2020] )
+
+- `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker to execute the Rscript extension file main.R within the container that triggers the API building/the generation of the .csv file.
+
+**va parafrasato from Matt Dancho**
+
+
+An alternative and very used approach could be wrapping all the scraping function into an API and then send a `GET` request to the API endpoint needed.
 
 ## API 
 
@@ -152,29 +146,85 @@ So, Docker technology is a more granular, controllable, microservices-based appr
 **va parafrasato**
 
   
-The scraping functions, in the way they are designed, can produce two .csv extension (if the boolean `write = TRUE`) files that at some point should be joined by a primary key. But for the sake of 
+The scraping functions, according to how the author as structured them, are able to produce two .csv extension (if the boolean option `write` is set = TRUE) files. As already clarified in the previous ssection  some point should be joined by a primary key. But for the sake of 
 In order to give the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
 Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
 The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.
 
 **va parafrasato**
 
-## What an API is
+## What is an API 
 
 API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.
 
-APIs let your product or service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
-
+APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
 APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.
+
+API examples: 
+- Google Maps API: allows developers embed geo-location data using JavaScript. The Google Maps API is designed to work on mobile and desktop.
+- YouTube API: allows developers integrate YouTube videos and functionalities into websites or applications.
+- Google Analytics API: allows to track website performance in terms of audience, monetization and other important metrics throught the Google Analytics interface. The website the thesis come from has this implementation working.
+
 
 ![API functioning](images/API-page-graphic.png)
 
 Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it's important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.
 
+### What in practice an API does
+
+API, strictly talking to this thesis extent, are cloud infrastructure that given a specific URL ( and the most of the times credentials) are outputting data. Data comes in a given format (the most of the times JSON),so that they can be instantly pre-processed and elaborated, in this case by oine other software, the Shiny app.
 
 **(va prafrasato)**
 
-Since website are continuously changed for many reasons API philosophy results in the smartest choice since it makes easy to access data and flex API endpoints to the needle.
+Since website are continuously changed for many reasons API philosophy results in a smarter choice since it makes easy to access data and flex API endpoints to the business needs.
+
+
+### Plumber API
+
+Plumber [@api_generator_for_r] allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:
+
+```{r}
+
+# plumber.R file
+
+#* Echo back the input  
+#* @param msg The message to echo
+#* @get /echo
+function(msg="") {
+  list(msg = paste0("The message is: '", msg, "'"))
+}
+
+#* Plot a histogram
+#* @png
+#* @get /plot
+function() {
+  rand = rnorm(100)
+  hist(rand)
+}
+
+#* Return the sum of two numbers
+#* @param a The first number to add
+#* @param b The second number to add
+#* @post /sum
+function(a, b) {
+  as.numeric(a) + as.numeric(b)
+}
+
+```
+
+this chunck of code assempbled into a .R file has three endopoints
+
+Special comments are marked as this `#*` and they are followed by specific keywords denoted with `@`.
+- the name of the API (unique without the `@`)
+- the `@params` keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endopoint below, plumber has to make sure that the function can run without them.
+- the `#* @png` chuck piece specify the extension of the output file.
+- the `#* @get /plot` decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectationa are that a plot is given as response
+
+
+
+
+
+
 
 
 
