@@ -11,6 +11,7 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
+        Proudly published with bookdown</a></li>
     edit:
       link: https://github.com/NiccoloSalvini/Thesis/edit/master/%s
       text: "Edit"

@@ -12,7 +12,10 @@ biblio-style: apalike
 link-citations: yes
 github-repo: NiccoloSalvini/Thesis
 favicon: "images/favicon.ico" 
-description: "Niccolò Salvini master's thesis"
+cover-image: "images/transspatial.PNG"
+description: "Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini"
+apple-touch-icon: "images/spatial.png"
+apple-touch-icon-size: 120
 papersize: a4
 geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  
 fontsize: 12pt

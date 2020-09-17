@@ -1,6 +1,5 @@
-# Methods
+# Methodologies {#methodologies}
 
-We describe our methods in this chapter.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin arcu eget nulla convallis, in sagittis metus tincidunt. Integer vitae erat convallis, lobortis nunc id, commodo ipsum. Nam sem sem, tristique vitae dolor eget, laoreet aliquet libero. Nulla non feugiat diam. Ut vehicula, ante vitae rhoncus volutpat, eros orci viverra sem, ac tincidunt sem ex at sapien. Nam et odio condimentum, viverra nisl vitae, tempor nisl. Integer euismod convallis augue quis iaculis. Nulla at leo non nisi sollicitudin molestie vel at purus.
 
@@ -15,6 +14,21 @@ Integer et aliquam mi, ac blandit arcu. Integer sit amet tristique orci. Aenean 
  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet lacus ut maximus tempus. Integer dolor massa, ornare vitae ultrices pharetra, lacinia ut felis. Phasellus et vulputate mi, eu ultricies nisi. Phasellus interdum risus tristique tortor fermentum, blandit vehicula turpis elementum. Nullam eget arcu faucibus, blandit lacus ut, pharetra felis. Praesent malesuada mattis augue vel convallis. Curabitur sodales sollicitudin nunc, eget gravida risus condimentum non. Cras laoreet eget erat eget dapibus. Vivamus volutpat consequat libero at dapibus. Nulla convallis sapien neque, sit amet scelerisque enim luctus at. Praesent vehicula convallis purus. In a metus nec tellus mattis vestibulum. Vestibulum ultrices eleifend quam eu tincidunt.
 
 Phasellus mauris elit, volutpat sit amet suscipit ut, scelerisque sed quam. Quisque maximus, justo non porta sollicitudin, ante lorem placerat nulla, nec commodo mi mauris eget risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ornare eleifend sem quis mollis. Proin vestibulum tristique erat, eu suscipit neque ornare et. Aenean scelerisque, nibh nec rutrum varius, justo nulla ultrices erat, non maximus mi massa vel mi. Integer ante arcu, accumsan vitae quam nec, faucibus cursus leo. Donec feugiat nunc quis orci ornare dignissim. Vivamus posuere enim et odio pretium, non tincidunt diam finibus. Praesent ut odio vitae magna euismod tempus. Ut laoreet nibh quis iaculis faucibus. Vivamus neque turpis, tempus ac orci id, volutpat laoreet nunc.
+
+
+
+
+
+```{r}
+library(tidyverse)
+my_scatplot <- ggplot(mtcars,aes(x=wt,y=mpg, col=cyl))+ 
+  geom_point() +
+  xlab('Weight (x 1000lbs)') +
+  ylab('Miles per Gallon') +
+  geom_smooth()
+my_scatplot
+```
+
 
 Nulla congue nunc elit, sit amet convallis urna lacinia eget. In massa erat, tempor eu erat ac, luctus sollicitudin felis. Curabitur urna ipsum, condimentum vel hendrerit a, imperdiet maximus ipsum. Morbi maximus malesuada efficitur. Phasellus id velit nec quam efficitur efficitur. Aenean a diam ut enim vehicula auctor ac nec sapien. Mauris in dapibus ex, quis consectetur ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at iaculis nulla. Aliquam turpis lacus, fermentum a malesuada eu, ornare sed libero. Fusce dictum fermentum ipsum, quis congue libero lacinia vel. Sed in finibus ligula. Vestibulum sagittis vel ex a mattis. Phasellus suscipit justo at augue porttitor pellentesque.
 

@@ -5,21 +5,21 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution</title>
-  <meta name="description" content="Niccolò Salvini master’s thesis" />
+  <meta name="description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
-  
-  <meta property="og:description" content="Niccolò Salvini master’s thesis" />
+  <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/transspatial.PNG" />
+  <meta property="og:description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution" />
   
-  <meta name="twitter:description" content="Niccolò Salvini master’s thesis" />
-  
+  <meta name="twitter:description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/transspatial.PNG" />
 
 <meta name="author" content="Niccolò Salvini" />
 
@@ -28,10 +28,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="scraping.html"/>
-<link rel="next" href="methods.html"/>
+<link rel="next" href="methodologies.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -61,6 +61,70 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -93,11 +157,13 @@
 <li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker-container"><i class="fa fa-check"></i><b>3.2</b> Docker Container</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker</a></li>
 <li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker-is-a-top-skill"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker is a top skill</a></li>
-<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-advantages-for-docker"><i class="fa fa-check"></i><b>3.2.3</b> What are the main Advantages for Docker</a></li>
+<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.2.4" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-advantages-for-docker"><i class="fa fa-check"></i><b>3.2.4</b> What are the main Advantages for Docker</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#what-an-api-is"><i class="fa fa-check"></i><b>3.3</b> What an API is</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#what-an-api-is"><i class="fa fa-check"></i><b>3.4</b> What an API is</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="4" data-path="methodologies.html"><a href="methodologies.html"><i class="fa fa-check"></i><b>4</b> Methodologies</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
 <li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
 <li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
@@ -107,6 +173,7 @@
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
 <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
+Proudly published with bookdown</a></li>
 
 </ul>
 
@@ -128,21 +195,22 @@
 <div id="Infrastructure" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Infrastructure</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<p>In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting (“$” sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML and CSS language, as soon as something changes the other needs to be updated and back and forth. The debugging handlers nested in the functions helped the maintainer to grasps what it is not working properly and make easy to adapt and modify the CSS query.
-The same philosophy has been adapted to the software architecture chosen for this project.
-First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist pretty full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs. Developers in RStudio and its contributors have created an entire new paradigm called Shiny, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same interface (RStudio) and with a unique language. The front end file stores all the layout and UI styling code, on the other hand the server file takes the back-end code and makes interaction within the UI possible. This comes at a cost of flexibility and customization, nevertheless each sub unit well interacts with each of the others. Many open source projects are gravitating around this framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(Inc et al. <a href="#ref-reactR" role="doc-biblioref">2020</a>)</span> that allows user to implement the power of React (Javasript type language) that is widely spread for front end development. All of this was possible, once again, by the R community but a greater contribution come from digging up the right path along which everything come natural.</p>
-<p>The main technologies used are:</p>
+<p>In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting (“$” sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML skelethon and CSS queries. As soon as something changes in the website the other files needs to be readjusted to be consistent with the content and so back and forth. The debugging handlers nested in the functions helps the maintainer to grasp what it is not working properly where the error occur.
+The same inner philosophy has been applied to the software architecture chosen for this project.
+First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist almost full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs (Plumber <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span>). MOreover developers in RStudio and its contributors have created an entire new paradigm called Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span>, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same IDE (RStudio) and with a unique language to deal with. The front end file (for simplicity named UI.R) contains the UI’s layout and the style and also other javascripts components. On the other hand the server file (named after server.R) absorbs the back-end, under the hood, code and makes the UI intercact and respond to the user.
+This comes at a cost of flexibility and customization since Shiny could not easily handle too many embellishments (even though potentially can). Nevertheless a unique environment makes integration with other technologies easier and most of all introduces the analyst to a full stack approach. Many open source projects are gravitating around the Shiny framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(Inc et al. <a href="#ref-reactR" role="doc-biblioref">2020</a>)</span> that allows user to implement the power of React.js into the shiny UI front end. All of this is possible, once again, by the R community but a greater contribution come from digging up the right path along which everything by open source comes natural. (parallelo con la vigna e l’albero che la sostiene e indirizza)
+The carrier idea for this project is to have parallelized scraping functions called daily by a scheduler producing and subsequently storing a .csv file in a MySQL /cartoDB database. They are all tought to be containerized in a Linux (Ubuntu distr) docker container hosted in a AWS EC2 server. Then in a second container a Shiny app is placed, this one pipes in data from the former infrastructure and apply the statistical model stored (by an API call) in its server.R part.</p>
+<p>The main technologies implied are:</p>
 <ul>
 <li>Scheduler cron job</li>
 <li>Docker containers</li>
-<li>Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span></li>
-<li>Plumber REST API <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span></li>
+<li>Shiny</li>
+<li>Plumber REST API</li>
 <li>AWS (Amazon Web Services) EC2</li>
-<li>cartoDB</li>
+<li>CartoDB</li>
 </ul>
-<p>On top of that even each single part of this thesis has been compiled by a Latex engine wrapped into a website hosted with GitHub-Pages. This has been possibile with Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>. ( spiega tutto meglio)
-The present work is addressed at: <a href="https://niccolosalvini.github.io/Thesis/">link</a> and it can be interactively and dynamically explored since it is composed by static HTML files updated whenever docs are pushed to the repository.</p>
-<p>Once the functions are built they need to be executed at a certain time. An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. So as rule of thumb a daily data extraction might be a good option ( therefore a daily .csv file named by the day it stored into a folder)
+<p>On top of that even each single part of this thesis has been made stand alone and can be easily accessed and modified through this <a href="https://niccolosalvini.github.io/Thesis/">link</a>. The pdf (theis) version of the gitbook can be obtained by clicking the download button that can be seen in figure below. A Latex engine (Xelatex) wrapped into the website compiles a sequence of Markdown documents converting them into .html (the book’s chapters) which are formatted by rules grouped in a .yml file. All the documents are pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
+<p>An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. Fresh data is needed to have updated analysis since the scope in here is to offer realtime considerations. Something should be automated periodically in order to address the issue. Moreover, as rule of thumb, a daily data extraction might be a good option for some reasons. It can intercept price variations with a relatively small time lag, It can also display some sort of pattern in time that would help the reader/user to select the perfect choice. As a consequence a daily .csv file is generated and directly collected into a Db folder arranged by time
 The solutiond proposed takes care of the issue by making the scraping script generating the .csv be executed by a scheduler.</p>
 <div id="scheduler" class="section level2">
 <h2><span class="header-section-number">3.1</span> Scheduler</h2>
@@ -209,26 +277,31 @@ In 2013, Docker introduced what would become the industry standard for container
 <p>In 2015 - Businesses need reports to make better decisions
 In 2020 - Businesses need apps to empower better decision making at all levels of the organization
 This transition is challenging the Data Scientist to learn new technologies to stay relevant…</p>
-<p>As a matter of fact, it is no longer sufficient to just know machine learning algorythms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing technologies, or build a solid, poratble and scalable infrastructure.</p>
-<p>To do so, we need to learn from the Programmers the basics of Software Engineering that can help in our quest to unleash data science at scale and unlock business value.</p>
+<p>As a matter of fact, it is no longer sufficient to just know machine learning algorithms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing technologies, or build a solid, portable and scalable infrastructure.
+To do so, we need to learn from the Programmers the basics of Software Engineering that can help in our quest to unleash data science at scale and unlock business value.</p>
+</div>
+<div id="dockerfile" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Dockerfile</h3>
+<p>Docker can build images automatically by sort of interpreting the instructions from a Dockerfile. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI command line to assemble an image. Executing the command from shell in docker build users can trigger the building that executes several command-line instructions in chronological succession of steps.
+The Dockerfile used to trigger the build of the docker image has this following set of instructions:</p>
+<div class="figure">
+<img src="images/dockerfile.PNG" alt="" />
+<p class="caption">dockerfile</p>
+</div>
+<ul>
+<li><p><code>FROM rocker/r-ver:4.0.0</code> : the command imports an image already written by the rocker team (authored contributors for the R docker project) that contains the base-R version 4.0.0. Since recently with the 4.0 version the RStudio team has created a repository management server for its packages to organize and centralize R packages (offline access and checkpoints). This will shorten the installation time and secure packages since they all can be freezed into a version that make the whole system works.</p></li>
+<li><p><code>RUN R -e "install.packages(c('plumber','tibble','magrittr','rvest','tidyr','...',dependencies=TRUE)</code> : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their represctive and shared dependencies the option <code>dependencies=TRUE</code> must be set boolean TRUE.</p></li>
+<li><p><code>EXPOSE 8000</code> : the commands instructs Docker that the container listens on the specified network ports at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP.</p></li>
+<li><p><code>ENTRYPOINT ["Rscript", "main.R"]</code> : the command tells docker to execute the Rscript extension file main.R that triggers the API building.</p></li>
+</ul>
 <p><strong>va parafrasato from Matt Dancho</strong></p>
 </div>
 <div id="what-are-the-main-advantages-for-docker" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> What are the main Advantages for Docker</h3>
+<h3><span class="header-section-number">3.2.4</span> What are the main Advantages for Docker</h3>
 <p><strong>from RedHat </strong></p>
-<p>Modularity
-The Docker approach to containerization focuses on the ability to take down a part of an application to update or repair, without having to take down the whole app. In addition to this microservices-based approach, you can share processes among multiple apps in much the same way service-oriented architecture (SOA) does.</p>
-<p>Layers and image version control
-Each Docker image file is made up of a series of layers that are combined into a single image. A layer is created when the image changes. Every time a user specifies a command, such as run or copy, a new layer gets created.</p>
-<p>Docker reuses these layers to build new containers, which accelerates the building process. Intermediate changes are shared among images, further improving speed, size, and efficiency. Also inherent to layering is version control: Every time there’s a new change, you essentially have a built-in changelog, providing you with full control over your container images.</p>
-<p>Rollback
-Perhaps the best part about layering is the ability to roll back. Every image has layers. Don’t like the current iteration of an image? Roll it back to the previous version. This supports an agile development approach and helps make continuous integration and deployment (CI/CD) a reality from a tools perspective.</p>
-<p>Rapid deployment
-Getting new hardware up, running, provisioned, and available used to take days, and the level of effort and overhead was burdensome. Docker-based containers can reduce deployment to seconds. By creating a container for each process, you can quickly share those processes with new apps. And, since an operating system doesn’t need to boot to add or move a container, deployment times are substantially shorter. Paired with shorter deployment times, you can easily and cost-effectively create and destroy data created by your containers without concern.</p>
-<p>So, Docker technology is a more granular, controllable, microservices-based approach that places greater value on efficiency.</p>
 <p>Docker brings in an API for container management <span class="citation">(“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7” <a href="#ref-red_hat_customer_portal" role="doc-biblioref">2020</a>)</span>, an image format and a possibility to use a remote registry for sharing containers. This scheme benefits both developers and system administrators with advantages such as:</p>
 <ul>
-<li><em>Rapid application deployment</em> : containers include the minimal runtime requirements of the application, reducing their size and allowing them to be deployed quickly.</li>
+<li><em>Rapid application deployment</em> : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.</li>
 <li><em>Portability across machines</em> :an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.</li>
 <li><em>Version control and component reuse</em> : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight.</li>
 <li><em>Sharing</em> : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.</li>
@@ -237,6 +310,10 @@ Getting new hardware up, running, provisioned, and available used to take days, 
 </ul>
 <p>So, Docker technology is a more granular, controllable, microservices-based approach that places greater value on efficiency.</p>
 <p><strong>from RedHat </strong></p>
+</div>
+</div>
+<div id="api" class="section level2">
+<h2><span class="header-section-number">3.3</span> API</h2>
 <p><strong>va parafrasato</strong></p>
 <p>The scraping functions, in the way they are designed, can produce two .csv extension (if the boolean <code>write = TRUE</code>) files that at some point should be joined by a primary key. But for the sake of
 In order to give the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
@@ -244,9 +321,8 @@ Nowadays we have many open source, nearly cost free, techonlogies that allow us 
 The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.</p>
 <p><strong>va parafrasato</strong></p>
 </div>
-</div>
 <div id="what-an-api-is" class="section level2">
-<h2><span class="header-section-number">3.3</span> What an API is</h2>
+<h2><span class="header-section-number">3.4</span> What an API is</h2>
 <p>API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.</p>
 <p>APIs let your product or service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.</p>
 <p>APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.</p>
@@ -286,6 +362,9 @@ The first choice that has to be made is: either to provide a .csv file day by da
 <div id="ref-wiki:scheduler">
 <p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
 </div>
+<div id="ref-bookdown2">
+<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+</div>
 <div id="ref-bookdown1">
 <p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
 </div>
@@ -296,7 +375,7 @@ The first choice that has to be made is: either to provide a .csv file day by da
         </div>
       </div>
 <a href="scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="methodologies.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
