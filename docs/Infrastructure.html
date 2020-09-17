@@ -87,8 +87,15 @@
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
-<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-an-api-is"><i class="fa fa-check"></i><b>3.2</b> What an API is</a></li>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker-container"><i class="fa fa-check"></i><b>3.2</b> Docker Container</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker-is-a-top-skill"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker is a top skill</a></li>
+<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-advantages-for-docker"><i class="fa fa-check"></i><b>3.2.3</b> What are the main Advantages for Docker</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#what-an-api-is"><i class="fa fa-check"></i><b>3.3</b> What an API is</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
@@ -123,18 +130,20 @@
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 <p>In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting (“$” sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML and CSS language, as soon as something changes the other needs to be updated and back and forth. The debugging handlers nested in the functions helped the maintainer to grasps what it is not working properly and make easy to adapt and modify the CSS query.
 The same philosophy has been adapted to the software architecture chosen for this project.
-First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist pretty full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs. Developers in RStudio and its contributors have created an entire new paradigm called Shiny, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same interface (RStudio) and with a unique language. The front end file stores all the layout and UI styling code, on the other hand the server file takes the back-end code and makes interaction within the UI possible. This comes at a cost of flexibility and customization, nevertheless each sub unit well interacts with each of the others. Many open source projects are gravitating around this framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(<span class="citeproc-not-found" data-reference-id="reactr"><strong>???</strong></span>)</span> that allows user to implement the power of React (Javasript type language) that is widely spread for front end development. All of this was possible, once again, by the R community but a greater contribution come from digging up the right path along which everything come natural.</p>
+First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist pretty full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs. Developers in RStudio and its contributors have created an entire new paradigm called Shiny, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same interface (RStudio) and with a unique language. The front end file stores all the layout and UI styling code, on the other hand the server file takes the back-end code and makes interaction within the UI possible. This comes at a cost of flexibility and customization, nevertheless each sub unit well interacts with each of the others. Many open source projects are gravitating around this framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(Inc et al. <a href="#ref-reactR" role="doc-biblioref">2020</a>)</span> that allows user to implement the power of React (Javasript type language) that is widely spread for front end development. All of this was possible, once again, by the R community but a greater contribution come from digging up the right path along which everything come natural.</p>
 <p>The main technologies used are:</p>
 <ul>
 <li>Scheduler cron job</li>
+<li>Docker containers</li>
 <li>Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span></li>
 <li>Plumber REST API <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span></li>
-<li>Docker containers</li>
 <li>AWS (Amazon Web Services) EC2</li>
+<li>cartoDB</li>
 </ul>
-<p>On top of that each single part of this thesis has been compiled by a Latex engine wrapped into a website hosted by GitHub. The present work is addressed at: <a href="https://niccolosalvini.github.io/Thesis/">link</a> and can be interactively explored since it is composed by static HTML files.</p>
-<p>Once the functions are set they need to be executed at a certain time. An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. So as rule of thumb a daily data extraction might be a good option.
-The infrastructure takes care of the issue by making the scraping script be executed by a scheduler.</p>
+<p>On top of that even each single part of this thesis has been compiled by a Latex engine wrapped into a website hosted with GitHub-Pages. This has been possibile with Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>. ( spiega tutto meglio)
+The present work is addressed at: <a href="https://niccolosalvini.github.io/Thesis/">link</a> and it can be interactively and dynamically explored since it is composed by static HTML files updated whenever docs are pushed to the repository.</p>
+<p>Once the functions are built they need to be executed at a certain time. An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. So as rule of thumb a daily data extraction might be a good option ( therefore a daily .csv file named by the day it stored into a folder)
+The solutiond proposed takes care of the issue by making the scraping script generating the .csv be executed by a scheduler.</p>
 <div id="scheduler" class="section level2">
 <h2><span class="header-section-number">3.1</span> Scheduler</h2>
 <p>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
@@ -142,9 +151,11 @@ The infrastructure takes care of the issue by making the scraping script be exec
 <li>Short term scheduler: it can trigger and queue the “ready to go” tasks
 <ul>
 <li>with pre-emption</li>
-<li>without pre-emption
-The ST scheduler selects the process and It gains control of the CPU by the dispatcher. OIn this context we can define latency as the time needed to stop a process and to start a new one.</li>
+<li>without pre-emption</li>
 </ul></li>
+</ul>
+<p>The ST scheduler selects the process and It gains control of the CPU by the dispatcher. OIn this context we can define latency as the time needed to stop a process and to start a new one.</p>
+<ul>
 <li>Medium term scheduler</li>
 <li>Long term scheduler</li>
 </ul>
@@ -152,7 +163,9 @@ The ST scheduler selects the process and It gains control of the CPU by the disp
 <p>The scheduler in this context cosists in a .sh (shell file, sort of text file) composed by a set of instructions that are being executed by the computer on daily basis. This file has to be in the same WD ( working directory) of the project in order to make it working. Some common issues can occur when new files coming after the execution of the scheduled main script are generated, but the path isnt explicitly specified. This can lead to the partial or incomplete generation of the file since the shell file is executed within the folder but is triggered by some other location on the computer.
 Each OS has its own scheduler and syntax to call it. Since we are interested in Ubuntu machines the scheduler is said to be a cron job. Later it will be clear why Ubuntu is the option to pursue.</p>
 <p><strong>va parafrasato</strong></p>
-<p>The software utility cron also known as cron job is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals. The origin of the name cron is from the Greek word for time, χρόνος (chronos)</p>
+<div id="cron-jobs" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Cron Jobs</h3>
+<p>The software utility cron also known as cron job is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals.</p>
 <p>The actions of cron are driven by a crontab (cron table) file, a configuration file that specifies shell commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. Users can have their own individual crontab files and often there is a system-wide crontab file (usually in /etc or a subdirectory of /etc) that only system administrators can edit.</p>
 <p>Each line of a crontab file represents a job, and looks like this:</p>
 <div class="figure">
@@ -162,16 +175,78 @@ Each OS has its own scheduler and syntax to call it. Since we are interested in 
 <p>Each line of a crontab file represents a job. This example runs a shell program called scheduler.sh at 23:45 (11:45 PM) every Saturday.</p>
 <p>45 23 * * 6 /home/oracle/scripts/scheduler.sh</p>
 <p>Some rather unusual scheduling definitions and syntax for cronjobs can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span></p>
+<p>The cron job applied to the script needs to be ran at 11:30 PM everyday. It has that forms:
+—&gt; qui immagine</p>
 <p><strong>va parafrasato</strong></p>
-<p>Since now we have a system that extract data with on a daily basis relyng on the computational power of the machine on which the system is installed. The third crucial technology that should be introduced</p>
+<p>For now the computational power comes from the machine on which the system is installed. A smarter solution takes into consideration that the former infrastructure has its own limits. Major limits comprehend run time since at the same moment the machine runs locally both the scraping functions and the app computations. This to a certain extent might fit for personal use but as data increases all the system risks to fail. It is also totally local so the analysis can not be shared with anyone. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years: Docker containers.</p>
+</div>
+</div>
+<div id="docker-container" class="section level2">
+<h2><span class="header-section-number">3.2</span> Docker Container</h2>
+<p><strong>from docker </strong>
+In 2013, Docker introduced what would become the industry standard for containers. A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.</p>
+<div id="what-is-docker" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> What is Docker</h3>
+<p>Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.</p>
+<div class="figure">
+<img src="images/docker-ex.png" alt="" />
+<p class="caption">docker example</p>
+</div>
+<p>Docker leveraged existing computing concepts around containers and specifically in the Linux world. Docker’s technology is unique because it focuses on the requirements of developers and systems operators to separate application dependencies from infrastructure.</p>
+<p>A question might come up about why a Virtual Machine could not be a preferable container for our specified task. Well, Containers and virtual machines have similar resource isolation and allocation benefits, but function differently because containers virtualize the operating system instead of hardware. Containers are more portable and efficient.</p>
+<p><img src="images/container-vm-whatcontainer_2.png" alt="docker container vs VM" />
+<strong>from docker </strong></p>
+</div>
+<div id="why-docker-is-a-top-skill" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Why Docker is a top skill</h3>
+<p><strong>va parafrasato from Matt Dancho</strong></p>
+<p>Indeed, the popular employment-related search engine, released an article this past Tuesday showing changing trends from 2015 to 2019 in “Technology-Related Job Postings”. We can see a number of changes in key technologies - One that we are particularly interested in is the 4000% increase in Docker.</p>
+<div class="figure">
+<img src="images/Inkedindeed_jobs_LI.jpg" alt="" />
+<p class="caption">docker-stats</p>
+</div>
+<p>The landscape of Data Science is changing <span class="citation">(Economist at the Indeed Hiring Lab <a href="#ref-Skills_Explorer" role="doc-biblioref">2020</a>)</span> from reporting to application building:</p>
+<p>In 2015 - Businesses need reports to make better decisions
+In 2020 - Businesses need apps to empower better decision making at all levels of the organization
+This transition is challenging the Data Scientist to learn new technologies to stay relevant…</p>
+<p>As a matter of fact, it is no longer sufficient to just know machine learning algorythms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing technologies, or build a solid, poratble and scalable infrastructure.</p>
+<p>To do so, we need to learn from the Programmers the basics of Software Engineering that can help in our quest to unleash data science at scale and unlock business value.</p>
+<p><strong>va parafrasato from Matt Dancho</strong></p>
+</div>
+<div id="what-are-the-main-advantages-for-docker" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> What are the main Advantages for Docker</h3>
+<p><strong>from RedHat </strong></p>
+<p>Modularity
+The Docker approach to containerization focuses on the ability to take down a part of an application to update or repair, without having to take down the whole app. In addition to this microservices-based approach, you can share processes among multiple apps in much the same way service-oriented architecture (SOA) does.</p>
+<p>Layers and image version control
+Each Docker image file is made up of a series of layers that are combined into a single image. A layer is created when the image changes. Every time a user specifies a command, such as run or copy, a new layer gets created.</p>
+<p>Docker reuses these layers to build new containers, which accelerates the building process. Intermediate changes are shared among images, further improving speed, size, and efficiency. Also inherent to layering is version control: Every time there’s a new change, you essentially have a built-in changelog, providing you with full control over your container images.</p>
+<p>Rollback
+Perhaps the best part about layering is the ability to roll back. Every image has layers. Don’t like the current iteration of an image? Roll it back to the previous version. This supports an agile development approach and helps make continuous integration and deployment (CI/CD) a reality from a tools perspective.</p>
+<p>Rapid deployment
+Getting new hardware up, running, provisioned, and available used to take days, and the level of effort and overhead was burdensome. Docker-based containers can reduce deployment to seconds. By creating a container for each process, you can quickly share those processes with new apps. And, since an operating system doesn’t need to boot to add or move a container, deployment times are substantially shorter. Paired with shorter deployment times, you can easily and cost-effectively create and destroy data created by your containers without concern.</p>
+<p>So, Docker technology is a more granular, controllable, microservices-based approach that places greater value on efficiency.</p>
+<p>Docker brings in an API for container management <span class="citation">(“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7” <a href="#ref-red_hat_customer_portal" role="doc-biblioref">2020</a>)</span>, an image format and a possibility to use a remote registry for sharing containers. This scheme benefits both developers and system administrators with advantages such as:</p>
+<ul>
+<li><em>Rapid application deployment</em> : containers include the minimal runtime requirements of the application, reducing their size and allowing them to be deployed quickly.</li>
+<li><em>Portability across machines</em> :an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.</li>
+<li><em>Version control and component reuse</em> : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight.</li>
+<li><em>Sharing</em> : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.</li>
+<li><em>Lightweight footprint and minimal overhead</em> : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.</li>
+<li><em>Simplified maintenance</em> :Docker reduces effort and risk of problems with application dependencies.</li>
+</ul>
+<p>So, Docker technology is a more granular, controllable, microservices-based approach that places greater value on efficiency.</p>
+<p><strong>from RedHat </strong></p>
+<p><strong>va parafrasato</strong></p>
 <p>The scraping functions, in the way they are designed, can produce two .csv extension (if the boolean <code>write = TRUE</code>) files that at some point should be joined by a primary key. But for the sake of
 In order to give the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
 Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
 The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.</p>
 <p><strong>va parafrasato</strong></p>
 </div>
+</div>
 <div id="what-an-api-is" class="section level2">
-<h2><span class="header-section-number">3.2</span> What an API is</h2>
+<h2><span class="header-section-number">3.3</span> What an API is</h2>
 <p>API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.</p>
 <p>APIs let your product or service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.</p>
 <p>APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.</p>
@@ -187,8 +262,20 @@ The first choice that has to be made is: either to provide a .csv file day by da
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-red_hat_customer_portal">
+<p>“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7.” 2020. <em>Red Hat Customer Portal</em>. <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker</a>.</p>
+</div>
+<div id="ref-rmarkdown1">
+<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</p>
+</div>
 <div id="ref-shiny">
 <p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2020. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.</p>
+</div>
+<div id="ref-Skills_Explorer">
+<p>Economist at the Indeed Hiring Lab, Andrew FlowersAndrew Flowers was previously an. 2020. “Indeed Tech Skills Explorer: Today’s Top Tech Skills.” <a href="https://www.hiringlab.org/2019/11/19/todays-top-tech-skills/">https://www.hiringlab.org/2019/11/19/todays-top-tech-skills/</a>.</p>
+</div>
+<div id="ref-reactR">
+<p>Inc, Facebook, Michel Weststrate, Kent Russell, and Alan Dipert. 2020. <em>ReactR: React Helpers</em>. <a href="https://CRAN.R-project.org/package=reactR">https://CRAN.R-project.org/package=reactR</a>.</p>
 </div>
 <div id="ref-plumber">
 <p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
@@ -198,6 +285,9 @@ The first choice that has to be made is: either to provide a .csv file day by da
 </div>
 <div id="ref-wiki:scheduler">
 <p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
+</div>
+<div id="ref-bookdown1">
+<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
 </div>
 </div>
             </section>
