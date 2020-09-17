@@ -1,8 +1,9 @@
 bookdown::gitbook:
-  css: style.css
+  css: css/style.css
   includes:
     in_header: google_analytics.html
   config:
+    search: yes
     toc:
       collapse: section
       scroll_highlight: yes
@@ -11,7 +12,7 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
-        Proudly published with bookdown</a></li>
+        <li><a Proudly published with bookdown</a></li>
     edit:
       link: https://github.com/NiccoloSalvini/Thesis/edit/master/%s
       text: "Edit"
