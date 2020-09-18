@@ -212,13 +212,12 @@ function(a, b) {
 
 ```
 
-this chunck of code assempbled into a .R file has three endopoints
-
+This chunk of code assembled into a .R file has three endpoints.
 Special comments are marked as this `#*` and they are followed by specific keywords denoted with `@`.
 - the name of the API (unique without the `@`)
-- the `@params` keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endopoint below, plumber has to make sure that the function can run without them.
+- the `@params` keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endpoints below, plumber has to make sure that the function can run without them.
 - the `#* @png` chuck piece specify the extension of the output file.
-- the `#* @get /plot` decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectationa are that a plot is given as response
+- the `#* @get /plot` decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectations are that a plot is given as response
 
 
 

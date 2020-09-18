@@ -142,26 +142,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Spatial Machine Learning Modelling: End-to-End web App solution</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#preface"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
-</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.2</b> User agents, Proxies, Handlers</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.2.1</b> User agents Spoofing</a></li>
-<li class="chapter" data-level="2.2.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.2.2</b> Handlers</a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robot.txt</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#how-they-are-designed-with-rvest"><i class="fa fa-check"></i><b>2.3</b> How they are designed with <code>rvest</code></a><ul>
-<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#from-generic-and-specific-structure"><i class="fa fa-check"></i><b>2.3.1</b> From Generic and Specific structure</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.3.2</b> parallel computing</a></li>
-<li class="chapter" data-level="2.3.3" data-path="scraping.html"><a href="scraping.html#foreach-package-and-runtime-benchmark-with-future"><i class="fa fa-check"></i><b>2.3.3</b> <code>foreach</code> package and runtime benchmark with future</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#how-they-are-designed-with-rvest"><i class="fa fa-check"></i><b>2.4</b> How they are designed with <code>rvest</code></a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#from-generic-and-specific-structure"><i class="fa fa-check"></i><b>2.4.1</b> From Generic and Specific structure</a></li>
+<li class="chapter" data-level="2.4.2" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4.2</b> Parallel Computing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#what-are-the-advantages-of-workflow"><i class="fa fa-check"></i><b>2.4</b> What are the advantages of workflow</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#legal-challenges"><i class="fa fa-check"></i><b>2.5</b> Legal challenges</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#what-are-the-advantages-of-this-workflow"><i class="fa fa-check"></i><b>2.5</b> What are the Advantages of this Workflow</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Challenges (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
@@ -220,32 +214,70 @@ Il successivo elemento di complessità incontrato durante questa prima fase è s
 <p>‘Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36’,</p>
 <p>dove ogni segmento della stringa rispecchia una caratteristica del laptop del richiedente, Chrome/54.0.2840.71 è la versione del browser chrome da cui proviene la richiesta Safari/537.36’, è il motore di ricerca etc.</p>
 </div>
+<div id="scraping-best-practices-and-robot.txt" class="section level2">
+<h2><span class="header-section-number">2.2</span> Scraping Best Practices and Robot.txt</h2>
+<p>Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers and the like to access or not access certain parts of a webpage. The de facto ‘standard’ never made it beyond a informal “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread (e.g. <a href="https://en.wikipedia.org/robots.txt" class="uri">https://en.wikipedia.org/robots.txt</a>, <a href="https://www.google.com/robots.txt" class="uri">https://www.google.com/robots.txt</a>) and bots from Google, Yahoo and the like will adhere to the rules defined in robots.txt files, although their <em>interpretation</em> of those rules might differ.</p>
+<p>Robots.txt files are plain text and always found at the root of a website’s domain. The syntax of the files in essence follows a fieldname: value scheme with optional preceding user-agent: … lines to indicate the scope of the following rule block. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. # serves to comment lines and parts of lines. Everything after # until the end of line is regarded a comment. Possible field names are: user-agent, disallow, allow, crawl-delay, sitemap, and host. For further notions <span class="citation">(Meissner and Ren <a href="#ref-robotstxt" role="doc-biblioref">2020</a>, <span class="citation">@google:robottxt</span>)</span></p>
+<p>Some interpretation problems:</p>
+<ul>
+<li>finding no robots.txt file at the server (e.g. HTTP status code 404) implies that everything is allowed</li>
+<li>subdomains should have there own robots.txt file if not it is assumed that everything is allowed</li>
+<li>redirects involving protocol changes - e.g. upgrading from http to https - are followed and considered no domain or subdomain change - so whatever is found at the end of the redirect is considered to be the - robots.txt file for the original domain</li>
+<li>redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested</li>
+</ul>
+<p>For the thesis purposes it has been designed a dedicated function to inspect whether the domain requires specific actions or prevents some activity on thw target website. The following <code>checkpermission()</code> function has been integrated inside the scraping architecture and it is called once at the very beginning.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="scraping.html#cb1-1"></a><span class="kw">library</span>(robotstxt)</span></code></pre></div>
+<pre><code>## Warning: package &#39;robotstxt&#39; was built under R version 4.0.2</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="scraping.html#cb3-1"></a>dominio =<span class="st"> &quot;immobiliare.it&quot;</span></span>
+<span id="cb3-2"><a href="scraping.html#cb3-2"></a></span>
+<span id="cb3-3"><a href="scraping.html#cb3-3"></a>checkpermission =<span class="st"> </span><span class="cf">function</span>(dom) {</span>
+<span id="cb3-4"><a href="scraping.html#cb3-4"></a>  </span>
+<span id="cb3-5"><a href="scraping.html#cb3-5"></a>  robot =<span class="st"> </span><span class="kw">robotstxt</span>(<span class="dt">domain =</span> dom)</span>
+<span id="cb3-6"><a href="scraping.html#cb3-6"></a>  vd =<span class="st"> </span>robot<span class="op">$</span><span class="kw">check</span>()[<span class="dv">1</span>]</span>
+<span id="cb3-7"><a href="scraping.html#cb3-7"></a>  <span class="cf">if</span> (vd) {</span>
+<span id="cb3-8"><a href="scraping.html#cb3-8"></a>    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt for&quot;</span>,dom, <span class="st">&quot;is okay with scraping!&quot;</span>)</span>
+<span id="cb3-9"><a href="scraping.html#cb3-9"></a>  } <span class="cf">else</span> {<span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt does not like what you&#39;re doing&quot;</span>)</span>
+<span id="cb3-10"><a href="scraping.html#cb3-10"></a>    <span class="co">## stop()</span></span>
+<span id="cb3-11"><a href="scraping.html#cb3-11"></a>  }</span>
+<span id="cb3-12"><a href="scraping.html#cb3-12"></a>}</span>
+<span id="cb3-13"><a href="scraping.html#cb3-13"></a><span class="kw">checkpermission</span>(dominio)</span></code></pre></div>
+<pre><code>## 
+## robot.txt for immobiliare.it is okay with scraping!</code></pre>
+</div>
 <div id="user-agents-proxies-handlers" class="section level2">
-<h2><span class="header-section-number">2.2</span> User agents, Proxies, Handlers</h2>
-<p>Everytime a user enters a website what he is really doing is sending an HTTP request to the website server with some information packed. This can be easily thought as a generic person A that rings the door’s bell of person B’s house. A comes to the B door with its personal information, its name, surname, where he lives etc. At this point B may either answer to A requests by opening the door and let him enter given the set of information he has, or it may not since B is not sure of the real intentions of A. This typical everyday situation in nothing more what happens billions of times on the internet everyday, the user (in the example above A) is interacting with a server website (part B) sending packets of information. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block the requests. In certain cases it can even forbid the user to be on the website. The language the two parties talks are coded in numbers that ranges from 100 to 511, each of which ha its own significance. A popular case of this type of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practises.</p>
+<h2><span class="header-section-number">2.3</span> User agents, Proxies, Handlers</h2>
+<p>Everytime a user enters a website what he is really doing is sending an HTTP request to the website server with some information packed. This can be easily thought as a generic person A that rings the door’s bell of person B’s house. A comes to the B door with its personal information, its name, surname, where he lives etc. At this point B may either answer to A requests by opening the door and let him enter given the set of information he has, or it may not since B is not sure of the real intentions of A. This typical everyday situation in nothing more what happens billions of times on the internet everyday, the user (in the example above A) is interacting with a server website (part B) sending packets of information. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block the requests. In certain cases it can even forbid the user to be on the website. The language the two parties talks are coded in numbers that ranges from 100 to 511, each of which ha its own significance. A popular case of this type of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.</p>
 <div class="figure">
 <img src="images/how_web_works.png" alt="" />
 <p class="caption">How Web Works</p>
 </div>
 <p>This procedure is a daily issue to people that are trying to collect information from websites. Google does it everyday with its spider crawlers, which are very sophisticated bots that performs scarping over a enormous range of websites. This challenge can be addressed in multiple ways, there are some specific Python packages that overcome this issue. The are also certain types of scraping as the Selenium web driver automation that simulates browser automation. Selenium allows the user not to be easily detected by the server immune system and peaceful. In here precautions have not been taken lightly, and a simple but effective approach is proposed.</p>
 <div id="user-agents-spoofing" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> User agents Spoofing</h3>
+<h3><span class="header-section-number">2.3.1</span> User agents Spoofing</h3>
 <p>A user agent <span class="citation">(“User Agent: Learn Your Web Browsers User Agent Now” <a href="#ref-whoishostingthis.com" role="doc-biblioref">2020</a>)</span> is a string of characters in each browser that serves as an identification agent. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string contains the user application or software, the operating system (and their versions), the web client, the web client’s version, and the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in form of a HTTP request header. Since the User Agents acts as middle man between the client request and the server response what it would be better doing is to actively faking it so that each time a web browser presents himself to a web server it has a different specifications, different web client, different operating system and so on.</p>
 <p>The simple approach followed was building a vector of samples of different existing and updated User Agents (UA). Then whenever a request from a browser is served to a web server 1 random string is drawn from the user agents pool. So each time the user is sending the requests it appears to have a different “identity”. Below the user agents rotating pool:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="scraping.html#cb1-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
-<span id="cb1-2"><a href="scraping.html#cb1-2"></a>agents =<span class="st">  </span><span class="kw">c</span>(<span class="st">&#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&#39;</span>,</span>
-<span id="cb1-3"><a href="scraping.html#cb1-3"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&#39;</span>,</span>
-<span id="cb1-4"><a href="scraping.html#cb1-4"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&#39;</span>,</span>
-<span id="cb1-5"><a href="scraping.html#cb1-5"></a>            <span class="st">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14&#39;</span>,</span>
-<span id="cb1-6"><a href="scraping.html#cb1-6"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&#39;</span>,</span>
-<span id="cb1-7"><a href="scraping.html#cb1-7"></a>            <span class="st">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&#39;</span>,</span>
-<span id="cb1-8"><a href="scraping.html#cb1-8"></a>            <span class="st">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&#39;</span>,</span>
-<span id="cb1-9"><a href="scraping.html#cb1-9"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&#39;</span>,</span>
-<span id="cb1-10"><a href="scraping.html#cb1-10"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&#39;</span>,</span>
-<span id="cb1-11"><a href="scraping.html#cb1-11"></a>            <span class="st">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0&#39;</span>)</span>
-<span id="cb1-12"><a href="scraping.html#cb1-12"></a></span>
-<span id="cb1-13"><a href="scraping.html#cb1-13"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="scraping.html#cb5-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
+<span id="cb5-2"><a href="scraping.html#cb5-2"></a>agents =<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36</span></span>
+<span id="cb5-3"><a href="scraping.html#cb5-3"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
+<span id="cb5-4"><a href="scraping.html#cb5-4"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 </span></span>
+<span id="cb5-5"><a href="scraping.html#cb5-5"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
+<span id="cb5-6"><a href="scraping.html#cb5-6"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 </span></span>
+<span id="cb5-7"><a href="scraping.html#cb5-7"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
+<span id="cb5-8"><a href="scraping.html#cb5-8"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 </span></span>
+<span id="cb5-9"><a href="scraping.html#cb5-9"></a><span class="st">            (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14&quot;</span>,</span>
+<span id="cb5-10"><a href="scraping.html#cb5-10"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36</span></span>
+<span id="cb5-11"><a href="scraping.html#cb5-11"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>,</span>
+<span id="cb5-12"><a href="scraping.html#cb5-12"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 </span></span>
+<span id="cb5-13"><a href="scraping.html#cb5-13"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>,</span>
+<span id="cb5-14"><a href="scraping.html#cb5-14"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 </span></span>
+<span id="cb5-15"><a href="scraping.html#cb5-15"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>,</span>
+<span id="cb5-16"><a href="scraping.html#cb5-16"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36</span></span>
+<span id="cb5-17"><a href="scraping.html#cb5-17"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>,</span>
+<span id="cb5-18"><a href="scraping.html#cb5-18"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 </span></span>
+<span id="cb5-19"><a href="scraping.html#cb5-19"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>,</span>
+<span id="cb5-20"><a href="scraping.html#cb5-20"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0&quot;</span>)</span>
+<span id="cb5-21"><a href="scraping.html#cb5-21"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36\n            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</code></pre>
 <p>An improvement to this could be using also rotating proxies. A proxy server acts as a gateway between the user and the server. It’s an intermediary server himself, separating end clients from the websites they are browsing. Proxy servers provide varying layers of functionality, security, and privacy are some of the examples.
 While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server you requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website to you.
 Many proxy servers are offered in a paid version so in this case since security barriers of the target website are not high they will not be implemented. It has to be mentioned that many online services are providing free proxies but the turnaround of this solutions are many, two of them are:
@@ -253,100 +285,171 @@ Many proxy servers are offered in a paid version so in this case since security 
 - Some of those proxies, pretty all the ones coming from low ranked websites, are tracked so there might be a user privacy violation issue.</p>
 </div>
 <div id="handlers" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Handlers</h3>
+<h3><span class="header-section-number">2.3.2</span> Handlers</h3>
 <p>During the scraping many things could be going wrong. Starting from the things that have been previously explained at the chapter start (URL structure changes, data are moved in different location so that css query goes empty…), ending with the ones that have just been said a few lines ago. Handlers and trycatch error workarounds are explicitly built in this sense. The continuous testing of the scraping functioning while developing has required the maintainer to track where the error occurs. A few numbers: the “agglomerative” function <code>get.data.catsing()</code> triggers more than 36 scrapping functions that are going to catch 36 different data pieces. If one of them went missing then the other one would be missing too. Then when row-data is binded together one entry column might not exists making the process fail.<br />
 Then the solution to that is to call inside the aggolmerative function as much as trycatch as many scrapping functions are involved. The trycatch can leverage the gap by introducing a specified quantity and alerting that something went wrong. On top of that many other handlers are called throughout the procedure:</p>
 <ul>
 <li><code>get_ua()</code> verifies that the user agent coming from the session request is not the default one</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="scraping.html#cb3-1"></a>get_ua =<span class="st"> </span><span class="cf">function</span>(sess) {</span>
-<span id="cb3-2"><a href="scraping.html#cb3-2"></a>  <span class="kw">stopifnot</span>(<span class="kw">is.session</span>(sess))</span>
-<span id="cb3-3"><a href="scraping.html#cb3-3"></a>  <span class="kw">stopifnot</span>(<span class="kw">is_url</span>(sess<span class="op">$</span>url))</span>
-<span id="cb3-4"><a href="scraping.html#cb3-4"></a>  ua =<span class="st"> </span>sess<span class="op">$</span>response<span class="op">$</span>request<span class="op">$</span>options<span class="op">$</span>useragent</span>
-<span id="cb3-5"><a href="scraping.html#cb3-5"></a>  <span class="kw">return</span>(ua)</span>
-<span id="cb3-6"><a href="scraping.html#cb3-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="scraping.html#cb7-1"></a>get_ua =<span class="st"> </span><span class="cf">function</span>(sess) {</span>
+<span id="cb7-2"><a href="scraping.html#cb7-2"></a>  <span class="kw">stopifnot</span>(<span class="kw">is.session</span>(sess))</span>
+<span id="cb7-3"><a href="scraping.html#cb7-3"></a>  <span class="kw">stopifnot</span>(<span class="kw">is_url</span>(sess<span class="op">$</span>url))</span>
+<span id="cb7-4"><a href="scraping.html#cb7-4"></a>  ua =<span class="st"> </span>sess<span class="op">$</span>response<span class="op">$</span>request<span class="op">$</span>options<span class="op">$</span>useragent</span>
+<span id="cb7-5"><a href="scraping.html#cb7-5"></a>  <span class="kw">return</span>(ua)</span>
+<span id="cb7-6"><a href="scraping.html#cb7-6"></a>}</span></code></pre></div>
 <ul>
 <li><code>is_url()</code> verifies that the url input needed has the canonic form. This is done by a REGEX query.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="scraping.html#cb4-1"></a>is_url =<span class="st"> </span><span class="cf">function</span>(url){</span>
-<span id="cb4-2"><a href="scraping.html#cb4-2"></a>  re =<span class="st"> &quot;^(?:(?:http(?:s)?|ftp)://)(?:</span><span class="ch">\\</span><span class="st">S+(?::(?:</span><span class="ch">\\</span><span class="st">S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:</span><span class="ch">\\</span><span class="st">d){2,5})?(?:/(?:</span><span class="ch">\\</span><span class="st">S)*)?$&quot;</span></span>
-<span id="cb4-3"><a href="scraping.html#cb4-3"></a>  <span class="kw">grepl</span>(re, url)</span>
-<span id="cb4-4"><a href="scraping.html#cb4-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="scraping.html#cb8-1"></a>is_url =<span class="st"> </span><span class="cf">function</span>(url){</span>
+<span id="cb8-2"><a href="scraping.html#cb8-2"></a>  re =<span class="st"> &quot;^(?:(?:http(?:s)?|ftp)://)(?:</span><span class="ch">\\</span><span class="st">S+(?::(?:</span><span class="ch">\\</span><span class="st">S)*)?@)?(?:(?</span></span>
+<span id="cb8-3"><a href="scraping.html#cb8-3"></a><span class="st">  :[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\</span></span>
+<span id="cb8-4"><a href="scraping.html#cb8-4"></a><span class="st">  \.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)</span></span>
+<span id="cb8-5"><a href="scraping.html#cb8-5"></a><span class="st">  *(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:</span><span class="ch">\\</span><span class="st">d){2,5})?(?:/(?</span></span>
+<span id="cb8-6"><a href="scraping.html#cb8-6"></a><span class="st">  :</span><span class="ch">\\</span><span class="st">S)*)?$&quot;</span></span>
+<span id="cb8-7"><a href="scraping.html#cb8-7"></a>  <span class="kw">grepl</span>(re, url)</span>
+<span id="cb8-8"><a href="scraping.html#cb8-8"></a>}</span></code></pre></div>
 <ul>
-<li><code>.get_delay()</code> checks through the robotxt file if a delay between each request is welcomed.</li>
+<li><code>.get_delay()</code> checks through the robotxt file if a delay between each request is kindly welcomed.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="scraping.html#cb5-1"></a>.get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
-<span id="cb5-2"><a href="scraping.html#cb5-2"></a>  </span>
-<span id="cb5-3"><a href="scraping.html#cb5-3"></a>  <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
-<span id="cb5-4"><a href="scraping.html#cb5-4"></a>  </span>
-<span id="cb5-5"><a href="scraping.html#cb5-5"></a>  cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
-<span id="cb5-6"><a href="scraping.html#cb5-6"></a>  </span>
-<span id="cb5-7"><a href="scraping.html#cb5-7"></a>  <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb5-8"><a href="scraping.html#cb5-8"></a>    star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent<span class="op">==</span><span class="st">&quot;*&quot;</span>)</span>
-<span id="cb5-9"><a href="scraping.html#cb5-9"></a>    <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>,]</span>
-<span id="cb5-10"><a href="scraping.html#cb5-10"></a>    <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
-<span id="cb5-11"><a href="scraping.html#cb5-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb5-12"><a href="scraping.html#cb5-12"></a>    10L</span>
-<span id="cb5-13"><a href="scraping.html#cb5-13"></a>  }</span>
-<span id="cb5-14"><a href="scraping.html#cb5-14"></a>  </span>
-<span id="cb5-15"><a href="scraping.html#cb5-15"></a>}</span>
-<span id="cb5-16"><a href="scraping.html#cb5-16"></a></span>
-<span id="cb5-17"><a href="scraping.html#cb5-17"></a>get_delay =<span class="st">  </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
-<ul>
-<li><code>checkpermission()</code> checks through the robotxt file if the dom allows the user to scape data.</li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="scraping.html#cb6-1"></a>dominio =<span class="st"> &quot;immobiliare.it&quot;</span></span>
-<span id="cb6-2"><a href="scraping.html#cb6-2"></a></span>
-<span id="cb6-3"><a href="scraping.html#cb6-3"></a>checkpermission =<span class="st"> </span><span class="cf">function</span>(dom) {</span>
-<span id="cb6-4"><a href="scraping.html#cb6-4"></a>  </span>
-<span id="cb6-5"><a href="scraping.html#cb6-5"></a>  robot =<span class="st"> </span><span class="kw">robotstxt</span>(<span class="dt">domain =</span> dom)</span>
-<span id="cb6-6"><a href="scraping.html#cb6-6"></a>  vd =<span class="st"> </span>robot<span class="op">$</span><span class="kw">check</span>()[<span class="dv">1</span>]</span>
-<span id="cb6-7"><a href="scraping.html#cb6-7"></a>  <span class="cf">if</span> (vd) {</span>
-<span id="cb6-8"><a href="scraping.html#cb6-8"></a>    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt dice: va bene, puoi!&quot;</span>)</span>
-<span id="cb6-9"><a href="scraping.html#cb6-9"></a>  } <span class="cf">else</span> {<span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt dice: non puoi, smettila&quot;</span>)}</span>
-<span id="cb6-10"><a href="scraping.html#cb6-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="scraping.html#cb9-1"></a>.get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
+<span id="cb9-2"><a href="scraping.html#cb9-2"></a>  </span>
+<span id="cb9-3"><a href="scraping.html#cb9-3"></a>  <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
+<span id="cb9-4"><a href="scraping.html#cb9-4"></a>  </span>
+<span id="cb9-5"><a href="scraping.html#cb9-5"></a>  cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
+<span id="cb9-6"><a href="scraping.html#cb9-6"></a>  </span>
+<span id="cb9-7"><a href="scraping.html#cb9-7"></a>  <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb9-8"><a href="scraping.html#cb9-8"></a>    star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent<span class="op">==</span><span class="st">&quot;*&quot;</span>)</span>
+<span id="cb9-9"><a href="scraping.html#cb9-9"></a>    <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>,]</span>
+<span id="cb9-10"><a href="scraping.html#cb9-10"></a>    <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
+<span id="cb9-11"><a href="scraping.html#cb9-11"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-12"><a href="scraping.html#cb9-12"></a>    10L</span>
+<span id="cb9-13"><a href="scraping.html#cb9-13"></a>  }</span>
+<span id="cb9-14"><a href="scraping.html#cb9-14"></a>  </span>
+<span id="cb9-15"><a href="scraping.html#cb9-15"></a>}</span>
+<span id="cb9-16"><a href="scraping.html#cb9-16"></a></span>
+<span id="cb9-17"><a href="scraping.html#cb9-17"></a>get_delay =<span class="st">  </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
 </div>
 </div>
 <div id="how-they-are-designed-with-rvest" class="section level2">
-<h2><span class="header-section-number">2.3</span> How they are designed with <code>rvest</code></h2>
+<h2><span class="header-section-number">2.4</span> How they are designed with <code>rvest</code></h2>
+<p>The way scraping functions are designed are walks around three main programming concepts:</p>
+<ul>
+<li>Continuous integration and easy debugging</li>
+<li>Intuitive structure</li>
+<li>Fasten process with respect to the goal of acquiring data</li>
+</ul>
 <div id="from-generic-and-specific-structure" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> From Generic and Specific structure</h3>
+<h3><span class="header-section-number">2.4.1</span> From Generic and Specific structure</h3>
 <div class="figure">
 <img src="images/rvest_infr.png" alt="" />
 <p class="caption">functional structure</p>
 </div>
 </div>
 <div id="parallel-computing" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> parallel computing</h3>
+<h3><span class="header-section-number">2.4.2</span> Parallel Computing</h3>
+<p>Since many html sessions are opened and within each session many requests are sent computations can take a while. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily and a single day is sufficient amount of runtime. In any case functions are optimized following the criteria stated before. Run time is crucial when dealing with time series and time to market in real estate is very important, this leads to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation divided among a bunch of different machines, in this case sessions. A first attempt was using <code>furrr</code> package <span class="citation">(Vaughan and Dancho <a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> which enables mapping through a list with the <code>purrr</code> , along with a <code>future</code> parallel backend. This has shows decent results, but its run time increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="scraping.html#cb10-1"></a><span class="kw">library</span>(furrr)</span>
+<span id="cb10-2"><a href="scraping.html#cb10-2"></a></span>
+<span id="cb10-3"><a href="scraping.html#cb10-3"></a>vecelaps =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-4"><a href="scraping.html#cb10-4"></a>start =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-5"><a href="scraping.html#cb10-5"></a>end =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-6"><a href="scraping.html#cb10-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
+<span id="cb10-7"><a href="scraping.html#cb10-7"></a>  start[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb10-8"><a href="scraping.html#cb10-8"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>,i,<span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb10-9"><a href="scraping.html#cb10-9"></a>  list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>i] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-10"><a href="scraping.html#cb10-10"></a><span class="st">    </span>furrr<span class="op">::</span><span class="kw">future_map</span>(get.data.caturl, <span class="dt">.progress =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-11"><a href="scraping.html#cb10-11"></a><span class="st">    </span><span class="kw">bind_rows</span>()</span>
+<span id="cb10-12"><a href="scraping.html#cb10-12"></a>  end[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb10-13"><a href="scraping.html#cb10-13"></a>  vecelaps[i] =<span class="st"> </span>end[i]<span class="op">-</span>start[i]</span>
+<span id="cb10-14"><a href="scraping.html#cb10-14"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="scraping.html#cb11-1"></a>furrrmethod =<span class="st"> </span><span class="kw">tibble</span>(start,</span>
+<span id="cb11-2"><a href="scraping.html#cb11-2"></a>                      end,</span>
+<span id="cb11-3"><a href="scraping.html#cb11-3"></a>                      vettoelaps)</span>
+<span id="cb11-4"><a href="scraping.html#cb11-4"></a></span>
+<span id="cb11-5"><a href="scraping.html#cb11-5"></a><span class="co"># ggplot (themed) run time meausurament method 1</span></span>
+<span id="cb11-6"><a href="scraping.html#cb11-6"></a>p =<span class="st"> </span><span class="kw">ggplot</span>(furrrmethod,<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">y=</span>vettoelaps)) <span class="op">+</span></span>
+<span id="cb11-7"><a href="scraping.html#cb11-7"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="dt">color=</span><span class="st">&quot;steelblue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-8"><a href="scraping.html#cb11-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb11-9"><a href="scraping.html#cb11-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Num URLS evaluated&quot;</span>) <span class="op">+</span></span>
+<span id="cb11-10"><a href="scraping.html#cb11-10"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;run time (in seconds)&quot;</span>) <span class="op">+</span></span>
+<span id="cb11-11"><a href="scraping.html#cb11-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Run-Time for First method (furrr multisession)&quot;</span>) <span class="op">+</span></span>
+<span id="cb11-12"><a href="scraping.html#cb11-12"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span></span>
+<span id="cb11-13"><a href="scraping.html#cb11-13"></a><span class="st">  </span><span class="kw">theme_nicco</span>()</span>
+<span id="cb11-14"><a href="scraping.html#cb11-14"></a>p</span></code></pre></div>
+<div class="figure">
+<img src="images/run_timefurrr.png" alt="" />
+<p class="caption">computational complexity analysis with Furrr</p>
 </div>
-<div id="foreach-package-and-runtime-benchmark-with-future" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> <code>foreach</code> package and runtime benchmark with future</h3>
-</div>
-</div>
-<div id="what-are-the-advantages-of-workflow" class="section level2">
-<h2><span class="header-section-number">2.4</span> What are the advantages of workflow</h2>
-</div>
-<div id="legal-challenges" class="section level2">
-<h2><span class="header-section-number">2.5</span> Legal challenges</h2>
-<p>“Data that are online and public are always available” is never a good answer to the question “Can I use that data to my scope”. <a href="https://www.immobiliare.it/">Immobiliare.it</a> is not providing any source of data from its own database neither it is planning to do so in the future.</p>
+<p>On the x-axis the number of urls evaluated together, iteration after iteration the urls considered are increased by one. On the y-axis the time measured in seconds. Looking at the smoothing curve in between an easy guess might be linear time <span class="math inline">\(O(n)\)</span>.</p>
+<p>A second attempt tried to explore the <code>foreach</code> package <span class="citation">(Microsoft and Weston <a href="#ref-foreach" role="doc-biblioref">2020</a>)</span>. This interesting package enables a new looping construct for executing R code in an iterative way. With all the variety of existing (<code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>eapply</code>, <code>mapply</code>, <code>rapply</code>,) looping constructs, it might be doubted that there is a need for yet another construct. The main reason for using the <code>foreach</code> package is that it supports <em>parallel execution</em>, that is, it can execute those repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction is straightforward:</p>
 <ul>
-<li>Copia e incolla manuale</li>
-<li>Web scraper</li>
-<li>HTML parsing</li>
-<li>Analisi con Visione computerizzata</li>
-<li>DOM parsing</li>
-<li>Riconoscimento dell’annotazione semantica</li>
-<li>Aggregazione verticale</li>
-<li>Text pattern matching</li>
+<li>start clusters on processors cores</li>
+<li>define the iterator, in this case i = to the elements that are going to be iterated through</li>
+<li><code>.packages</code>: Inherits the packages that are used in the tasks define below</li>
+<li><code>.combine</code>: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows). It has to be a string.</li>
+<li><code>.errorhandling</code>: specifies how a task evaluation error should be handle.</li>
+<li><code>%dopar%</code>: the dopar keyword suggests foreach with parallelization method</li>
+<li>then the function within the elements are iterated</li>
+<li>close clusters</li>
 </ul>
-<p>funzioni di scraping.</p>
+<p>One major important thing concerns the fact that th function within iterators repeats itself should be standalone. For standalone it is meant that the body function should be defined inside, as it would be a an empty environment. As a matter of fact packages has to be taken inside each time, and if the function is not defined inside body (or is not source from some other locations) the clusters can not operate and an error is printed.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="scraping.html#cb12-1"></a>cl =<span class="st"> </span><span class="kw">makeCluster</span>(<span class="kw">detectCores</span>()<span class="op">-</span><span class="dv">1</span>) <span class="co">#using max cores - 1 for parallel processing</span></span>
+<span id="cb12-2"><a href="scraping.html#cb12-2"></a><span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb12-3"><a href="scraping.html#cb12-3"></a></span>
+<span id="cb12-4"><a href="scraping.html#cb12-4"></a>vettoelaps1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb12-5"><a href="scraping.html#cb12-5"></a>start1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb12-6"><a href="scraping.html#cb12-6"></a>end1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb12-7"><a href="scraping.html#cb12-7"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
+<span id="cb12-8"><a href="scraping.html#cb12-8"></a>  start1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb12-9"><a href="scraping.html#cb12-9"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>,j,<span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb12-10"><a href="scraping.html#cb12-10"></a>  <span class="kw">foreach</span>(<span class="dt">i =</span> <span class="kw">seq_along</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>j]),</span>
+<span id="cb12-11"><a href="scraping.html#cb12-11"></a>          <span class="dt">.packages =</span> lista.pacchetti,</span>
+<span id="cb12-12"><a href="scraping.html#cb12-12"></a>          <span class="dt">.combine =</span> <span class="st">&quot;bind_rows&quot;</span>,</span>
+<span id="cb12-13"><a href="scraping.html#cb12-13"></a>          <span class="dt">.errorhandling=</span><span class="st">&#39;pass&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</span>
+<span id="cb12-14"><a href="scraping.html#cb12-14"></a>            <span class="kw">source</span>(<span class="st">&quot;main.R&quot;</span>)</span>
+<span id="cb12-15"><a href="scraping.html#cb12-15"></a>            x =<span class="st"> </span><span class="kw">get.data.caturl</span>(list.of.pages.imm[i])</span>
+<span id="cb12-16"><a href="scraping.html#cb12-16"></a>            }</span>
+<span id="cb12-17"><a href="scraping.html#cb12-17"></a>  end1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb12-18"><a href="scraping.html#cb12-18"></a>  vettoelaps1[j] =<span class="st"> </span>end1[j] <span class="op">-</span>start1[j]</span>
+<span id="cb12-19"><a href="scraping.html#cb12-19"></a>}</span>
+<span id="cb12-20"><a href="scraping.html#cb12-20"></a><span class="kw">stopCluster</span>(cl)</span></code></pre></div>
+<div class="figure">
+<img src="images/run_timeforeach.png" alt="" />
+<p class="caption">computational complexity analysis with Furrr</p>
+</div>
+<p>It can be seen quite easily that the curve is flattened and resembles someway logarithmic time <span class="math inline">\(O(log(n))\)</span>.</p>
+<p>A further improvement could be obtained using a new package called <code>doAzureParallel</code> which is built on top of foreach. doAzureParallel enables different Virtual Machines operates parallel computing throughout Microsoft Azure cloud, but this comes at a cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster. But what it is really needed it something that separates session,</p>
+<p>The problem relies on the fact that computation are evaluated faster because they are split among many processors, but they are not separated.</p>
+</div>
+</div>
+<div id="what-are-the-advantages-of-this-workflow" class="section level2">
+<h2><span class="header-section-number">2.5</span> What are the Advantages of this Workflow</h2>
+</div>
+<div id="legal-challenges-ancora-non-validato" class="section level2">
+<h2><span class="header-section-number">2.6</span> Legal Challenges (ancora non validato)</h2>
+<p>“Data that are online and public are always available for all” is never a good answer to the question “Can I use that data to my scope”. <a href="https://www.immobiliare.it/">Immobiliare.it</a> is not providing any source of data from its own database neither it is planning to do so in the future. It has not even provided a paid API through which might be possible to perform analysis. However the golden standard for scraping was respected since the robot.txt file is clear allowing any actions as demonstrated above.
+What it worth noting is that some other popular player other like Idealista is using a different approach. Some of procedures that has been applied to the immboliare scraping was not possibile on the Idealista. This could be due to many reason:</p>
+<ul>
+<li>Idealista content is composed by Javascript so and html parser can no get that.</li>
+<li>Idealista blocks also certain web browser that have a demonstrated “career” in scraping procedures.</li>
+</ul>
+<p>All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estates country as Spain and France. So what they thought was to raise awareness on scraping procedure that in a certain way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-robotstxt">
+<p>Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A ’Robots.txt’ Parser and ’Webbot’/’Spider’/’Crawler’ Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.</p>
+</div>
+<div id="ref-foreach">
+<p>Microsoft, and Steve Weston. 2020. <em>Foreach: Provides Foreach Looping Construct</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.</p>
+</div>
 <div id="ref-whoishostingthis.com">
 <p>“User Agent: Learn Your Web Browsers User Agent Now.” 2020. <em>WhoIsHostingThis.com</em>. <a href="https://www.whoishostingthis.com/tools/user-agent/">https://www.whoishostingthis.com/tools/user-agent/</a>.</p>
+</div>
+<div id="ref-furrr">
+<p>Vaughan, Davis, and Matt Dancho. 2018. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://CRAN.R-project.org/package=furrr">https://CRAN.R-project.org/package=furrr</a>.</p>
 </div>
 <div id="ref-wiki:xxx">
 <p>Wikipedia. 2020. “Web Scraping — Wikipedia, L’enciclopedia Libera.” <a href="http://it.wikipedia.org/w/index.php?title=Web_scraping&amp;oldid=112540647">http://it.wikipedia.org/w/index.php?title=Web_scraping&amp;oldid=112540647</a>.</p>
