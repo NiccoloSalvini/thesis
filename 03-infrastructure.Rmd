@@ -1,7 +1,7 @@
 # Infrastructure {#Infrastructure}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-  
+
   
 In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting ("$" sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML skelethon and CSS queries. As soon as something changes in the website the other files needs to be readjusted to be consistent with the content and so back and forth. The debugging handlers nested in the functions helps the maintainer to grasp what it is not working properly where the error occur. 
 The same inner philosophy has been applied to the software architecture chosen for this project.
@@ -183,7 +183,7 @@ Since website are continuously changed for many reasons API philosophy results i
 
 Plumber [@api_generator_for_r] allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:
 
-```{r}
+```{r, eval=FALSE}
 
 # plumber.R file
 
@@ -212,7 +212,8 @@ function(a, b) {
 
 ```
 
-This chunk of code assembled into a .R file has three endpoints.
+This chunk of code assembled into a .R file has three endpoints where interruption occurs.
+
 Special comments are marked as this `#*` and they are followed by specific keywords denoted with `@`.
 - the name of the API (unique without the `@`)
 - the `@params` keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endpoints below, plumber has to make sure that the function can run without them.

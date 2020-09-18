@@ -232,21 +232,21 @@ Il successivo elemento di complessità incontrato durante questa prima fase è s
 <li>redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested</li>
 </ul>
 <p>For the thesis purposes it has been designed a dedicated function to inspect whether the domain requires specific actions or prevents some activity on thw target website. The following <code>checkpermission()</code> function has been integrated inside the scraping architecture and it is called once at the very beginning.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="scraping.html#cb1-1"></a><span class="kw">library</span>(robotstxt)</span></code></pre></div>
-<pre><code>## Warning: package &#39;robotstxt&#39; was built under R version 4.0.2</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="scraping.html#cb3-1"></a>dominio =<span class="st"> &quot;immobiliare.it&quot;</span></span>
-<span id="cb3-2"><a href="scraping.html#cb3-2"></a></span>
-<span id="cb3-3"><a href="scraping.html#cb3-3"></a>checkpermission =<span class="st"> </span><span class="cf">function</span>(dom) {</span>
-<span id="cb3-4"><a href="scraping.html#cb3-4"></a>  </span>
-<span id="cb3-5"><a href="scraping.html#cb3-5"></a>  robot =<span class="st"> </span><span class="kw">robotstxt</span>(<span class="dt">domain =</span> dom)</span>
-<span id="cb3-6"><a href="scraping.html#cb3-6"></a>  vd =<span class="st"> </span>robot<span class="op">$</span><span class="kw">check</span>()[<span class="dv">1</span>]</span>
-<span id="cb3-7"><a href="scraping.html#cb3-7"></a>  <span class="cf">if</span> (vd) {</span>
-<span id="cb3-8"><a href="scraping.html#cb3-8"></a>    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt for&quot;</span>,dom, <span class="st">&quot;is okay with scraping!&quot;</span>)</span>
-<span id="cb3-9"><a href="scraping.html#cb3-9"></a>  } <span class="cf">else</span> {<span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt does not like what you&#39;re doing&quot;</span>)</span>
-<span id="cb3-10"><a href="scraping.html#cb3-10"></a>    <span class="co">## stop()</span></span>
-<span id="cb3-11"><a href="scraping.html#cb3-11"></a>  }</span>
-<span id="cb3-12"><a href="scraping.html#cb3-12"></a>}</span>
-<span id="cb3-13"><a href="scraping.html#cb3-13"></a><span class="kw">checkpermission</span>(dominio)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="scraping.html#cb1-1"></a><span class="kw">library</span>(robotstxt)</span>
+<span id="cb1-2"><a href="scraping.html#cb1-2"></a>dominio =<span class="st"> &quot;immobiliare.it&quot;</span></span>
+<span id="cb1-3"><a href="scraping.html#cb1-3"></a></span>
+<span id="cb1-4"><a href="scraping.html#cb1-4"></a>checkpermission =<span class="st"> </span><span class="cf">function</span>(dom) {</span>
+<span id="cb1-5"><a href="scraping.html#cb1-5"></a>    </span>
+<span id="cb1-6"><a href="scraping.html#cb1-6"></a>    robot =<span class="st"> </span><span class="kw">robotstxt</span>(<span class="dt">domain =</span> dom)</span>
+<span id="cb1-7"><a href="scraping.html#cb1-7"></a>    vd =<span class="st"> </span>robot<span class="op">$</span><span class="kw">check</span>()[<span class="dv">1</span>]</span>
+<span id="cb1-8"><a href="scraping.html#cb1-8"></a>    <span class="cf">if</span> (vd) {</span>
+<span id="cb1-9"><a href="scraping.html#cb1-9"></a>        <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt for&quot;</span>, dom, <span class="st">&quot;is okay with scraping!&quot;</span>)</span>
+<span id="cb1-10"><a href="scraping.html#cb1-10"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1-11"><a href="scraping.html#cb1-11"></a>        <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt does not like what you&#39;re doing&quot;</span>)</span>
+<span id="cb1-12"><a href="scraping.html#cb1-12"></a>        <span class="co">## stop()</span></span>
+<span id="cb1-13"><a href="scraping.html#cb1-13"></a>    }</span>
+<span id="cb1-14"><a href="scraping.html#cb1-14"></a>}</span>
+<span id="cb1-15"><a href="scraping.html#cb1-15"></a><span class="kw">checkpermission</span>(dominio)</span></code></pre></div>
 <pre><code>## 
 ## robot.txt for immobiliare.it is okay with scraping!</code></pre>
 </div>
@@ -262,28 +262,19 @@ Il successivo elemento di complessità incontrato durante questa prima fase è s
 <h3><span class="header-section-number">2.3.1</span> User agents Spoofing</h3>
 <p>A user agent <span class="citation">(“User Agent: Learn Your Web Browsers User Agent Now” <a href="#ref-whoishostingthis.com" role="doc-biblioref">2020</a>)</span> is a string of characters in each browser that serves as an identification agent. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string contains the user application or software, the operating system (and their versions), the web client, the web client’s version, and the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in form of a HTTP request header. Since the User Agents acts as middle man between the client request and the server response what it would be better doing is to actively faking it so that each time a web browser presents himself to a web server it has a different specifications, different web client, different operating system and so on.</p>
 <p>The simple approach followed was building a vector of samples of different existing and updated User Agents (UA). Then whenever a request from a browser is served to a web server 1 random string is drawn from the user agents pool. So each time the user is sending the requests it appears to have a different “identity”. Below the user agents rotating pool:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="scraping.html#cb5-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
-<span id="cb5-2"><a href="scraping.html#cb5-2"></a>agents =<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36</span></span>
-<span id="cb5-3"><a href="scraping.html#cb5-3"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
-<span id="cb5-4"><a href="scraping.html#cb5-4"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 </span></span>
-<span id="cb5-5"><a href="scraping.html#cb5-5"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
-<span id="cb5-6"><a href="scraping.html#cb5-6"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 </span></span>
-<span id="cb5-7"><a href="scraping.html#cb5-7"></a><span class="st">            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>,</span>
-<span id="cb5-8"><a href="scraping.html#cb5-8"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 </span></span>
-<span id="cb5-9"><a href="scraping.html#cb5-9"></a><span class="st">            (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14&quot;</span>,</span>
-<span id="cb5-10"><a href="scraping.html#cb5-10"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36</span></span>
-<span id="cb5-11"><a href="scraping.html#cb5-11"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>,</span>
-<span id="cb5-12"><a href="scraping.html#cb5-12"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 </span></span>
-<span id="cb5-13"><a href="scraping.html#cb5-13"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>,</span>
-<span id="cb5-14"><a href="scraping.html#cb5-14"></a>            <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 </span></span>
-<span id="cb5-15"><a href="scraping.html#cb5-15"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>,</span>
-<span id="cb5-16"><a href="scraping.html#cb5-16"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36</span></span>
-<span id="cb5-17"><a href="scraping.html#cb5-17"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>,</span>
-<span id="cb5-18"><a href="scraping.html#cb5-18"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 </span></span>
-<span id="cb5-19"><a href="scraping.html#cb5-19"></a><span class="st">            (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>,</span>
-<span id="cb5-20"><a href="scraping.html#cb5-20"></a>            <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0&quot;</span>)</span>
-<span id="cb5-21"><a href="scraping.html#cb5-21"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36\n            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="scraping.html#cb3-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
+<span id="cb3-2"><a href="scraping.html#cb3-2"></a>agents =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>, </span>
+<span id="cb3-3"><a href="scraping.html#cb3-3"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>, </span>
+<span id="cb3-4"><a href="scraping.html#cb3-4"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</span>, </span>
+<span id="cb3-5"><a href="scraping.html#cb3-5"></a>    <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14&quot;</span>, </span>
+<span id="cb3-6"><a href="scraping.html#cb3-6"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>, </span>
+<span id="cb3-7"><a href="scraping.html#cb3-7"></a>    <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>, </span>
+<span id="cb3-8"><a href="scraping.html#cb3-8"></a>    <span class="st">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36&quot;</span>, </span>
+<span id="cb3-9"><a href="scraping.html#cb3-9"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36&quot;</span>, </span>
+<span id="cb3-10"><a href="scraping.html#cb3-10"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>, </span>
+<span id="cb3-11"><a href="scraping.html#cb3-11"></a>    <span class="st">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0&quot;</span>)</span>
+<span id="cb3-12"><a href="scraping.html#cb3-12"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36&quot;</code></pre>
 <p>An improvement to this could be using also rotating proxies. A proxy server acts as a gateway between the user and the server. It’s an intermediary server himself, separating end clients from the websites they are browsing. Proxy servers provide varying layers of functionality, security, and privacy are some of the examples.
 While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server you requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website to you.
 Many proxy servers are offered in a paid version so in this case since security barriers of the target website are not high they will not be implemented. It has to be mentioned that many online services are providing free proxies but the turnaround of this solutions are many, two of them are:
@@ -297,43 +288,40 @@ Then the solution to that is to call inside the aggolmerative function as much a
 <ul>
 <li><code>get_ua()</code> verifies that the user agent coming from the session request is not the default one</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="scraping.html#cb7-1"></a>get_ua =<span class="st"> </span><span class="cf">function</span>(sess) {</span>
-<span id="cb7-2"><a href="scraping.html#cb7-2"></a>  <span class="kw">stopifnot</span>(<span class="kw">is.session</span>(sess))</span>
-<span id="cb7-3"><a href="scraping.html#cb7-3"></a>  <span class="kw">stopifnot</span>(<span class="kw">is_url</span>(sess<span class="op">$</span>url))</span>
-<span id="cb7-4"><a href="scraping.html#cb7-4"></a>  ua =<span class="st"> </span>sess<span class="op">$</span>response<span class="op">$</span>request<span class="op">$</span>options<span class="op">$</span>useragent</span>
-<span id="cb7-5"><a href="scraping.html#cb7-5"></a>  <span class="kw">return</span>(ua)</span>
-<span id="cb7-6"><a href="scraping.html#cb7-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="scraping.html#cb5-1"></a>get_ua =<span class="st"> </span><span class="cf">function</span>(sess) {</span>
+<span id="cb5-2"><a href="scraping.html#cb5-2"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.session</span>(sess))</span>
+<span id="cb5-3"><a href="scraping.html#cb5-3"></a>    <span class="kw">stopifnot</span>(<span class="kw">is_url</span>(sess<span class="op">$</span>url))</span>
+<span id="cb5-4"><a href="scraping.html#cb5-4"></a>    ua =<span class="st"> </span>sess<span class="op">$</span>response<span class="op">$</span>request<span class="op">$</span>options<span class="op">$</span>useragent</span>
+<span id="cb5-5"><a href="scraping.html#cb5-5"></a>    <span class="kw">return</span>(ua)</span>
+<span id="cb5-6"><a href="scraping.html#cb5-6"></a>}</span></code></pre></div>
 <ul>
 <li><code>is_url()</code> verifies that the url input needed has the canonic form. This is done by a REGEX query.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="scraping.html#cb8-1"></a>is_url =<span class="st"> </span><span class="cf">function</span>(url){</span>
-<span id="cb8-2"><a href="scraping.html#cb8-2"></a>  re =<span class="st"> &quot;^(?:(?:http(?:s)?|ftp)://)(?:</span><span class="ch">\\</span><span class="st">S+(?::(?:</span><span class="ch">\\</span><span class="st">S)*)?@)?(?:(?</span></span>
-<span id="cb8-3"><a href="scraping.html#cb8-3"></a><span class="st">  :[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\</span></span>
-<span id="cb8-4"><a href="scraping.html#cb8-4"></a><span class="st">  \.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)</span></span>
-<span id="cb8-5"><a href="scraping.html#cb8-5"></a><span class="st">  *(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:</span><span class="ch">\\</span><span class="st">d){2,5})?(?:/(?</span></span>
-<span id="cb8-6"><a href="scraping.html#cb8-6"></a><span class="st">  :</span><span class="ch">\\</span><span class="st">S)*)?$&quot;</span></span>
-<span id="cb8-7"><a href="scraping.html#cb8-7"></a>  <span class="kw">grepl</span>(re, url)</span>
-<span id="cb8-8"><a href="scraping.html#cb8-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="scraping.html#cb6-1"></a>is_url =<span class="st"> </span><span class="cf">function</span>(url) {</span>
+<span id="cb6-2"><a href="scraping.html#cb6-2"></a>    re =<span class="st"> &quot;^(?:(?:http(?:s)?|ftp)://)(?:</span><span class="ch">\\</span><span class="st">S+(?::(?:</span><span class="ch">\\</span><span class="st">S)*)?@)?(?:(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;](?:-)*)*(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;])+)(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;](?:-)*)*(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;])+)*(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;]){2,})(?::(?:</span><span class="ch">\\</span><span class="st">d){2,5})?(?:/(?:</span><span class="ch">\\</span><span class="st">S)*)?$&quot;</span></span>
+<span id="cb6-3"><a href="scraping.html#cb6-3"></a>    <span class="kw">grepl</span>(re, url)</span>
+<span id="cb6-4"><a href="scraping.html#cb6-4"></a>}</span></code></pre></div>
 <ul>
 <li><code>.get_delay()</code> checks through the robotxt file if a delay between each request is kindly welcomed.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="scraping.html#cb9-1"></a>.get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
-<span id="cb9-2"><a href="scraping.html#cb9-2"></a>  </span>
-<span id="cb9-3"><a href="scraping.html#cb9-3"></a>  <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
-<span id="cb9-4"><a href="scraping.html#cb9-4"></a>  </span>
-<span id="cb9-5"><a href="scraping.html#cb9-5"></a>  cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
-<span id="cb9-6"><a href="scraping.html#cb9-6"></a>  </span>
-<span id="cb9-7"><a href="scraping.html#cb9-7"></a>  <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb9-8"><a href="scraping.html#cb9-8"></a>    star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent<span class="op">==</span><span class="st">&quot;*&quot;</span>)</span>
-<span id="cb9-9"><a href="scraping.html#cb9-9"></a>    <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>,]</span>
-<span id="cb9-10"><a href="scraping.html#cb9-10"></a>    <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
-<span id="cb9-11"><a href="scraping.html#cb9-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb9-12"><a href="scraping.html#cb9-12"></a>    10L</span>
-<span id="cb9-13"><a href="scraping.html#cb9-13"></a>  }</span>
-<span id="cb9-14"><a href="scraping.html#cb9-14"></a>  </span>
-<span id="cb9-15"><a href="scraping.html#cb9-15"></a>}</span>
-<span id="cb9-16"><a href="scraping.html#cb9-16"></a></span>
-<span id="cb9-17"><a href="scraping.html#cb9-17"></a>get_delay =<span class="st">  </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="scraping.html#cb7-1"></a>.get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
+<span id="cb7-2"><a href="scraping.html#cb7-2"></a>    </span>
+<span id="cb7-3"><a href="scraping.html#cb7-3"></a>    <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
+<span id="cb7-4"><a href="scraping.html#cb7-4"></a>    </span>
+<span id="cb7-5"><a href="scraping.html#cb7-5"></a>    cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
+<span id="cb7-6"><a href="scraping.html#cb7-6"></a>    </span>
+<span id="cb7-7"><a href="scraping.html#cb7-7"></a>    <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb7-8"><a href="scraping.html#cb7-8"></a>        star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent <span class="op">==</span><span class="st"> &quot;*&quot;</span>)</span>
+<span id="cb7-9"><a href="scraping.html#cb7-9"></a>        <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) </span>
+<span id="cb7-10"><a href="scraping.html#cb7-10"></a>            star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>, ]</span>
+<span id="cb7-11"><a href="scraping.html#cb7-11"></a>        <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
+<span id="cb7-12"><a href="scraping.html#cb7-12"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-13"><a href="scraping.html#cb7-13"></a>        10L</span>
+<span id="cb7-14"><a href="scraping.html#cb7-14"></a>    }</span>
+<span id="cb7-15"><a href="scraping.html#cb7-15"></a>    </span>
+<span id="cb7-16"><a href="scraping.html#cb7-16"></a>}</span>
+<span id="cb7-17"><a href="scraping.html#cb7-17"></a></span>
+<span id="cb7-18"><a href="scraping.html#cb7-18"></a>get_delay =<span class="st"> </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
 </div>
 </div>
 <div id="how-they-are-designed-with-rvest" class="section level2">
@@ -354,34 +342,34 @@ Then the solution to that is to call inside the aggolmerative function as much a
 <div id="parallel-computing" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Parallel Computing</h3>
 <p>Since many html sessions are opened and within each session many requests are sent computations can take a while. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily and a single day is sufficient amount of runtime. In any case functions are optimized following the criteria stated before. Run time is crucial when dealing with time series and time to market in real estate is very important, this leads to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation divided among a bunch of different machines, in this case sessions. A first attempt was using <code>furrr</code> package <span class="citation">(Vaughan and Dancho <a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> which enables mapping through a list with the <code>purrr</code> , along with a <code>future</code> parallel backend. This has shows decent results, but its run time increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="scraping.html#cb10-1"></a><span class="kw">library</span>(furrr)</span>
-<span id="cb10-2"><a href="scraping.html#cb10-2"></a></span>
-<span id="cb10-3"><a href="scraping.html#cb10-3"></a>vecelaps =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb10-4"><a href="scraping.html#cb10-4"></a>start =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb10-5"><a href="scraping.html#cb10-5"></a>end =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb10-6"><a href="scraping.html#cb10-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
-<span id="cb10-7"><a href="scraping.html#cb10-7"></a>  start[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
-<span id="cb10-8"><a href="scraping.html#cb10-8"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>,i,<span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb10-9"><a href="scraping.html#cb10-9"></a>  list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>i] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-10"><a href="scraping.html#cb10-10"></a><span class="st">    </span>furrr<span class="op">::</span><span class="kw">future_map</span>(get.data.caturl, <span class="dt">.progress =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-11"><a href="scraping.html#cb10-11"></a><span class="st">    </span><span class="kw">bind_rows</span>()</span>
-<span id="cb10-12"><a href="scraping.html#cb10-12"></a>  end[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
-<span id="cb10-13"><a href="scraping.html#cb10-13"></a>  vecelaps[i] =<span class="st"> </span>end[i]<span class="op">-</span>start[i]</span>
-<span id="cb10-14"><a href="scraping.html#cb10-14"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="scraping.html#cb11-1"></a>furrrmethod =<span class="st"> </span><span class="kw">tibble</span>(start,</span>
-<span id="cb11-2"><a href="scraping.html#cb11-2"></a>                      end,</span>
-<span id="cb11-3"><a href="scraping.html#cb11-3"></a>                      vettoelaps)</span>
-<span id="cb11-4"><a href="scraping.html#cb11-4"></a></span>
-<span id="cb11-5"><a href="scraping.html#cb11-5"></a><span class="co"># ggplot (themed) run time meausurament method 1</span></span>
-<span id="cb11-6"><a href="scraping.html#cb11-6"></a>p =<span class="st"> </span><span class="kw">ggplot</span>(furrrmethod,<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">y=</span>vettoelaps)) <span class="op">+</span></span>
-<span id="cb11-7"><a href="scraping.html#cb11-7"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="dt">color=</span><span class="st">&quot;steelblue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-8"><a href="scraping.html#cb11-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb11-9"><a href="scraping.html#cb11-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Num URLS evaluated&quot;</span>) <span class="op">+</span></span>
-<span id="cb11-10"><a href="scraping.html#cb11-10"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;run time (in seconds)&quot;</span>) <span class="op">+</span></span>
-<span id="cb11-11"><a href="scraping.html#cb11-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Run-Time for First method (furrr multisession)&quot;</span>) <span class="op">+</span></span>
-<span id="cb11-12"><a href="scraping.html#cb11-12"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span></span>
-<span id="cb11-13"><a href="scraping.html#cb11-13"></a><span class="st">  </span><span class="kw">theme_nicco</span>()</span>
-<span id="cb11-14"><a href="scraping.html#cb11-14"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="scraping.html#cb8-1"></a><span class="kw">library</span>(furrr)</span>
+<span id="cb8-2"><a href="scraping.html#cb8-2"></a></span>
+<span id="cb8-3"><a href="scraping.html#cb8-3"></a>vecelaps =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb8-4"><a href="scraping.html#cb8-4"></a>start =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb8-5"><a href="scraping.html#cb8-5"></a>end =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb8-6"><a href="scraping.html#cb8-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
+<span id="cb8-7"><a href="scraping.html#cb8-7"></a>    start[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb8-8"><a href="scraping.html#cb8-8"></a>    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>, i, <span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb8-9"><a href="scraping.html#cb8-9"></a>    list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>i] <span class="op">%&gt;%</span><span class="st"> </span>furrr<span class="op">::</span><span class="kw">future_map</span>(get.data.caturl, <span class="dt">.progress =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-10"><a href="scraping.html#cb8-10"></a><span class="st">        </span><span class="kw">bind_rows</span>()</span>
+<span id="cb8-11"><a href="scraping.html#cb8-11"></a>    </span>
+<span id="cb8-12"><a href="scraping.html#cb8-12"></a>    end[i] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb8-13"><a href="scraping.html#cb8-13"></a>    vecelaps[i] =<span class="st"> </span>end[i] <span class="op">-</span><span class="st"> </span>start[i]</span>
+<span id="cb8-14"><a href="scraping.html#cb8-14"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="scraping.html#cb9-1"></a>furrrmethod =<span class="st"> </span><span class="kw">tibble</span>(start,</span>
+<span id="cb9-2"><a href="scraping.html#cb9-2"></a>                      end,</span>
+<span id="cb9-3"><a href="scraping.html#cb9-3"></a>                      vettoelaps)</span>
+<span id="cb9-4"><a href="scraping.html#cb9-4"></a></span>
+<span id="cb9-5"><a href="scraping.html#cb9-5"></a><span class="co"># ggplot (themed) run time meausurament method 1</span></span>
+<span id="cb9-6"><a href="scraping.html#cb9-6"></a>p =<span class="st"> </span><span class="kw">ggplot</span>(furrrmethod,<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">y=</span>vettoelaps)) <span class="op">+</span></span>
+<span id="cb9-7"><a href="scraping.html#cb9-7"></a><span class="st">  </span><span class="kw">geom_line</span>( <span class="dt">color=</span><span class="st">&quot;steelblue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-8"><a href="scraping.html#cb9-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb9-9"><a href="scraping.html#cb9-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Num URLS evaluated&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-10"><a href="scraping.html#cb9-10"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;run time (in seconds)&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-11"><a href="scraping.html#cb9-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Run-Time for First method (furrr multisession)&quot;</span>) <span class="op">+</span></span>
+<span id="cb9-12"><a href="scraping.html#cb9-12"></a><span class="st">  </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span></span>
+<span id="cb9-13"><a href="scraping.html#cb9-13"></a><span class="st">  </span><span class="kw">theme_nicco</span>()</span>
+<span id="cb9-14"><a href="scraping.html#cb9-14"></a>p</span></code></pre></div>
 <div class="figure">
 <img src="images/run_timefurrr.png" alt="" />
 <p class="caption">computational complexity analysis with Furrr</p>
@@ -399,26 +387,26 @@ Then the solution to that is to call inside the aggolmerative function as much a
 <li>close clusters</li>
 </ul>
 <p>One major important thing concerns the fact that th function within iterators repeats itself should be standalone. For standalone it is meant that the body function should be defined inside, as it would be a an empty environment. As a matter of fact packages has to be taken inside each time, and if the function is not defined inside body (or is not source from some other locations) the clusters can not operate and an error is printed.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="scraping.html#cb12-1"></a>cl =<span class="st"> </span><span class="kw">makeCluster</span>(<span class="kw">detectCores</span>()<span class="op">-</span><span class="dv">1</span>) <span class="co">#using max cores - 1 for parallel processing</span></span>
-<span id="cb12-2"><a href="scraping.html#cb12-2"></a><span class="kw">registerDoParallel</span>(cl)</span>
-<span id="cb12-3"><a href="scraping.html#cb12-3"></a></span>
-<span id="cb12-4"><a href="scraping.html#cb12-4"></a>vettoelaps1 =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb12-5"><a href="scraping.html#cb12-5"></a>start1 =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb12-6"><a href="scraping.html#cb12-6"></a>end1 =<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb12-7"><a href="scraping.html#cb12-7"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
-<span id="cb12-8"><a href="scraping.html#cb12-8"></a>  start1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
-<span id="cb12-9"><a href="scraping.html#cb12-9"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>,j,<span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb12-10"><a href="scraping.html#cb12-10"></a>  <span class="kw">foreach</span>(<span class="dt">i =</span> <span class="kw">seq_along</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>j]),</span>
-<span id="cb12-11"><a href="scraping.html#cb12-11"></a>          <span class="dt">.packages =</span> lista.pacchetti,</span>
-<span id="cb12-12"><a href="scraping.html#cb12-12"></a>          <span class="dt">.combine =</span> <span class="st">&quot;bind_rows&quot;</span>,</span>
-<span id="cb12-13"><a href="scraping.html#cb12-13"></a>          <span class="dt">.errorhandling=</span><span class="st">&#39;pass&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</span>
-<span id="cb12-14"><a href="scraping.html#cb12-14"></a>            <span class="kw">source</span>(<span class="st">&quot;main.R&quot;</span>)</span>
-<span id="cb12-15"><a href="scraping.html#cb12-15"></a>            x =<span class="st"> </span><span class="kw">get.data.caturl</span>(list.of.pages.imm[i])</span>
-<span id="cb12-16"><a href="scraping.html#cb12-16"></a>            }</span>
-<span id="cb12-17"><a href="scraping.html#cb12-17"></a>  end1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
-<span id="cb12-18"><a href="scraping.html#cb12-18"></a>  vettoelaps1[j] =<span class="st"> </span>end1[j] <span class="op">-</span>start1[j]</span>
-<span id="cb12-19"><a href="scraping.html#cb12-19"></a>}</span>
-<span id="cb12-20"><a href="scraping.html#cb12-20"></a><span class="kw">stopCluster</span>(cl)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="scraping.html#cb10-1"></a>cl =<span class="st"> </span><span class="kw">makeCluster</span>(<span class="kw">detectCores</span>()<span class="op">-</span><span class="dv">1</span>) </span>
+<span id="cb10-2"><a href="scraping.html#cb10-2"></a><span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb10-3"><a href="scraping.html#cb10-3"></a></span>
+<span id="cb10-4"><a href="scraping.html#cb10-4"></a>vettoelaps1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-5"><a href="scraping.html#cb10-5"></a>start1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-6"><a href="scraping.html#cb10-6"></a>end1 =<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb10-7"><a href="scraping.html#cb10-7"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">len</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>])) {</span>
+<span id="cb10-8"><a href="scraping.html#cb10-8"></a>  start1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb10-9"><a href="scraping.html#cb10-9"></a>  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> run iteration&quot;</span>,j,<span class="st">&quot;over 20 total</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb10-10"><a href="scraping.html#cb10-10"></a>  <span class="kw">foreach</span>(<span class="dt">i =</span> <span class="kw">seq_along</span>(list.of.pages.imm[<span class="dv">1</span><span class="op">:</span>j]),</span>
+<span id="cb10-11"><a href="scraping.html#cb10-11"></a>          <span class="dt">.packages =</span> lista.pacchetti,</span>
+<span id="cb10-12"><a href="scraping.html#cb10-12"></a>          <span class="dt">.combine =</span> <span class="st">&quot;bind_rows&quot;</span>,</span>
+<span id="cb10-13"><a href="scraping.html#cb10-13"></a>          <span class="dt">.errorhandling=</span><span class="st">&#39;pass&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span>{</span>
+<span id="cb10-14"><a href="scraping.html#cb10-14"></a>            <span class="kw">source</span>(<span class="st">&quot;main.R&quot;</span>)</span>
+<span id="cb10-15"><a href="scraping.html#cb10-15"></a>            x =<span class="st"> </span><span class="kw">get.data.caturl</span>(list.of.pages.imm[i])</span>
+<span id="cb10-16"><a href="scraping.html#cb10-16"></a>            }</span>
+<span id="cb10-17"><a href="scraping.html#cb10-17"></a>  end1[j] =<span class="st"> </span><span class="kw">Sys.time</span>()</span>
+<span id="cb10-18"><a href="scraping.html#cb10-18"></a>  vettoelaps1[j] =<span class="st"> </span>end1[j] <span class="op">-</span>start1[j]</span>
+<span id="cb10-19"><a href="scraping.html#cb10-19"></a>}</span>
+<span id="cb10-20"><a href="scraping.html#cb10-20"></a><span class="kw">stopCluster</span>(cl)</span></code></pre></div>
 <div class="figure">
 <img src="images/run_timeforeach.png" alt="" />
 <p class="caption">computational complexity analysis with Furrr</p>

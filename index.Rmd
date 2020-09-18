@@ -24,7 +24,9 @@ toc-depth: 1
 fig_width: 7
 fig_height: 6
 fig_caption: true
-links-as-notes: true
+links-as-notes: true  
+lot: true 
+lof: true
 ---
 
 
@@ -33,4 +35,11 @@ links-as-notes: true
 
 ```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
 ```
+
+```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
+suppressMessages(source("hooks_mod/wrap_lines.R"))
+suppressMessages(source("hooks_mod/chunk_size.R"))
+```
+
+
 

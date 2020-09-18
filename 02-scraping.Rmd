@@ -1,5 +1,12 @@
 # Scraping {#scraping}
 
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+```
+
+
 ## What is Scraping 
 
 Lo web scraping è una tecnica di estrazione dei dati da pagine internet statiche o dinamiche in maniera automatica e simulatanea [@wiki:xxx].  L'impossibilità di reperire dati aperti aggiornati riguardo l'affitto sul mercato italiano mi ha spinto a sviluppare sofisticate tecniche di estrazione di dati orientate ad alleggerire lo sforzo e aumentare la velocità di reperimento: da una parte nel preprocessing del dataset, nella successiva del fragente del modelling, per finire con la reattività di risposta dell'applicazione. 
@@ -31,7 +38,7 @@ Some interpretation problems:
 
 For the thesis purposes it has been designed a dedicated function to inspect whether the domain requires specific actions or prevents some activity on thw target website. The following `checkpermission()` function has been integrated inside the scraping architecture and it is called once at the very beginning.
 
-```{r}
+```{r, warning=FALSE}
 library(robotstxt)
 dominio = "immobiliare.it"
 
@@ -62,27 +69,18 @@ A user agent [@whoishostingthis.com] is a string of characters in each browser t
 
 The simple approach followed was building a vector of samples of different existing and updated User Agents (UA). Then whenever a request from a browser is served to a web server 1 random string is drawn from the user agents pool. So each time the user is sending the requests it appears to have a different "identity". Below the user agents rotating pool:
 
-```{r}
+```{r, size = "tiny"}
 set.seed(27)
-agents =  c("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36
-            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 
-            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
-            (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 
-            (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14",
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36
-            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 
-            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 
-            (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36
-            (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 
-            (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0")
+agents =  c('Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0')
 agents[sample(1)]
 
 ```
@@ -112,13 +110,10 @@ get_ua = function(sess) {
 
 - `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
 
-```{r, eval=FALSE}
+```{r, size="tiny", linewidth = 70}
+
 is_url = function(url){
-  re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?
-  :[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\
-  \.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)
-  *(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?
-  :\\S)*)?$"
+  re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
   grepl(re, url)
 }
 ```
@@ -127,7 +122,7 @@ is_url = function(url){
 
 - `.get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed.
 
-```{r}
+```{r, linewidth = 70 }
 .get_delay = function(domain) {
   
   message(sprintf("Refreshing robots.txt data for %s...", domain))
@@ -166,7 +161,7 @@ The way scraping functions are designed are walks around three main programming 
 
 Since many html sessions are opened and within each session many requests are sent computations can take a while. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily and a single day is sufficient amount of runtime. In any case functions are optimized following the criteria stated before. Run time is crucial when dealing with time series and time to market in real estate is very important, this leads to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation divided among a bunch of different machines, in this case sessions. A first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`  , along with a `future` parallel backend. This has shows decent results, but its run time increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE, eval=FALSE, linewidth = 70 }
 library(furrr)
 
 vecelaps = c()
@@ -178,13 +173,14 @@ for (i in 1:len(list.of.pages.imm[1:20])) {
   list.of.pages.imm[1:i] %>% 
     furrr::future_map(get.data.caturl, .progress = T) %>% 
     bind_rows()
+  
   end[i] = Sys.time()
   vecelaps[i] = end[i]-start[i]
 }
 
 ```
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, linewidth = 70, tidy=FALSE}
 furrrmethod = tibble(start,
                       end,
                       vettoelaps)
@@ -221,8 +217,8 @@ A second attempt tried to explore the `foreach` package [@foreach]. This interes
 
 One major important thing concerns the fact that th function within iterators repeats itself should be standalone. For standalone it is meant that the body function should be defined inside, as it would be a an empty environment. As a matter of fact packages has to be taken inside each time, and if the function is not defined inside body (or is not source from some other locations) the clusters can not operate and an error is printed.
 
-```{r eval=FALSE}
-cl = makeCluster(detectCores()-1) #using max cores - 1 for parallel processing
+```{r eval=FALSE, linewidth = 70, tidy= FALSE}
+cl = makeCluster(detectCores()-1) 
 registerDoParallel(cl)
 
 vettoelaps1 = c()
