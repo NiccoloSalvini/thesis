@@ -151,17 +151,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.2</b> User agents, Proxies, Handlers</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.2.1</b> User agents Spoofing</a></li>
-<li class="chapter" data-level="2.2.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.2.2</b> Handlers</a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robot.txt</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#how-they-are-designed-with-rvest"><i class="fa fa-check"></i><b>2.3</b> How they are designed with <code>rvest</code></a><ul>
-<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#from-generic-and-specific-structure"><i class="fa fa-check"></i><b>2.3.1</b> From Generic and Specific structure</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.3.2</b> parallel computing</a></li>
-<li class="chapter" data-level="2.3.3" data-path="scraping.html"><a href="scraping.html#foreach-package-and-runtime-benchmark-with-future"><i class="fa fa-check"></i><b>2.3.3</b> <code>foreach</code> package and runtime benchmark with future</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#how-they-are-designed-with-rvest"><i class="fa fa-check"></i><b>2.4</b> How they are designed with <code>rvest</code></a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#from-generic-and-specific-structure"><i class="fa fa-check"></i><b>2.4.1</b> From Generic and Specific structure</a></li>
+<li class="chapter" data-level="2.4.2" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4.2</b> Parallel Computing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#what-are-the-advantages-of-workflow"><i class="fa fa-check"></i><b>2.4</b> What are the advantages of workflow</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#legal-challenges"><i class="fa fa-check"></i><b>2.5</b> Legal challenges</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#what-are-the-advantages-of-this-workflow"><i class="fa fa-check"></i><b>2.5</b> What are the Advantages of this Workflow</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Challenges (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting (“$” sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML skelethon and CSS queries. As soon as something changes in the website the other files needs to be readjusted to be consistent with the content and so back and forth. The debugging handlers nested in the functions helps the maintainer to grasp what it is not working properly where the error occur.
 The same inner philosophy has been applied to the software architecture chosen for this project.
 First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist almost full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs (Plumber <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span>). MOreover developers in RStudio and its contributors have created an entire new paradigm called Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span>, a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same IDE (RStudio) and with a unique language to deal with. The front end file (for simplicity named UI.R) contains the UI’s layout and the style and also other javascripts components. On the other hand the server file (named after server.R) absorbs the back-end, under the hood, code and makes the UI intercact and respond to the user.
-This comes at a cost of flexibility and customization since Shiny could not easily handle too many embellishments (even though potentially can). Nevertheless a unique environment makes integration with other technologies easier and most of all introduces the analyst to a full stack approach. Many open source projects are gravitating around the Shiny framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(Inc et al. <a href="#ref-reactR" role="doc-biblioref">2020</a>)</span> that allows user to implement the power of React.js into the shiny UI front end. All of this is possible, once again, by the R community but a greater contribution come from digging up the right path along which everything by open source comes natural. (parallelo con la vigna e l’albero che la sostiene e indirizza)
+This comes at a cost of flexibility and customization since Shiny could not easily handle too many embellishments (even though potentially can). Nevertheless a unique environment makes integration with other technologies easier and most of all introduces the analyst to a full stack approach. Many open source projects are gravitating around the Shiny framework with the aim to extend its capabilities. One example is a newly created package called reactR <span class="citation">(<span class="citeproc-not-found" data-reference-id="reactR"><strong>???</strong></span>)</span> that allows user to implement the power of React.js into the shiny UI front end. All of this is possible, once again, by the R community but a greater contribution come from digging up the right path along which everything by open source comes natural. (parallelo con la vigna e l’albero che la sostiene e indirizza)
 The carrier idea for this project is to have parallelized scraping functions called daily by a scheduler producing and subsequently storing a .csv file in a MySQL /cartoDB database. They are all tought to be containerized in a Linux (Ubuntu distr) docker container hosted in a AWS EC2 server. Then in a second container a Shiny app is placed, this one pipes in data from the former infrastructure and apply the statistical model stored (by an API call) in its server.R part.</p>
 <p>The main technologies implied are:</p>
 <ul>
@@ -224,7 +224,7 @@ The carrier idea for this project is to have parallelized scraping functions cal
 <li>AWS (Amazon Web Services) EC2</li>
 <li>CartoDB</li>
 </ul>
-<p>On top of that even each single part of this thesis has been made stand alone and can be easily accessed and modified through this <a href="https://niccolosalvini.github.io/Thesis/">link</a>. The pdf (theis) version of the gitbook can be obtained by clicking the download button that can be seen in figure below. A Latex engine (Xelatex) wrapped into the website compiles a sequence of Markdown documents converting them into .html (the book’s chapters) which are formatted by rules grouped in a .yml file. All the documents are pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
+<p>On top of that even each single part of this thesis has been made stand alone and can be easily accessed and modified through this <a href="https://niccolosalvini.github.io/Thesis/">link</a>. The pdf (theis) version of the gitbook can be obtained by clicking the download button that can be seen in figure below. A Latex engine (Xelatex) wrapped into the website compiles a sequence of Markdown documents converting them into .html (the book’s chapters) which are formatted by rules grouped in a .yml file. All the documents are pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website. All of this has been possible thanks to Bookdown <span class="citation">(<span class="citeproc-not-found" data-reference-id="bookdown1"><strong>???</strong></span>)</span> once again a R well documented package <span class="citation">(<span class="citeproc-not-found" data-reference-id="bookdown2"><strong>???</strong></span>)</span> to build interactive books along with RMarkdown <span class="citation">(<span class="citeproc-not-found" data-reference-id="rmarkdown1"><strong>???</strong></span>)</span>.</p>
 <p>An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. Fresh data is needed to have updated analysis since the scope in here is to offer realtime considerations. Something should be automated periodically in order to address the issue. Moreover, as rule of thumb, a daily data extraction might be a good option for some reasons. It can intercept price variations with a relatively small time lag, It can also display some sort of pattern in time that would help the reader/user to select the perfect choice. As a consequence a daily .csv file is generated and directly collected into a Db folder arranged by time
 The solutiond proposed takes care of the issue by making the scraping script generating the .csv be executed by a scheduler.</p>
 <div id="scheduler" class="section level2">
@@ -358,44 +358,44 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 <div id="plumber-api" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> Plumber API</h3>
 <p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="Infrastructure.html#cb7-1"></a><span class="co"># plumber.R file</span></span>
-<span id="cb7-2"><a href="Infrastructure.html#cb7-2"></a></span>
-<span id="cb7-3"><a href="Infrastructure.html#cb7-3"></a><span class="co">#* Echo back the input  </span></span>
-<span id="cb7-4"><a href="Infrastructure.html#cb7-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb7-5"><a href="Infrastructure.html#cb7-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb7-6"><a href="Infrastructure.html#cb7-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb7-7"><a href="Infrastructure.html#cb7-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb7-8"><a href="Infrastructure.html#cb7-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Infrastructure.html#cb13-1"></a><span class="co"># plumber.R file</span></span>
+<span id="cb13-2"><a href="Infrastructure.html#cb13-2"></a></span>
+<span id="cb13-3"><a href="Infrastructure.html#cb13-3"></a><span class="co">#* Echo back the input  </span></span>
+<span id="cb13-4"><a href="Infrastructure.html#cb13-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb13-5"><a href="Infrastructure.html#cb13-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb13-6"><a href="Infrastructure.html#cb13-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb13-7"><a href="Infrastructure.html#cb13-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb13-8"><a href="Infrastructure.html#cb13-8"></a>}</span></code></pre></div>
 <pre><code>## function(msg=&quot;&quot;) {
 ##   list(msg = paste0(&quot;The message is: &#39;&quot;, msg, &quot;&#39;&quot;))
 ## }</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="Infrastructure.html#cb9-1"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb9-2"><a href="Infrastructure.html#cb9-2"></a><span class="co">#* @png</span></span>
-<span id="cb9-3"><a href="Infrastructure.html#cb9-3"></a><span class="co">#* @get /plot</span></span>
-<span id="cb9-4"><a href="Infrastructure.html#cb9-4"></a><span class="cf">function</span>() {</span>
-<span id="cb9-5"><a href="Infrastructure.html#cb9-5"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb9-6"><a href="Infrastructure.html#cb9-6"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb9-7"><a href="Infrastructure.html#cb9-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="Infrastructure.html#cb15-1"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb15-2"><a href="Infrastructure.html#cb15-2"></a><span class="co">#* @png</span></span>
+<span id="cb15-3"><a href="Infrastructure.html#cb15-3"></a><span class="co">#* @get /plot</span></span>
+<span id="cb15-4"><a href="Infrastructure.html#cb15-4"></a><span class="cf">function</span>() {</span>
+<span id="cb15-5"><a href="Infrastructure.html#cb15-5"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb15-6"><a href="Infrastructure.html#cb15-6"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb15-7"><a href="Infrastructure.html#cb15-7"></a>}</span></code></pre></div>
 <pre><code>## function() {
 ##   rand = rnorm(100)
 ##   hist(rand)
 ## }</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="Infrastructure.html#cb11-1"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb11-2"><a href="Infrastructure.html#cb11-2"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb11-3"><a href="Infrastructure.html#cb11-3"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb11-4"><a href="Infrastructure.html#cb11-4"></a><span class="co">#* @post /sum</span></span>
-<span id="cb11-5"><a href="Infrastructure.html#cb11-5"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb11-6"><a href="Infrastructure.html#cb11-6"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb11-7"><a href="Infrastructure.html#cb11-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Infrastructure.html#cb17-1"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb17-2"><a href="Infrastructure.html#cb17-2"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb17-3"><a href="Infrastructure.html#cb17-3"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb17-4"><a href="Infrastructure.html#cb17-4"></a><span class="co">#* @post /sum</span></span>
+<span id="cb17-5"><a href="Infrastructure.html#cb17-5"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb17-6"><a href="Infrastructure.html#cb17-6"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb17-7"><a href="Infrastructure.html#cb17-7"></a>}</span></code></pre></div>
 <pre><code>## function(a, b) {
 ##   as.numeric(a) + as.numeric(b)
 ## }</code></pre>
-<p>this chunck of code assempbled into a .R file has three endopoints</p>
-<p>Special comments are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
+<p>This chunk of code assembled into a .R file has three endpoints.
+Special comments are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the name of the API (unique without the <code>@</code>)
-- the <code>@params</code> keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endopoint below, plumber has to make sure that the function can run without them.
+- the <code>@params</code> keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endpoints below, plumber has to make sure that the function can run without them.
 - the <code>#* @png</code> chuck piece specify the extension of the output file.
-- the <code>#* @get /plot</code> decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectationa are that a plot is given as response</p>
+- the <code>#* @get /plot</code> decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectations are that a plot is given as response</p>
 
 </div>
 </div>
@@ -404,9 +404,6 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 <div id="refs" class="references">
 <div id="ref-red_hat_customer_portal">
 <p>“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7.” 2020. <em>Red Hat Customer Portal</em>. <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker</a>.</p>
-</div>
-<div id="ref-rmarkdown1">
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</p>
 </div>
 <div id="ref-api_generator_for_r">
 <p>“An Api Generator for R.” 2020. <em>An API Generator for R</em>. <a href="https://www.rplumber.io/">https://www.rplumber.io/</a>.</p>
@@ -420,9 +417,6 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 <div id="ref-docker_documentation_2020">
 <p>“Get Docker.” 2020. <em>Docker Documentation</em>. <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>.</p>
 </div>
-<div id="ref-reactR">
-<p>Inc, Facebook, Michel Weststrate, Kent Russell, and Alan Dipert. 2020. <em>ReactR: React Helpers</em>. <a href="https://CRAN.R-project.org/package=reactR">https://CRAN.R-project.org/package=reactR</a>.</p>
-</div>
 <div id="ref-plumber">
 <p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
 </div>
@@ -431,12 +425,6 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 </div>
 <div id="ref-wiki:scheduler">
 <p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
-</div>
-<div id="ref-bookdown2">
-<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
-</div>
-<div id="ref-bookdown1">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
 </div>
 </div>
             </section>
