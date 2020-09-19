@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution</title>
-  <meta name="description" content="Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <title>Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution</title>
+  <meta name="description" content="Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta property="og:title" content="Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
-  <meta property="og:description" content="Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta property="og:description" content="Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta name="twitter:title" content="Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution" />
   
-  <meta name="twitter:description" content="Chapter 8 Final Words | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta name="twitter:description" content="Chapter 4 Spatial Statistics | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
 
 <meta name="author" content="Niccolò Salvini" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="applications.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="Infrastructure.html"/>
+<link rel="next" href="prd.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -229,18 +229,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="final-words" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Final Words</h1>
-<p>We have finished a nice book.</p>
+<div id="spatial" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Spatial Statistics</h1>
+<div id="gentle-introduction" class="section level2">
+<h2><span class="header-section-number">4.1</span> Gentle Introduction</h2>
+<p><strong>va parafrasato</strong>
+Researchers in diverse areas such as climatology, ecology, environmental health, and real
+estate marketing are increasingly faced with the task of analyzing data that are:
+- highly multivariate, with many important predictors and response variables,
+- geographically referenced, and often presented as maps, and
+- temporally correlated, as in longitudinal or other time series structures.
+For example, for an epidemiological investigation, we might wish to analyze lung, breast,
+colorectal, and cervical cancer rates by county and year in a particular state, with smoking,
+mammography, and other important screening and staging information also available at
+some level. Public health professionals who collect such data are charged not only with
+surveillance, but also statistical inference tasks, such as modeling of trends and correlation
+structures, estimation of underlying model parameters, hypothesis testing (or comparison of
+competing models), and prediction of observations at unobserved times or locations.
+In this text we seek to present a practical, self-contained treatment of hierarchical mod-
+eling and data analysis for complex spatial (and spatiotemporal) datasets. Spatial statistics
+methods have been around for some time, with the landmark work by Cressie (1993) pro-
+viding arguably the only comprehensive book in the area. However, recent developments
+in Markov chain Monte Carlo (MCMC) computing now allow fully Bayesian analyses of
+sophisticated multilevel models for complex geographically referenced data. This approach
+also offers full inference for non-Gaussian spatial data, multivariate spatial data, spatiotem-
+poral data, and, for the first time, solutions to problems such as geographic and temporal
+misalignment of spatial data layers.
+<strong>va parafrasato</strong></p>
+</div>
+<div id="inla-estimation" class="section level2">
+<h2><span class="header-section-number">4.2</span> INLA estimation</h2>
+<p><strong>va parafrasato</strong>
+For many years, Bayesian inference has relied upon Markov chain Monte Carlo methods (Gilks et al. 1996; Brooks et al. 2011) to compute the joint posterior distribution of the model parameters. This is usually computationally very expensive as this distribution is often in a space of high dimension.</p>
+<p>Havard Rue, Martino, and Chopin (2009) propose a novel approach that makes Bayesian inference faster. First of all, rather than aiming at estimating the joint posterior distribution of the model parameters, they suggest focusing on individual posterior marginals of the model parameters. In many cases, marginal inference is enough to make inference of the model parameters and latent effects, and there is no need to deal with multivariate posterior distributions that are difficult to obtain. Secondly, they focus on models that can be expressed as latent Gaussian Markov random fields (GMRF). This provides the computational advantages (see Rue and Held 2005) that reduce computation time of model fitting. Furthermore, Havard Rue, Martino, and Chopin (2009) develop a new approximation to the posterior marginal distributions of the model parameters based on the Laplace approximation (see, for example, MacKay 2003). A recent review on INLA can be found in Rue et al. (2017)
+<strong>va parafrasato</strong></p>
+</div>
+<div id="presentation-of-data" class="section level2">
+<h2><span class="header-section-number">4.3</span> Presentation of data</h2>
+</div>
+<div id="point-referenced-data-models" class="section level2">
+<h2><span class="header-section-number">4.4</span> Point-referenced data models</h2>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="applications.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="Infrastructure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prd.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -272,7 +310,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/08-conclusions.Rmd",
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/04-spatial.Rmd",
 "text": "Edit"
 },
 "history": {

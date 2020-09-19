@@ -38,7 +38,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 
 <img src="images/logo.png" align="right" height="80" />
  
-# Spatial Machine Learning modelling: End-to-End web App solution
+# Bayesian Spatial Modelling: End-to-End web App solution
 
 _author_: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
 _date_: `r format(Sys.Date(), "%d %B, %Y")`
@@ -57,7 +57,7 @@ knitr::include_graphics("images/spatial_visualization.gif")
 
 ### Introduction:
 
-This repo contains my master thesis project which is a collection of various works done for single exams. What I did was fronting different angles of the same problem. I started by collecting all the data from various sources by **Scraping**, and then passing through **Shiny** web app development and in the end getting deep with methodologies and modelling into **Spatial Analysis**. This project virtually sums up the effort I have been putting into the real estate market starting from september 2018.
+This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled **scraping** techniques wrapped into an **API** (plumber). The API is then added into a **docker** container and served with **AWS** EC2 instance. On the other side all this data coming in is processed by a front-end  **Shiny** app whose back-end modeling is integrated with **bayesian** spatial methods. **INLA** is the computing choice. Visualizations are rendered with **rayshader**
 
 ### Deployment happens:
 

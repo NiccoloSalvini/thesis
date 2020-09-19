@@ -20,7 +20,7 @@ papersize: a4
 geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  
 fontsize: 12pt
 linestretch: 1.5
-toc-depth: 1
+toc-depth: 2
 fig_width: 7
 fig_height: 6
 fig_caption: true

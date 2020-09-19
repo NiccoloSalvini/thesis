@@ -1,0 +1,240 @@
+# Bayesian Spatial Modelling {#bayesianspat}
+
+**va parafrasatoo**
+
+
+Several types of models are used with spatial and spatio-temporal data, depend-
+ing on the aim of the study. If we are interested in summarizing spatial and
+spatio-temporal variation between areas using risks or probabilities then we
+could use statistical methods like disease mapping to compare maps and identify
+clusters. Moran Index is extensively used to check for spatial autocorrelation
+(Moran, 1950), while the scan statistics, implemented in SaTScan (Killdorf, 1997),
+has been used for cluster detection and to perform geographical surveillance in
+a non-Bayesian approach. The same types of models can also be used in studies
+where there is an aetiological aim to assess the potential effect of risk factors on
+outcomes.
+A different type of study considers the quantification of the risk of experienc-
+ing an outcome as the distance from a certain source increases. This is typically
+framed in an environmental context, so that the source could be a point (e.g., waste
+site, radio transmitter) or a line (e.g., power line, road). In this case, the meth-
+ods typically used vary from nonparametric tests proposed by Stone (1988) to the
+parametric approach introduced by Diggle et al. (1998).
+In a different context, when the interest lies in mapping continuous spatial (or
+spatio-temporal) variables, which are measured only at a finite set of specific points
+in a given region, and in predicting their values at unobserved locations, geostatis-
+tical methods – such as kriging – are employed (Cressie, 1991; Stein, 1991). This
+may play a significant role in environmental risk assessment in order to identify
+areas where the risk of exceeding potentially harmful thresholds is higher.
+Bayesian methods to deal with spatial and spatio-temporal data started to appear
+around year 2000, with the development of Markov chain Monte Carlo (MCMC)
+simulative methods (Casella and George, 1992; Gilks et al., 1996). Before that the
+Bayesian approach was almost only used for theoretical models and found little
+applications in real case studies due to the lack of numerical/analytical or simula-
+tive tools to compute posterior distributions. The advent of MCMC has triggered
+the possibility for researchers to develop complex models on large datasets without
+INTRODUCTION
+3
+the need of imposing simplified structures. Probably the main contribution to spatial
+and spatio-temporal statistics is the one of Besag et al. (1991), who developed
+the Besag–York–Mollié (BYM) method (see Chapter 6) which is commonly used
+for disease mapping, while Banerjee et al. (2004), Diggle and Ribeiro (2007) and
+Cressie and Wikle (2011) have concentrated on Bayesian geostatistical models.
+The main advantage of the Bayesian approach resides in its taking into account
+uncertainty in the estimates/predictions, and its flexibility and capability of dealing
+with issues like missing data. In the book, we follow this paradigm and introduce
+the Bayesian philosophy and inference in Chapter 3, while in Chapter 4 we review
+Bayesian computation tools, but the reader could also find interesting the follow-
+ing: Knorr-Held (2000) and Best et al. (2005) for disease mapping and Diggle et al.
+(1998) for a modeling approach for continuous spatial data and for prediction
+
+**va parafrasatoo**
+
+
+## INLA 
+
+For many years, Bayesian inference has relied upon Markov chain Monte Carlo methods (Gilks et al. 1996; Brooks et al. 2011) to compute the joint posterior distribution of the model parameters. This is usually computationally very expensive as this distribution is often in a space of high dimension.
+
+Havard Rue, Martino, and Chopin (2009) propose a novel approach that makes Bayesian inference faster. First of all, rather than aiming at estimating the joint posterior distribution of the model parameters, they suggest focusing on individual posterior marginals of the model parameters. In many cases, marginal inference is enough to make inference of the model parameters and latent effects, and there is no need to deal with multivariate posterior distributions that are difficult to obtain. Secondly, they focus on models that can be expressed as latent Gaussian Markov random fields (GMRF). This provides the computational advantages (see Rue and Held 2005) that reduce computation time of model fitting. Furthermore, Havard Rue, Martino, and Chopin (2009) develop a new approximation to the posterior marginal distributions of the model parameters based on the Laplace approximation (see, for example, MacKay 2003). A recent review on INLA can be found in Rue et al. (2017).
+
+
+## Laplace Approximation
+
+An alternative approach to the simulation-based MC integration is analytic approx-
+imation with the Laplace method. Suppose we are interested in computing the
+following integral:
+
+$$\int f(x) \mathrm{d} x=\int \exp (\log f(x)) \mathrm{d} x$$
+
+where $f(x)$ is the density function of a random variable X. We represent $log f(x)$ by
+means of a Taylor series expansion evaluated in x = x0:
+
+$$\log f(x) \approx \log f\left(x_{0}\right)+\left.\left(x-x_{0}\right) \frac{\partial \log f(x)}{\partial x}\right|_{x=x_{0}}+\left.\frac{\left(x-x_{0}\right)^{2}}{2} \frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x_{0}}$$
+
+
+If x0 is set equal to the mode $x∗ = argmax$, log f(x) then  log f(x)$\left.\frac{\partial \log f(x)}{\partial x}\right|_{x=x^{*}}=0$  and the approximation becomes
+
+
+$$\log f(x) \approx \log f\left(x^{*}\right)+\left.\frac{\left(x-x^{*}\right)^{2}}{2} \frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x^{*}}$$
+
+
+The integral of interest is then approximated as follows:
+
+$$\int f(x) \mathrm{d} x \approx \int \exp \left(\log f\left(x^{*}\right)+\left.\frac{\left(x-x^{*}\right)^{2}}{2} \frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x^{*}}\right) \mathrm{d} x$$
+
+$$=\exp \left(\log f\left(x^{*}\right)\right) \int \exp \left(\left.\frac{\left(x-x^{*}\right)^{2}}{2} \frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x^{*}}\right) \mathrm{d} x$$
+
+
+where the integrand can be associated with the density of a Normal distribution. In
+fact, by setting $$\sigma^{2 *}=-1 /\left.\frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x^{*}}$$  we obtain: 
+
+$$\int f(x) \mathrm{d} x \approx \exp \left(\log f\left(x^{*}\right)\right) \int \exp \left(-\frac{\left(x-x^{*}\right)^{2}}{2 \sigma^{2 *}}\right) \mathrm{d} x$$
+
+where the integrand is the kernel of a Normal distribution with mean equal to x∗
+and variance $\sigma^{2*}$. More precisely, the integral evaluated in the interval $(\alpha, \beta)$ is
+approximated by:
+
+$$\int_{\alpha}^{\beta} f(x) \mathrm{d} x \approx f\left(x^{*}\right) \sqrt{2 \pi \sigma^{2 *}}(\Phi(\beta)-\Phi(\alpha))$$
+
+where $\Phi(⋅)$ denotes the cumulative density function of th $Normal(x_i, \sigma^{2*})$ distri-
+bution.
+
+
+**qui volendo un esempio fatto da me**
+
+## The Class of Latent Gaussian Models
+
+
+The first step in defining a latent Gaussian model within the Bayesian framework
+is to identify a distribution for the observed data y = (y1, … , yn). A very general
+approach consists in specifying a distribution for yi characterized by a parameter
+𝜙i (usually the mean E(yi)) defined as a function of a structured additive predictor
+𝜂i through a link function g(⋅), such that g(𝜙i) = 𝜂i. The additive linear predictor 𝜂i
+is defined as follows:
+
+$$\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$$
+
+Here 𝛽0 is a scalar representing the intercept; the coefficients $\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}$
+quantify the (linear) effect of some covariates $\boldsymbol{x}=\left(\boldsymbol{x}_{1}, \ldots, \boldsymbol{x}_{M}\right)$ on the response; and
+$f=\left\{f_{1}(\cdot), \ldots, f_{L}(\cdot)\right\}$ is a collection of functions defined in terms of a set of covariates $z = (z_1, … , z_L)$. The terms $f_l(⋅)$ can assume different forms such as smooth and
+
+nonlinear effects of covariates, time trends and seasonal effects, random intercept
+and slopes as well as temporal or spatial random effects. For this reason, the class of
+latent Gaussian models is very flexible and can accomodate a wide range of models
+ranging from generalized and dynamic linear models to spatial and spatio-temporal
+models (see Martins et al., 2013 for a review).
+We collect all the latent (nonobservable) components of interest for the inference
+in a set of parameters named 𝜽 defined as $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, \boldsymbol{f}\right\}$. Moreover, we denote with
+$\psi=\left\{\psi_{1}, \ldots, \psi_{K}\right\}$ the vector of the K hyperparameters. By assuming conditional
+independence, the distribution of the n observations (all coming from the same
+distribution family) is given by the likelihood
+
+$$p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)$$
+
+
+where each data point yi is connected to only one element 𝜃i in the latent field $\theta$.
+Martins et al. (2013) discuss the possibility of relaxing this assumption assuming
+that each observation may be connected with a linear combination of elements in
+$\theta$; moreover, they take into account the case when the data belong to several distri-
+butions, i.e., the multiple likelihoods case.
+
+We assume a multivariate Normal prior on 𝜽 with mean 𝟎 and precision matrix
+$Q(\psi)$, i.e., $\boldsymbol{\theta} \sim \operatorname{Normal}\left(\mathbf{0}, \boldsymbol{Q}^{-1}(\boldsymbol{\psi})\right)$ with density function given by
+
+
+$$p(\theta \mid \psi)=(2 \pi)^{-n / 2}|Q(\psi)|^{1 / 2} \exp \left(-\frac{1}{2} \theta^{\prime} Q(\psi) \theta\right)$$
+
+where | ⋅ | denotes the matrix determinant and ′ is used for the transpose operation.
+The components of the latent Gaussian field 𝜽 are supposed to be conditionally
+independent with the consequence that $Q(\psi)$ is a sparse precision matrix.8 This
+specification is known as Gaussian Markov random field (GMRF, Rue and Held,
+2005). Note that the sparsity of the precision matrix gives rise to computational ben-
+efits when making inference with GMRFs. In fact, linear algebra operations can be
+performed using numerical methods for sparse matrices, resulting in a considerable
+computational gain (see Rue and Held, 2005 for algorithms).
+The joint posterior distribution of 𝜽 and $\psi$ is given by the product of the likelihood
+(4.13), of the GMRF density (4.14) and of the hyperparameter prior distribution
+$p(\psi)$:
+
+
+
+$$
+\begin{aligned} p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y}) & \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\ & \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\ & \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i=1}^{n} \exp \left(\log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \\ & \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum_{i=1}^{n} \log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \end{aligned}
+$$
+
+### Approximate Bayesian inference with INLA
+
+The objectives of Bayesian inference are the marginal posterior distributions for
+each element of the parameter vector
+
+$$p\left(\theta_{i} \mid \boldsymbol{y}\right)=\int p\left(\theta_{i}, \boldsymbol{\psi} \mid \boldsymbol{y}\right) \mathrm{d} \boldsymbol{\psi}=\int p\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) p(\boldsymbol{\psi} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\psi}$$
+
+and for each element of the hyperparameter vector
+
+$$p\left(\psi_{k} \mid \boldsymbol{y}\right)=\int p(\boldsymbol{\psi} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\psi}_{-k}$$
+
+Thus, we need to perform the following tasks:
+(i) compute $p(\boldsymbol{\psi} \mid \boldsymbol{y})$, from which also all the relevant marginals p(𝜓k|y) can be
+obtained;
+(ii) compute $p\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right)$ which is needed to compute the parameter marginal posteriors $p\left(\theta_{i} \mid \boldsymbol{y}\right)$
+
+The INLA approach exploits the assumptions of the model to produce a numerical
+approximation to the posteriors of interest based on the Laplace approximation
+method introduced in Section 4.7 (Tierney and Kadane, 1986).
+The first task (i) consists of the computation of an approximation to the joint
+posterior of the hyperparameters as:
+
+
+$$\begin{aligned} p(\boldsymbol{\psi} \mid \boldsymbol{y}) &=\frac{p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y})}{p(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{y})} \\ &=\frac{p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) p(\boldsymbol{\theta}, \boldsymbol{\psi})}{p(\boldsymbol{y})} \frac{1}{p(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{y})} \\ &=\frac{p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) p(\boldsymbol{\psi})}{p(\boldsymbol{y})} \frac{1}{p(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{y})} \\ & \propto \frac{p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) p(\boldsymbol{\psi})}{p(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{y})} \\ &\left.\approx \frac{p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) p(\boldsymbol{\psi})}{\tilde{p}(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{y})}\right|_{\boldsymbol{\theta}=\boldsymbol{\theta}^{*} \boldsymbol{\psi}}=: \tilde{p}(\boldsymbol{\psi} \mid \boldsymbol{y}) \end{aligned}$$
+
+where $\tilde{p}(\theta \mid \psi, y)$ is the Gaussian approximation – given by the Laplace method – of $p(\theta \mid \psi, y)$ and $\theta^{*}(\psi)$  is the mode for a given $\psi$ the Gaussian approximation turns out to be accurate since $p(\theta \mid \psi, y)$appears to be almost Gaussian as it is a priori dis-
+tributed like a GMRF, y is generally not informative and the observation distribution
+is usually well-behaved.
+The second task (ii) is slightly more complex, because in general there will
+be more elements in 𝜽 than in 𝝍, and thus this computation is more expensive.
+A first easy possibility is to approximate the posterior conditional distributions
+$p(\theta \mid \psi, y)$ directly as the marginals from $\tilde{p}(\theta \mid \psi, y)$  i.e. using a Normal distribution, where the Cholesky decomposition is used for the precision matrix (Rue
+and Martino, 2007). While this is very fast, the approximation is generally
+not very good. The second possibility is to rewrite the vector of parameters as
+$\theta=\left(\theta_{i}, \theta_{-i}\right)$ and use again Laplace approximation to obtain
+
+
+$$\begin{aligned} p\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) &=\frac{p\left(\left(\theta_{i}, \boldsymbol{\theta}_{-i}\right) \mid \boldsymbol{\psi}, \boldsymbol{y}\right)}{p\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)} \\ &=\frac{p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y})}{p(\boldsymbol{\psi} \mid \boldsymbol{y})} \frac{1}{p\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)} \\ & \propto \frac{p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y})}{p\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)} \\ &\left.\approx \frac{p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y})}{\tilde{p}\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)}\right|_{\boldsymbol{\theta}_{-i}=\boldsymbol{\theta}_{-i}^{*}\left(\theta_{i}, \boldsymbol{\psi}\right)}=: \tilde{p}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) \end{aligned}$$
+
+where $\tilde{p}\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)$  is the Laplace Gaussian approximation to $p\left(\boldsymbol{\theta}_{-i} \mid \theta_{i}, \boldsymbol{\psi}, \boldsymbol{y}\right)$ and $\boldsymbol{\theta}_{-i}^{*}\left(\theta_{i}, \boldsymbol{\psi}\right)$ is its mode.  Because the random variables $\theta_{-i} \mid \theta_{i}, \psi, y$ re in general
+reasonably Normal, the approximation provided by (4.20) typically works very
+well. This strategy, however, can be very expensive in computational terms as $\tilde{p}\left(\theta_{-i} \mid \theta_{i}, \psi, y\right)$ must be recomputed for each value of 𝜽 and 𝝍 (some modifications
+to the Laplace approximation in order to reduce the computational costs are
+described in Rue et al., 2009).
+
+
+ Operationally, INLA proceeds as follows:
+(i) first it explores the hyperparameter joint posterior distribution $\tilde{p}(\psi \mid \boldsymbol{y})$ of Eq. (4.18) in a nonparametric way, in order to detect good points $\left\{\psi^{(j)}\right\}$ for
+the numerical integration required in Eq. (4.22). Rue et al. (2009) propose
+two different exploration schemes, both requiring a reparameterization of
+the $\psi$-space – in order to deal with more regular densities – through the
+following steps:
+
+a) Locate the mode $\psi^{*}$ of $\tilde{p}(\boldsymbol{\psi} \mid \boldsymbol{y})$ by optimizing log $\tilde{p}(\boldsymbol{\psi} \mid \boldsymbol{y})$ with respect to
+𝝍 (e.g., through the Newton–Raphson method).
+b) Compute the negative Hessian $H$ at the modal configuration.
+c) Compute the eigen-decomposition $\mathbf{\Sigma}=\boldsymbol{V} \Lambda^{1 / 2} \boldsymbol{V}^{\prime}$, with $\Sigma=H^{-1}$.
+d) Define the new variable z, with standardized and mutually orthogonal
+components, such that:
+
+$$\boldsymbol{\psi}(z)=\boldsymbol{\psi}^{*}+\boldsymbol{V} \Lambda^{1 / 2} z$$
+
+The first exploration scheme (named grid strategy) builds, using the
+z-parameterization, a grid of points associated with the bulk of the mass of $\tilde{p}(\boldsymbol{\psi} \mid \boldsymbol{y})$ . This approach has a computational cost which grows exponentially
+with the number of hyperparameters; therefore the advice is to adopt it
+when K, the dimension of $\psi$, is lower than 4. Otherwise, the second explo-
+ration scheme, named central composite design (CCD) strategy, should be
+used as it reduces the computational costs. With the CCD approach, the
+integration problem is seen as a design problem; using the mode $\psi^{*}$ and the
+Hessian H, some relevant points in the 𝝍-space are selected for performing
+a second-order approximation to a response variable (see Section 6.5 of
+Rue et al., 2009 for details). In general, the CCD strategy uses much less
+points, but still is able to capture the variability of the hyperparameter
+distribution. For this reason it is the default option in R-INLA.
+
+
+

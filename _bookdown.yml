@@ -4,9 +4,11 @@ rmd_files:
     - "01-intro.Rmd"
     - "02-scraping.Rmd"
     - "03-infrastructure.Rmd"
-    - "04-method.Rmd"
-    - "05-application.Rmd"
-    - "06-summary.Rmd"
+    - "04-spatial.Rmd"
+    - "05-prd.Rmd"
+    - "06-bayesian.Rmd"
+    - "07-application.Rmd"
+    - "08-conclusions.Rmd"
     - "99-references.Rmd"
 language:
   ui:

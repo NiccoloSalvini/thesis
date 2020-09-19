@@ -1,0 +1,15 @@
+# Point Referenced Data {#prd}
+
+## Point-Referenced modeling 
+
+### Stationarity
+
+### Variograms
+
+### Isotropy
+
+### Variogram model fitting
+
+## Anisotropy
+
+## Exploratory analysis 

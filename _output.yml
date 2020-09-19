@@ -8,7 +8,7 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: yes
       before: |
-        <li><a href="./">Spatial Machine Learning Modelling: End-to-End web App solution</a></li>
+        <li><a href="./">Bayesian Spatial Modelling: End-to-End web App solution</a></li>
       after: |
         <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>

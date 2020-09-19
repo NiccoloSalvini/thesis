@@ -1,0 +1,39 @@
+# Spatial Statistics {#spatial}
+
+## Gentle Introduction
+
+**va parafrasato**
+Researchers in diverse areas such as climatology, ecology, environmental health, and real
+estate marketing are increasingly faced with the task of analyzing data that are:
+- highly multivariate, with many important predictors and response variables,
+- geographically referenced, and often presented as maps, and
+- temporally correlated, as in longitudinal or other time series structures.
+For example, for an epidemiological investigation, we might wish to analyze lung, breast,
+colorectal, and cervical cancer rates by county and year in a particular state, with smoking,
+mammography, and other important screening and staging information also available at
+some level. Public health professionals who collect such data are charged not only with
+surveillance, but also statistical inference tasks, such as modeling of trends and correlation
+structures, estimation of underlying model parameters, hypothesis testing (or comparison of
+competing models), and prediction of observations at unobserved times or locations.
+In this text we seek to present a practical, self-contained treatment of hierarchical mod-
+eling and data analysis for complex spatial (and spatiotemporal) datasets. Spatial statistics
+methods have been around for some time, with the landmark work by Cressie (1993) pro-
+viding arguably the only comprehensive book in the area. However, recent developments
+in Markov chain Monte Carlo (MCMC) computing now allow fully Bayesian analyses of
+sophisticated multilevel models for complex geographically referenced data. This approach
+also offers full inference for non-Gaussian spatial data, multivariate spatial data, spatiotem-
+poral data, and, for the first time, solutions to problems such as geographic and temporal
+misalignment of spatial data layers.
+**va parafrasato**
+
+## INLA estimation
+
+**va parafrasato**
+For many years, Bayesian inference has relied upon Markov chain Monte Carlo methods (Gilks et al. 1996; Brooks et al. 2011) to compute the joint posterior distribution of the model parameters. This is usually computationally very expensive as this distribution is often in a space of high dimension.
+
+Havard Rue, Martino, and Chopin (2009) propose a novel approach that makes Bayesian inference faster. First of all, rather than aiming at estimating the joint posterior distribution of the model parameters, they suggest focusing on individual posterior marginals of the model parameters. In many cases, marginal inference is enough to make inference of the model parameters and latent effects, and there is no need to deal with multivariate posterior distributions that are difficult to obtain. Secondly, they focus on models that can be expressed as latent Gaussian Markov random fields (GMRF). This provides the computational advantages (see Rue and Held 2005) that reduce computation time of model fitting. Furthermore, Havard Rue, Martino, and Chopin (2009) develop a new approximation to the posterior marginal distributions of the model parameters based on the Laplace approximation (see, for example, MacKay 2003). A recent review on INLA can be found in Rue et al. (2017)
+**va parafrasato**
+
+## Presentation of data
+
+## Point-referenced data models
