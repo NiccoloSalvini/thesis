@@ -122,7 +122,7 @@ is_url = function(url){
 
 - `.get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed.
 
-```{r, linewidth = 70 }
+```{r, linewidth = 70, tidy=FALSE}
 .get_delay = function(domain) {
   
   message(sprintf("Refreshing robots.txt data for %s...", domain))

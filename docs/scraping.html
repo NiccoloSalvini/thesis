@@ -11,7 +11,7 @@
   <meta property="og:title" content="Chapter 2 Scraping | Spatial Machine Learning modelling: End-to-End web app solution" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
-  <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/transspatial.PNG" />
+  <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
   <meta property="og:description" content="Chapter 2 Scraping | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter 2 Scraping | Spatial Machine Learning modelling: End-to-End web app solution" />
   
   <meta name="twitter:description" content="Chapter 2 Scraping | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
-  <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/transspatial.PNG" />
+  <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
 
 <meta name="author" content="Niccolò Salvini" />
 
@@ -305,23 +305,22 @@ Then the solution to that is to call inside the aggolmerative function as much a
 <li><code>.get_delay()</code> checks through the robotxt file if a delay between each request is kindly welcomed.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="scraping.html#cb7-1"></a>.get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
-<span id="cb7-2"><a href="scraping.html#cb7-2"></a>    </span>
-<span id="cb7-3"><a href="scraping.html#cb7-3"></a>    <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
-<span id="cb7-4"><a href="scraping.html#cb7-4"></a>    </span>
-<span id="cb7-5"><a href="scraping.html#cb7-5"></a>    cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
-<span id="cb7-6"><a href="scraping.html#cb7-6"></a>    </span>
-<span id="cb7-7"><a href="scraping.html#cb7-7"></a>    <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb7-8"><a href="scraping.html#cb7-8"></a>        star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent <span class="op">==</span><span class="st"> &quot;*&quot;</span>)</span>
-<span id="cb7-9"><a href="scraping.html#cb7-9"></a>        <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) </span>
-<span id="cb7-10"><a href="scraping.html#cb7-10"></a>            star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>, ]</span>
-<span id="cb7-11"><a href="scraping.html#cb7-11"></a>        <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
-<span id="cb7-12"><a href="scraping.html#cb7-12"></a>    } <span class="cf">else</span> {</span>
-<span id="cb7-13"><a href="scraping.html#cb7-13"></a>        10L</span>
-<span id="cb7-14"><a href="scraping.html#cb7-14"></a>    }</span>
-<span id="cb7-15"><a href="scraping.html#cb7-15"></a>    </span>
-<span id="cb7-16"><a href="scraping.html#cb7-16"></a>}</span>
-<span id="cb7-17"><a href="scraping.html#cb7-17"></a></span>
-<span id="cb7-18"><a href="scraping.html#cb7-18"></a>get_delay =<span class="st"> </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
+<span id="cb7-2"><a href="scraping.html#cb7-2"></a>  </span>
+<span id="cb7-3"><a href="scraping.html#cb7-3"></a>  <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
+<span id="cb7-4"><a href="scraping.html#cb7-4"></a>  </span>
+<span id="cb7-5"><a href="scraping.html#cb7-5"></a>  cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
+<span id="cb7-6"><a href="scraping.html#cb7-6"></a>  </span>
+<span id="cb7-7"><a href="scraping.html#cb7-7"></a>  <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb7-8"><a href="scraping.html#cb7-8"></a>    star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent<span class="op">==</span><span class="st">&quot;*&quot;</span>)</span>
+<span id="cb7-9"><a href="scraping.html#cb7-9"></a>    <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>,]</span>
+<span id="cb7-10"><a href="scraping.html#cb7-10"></a>    <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
+<span id="cb7-11"><a href="scraping.html#cb7-11"></a>  } <span class="cf">else</span> {</span>
+<span id="cb7-12"><a href="scraping.html#cb7-12"></a>    10L</span>
+<span id="cb7-13"><a href="scraping.html#cb7-13"></a>  }</span>
+<span id="cb7-14"><a href="scraping.html#cb7-14"></a>  </span>
+<span id="cb7-15"><a href="scraping.html#cb7-15"></a>}</span>
+<span id="cb7-16"><a href="scraping.html#cb7-16"></a></span>
+<span id="cb7-17"><a href="scraping.html#cb7-17"></a>get_delay =<span class="st">  </span>memoise<span class="op">::</span><span class="kw">memoise</span>(.get_delay)</span></code></pre></div>
 </div>
 </div>
 <div id="how-they-are-designed-with-rvest" class="section level2">
