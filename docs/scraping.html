@@ -139,14 +139,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Spatial Machine Learning Modelling: End-to-End web App solution</a></li>
+<li><a href="./">Bayesian Spatial Modelling: End-to-End web App solution</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#preface"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
@@ -271,6 +270,13 @@ Il successivo elemento di complessità incontrato durante questa prima fase è s
 <span id="cb1-15"><a href="scraping.html#cb1-15"></a><span class="kw">checkpermission</span>(dominio)</span></code></pre></div>
 <pre><code>## 
 ## robot.txt for immobiliare.it is okay with scraping!</code></pre>
+<p>Further improvements in this direction came from the <code>polite</code> package <span class="citation">(Perepolkin <a href="#ref-polite" role="doc-biblioref">2019</a>)</span> which combines the power of the <code>robotstxt</code>, the <code>ratelimitr</code> to rate-limiting requests and the <code>memoise</code> for response caching. This package is wrapped up around 3 simple but effective ideas:</p>
+<blockquote>
+<p>The three pillars of a polite session are seeking permission, taking slowly and never asking twice.</p>
+</blockquote>
+<p>The three pillars constitute the Ethical web scraping manifesto <span class="citation">(Densmore <a href="#ref-densmore_2019" role="doc-biblioref">2019</a>)</span> which are common
+shared practises that are aimed to self regularize scrapers. This has not nothing to do with law but since many scrapers themselves, as website administrators or analyst, have fought with bots.
+Bots might fake out real client logs and might stain analytics, so here it is born the choice to fine common ground and politely ask for permission.</p>
 </div>
 <div id="user-agents-proxies-handlers" class="section level2">
 <h2><span class="header-section-number">2.3</span> User agents, Proxies, Handlers</h2>
@@ -453,11 +459,17 @@ What it worth noting is that some other popular player other like Idealista is u
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-densmore_2019">
+<p>Densmore, James. 2019. “Ethics in Web Scraping.” <em>Medium</em>. Towards Data Science. <a href="https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01">https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01</a>.</p>
+</div>
 <div id="ref-robotstxt">
 <p>Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A ’Robots.txt’ Parser and ’Webbot’/’Spider’/’Crawler’ Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.</p>
 </div>
 <div id="ref-foreach">
 <p>Microsoft, and Steve Weston. 2020. <em>Foreach: Provides Foreach Looping Construct</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.</p>
+</div>
+<div id="ref-polite">
+<p>Perepolkin, Dmytro. 2019. <em>Polite: Be Nice on the Web</em>. <a href="https://CRAN.R-project.org/package=polite">https://CRAN.R-project.org/package=polite</a>.</p>
 </div>
 <div id="ref-whoishostingthis.com">
 <p>“User Agent: Learn Your Web Browsers User Agent Now.” 2020. <em>WhoIsHostingThis.com</em>. <a href="https://www.whoishostingthis.com/tools/user-agent/">https://www.whoishostingthis.com/tools/user-agent/</a>.</p>

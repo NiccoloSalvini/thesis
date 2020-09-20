@@ -57,7 +57,7 @@ knitr::include_graphics("images/spatial_visualization.gif")
 
 ### Introduction:
 
-This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled **scraping** techniques wrapped into an **API** (plumber). The API is then added into a **docker** container and served with **AWS** EC2 instance. On the other side all this data coming in is processed by a front-end  **Shiny** app whose back-end modeling is integrated with **bayesian** spatial methods. **INLA** is the computing choice. Visualizations are rendered with **rayshader**
+This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled **scraping** techniques wrapped into an **API** (plumber). The API is then added into a **docker** container and served with **AWS** EC2 instance. On the other side all this data coming in is processed by a front-end  **Shiny** app whose back-end modeling is integrated with **bayesian** spatial methods. **INLA** is the computing choice. Visualizations are rendered with **rayshader**.
 
 ### Deployment happens:
 

@@ -1,6 +1,8 @@
 book_filename: "Niccolo_Salvini_Thesis"
 rmd_files:
     - "index.Rmd"
+    - "prelims/00-prelim.Rmd"
+    - "prelims/00-abstract.Rmd"
     - "01-intro.Rmd"
     - "02-scraping.Rmd"
     - "03-infrastructure.Rmd"

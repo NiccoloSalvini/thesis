@@ -1,0 +1,190 @@
+--- 
+title: "Spatial Machine Learning modelling: End-to-End web app solution"
+author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
+url: 'https://niccolosalvini.github.io/Thesis/'
+date: "date: Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+classoption: oneside
+bibliography: [refs.bib, Rpackages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: NiccoloSalvini/Thesis
+favicon: "images/favicon.ico" 
+cover-image: "images/spat-touch.png"
+description: "Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini"
+apple-touch-icon: "images/spatial.png"
+apple-touch-icon-size: 120
+papersize: a4
+geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  
+fontsize: 12pt
+linestretch: 1.5
+toc-depth: 2
+fig_width: 7
+fig_height: 6
+fig_caption: true
+links-as-notes: true  
+lot: true 
+lof: true
+---
+
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")}
+```
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
+```
+
+```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
+suppressMessages(source("hooks_mod/wrap_lines.R"))
+suppressMessages(source("hooks_mod/chunk_size.R"))
+```
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# Preliminary Content {-}
+
+`r if(!knitr:::is_latex_output()) '## Abstract {-}'`
+
+
+<!--chapter:end:prelims/00-prelim.Rmd-->
+
+
+This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled scraping techniques wrapped into an API (plumber). The API is then added into a docker container and served with AWS EC2 instance. On the other side all this data coming in is processed by a front-end Shiny app whose back-end modeling is integrated with bayesian spatial methods. INLA is the computing choice. Visualizations are rendered with rayshader.
+
+## Acknowledgements {-}
+
+First of all I acknowledge a special debt to Professor Della Vedova who has patently followed me during this 6 months long journey, he has encouraged me and let me try things never done before. Our communication through this process has always been transparent and each moment spent was a lesson to learn. I came with strong ideas to his office desk and he let me shape my dissertation giving me blank paper. Most of all when something was not working he has always been keen to solve and suggest a better approach. I owe a lot also to Dr. Vincenzo Nardelli, he is one of the kindest and most talented guys I have ever met. I took a big inspiration by its works. He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics. Sometimes I feel like I am copying him, but then I realize that it is inspiration. I owe also a huge thanks to professor Lucia Paci. She has been one of the top teacher in my master course to me by far. She has the capability to explain very hard stuff with ease without omitting anything. She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got. The bayesian statistical part relies on her thoughts and on her experience on the subject. 
+I will not for sure miss to thank my beautiful girlfriend Elisabetta, she has done the under the hood work, she has not appeared but without her anything would not have been even possible. She is so smart and she know me so well that when I had my sad moments, even though she was under pressure, she brought the only medicine I know: icecream. I thank my father to be such a big milestone in my...
+
+## Dedication {-}
+
+To my beloved mother, Maria Cristina. She has done so much for me you would not even know. We have been facing fires and flames for God knows how long, and now look where we are. Our relationship has never been easy, we have both of us strong attitudes, nevertheless we keep on persisting and the reason is that we can not be set apart. Never.
+The most I have done since I remember is for her and for her satisfaction. I do not regret it. She is my spiritual inspiration, and I hope someday that I will be to her stature. she went "all in" sending me in Milan. 
+She did right.
+Mum's always right.
+
+
+_keywords_ : Bayesian Statistics, RESTFUL API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Jobs.
+
+
+<!--chapter:end:prelims/00-abstract.Rmd-->
+
+
+# Introduction {#intro}
+
+Placeholder
+
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+
+# Scraping {#scraping}
+
+Placeholder
+
+
+## What is Scraping 
+##  Scraping Best Practices and Robot.txt 
+## User agents, Proxies, Handlers 
+### User agents Spoofing
+### Handlers
+## How they are designed with `rvest`
+### From Generic and Specific structure
+### Parallel Computing
+## What are the Advantages of this Workflow
+## Legal Challenges (ancora non validato)
+
+<!--chapter:end:02-scraping.Rmd-->
+
+
+# Infrastructure {#Infrastructure}
+
+Placeholder
+
+
+## Scheduler
+### Cron Jobs
+## Docker Container 
+### What is Docker?
+### What are the main andvantages of using Docker
+### Dockerfile 
+## API 
+## What is an API 
+### What in practice an API does
+### Plumber API
+
+<!--chapter:end:03-infrastructure.Rmd-->
+
+
+# Spatial Statistics {#spatial}
+
+Placeholder
+
+
+## Gentle Introduction
+## INLA estimation
+## Presentation of data
+## Point-referenced data models
+
+<!--chapter:end:04-spatial.Rmd-->
+
+# Point Referenced Data {#prd}
+
+## Point-Referenced modeling 
+
+### Stationarity
+
+### Variograms
+
+### Isotropy
+
+### Variogram model fitting
+
+## Anisotropy
+
+## Exploratory analysis 
+
+<!--chapter:end:05-prd.Rmd-->
+
+
+# Bayesian Spatial Modelling {#bayesianspat}
+
+Placeholder
+
+
+## INLA 
+## Laplace Approximation
+## The Class of Latent Gaussian Models
+### Approximate Bayesian inference with INLA
+
+<!--chapter:end:06-bayesian.Rmd-->
+
+# Applications
+
+Some _significant_ applications are demonstrated in this chapter.
+
+## Example one
+
+## Example two
+
+<!--chapter:end:07-application.Rmd-->
+
+# Final Words 
+
+We have finished a nice book.
+
+<!--chapter:end:08-conclusions.Rmd-->
+
+`r if (knitr:::is_html_output()) 
+'
+# References {-}
+'`
+
+<!--chapter:end:99-references.Rmd-->
+
