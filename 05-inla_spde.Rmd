@@ -1,4 +1,4 @@
-# INLA computation {#bayesianspat}
+# INLA computation {#inla-spde}
 
 **va parafrasatoo**
 
@@ -31,10 +31,7 @@ simulative methods (Casella and George, 1992; Gilks et al., 1996). Before that t
 Bayesian approach was almost only used for theoretical models and found little
 applications in real case studies due to the lack of numerical/analytical or simula-
 tive tools to compute posterior distributions. The advent of MCMC has triggered
-the possibility for researchers to develop complex models on large datasets without
-INTRODUCTION
-3
-the need of imposing simplified structures. Probably the main contribution to spatial
+the possibility for researchers to develop complex models on large datasets without the need of imposing simplified structures. Probably the main contribution to spatial
 and spatio-temporal statistics is the one of Besag et al. (1991), who developed
 the Besag–York–Mollié (BYM) method (see Chapter 6) which is commonly used
 for disease mapping, while Banerjee et al. (2004), Diggle and Ribeiro (2007) and
