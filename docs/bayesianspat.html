@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution</title>
-  <meta name="description" content="Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <title>Chapter 5 INLA computation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
+  <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta property="og:title" content="Chapter 5 INLA computation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
-  <meta property="og:description" content="Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta property="og:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta name="twitter:title" content="Chapter 5 INLA computation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   
-  <meta name="twitter:description" content="Chapter 6 Bayesian Spatial Modelling | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
 
 <meta name="author" content="Niccolò Salvini" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="prd.html"/>
-<link rel="next" href="applications.html"/>
+<link rel="prev" href="datapres.html"/>
+<link rel="next" href="prd.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
-<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Scraping</a></li>
+<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robot.txt</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
@@ -171,35 +171,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-andvantages-of-using-docker"><i class="fa fa-check"></i><b>3.2.2</b> What are the main andvantages of using Docker</a></li>
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.4</b> What is an API</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-in-practice-an-api-does"><i class="fa fa-check"></i><b>3.4.1</b> What in practice an API does</a></li>
-<li class="chapter" data-level="3.4.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.4.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.3.1</b> What is an API</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare-api-design"><i class="fa fa-check"></i><b>3.3.3</b> Immobiliare API design</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws-ec2-server"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="spatial.html"><a href="spatial.html"><i class="fa fa-check"></i><b>4</b> Spatial Statistics</a><ul>
-<li class="chapter" data-level="4.1" data-path="spatial.html"><a href="spatial.html#gentle-introduction"><i class="fa fa-check"></i><b>4.1</b> Gentle Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="spatial.html"><a href="spatial.html#inla-estimation"><i class="fa fa-check"></i><b>4.2</b> INLA estimation</a></li>
-<li class="chapter" data-level="4.3" data-path="spatial.html"><a href="spatial.html#presentation-of-data"><i class="fa fa-check"></i><b>4.3</b> Presentation of data</a></li>
-<li class="chapter" data-level="4.4" data-path="spatial.html"><a href="spatial.html#point-referenced-data-models"><i class="fa fa-check"></i><b>4.4</b> Point-referenced data models</a></li>
+<li class="chapter" data-level="4" data-path="datapres.html"><a href="datapres.html"><i class="fa fa-check"></i><b>4</b> Data Presentation</a><ul>
+<li class="chapter" data-level="4.1" data-path="datapres.html"><a href="datapres.html#data-glimpse"><i class="fa fa-check"></i><b>4.1</b> Data Glimpse</a></li>
+<li class="chapter" data-level="4.2" data-path="datapres.html"><a href="datapres.html#explorative-analysis"><i class="fa fa-check"></i><b>4.2</b> Explorative Analysis</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datapres.html"><a href="datapres.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.2.1</b> Semivariogram Covariogram</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data</a><ul>
-<li class="chapter" data-level="5.1" data-path="prd.html"><a href="prd.html#point-referenced-modeling"><i class="fa fa-check"></i><b>5.1</b> Point-Referenced modeling</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="prd.html"><a href="prd.html#stationarity"><i class="fa fa-check"></i><b>5.1.1</b> Stationarity</a></li>
-<li class="chapter" data-level="5.1.2" data-path="prd.html"><a href="prd.html#variograms"><i class="fa fa-check"></i><b>5.1.2</b> Variograms</a></li>
-<li class="chapter" data-level="5.1.3" data-path="prd.html"><a href="prd.html#isotropy"><i class="fa fa-check"></i><b>5.1.3</b> Isotropy</a></li>
-<li class="chapter" data-level="5.1.4" data-path="prd.html"><a href="prd.html#variogram-model-fitting"><i class="fa fa-check"></i><b>5.1.4</b> Variogram model fitting</a></li>
+<li class="chapter" data-level="4.3" data-path="datapres.html"><a href="datapres.html#gaussian-random-fields"><i class="fa fa-check"></i><b>4.3</b> Gaussian random fields</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="prd.html"><a href="prd.html#anisotropy"><i class="fa fa-check"></i><b>5.2</b> Anisotropy</a></li>
-<li class="chapter" data-level="5.3" data-path="prd.html"><a href="prd.html#exploratory-analysis"><i class="fa fa-check"></i><b>5.3</b> Exploratory analysis</a></li>
+<li class="chapter" data-level="5" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
+<li class="chapter" data-level="5.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>5.1</b> INLA</a></li>
+<li class="chapter" data-level="5.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>5.2</b> Laplace Approximation</a></li>
+<li class="chapter" data-level="5.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>5.3</b> The Class of Latent Gaussian Models</a></li>
+<li class="chapter" data-level="5.4" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>5.4</b> Approximate Bayesian inference with INLA</a></li>
+<li class="chapter" data-level="5.5" data-path="bayesianspat.html"><a href="bayesianspat.html#stochastic-partial-differential-equation"><i class="fa fa-check"></i><b>5.5</b> Stochastic partial differential equation</a></li>
+<li class="chapter" data-level="5.6" data-path="bayesianspat.html"><a href="bayesianspat.html#the-projector-matrix"><i class="fa fa-check"></i><b>5.6</b> The Projector Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>6</b> Bayesian Spatial Modelling</a><ul>
-<li class="chapter" data-level="6.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>6.1</b> INLA</a></li>
-<li class="chapter" data-level="6.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>6.2</b> Laplace Approximation</a></li>
-<li class="chapter" data-level="6.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>6.3</b> The Class of Latent Gaussian Models</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>6.3.1</b> Approximate Bayesian inference with INLA</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="6" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modelling</a></li>
 <li class="chapter" data-level="7" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>7</b> Applications</a><ul>
 <li class="chapter" data-level="7.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
 <li class="chapter" data-level="7.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example two</a></li>
@@ -220,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Spatial Machine Learning modelling: End-to-End web app solution</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a>
           </h1>
         </div>
 
@@ -229,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="bayesianspat" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Bayesian Spatial Modelling</h1>
+<h1><span class="header-section-number">Chapter 5</span> INLA computation</h1>
 <p><strong>va parafrasatoo</strong></p>
 <p>Several types of models are used with spatial and spatio-temporal data, depend-
 ing on the aim of the study. If we are interested in summarizing spatial and
@@ -276,12 +270,12 @@ ing: Knorr-Held (2000) and Best et al. (2005) for disease mapping and Diggle et
 (1998) for a modeling approach for continuous spatial data and for prediction</p>
 <p><strong>va parafrasatoo</strong></p>
 <div id="inla" class="section level2">
-<h2><span class="header-section-number">6.1</span> INLA</h2>
+<h2><span class="header-section-number">5.1</span> INLA</h2>
 <p>For many years, Bayesian inference has relied upon Markov chain Monte Carlo methods (Gilks et al. 1996; Brooks et al. 2011) to compute the joint posterior distribution of the model parameters. This is usually computationally very expensive as this distribution is often in a space of high dimension.</p>
 <p>Havard Rue, Martino, and Chopin (2009) propose a novel approach that makes Bayesian inference faster. First of all, rather than aiming at estimating the joint posterior distribution of the model parameters, they suggest focusing on individual posterior marginals of the model parameters. In many cases, marginal inference is enough to make inference of the model parameters and latent effects, and there is no need to deal with multivariate posterior distributions that are difficult to obtain. Secondly, they focus on models that can be expressed as latent Gaussian Markov random fields (GMRF). This provides the computational advantages (see Rue and Held 2005) that reduce computation time of model fitting. Furthermore, Havard Rue, Martino, and Chopin (2009) develop a new approximation to the posterior marginal distributions of the model parameters based on the Laplace approximation (see, for example, MacKay 2003). A recent review on INLA can be found in Rue et al. (2017).</p>
 </div>
 <div id="laplace-approximation" class="section level2">
-<h2><span class="header-section-number">6.2</span> Laplace Approximation</h2>
+<h2><span class="header-section-number">5.2</span> Laplace Approximation</h2>
 <p>An alternative approach to the simulation-based MC integration is analytic approx-
 imation with the Laplace method. Suppose we are interested in computing the
 following integral:</p>
@@ -306,7 +300,7 @@ bution.</p>
 <p><strong>qui volendo un esempio fatto da me</strong></p>
 </div>
 <div id="the-class-of-latent-gaussian-models" class="section level2">
-<h2><span class="header-section-number">6.3</span> The Class of Latent Gaussian Models</h2>
+<h2><span class="header-section-number">5.3</span> The Class of Latent Gaussian Models</h2>
 <p>The first step in defining a latent Gaussian model within the Bayesian framework
 is to identify a distribution for the observed data y = (y1, … , yn). A very general
 approach consists in specifying a distribution for yi characterized by a parameter
@@ -350,8 +344,9 @@ The joint posterior distribution of 𝜽 and <span class="math inline">\(\psi\)<
 <p><span class="math display">\[
 \begin{aligned} p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y}) &amp; \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\ &amp; \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\ &amp; \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i=1}^{n} \exp \left(\log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \\ &amp; \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum_{i=1}^{n} \log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \end{aligned}
 \]</span></p>
-<div id="approximate-bayesian-inference-with-inla" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Approximate Bayesian inference with INLA</h3>
+</div>
+<div id="approximate-bayesian-inference-with-inla" class="section level2">
+<h2><span class="header-section-number">5.4</span> Approximate Bayesian inference with INLA</h2>
 <p>The objectives of Bayesian inference are the marginal posterior distributions for
 each element of the parameter vector</p>
 <p><span class="math display">\[p\left(\theta_{i} \mid \boldsymbol{y}\right)=\int p\left(\theta_{i}, \boldsymbol{\psi} \mid \boldsymbol{y}\right) \mathrm{d} \boldsymbol{\psi}=\int p\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) p(\boldsymbol{\psi} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\psi}\]</span></p>
@@ -410,8 +405,63 @@ a second-order approximation to a response variable (see Section 6.5 of
 Rue et al., 2009 for details). In general, the CCD strategy uses much less
 points, but still is able to capture the variability of the hyperparameter
 distribution. For this reason it is the default option in R-INLA.</p>
-
 </div>
+<div id="stochastic-partial-differential-equation" class="section level2">
+<h2><span class="header-section-number">5.5</span> Stochastic partial differential equation</h2>
+<p>approach</p>
+<p>As described in the previous chapters, in R-INLA the linear predictor <span class="math inline">\(\eta_{i}\)</span> is defined
+using the formula which includes <code>f()</code> terms for nonlinear effects of covariates or
+random effects. In the same way, the Matérn GF will be included in the formula
+using a proper specification for <code>f()</code>. For making the connection between the linear
+predictor<span class="math inline">\(\eta\)</span> i and the formula more explicit, it is convenient to follow Lindgren
+and Rue (2015) and to rewrite the linear predictor as:</p>
+<p><span class="math inline">\(\eta_{i}=\sum_{k} h_{k}\left(z_{i}^{k}\right)\)</span></p>
+<p>where <em>k</em> denotes the <em>k</em> th term of the <code>formula</code>, <span class="math inline">\(z_{i}^{k}\)</span> represents the covariate value for a fixed/nonlinear effect or, in the case of a random effect, the index of a second-order
+unit (e.g., area or point ID). The mapping function <span class="math inline">\(h_{k}(\cdot)\)</span> links <span class="math inline">\(z_{i}^{k}\)</span> to the actual value
+of the latent field for the <em>k</em> th formula component.
+As an example consider the case where the linear predictor <span class="math inline">\(\eta_{i}\)</span> includes a fixed
+effect of a covariate (named <code>z1</code> in R), a nonlinear effect (e.g., RW2) of the variable
+<code>time</code> (given by a sequence of time points), and a random effect with iid compo-
+nents indexed by the variable <code>index.random</code>. Thus the corresponding <code>R-INLA</code>
+<code>formula</code> is</p>
+<pre><code>
+formula &lt;- -1 + z1 + f(time, model=&quot;rw2&quot;) + f(index.random, model=&quot;iid&quot;)
+</code></pre>
+<p>The default intercept is not included as we specify <code>-1</code> in the formula. With the
+new linear pwredictor, we have that <span class="math inline">\(h_{1}\left(z_{i}^{1}\right)\)</span> is equal to <span class="math inline">\(z_{i}^{1} \beta\)</span>,
+<span class="math inline">\(h_{2}\left(z_{i}^{2}\right)\)</span> is the smooth effect evaluated at <span class="math inline">\(z_{i}^{2}\)</span> (the ith element of vector time), and <span class="math inline">\(h_{3}\left(z_{i}^{3}\right)\)</span> is the random effect component with index equal to <span class="math inline">\(z_{i}^{3}\)</span> (the ith element of <code>index.random</code>). As usual, the latent field <span class="math inline">\(\theta\)</span> is the joint vector of all the latent Gaussian variables included in the linear predictor.</p>
+<p>The formulation only allows each observation to directly depend on
+a single element <span class="math inline">\(z_{i}^{k}\)</span> from each effect <span class="math inline">\(h_{k}(\cdot)\)</span> and this does not cover the case when a random effect is defined as a linear combination of temporal or areal values, such
+as the SPDE representation. In such cases each observation <span class="math inline">\(y_{i}\)</span> depends on a linear combination of the elements of 𝜽 and the observation distribution will be defined as:</p>
+<p><span class="math inline">\(y_{i} \mid \theta, \psi \sim p\left(y_{i} \mid \sum_{j} A_{i j} \theta_{j}, \psi\right)\)</span></p>
+<p>instead of <span class="math inline">\(y_{i} \mid \boldsymbol{\theta}_{i}, \boldsymbol{\psi} \sim p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\)</span> as in Eq. (4.13). The term <span class="math inline">\(A_{ij}\)</span> is the generic element
+of the matrix <strong>A</strong> referred to as the observation or projector matrix. In Sections 6.7.2 and 6.7.3, we will show how to create the <strong>A</strong> matrix using the helper func
+tion <code>inla.spde.matrix.A</code> and how to include it in the inla call through the <code>control.predictor</code> option. The <strong>A</strong> matrix defines a mapping between the
+spatial latent field (defined on the mesh) and the observations (defined in a set
+of locations) and this allows the SPDE models to be treated as standard indexed
+random effects (the mapping is done by placing appropriate <span class="math inline">\(\varphi_{g}(s)\)</span> values in the
+<strong>A</strong> matrix, see Eq. (6.18)). Internally, <code>R-INLA</code> creates a new linear predictor <span class="math inline">\(\eta^{\star}\)</span>
+defined as a linear combination of the original one <span class="math inline">\(\eta\)</span>:</p>
+<p><span class="math inline">\(\eta^{\star}=A \eta\)</span></p>
+<p>and in this case the likelihood is linked to the latent field through<span class="math inline">\(\eta^{\star}_{i}\)</span> instead of
+<span class="math inline">\(\eta_{i}\)</span>:</p>
+<p><span class="math inline">\(p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i=1}^{n} p\left(y_{i} \mid \eta_{i}^{\star}, \boldsymbol{\psi}\right)\)</span></p>
+</div>
+<div id="the-projector-matrix" class="section level2">
+<h2><span class="header-section-number">5.6</span> The Projector Matrix</h2>
+<p>We need to construct a projection matrix <strong>A</strong> to project the GRF from the observations to thetriangulation vertices. The matrix <strong>A</strong> as the number of rows equal to the number of observations, and the number of columns equal to the number of vertices of the triangulation. Row <span class="math inline">\(i\)</span> of <strong>A</strong> corresponding to an observation at location <span class="math inline">\(s_{i}\)</span> ossibly has three non-zero values at the columns that correspond to the vertices of the triangle that contains the location. If <span class="math inline">\(s_{i}\)</span> within the triangle, these values are equal to the barycentric coordinates. That is, they are proportional to the areas of each of the three subtriangles defined by the location <span class="math inline">\(s_{i}\)</span>
+and the triangle’s vertices, and sum to 1. If <span class="math inline">\(s_{i}\)</span> s equal to a vertex of the triangle, row<br />
+<span class="math inline">\(i\)</span> has just one non-zero value equal to 1 at the column that corresponds to the vertex. Intuitively, the value <span class="math inline">\(Z(\boldsymbol{s})\)</span> at a location that lies within one triangle is the projection of the plane formed by the triangle vertices weights at location <span class="math inline">\(s\)</span> .</p>
+<p>An example of a projection matrix is given below. This projection matrix projects <span class="math inline">\(n\)</span> observations to <span class="math inline">\(G\)</span> triangulation vertices. The first row of the matrix corresponds to an observation with location that coincides with vertex number 3. The second and last rows correspond to observations with locations lying within triangles.</p>
+<p><span class="math inline">\(4=\left[\begin{array}{ccccc}A_{11} &amp; A_{12} &amp; A_{13} &amp; \ldots &amp; A_{1 G} \\ A_{21} &amp; A_{22} &amp; A_{23} &amp; \ldots &amp; A_{2 G} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ A_{n 1} &amp; A_{n 2} &amp; A_{n 3} &amp; \ldots &amp; A_{n G}\end{array}\right]=\left[\begin{array}{ccccc}0 &amp; 0 &amp; 1 &amp; \ldots &amp; 0 \\ A_{21} &amp; A_{22} &amp; 0 &amp; \ldots &amp; A_{2 G} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ A_{n 1} &amp; A_{n 2} &amp; A_{n 3} &amp; \ldots &amp; 0\end{array}\right]\)</span></p>
+<p>igure 8.6 shows a location <span class="math inline">\(s\)</span> that lies within one of the triangles of a triangulated mesh. The value of the process <span class="math inline">\(Z(\cdot)\)</span> at <span class="math inline">\(s\)</span> is expressed as a weighted average of the values of the process at the vertices of the triangle (<span class="math inline">\(Z_{1}\)</span>, <span class="math inline">\(Z_{2}\)</span> and <span class="math inline">\(Z_{3}\)</span>)and with weights equal to
+<span class="math inline">\(T_{1} / T\)</span>, <span class="math inline">\(T_{2} / T\)</span> and <span class="math inline">\(T_{3} / T\)</span> where <span class="math inline">\(T\)</span>denotes the area of the big triangle that contains <span class="math inline">\(s\)</span> and <span class="math inline">\(T_{1}\)</span>, <span class="math inline">\(T_{2}\)</span> and <span class="math inline">\(T_{3}\)</span> are the areas of the subtriangles</p>
+<p><span class="math inline">\(Z(\boldsymbol{s}) \approx \frac{T_{1}}{T} Z_{1}+\frac{T_{2}}{T} Z_{2}+\frac{T_{3}}{T} Z_{3}\)</span></p>
+<p><img src="images/triangle-mesh-1.png" alt="triangle-mesh-1" />
+<code>R-INLA</code> provides the <code>inla.spde.make.A()</code> function to easily construct a projection matrix <strong>A</strong>
+We create the projection matrix of our example by using <code>inla.spde.make.A()</code> passing the triangulated mesh <code>mesh</code> and the coordinates <code>coo</code>.</p>
+<pre><code>A &lt;- inla.spde.make.A(mesh = mesh, loc = coo)</code></pre>
+
 </div>
 </div>
             </section>
@@ -419,8 +469,8 @@ distribution. For this reason it is the default option in R-INLA.</p>
           </div>
         </div>
       </div>
-<a href="prd.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="applications.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="datapres.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prd.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -452,7 +502,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/06-bayesian.Rmd",
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/05-inla_spde.Rmd",
 "text": "Edit"
 },
 "history": {

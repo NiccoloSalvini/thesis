@@ -1,5 +1,5 @@
 --- 
-title: "Spatial Machine Learning modelling: End-to-End web app solution"
+title: "End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA"
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
 date: "date: Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
@@ -13,7 +13,7 @@ link-citations: yes
 github-repo: NiccoloSalvini/Thesis
 favicon: "images/favicon.ico" 
 cover-image: "images/spat-touch.png"
-description: "Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini"
+description: " Niccolò Salvini master's thesis project"
 apple-touch-icon: "images/spatial.png"
 apple-touch-icon-size: 120
 papersize: a4

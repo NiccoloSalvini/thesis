@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Spatial Machine Learning modelling: End-to-End web app solution</title>
-  <meta name="description" content="Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <title>End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
+  <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta property="og:title" content="End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
-  <meta property="og:description" content="Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta property="og:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta name="twitter:title" content="End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   
-  <meta name="twitter:description" content="Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
 
 <meta name="author" content="Niccolò Salvini" />
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
-<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Scraping</a></li>
+<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robot.txt</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
@@ -171,35 +171,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-andvantages-of-using-docker"><i class="fa fa-check"></i><b>3.2.2</b> What are the main andvantages of using Docker</a></li>
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.4</b> What is an API</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-in-practice-an-api-does"><i class="fa fa-check"></i><b>3.4.1</b> What in practice an API does</a></li>
-<li class="chapter" data-level="3.4.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.4.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.3.1</b> What is an API</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare-api-design"><i class="fa fa-check"></i><b>3.3.3</b> Immobiliare API design</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws-ec2-server"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="spatial.html"><a href="spatial.html"><i class="fa fa-check"></i><b>4</b> Spatial Statistics</a><ul>
-<li class="chapter" data-level="4.1" data-path="spatial.html"><a href="spatial.html#gentle-introduction"><i class="fa fa-check"></i><b>4.1</b> Gentle Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="spatial.html"><a href="spatial.html#inla-estimation"><i class="fa fa-check"></i><b>4.2</b> INLA estimation</a></li>
-<li class="chapter" data-level="4.3" data-path="spatial.html"><a href="spatial.html#presentation-of-data"><i class="fa fa-check"></i><b>4.3</b> Presentation of data</a></li>
-<li class="chapter" data-level="4.4" data-path="spatial.html"><a href="spatial.html#point-referenced-data-models"><i class="fa fa-check"></i><b>4.4</b> Point-referenced data models</a></li>
+<li class="chapter" data-level="4" data-path="datapres.html"><a href="datapres.html"><i class="fa fa-check"></i><b>4</b> Data Presentation</a><ul>
+<li class="chapter" data-level="4.1" data-path="datapres.html"><a href="datapres.html#data-glimpse"><i class="fa fa-check"></i><b>4.1</b> Data Glimpse</a></li>
+<li class="chapter" data-level="4.2" data-path="datapres.html"><a href="datapres.html#explorative-analysis"><i class="fa fa-check"></i><b>4.2</b> Explorative Analysis</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datapres.html"><a href="datapres.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.2.1</b> Semivariogram Covariogram</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data</a><ul>
-<li class="chapter" data-level="5.1" data-path="prd.html"><a href="prd.html#point-referenced-modeling"><i class="fa fa-check"></i><b>5.1</b> Point-Referenced modeling</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="prd.html"><a href="prd.html#stationarity"><i class="fa fa-check"></i><b>5.1.1</b> Stationarity</a></li>
-<li class="chapter" data-level="5.1.2" data-path="prd.html"><a href="prd.html#variograms"><i class="fa fa-check"></i><b>5.1.2</b> Variograms</a></li>
-<li class="chapter" data-level="5.1.3" data-path="prd.html"><a href="prd.html#isotropy"><i class="fa fa-check"></i><b>5.1.3</b> Isotropy</a></li>
-<li class="chapter" data-level="5.1.4" data-path="prd.html"><a href="prd.html#variogram-model-fitting"><i class="fa fa-check"></i><b>5.1.4</b> Variogram model fitting</a></li>
+<li class="chapter" data-level="4.3" data-path="datapres.html"><a href="datapres.html#gaussian-random-fields"><i class="fa fa-check"></i><b>4.3</b> Gaussian random fields</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="prd.html"><a href="prd.html#anisotropy"><i class="fa fa-check"></i><b>5.2</b> Anisotropy</a></li>
-<li class="chapter" data-level="5.3" data-path="prd.html"><a href="prd.html#exploratory-analysis"><i class="fa fa-check"></i><b>5.3</b> Exploratory analysis</a></li>
+<li class="chapter" data-level="5" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
+<li class="chapter" data-level="5.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>5.1</b> INLA</a></li>
+<li class="chapter" data-level="5.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>5.2</b> Laplace Approximation</a></li>
+<li class="chapter" data-level="5.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>5.3</b> The Class of Latent Gaussian Models</a></li>
+<li class="chapter" data-level="5.4" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>5.4</b> Approximate Bayesian inference with INLA</a></li>
+<li class="chapter" data-level="5.5" data-path="bayesianspat.html"><a href="bayesianspat.html#stochastic-partial-differential-equation"><i class="fa fa-check"></i><b>5.5</b> Stochastic partial differential equation</a></li>
+<li class="chapter" data-level="5.6" data-path="bayesianspat.html"><a href="bayesianspat.html#the-projector-matrix"><i class="fa fa-check"></i><b>5.6</b> The Projector Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>6</b> Bayesian Spatial Modelling</a><ul>
-<li class="chapter" data-level="6.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>6.1</b> INLA</a></li>
-<li class="chapter" data-level="6.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>6.2</b> Laplace Approximation</a></li>
-<li class="chapter" data-level="6.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>6.3</b> The Class of Latent Gaussian Models</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>6.3.1</b> Approximate Bayesian inference with INLA</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="6" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modelling</a></li>
 <li class="chapter" data-level="7" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>7</b> Applications</a><ul>
 <li class="chapter" data-level="7.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
 <li class="chapter" data-level="7.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example two</a></li>
@@ -220,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Spatial Machine Learning modelling: End-to-End web app solution</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a>
           </h1>
         </div>
 
@@ -229,9 +223,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Spatial Machine Learning modelling: End-to-End web app solution</h1>
+<h1 class="title">End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</h1>
 <p class="author"><em><a href="https://niccolosalvini.netlify.app/">Niccolò Salvini</a></em></p>
-<p class="date"><em>date: Last compiled on 20 settembre, 2020</em></p>
+<p class="date"><em>date: Last compiled on 25 settembre, 2020</em></p>
 </div>
 <div id="preliminary-content" class="section level1 unnumbered">
 <h1>Preliminary Content</h1>

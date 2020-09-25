@@ -1,0 +1,25 @@
+# Data Presentation {#datapres}
+
+Data come packed into an API in JSON format and are ready to be analysed. It has 52 covariates and the number of rows rows strictly depends on the API query parater settings.
+
+```{r, echo=FALSE, message=FALSE }
+library(readr)
+library(tidyverse)
+  data =  read.csv("data/data.csv")
+```
+
+## Data Glimpse 
+```{r}
+library(knitr)
+glimpse(data)
+```
+
+
+
+## Explorative Analysis
+
+###  Semivariogram Covariogram
+
+[ en passant anche isotropy and anisotropy. Con stazionarietà forte e debole]
+
+##  Gaussian random fields

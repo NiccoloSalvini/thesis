@@ -1,4 +1,4 @@
-# Bayesian Spatial Modelling {#bayesianspat}
+# INLA computation {#bayesianspat}
 
 **va parafrasatoo**
 
@@ -161,7 +161,7 @@ $$
 \begin{aligned} p(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \boldsymbol{y}) & \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\ & \propto p(\boldsymbol{\psi}) \times p(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\ & \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i=1}^{n} \exp \left(\log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \\ & \propto p(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum_{i=1}^{n} \log \left(p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) \end{aligned}
 $$
 
-### Approximate Bayesian inference with INLA
+## Approximate Bayesian inference with INLA
 
 The objectives of Bayesian inference are the marginal posterior distributions for
 each element of the parameter vector
@@ -235,6 +235,130 @@ a second-order approximation to a response variable (see Section 6.5 of
 Rue et al., 2009 for details). In general, the CCD strategy uses much less
 points, but still is able to capture the variability of the hyperparameter
 distribution. For this reason it is the default option in R-INLA.
+
+
+## Stochastic partial differential equation
+approach
+
+As described in the previous chapters, in R-INLA the linear predictor $\eta_{i}$ is defined
+using the formula which includes `f()` terms for nonlinear effects of covariates or
+random effects. In the same way, the Matérn GF will be included in the formula
+using a proper specification for `f()`. For making the connection between the linear
+predictor$\eta$ i and the formula more explicit, it is convenient to follow Lindgren
+and Rue (2015) and to rewrite the linear predictor as:
+
+$\eta_{i}=\sum_{k} h_{k}\left(z_{i}^{k}\right)$
+
+where _k_ denotes the _k_ th term of the `formula`, $z_{i}^{k}$ represents the covariate value for a fixed/nonlinear effect or, in the case of a random effect, the index of a second-order
+unit (e.g., area or point ID). The mapping function $h_{k}(\cdot)$ links $z_{i}^{k}$ to the actual value
+of the latent field for the _k_ th formula component.
+As an example consider the case where the linear predictor $\eta_{i}$  includes a fixed
+effect of a covariate (named `z1` in R), a nonlinear effect (e.g., RW2) of the variable
+`time` (given by a sequence of time points), and a random effect with iid compo-
+nents indexed by the variable `index.random`. Thus the corresponding `R-INLA`
+`formula` is
+
+
+
+```
+
+formula <- -1 + z1 + f(time, model="rw2") + f(index.random, model="iid")
+
+```
+
+The default intercept is not included as we specify `-1` in the formula. With the
+new linear pwredictor, we have that $h_{1}\left(z_{i}^{1}\right)$ is equal to $z_{i}^{1} \beta$,
+$h_{2}\left(z_{i}^{2}\right)$ is the smooth effect evaluated at $z_{i}^{2}$ (the ith element of vector time), and $h_{3}\left(z_{i}^{3}\right)$ is the random effect component with index equal to $z_{i}^{3}$ (the ith element of `index.random`). As usual, the latent field $\theta$ is the joint vector of all the latent Gaussian variables included in the linear predictor.
+
+The formulation only allows each observation to directly depend on
+a single element $z_{i}^{k}$  from each effect $h_{k}(\cdot)$ and this does not cover the case when a random effect is defined as a linear combination of temporal or areal values, such
+as the SPDE representation. In such cases each observation $y_{i}$ depends on a linear combination of the elements of 𝜽 and the observation distribution will be defined as:
+
+
+$y_{i} \mid \theta, \psi \sim p\left(y_{i} \mid \sum_{j} A_{i j} \theta_{j}, \psi\right)$
+
+
+instead of $y_{i} \mid \boldsymbol{\theta}_{i}, \boldsymbol{\psi} \sim p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)$ as in Eq. (4.13). The term $A_{ij}$ is the generic element
+of the matrix **A** referred to as the observation or projector matrix. In Sections 6.7.2 and 6.7.3, we will show how to create the  **A** matrix using the helper func
+tion `inla.spde.matrix.A` and how to include it in the inla call through the `control.predictor` option.  The **A** matrix defines a mapping between the
+spatial latent field (defined on the mesh) and the observations (defined in a set
+of locations) and this allows the SPDE models to be treated as standard indexed
+random effects (the mapping is done by placing appropriate $\varphi_{g}(s)$  values in the
+**A** matrix, see Eq. (6.18)). Internally, `R-INLA` creates a new linear predictor $\eta^{\star}$
+defined as a linear combination of the original one $\eta$:
+
+
+$\eta^{\star}=A \eta$
+
+and in this case the likelihood is linked to the latent field through$\eta^{\star}_{i}$ instead of
+$\eta_{i}$:
+
+
+$p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i=1}^{n} p\left(y_{i} \mid \eta_{i}^{\star}, \boldsymbol{\psi}\right)$
+
+
+## The Projector Matrix
+
+We need to construct a projection matrix **A** to project the GRF from the observations to thetriangulation vertices.  The matrix **A** as the number of rows equal to the number of observations, and the number of columns equal to the number of vertices of the triangulation. Row $i$ of **A** corresponding to an observation at location $s_{i}$ ossibly has three non-zero values at the columns that correspond to the vertices of the triangle that contains the location. If  $s_{i}$ within the triangle, these values are equal to the barycentric coordinates. That is, they are proportional to the areas of each of the three subtriangles defined by the location $s_{i}$ 
+and the triangle’s vertices, and sum to 1. If $s_{i}$ s equal to a vertex of the triangle, row  
+$i$ has just one non-zero value equal to 1 at the column that corresponds to the vertex. Intuitively, the value $Z(\boldsymbol{s})$ at a location that lies within one triangle is the projection of the plane formed by the triangle vertices weights at location $s$ .
+
+An example of a projection matrix is given below. This projection matrix projects  $n$ observations to  $G$  triangulation vertices. The first row of the matrix corresponds to an observation with location that coincides with vertex number 3. The second and last rows correspond to observations with locations lying within triangles.
+
+
+$4=\left[\begin{array}{ccccc}A_{11} & A_{12} & A_{13} & \ldots & A_{1 G} \\ A_{21} & A_{22} & A_{23} & \ldots & A_{2 G} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ A_{n 1} & A_{n 2} & A_{n 3} & \ldots & A_{n G}\end{array}\right]=\left[\begin{array}{ccccc}0 & 0 & 1 & \ldots & 0 \\ A_{21} & A_{22} & 0 & \ldots & A_{2 G} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ A_{n 1} & A_{n 2} & A_{n 3} & \ldots & 0\end{array}\right]$
+
+
+igure 8.6 shows a location  $s$  that lies within one of the triangles of a triangulated mesh. The value of the process  $Z(\cdot)$  at  $s$  is expressed as a weighted average of the values of the process at the vertices of the triangle ($Z_{1}$, $Z_{2}$ and $Z_{3}$)and with weights equal to 
+$T_{1} / T$, $T_{2} / T$ and  $T_{3} / T$ where $T$denotes the area of the big triangle that contains $s$ and $T_{1}$, $T_{2}$ and $T_{3}$ are the areas of the subtriangles
+
+$Z(\boldsymbol{s}) \approx \frac{T_{1}}{T} Z_{1}+\frac{T_{2}}{T} Z_{2}+\frac{T_{3}}{T} Z_{3}$
+
+![triangle-mesh-1](images/triangle-mesh-1.png)
+`R-INLA` provides the `inla.spde.make.A()` function to easily construct a projection matrix **A**
+We create the projection matrix of our example by using `inla.spde.make.A()`  passing the triangulated mesh `mesh` and the coordinates `coo`.
+
+```
+A <- inla.spde.make.A(mesh = mesh, loc = coo)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

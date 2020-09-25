@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution</title>
-  <meta name="description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <title>Chapter 3 Infrastructure | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
+  <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta property="og:title" content="Chapter 3 Infrastructure | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
-  <meta property="og:description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta property="og:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution" />
+  <meta name="twitter:title" content="Chapter 3 Infrastructure | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   
-  <meta name="twitter:description" content="Chapter 3 Infrastructure | Spatial Machine Learning modelling: End-to-End web app solution by Niccolò Salvini" />
+  <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
 
 <meta name="author" content="Niccolò Salvini" />
@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="scraping.html"/>
-<link rel="next" href="spatial.html"/>
+<link rel="next" href="datapres.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
-<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Scraping</a></li>
+<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robot.txt</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
@@ -171,35 +171,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-andvantages-of-using-docker"><i class="fa fa-check"></i><b>3.2.2</b> What are the main andvantages of using Docker</a></li>
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.4</b> What is an API</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-in-practice-an-api-does"><i class="fa fa-check"></i><b>3.4.1</b> What in practice an API does</a></li>
-<li class="chapter" data-level="3.4.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.4.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.3.1</b> What is an API</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.2</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare-api-design"><i class="fa fa-check"></i><b>3.3.3</b> Immobiliare API design</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws-ec2-server"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 server</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="spatial.html"><a href="spatial.html"><i class="fa fa-check"></i><b>4</b> Spatial Statistics</a><ul>
-<li class="chapter" data-level="4.1" data-path="spatial.html"><a href="spatial.html#gentle-introduction"><i class="fa fa-check"></i><b>4.1</b> Gentle Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="spatial.html"><a href="spatial.html#inla-estimation"><i class="fa fa-check"></i><b>4.2</b> INLA estimation</a></li>
-<li class="chapter" data-level="4.3" data-path="spatial.html"><a href="spatial.html#presentation-of-data"><i class="fa fa-check"></i><b>4.3</b> Presentation of data</a></li>
-<li class="chapter" data-level="4.4" data-path="spatial.html"><a href="spatial.html#point-referenced-data-models"><i class="fa fa-check"></i><b>4.4</b> Point-referenced data models</a></li>
+<li class="chapter" data-level="4" data-path="datapres.html"><a href="datapres.html"><i class="fa fa-check"></i><b>4</b> Data Presentation</a><ul>
+<li class="chapter" data-level="4.1" data-path="datapres.html"><a href="datapres.html#data-glimpse"><i class="fa fa-check"></i><b>4.1</b> Data Glimpse</a></li>
+<li class="chapter" data-level="4.2" data-path="datapres.html"><a href="datapres.html#explorative-analysis"><i class="fa fa-check"></i><b>4.2</b> Explorative Analysis</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="datapres.html"><a href="datapres.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.2.1</b> Semivariogram Covariogram</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data</a><ul>
-<li class="chapter" data-level="5.1" data-path="prd.html"><a href="prd.html#point-referenced-modeling"><i class="fa fa-check"></i><b>5.1</b> Point-Referenced modeling</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="prd.html"><a href="prd.html#stationarity"><i class="fa fa-check"></i><b>5.1.1</b> Stationarity</a></li>
-<li class="chapter" data-level="5.1.2" data-path="prd.html"><a href="prd.html#variograms"><i class="fa fa-check"></i><b>5.1.2</b> Variograms</a></li>
-<li class="chapter" data-level="5.1.3" data-path="prd.html"><a href="prd.html#isotropy"><i class="fa fa-check"></i><b>5.1.3</b> Isotropy</a></li>
-<li class="chapter" data-level="5.1.4" data-path="prd.html"><a href="prd.html#variogram-model-fitting"><i class="fa fa-check"></i><b>5.1.4</b> Variogram model fitting</a></li>
+<li class="chapter" data-level="4.3" data-path="datapres.html"><a href="datapres.html#gaussian-random-fields"><i class="fa fa-check"></i><b>4.3</b> Gaussian random fields</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="prd.html"><a href="prd.html#anisotropy"><i class="fa fa-check"></i><b>5.2</b> Anisotropy</a></li>
-<li class="chapter" data-level="5.3" data-path="prd.html"><a href="prd.html#exploratory-analysis"><i class="fa fa-check"></i><b>5.3</b> Exploratory analysis</a></li>
+<li class="chapter" data-level="5" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
+<li class="chapter" data-level="5.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>5.1</b> INLA</a></li>
+<li class="chapter" data-level="5.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>5.2</b> Laplace Approximation</a></li>
+<li class="chapter" data-level="5.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>5.3</b> The Class of Latent Gaussian Models</a></li>
+<li class="chapter" data-level="5.4" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>5.4</b> Approximate Bayesian inference with INLA</a></li>
+<li class="chapter" data-level="5.5" data-path="bayesianspat.html"><a href="bayesianspat.html#stochastic-partial-differential-equation"><i class="fa fa-check"></i><b>5.5</b> Stochastic partial differential equation</a></li>
+<li class="chapter" data-level="5.6" data-path="bayesianspat.html"><a href="bayesianspat.html#the-projector-matrix"><i class="fa fa-check"></i><b>5.6</b> The Projector Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="bayesianspat.html"><a href="bayesianspat.html"><i class="fa fa-check"></i><b>6</b> Bayesian Spatial Modelling</a><ul>
-<li class="chapter" data-level="6.1" data-path="bayesianspat.html"><a href="bayesianspat.html#inla"><i class="fa fa-check"></i><b>6.1</b> INLA</a></li>
-<li class="chapter" data-level="6.2" data-path="bayesianspat.html"><a href="bayesianspat.html#laplace-approximation"><i class="fa fa-check"></i><b>6.2</b> Laplace Approximation</a></li>
-<li class="chapter" data-level="6.3" data-path="bayesianspat.html"><a href="bayesianspat.html#the-class-of-latent-gaussian-models"><i class="fa fa-check"></i><b>6.3</b> The Class of Latent Gaussian Models</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="bayesianspat.html"><a href="bayesianspat.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>6.3.1</b> Approximate Bayesian inference with INLA</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="6" data-path="prd.html"><a href="prd.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modelling</a></li>
 <li class="chapter" data-level="7" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>7</b> Applications</a><ul>
 <li class="chapter" data-level="7.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
 <li class="chapter" data-level="7.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example two</a></li>
@@ -220,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Spatial Machine Learning modelling: End-to-End web app solution</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a>
           </h1>
         </div>
 
@@ -355,12 +349,12 @@ In order to give the possibility to have a daily updated saptial analysis on dat
 Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
 The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.</p>
 <p><strong>va parafrasato</strong></p>
-</div>
-<div id="what-is-an-api" class="section level2">
-<h2><span class="header-section-number">3.4</span> What is an API</h2>
+<div id="what-is-an-api" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> What is an API</h3>
 <p>API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.</p>
 <p>APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
-APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.</p>
+APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.
+APIs in less formal verbs are infrastructure that calls function with given arguments and answer back with elaborations of the data passed. They are expressed through link and could have different end points. An end point identifies the operation that the API caller wants to perform. The most of the times APIs are protected with encryption and authentication.</p>
 <p>API examples:
 - Google Maps API: allows developers embed geo-location data using JavaScript. The Google Maps API is designed to work on mobile and desktop.
 - YouTube API: allows developers integrate YouTube videos and functionalities into websites or applications.
@@ -370,14 +364,9 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 <p class="caption">API functioning</p>
 </div>
 <p>Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it’s important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.</p>
-<div id="what-in-practice-an-api-does" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> What in practice an API does</h3>
-<p>API, strictly talking to this thesis extent, are cloud infrastructure that given a specific URL ( and the most of the times credentials) are outputting data. Data comes in a given format (the most of the times JSON),so that they can be instantly pre-processed and elaborated, in this case by oine other software, the Shiny app.</p>
-<p><strong>(va prafrasato)</strong></p>
-<p>Since website are continuously changed for many reasons API philosophy results in a smarter choice since it makes easy to access data and flex API endpoints to the business needs.</p>
 </div>
 <div id="plumber-api" class="section level3">
-<h3><span class="header-section-number">3.4.2</span> Plumber API</h3>
+<h3><span class="header-section-number">3.3.2</span> Plumber API</h3>
 <p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="Infrastructure.html#cb11-1"></a><span class="co"># plumber.R file</span></span>
 <span id="cb11-2"><a href="Infrastructure.html#cb11-2"></a></span>
@@ -397,14 +386,63 @@ APIs are sometimes thought of as contracts, with documentation that represents a
 <span id="cb11-16"><a href="Infrastructure.html#cb11-16"></a><span class="cf">function</span>(a, b) {</span>
 <span id="cb11-17"><a href="Infrastructure.html#cb11-17"></a>    <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
 <span id="cb11-18"><a href="Infrastructure.html#cb11-18"></a>}</span></code></pre></div>
-<p>This chunk of code assembled into a .R file has three endpoints where interruption occurs.</p>
+<p>This chunk of code assembled into a .R file has three endpoints which can be easily recognized by the number of functions present.</p>
 <p>Special comments are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the name of the API (unique without the <code>@</code>)
 - the <code>@params</code> keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endpoints below, plumber has to make sure that the function can run without them.
 - the <code>#* @png</code> chuck piece specify the extension of the output file.
-- the <code>#* @get /plot</code> decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectations are that a plot is given as response</p>
-
+- the <code>#* @get /plot</code> decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectations are that a plot is given as response.
+- the <code>@filter</code> decorations activates a filter through which the maintainer can track users logs data. Filters can also handle data coming from users formatting it to the standard requested.</p>
 </div>
+<div id="immobiliare-api-design" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Immobiliare API design</h3>
+<p>Daily extractions give birth to a more or less constant number of total rows which are 3200 - 3500 and a constant number of covariates 52 (the parameter npages can handle the number of pages to be scrapped). Data can come from two different end-points <em>/scrape</em> and <em>/complete</em> as the API description says. This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does.
+The other reason why it takes more run time relies on the fact that the links of each of the rental advertisements are not generated in local, like the one in the /complete. At first In order to scrape each specific single advertisement through its respective url they need to be extracted. This is done by the <code>all.links()</code> function which corresponds also to the second end point /links.</p>
+<div class="figure">
+<img src="images/scrapflowchart.jpg" alt="" />
+<p class="caption">Endpoints Architecture</p>
+</div>
+<ul>
+<li>Get fast raw data, 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
+</ul>
+<pre><code>      GET */scrape
+
+      param url [url string] the link from which you are interested to extract data 
+      param npages [positive integer] number of pages to scrape (1-300) 
+      content-type: application/json </code></pre>
+<ul>
+<li>Get all the links</li>
+</ul>
+<pre><code>      GET */link
+
+      param url [url string]  the link from which you are interested to extract data
+      param npages  [positive integer] number of pages to scrape (1-300) 
+      content-type: application/json </code></pre>
+<ul>
+<li>Get the complete set of covariates (52) from each single links, takes a while</li>
+</ul>
+<pre><code>      GET */complete
+
+      param url  _url string_ url the link from which you are interested to extract data
+      param npages [positive integer] number of pages to scrape (1-300) 
+      content-type: application/json     </code></pre>
+</div>
+</div>
+<div id="aws-ec2-server" class="section level2">
+<h2><span class="header-section-number">3.4</span> AWS EC2 server</h2>
+<p>The structure needs to be hosted on a server that permits to scale computation and manage multiple requests.</p>
+<p><strong>from amazon</strong>
+Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. It provides complete control of the computing resources and let run on Amazon’s proven computing environment.
+<strong>from amazon</strong></p>
+<p>These are virtual servers that you can spin up and rent. You can set the servers up however you want, and you can scale them up or down (to provide more juice) as needed.</p>
+<p>(…)</p>
+<p>posso far vedere:
+- come si fa deplyment su AWS quindi
+- inizializzazione istanza
+- settare paramtri
+- mettere spazio macchina
+- spiegare perchè conviene tenere un server AWS</p>
+
 </div>
 </div>
 <h3>References</h3>
@@ -452,7 +490,7 @@ APIs are sometimes thought of as contracts, with documentation that represents a
         </div>
       </div>
 <a href="scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="spatial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="datapres.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

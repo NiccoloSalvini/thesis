@@ -7,8 +7,9 @@ opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 ```
 
 
-## What is Scraping 
+## What is Web Scraping 
 
+Web scraping is a techniques aimed to extract data from static or dynaminc internet web pages. It can be done automatically and simultaneously. Given the substantial unavailability of fresh data regarding Milan Real Estante rental markets, this practices have to be forcibly applied. Data in website appears to be well organized and easily accesible, nevertheless sometimes they are not 
 Lo web scraping è una tecnica di estrazione dei dati da pagine internet statiche o dinamiche in maniera automatica e simulatanea [@wiki:xxx].  L'impossibilità di reperire dati aperti aggiornati riguardo l'affitto sul mercato italiano mi ha spinto a sviluppare sofisticate tecniche di estrazione di dati orientate ad alleggerire lo sforzo e aumentare la velocità di reperimento: da una parte nel preprocessing del dataset, nella successiva del fragente del modelling, per finire con la reattività di risposta dell'applicazione. 
 Le informazioni sui siti appaiono spesso ordinate e semplici, tuttavia ogni sito web ha una propria architettura e un proprio linguaggio. Per architettura intendo struttura gerarchica secondo cui è organizatto un sito internet: una semplificazione della struttura di un sito web può essere un insieme di cartelle innestate una dentro l'altra collegate tra loro da riferimenti tramite l'url. la natura gerarchica della struttura prevede che si usi un linguaggio che fa propria questa caratteristica, HTML è il preferito. L'html si organizza in nodi ed angoli, esattamente come un grafo; che aggiunta la componente gerarchica fa sì che questo sia un albero. Difatti spesso ci si riferisce alla struttura delle pagine web come html tree. Ogni elemento nella pagina ha un suo preciso posto nel codice sorgente della stessa e ha un preciso valore o più valori. Possiamo immaginare ogni nodo della pagina come una lista di valori che è collegata ad un nodo precedente detto padre da una struttura gerarchica superiore, ed eventiualmente ad un nodo successivo detto figlio. Pertanto tutte le informazioni che giacciono sotto al nodo padre sono parenti del nodo padre e sono direttamente collegate (directed nel senso dell'interpretazione), parallelamente ci saranno altri nodi padre che saranno adiacenti al nodo padre, i quali avranno nodi figli e così via.
 La complessità della pagina e del codice è tanto maggiore quanto il livello dell'albero aumenta, tanto più l'albero è folto tanto più sarà difficile individurare il ramo o la foglia che ci interessa. Ragionevolemnte accade lo stesso per la funzione di scraping e il tempo di scraping. 
@@ -153,11 +154,15 @@ get_delay =  memoise::memoise(.get_delay)
 
 ## How they are designed with `rvest`
 
-The way scraping functions are designed are walks around three main programming concepts:
+The way scraping functions are oriented walks around three main key programming concepts:
 
 - Continuous integration and easy debugging
 - Intuitive structure 
 - Fasten process with respect to the goal of acquiring data 
+
+Functions are esplicitely designed to respond to continuos changes and to handle fails. They need to be dynamic otherwise they would not get the content. Since none can predict whther a system administrator will change the page layout, the scrapping is disassembled into x number of functions. The number x of funvtions nearly corresponds to the final number of covariates ezxtracted (some of the functione extracts more than one covariates). In such a way the maintainer can easily adjust the failing function by accessing through it. 
+
+Starting from the url where advertisements (25 per web page) are it can be created all the following url since it is necessary to append the "&page = 1", "&page = 2" and so. Once they are collected into an object the firs scraping function can be processed given that in this urls 
 
 
 ### From Generic and Specific structure
@@ -167,7 +172,7 @@ The way scraping functions are designed are walks around three main programming 
 
 ### Parallel Computing
 
-Since many html sessions are opened and within each session many requests are sent computations can take a while. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily and a single day is sufficient amount of runtime. In any case functions are optimized following the criteria stated before. Run time is crucial when dealing with time series and time to market in real estate is very important, this leads to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation divided among a bunch of different machines, in this case sessions. A first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`  , along with a `future` parallel backend. This has shows decent results, but its run time increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:
+Since many html sessions are opened and within each session many requests are sent computations can take a while. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily and a single day is sufficient amount of runtime. In any case functions are optimized following the criteria stated before. Run time is crucial when dealing with time series and time to market in real estate is very important, this leads to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation divided among a bunch of different machines, in this case sessions. All the following runtime examinations are performed on the `scrape.all` functions. A first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`  , along with a `future` parallel backend. This has shows decent results, but its run time increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:
 
 ```{r, message=FALSE, eval=FALSE, linewidth = 70 }
 library(furrr)

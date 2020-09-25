@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Final Words | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
+  <title>Chapter 4 Data Presentation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Final Words | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
+  <meta property="og:title" content="Chapter 4 Data Presentation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Final Words | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
+  <meta name="twitter:title" content="Chapter 4 Data Presentation | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="applications.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="Infrastructure.html"/>
+<link rel="next" href="bayesianspat.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -222,18 +222,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="final-words" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Final Words</h1>
-<p>We have finished a nice book.</p>
+<div id="datapres" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Data Presentation</h1>
+<p>Data come packed into an API in JSON format and are ready to be analysed. It has 52 covariates and the number of rows rows strictly depends on the API query parater settings.</p>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.2</code></pre>
+<div id="data-glimpse" class="section level2">
+<h2><span class="header-section-number">4.1</span> Data Glimpse</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="datapres.html#cb16-1"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb16-2"><a href="datapres.html#cb16-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
+<pre><code>## Rows: 250
+## Columns: 34
+## $ X                        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,...
+## $ ID                       &lt;int&gt; 82585523, 82710269, 80532997, 80880239, 82...
+## $ LAT                      &lt;dbl&gt; 45.4770, 45.4709, 45.4605, 45.4709, 45.470...
+## $ LONG                     &lt;dbl&gt; 9.15101, 9.20868, 9.18927, 9.20868, 9.2086...
+## $ LOCATION                 &lt;chr&gt; &quot;piazzale arduino C.A.&quot;, &quot;via antonio kram...
+## $ CONDOM                   &lt;int&gt; 310, 117, 417, 117, 133, 170, 333, 317, 35...
+## $ BUILDAGE                 &lt;int&gt; 1940, 1920, 1967, 1920, 1920, 1990, 1900, ...
+## $ FLOOR                    &lt;chr&gt; &quot;6°, con ascensore&quot;, &quot;1° piano&quot;, &quot;4°, con ...
+## $ INDIVSAPT                &lt;chr&gt; &quot;Appartamento&quot;, &quot;Appartamento&quot;, &quot;Appartame...
+## $ LOCALI                   &lt;chr&gt; &quot;3 (2 camere da letto, 1 altro), 2 bagni, ...
+## $ TPPROP                   &lt;chr&gt; &quot;Residenziale&quot;, &quot;Residenziale&quot;, &quot;Residenzi...
+## $ STATUS                   &lt;chr&gt; &quot;Nuovo / In costruzione&quot;, &quot;Ottimo / Ristru...
+## $ HEATING                  &lt;chr&gt; &quot;Centralizzato, a radiatori, alimentato a ...
+## $ AC                       &lt;chr&gt; &quot;Autonomo, freddo&quot;, NA, &quot;Autonomo, freddo&quot;...
+## $ PUB_DATE                 &lt;chr&gt; &quot;2020-09-22&quot;, &quot;2020-09-22&quot;, &quot;2020-09-24&quot;, ...
+## $ CATASTINFO               &lt;chr&gt; &quot;Classe A/3, rendita \200 697&quot;, &quot;Classe A/...
+## $ APTCHAR                  &lt;chr&gt; &quot;- - fibra ottica- - - videocitofono- - - ...
+## $ PHOTOSNUM                &lt;int&gt; 20, 20, 20, 20, 20, 20, 20, 20, 16, 20, 18...
+## $ AGE                      &lt;chr&gt; &quot;Skyline RE Milano&quot;, &quot;Skyline RE Milano&quot;, ...
+## $ LOWRDPRICE.originalPrice &lt;chr&gt; NA, NA, NA, &quot;\200 1.400&quot;, NA, NA, NA, NA, ...
+## $ LOWRDPRICE.currentPrice  &lt;chr&gt; NA, NA, NA, &quot;\200 1.300&quot;, NA, NA, NA, NA, ...
+## $ LOWRDPRICE.passedDays    &lt;int&gt; NA, NA, NA, 8, NA, NA, NA, NA, NA, NA, NA,...
+## $ LOWRDPRICE.date          &lt;int&gt; NA, NA, NA, 8, NA, NA, NA, NA, NA, NA, NA,...
+## $ ENCLASS                  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ CONTR                    &lt;chr&gt; &quot;Affitto&quot;, &quot;Affitto&quot;, &quot;Affitto&quot;, &quot;Affitto&quot;...
+## $ DISP                     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ TOTPIANI                 &lt;chr&gt; &quot;7 piani&quot;, &quot;5 piani&quot;, &quot;4 piani&quot;, &quot;5 piani&quot;...
+## $ PAUTO                    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, &quot;1 in gara...
+## $ REVIEW                   &lt;chr&gt; &quot;Rif: CITY LIFE CUBE - OK CONTRATTO SOCIET...
+## $ HASMULTI                 &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ PRICE                    &lt;int&gt; 2450, 1200, 3000, 1300, 1700, 3850, 5000, ...
+## $ SQFEET                   &lt;int&gt; 110, 82, 180, 82, 82, 157, 208, 160, 90, 4...
+## $ NROOM                    &lt;int&gt; 3, 2, 5, 2, 3, 5, 5, 4, 2, 2, 1, 3, 2, 3, ...
+## $ TITLE                    &lt;chr&gt; &quot;Trilocale piazzale ARDUINO, Milano&quot;, &quot;Bil...</code></pre>
+</div>
+<div id="explorative-analysis" class="section level2">
+<h2><span class="header-section-number">4.2</span> Explorative Analysis</h2>
+<div id="semivariogram-covariogram" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Semivariogram Covariogram</h3>
+<p>[ en passant anche isotropy and anisotropy. Con stazionarietà forte e debole]</p>
+</div>
+</div>
+<div id="gaussian-random-fields" class="section level2">
+<h2><span class="header-section-number">4.3</span> Gaussian random fields</h2>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="applications.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="Infrastructure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesianspat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -265,7 +317,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/08-conclusions.Rmd",
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/04-exploratory.Rmd",
 "text": "Edit"
 },
 "history": {
