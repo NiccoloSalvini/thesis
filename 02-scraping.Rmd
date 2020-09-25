@@ -151,8 +151,52 @@ is_url = function(url){
 get_delay =  memoise::memoise(.get_delay)
 ```
 
+## How `rvest` handles scraping
 
-## How they are designed with `rvest`
+To start a general scraping function it is required a target url. Then a `html_session`, which is the analogue of a GET request, is opened by specifying the url and the request data that the user need to send to the web server. `httr` is wrapped into `rvest` since it is the gold standard for server GET and POST requests. Information to be required have been already explored in the previous sections, they are: user agents, emails references and proxy servers. Once the connection is established (request response 200) all the following operations rely on this connection. The user from now, for the time being in the session, will be recognized with its own user agent. 
+What it comes after is a succession of functions that follow a logical step by step path to get to the final information. `rvest` under the hood handles, in this precise order: reading the html structure of the web page, parsing this html content looking for a single node and then converting it into readable text. The entire process can be thought as sort of autoencoder by adding decoding layer after layer on top of the starting url, until reaching the final requested node. the reason why this come straightforward is given by the fact that `rvest` can be completely blended with the tidyverse logic, so the research for the exact node in the web page becomes very easy. The main functions that permits to perform the operations are: `read_html()` `html_nodes()` `html_text()`. Here below a function that scrapes the price and composes the API.
+
+```{genscraping, tidy=FALSE, linewidth = 70}
+scrapeprice.imm = function(session) {
+  
+  opensess = read_html(session)
+  price  = opensess %>% 
+    html_nodes(css =".im-mainFeatures__title") %>% 
+    html_text() %>%
+    str_trim() 
+  
+  if(is.null(price) || identical(price, character(0))) {
+    price2 = opensess %>%
+      html_nodes(css ='.im-features__value , .im-features__title') %>% 
+      html_text() %>%
+      str_trim()
+    
+    if ("prezzo" %in% price2) {
+      pos = match("prezzo",price2)
+      return(price2[pos+1])  %>% 
+        str_replace_all(c("€"="","\\."="")) %>% 
+        str_extract( "\\-*\\d+\\.*\\d*") %>%  
+        str_replace_na() %>% 
+        str_replace("NA", "Prezzo Su Richiesta")
+    } else {
+      return(NA_character_)
+    }
+  } else {
+    return(price) %>% 
+      str_replace_all(c("€"="","\\."="")) %>% 
+      str_extract( "\\-*\\d+\\.*\\d*") %>%  
+      str_replace_na() %>% 
+      str_replace("NA", "Prezzo Su Richiesta")
+      
+  }
+  
+}
+```
+
+The fucntion takes as a single argument a session which is established in one other function. Then It reads the session storing the informatiokn into an obj called the `opensess`. Another obj is created, namely price, right after the pipe operator a css query into the html is called. The css query `.im-mainFeatures__title` points to a precise data stored in immobiliare web page header, right below the main title. Expectation are that price is a chr one single vector, containing the price and some other unnecessary characters. Then the algorithm enters into the first `if` statement. The handler checks is the object `price` is empty. If it doesn't the algorythm jumps to the end and returns the cleaned quantity. But If it does it takes again the `opensess` and redirect to a second css query `.im-features__value , .im-features__title` where price, once again, could be found. Please note that This is all done within the same session, so no more request information has to be sent. Since the latter css query points to data stored inside a list, for the time being the newly created obj price2 is a list containing various information. Thenthe flow enters into the second `if` statement that checks whether `"prezzo"` is in the list or not, if it does it returns the +1 position index element with respect to the "prezzo" positioning. This happens because data in price2 list are stored by couples sequentially, say: [title, Appartamento Sempione, energy class, G, prezzo, 1200/al mese]. When it returns the element corresponding to +1 position index it applies also some data wrangling with `stringr` to keep out overabundant characters. The function then escapes in the else statment by setting `price2 = NA_Character_`. the Character quality has to be explicited due to fact that if the function is evaluated for a url and retunrs a quantinity x and then is evaluted for url2 and outputs NA (no character) then results can not be combined into dataframe.
+
+
+## How functions are designed
 
 The way scraping functions are oriented walks around three main key programming concepts:
 
@@ -160,7 +204,7 @@ The way scraping functions are oriented walks around three main key programming 
 - Intuitive structure 
 - Fasten process with respect to the goal of acquiring data 
 
-Functions are esplicitely designed to respond to continuos changes and to handle fails. They need to be dynamic otherwise they would not get the content. Since none can predict whther a system administrator will change the page layout, the scrapping is disassembled into x number of functions. The number x of funvtions nearly corresponds to the final number of covariates ezxtracted (some of the functione extracts more than one covariates). In such a way the maintainer can easily adjust the failing function by accessing through it. 
+Functions are esplicitely designed to respond to continuos changes and to handle fails. They need to be dynamic otherwise they would not be able to always get the content. Since none can predict whether a system administrator will change the page layout or not, the scrapping is disassembled into x number of functions. x is the number of data available and covariates for the model even togh some of the functione extracts more than one covariates. In such a way the maintainer can easily adjust the failing function by accessing through it. 
 
 Starting from the url where advertisements (25 per web page) are it can be created all the following url since it is necessary to append the "&page = 1", "&page = 2" and so. Once they are collected into an object the firs scraping function can be processed given that in this urls 
 
