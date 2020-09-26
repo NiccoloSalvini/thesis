@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Bayesian Spatial Modelling: End-to-End web App solution</a></li>
+<li><a href="./"> End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
@@ -155,11 +155,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
 <li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#how-they-are-designed-with-rvest"><i class="fa fa-check"></i><b>2.4</b> How they are designed with <code>rvest</code></a><ul>
-<li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#from-generic-and-specific-structure"><i class="fa fa-check"></i><b>2.4.1</b> From Generic and Specific structure</a></li>
-<li class="chapter" data-level="2.4.2" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4.2</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.4</b> Scraping with <code>rvest</code></a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4.1</b> Parallel Computing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#what-are-the-advantages-of-this-workflow"><i class="fa fa-check"></i><b>2.5</b> What are the Advantages of this Workflow</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#further-improvements"><i class="fa fa-check"></i><b>2.5</b> Further Improvements</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Challenges (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
@@ -225,11 +224,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datapres" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Data Presentation</h1>
 <p>Data come packed into an API in JSON format and are ready to be analysed. It has 52 covariates and the number of rows rows strictly depends on the API query parater settings.</p>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.2</code></pre>
 <div id="data-glimpse" class="section level2">
 <h2><span class="header-section-number">4.1</span> Data Glimpse</h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="datapres.html#cb16-1"></a><span class="kw">library</span>(knitr)</span>
-<span id="cb16-2"><a href="datapres.html#cb16-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="datapres.html#cb18-1"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb18-2"><a href="datapres.html#cb18-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
 <pre><code>## Rows: 250
 ## Columns: 34
 ## $ X                        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,...
