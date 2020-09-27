@@ -1,4 +1,46 @@
 # Point Referenced Data Modelling {#prd}
 
 
+Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. What It can be observed is just a sample, some sites, from a continuous unobserved process which we aim to estimate. Data as such can monitor a vast range of natural or economic meausuraments, as example cancer detection [@Bell2006] at several sites, COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020] etc. For simplicity lets consider $y$ of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
+from a random spatial process Y $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of a random spatial process.
+$\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$ , where D is a subset of $\mathbb{R}^{r}$ a r-dimensional Euclidean space. 
+When $r = 1$ it is a stochastic process widely encountered in literature e.g. time series process, nevertheless in this context there will be always $r = 2$ or eventually $r = 3$. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
+
+
+![pr process](images/prdprocess.png)
+
+
+## Gaussian Random Fields (GRF)
+
+A spatial process is said to be a **GF** if for any set of spatial index $n$ and for each set of corresponding locations $\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)$ follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)$ and covariance matrix $\mathbf{\Sigma}$.If the process is gaussian and discretely indexed by a spatial meausure then it is named by GMRF. The covariance matrix relates each observation to each others and it is expressed through a spatial covariance function defined as $\mathcal{C}(\cdot)$, such that $\Sigma_{i j}=\operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)=\mathcal{C}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)$. There are many covariance functions and their application with respect to the others depend on data and the scope on the analysis. Examples of spatial covariance fucntions are: Linear, Spherical, Matérn.
+The spatial indexes $i$ and $j$ move around an $r = 2$ euclidean space and can be thought as coordinates on a $x,y$ euclidean axis. Moreover a spatial process can be either _first_ order stationary or _second_ order stationary. The former asserts that for any given spatial index $n$ and its correspondent $s_{1,\ldots,n}$ locations the distribution of the process $\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}$ is the same of the one in $\left\{Y\left(s_{1}+\boldsymbol{h}\right), \ldots, Y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$.
+
+The second order stationarity states that the if the mean moment of the spatial process in constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[L(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance between each couple points (euclidean $\left\|s_{i}-s_{j}\right\|$) separation. The natural consequence is that It does not matter whether the observations are placed either in a specific region, nor the direction towards they are oriented, all it counts it is their raw euclidean distance. In addition the process is said to be **Isotropic** if the covariance function depends only on the between-points distance. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain D then the process is said to be **Anisotropic**.
+
+Moreover since it is assumed to be true  $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ that can be rewritten also as  $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed though $2 \gamma(\mathbf{h})$, even tough its half is more often used and $\gamma(\mathbf{h})$ is named _semivariogram_ [ metti citation Cressie 2006]. 
+The intuition behind this expression is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther, in compliance with the first law of geography by Tobler: 
+
+>"everything is related to everything else, but near things are more related than distant things"
+
+![variogram example](images/variogram.png)
+
+
+Semivariograms are an effient tool to asses spatial continuity but they are ideal. However semivargiogframs can be fitted to existing data giving birth to empirical semivariograms which are then plotted against the separation distance. The plot can be used to verify the null hypothesis of spatial independece and variability of the process. Below the functional form:
+
+$\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}$  
+
+As already pointed out empirical semivariogram values are expected to be small at short distance and tends to increase when distance increases between observations. The rational behind is that similar observations are expected to lay near together leading to lower semivariogram values, as opposite farther obervations tend to be very different adn associated to grater semivariogram values.  other Three main coefficients are evaluated as metrics in variograms: range, nugget and sill. The range is the maximum distance above which two observation are considered far an the resulting  
+
+## The Stochastic Partial Differential Equation approach (SPDE)
+
+SPDE [Lindegren] allows to extend the GF continous process observations starting from the GMRF. Equation to start is a fractional partial differential: 
+
+$\left(\kappa^{2}-\Delta\right)^{\alpha / 2}(\tau \xi(s))=\mathcal{W}(s)$
+
+where $\boldsymbol{s} \in \mathbb{R}^{r}$, $\Delta$ is the Laplacian function, $\alpha$ tunes the smoothness, $\kappa>0$ is the scale parameter, $\tau$ controls the variance, and $\mathcal{W}(s)$ is a Gaussian spatila white noise process. The solution blended with conveninet Matèrn covariance function is: 
+
+$\operatorname{Cov}\left(\xi\left(s_{i}\right), \xi\left(s_{j}\right)\right)=\operatorname{Cov}\left(\xi_{i}, \xi_{j}\right)=\frac{\sigma^{2}}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)^{\lambda} K_{\lambda}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)$
+
+
+
 
