@@ -1,4 +1,4 @@
-# Point Referenced Data Modelling {#prd}
+# Point Referenced Data Modeling {#prdm}
 
 
 Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. What It can be observed is just a sample, some sites, from a continuous unobserved process which we aim to estimate. Data as such can monitor a vast range of natural or economic meausuraments, as example cancer detection [@Bell2006] at several sites, COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020] etc. For simplicity lets consider $y$ of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
@@ -12,7 +12,7 @@ When $r = 1$ it is a stochastic process widely encountered in literature e.g. ti
 
 ## Gaussian Random Fields (GRF)
 
-A spatial process is said to be a **GF** if for any set of spatial index $n$ and for each set of corresponding locations $\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)$ follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)$ and covariance matrix $\mathbf{\Sigma}$.If the process is gaussian and discretely indexed by a spatial meausure then it is named by GMRF. The covariance matrix relates each observation to each others and it is expressed through a spatial covariance function defined as $\mathcal{C}(\cdot)$, such that $\Sigma_{i j}=\operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)=\mathcal{C}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)$. There are many covariance functions and their application with respect to the others depend on data and the scope on the analysis. Examples of spatial covariance fucntions are: Linear, Spherical, Matérn.
+A spatial process is said to be a **GF** if for any set of spatial index $n$ and for each set of corresponding locations $\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)$ follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)$ and covariance matrix $\mathbf{\Sigma}$. If the process is Gaussian and discretely indexed by a spatial measure then it is named by GMRF. The covariance matrix relates each observation to each others and it is expressed through a spatial covariance function defined as $\mathcal{C}(\cdot)$, such that $\Sigma_{i j}=\operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)=\mathcal{C}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)$. There are many covariance functions and their application with respect to the others depend on data and the scope on the analysis. Examples of spatial covariance fucntions are: Linear, Spherical, Matérn. The latter displays higher degree of flexibility, therefore it will be implied in later analysis.
 The spatial indexes $i$ and $j$ move around an $r = 2$ euclidean space and can be thought as coordinates on a $x,y$ euclidean axis. Moreover a spatial process can be either _first_ order stationary or _second_ order stationary. The former asserts that for any given spatial index $n$ and its correspondent $s_{1,\ldots,n}$ locations the distribution of the process $\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}$ is the same of the one in $\left\{Y\left(s_{1}+\boldsymbol{h}\right), \ldots, Y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$.
 
 The second order stationarity states that the if the mean moment of the spatial process in constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[L(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance between each couple points (euclidean $\left\|s_{i}-s_{j}\right\|$) separation. The natural consequence is that It does not matter whether the observations are placed either in a specific region, nor the direction towards they are oriented, all it counts it is their raw euclidean distance. In addition the process is said to be **Isotropic** if the covariance function depends only on the between-points distance. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain D then the process is said to be **Anisotropic**.
@@ -25,11 +25,12 @@ The intuition behind this expression is that the difference in value between two
 ![variogram example](images/variogram.png)
 
 
-Semivariograms are an effient tool to asses spatial continuity but they are ideal. However semivargiogframs can be fitted to existing data giving birth to empirical semivariograms which are then plotted against the separation distance. The plot can be used to verify the null hypothesis of spatial independece and variability of the process. Below the functional form:
+Semivariograms are an effient tool to asses spatial continuity but they are theretical. However semivargiogframs can be fitted to existing data giving birth to empirical semivariograms which are then plotted against the separation distance. The plot can be used to verify the null hypothesis of spatial independece and variability of the process. Below the functional form:
 
 $\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}$  
 
-As already pointed out empirical semivariogram values are expected to be small at short distance and tends to increase when distance increases between observations. The rational behind is that similar observations are expected to lay near together leading to lower semivariogram values, as opposite farther obervations tend to be very different adn associated to grater semivariogram values.  other Three main coefficients are evaluated as metrics in variograms: range, nugget and sill. The range is the maximum distance above which two observation are considered far an the resulting  
+
+where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t$ and so $|N(t)|$ is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small $h$) leading to lower semivariogram values($\gamma(\mathbf{h})$), as opposite farther pairs obervations (big $h$) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether distance $h$ increases or not, semivariogram values remains the same $\frac{\Delta\gamma\tau^{2}+\sigma^{2}(\mathbf{h})}{\Delta\mathbf{h}}\approx0$. Semivariograms are also implied later in the modelling process to evaluate if any spatial pattern in still present in the residuals. The three main arguments in semivariograms are: _range_ $\sigma^{2}$, _nugget_ $\tau^{2}$ and _sill_ $\tau^{2}+\sigma^{2}$. [parameters explanation]
 
 ## The Stochastic Partial Differential Equation approach (SPDE)
 
@@ -41,6 +42,37 @@ where $\boldsymbol{s} \in \mathbb{R}^{r}$, $\Delta$ is the Laplacian function, $
 
 $\operatorname{Cov}\left(\xi\left(s_{i}\right), \xi\left(s_{j}\right)\right)=\operatorname{Cov}\left(\xi_{i}, \xi_{j}\right)=\frac{\sigma^{2}}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)^{\lambda} K_{\lambda}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)$
 
+## Hedonic class models in points ref bayesian data analysis
 
+The theoretical foundation of the hedonic price [Xiao et al., 2017] is based on the hedonic utility in theory of consumer’s demand. The price is given by the unit cost of each characteristic. Hedonic Price function establishes a functional relationship between the observed household expenditures on housing, $P(H)$, and the level of characteristics contained in vector $H$. $P(H)=f\left(h_{1}, h_{2}, h_{3}, \ldots, h_{n}\right)$.
+The characteristics belong to different categories:
+
+- residential structure, such as its style, lot size, and the number of rooms
+- externalities associated with the geographic location (locational effects) both inbetween houses and within other existing ifrastructures 
+
+For the scope of the anlysis both of them are considered, even thougbh the effect of existing infrastructure is not take into cosideration.
+Since the relationships between the house characteritics and the price is not explicited in economic litarture it is possibile to assume whichever needed [aggiungi qualcosa], which comes very handy in the INLA setting. Furthemore classical non spatial linear regression relates response variable with its covariates and error through the expression
+
+$y_{i}=\mu_{i}+\varepsilon_{i}$
+
+where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$  and $\mu_{i}$ is the mean structure that might depend on some covariates $\mathbf{x}$, $\beta$ model coefficients and $\varepsilon$ white noise error. Keeping in mind the INLA notation the linear predictor can be rewritten as $\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}$, where $i$ pedix is the obeservation number and $j$ pedix is the mth covariate.  Moreover it is possible to specify $\eta$ as a function of $\mu$. The link function between them in this case is identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. In other modeling cases where response has to stay between $[0,1]$ (e.g. probabilities) the link function has to Logit, giving birth to logistic regression. More generally in vector notation incorporating the spatial index
+
+$y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \boldsymbol{\beta_{j}}+\varepsilon\left(\mathbf{s}_{i}\right)$
+
+where its OLS estimator is $\hat{\boldsymbol{\beta}}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}$ 
+
+In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients $\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}$ as well ad on the variance  $\sigma^{2}$ of $y_{i}$. When no expert information is provided vague priors are introduced, meaning that the regression should not be driven by the priors choice. 
+Vague priors might be:
+
+- $\beta_{m} \sim \operatorname{Normal}\left(0,10^{6}\right)$ for the beta coefficients
+- $\log (\tau)=\log \left(1 / \sigma^{2}\right) \sim \log \operatorname{Gamma}\left(1,10^{-5}\right)$ for precision 
+
+[qui piccolo regresso su bayesian modelling and hierarchical regression]
+
+When leveraging information from location an added has to be introduced in the previous equation in order to fully incorporate spatial properties,
+
+$y(\mathbf{s})=\mathbf{x}(\mathbf{s})^{\prime} \beta+w(\mathbf{s})+\varepsilon(\mathbf{s})$
+
+where the $w(\mathbf{s})$ is the entire surface $D$ that encloses observations. The $w(\mathbf{s})$ in the context of the analysis is approached as a GF, seen in the previous section, whose distribution is once again multivariate with mean $\boldsymbol{\mu}(\mathbf{s})$ in function of the spatial index $\mathbf{s}$ and covariance matrix $\mathbf{\Sigma}$.
 
 
