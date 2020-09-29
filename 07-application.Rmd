@@ -1,4 +1,4 @@
-# Applications
+# Shiny Web App
 
 Some _significant_ applications are demonstrated in this chapter.
 

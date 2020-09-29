@@ -7,7 +7,7 @@ $\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$ , where D is a subset of $
 When $r = 1$ it is a stochastic process widely encountered in literature e.g. time series process, nevertheless in this context there will be always $r = 2$ or eventually $r = 3$. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
 
 
-![pr process](images/prdprocess.png)
+![3D scatterplot and surface, Stockton data.](images/prdprocess.png)
 
 
 ## Gaussian Random Fields (GRF)

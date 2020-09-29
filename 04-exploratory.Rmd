@@ -1,6 +1,23 @@
-# Data Presentation {#datapres}
+# Exploratory Analysis {#exploratory}
 
-Data come packed into an API in JSON format and are ready to be analysed. It has 52 covariates and the number of rows rows strictly depends on the API query parater settings.
+## What data is
+
+Data come packed from the API end point /complete in JSON format. A preliminary data assessment evidences 34 covariates and a  250 rows, even though the number could be varyign accoriding to the API query sent. Json file is then parsed by the convenient read_csv from the readr package mutating columns by their respective type. 
+below the explanation of the columns:
+
+ID: _numeric_ a primary key number from immobiliare to identify univocally the advertisement 
+LAT: _numeric_ Exact latitude where the apartement is located (that compose the spatial covariate) 
+LONG: _numeric_ Exact longitude where the apartement is located (that compose the spatial covariate)
+CONDOM:  _numeric_ The condominium price which is an important component in the final cost structure
+BUILDAGE: _numeric_ the year in which the building has been built
+FLOOR: _numeric_ the floor at which is located the apartement/ house
+INDISVAP: _categorical_ If it the rental ad regards an indipendent structure or an apartement in a building
+...
+
+
+
+
+At a first glance it could be possible to see some missing values in some consistent measure in LOWPRCE and its derivations, Energy calss Disp Pauto. 
 
 ```{r, echo=FALSE, message=FALSE }
 library(readr)
@@ -11,7 +28,7 @@ library(tidyverse)
 ## Data Glimpse 
 ```{r}
 library(knitr)
-glimpse(data)
+glimpse(data) 
 ```
 
 
