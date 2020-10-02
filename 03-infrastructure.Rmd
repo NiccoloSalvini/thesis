@@ -218,10 +218,10 @@ Special comments are marked as this `#*` and they are followed by specific keywo
 
 ### Immobiliare API design 
 
-Daily extractions give birth to a more or less constant number of total rows which are 3200 - 3500 and a constant number of covariates 52 (the parameter npages can handle the number of pages to be scrapped). Data can come from two different end-points */scrape* and */complete* as the API description says. This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does. 
-The other reason why it takes more run time relies on the fact that the links of each of the rental advertisements are not generated in local, like the one in the /complete. At first In order to scrape each specific single advertisement through its respective url they need to be extracted. This is done by the `all.links()` function which corresponds also to the second end point /links. 
+Daily extractions give birth to a more or less constant number of total rows which are 3200 - 3500 and a constant number of covariates 34 (the parameter npages can handle the number of pages to be scrapped). Data can come from two different end-points */scrape* and */complete* as the API description says. This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does. 
+The other reason why it takes more run time relies on the fact that the links of each of the rental advertisements are not generated locally, like the one in the /complete. At first In order to scrape each specific single advertisement through its respective url they need to be extracted. This is done by the `all.links()` function which corresponds also to the second end point /links. 
 
-![Endpoints Architecture](images/scrapflowchart.jpg)
+[ qui serve immagine endpoints]
 
 
 - Get fast raw data, 5 covariates: title, price, num of rooms, sqmeter, primarykey
