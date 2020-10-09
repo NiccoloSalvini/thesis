@@ -142,6 +142,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./"> End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -231,8 +236,8 @@ The actual idea is to provide an API with 4 endpoints which calls parallelized s
 <p>Technologies implied are:</p>
 <ul>
 <li>GitHub version control</li>
-<li>Docker containers</li>
 <li>Scheduler cron job</li>
+<li>Docker containers</li>
 <li>Plumber REST API</li>
 <li>nginx reverse proxy server</li>
 <li>AWS (Amazon Web Services) EC2</li>
@@ -243,9 +248,8 @@ The actual idea is to provide an API with 4 endpoints which calls parallelized s
 <img src="images/prova.png" alt="" />
 <p class="caption">complete infrastructure (Matt Dancho source)</p>
 </div>
-<p>As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through cloud GitHub repository <a href="https://niccolosalvini.github.io/Thesis/">link</a>. The pdf (theis) version of the gitbook can be obtained by clicking the download button that can be seen in figure below. A Latex engine (Xelatex) wrapped into the website compiles a sequence of Markdown documents converting them into .html (the book’s chapters) which are formatted by rules grouped in a .yml file. All the documents are pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
-<p>An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. Fresh data is needed to have updated analysis since the scope in here is to offer realtime considerations. Something should be automated periodically in order to address the issue. Moreover, as rule of thumb, a daily data extraction might be a good option for some reasons. It can intercept price variations with a relatively small time lag, It can also display some sort of pattern in time that would help the reader/user to select the perfect choice. As a consequence a daily .csv file is generated and directly collected into a Db folder arranged by time
-The solutiond proposed takes care of the issue by making the scraping script generating the .csv be executed by a scheduler.</p>
+<p>As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through a gitbook deployed at <span class="citation">(<span class="citeproc-not-found" data-reference-id="link"><strong>???</strong></span>)</span>(<a href="https://niccolosalvini.github.io/Thesis/" class="uri">https://niccolosalvini.github.io/Thesis/</a>). RMarkdown knits the .rmd files extension and coverts them into .html files (the book’s chapters). All the documents are then pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website whose link is a github subdomain. The pdf output for the thesis can be obtained by opening the url and clicking the download button in the upper banner. A Latex engine (Xelatex) wrapped into the website compiles the sequence of RMarkdown documents according to a predefined .tex template. Formatting can be tuned by modifying the .yml file, that sets general instructions for the pdf document. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
+<p>Some of the main technologies implied will be viewed singularly, nonetheless for brevity some of them will be skipped.</p>
 <div id="scheduler" class="section level2">
 <h2><span class="header-section-number">3.1</span> Scheduler</h2>
 <p>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
@@ -256,35 +260,32 @@ The solutiond proposed takes care of the issue by making the scraping script gen
 <li>without pre-emption</li>
 </ul></li>
 </ul>
-<p>The ST scheduler selects the process and It gains control of the CPU by the dispatcher. OIn this context we can define latency as the time needed to stop a process and to start a new one.</p>
+<p>The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one.</p>
 <ul>
 <li>Medium term scheduler</li>
 <li>Long term scheduler</li>
 </ul>
-<p>for some other useful but beyond the scope information, such as the scheduling algorithm the reader can refer to <span class="citation">(Wikiversità <a href="#ref-wiki:scheduler" role="doc-biblioref">2020</a>)</span>.</p>
-<p>The scheduler in this context cosists in a .sh (shell file, sort of text file) composed by a set of instructions that are being executed by the computer on daily basis. This file has to be in the same WD ( working directory) of the project in order to make it working. Some common issues can occur when new files coming after the execution of the scheduled main script are generated, but the path isnt explicitly specified. This can lead to the partial or incomplete generation of the file since the shell file is executed within the folder but is triggered by some other location on the computer.
-Each OS has its own scheduler and syntax to call it. Since we are interested in Ubuntu machines the scheduler is said to be a cron job. Later it will be clear why Ubuntu is the option to pursue.</p>
-<p><strong>va parafrasato</strong></p>
+<p>for some other useful but beyond the scope refereces, such as the scheduling algorithm the reader can refer to <span class="citation">(Wikiversità <a href="#ref-wiki:scheduler" role="doc-biblioref">2020</a>)</span>.</p>
 <div id="cron-jobs" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Cron Jobs</h3>
-<p>The software utility cron also known as cron job is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals.</p>
-<p>The actions of cron are driven by a crontab (cron table) file, a configuration file that specifies shell commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. Users can have their own individual crontab files and often there is a system-wide crontab file (usually in /etc or a subdirectory of /etc) that only system administrators can edit.</p>
-<p>Each line of a crontab file represents a job, and looks like this:</p>
+<p>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.</p>
+<p>Each line of a crontab file represents a job, and has this structure</p>
 <div class="figure">
 <img src="images/crontab.PNG" alt="" />
 <p class="caption">crontab</p>
 </div>
-<p>Each line of a crontab file represents a job. This example runs a shell program called scheduler.sh at 23:45 (11:45 PM) every Saturday.</p>
+<p>Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.</p>
 <p>45 23 * * 6 /home/oracle/scripts/scheduler.sh</p>
-<p>Some rather unusual scheduling definitions and syntax for cronjobs can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span></p>
-<p>The cron job applied to the script needs to be ran at 11:30 PM everyday. It has that forms:
-—&gt; qui immagine</p>
-<p><strong>va parafrasato</strong></p>
-<p>For now the computational power comes from the machine on which the system is installed. A smarter solution takes into consideration that the former infrastructure has its own limits. Major limits comprehend run time since at the same moment the machine runs locally both the scraping functions and the app computations. This to a certain extent might fit for personal use but as data increases all the system risks to fail. It is also totally local so the analysis can not be shared with anyone. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years: Docker containers.</p>
+<p>Some rather unusual scheduling definitions and syntax for crontab can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span></p>
+<p>The cron job applied to the API needs to be ran at 11:30 PM everyday. The get_data.R script first sources an endpoint function, then it applies the functions with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the script it collects data from the same source. Day after day .json files are generated and then stored into a NOSQL mongoDB database whose credentials are public. Data is collected daily with the aim to track day by day changes both in the new comers-goners advertisers, and to investigate the evolution of price differentials. Spatio-Temporal is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM scehdules has this appeareance:</p>
+<p>30 11 * * * /home/oracle/scripts/get_data.R</p>
+<p>Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and substantial inability to share data. To a certain extent what it has been already done since now might fit personal use: a scheduler can execute daily the scraping scripts and .csv file are generated. Furthermore an application can rely on those data but evident reasons suggest that it does not fit suite any need. What it will do the trick would be a dedicated software enviroment or <em>container</em> that will contains scraping functions and a scheduler on cloud solving some of the problem arised. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.</p>
 </div>
 </div>
 <div id="docker-container" class="section level2">
 <h2><span class="header-section-number">3.2</span> Docker Container</h2>
+<p>Docker containers are a standard unit of software (i.e. boxes) where packages and their dependencies can be run reliably and quickly. Docker is portable so that it can be taken from one computing environment to the following.</p>
 <p><strong>from docker </strong>
 In 2013, Docker introduced what would become the industry standard for containers. A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.</p>
 <div id="what-is-docker" class="section level3">
@@ -329,7 +330,7 @@ The way Docker does that are many <span class="citation">(“7.2. Advantages of 
 </div>
 <div id="dockerfile" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Dockerfile</h3>
-<p>Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a specific cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command <code>docker build</code> from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
+<p>Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a certain cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command <code>docker build</code> from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
 The Dockerfile used to trigger the build of the docker image has this following set of instructions:</p>
 <div class="figure">
 <img src="images/dockerfile.PNG" alt="" />
@@ -372,30 +373,24 @@ APIs in less formal verbs are infrastructure that calls function with given argu
 <div id="plumber-api" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Plumber API</h3>
 <p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Infrastructure.html#cb1-1"></a><span class="co"># plumber.R file</span></span>
-<span id="cb1-2"><a href="Infrastructure.html#cb1-2"></a></span>
-<span id="cb1-3"><a href="Infrastructure.html#cb1-3"></a><span class="co">#* Echo back the input  </span></span>
-<span id="cb1-4"><a href="Infrastructure.html#cb1-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb1-5"><a href="Infrastructure.html#cb1-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb1-6"><a href="Infrastructure.html#cb1-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb1-7"><a href="Infrastructure.html#cb1-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb1-8"><a href="Infrastructure.html#cb1-8"></a>}</span>
-<span id="cb1-9"><a href="Infrastructure.html#cb1-9"></a></span>
-<span id="cb1-10"><a href="Infrastructure.html#cb1-10"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb1-11"><a href="Infrastructure.html#cb1-11"></a><span class="co">#* @png</span></span>
-<span id="cb1-12"><a href="Infrastructure.html#cb1-12"></a><span class="co">#* @get /plot</span></span>
-<span id="cb1-13"><a href="Infrastructure.html#cb1-13"></a><span class="cf">function</span>() {</span>
-<span id="cb1-14"><a href="Infrastructure.html#cb1-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb1-15"><a href="Infrastructure.html#cb1-15"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb1-16"><a href="Infrastructure.html#cb1-16"></a>}</span>
-<span id="cb1-17"><a href="Infrastructure.html#cb1-17"></a></span>
-<span id="cb1-18"><a href="Infrastructure.html#cb1-18"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb1-19"><a href="Infrastructure.html#cb1-19"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb1-20"><a href="Infrastructure.html#cb1-20"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb1-21"><a href="Infrastructure.html#cb1-21"></a><span class="co">#* @post /sum</span></span>
-<span id="cb1-22"><a href="Infrastructure.html#cb1-22"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb1-23"><a href="Infrastructure.html#cb1-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb1-24"><a href="Infrastructure.html#cb1-24"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Infrastructure.html#cb14-1"></a><span class="co"># plumber.R file</span></span>
+<span id="cb14-2"><a href="Infrastructure.html#cb14-2"></a></span>
+<span id="cb14-3"><a href="Infrastructure.html#cb14-3"></a><span class="co"># * Echo back the input * @param msg The message to echo * @get /echo</span></span>
+<span id="cb14-4"><a href="Infrastructure.html#cb14-4"></a><span class="cf">function</span>(<span class="dt">msg =</span> <span class="st">&quot;&quot;</span>) {</span>
+<span id="cb14-5"><a href="Infrastructure.html#cb14-5"></a>    <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb14-6"><a href="Infrastructure.html#cb14-6"></a>}</span>
+<span id="cb14-7"><a href="Infrastructure.html#cb14-7"></a></span>
+<span id="cb14-8"><a href="Infrastructure.html#cb14-8"></a><span class="co"># * Plot a histogram * @png * @get /plot</span></span>
+<span id="cb14-9"><a href="Infrastructure.html#cb14-9"></a><span class="cf">function</span>() {</span>
+<span id="cb14-10"><a href="Infrastructure.html#cb14-10"></a>    rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb14-11"><a href="Infrastructure.html#cb14-11"></a>    <span class="kw">hist</span>(rand)</span>
+<span id="cb14-12"><a href="Infrastructure.html#cb14-12"></a>}</span>
+<span id="cb14-13"><a href="Infrastructure.html#cb14-13"></a></span>
+<span id="cb14-14"><a href="Infrastructure.html#cb14-14"></a><span class="co"># * Return the sum of two numbers * @param a The first number to add * @param b</span></span>
+<span id="cb14-15"><a href="Infrastructure.html#cb14-15"></a><span class="co"># The second number to add * @post /sum</span></span>
+<span id="cb14-16"><a href="Infrastructure.html#cb14-16"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb14-17"><a href="Infrastructure.html#cb14-17"></a>    <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb14-18"><a href="Infrastructure.html#cb14-18"></a>}</span></code></pre></div>
 <p>This chunk of code assembled into a .R file has three endpoints which can be easily recognized by the number of functions present.</p>
 <p>Special comments are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the name of the API (unique without the <code>@</code>)
@@ -547,6 +542,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
