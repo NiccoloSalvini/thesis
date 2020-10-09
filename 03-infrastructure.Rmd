@@ -3,30 +3,28 @@
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
   
-In order to provide a fast, portable and integrated product to the end user It has been designed a quite straightforward software architecture. We have already seen the scraping functions and how they are built around the concept of easy flexibility and debugging. This is due to the fact that they should extract something that is dynamic, it is not sure that it will be as the day before. The data we are trying to grab might have been moved somewhere else throughout the website. Or it might have placed extra expression inside the node we are inspecting ("$" sign following the monthly rental price) . A very often occurring example regards the way information concerning the house are represented in the website. Considering the september 2018 january 2020 time span the design of the website has changed a vast number of times. Since both the design and the scrapping functions relies on the HTML skeleton and CSS queries. As soon as something changes in the website the other files needs to be readjusted to be consistent with the content and so back and forth. The debugging handlers nested in the functions helps the maintainer to grasp what it is not working properly where the error occur. 
-The same inner philosophy has been applied to the software architecture chosen for this project.
-First of all the wide range of open source solutions (back-end and front-end) and documentation on this has made many analyst and data scientist almost full stack developer. This was also due to the fact that RStudio has set very well oriented guidelines spending a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that recently the RStudio community has developed, on top of many different others, an entire package dedicated to REST APIs (Plumber [@plumber]). MOreover developers in RStudio and its contributors have created an entire new paradigm called Shiny [@shiny], a popular web app development package, that forces the user to have front-end and back-end technologies tied up in the same IDE (RStudio) and with a unique language to deal with. The front end file (for simplicity named UI.R) contains the UI's layout and the style and also other javascripts components. On the other hand the server file (named after server.R) absorbs the back-end, under the hood, code and makes the UI intercact and respond to the user.
-This comes at a cost of flexibility and customization since Shiny could not easily handle too many embellishments (even though potentially can). Nevertheless a unique environment makes integration with other technologies easier and most of all introduces the analyst to a full stack approach. Many open source projects are gravitating around the Shiny framework with the aim to extend its capabilities. One example is a newly created package called reactR [@reactR] that allows user to implement the power of React.js into the shiny UI front end. All of this is possible, once again, by the R community but a greater contribution come from digging up the right path along which everything by open source comes natural. (parallelo con la vigna e l'albero che la sostiene e indirizza)
-The carrier idea for this project is to have parallelized scraping functions called daily by a scheduler producing and subsequently storing a .csv file in a MySQL /cartoDB database. They are all tought to be containerized in a Linux (Ubuntu distr) docker container hosted in a AWS EC2 server. Then in a second container a Shiny app is placed, this one pipes in data from the former infrastructure and apply the statistical model stored (by an API call) in its server.R part.
+In order to provide a fast and easy to use service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges regards not only scraping but also the way the service has to respond to the users. Service has to be fast otherwise data become obsolete and so happen to analysis that relied on those data. Service has to be deployed so that in does not only run locally. Service needs to be scaled when needed since when the number of users increases the run time performance should not decrease. Service has to be maintained up to date so that each function can be reshaped with respect to immobiliare.it layout changes. On the other hand code behind the service has to be kept freezed to certain version, so that when packages are updated service still runs. Furthemore service has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud, so that it can be tracked back the evolution of the phenomenon.
+Open source solutions are available for back-end and front-end to meet the requirements before. Documentations related to technologies served are up to date and offer flexible solutions to embed the R environment. As a general discussion technologies used can be thought as the distance between something running locally on the laptop and something that is actually put into production, seen by company stakeholders, solving business problem. When such technologies are applied data scientist and counterparts gradually close the gap. Insights are better communicated (they can be interactive or automated) and services can be shared over a wider range of subjects. Nonetheless when the infrastructure is made with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber [@plumber]). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny [@shiny], a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.
+The actual idea is to provide an API with 4 endpoints which calls parallelized scraping functions. On the other hand  (chapter \@ref(scraping)) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app (see chapter \@ref(application)) calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods \@ref(prdm).
 
-The main technologies implied are:
+Technologies implied are:
 
+- GitHub version control
 - Scheduler cron job
 - Docker containers
-- Shiny 
 - Plumber REST API 
+- nginx reverse proxy server
 - AWS (Amazon Web Services) EC2
-- CartoDB
+- MongoDB Atlas
+- Shiny 
 
 
-![complete infrastructure (Matt Dancho source)](images/completeinfra.PNG)
+![complete infrastructure (Matt Dancho source)](images/prova.PNG)
 
+As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through a gitbook deployed at [@link](https://niccolosalvini.github.io/Thesis/). RMarkdown knits the .rmd files extension and coverts them into .html files (the book's chapters). All the documents are then pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website whose link is a github subdomain. The pdf output for the thesis can be obtained by opening the url and clicking the download button in the upper banner. A Latex engine (Xelatex) wrapped into the website compiles the sequence of RMarkdown documents according to a predefined .tex template. Formatting can be tuned by modifying the .yml file, that sets general instructions for the pdf document. All of this has been possible thanks to Bookdown [@bookdown1] once again a R well documented package [@bookdown2] to build interactive books along with RMarkdown [@rmarkdown1].
 
-On top of that even each single part of this thesis has been made stand alone and can be easily accessed and modified through this [link](https://niccolosalvini.github.io/Thesis/). The pdf (theis) version of the gitbook can be obtained by clicking the download button that can be seen in figure below. A Latex engine (Xelatex) wrapped into the website compiles a sequence of Markdown documents converting them into .html (the book's chapters) which are formatted by rules grouped in a .yml file. All the documents are pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website. All of this has been possible thanks to Bookdown [@bookdown1] once again a R well documented package [@bookdown2] to build interactive books along with RMarkdown [@rmarkdown1].
+Some of the main technologies implied will be viewed singularly, nonetheless for brevity some of them will be skipped.
 
-
-An empirical observation of immobiliare.it has suggested that houses rents advertisement are continuously added and then removed during the day. Fresh data is needed to have updated analysis since the scope in here is to offer realtime considerations. Something should be automated periodically in order to address the issue. Moreover, as rule of thumb, a daily data extraction might be a good option for some reasons. It can intercept price variations with a relatively small time lag, It can also display some sort of pattern in time that would help the reader/user to select the perfect choice. As a consequence a daily .csv file is generated and directly collected into a Db folder arranged by time
-The solutiond proposed takes care of the issue by making the scraping script generating the .csv be executed by a scheduler.
 
 ## Scheduler
 
@@ -36,43 +34,37 @@ A Scheduler in a process is a component on a OS that allows the computer to deci
   - with pre-emption 
   - without pre-emption
 
-The ST scheduler selects the process and It gains control of the CPU by the dispatcher. OIn this context we can define latency as the time needed to stop a process and to start a new one. 
+The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one. 
 
 - Medium term scheduler 
 - Long term scheduler
 
-for some other useful but beyond the scope information, such as the scheduling algorithm the reader can refer to [@wiki:scheduler].
-
-The scheduler in this context cosists in a .sh (shell file, sort of text file) composed by a set of instructions that are being executed by the computer on daily basis. This file has to be in the same WD (  working directory) of the project in order to make it working. Some common issues can occur when new files coming after the execution of the scheduled main script are generated, but the path isnt explicitly specified. This can lead to the partial or incomplete generation of the file since the shell file is executed within the folder but is triggered by some other location on the computer.
-Each OS has its own scheduler and syntax to call it. Since we are interested in Ubuntu machines the scheduler is said to be a cron job. Later it will be clear why Ubuntu is the option to pursue.
-
-**va parafrasato**
+for some other useful but beyond the scope refereces, such as the scheduling algorithm the reader can refer to [@wiki:scheduler].
 
 ### Cron Jobs
 
-The software utility cron also known as cron job is a time-based job scheduler in Unix-like computer operating systems. Users that set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals. 
+Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
 
-The actions of cron are driven by a crontab (cron table) file, a configuration file that specifies shell commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. Users can have their own individual crontab files and often there is a system-wide crontab file (usually in /etc or a subdirectory of /etc) that only system administrators can edit.
-
-Each line of a crontab file represents a job, and looks like this:
+Each line of a crontab file represents a job, and has this structure
 
 ![crontab](images/crontab.PNG)
 
-Each line of a crontab file represents a job. This example runs a shell program called scheduler.sh at 23:45 (11:45 PM) every Saturday.
+Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.
 
 45 23 * * 6 /home/oracle/scripts/scheduler.sh
 
-Some rather unusual scheduling definitions and syntax for cronjobs can be found in this reference [@wiki:cronjob] 
+Some rather unusual scheduling definitions and syntax for crontab can be found in this reference [@wiki:cronjob] 
 
-The cron job applied to the script needs to be ran at 11:30 PM everyday. It has that forms: 
----> qui immagine
+The cron job applied to the API needs to be ran at 11:30 PM everyday. The get_data.R script first sources an endpoint function, then it applies the functions with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the script it collects data from the same source. Day after day .json files are generated and then stored into a NOSQL mongoDB database whose credentials are public. Data is collected daily with the aim to track day by day changes both in the new comers-goners advertisers, and to investigate the evolution of price differentials. Spatio-Temporal is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM scehdules has this appeareance:
 
-**va parafrasato**
+30 11 * * * /home/oracle/scripts/get_data.R
 
-For now the computational power comes from the machine on which the system is installed. A smarter solution takes into consideration that the former infrastructure has its own limits. Major limits comprehend run time since at the same moment the machine runs locally both the scraping functions and the app computations. This to a certain extent might fit for personal use but as data increases all the system risks to fail. It is also totally local so the analysis can not be shared with anyone. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years: Docker containers.
+Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and substantial inability to share data. To a certain extent what it has been already done since now might fit personal use: a scheduler can execute daily the scraping scripts  and .csv file are generated. Furthermore an application can rely on those data but evident reasons suggest that it does not fit suite any need. What it will do the trick would be a dedicated software enviroment or *container* that will contains scraping functions and a scheduler on cloud solving some of the problem arised. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.
 
 ## Docker Container 
 
+Docker containers are a standard unit of software (i.e. boxes) where packages and their dependencies can be run reliably and quickly. Docker is portable so that it can be taken from one computing environment to the following. 
 
 **from docker **
 In 2013, Docker introduced what would become the industry standard for containers. A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
@@ -123,7 +115,7 @@ The way all of this is possible is a dockerfile that determines the instruction 
 
 ### Dockerfile 
 
-Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a specific cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
+Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a certain cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
 The Dockerfile used to trigger the build of the docker image has this following set of instructions:
 
 ![dockerfile](images/dockerfile.PNG)

@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="inla-spde.html"/>
-<link rel="next" href="shiny-web-app.html"/>
+<link rel="next" href="application.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -149,20 +149,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
-<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping"><i class="fa fa-check"></i><b>2.2</b> Immobiliare.it Webscraping</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#measure-the-shortest-path"><i class="fa fa-check"></i><b>2.2.1</b> measure the shortest path</a></li>
+<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-website-structure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website structure</a></li>
+<li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#scraping-best-practices-and-robot.txt"><i class="fa fa-check"></i><b>2.3</b> Scraping Best Practices and Robot.txt</a></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.4</b> User agents, Proxies, Handlers</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#user-agents-spoofing"><i class="fa fa-check"></i><b>2.4.1</b> User agents Spoofing</a></li>
-<li class="chapter" data-level="2.4.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.4.2</b> Handlers</a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robottxt</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
+<li class="chapter" data-level="2.3.3" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.3.3</b> Parallel Computing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.5</b> Scraping with <code>rvest</code></a><ul>
-<li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.5.1</b> Parallel Computing</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#further-improvements"><i class="fa fa-check"></i><b>2.6</b> Further Improvements</a></li>
-<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.7</b> Legal Challenges (ancora non validato)</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.4</b> Further Improvements</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.5</b> Legal Challenges (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
@@ -201,9 +199,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#the-stochastic-partial-differential-equation-approach-spde"><i class="fa fa-check"></i><b>6.2</b> The Stochastic Partial Differential Equation approach (SPDE)</a></li>
 <li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-class-models-in-points-ref-bayesian-data-analysis"><i class="fa fa-check"></i><b>6.3</b> Hedonic class models in points ref bayesian data analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="shiny-web-app.html"><a href="shiny-web-app.html"><i class="fa fa-check"></i><b>7</b> Shiny Web App</a><ul>
-<li class="chapter" data-level="7.1" data-path="shiny-web-app.html"><a href="shiny-web-app.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
-<li class="chapter" data-level="7.2" data-path="shiny-web-app.html"><a href="shiny-web-app.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example two</a></li>
+<li class="chapter" data-level="7" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>7</b> Shiny Web App</a><ul>
+<li class="chapter" data-level="7.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
+<li class="chapter" data-level="7.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>7.2</b> Example two</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>8</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -314,7 +312,7 @@ Vague priors might be:</p>
         </div>
       </div>
 <a href="inla-spde.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="shiny-web-app.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
