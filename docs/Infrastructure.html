@@ -142,11 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./"> End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
-</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -166,17 +161,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker-container"><i class="fa fa-check"></i><b>3.2</b> Docker Container</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker?</a></li>
-<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#what-are-the-main-andvantages-of-using-docker"><i class="fa fa-check"></i><b>3.2.2</b> What are the main andvantages of using Docker</a></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker</a></li>
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-an-api"><i class="fa fa-check"></i><b>3.3.1</b> What is an API</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.2</b> Plumber API</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare-api-design"><i class="fa fa-check"></i><b>3.3.3</b> Immobiliare API design</a></li>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-http-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it HTTP API</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws-ec2-server"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 server</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#mondodb-atlas"><i class="fa fa-check"></i><b>3.4</b> MondoDB ATLAS</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#what-data-is"><i class="fa fa-check"></i><b>4.1</b> What data is</a></li>
@@ -277,133 +272,137 @@ The tasks by cron are driven by a crontab file, which is a configuration file th
 </div>
 <p>Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.</p>
 <p>45 23 * * 6 /home/oracle/scripts/scheduler.sh</p>
-<p>Some rather unusual scheduling definitions and syntax for crontab can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span></p>
-<p>The cron job applied to the API needs to be ran at 11:30 PM everyday. The get_data.R script first sources an endpoint function, then it applies the functions with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the script it collects data from the same source. Day after day .json files are generated and then stored into a NOSQL mongoDB database whose credentials are public. Data is collected daily with the aim to track day by day changes both in the new comers-goners advertisers, and to investigate the evolution of price differentials. Spatio-Temporal is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM scehdules has this appeareance:</p>
+<p>Some rather unusual scheduling definitions for crontabs can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span>. Crontab’s syntax completion can be made easier through <a href="https://crontab.guru/">this</a> GUI.</p>
+<p>The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL <em>mongoDB</em> database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance:</p>
 <p>30 11 * * * /home/oracle/scripts/get_data.R</p>
-<p>Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and substantial inability to share data. To a certain extent what it has been already done since now might fit personal use: a scheduler can execute daily the scraping scripts and .csv file are generated. Furthermore an application can rely on those data but evident reasons suggest that it does not fit suite any need. What it will do the trick would be a dedicated software enviroment or <em>container</em> that will contains scraping functions and a scheduler on cloud solving some of the problem arised. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.</p>
+<p>Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and the substantial inability to share data. To a certain extent what it has been already done since now might fit for personal use: a scheduler can daily execute the scraping scripts and generate a .csv file. Furthermore an application can rely on those data, but evident reasons suggest that it does not suite any need. What it will do the trick would be an open source dedicated software environment or <em>container</em> that will contains scraping functions and a scheduler on cloud solving a pair of the problems arisen. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.</p>
 </div>
 </div>
-<div id="docker-container" class="section level2">
-<h2><span class="header-section-number">3.2</span> Docker Container</h2>
-<p>Docker containers are a standard unit of software (i.e. boxes) where packages and their dependencies can be run reliably and quickly. Docker is portable so that it can be taken from one computing environment to the following.</p>
-<p><strong>from docker </strong>
-In 2013, Docker introduced what would become the industry standard for containers. A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.</p>
+<div id="docker" class="section level2">
+<h2><span class="header-section-number">3.2</span> Docker</h2>
 <div id="what-is-docker" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> What is Docker?</h3>
-<p>Container images become containers at runtime and in the case of Docker containers - images become containers when they run on Docker Engine. Available for both Linux and Windows-based applications, containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.</p>
+<h3><span class="header-section-number">3.2.1</span> What is Docker</h3>
+<p><em>Docker</em> is a software tool to create and deploy applications using containers.
+<em>Docker containers</em> are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.</p>
 <div class="figure">
-<img src="images/docker-ex.png" alt="" />
-<p class="caption">docker example</p>
-</div>
-<p>Docker leveraged existing computing concepts around containers and specifically in the Linux world. Docker’s technology is unique because it focuses on the requirements of developers and systems operators to separate application dependencies from infrastructure.</p>
-<p>A question might come up about why a Virtual Machine could not be a preferable container for our specified task. Well, Containers and virtual machines have similar resource isolation and allocation benefits, but function differently because containers virtualize the operating system instead of hardware. Containers are more portable and efficient.</p>
-<div class="figure">
-<img src="images/container-vm-whatcontainer_2.png" alt="" />
+<img src="images/dockerVSvirtualmachines.PNG" alt="" />
 <p class="caption">docker container vs VM</p>
 </div>
-<p><strong>from docker </strong></p>
+<p>When containers are built <em>Docker container Images</em> are created and can be open sourced with Docker Hub
+<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub behind authentication allows to integrate GitHub in the Docker project repository. Once the connection is authorized on local machine changes are made and then pushed by version control to the remote GH repository. The push command triggers the automatic building (pre-set by the user, branch should be given) of the image in the docker hub repository. The just created docker image can be tagged so that firstly it is recognizable and secondly can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.5</a>.
+Docker building and testing images can be very time consumin. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
+Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(<span class="citeproc-not-found" data-reference-id="nolis_2020"><strong>???</strong></span>)</span>.
+In addition an open source project named <a href="https://www.rocker-project.org/images/">rocker</a> have already narrowed the path building custom R images for R and docker users. What can be read from their own website about them: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment.”
+Enabling caching when container images are built heavily shorten the total duration for containerization.</p>
 </div>
-<div id="what-are-the-main-andvantages-of-using-docker" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> What are the main andvantages of using Docker</h3>
-<p><strong>va parafrasato from Matt Dancho</strong></p>
-<p>Indeed, the popular employment-related search engine, released an article this past Tuesday showing changing trends from 2015 to 2019 in “Technology-Related Job Postings”. We can see a number of changes in key technologies - One that we are particularly interested in is the 4000% increase in Docker.</p>
+<div id="why-docker" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Why Docker</h3>
+<p>Indeed, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure) have experienced a huge growth and both refer to the same demand input: <em>containers</em> .
+The landscape of Data Science is changing <span class="citation">(Economist at the Indeed Hiring Lab <a href="#ref-Skills_Explorer" role="doc-biblioref">2020</a>)</span> from reporting to application building:
+In 2015 - Businesses reports drive better decisions
+In 2020 - Businesses need apps to empower better decision making at all levels</p>
 <div class="figure">
 <img src="images/Inkedindeed_jobs_LI.jpg" alt="" />
 <p class="caption">docker-stats</p>
 </div>
-<p>The landscape of Data Science is changing <span class="citation">(Economist at the Indeed Hiring Lab <a href="#ref-Skills_Explorer" role="doc-biblioref">2020</a>)</span> from reporting to application building:</p>
-<p>In 2015 - Businesses need reports to make better decisions
-In 2020 - Businesses need apps to empower better decision making at all levels of the organization
-This transition is challenging the Data Scientist to learn new technologies to stay relevant…</p>
-<p>As a matter of fact, it is no longer sufficient to just know machine learning algorithms. Future data workers need to know how to put machine learning into production as quickly as possible to meet the business needs. This can be done either integrating existing obsolete/old technologies with the new ones, or build a solid, portable and scalable infrastructure to better the processes.
-In order to do so, It is strictly needed to learn from programmers the basics of Software Engineering. The extremely good news is that no data scientist whatsoever needs to be a perfect software engineer, but at least he has to know how to integrate already built techonlogies with its work. This truly can help in the quest to unleash data science at scale and unlock real business value.
-The way Docker does that are many <span class="citation">(“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7” <a href="#ref-red_hat_customer_portal" role="doc-biblioref">2020</a>)</span>:</p>
+<p>For all the things said what docker is bringing to business <span class="citation">(“7.2. Advantages of Using Docker Red Hat Enterprise Linux 7” <a href="#ref-red_hat_customer_portal" role="doc-biblioref">2020</a>)</span>:</p>
 <ul>
-<li><em>Rapid application deployment</em> : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.</li>
-<li><em>Portability across machines</em> :an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.</li>
-<li><em>Version control and component reuse</em> : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight.</li>
+<li><em>Speed application deployment</em> : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.</li>
+<li><em>Portability across machines</em> : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.</li>
+<li><em>Version control and component reuse</em> : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion</li>
 <li><em>Sharing</em> : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.</li>
 <li><em>Lightweight footprint and minimal overhead</em> : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.</li>
-<li><em>Simplified maintenance</em> :Docker reduces effort and risk of problems with application dependencies.</li>
+<li><em>Fault isolation</em> :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates.</li>
 </ul>
-<p>The way all of this is possible is a dockerfile that determines the instruction that docker has to perform to abstract the environment.</p>
+<p>The way to tell docker which system requirements are needed in the newly born software is a <em>Dockerfile</em>.</p>
 </div>
 <div id="dockerfile" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Dockerfile</h3>
-<p>Docker can build images automatically by interpreting the instructions from a Dockerfile. A Dockerfile can be thought as a written recipe to cook a certain cake, with all the ingredients described in a piece of a paper using a generic oven and adding layer of preparation after layer. A Dockerfile is a text format document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command <code>docker build</code> from shell the user can trigger the image building. That executes several command-line instructions in chronological succession of steps.
-The Dockerfile used to trigger the build of the docker image has this following set of instructions:</p>
+<p>Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command <code>docker build</code> from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is “Dockerfile”. When It is matched then it trriggers the building of the image.</p>
+<p>The Dockerfile used to trigger the building of the service docker container has the following set of instructions:</p>
 <div class="figure">
 <img src="images/dockerfile.PNG" alt="" />
 <p class="caption">dockerfile</p>
 </div>
 <ul>
-<li><p><code>FROM rocker/r-ver:4.0.0</code> : the command imports an image already written by the rocker team (authored contributors for the R docker project) that contains the base-R version 4.0.0. Recently with the 4.0 version the RStudio team has created a repository management server for its packages that organizes and centralizes R packages (offline access and checkpoints). This will shorten the installation time and secure packages since they all can be freezed into a version that make the whole system works.</p></li>
-<li><p><code>RUN R -e "install.packages(c('plumber','tibble','...',dependencies=TRUE)</code> : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their dependencies the option <code>dependencies=TRUE</code> is needed.</p></li>
-<li><p><code>EXPOSE 8000</code> : the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is reccomended <span class="citation">(“Get Docker” <a href="#ref-docker_documentation_2020" role="doc-biblioref">2020</a>)</span> )</p></li>
-<li><p><code>ENTRYPOINT ["Rscript", "main.R"]</code> : the command tells docker to execute the Rscript extension file main.R within the container that triggers the API building/the generation of the .csv file.</p></li>
+<li><p><code>FROM rocker/tidyverse:latest</code> : the command imports a pre-built image by the rocker team that contains the latest (tag latest) version of base-R along with the tidyverse packages.</p></li>
+<li><p><code>MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"</code> : The command tags the maintainer and its e-mail contact information.</p></li>
+<li><p><code>RUN apt-get update &amp;&amp; apt-get install -y \ libxml2-dev \ libudunits2-dev</code> :The command update and install Linux dependencies needed for running R packages. <code>rvest</code> requires libxml2-dev and <code>magrittr</code> needs libudunits2-dev. If they are not installed then associated libraries can not be loaded. Linux dependencies needed have been found by trial and error while building containers. Building logs messages print errors and suggest which dependency is mandatory.</p></li>
+<li><p><code>RUN R -e "install.packages(c('plumber','tibble','...',dependencies=TRUE)</code> : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their direct R dependencies the option <code>dependencies=TRUE</code> is needed.</p></li>
+<li><p><code>RUN R -e "install.packages('https://cran.r-project.org/.../iterators, type='source')</code>
+<code>RUN R -e "install.packages('https://cran.r-project.org/.../foreach/, type='source')</code>
+<code>RUN R -e "install.packages('https://cran.r-project.org/.../doParallel, type='source')</code>
+DoParallel was not available in package manager for R version later than 4.0.0. For this reason the choice was to install a previous source version by the online repository, as well as its dependencies.</p></li>
+<li><p><code>COPY \\</code> The command tells Docker copies all the files in the container.</p></li>
+<li><p><code>EXPOSE 8000</code> : the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is recommended <span class="citation">(“Get Docker” <a href="#ref-docker_documentation_2020" role="doc-biblioref">2020</a>)</span> )</p></li>
+<li><p><code>ENTRYPOINT ["Rscript", "main.R"]</code> : the command tells docker to execute the file main.R within the container that triggers the API start. In main.R it are pecified both the port and the host where API expects to be exposed (in this case port 8000).</p></li>
 </ul>
-<p><strong>va parafrasato from Matt Dancho</strong></p>
-<p>An alternative and very used approach could be wrapping all the scraping function into an API and then send a <code>GET</code> request to the API endpoint needed.</p>
+<p>In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.</p>
 </div>
 </div>
 <div id="api" class="section level2">
 <h2><span class="header-section-number">3.3</span> API</h2>
-<p><strong>va parafrasato</strong></p>
-<p>The scraping functions, according to how the author as structured them, are able to produce two .csv extension (if the boolean option <code>write</code> is set = TRUE) files. As already clarified in the previous ssection some point should be joined by a primary key. But for the sake of
-In order to give the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
-Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
-The first choice that has to be made is: either to provide a .csv file day by day with all the data to feed the application, or we exploit some portable and fast solutions as API.</p>
-<p><strong>va parafrasato</strong></p>
-<div id="what-is-an-api" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> What is an API</h3>
-<p>API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.</p>
-<p>APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and money. When you’re designing new tools and products—or managing existing ones—APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
-APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2’s software will respond.
-APIs in less formal verbs are infrastructure that calls function with given arguments and answer back with elaborations of the data passed. They are expressed through link and could have different end points. An end point identifies the operation that the API caller wants to perform. The most of the times APIs are protected with encryption and authentication.</p>
+<p>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and impacting positively on the budget.
+APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties.
+There are many types of API that exploit different medium to communicate with apps or services. HTTP API are a special type of API that accepts http requests as input and elaborate them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform.
+HTTP APIs have now become the predominant medium by which software exchanges information, further documentation and differences between REST and RESTful API can be found <a href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html">here</a>.</p>
 <p>API examples:
-- Google Maps API: allows developers embed geo-location data using JavaScript. The Google Maps API is designed to work on mobile and desktop.
+- Google Maps API: allows developers to embed geo-location data using JavaScript. The Google Maps API is designed to work on mobile and desktop.
 - YouTube API: allows developers integrate YouTube videos and functionalities into websites or applications.
-- Google Analytics API: allows to track website performance in terms of audience, monetization and other important metrics throught the Google Analytics interface. The website the thesis come from has this implementation working.</p>
+- Google Analytics API: allows to track website performance in terms of audience, monetization and other important metrics through the Google Analytics interface. The website the thesis come from has this implementation working.</p>
+<p>This is obtained by embedding the existing R source code into the Plumber API framework.</p>
 <div class="figure">
-<img src="images/API-page-graphic.png" alt="" />
+<img src="images/Rest-API.png" alt="" />
 <p class="caption">API functioning</p>
 </div>
-<p>Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it’s important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.</p>
-</div>
 <div id="plumber-api" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Plumber API</h3>
-<p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the reference:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Infrastructure.html#cb14-1"></a><span class="co"># plumber.R file</span></span>
-<span id="cb14-2"><a href="Infrastructure.html#cb14-2"></a></span>
-<span id="cb14-3"><a href="Infrastructure.html#cb14-3"></a><span class="co"># * Echo back the input * @param msg The message to echo * @get /echo</span></span>
-<span id="cb14-4"><a href="Infrastructure.html#cb14-4"></a><span class="cf">function</span>(<span class="dt">msg =</span> <span class="st">&quot;&quot;</span>) {</span>
-<span id="cb14-5"><a href="Infrastructure.html#cb14-5"></a>    <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb14-6"><a href="Infrastructure.html#cb14-6"></a>}</span>
-<span id="cb14-7"><a href="Infrastructure.html#cb14-7"></a></span>
-<span id="cb14-8"><a href="Infrastructure.html#cb14-8"></a><span class="co"># * Plot a histogram * @png * @get /plot</span></span>
-<span id="cb14-9"><a href="Infrastructure.html#cb14-9"></a><span class="cf">function</span>() {</span>
-<span id="cb14-10"><a href="Infrastructure.html#cb14-10"></a>    rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb14-11"><a href="Infrastructure.html#cb14-11"></a>    <span class="kw">hist</span>(rand)</span>
-<span id="cb14-12"><a href="Infrastructure.html#cb14-12"></a>}</span>
-<span id="cb14-13"><a href="Infrastructure.html#cb14-13"></a></span>
-<span id="cb14-14"><a href="Infrastructure.html#cb14-14"></a><span class="co"># * Return the sum of two numbers * @param a The first number to add * @param b</span></span>
-<span id="cb14-15"><a href="Infrastructure.html#cb14-15"></a><span class="co"># The second number to add * @post /sum</span></span>
-<span id="cb14-16"><a href="Infrastructure.html#cb14-16"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb14-17"><a href="Infrastructure.html#cb14-17"></a>    <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb14-18"><a href="Infrastructure.html#cb14-18"></a>}</span></code></pre></div>
-<p>This chunk of code assembled into a .R file has three endpoints which can be easily recognized by the number of functions present.</p>
-<p>Special comments are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
-- the name of the API (unique without the <code>@</code>)
-- the <code>@params</code> keyword refers to parameter that has to be inputted to give the result of the function define below. If in the function below defualt parameters are stated then the API response is the elaboration of the functions with those parameters. If the function does not specify any parameter, see the below endpoints below, plumber has to make sure that the function can run without them.
-- the <code>#* @png</code> chuck piece specify the extension of the output file.
-- the <code>#* @get /plot</code> decorations specify the type of HTTP request we are sending, in this case a GET request. The user in this case is requesting some information to the API, the name is plot, so the expectations are that a plot is given as response.
-- the <code>@filter</code> decorations activates a filter through which the maintainer can track users logs data. Filters can also handle data coming from users formatting it to the standard requested.</p>
+<h3><span class="header-section-number">3.3.1</span> Plumber API</h3>
+<p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R source code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the original documentation:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Infrastructure.html#cb1-1"></a><span class="co"># plumber.R file</span></span>
+<span id="cb1-2"><a href="Infrastructure.html#cb1-2"></a></span>
+<span id="cb1-3"><a href="Infrastructure.html#cb1-3"></a><span class="co">#* Echo back the input  </span></span>
+<span id="cb1-4"><a href="Infrastructure.html#cb1-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb1-5"><a href="Infrastructure.html#cb1-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb1-6"><a href="Infrastructure.html#cb1-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb1-7"><a href="Infrastructure.html#cb1-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb1-8"><a href="Infrastructure.html#cb1-8"></a>}</span>
+<span id="cb1-9"><a href="Infrastructure.html#cb1-9"></a></span>
+<span id="cb1-10"><a href="Infrastructure.html#cb1-10"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb1-11"><a href="Infrastructure.html#cb1-11"></a><span class="co">#* @png</span></span>
+<span id="cb1-12"><a href="Infrastructure.html#cb1-12"></a><span class="co">#* @get /plot</span></span>
+<span id="cb1-13"><a href="Infrastructure.html#cb1-13"></a><span class="cf">function</span>() {</span>
+<span id="cb1-14"><a href="Infrastructure.html#cb1-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb1-15"><a href="Infrastructure.html#cb1-15"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb1-16"><a href="Infrastructure.html#cb1-16"></a>}</span>
+<span id="cb1-17"><a href="Infrastructure.html#cb1-17"></a></span>
+<span id="cb1-18"><a href="Infrastructure.html#cb1-18"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb1-19"><a href="Infrastructure.html#cb1-19"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb1-20"><a href="Infrastructure.html#cb1-20"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb1-21"><a href="Infrastructure.html#cb1-21"></a><span class="co">#* @post /sum</span></span>
+<span id="cb1-22"><a href="Infrastructure.html#cb1-22"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb1-23"><a href="Infrastructure.html#cb1-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb1-24"><a href="Infrastructure.html#cb1-24"></a>}</span></code></pre></div>
+<p>This chunk of code assembled into a .R file has three endpoints associated to two /GET requests and 1 /POST request. Functions are made clear without names, so that when the endpoint is called function are directly executed.
+Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>. the name of the API (unique without the <code>@</code>)
+- the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
+- the <code>#* @png</code> chuck piece specify the extension of the output file, if needed.
+- the <code>#* @get</code> decorations specify the method type of HTTP request sent, in this case a GET request.
+- <code>/plot</code> is the endopoint name.
+- the <code>@filter</code> decorations activates a filter layer through which request body arguments are first evaluated.
+- many more…</p>
 </div>
-<div id="immobiliare-api-design" class="section level3">
-<h3><span class="header-section-number">3.3.3</span> Immobiliare API design</h3>
-<p>Daily extractions give birth to a more or less constant number of total rows which are 3200 - 3500 and a constant number of covariates 34 (the parameter npages can handle the number of pages to be scrapped). Data can come from two different end-points <em>/scrape</em> and <em>/complete</em> as the API description says. This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does.
+<div id="immobiliare.it-http-api" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Immobiliare.it HTTP API</h3>
+<p>The API service is composed by three endpoints <em>/scrape</em> , <em>/links</em> and <em>/complete</em>.
+The former performs a fast scraping that extracts 5 covariates directly from filtered url. url from which data extraction takes place might be composed through parameters. By default the end point scrape data from Milan real estate rental market. Fast scraping is reached thanks to avoiding to access to single links. It is a superficial scraping and does not contain geospatial, instead might be used for regression settings.</p>
+<p>Data can come from two different end-points <em>/scrape</em> and <em>/complete</em>. The
+This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does.
 The other reason why it takes more run time relies on the fact that the links of each of the rental advertisements are not generated locally, like the one in the /complete. At first In order to scrape each specific single advertisement through its respective url they need to be extracted. This is done by the <code>all.links()</code> function which corresponds also to the second end point /links.</p>
-<p>[ qui serve immagine endpoints]</p>
+<div class="figure">
+<img src="images/swagger.PNG" alt="" />
+<p class="caption">swagger</p>
+</div>
 <ul>
 <li>Get fast raw data, 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
 </ul>
@@ -430,9 +429,12 @@ The other reason why it takes more run time relies on the fact that the links of
       content-type: application/json     </code></pre>
 </div>
 </div>
-<div id="aws-ec2-server" class="section level2">
-<h2><span class="header-section-number">3.4</span> AWS EC2 server</h2>
-<p>The structure needs to be hosted on a server that permits to scale computation and manage multiple requests.</p>
+<div id="mondodb-atlas" class="section level2">
+<h2><span class="header-section-number">3.4</span> MondoDB ATLAS</h2>
+</div>
+<div id="aws" class="section level2">
+<h2><span class="header-section-number">3.5</span> AWS EC2 server</h2>
+<p>Executing API on a public server allows to share data, in this context a dataset, with internet public. Since the public is whichever person on the net the solution to be implementing needs also to be scalable.</p>
 <p><strong>from amazon</strong>
 Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. It provides complete control of the computing resources and let run on Amazon’s proven computing environment.
 <strong>from amazon</strong></p>
@@ -542,20 +544,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
