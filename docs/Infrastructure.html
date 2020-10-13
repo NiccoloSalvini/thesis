@@ -142,10 +142,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./"> End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-website-structure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website structure</a></li>
+<li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-website-structurewebstructure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website <span>structure{@webstructure</span>}</a></li>
 <li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robottxt</a></li>
@@ -167,11 +172,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumber-api"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
 <li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-http-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it HTTP API</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api-source-code"><i class="fa fa-check"></i><b>3.3.3</b> API source code</a></li>
+<li class="chapter" data-level="3.3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#api-documentation"><i class="fa fa-check"></i><b>3.3.4</b> API documentation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#mondodb-atlas"><i class="fa fa-check"></i><b>3.4</b> MondoDB ATLAS</a></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.5.1</b> Launch an EC2 instance</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#what-data-is"><i class="fa fa-check"></i><b>4.1</b> What data is</a></li>
@@ -227,23 +236,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 <p>In order to provide a fast and easy to use service to the end user many technologies have been involved. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.4</a> are many and still some remains unsolved. Challenges regards not only scraping but also the way the service has to respond to the users. Service has to be fast otherwise data become obsolete and so happen to analysis that relied on those data. Service has to be deployed so that in does not only run locally. Service needs to be scaled when needed since when the number of users increases the run time performance should not decrease. Service has to be maintained up to date so that each function can be reshaped with respect to immobiliare.it layout changes. On the other hand code behind the service has to be kept freezed to certain version, so that when packages are updated service still runs. Furthemore service has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud, so that it can be tracked back the evolution of the phenomenon.
 Open source solutions are available for back-end and front-end to meet the requirements before. Documentations related to technologies served are up to date and offer flexible solutions to embed the R environment. As a general discussion technologies used can be thought as the distance between something running locally on the laptop and something that is actually put into production, seen by company stakeholders, solving business problem. When such technologies are applied data scientist and counterparts gradually close the gap. Insights are better communicated (they can be interactive or automated) and services can be shared over a wider range of subjects. Nonetheless when the infrastructure is made with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span>). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span>, a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.
-The actual idea is to provide an API with 4 endpoints which calls parallelized scraping functions. On the other hand (chapter <a href="scraping.html#scraping">2</a>) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app (see chapter <a href="application.html#application">7</a>) calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods <a href="prdm.html#prdm">6</a>.</p>
-<p>Technologies implied are:</p>
+The actual idea is to provide an API with 4 endpoints which calls parallelized scraping functions. On the other hand (chapter <a href="scraping.html#scraping">2</a>) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods <a href="prdm.html#prdm">6</a>.</p>
+<p>Technologies involved are:</p>
 <ul>
 <li>GitHub version control</li>
-<li>Scheduler cron job</li>
-<li>Docker containers</li>
-<li>Plumber REST API</li>
-<li>nginx reverse proxy server</li>
-<li>AWS (Amazon Web Services) EC2</li>
+<li>Scheduler cron job, section <a href="Infrastructure.html#scheduler">3.1</a></li>
+<li>Docker containers, section <a href="Infrastructure.html#docker">3.2</a></li>
+<li>Plumber REST API, section <a href="Infrastructure.html#plumberapi">3.3.1</a></li>
+<li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.4</a></li>
+<li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.5</a></li>
 <li>MongoDB Atlas</li>
-<li>Shiny</li>
+<li>Shiny, see chapter <a href="application.html#application">7</a></li>
 </ul>
 <div class="figure">
 <img src="images/prova.png" alt="" />
 <p class="caption">complete infrastructure (Matt Dancho source)</p>
 </div>
-<p>As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through a gitbook deployed at <span class="citation">(<span class="citeproc-not-found" data-reference-id="link"><strong>???</strong></span>)</span>(<a href="https://niccolosalvini.github.io/Thesis/" class="uri">https://niccolosalvini.github.io/Thesis/</a>). RMarkdown knits the .rmd files extension and coverts them into .html files (the book’s chapters). All the documents are then pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website whose link is a github subdomain. The pdf output for the thesis can be obtained by opening the url and clicking the download button in the upper banner. A Latex engine (Xelatex) wrapped into the website compiles the sequence of RMarkdown documents according to a predefined .tex template. Formatting can be tuned by modifying the .yml file, that sets general instructions for the pdf document. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
+<p>As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through a gitbook deployed at @<a href="https://niccolosalvini.github.io/Thesis/">link</a>. RMarkdown knits the .rmd files extension and coverts them into .html files (the book’s chapters). All the documents are then pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website whose link is a github subdomain. The pdf output for the thesis can be obtained by clicking the download button, then choosing output pdf in the upper banner. A Latex engine (Xelatex) wrapped into the website compiles the sequence of RMarkdown documents according to a predefined .tex template. Formatting can be tuned by modifying the .yml file, that sets general instructions for the pdf document. All of this has been possible thanks to Bookdown <span class="citation">(Xie <a href="#ref-bookdown1" role="doc-biblioref">2020</a>)</span> once again a R well documented package <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> to build interactive books along with RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span>.</p>
 <p>Some of the main technologies implied will be viewed singularly, nonetheless for brevity some of them will be skipped.</p>
 <div id="scheduler" class="section level2">
 <h2><span class="header-section-number">3.1</span> Scheduler</h2>
@@ -292,7 +301,7 @@ Containers can be thought as an abstraction at the app layers that groups code a
 <p>When containers are built <em>Docker container Images</em> are created and can be open sourced with Docker Hub
 <em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub behind authentication allows to integrate GitHub in the Docker project repository. Once the connection is authorized on local machine changes are made and then pushed by version control to the remote GH repository. The push command triggers the automatic building (pre-set by the user, branch should be given) of the image in the docker hub repository. The just created docker image can be tagged so that firstly it is recognizable and secondly can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.5</a>.
 Docker building and testing images can be very time consumin. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
-Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(<span class="citeproc-not-found" data-reference-id="nolis_2020"><strong>???</strong></span>)</span>.
+Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(Nolis <a href="#ref-nolis_2020" role="doc-biblioref">2020</a>)</span>.
 In addition an open source project named <a href="https://www.rocker-project.org/images/">rocker</a> have already narrowed the path building custom R images for R and docker users. What can be read from their own website about them: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment.”
 Enabling caching when container images are built heavily shorten the total duration for containerization.</p>
 </div>
@@ -356,90 +365,145 @@ HTTP APIs have now become the predominant medium by which software exchanges inf
 <img src="images/Rest-API.png" alt="" />
 <p class="caption">API functioning</p>
 </div>
-<div id="plumber-api" class="section level3">
+<div id="plumberapi" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Plumber API</h3>
-<p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R source code. Decorations are a special type of comments that suggests the plumber where and when the API parts are. Here below a toy example from the original documentation:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Infrastructure.html#cb1-1"></a><span class="co"># plumber.R file</span></span>
-<span id="cb1-2"><a href="Infrastructure.html#cb1-2"></a></span>
-<span id="cb1-3"><a href="Infrastructure.html#cb1-3"></a><span class="co">#* Echo back the input  </span></span>
-<span id="cb1-4"><a href="Infrastructure.html#cb1-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb1-5"><a href="Infrastructure.html#cb1-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb1-6"><a href="Infrastructure.html#cb1-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb1-7"><a href="Infrastructure.html#cb1-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb1-8"><a href="Infrastructure.html#cb1-8"></a>}</span>
-<span id="cb1-9"><a href="Infrastructure.html#cb1-9"></a></span>
-<span id="cb1-10"><a href="Infrastructure.html#cb1-10"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb1-11"><a href="Infrastructure.html#cb1-11"></a><span class="co">#* @png</span></span>
-<span id="cb1-12"><a href="Infrastructure.html#cb1-12"></a><span class="co">#* @get /plot</span></span>
-<span id="cb1-13"><a href="Infrastructure.html#cb1-13"></a><span class="cf">function</span>() {</span>
-<span id="cb1-14"><a href="Infrastructure.html#cb1-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb1-15"><a href="Infrastructure.html#cb1-15"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb1-16"><a href="Infrastructure.html#cb1-16"></a>}</span>
-<span id="cb1-17"><a href="Infrastructure.html#cb1-17"></a></span>
-<span id="cb1-18"><a href="Infrastructure.html#cb1-18"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb1-19"><a href="Infrastructure.html#cb1-19"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb1-20"><a href="Infrastructure.html#cb1-20"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb1-21"><a href="Infrastructure.html#cb1-21"></a><span class="co">#* @post /sum</span></span>
-<span id="cb1-22"><a href="Infrastructure.html#cb1-22"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb1-23"><a href="Infrastructure.html#cb1-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb1-24"><a href="Infrastructure.html#cb1-24"></a>}</span></code></pre></div>
-<p>This chunk of code assembled into a .R file has three endpoints associated to two /GET requests and 1 /POST request. Functions are made clear without names, so that when the endpoint is called function are directly executed.
-Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>. the name of the API (unique without the <code>@</code>)
+<p>Plumber <span class="citation">(“An Api Generator for R” <a href="#ref-api_generator_for_r" role="doc-biblioref">2020</a>)</span> allows the user to create a web API by simply adding decoration comments to the existing R source code. Decorations are a special type of comments that suggests to plumber where and when the API parts are. Below the original API source code.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Infrastructure.html#cb14-1"></a><span class="co"># plumber.R</span></span>
+<span id="cb14-2"><a href="Infrastructure.html#cb14-2"></a></span>
+<span id="cb14-3"><a href="Infrastructure.html#cb14-3"></a><span class="co"># * Echo back the input * @param msg The message to echo * @get /echo</span></span>
+<span id="cb14-4"><a href="Infrastructure.html#cb14-4"></a><span class="cf">function</span>(<span class="dt">msg =</span> <span class="st">&quot;&quot;</span>) {</span>
+<span id="cb14-5"><a href="Infrastructure.html#cb14-5"></a>    <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb14-6"><a href="Infrastructure.html#cb14-6"></a>}</span>
+<span id="cb14-7"><a href="Infrastructure.html#cb14-7"></a></span>
+<span id="cb14-8"><a href="Infrastructure.html#cb14-8"></a><span class="co"># * Plot a histogram * @serializer png * @get /plot</span></span>
+<span id="cb14-9"><a href="Infrastructure.html#cb14-9"></a><span class="cf">function</span>() {</span>
+<span id="cb14-10"><a href="Infrastructure.html#cb14-10"></a>    rand &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb14-11"><a href="Infrastructure.html#cb14-11"></a>    <span class="kw">hist</span>(rand)</span>
+<span id="cb14-12"><a href="Infrastructure.html#cb14-12"></a>}</span>
+<span id="cb14-13"><a href="Infrastructure.html#cb14-13"></a></span>
+<span id="cb14-14"><a href="Infrastructure.html#cb14-14"></a><span class="co"># * Return the sum of two numbers * @param a The first number to add * @param b</span></span>
+<span id="cb14-15"><a href="Infrastructure.html#cb14-15"></a><span class="co"># The second number to add * @post /sum</span></span>
+<span id="cb14-16"><a href="Infrastructure.html#cb14-16"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb14-17"><a href="Infrastructure.html#cb14-17"></a>    <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb14-18"><a href="Infrastructure.html#cb14-18"></a>}</span></code></pre></div>
+<p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
+Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
-- the <code>#* @png</code> chuck piece specify the extension of the output file, if needed.
-- the <code>#* @get</code> decorations specify the method type of HTTP request sent, in this case a GET request.
-- <code>/plot</code> is the endopoint name.
-- the <code>@filter</code> decorations activates a filter layer through which request body arguments are first evaluated.
+- <code>#* @serializer</code> specifies the extension of the output file when needed.
+- <code>#* @get</code> specifies the method of HTTP request sent.
+- <code>/echo</code> is the end point name.
+- <code>@filter</code> decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.
 - many more…</p>
 </div>
 <div id="immobiliare.it-http-api" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Immobiliare.it HTTP API</h3>
-<p>The API service is composed by three endpoints <em>/scrape</em> , <em>/links</em> and <em>/complete</em>.
-The former performs a fast scraping that extracts 5 covariates directly from filtered url. url from which data extraction takes place might be composed through parameters. By default the end point scrape data from Milan real estate rental market. Fast scraping is reached thanks to avoiding to access to single links. It is a superficial scraping and does not contain geospatial, instead might be used for regression settings.</p>
-<p>Data can come from two different end-points <em>/scrape</em> and <em>/complete</em>. The
-This is due to the fact that the former end point response is faster than the latter, since it requires fewer sessions opened. In the below figure it can be seen that within a single session (same website page) the user can grab data from max 25 different rental offers, this is what the end point /scrape does. The latter as opposite goes inside each single sub-link and pick up all the information/covariates through a specified set of functions, this is what /complete does.
-The other reason why it takes more run time relies on the fact that the links of each of the rental advertisements are not generated locally, like the one in the /complete. At first In order to scrape each specific single advertisement through its respective url they need to be extracted. This is done by the <code>all.links()</code> function which corresponds also to the second end point /links.</p>
+<p>The API service is composed by three endpoints <em>/scrape</em> , <em>/links</em> and <em>/complete</em>:</p>
+<ul>
+<li><p>*/scrape performs a fast scraping that extracts 5 covariates directly from filtered url. url from which data extraction takes place might be composed through parameters. By default the end point scrape data from Milan real estate rental market. Fast scraping is reached thanks to avoiding to access to single links. It is a superficial scraping and does not contain geospatial, however it might fit for regression settings.</p></li>
+<li><p>*/links: extracts the list of single links belonging to each of the page, looking at section <a href="#webstructure"><strong>??</strong></a> each 25 single links for each sibling. It displays sufficient performances in terms of run time. It is propaedeutic to apply the following endpoint.</p></li>
+<li><p>*/complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.</p></li>
+</ul>
 <div class="figure">
 <img src="images/swagger.PNG" alt="" />
 <p class="caption">swagger</p>
 </div>
+</div>
+<div id="api-source-code" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> API source code</h3>
 <ul>
-<li>Get fast raw data, 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
+<li>Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
 </ul>
-<pre><code>      GET */scrape
-
-      param url [url string] the link from which you are interested to extract data 
-      param npages [positive integer] number of pages to scrape (1-300) 
-      content-type: application/json </code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="Infrastructure.html#cb15-1"></a><span class="co"># * Get all the links * @param city [chr string] the city you are interested to</span></span>
+<span id="cb15-2"><a href="Infrastructure.html#cb15-2"></a><span class="co"># extract data (lowercase without accent) * @param npages [positive integer]</span></span>
+<span id="cb15-3"><a href="Infrastructure.html#cb15-3"></a><span class="co"># number of pages to scrape default = 10, min = 2, max = 300 * @param type [chr</span></span>
+<span id="cb15-4"><a href="Infrastructure.html#cb15-4"></a><span class="co"># string] affitto = rents, vendita = sell (vendita no available for now) * @get</span></span>
+<span id="cb15-5"><a href="Infrastructure.html#cb15-5"></a><span class="co"># /links/&lt;npages:int&gt;/&lt;city:chr&gt;/&lt;type:chr&gt;/&lt;.thesis:bool&gt;</span></span>
+<span id="cb15-6"><a href="Infrastructure.html#cb15-6"></a><span class="cf">function</span>(<span class="dt">npages =</span> <span class="dv">10</span>, <span class="dt">city =</span> <span class="st">&quot;milano&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;affitto&quot;</span>, <span class="dt">.thesis =</span> F, req) {</span>
+<span id="cb15-7"><a href="Infrastructure.html#cb15-7"></a>    <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st"> port:&quot;</span>, req<span class="op">$</span>SERVER_PORT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st"> server_name:&quot;</span>, req<span class="op">$</span>SERVER_NAME, <span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb15-8"><a href="Infrastructure.html#cb15-8"></a>    <span class="cf">if</span> (npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span> <span class="op">&amp;</span><span class="st"> </span>npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb15-9"><a href="Infrastructure.html#cb15-9"></a>        <span class="kw">stop</span>(<span class="st">&quot;npages must be between 1 and 1,000&quot;</span>)</span>
+<span id="cb15-10"><a href="Infrastructure.html#cb15-10"></a>    }</span>
+<span id="cb15-11"><a href="Infrastructure.html#cb15-11"></a>    <span class="cf">if</span> (.thesis) {</span>
+<span id="cb15-12"><a href="Infrastructure.html#cb15-12"></a>        <span class="kw">list</span>(<span class="kw">all.links</span>(npages, city, type, <span class="dt">.thesis =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb15-13"><a href="Infrastructure.html#cb15-13"></a>    } <span class="cf">else</span> {</span>
+<span id="cb15-14"><a href="Infrastructure.html#cb15-14"></a>        <span class="kw">list</span>(<span class="kw">all.links</span>(npages, city, type))</span>
+<span id="cb15-15"><a href="Infrastructure.html#cb15-15"></a>    }</span>
+<span id="cb15-16"><a href="Infrastructure.html#cb15-16"></a>}</span>
+<span id="cb15-17"><a href="Infrastructure.html#cb15-17"></a></span>
+<span id="cb15-18"><a href="Infrastructure.html#cb15-18"></a></span>
+<span id="cb15-19"><a href="Infrastructure.html#cb15-19"></a><span class="co"># * Get the complete data from single links (not the raw) * @param city [chr</span></span>
+<span id="cb15-20"><a href="Infrastructure.html#cb15-20"></a><span class="co"># string] the city you are interested to extract data (lowercase without accent)</span></span>
+<span id="cb15-21"><a href="Infrastructure.html#cb15-21"></a><span class="co"># * @param npages [positive integer] number of pages to scrape default = 10, min</span></span>
+<span id="cb15-22"><a href="Infrastructure.html#cb15-22"></a><span class="co"># = 2, max = 300 * @param type [chr string] affitto = rents, vendita = sell</span></span>
+<span id="cb15-23"><a href="Infrastructure.html#cb15-23"></a><span class="co"># (vendita no available for now) * @get</span></span>
+<span id="cb15-24"><a href="Infrastructure.html#cb15-24"></a><span class="co"># /complete/&lt;npages:int&gt;/&lt;city:chr&gt;/&lt;type:chr&gt;/&lt;.thesis:bool&gt;</span></span>
+<span id="cb15-25"><a href="Infrastructure.html#cb15-25"></a><span class="cf">function</span>(<span class="dt">npages =</span> <span class="dv">10</span>, <span class="dt">city =</span> <span class="st">&quot;milano&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;affitto&quot;</span>, <span class="dt">.thesis =</span> F, req) {</span>
+<span id="cb15-26"><a href="Infrastructure.html#cb15-26"></a>    <span class="cf">if</span> (npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span> <span class="op">&amp;</span><span class="st"> </span>npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb15-27"><a href="Infrastructure.html#cb15-27"></a>        <span class="kw">stop</span>(<span class="st">&quot;npages must be between 1 and 1,000&quot;</span>)</span>
+<span id="cb15-28"><a href="Infrastructure.html#cb15-28"></a>    }</span>
+<span id="cb15-29"><a href="Infrastructure.html#cb15-29"></a>    <span class="cf">if</span> (.thesis) {</span>
+<span id="cb15-30"><a href="Infrastructure.html#cb15-30"></a>        links =<span class="st"> </span><span class="kw">all.links</span>(npages, city, type, <span class="dt">.thesis =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb15-31"><a href="Infrastructure.html#cb15-31"></a>        <span class="kw">list</span>(<span class="kw">complete</span>(links))</span>
+<span id="cb15-32"><a href="Infrastructure.html#cb15-32"></a>    } <span class="cf">else</span> {</span>
+<span id="cb15-33"><a href="Infrastructure.html#cb15-33"></a>        links =<span class="st"> </span><span class="kw">all.links</span>(npages, city, type)</span>
+<span id="cb15-34"><a href="Infrastructure.html#cb15-34"></a>        <span class="kw">list</span>(<span class="kw">complete</span>(links))</span>
+<span id="cb15-35"><a href="Infrastructure.html#cb15-35"></a>    }</span>
+<span id="cb15-36"><a href="Infrastructure.html#cb15-36"></a>}</span></code></pre></div>
+</div>
+<div id="api-documentation" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> API documentation</h3>
+<ul>
+<li>Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Infrastructure.html#cb16-1"></a>      GET <span class="op">*</span><span class="er">/</span>scrape</span>
+<span id="cb16-2"><a href="Infrastructure.html#cb16-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested <span class="cf">in</span> (e.g. <span class="st">&quot;roma&quot;</span>, <span class="st">&quot;milano&quot;</span>, <span class="st">&quot;firenze&quot;</span><span class="op">-</span>-&gt;<span class="st"> </span>lowercase, without accent)</span>
+<span id="cb16-3"><a href="Infrastructure.html#cb16-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape, default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb16-4"><a href="Infrastructure.html#cb16-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
+<span id="cb16-5"><a href="Infrastructure.html#cb16-5"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
 <ul>
 <li>Get all the links</li>
 </ul>
-<pre><code>      GET */link
-
-      param url [url string]  the link from which you are interested to extract data
-      param npages  [positive integer] number of pages to scrape (1-300) 
-      content-type: application/json </code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Infrastructure.html#cb17-1"></a>      GET <span class="op">*</span><span class="er">/</span>link</span>
+<span id="cb17-2"><a href="Infrastructure.html#cb17-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested to extract <span class="kw">data</span> (lowercase without accent)</span>
+<span id="cb17-3"><a href="Infrastructure.html#cb17-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb17-4"><a href="Infrastructure.html#cb17-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
+<span id="cb17-5"><a href="Infrastructure.html#cb17-5"></a>      <span class="op">@</span>param .thesis [logical] data used <span class="cf">for</span> master thesis</span>
+<span id="cb17-6"><a href="Infrastructure.html#cb17-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
 <ul>
 <li>Get the complete set of covariates (52) from each single links, takes a while</li>
 </ul>
-<pre><code>      GET */complete
-
-      param url  _url string_ url the link from which you are interested to extract data
-      param npages [positive integer] number of pages to scrape (1-300) 
-      content-type: application/json     </code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="Infrastructure.html#cb18-1"></a>      GET <span class="op">*</span><span class="er">/</span>complete</span>
+<span id="cb18-2"><a href="Infrastructure.html#cb18-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested to extract <span class="kw">data</span> (lowercase without accent)</span>
+<span id="cb18-3"><a href="Infrastructure.html#cb18-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb18-4"><a href="Infrastructure.html#cb18-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
+<span id="cb18-5"><a href="Infrastructure.html#cb18-5"></a>      <span class="op">@</span>param .thesis [logical] data used <span class="cf">for</span> master thesis</span>
+<span id="cb18-6"><a href="Infrastructure.html#cb18-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json</span>
+<span id="cb18-7"><a href="Infrastructure.html#cb18-7"></a>            </span></code></pre></div>
 </div>
 </div>
-<div id="mondodb-atlas" class="section level2">
-<h2><span class="header-section-number">3.4</span> MondoDB ATLAS</h2>
+<div id="nginx" class="section level2">
+<h2><span class="header-section-number">3.4</span> NGINX reverse proxy server</h2>
+<p>For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
+[…]</p>
+<p>When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
+[…]</p>
+<p>.conf file and installation on Linux server. Security and Authentication.</p>
 </div>
 <div id="aws" class="section level2">
 <h2><span class="header-section-number">3.5</span> AWS EC2 server</h2>
-<p>Executing API on a public server allows to share data, in this context a dataset, with internet public. Since the public is whichever person on the net the solution to be implementing needs also to be scalable.</p>
-<p><strong>from amazon</strong>
-Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. It provides complete control of the computing resources and let run on Amazon’s proven computing environment.
-<strong>from amazon</strong></p>
-<p>These are virtual servers that you can spin up and rent. You can set the servers up however you want, and you can scale them up or down (to provide more juice) as needed.</p>
-<p>(…)</p>
+<p>Executing API on a public server allows to share data with a multitude of subjects. Since it can not be specified a-priori how many users are going to enjoy the service a scalable solution fills the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for relatively a cheap price.
+AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named <a href="https://aws.amazon.com/en/aws-cost-management/">amazon cost manager</a>.
+Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+[few words still on EC2]</p>
+<div id="launch-an-ec2-instance" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Launch an EC2 instance</h3>
+<p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.2.3</a>, has been exposed and needs to be linked to the security port opened.</p>
+<div class="figure">
+<img src="images/aws.PNG" alt="" />
+<p class="caption">aws_dashboard</p>
+</div>
+<p>At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with <a href="https://www.putty.org/">PuTTY</a>, which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available.</p>
 <p>posso far vedere:
 - come si fa deplyment su AWS quindi
 - inizializzazione istanza
@@ -447,6 +511,7 @@ Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure,
 - mettere spazio macchina
 - spiegare perchè conviene tenere un server AWS</p>
 
+</div>
 </div>
 </div>
 <h3>References</h3>
@@ -468,6 +533,9 @@ Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure,
 </div>
 <div id="ref-docker_documentation_2020">
 <p>“Get Docker.” 2020. <em>Docker Documentation</em>. <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>.</p>
+</div>
+<div id="ref-nolis_2020">
+<p>Nolis, Jacqueline. 2020. “R Docker Faster.” <em>Medium</em>. Medium. <a href="https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d">https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d</a>.</p>
 </div>
 <div id="ref-plumber">
 <p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
@@ -544,6 +612,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
