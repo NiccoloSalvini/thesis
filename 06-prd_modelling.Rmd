@@ -2,7 +2,7 @@
 
 
 Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. What It can be observed is just a sample, some sites, from a continuous unobserved process which we aim to estimate. Data as such can monitor a vast range of natural or economic meausuraments, as example cancer detection [@Bell2006] at several sites, COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020] etc. For simplicity lets consider $y$ of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
-from a random spatial process Y $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of a random spatial process.
+from a random spatial process $Y$,  $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of a random spatial process.
 $\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$ , where D is a subset of $\mathbb{R}^{r}$ a r-dimensional Euclidean space. 
 When $r = 1$ it is a stochastic process widely encountered in literature e.g. time series process, nevertheless in this context there will be always $r = 2$ or eventually $r = 3$. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
 
@@ -42,32 +42,46 @@ where $\boldsymbol{s} \in \mathbb{R}^{r}$, $\Delta$ is the Laplacian function, $
 
 $\operatorname{Cov}\left(\xi\left(s_{i}\right), \xi\left(s_{j}\right)\right)=\operatorname{Cov}\left(\xi_{i}, \xi_{j}\right)=\frac{\sigma^{2}}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)^{\lambda} K_{\lambda}\left(\kappa\left\|s_{i}-s_{j}\right\|\right)$
 
-## Hedonic class models in points ref bayesian data analysis
+## Hedonic class models in Rental House Prices 
 
-The theoretical foundation of the hedonic price [Xiao et al., 2017] is based on the hedonic utility in theory of consumer’s demand. The price is given by the unit cost of each characteristic. Hedonic Price function establishes a functional relationship between the observed household expenditures on housing, $P(H)$, and the level of characteristics contained in vector $H$. $P(H)=f\left(h_{1}, h_{2}, h_{3}, \ldots, h_{n}\right)$.
-The characteristics belong to different categories:
+The theoretical foundation of the HPM i.e. hedonic price models relies on the consumer utility theory Lancaster’s (1966) and Rosen's model [Rosen, 1974]. The general principle in HPM suggests that the value of a commodity can be calculated by summing up the estimated values of its separate properties. Applying HPM to real estate, house price (but also rent) is given by the unit cost of each household characteristic, therefore the expenditures associated with its characteristics. More generally the discussion might be opened to how much each household expenditure impacts the total price of the house [letteratura]. In addition It can be also extended to how much a new infrastructure (transports, new public places) will drive house price value [letteratura]. Its downsides are also under the inspection of urban economic literature such as how time implied into building infrastructure might flatten house prices in the short-run [letteratura]. The last three points mentioned are interesting research prospects but are beyond the scope of the analysis. 
+According to HPM Hedonic Price function establishes a general functional relationship between the observed household expenditures on housing, $P(H)$, and the level of characteristics contained in vector $H$. $P(H)=f\left(h_{1}, h_{2}, h_{3}, \ldots, h_{n}\right)$. 
+First inclusion of spatial effect in urban economic literature are provided by Alonso (1964) that contributed to point out that prices (even tough model was centered on rental prices) depended on a number of spatial covariates like CBD, the distance from Central City Business, as well as other urban-socio-cultural ones such as: transport cost per kilometer and community income. The model is called monocentric since the centroid from which distances are calculated is a single. Moreover a first approach to areal data was touched since the CBD was not a single point occurrence, rather it was an areal unit with well-defined boundaries of regular or irregular shape. However Applications of the model were not convincing since empirical observation offered a different picture. Results displayed multi-centric areal structures that drove prices also called Poly-centric structures, and that covariates like CBD are only informative within city center boundaries. Poly-centric theory was also more coherent with the architectural and socio-economical evolution of cities during recent times, therefore theory was then criticized and abandoned. Critics regarded neighborhood quality measure and boundary problems Dubin (1987). Dubin for these reasons developed a geostatistical model including areal effects in the error term since handling those problems was posing several hard challenges.
+During literature evolution on HPM, as it is already been explained, discussions on vector $H$ have risen. Though generally they can be grouped into two macro domains:
 
-- residential structure, such as its style, lot size, and the number of rooms
-- externalities associated with the geographic location (locational effects) both inbetween houses and within other existing ifrastructures 
+- Residential structure characteristics, such as: house size, and the number of rooms, number of bathrooms (inner data effect)
+- Effects associated with the geographic location (locational effects), both between houses and within other existing infrastructures, events or areas. (outer data effect)
 
-For the scope of the anlysis both of them are considered, even thougbh the effect of external-to-the-house existing infrastructures are not taken into consideration.
-Since the relationships between the house characteritics and the price is not explicited in economic literature it is possibile to assume whichever needed [linear non linear functional  etc aggiungi qualcosa], which comes very handy in the INLA setting. Furthemore if it assumed a linear relationship a  classical non-spatial linear regression can relate the y response variable with its covariates and error through the expression
+For the scope of the analysis residential structure covariates and locational between effects are considered. Within effects covariates such as crime rate and transports are not included in the model since prices and rents are already incorporating that information. 
+As a final remark scholars would argue that rent values do not represent the actual value of real estate. As a matter of fact in empirical analyses rent value are a proxy for the value of real estate, but if actualized and 
+
+
+
+## Points Referenced Bayesian data analysis
+
+Since the relationships between the characteristics of the house and the price is not explicited in economic literature it is possible to assume whichever $f$ better models data [linear non linear functional  etc aggiungi qualcosa]. The open possibility to apply any relationship between covariates comes very handy in the INLA setting \ref(latentGaussian) since latent gaussian models are designed to be prepared to accept any functional form. 
+If it assumed a linear relationship among covariates then a classical bayesian non-spatial linear regression can relate a y response variable with its covariates and error through the expression:
 
 $$y_{i}=\mu_{i}+\varepsilon_{i}$$
 
-where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$  and $\mu_{i}$ is the mean structure that might linearly depend on some $\mathbf{x}$ covariates, $\beta$ coefficients and $\varepsilon$ white noise error. Keeping in mind the INLA notation, the linear predictor can be written as $\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}$, where $i$ pedix is the observation number and $j$ pedix is the mth covariate.  Moreover it is possible to specify $\eta$ as a function of $\mu$. The link function between them in this case is identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. In other modeling cases where response has to stay between $[0,1]$ (e.g. probabilities) the link function has to Logit, giving birth to logistic regression. More generally expressed in vector notation, incorporating the spatial index:
+where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$  and $\mu_{i}$ is the mean structure that might linearly depend on some $\mathbf{x}$ covariates, $\beta$ coefficients and $\varepsilon$ white noise error. Keeping in mind the INLA notation, the linear predictor can be written as $\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}$, where $i$ pedix is the observation number and $j$ pedix is the mth covariate.  Moreover it is possible to specify $\eta$ as a function of $\mu$. The link function between them in this case is identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. In other modeling cases where response has to stay between $[0,1]$ (e.g. probabilities) the link function has to Logit, giving birth to logistic regression. More generally expressed in vector notation:
 
 $y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \boldsymbol{\beta_{j}}+\varepsilon\left(\mathbf{s}_{i}\right)$
 
-where its OLS estimator is $\hat{\boldsymbol{\beta}}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}$ 
+where its OLS estimator is $\hat{\boldsymbol{\beta}}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}${#ols}
 
 However in many cases non-linear functions, like basis function might be a smoother solution to model coordinates when used as covariates [@Krainski2018].
 
-In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients $\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}$ as well ad on the variance  $\sigma^{2}$ of $y_{i}$. When no expert information is provided vague priors are introduced, meaning that the regression should not be driven by the priors choice. 
+Moreover In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients $\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}$ as well ad on the variance  $\sigma^{2}$ of $y_{i}$. When no expert information is provided vague priors are introduced, meaning that the regression should not be weighted too much on the priors choice. 
 Vague priors might be:
 
 - $\beta_{m} \sim \operatorname{Normal}\left(0,10^{6}\right)$ for the beta coefficients
 - $\log (\tau)=\log \left(1 / \sigma^{2}\right) \sim \log \operatorname{Gamma}\left(1,10^{-5}\right)$ for precision 
+
+
+A comparison between standard regression and bayesian regression might help to integrate bayesian methods into HPM. If the response var y is a vector representing the outcome, if $\mathbf{X}$ is its matrix covariates and if the intercept $\beta_{0}$ is a 1 elements vector, then the OLS estimator, once again in \@ref(ols) where its standard error in vector notations is: $\operatorname{se}(\hat{\boldsymbol{\beta}})=\sqrt{s^{2}\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1}}$ 
+
+
 
 [qui piccolo regresso su bayesian modelling and hierarchical regression]
 
