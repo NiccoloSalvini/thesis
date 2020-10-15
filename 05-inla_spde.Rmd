@@ -1,7 +1,14 @@
-# INLA computation {#inla-spde}
+# INLA bayesian computation {#inla-spde}
 
-**va parafrasatoo**
 
+
+- la Place approximation
+- Beyesian comoutatiion choice INLA 
+- SPDE 
+- R INLA package 
+- example 
+
+### Introduction 
 
 Several types of models are used with spatial and spatio-temporal data, depend-
 ing on the aim of the study. If we are interested in summarizing spatial and
@@ -43,6 +50,9 @@ the Bayesian philosophy and inference in Chapter 3, while in Chapter 4 we review
 Bayesian computation tools, but the reader could also find interesting the follow-
 ing: Knorr-Held (2000) and Best et al. (2005) for disease mapping and Diggle et al.
 (1998) for a modeling approach for continuous spatial data and for prediction
+
+
+
 
 **va parafrasatoo**
 
@@ -98,7 +108,7 @@ bution.
 
 **qui volendo un esempio fatto da me**
 
-## The Class of Latent Gaussian Models
+## Latent Gaussian Models{#latentGaussian}
 
 
 The first step in defining a latent Gaussian model within the Bayesian framework
@@ -112,7 +122,7 @@ $$\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(
 
 Here 𝛽0 is a scalar representing the intercept; the coefficients $\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}$
 quantify the (linear) effect of some covariates $\boldsymbol{x}=\left(\boldsymbol{x}_{1}, \ldots, \boldsymbol{x}_{M}\right)$ on the response; and
-$f=\left\{f_{1}(\cdot), \ldots, f_{L}(\cdot)\right\}$ is a collection of functions defined in terms of a set of covariates $z = (z_1, … , z_L)$. The terms $f_l(⋅)$ can assume different forms such as smooth and
+$f=\left\{f_{1}(\cdot), \ldots, f_{L}(\cdot)\right\}$ is a collection of fmunctions defined in terms of a set of covariates $z = (z_1, … , z_L)$. The terms $f_l(⋅)$ can assume different forms such as smooth and
 
 nonlinear effects of covariates, time trends and seasonal effects, random intercept
 and slopes as well as temporal or spatial random effects. For this reason, the class of
@@ -232,66 +242,6 @@ a second-order approximation to a response variable (see Section 6.5 of
 Rue et al., 2009 for details). In general, the CCD strategy uses much less
 points, but still is able to capture the variability of the hyperparameter
 distribution. For this reason it is the default option in R-INLA.
-
-
-## Stochastic partial differential equation
-approach
-
-As described in the previous chapters, in R-INLA the linear predictor $\eta_{i}$ is defined
-using the formula which includes `f()` terms for nonlinear effects of covariates or
-random effects. In the same way, the Matérn GF will be included in the formula
-using a proper specification for `f()`. For making the connection between the linear
-predictor$\eta$ i and the formula more explicit, it is convenient to follow Lindgren
-and Rue (2015) and to rewrite the linear predictor as:
-
-$\eta_{i}=\sum_{k} h_{k}\left(z_{i}^{k}\right)$
-
-where _k_ denotes the _k_ th term of the `formula`, $z_{i}^{k}$ represents the covariate value for a fixed/nonlinear effect or, in the case of a random effect, the index of a second-order
-unit (e.g., area or point ID). The mapping function $h_{k}(\cdot)$ links $z_{i}^{k}$ to the actual value
-of the latent field for the _k_ th formula component.
-As an example consider the case where the linear predictor $\eta_{i}$  includes a fixed
-effect of a covariate (named `z1` in R), a nonlinear effect (e.g., RW2) of the variable
-`time` (given by a sequence of time points), and a random effect with iid compo-
-nents indexed by the variable `index.random`. Thus the corresponding `R-INLA`
-`formula` is
-
-
-
-```
-
-formula <- -1 + z1 + f(time, model="rw2") + f(index.random, model="iid")
-
-```
-
-The default intercept is not included as we specify `-1` in the formula. With the
-new linear pwredictor, we have that $h_{1}\left(z_{i}^{1}\right)$ is equal to $z_{i}^{1} \beta$,
-$h_{2}\left(z_{i}^{2}\right)$ is the smooth effect evaluated at $z_{i}^{2}$ (the ith element of vector time), and $h_{3}\left(z_{i}^{3}\right)$ is the random effect component with index equal to $z_{i}^{3}$ (the ith element of `index.random`). As usual, the latent field $\theta$ is the joint vector of all the latent Gaussian variables included in the linear predictor.
-
-The formulation only allows each observation to directly depend on
-a single element $z_{i}^{k}$  from each effect $h_{k}(\cdot)$ and this does not cover the case when a random effect is defined as a linear combination of temporal or areal values, such
-as the SPDE representation. In such cases each observation $y_{i}$ depends on a linear combination of the elements of 𝜽 and the observation distribution will be defined as:
-
-
-$y_{i} \mid \theta, \psi \sim p\left(y_{i} \mid \sum_{j} A_{i j} \theta_{j}, \psi\right)$
-
-
-instead of $y_{i} \mid \boldsymbol{\theta}_{i}, \boldsymbol{\psi} \sim p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)$ as in Eq. (4.13). The term $A_{ij}$ is the generic element
-of the matrix **A** referred to as the observation or projector matrix. In Sections 6.7.2 and 6.7.3, we will show how to create the  **A** matrix using the helper func
-tion `inla.spde.matrix.A` and how to include it in the inla call through the `control.predictor` option.  The **A** matrix defines a mapping between the
-spatial latent field (defined on the mesh) and the observations (defined in a set
-of locations) and this allows the SPDE models to be treated as standard indexed
-random effects (the mapping is done by placing appropriate $\varphi_{g}(s)$  values in the
-**A** matrix, see Eq. (6.18)). Internally, `R-INLA` creates a new linear predictor $\eta^{\star}$
-defined as a linear combination of the original one $\eta$:
-
-
-$\eta^{\star}=A \eta$
-
-and in this case the likelihood is linked to the latent field through$\eta^{\star}_{i}$ instead of
-$\eta_{i}$:
-
-
-$p(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i=1}^{n} p\left(y_{i} \mid \eta_{i}^{\star}, \boldsymbol{\psi}\right)$
 
 
 ## The Projector Matrix
