@@ -257,6 +257,7 @@ function(npages = 10,
       @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze"--> lowercase, without accent)
       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300
       @param type [chr string] "affitto" = rents, "vendita"  = sell 
+      @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" 
       content-type: application/json 
 ```
 - Get all the links 

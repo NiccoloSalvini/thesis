@@ -132,11 +132,17 @@
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="6.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>6.1</b> Gaussian Process (GP)</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="prdm.html"><a href="prdm.html#stationarity-in-gp"><i class="fa fa-check"></i><b>6.1.1</b> Stationarity in GP</a></li>
-<li class="chapter" data-level="6.1.2" data-path="prdm.html"><a href="prdm.html#Matern"><i class="fa fa-check"></i><b>6.1.2</b> Matérn covariance function</a></li>
-<li class="chapter" data-level="6.1.3" data-path="prdm.html"><a href="prdm.html#isotropy-in-gp"><i class="fa fa-check"></i><b>6.1.3</b> Isotropy in GP</a></li>
+<li class="chapter" data-level="6.1.2" data-path="prdm.html"><a href="prdm.html#isotropy-in-gp"><i class="fa fa-check"></i><b>6.1.2</b> Isotropy in GP</a></li>
+<li class="chapter" data-level="6.1.3" data-path="prdm.html"><a href="prdm.html#Matern"><i class="fa fa-check"></i><b>6.1.3</b> Matérn covariance function</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#hedonic-class-models-for-rental-house-market"><i class="fa fa-check"></i><b>6.2</b> Hedonic class models for Rental House Market</a></li>
-<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hierarchical-regression-for-univariate-spatial-data"><i class="fa fa-check"></i><b>6.3</b> Hierarchical regression for univariate spatial data</a></li>
+<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#regression-for-univariate-spatial-data"><i class="fa fa-check"></i><b>6.3</b> Regression for univariate spatial data</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>6.3.1</b> Parameter estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#hierarchical-bayesian-regression"><i class="fa fa-check"></i><b>6.4</b> Hierarchical Bayesian Regression</a></li>
+<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchcial-model"><i class="fa fa-check"></i><b>6.5</b> INLA as a hierarchcial model</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#prediction"><i class="fa fa-check"></i><b>6.6</b> Prediction</a></li>
+<li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#model-checking-and-selection"><i class="fa fa-check"></i><b>6.7</b> Model Checking and Selection</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>7</b> Shiny Web App</a><ul>
 <li class="chapter" data-level="7.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
@@ -168,56 +174,77 @@
             <section class="normal" id="section-">
 <div id="prdm" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Point Referenced Data Modeling</h1>
-<p>Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon <span class="citation">(Moraga <a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>. Data as such can monitor a vast range of natural or economic measurements, as example cancer detection <span class="citation">(Bell et al. <a href="#ref-Bell2006" role="doc-biblioref">2006</a>)</span> at several sites, COVID19 spread in China <span class="citation">(Li et al. <a href="#ref-Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020" role="doc-biblioref">2020</a>)</span> etc. Distance between observations can generate correlation as well. As a further argument house prices smoothly varies between close neighborhoods <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. APi generated data are point referenced data, so modeling methodologies applied regard only the just introduced data type.
+<p>Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon <span class="citation">(Moraga <a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>. Data as such can monitor a vast range of measurements, as an example diseases ones cancer detection <span class="citation">(Bell et al. <a href="#ref-Bell2006" role="doc-biblioref">2006</a>)</span> at several sites, epidemic ones COVID19 spread in China <span class="citation">(Li et al. <a href="#ref-Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020" role="doc-biblioref">2020</a>)</span>, environmental ones likewise PM concentration in the North-Italian <span class="citation">(Cameletti et al. <a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>. As a further argument house prices smoothly varies between closer neighborhoods <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. API generated data are point referenced data, so modeling methodologies applied during the analysis exclusively regard the just introduced data type.
 As a side note spatial data can be distinguished into 3 main categories:</p>
 <ul>
 <li>areal data:</li>
 <li>point referenced data</li>
 <li>point pattern data</li>
 </ul>
-<p>Spatial data can also be measured according to a 3rd dimension (4th where there is elevation) which is time. In this settign it might be interesting to research time correlation between subsequent spatial data time points <span class="citation">(Paci et al. <a href="#ref-PACI2017149" role="doc-biblioref">2017</a>)</span>.
+<p>Spatial data can also be measured according to a 3rd dimension (4th where there is elevation) which is time. In this settign it might be interesting to research time correlation between subsequent spatial data time points <span class="citation">(Paci et al. <a href="#ref-PACI2017149" role="doc-biblioref">2017</a>)</span>. Since API generated data on a daily basis stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model.
 What It can be observed in point reference data type is just a sample, some sites, from a continuous unobserved spatial process <a href="prdm.html#GP">6.1</a> which we aim to estimate.</p>
 <div class="figure">
-<img src="images/prdprocess.png" alt="" />
-<p class="caption">3D scatterplot and surface, Stockton data.</p>
+<img src="images/prd_image.PNG" alt="" />
+<p class="caption">point referenced data example, Milan Rental Real Estate, Author’s Source</p>
 </div>
 <div id="GP" class="section level2">
 <h2><span class="header-section-number">6.1</span> Gaussian Process (GP)</h2>
 <p>For simplicity lets consider <span class="math inline">\(y\)</span> of interest observations <span class="math inline">\(y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)\)</span>
 from a random spatial process <span class="math inline">\(Y\)</span>, such that: <span class="math inline">\(Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)\)</span> observed at location <span class="math inline">\(\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}\)</span>. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of an unobserved random spatial process.
 <span class="math inline">\(\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}\)</span> , where <span class="math inline">\(D\)</span> is a subset of r-dimensional Euclidean space <span class="math inline">\(\mathbb{R}^{r}\)</span>.
-When <span class="math inline">\(r = 1\)</span> it is a simple stochastic process widely explored in literature i.e. time series process. Nevertheless geostatistical data belong always to <span class="math inline">\(r = 2\)</span> or eventually <span class="math inline">\(r = 3\)</span>, when elevation dataa is available. The stochastic process <span class="math inline">\(Y\)</span> is observed in a fixed set of “monitoring stations” and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.</p>
-<p>A <span class="math inline">\(Y\)</span> random spatial process is said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)\)</span> and covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each others by a spatial covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>, such that <span class="math inline">\(\Sigma_{i j}=\operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)=\mathcal{C}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)\)</span>.
-GP has to meet two important properties: it has to be <strong>stationary</strong> and it has to be <strong>isotropic</strong>.</p>
+When <span class="math inline">\(r = 1\)</span> it is a simple stochastic process widely explored in literature i.e. time series process. Nevertheless geostatistical data belong always to <span class="math inline">\(r = 2\)</span> or eventually <span class="math inline">\(r = 3\)</span>, when elevation is available. The stochastic process <span class="math inline">\(Y\)</span> is observed in a fixed set of “monitoring stations” and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.</p>
+<div class="figure">
+<img src="images/prdprocess.png" alt="" />
+<p class="caption">3D scatterplot and surface, Stockton data.</p>
+</div>
+<p>A collection of <span class="math inline">\(n\)</span> random variables, such as <span class="math inline">\(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\)</span> that are random <em>valid</em> spatial processes are said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)\)</span> and covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each others through a spatial covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>. The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the <em>validity</em> characteristics from the random spatial process, furthermore it has to be <em>positive definite</em>. Below a generalised version for the <span class="math inline">\(i\)</span>th observation and <span class="math inline">\(j\)</span>th:</p>
+<p><span class="math display" id="eq:cov">\[\begin{equation}
+\operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)
+\tag{6.1}
+\end{equation}\]</span></p>
+<p>GP has to meet two important properties: it has to be <strong>Stationary</strong> and <strong>Isotropic</strong>.</p>
 <div id="stationarity-in-gp" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Stationarity in GP</h3>
 <p>Stationarity in a stochastic process can be either <em>strong</em> or <em>weak</em>. The strong assumption forces that for any given spatial index <span class="math inline">\(n\)</span> and its correspondent locations <span class="math inline">\(s_{1,\ldots,n}\)</span>, the distribution of the process <span class="math inline">\(\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}\)</span> is the same of the one in <span class="math inline">\(\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}\)</span>, where <span class="math inline">\(h\)</span> is a number belonging to <span class="math inline">\(R^{2}\)</span>.
-The latter (i.e, weak) ensures that if the GP mean moment is constant over the study domain <span class="math inline">\(\mu(\mathbf{s}) \equiv \mu\)</span> (e.g. <span class="math inline">\(E[Y(s)]=\mu, \forall s \in D\)</span>) then the covariance functions does depend only on the distance between each couple points (euclidean <span class="math inline">\(\left\|s_{i}-s_{j}\right\|\)</span> distance) separation. Distance choice is a major subject but for simplicity Euclidean has been selected. Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions <span class="math inline">\(\mathcal{C}(h)\)</span> can summarize the process through the separation vector <span class="math inline">\(h\)</span> <span class="citation">(Banerjee <a href="#ref-Banerjee-Gelfand" role="doc-biblioref">2015</a>)</span>.</p>
-<p>Moreover since it is assumed to be true <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0\)</span>, the second moment of the latter expression can be written as <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}\)</span> leading to also <span class="math inline">\(\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))\)</span>. Last expression is called <em>variogram</em> and can be expressed with <span class="math inline">\(2 \gamma(\mathbf{h})\)</span>, even tough its half is more often used and <span class="math inline">\(\gamma(\mathbf{h})\)</span> is named <em>semivariogram</em> <span class="citation">(Cressie <a href="#ref-Cressie_2015" role="doc-biblioref">2015</a>)</span>.
+The latter (i.e, weak) ensures that if the GP mean moment is constant over the study domain <span class="math inline">\(\mu(\mathbf{s}) \equiv \mu\)</span> (e.g. <span class="math inline">\(E[Y(s)]=\mu, \forall s \in D\)</span>) then the covariance functions does depend only on the distance between each couple points (euclidean <span class="math inline">\(\left\|s_{i}-s_{j}\right\|\)</span> distance) separation. Distance choice is a major subject but for simplicity Euclidean has been selected. Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions <span class="math inline">\(\mathcal{C}(h)\)</span> can summarize the process through the separation vector <span class="math inline">\(h\)</span> <span class="citation">(Banerjee, Carlin, and Gelfand <a href="#ref-Banerjee-Gelfand" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Moreover since it is assumed to be true <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0\)</span>, the second moment of the latter expression can be written as <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}\)</span> leading to also <span class="math inline">\(\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))\)</span>. Last expression is called <em>variogram</em> and can be expressed with <span class="math inline">\(2 \gamma(\mathbf{h})\)</span>, even tough its half <span class="math inline">\(\gamma(\mathbf{h})\)</span> is more often used as expression, namely <em>semivariogram</em> <span class="citation">(Cressie <a href="#ref-Cressie_2015" role="doc-biblioref">2015</a>)</span>.
 The intuition behind this expression is that the difference in value between two near points <span class="math inline">\(Y(\mathbf{s}+\mathbf{h})\)</span> and <span class="math inline">\(Y(\mathbf{h})\)</span> is expected to be small with respect to the ones farther, in compliance with the first law of geography by Tobler:</p>
 <blockquote>
-<p>“everything is related to everything else, but near things are more related than distant things”</p>
+<p>“Everything is related to everything else,
+but near things are more related than distant things”</p>
+<footer>
+— Waldo R. Tobler
+</footer>
 </blockquote>
+<p>Semivariograms are an efficient tool to asses spatial continuity but they are theoretical. However semivariograms can be fitted to existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:</p>
+<p><span class="math display">\[\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}\]</span></p>
+<p>where <span class="math inline">\(N(t)\)</span> is the set of location pairs such that <span class="math inline">\(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t\)</span> and so <span class="math inline">\(|N(t)|\)</span> is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small <span class="math inline">\(h\)</span>) leading to lower semivariogram values (<span class="math inline">\(\gamma(\mathbf{h})\)</span>), as opposite farther pairs obervations (big <span class="math inline">\(h\)</span>) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation <span class="math inline">\(h\)</span> increases or not, semivariogram values remains the same <span class="math inline">\(\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0\)</span>. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then They are also implied later in the final stage of the modeling process with the aim to asses if any spatial pattern in still present in the residuals. The three main arguments in semivariograms are: <em>range</em> <span class="math inline">\(\sigma^{2}\)</span>, <em>nugget</em> <span class="math inline">\(\tau^{2}\)</span> and <em>sill</em> <span class="math inline">\(\tau^{2}+\sigma^{2}\)</span>.</p>
+<ul>
+<li><em>range</em>: At some offset distance, the variogram values will stop changing and reach a sort of “plateau”. The distance at which the effect occurs is called the range <span class="math inline">\(\frac{\Delta\gamma(\mathrm{h})}{h} \approx 0\)</span>.</li>
+<li><em>sill</em>: The “plateau” value at which the variogram stops changing <span class="math inline">\(\frac{\Delta\gamma(\mathrm{h})}{h} = 0\)</span>.</li>
+<li><em>nugget</em>: The discontinuity at the origin. Although this theoretically should be zero, sampling error and short scale variability can cause it to be non-zero <span class="math inline">\(\gamma(\mathrm{0})\)</span>.</li>
+</ul>
 <div class="figure">
 <img src="images/variogram.PNG" alt="" />
 <p class="caption">variogram example</p>
 </div>
-<p>Semivariograms are an efficient tool to asses spatial continuity but they are theoretical. However semivariograms can be fitted to existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:</p>
-<p><span class="math display">\[\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}\]</span></p>
-<p>where <span class="math inline">\(N(t)\)</span> is the set of location pairs such that <span class="math inline">\(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t\)</span> and so <span class="math inline">\(|N(t)|\)</span> is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small <span class="math inline">\(h\)</span>) leading to lower semivariogram values (<span class="math inline">\(\gamma(\mathbf{h})\)</span>), as opposite farther pairs obervations (big <span class="math inline">\(h\)</span>) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether distance <span class="math inline">\(h\)</span> increases or not, semivariogram values remains the same <span class="math inline">\(\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0\)</span>. Semivariograms might be also implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then They are implied also later in the final stage of modelling process with the aim to asses if any spatial pattern in still present in the residuals. The three main arguments in semivariograms are: <em>range</em> <span class="math inline">\(\sigma^{2}\)</span>, <em>nugget</em> <span class="math inline">\(\tau^{2}\)</span> and <em>sill</em> <span class="math inline">\(\tau^{2}+\sigma^{2}\)</span>. [parameters explanation]</p>
-</div>
-<div id="Matern" class="section level3">
-<h3><span class="header-section-number">6.1.2</span> Matérn covariance function</h3>
-<p>There are many covariance functions and their application depends both on data and the scope on the analysis. Examples of spatial covariance functions are: Linear, Spherical, Exponential and Matérn. FIgure below shows the amount of differen covariance function
-Matérn displays higher degree of flexibility and it can be accounted as the most used in geostatistics <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> and <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>, therefore it will be implied in later the model building process. Matérn functional is:</p>
-<p><span class="math display">\[
-C_{\nu}(d)=\sigma^{2} \frac{2^{1-\nu}}{\Gamma(\nu)}\left(\sqrt{2 \nu} \frac{d}{\rho}\right)^{\nu} K_{\nu}\left(\sqrt{2 \nu} \frac{d}{\rho}\right)
-\]</span>
-where <span class="math inline">\(d\)</span> is the between point distance, <span class="math inline">\(\Gamma(\cdot)\)</span> is a gamma function and <span class="math inline">\(K_{\nu}(\cdot)\)</span> is a modified Bessel function <span class="math inline">\(\sigma^2\)</span> <span class="math inline">\(\rho\)</span> and <span class="math inline">\(\nu\)</span> are common shared parameters explained few lines below.</p>
 </div>
 <div id="isotropy-in-gp" class="section level3">
-<h3><span class="header-section-number">6.1.3</span> Isotropy in GP</h3>
+<h3><span class="header-section-number">6.1.2</span> Isotropy in GP</h3>
 <p>The process is said to be <strong>Isotropic</strong> if the covariance function depends only on the between-points distance so it is invariant under rotation <span class="citation">(Krainski <a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain <span class="math inline">\(D\)</span> then the process is said to be <strong>Anisotropic</strong>.</p>
+<p><span class="math display">\[C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)\]</span></p>
+</div>
+<div id="Matern" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Matérn covariance function</h3>
+<p>There are many covariance functions and their application depends both on data and the scope on the analysis.
+Examples of spatial covariance functions among all the others are: Linear, Spherical, Exponential and Matérn.
+Matérn displays higher degree of flexibility since it has many tuning parameter. It can be also accounted as the most used in geostatistics <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> and <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. Matérn is tuned mainly by two parameters, a scaling one <span class="math inline">\(\kappa&gt;0\)</span> (the most of the times set equal to the range) and a smoothing one <span class="math inline">\(\nu&gt;0\)</span>. By decomposing it into a more granular form and cosidering two generic locations <span class="math inline">\(\mathbf{S}_{i}\)</span> and <span class="math inline">\(\mathbf{S}_{j}\)</span>, a <em>stationary</em> and <em>isotropic</em> Matérn <em>correlation</em> function <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span>. Keep in mind notation <a href="prdm.html#eq:cov">(6.1)</a>:</p>
+<p><span class="math display">\[
+\operatorname{Cor}_{Matérn}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)^{\nu} K_{\nu}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)
+\]</span></p>
+<p>where <span class="math inline">\(\|\cdot\|\)</span> is the Euclidean distance, <span class="math inline">\(\Gamma(\cdot)\)</span> is a gamma function and <span class="math inline">\(K_{\nu}(\cdot)\)</span> is a modified Bessel function of second kind. The relationship that ties Matérn correlation and covariance is <span class="math inline">\(\mathcal{C}(h_{i,j}) = \operatorname{Cov}_{Matérn}\left(U\left(\mathrm{s}_{i}\right), U\left(\mathrm{s}_{j}\right)\right) = \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)\)</span>.
+Then if <span class="math inline">\(u(\mathbf{s})\)</span> is a realization from <span class="math inline">\(U(\mathbf{s})\)</span> at <span class="math inline">\(n\)</span> locations the joint covariance matrix can be defined as each entry of the joint covariance matrix <span class="math inline">\(\Sigma_{i, j}= \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)\)</span>. Common customary choice is to assume that <span class="math inline">\(U(.)\)</span> in centered in 0.
+Covarianca function has to be</p>
 </div>
 </div>
 <div id="hedonic-class-models-for-rental-house-market" class="section level2">
@@ -233,46 +260,95 @@ During literature evolution on HPM, as it is already been explained, discussions
 <p>For the scope of the analysis residential structure covariates and locational between houses effects are considered. Exogenous effects such as crime rate and transports are not included in the model since prices and rents are already incorporating that information.
 As a final remark scholars would argue that rent values do not represent the actual value of real estate. Nevertheless in empirical analysis rent value are considered a proxy for the price of real estate <span class="citation">(Herath and Maier <a href="#ref-Herath_Maier_2011" role="doc-biblioref">2011</a>)</span>. A further argument to endorse this hypothesis is brought by <span class="citation">(Manganelli, Morano, and Tajani <a href="#ref-sellingVSrental" role="doc-biblioref">2013</a>)</span> considering housing a commodity, then the selling or the rental should be considered interchangeable economic actions with respect to same inner need to satisfy. This is also stronger in this case since the latter statement is referred to a paper exclusively based on italian real estate analysis. Moreover Capozza and Seguin <span class="citation">(Capozza and Seguin <a href="#ref-Capozza_Seguin_1996" role="doc-biblioref">1996</a>)</span> discussed about how much rent-price ratio predicts future changes both in rents and prices. Among other issues raised they pinpointed the decomposition of rent-price ratio into two parts: the predictable part and the unexplained residuals part. The predictable part was in negative relationship with price changes, in other words cities in which prices are relatively high with respect to rents are associated with higher capital gains that justifies that misalignment. This is also true for the opposite, that is cities in which prices are higher with respect to the rents, and this can not be associated to any local condition, realizes lower capital gains. One other demonstration of price-rent exchangeablity and strong correlation is offered by Clark <span class="citation">(Clark <a href="#ref-Clark_1995" role="doc-biblioref">1995</a>)</span> which traces the Capozza and Seguin work. Rent-price ratio is negatively correlated with following future changes in rents. In other words prices are still higher when areas in which they are observed documents an increase in rent prices. All the literature review above is oriented to a long-run alignement of price and rent.</p>
 </div>
-<div id="hierarchical-regression-for-univariate-spatial-data" class="section level2">
-<h2><span class="header-section-number">6.3</span> Hierarchical regression for univariate spatial data</h2>
-<p>Since the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(C\)</span>, and the price is not defined in economic literature it is possible to assume any <span class="math inline">\(f\)</span> functional form [linear non linear functional]. The open possibility to apply any relationship between covariates comes very handy in the INLA setting (latentGaussian) since latent gaussian models are prepared to accept any <span class="math inline">\(f\)</span> relation. Urban econometric literature transform the price variable to a logarithmic scale, this transformation smooths the skewness of prices leading to best estimates. This argumentation can be taken also for prices regarding house rents.
+<div id="regression-for-univariate-spatial-data" class="section level2">
+<h2><span class="header-section-number">6.3</span> Regression for univariate spatial data</h2>
+<p>Since the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(C\)</span>, and the price <span class="math inline">\(P\)</span> is not defined in economic literature it is possible to assume any <span class="math inline">\(f\)</span> functional form. The open possibility to apply any relationship between covariates comes very handy in the INLA setting (latentGaussian) since latent gaussian models are prepared to accept any <span class="math inline">\(f\)</span> link function that modifies the linear predictor.
+What the vats majority of econometric literature applies is a logarithmic scale trasnformation to the y price response variable. The transformation smooths the skewness of prices leading to best estimates. This argumentation can be taken also for prices regarding house rents.
 If it assumed a linear relationship among covariates then a classical bayesian non-spatial linear regression can relate a <span class="math inline">\(log(y)\)</span> response variable with its covariates and error through the expression:</p>
 <p><span class="math display" id="eq:genreg">\[\begin{equation}
     \log(y_{i})=\mu_{i}+\varepsilon_{i}
-\tag{6.1}
+\tag{6.2}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(y_{i}\)</span> is normally distributed as <span class="math inline">\(y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)\)</span> and <span class="math inline">\(\mu_{i}\)</span> is the mean structure that might linearly depend on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\beta\)</span> coefficients and <span class="math inline">\(\varepsilon\)</span> white noise error. Keeping in mind the INLA notation, the linear predictor can be written as <span class="math inline">\(\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}\)</span>, where the <span class="math inline">\(i\)</span> pedix is the observation number and the <span class="math inline">\(j\)</span> pedix is the mth covariate. Moreover it is possible to specify <span class="math inline">\(\eta\)</span> as a function of <span class="math inline">\(\mu\)</span>. The link function between them in this case is identity, so that <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span>. In GLMs when response variable has to stay between <span class="math inline">\([0,1]\)</span> (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:</p>
+<p>where <span class="math inline">\(y_{i}\)</span> is normally distributed as <span class="math inline">\(y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)\)</span> and <span class="math inline">\(\mu_{i}\)</span> is the mean structure that might linearly depend on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\beta\)</span> coefficients and <span class="math inline">\(\varepsilon_{i}\)</span> white noise error. Keeping in mind the INLA notation, the linear predictor can be written as
+<span class="math display" id="eq:linearpred">\[\begin{equation}
+\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}
+\tag{6.3}
+\end{equation}\]</span>, where the <span class="math inline">\(i\)</span> pedix is the observation number and the <span class="math inline">\(j\)</span> pedix is the mth covariate. Moreover it is possible to specify <span class="math inline">\(\eta\)</span> as a function of <span class="math inline">\(\mu\)</span>. The link function between them in this case is identity, so that <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span>. In GLMs when response variable has to stay between <span class="math inline">\([0,1]\)</span> (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:</p>
 <p><span class="math display" id="eq:genregvec">\[\begin{equation}
   y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+\varepsilon\left(\mathbf{s}_{i}\right)
-  \tag{6.2}
+  \tag{6.4}
 \end{equation}\]</span></p>
 <p>where its OLS estimator is:
 <span class="math display" id="eq:ols">\[\begin{equation}
-  \hat{\boldsymbol{\beta}}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}
-\tag{6.3}
+  \hat{\beta}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}
+\tag{6.5}
 \end{equation}\]</span></p>
-<p>However in many cases non-linear functions, like basis function might be a smoother solution to model coordinates when used as covariates <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span>.</p>
-<p>Moreover In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients <span class="math inline">\(\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}\)</span> as well ad on the variance <span class="math inline">\(\sigma^{2}\)</span> of <span class="math inline">\(y_{i}\)</span>. When no expert information is provided vague priors are introduced, meaning that the regression should not be weighted too much on the priors choice.
+<p>However in many cases non-linear functions, like basis function might be a smoother solution to model coordinates when used as covariates <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span>.
+Moreover In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients <span class="math inline">\(\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}\)</span> as well ad on the variance <span class="math inline">\(\sigma^{2}\)</span> of <span class="math inline">\(y_{i}\)</span>. When no expert information is provided vague priors are introduced, meaning that the regression should not be weighted too much on the priors choice.
 Vague priors might be:</p>
 <ul>
 <li><span class="math inline">\(\beta_{m} \sim \operatorname{Normal}\left(0,10^{6}\right)\)</span> for the beta coefficients</li>
 <li><span class="math inline">\(\log (\tau)=\log \left(1 / \sigma^{2}\right) \sim \log \operatorname{Gamma}\left(1,10^{-5}\right)\)</span> for precision</li>
 </ul>
-<p>When leveraging information from location the added <span class="math inline">\(w(\mathbf{s})\)</span> has to be introduced in the previous equation <a href="prdm.html#eq:genregvec">(6.2)</a>. <span class="math inline">\(w(\mathbf{s})\)</span> surface is required in order to incroporate spartial infromation into regression settings, as well as enabling prediction over the domanin <span class="math inline">\(D\)</span>:</p>
+<p>When leveraging information from location the added <span class="math inline">\(w(\mathbf{s})\)</span> has to be introduced in the previous equation <a href="prdm.html#eq:genregvec">(6.4)</a>. <span class="math inline">\(w(\mathbf{s})\)</span> surface is required in order to incorporate spatial error into regression settings, as well as enabling prediction over the entire domain <span class="math inline">\(D\)</span>:</p>
 <p><span class="math display">\[y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime}\beta_{j}+w(\mathbf{s})+\varepsilon\left(\mathbf{s}_{i}\right)\]</span></p>
-<p>The <span class="math inline">\(w(\mathbf{s})\)</span> in the context of the analysis is approached as a GP<a href="prdm.html#GP">6.1</a> whose distribution is multivariate with mean <span class="math inline">\(\boldsymbol{\mu}(\mathbf{s})\)</span> and function of the spatial index <span class="math inline">\(\mathbf{s}\)</span> and covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span>.
-<span class="math inline">\(\varepsilon(\mathbf{s})\)</span> is iid and mean centered in 0 with variance <span class="math inline">\(\tau^{2}\)</span> and is called non-spatial error since it contributes to the nugget. The error term is nit pure since it interfers with the covariance function so the model can be fully spatial.
-One of the major advantges of having a a spatial process embedded into a GP is likelihood based inference.</p>
+<p>The <span class="math inline">\(w(\mathbf{s})\)</span> in the context of the analysis is approached as a stationary and isotropic GP<a href="prdm.html#GP">6.1</a> whose distribution is multivariate Gaussian with mean <span class="math inline">\(\boldsymbol{\mu}(\mathbf{s}) = 0\)</span> and function of the spatial index <span class="math inline">\(\mathbf{s}\)</span> and covariance function <span class="math inline">\(\mathcal{C}( \cdot \mid \theta)\)</span> .
+<span class="math inline">\(\varepsilon(\mathbf{s})\)</span> is iid and mean centered in 0 with variance <span class="math inline">\(\tau^{2}\)</span> and is called non-spatial error since it contributes to the nugget. The error term is pure since it interferes with the covariance function so that the model can embody the spatial component.
+One of the major advantages of having a a spatial process embedded into a GP is <em>likelihood</em> based inference.</p>
+<div id="parameter-estimation" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Parameter estimation</h3>
+<p>Gaussian spatial models can be considered as GLM with a particular specification of the covariance matrix <span class="math inline">\(\Sigma_{\theta}=\sigma^{2} \mathbf{R}(\phi)+\tau^{2} I_{n}\)</span>,
+then the likelihood can be computed by:
+<span class="math display">\[\mathbf{y} \mid \boldsymbol{\theta}, \boldsymbol{\beta} \sim \mathrm{N}\left(\mathbf{X} \beta, \Sigma_{\theta}\right)\]</span>
+where, <span class="math inline">\(\boldsymbol{\theta}=\left(\sigma^{2}, \tau^{2}, \phi\right)\)</span>
+Since likelihood estimation is possible then MLE can be computed for <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\boldsymbol{\theta}\)</span> are <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> and <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.
+Then the estimation in vector notation is:</p>
+<p><span class="math display">\[\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} \Sigma^{-1} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \Sigma^{-1} \mathbf{y}\]</span></p>
+</div>
+</div>
+<div id="hierarchical-bayesian-regression" class="section level2">
+<h2><span class="header-section-number">6.4</span> Hierarchical Bayesian Regression</h2>
+<p>Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. The problem can be viewed by a different angle considering that observations might fall into different categories such that some of them belong to levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be facetted by which floor they belong or whether they fall into different energy classes and many others more. Simplyfing the discussion and considering just one single 9 levels category, data can be organized in the way that each single observation (squares in figure below) belongs to its respective belonging category (circles in figure).</p>
+<div class="figure">
+<img src="images/simple.PNG" alt="" />
+<p class="caption">simplifing_problem</p>
+</div>
+<p>At this point data can be conveniently grouped into two meta-categories: <em>fist level</em> and <em>second level</em> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. <em>First level</em> are identified by sampling observations which have a certain probability distribution. <em>Second level</em> (circles) are categories and might be associated to a set of parameters <span class="math inline">\(\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span>.
+Since the structure once again in the analysis is hierarchical, a DAG (Directed Acyclical Graph) <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> representation might sort out ideas. If categories are represented by different thetas nodes <span class="math inline">\(\theta\)</span> and edges are the logical condition to belong to the precise category for observations then:</p>
+<p><img src="images/thetas.PNG" alt="thetas" /> <img src="images/chis.PNG" alt="chis" /></p>
+<p>To fully take into account the hierarchical structure of the data <span class="math inline">\(\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span> can be assumed to come from a distribution <span class="math inline">\(p\left(\theta_{j} \mid \psi\right)\)</span> characterized by <span class="math inline">\(\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}\)</span> hyper parameters, see left figure. If <span class="math inline">\(\theta_{j}\)</span> come from the same distribution they are assumed also to be sharing information <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. In a hierarchical framework this can be specified by:</p>
+<p><span class="math display">\[
+p\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} p\left(\theta_{j} \mid \psi\right) p(\psi) \mathrm{d} \psi
+\]</span></p>
+<p>theta <span class="math inline">\(\theta_{j}\)</span> parameters are similar in the sense they come from the same distribution family characterized by <span class="math inline">\(\boldsymbol{\psi}\)</span> hyper parameters, which at their own time are identified by priors (fixed quantities). This structure can extended to allow more than two levels of hierarchy since the marginal distributions of <span class="math inline">\(\theta\)</span> can be decomposed into the product of their conditional distribution given some hyperparameter <span class="math inline">\(\psi\)</span> as well as their prior distribution <span class="math inline">\(p(\psi)\)</span>.</p>
+<p><span class="math display">\[
+p(\boldsymbol{\theta})=\int p\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) p\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots p\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) p\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
+\]</span></p>
+<p><span class="math inline">\(\boldsymbol{\psi}_{l}\)</span> identifies the hyper pram fot the l <em>th</em> level of hierarchy.</p>
+<p>[ integra la hierarchical regression di blangiardo con quello ceh ho giua scritto ]</p>
+</div>
+<div id="inla-as-a-hierarchcial-model" class="section level2">
+<h2><span class="header-section-number">6.5</span> INLA as a hierarchcial model</h2>
+<p>Given the linear predictor and the link fucntion <span class="math inline">\(\eta_{i}\)</span> defined in</p>
+</div>
+<div id="prediction" class="section level2">
+<h2><span class="header-section-number">6.6</span> Prediction</h2>
+</div>
+<div id="model-checking-and-selection" class="section level2">
+<h2><span class="header-section-number">6.7</span> Model Checking and Selection</h2>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-Banerjee-Gelfand">
-<p>Banerjee, Bradley P.; Gelfand, Sudipto; Carlin. 2015. <em>Hierarchical Modeling and Analysis for Spatial Data, Second Edition</em>. 2ed. ed. Chapman &amp; Hall/Crc Monographs on Statistics &amp; Applied Probability. CRC Press.</p>
+<p>Banerjee, Sudipto, Bradley P. Carlin, and Alan E. Gelfand. 2014. <em>Hierarchical Modeling and Analysis for Spatial Data</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/b17115">https://doi.org/10.1201/b17115</a>.</p>
 </div>
 <div id="ref-Bell2006">
 <p>Bell, B Sue, Richard E Hoskins, Linda Pickle, and Daniel Wartenberg. 2006. <em>International Journal of Health Geographics</em> 5 (1): 49. <a href="https://doi.org/10.1186/1476-072x-5-49">https://doi.org/10.1186/1476-072x-5-49</a>.</p>
+</div>
+<div id="ref-Cameletti2012">
+<p>Cameletti, Michela, Finn Lindgren, Daniel Simpson, and Håvard Rue. 2012. “Spatio-Temporal Modeling of Particulate Matter Concentration Through the SPDE Approach.” <em>AStA Advances in Statistical Analysis</em> 97 (2): 109–31. <a href="https://doi.org/10.1007/s10182-012-0196-3">https://doi.org/10.1007/s10182-012-0196-3</a>.</p>
 </div>
 <div id="ref-Capozza_Seguin_1996">
 <p>Capozza, Dennis, and Paul Seguin. 1996. “Expectations, Efficiency, and Euphoria in the Housing Market.” <em>Regional Science and Urban Economics</em> 26 (February): 369–86. <a href="https://doi.org/10.1016/0166-0462(95)02120-5">https://doi.org/10.1016/0166-0462(95)02120-5</a>.</p>
@@ -284,7 +360,7 @@ One of the major advantges of having a a spatial process embedded into a GP is l
 <p>Cressie, Noel. 2015. <em>Statistics for Spatial Data</em>. Revised Edition. Probability and Mathematical Statistics. Wiley-Interscience.</p>
 </div>
 <div id="ref-Bayesian_INLA_Rubio">
-<p>Gómez Rubio, Virgilio. 2020. <em>Bayesian Inference with Inla</em>. <a href="https://doi.org/10.1201/9781315175584">https://doi.org/10.1201/9781315175584</a>.</p>
+<p>Gómez Rubio, Virgilio. 2020. <em>Bayesian Inference with Inla</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781315175584">https://doi.org/10.1201/9781315175584</a>.</p>
 </div>
 <div id="ref-Herath_Maier_2011">
 <p>Herath, Shanaka, and Gunther Maier. 2011. “Hedonic House Prices in the Presence of Spatial and Temporal Dynamics.” <em>Territorio Italia - Land Administration Cadastre, Real Estate</em> 1 (January): 39–49.</p>
@@ -293,13 +369,13 @@ One of the major advantges of having a a spatial process embedded into a GP is l
 <p>Krainski, Elias, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and INLA</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429031892">https://doi.org/10.1201/9780429031892</a>.</p>
 </div>
 <div id="ref-Krainski-Rubio">
-<p>Krainski, Elias T. 2019. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and Inla</em>. CRC Press.</p>
+<p>Krainski, Elias T. 2019. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and Inla</em>. Chapman; Hall/CRC.</p>
 </div>
 <div id="ref-Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020">
 <p>Li, Huling, Hui Li, Zhongxing Ding, Zhibin Hu, Feng Chen, Kai Wang, Zhihang Peng, and Hongbing Shen. 2020. “Spatial Statistical Analysis of Coronavirus Disease 2019 (Covid-19) in China.” <em>Geospatial Health</em> 15 (1). <a href="https://doi.org/10.4081/gh.2020.867">https://doi.org/10.4081/gh.2020.867</a>.</p>
 </div>
 <div id="ref-sellingVSrental">
-<p>Manganelli, Benedetto, Pierluigi Morano, and Francesco Tajani. 2013. “Economic Relationships Between Selling and Rental Prices in the Italian Housing Market,” September, 7.</p>
+<p>Manganelli, Benedetto, Pierluigi Morano, and Francesco Tajani. 2013. “Economic Relationships Between Selling and Rental Prices in the Italian Housing Market.” In.</p>
 </div>
 <div id="ref-Blangiardo-Cameletti">
 <p>Marta Blangiardo, Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with R-Inla</em>. Wiley.</p>
