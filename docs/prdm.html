@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Point Referenced Data Modeling | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Point Referenced Data Modeling | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
@@ -61,8 +61,72 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
-<link rel="stylesheet" href="css\style.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 
 <body>
@@ -78,6 +142,11 @@
 <li><a href="./"> End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -122,10 +191,9 @@
 <li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#gaussian-random-fields"><i class="fa fa-check"></i><b>4.4</b> Gaussian random fields</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA bayesian computation</a><ul>
-<li class="chapter" data-level="5.0.1" data-path="inla-spde.html"><a href="inla-spde.html#introduction"><i class="fa fa-check"></i><b>5.0.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#inla"><i class="fa fa-check"></i><b>5.1</b> INLA</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#laplace-approximation"><i class="fa fa-check"></i><b>5.2</b> Laplace Approximation</a></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#latentGaussian"><i class="fa fa-check"></i><b>5.3</b> Latent Gaussian Models</a></li>
+<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#latent-gaussian-models-lgm"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
+<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approximation-in-inla-setting"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a></li>
+<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#laplace-approximation"><i class="fa fa-check"></i><b>5.3</b> Laplace Approximation</a></li>
 <li class="chapter" data-level="5.4" data-path="inla-spde.html"><a href="inla-spde.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>5.4</b> Approximate Bayesian inference with INLA</a></li>
 <li class="chapter" data-level="5.5" data-path="inla-spde.html"><a href="inla-spde.html#the-projector-matrix"><i class="fa fa-check"></i><b>5.5</b> The Projector Matrix</a></li>
 </ul></li>
@@ -140,9 +208,9 @@
 <li class="chapter" data-level="6.3.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>6.3.1</b> Parameter estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#hierarchical-bayesian-regression"><i class="fa fa-check"></i><b>6.4</b> Hierarchical Bayesian Regression</a></li>
-<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchcial-model"><i class="fa fa-check"></i><b>6.5</b> INLA as a hierarchcial model</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#prediction"><i class="fa fa-check"></i><b>6.6</b> Prediction</a></li>
-<li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#model-checking-and-selection"><i class="fa fa-check"></i><b>6.7</b> Model Checking and Selection</a></li>
+<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchical-model-va-parafrasato"><i class="fa fa-check"></i><b>6.5</b> INLA as a hierarchical model [va parafrasato]</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.6</b> Spatial Kriging</a></li>
+<li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.7</b> Model Checking and Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>7</b> Shiny Web App</a><ul>
 <li class="chapter" data-level="7.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
@@ -269,11 +337,12 @@ If it assumed a linear relationship among covariates then a classical bayesian n
     \log(y_{i})=\mu_{i}+\varepsilon_{i}
 \tag{6.2}
 \end{equation}\]</span></p>
-<p>where <span class="math inline">\(y_{i}\)</span> is normally distributed as <span class="math inline">\(y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)\)</span> and <span class="math inline">\(\mu_{i}\)</span> is the mean structure that might linearly depend on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\beta\)</span> coefficients and <span class="math inline">\(\varepsilon_{i}\)</span> white noise error. Keeping in mind the INLA notation, the linear predictor can be written as
-<span class="math display" id="eq:linearpred">\[\begin{equation}
-\eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}
+<p>where <span class="math inline">\(y_{i}\)</span> is normally distributed as <span class="math inline">\(y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)\)</span> and <span class="math inline">\(\mu_{i}\)</span> is the mean structure that might linearly depend on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\beta\)</span> coefficients and <span class="math inline">\(\varepsilon_{i}\)</span> white noise error. Keeping in mind the INLA notation, the linear predictor can be written as</p>
+<p><span class="math display" id="eq:linearpred">\[\begin{equation}
+  \eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}
 \tag{6.3}
-\end{equation}\]</span>, where the <span class="math inline">\(i\)</span> pedix is the observation number and the <span class="math inline">\(j\)</span> pedix is the mth covariate. Moreover it is possible to specify <span class="math inline">\(\eta\)</span> as a function of <span class="math inline">\(\mu\)</span>. The link function between them in this case is identity, so that <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span>. In GLMs when response variable has to stay between <span class="math inline">\([0,1]\)</span> (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:</p>
+\end{equation}\]</span>
+where the <span class="math inline">\(i\)</span> pedix is the observation number and the <span class="math inline">\(j\)</span> pedix is the mth covariate. Moreover it is possible to specify <span class="math inline">\(\eta\)</span> as a function of <span class="math inline">\(\mu\)</span>. The link function between them in this case is identity, so that <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span>. In GLMs when response variable has to stay between <span class="math inline">\([0,1]\)</span> (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:</p>
 <p><span class="math display" id="eq:genregvec">\[\begin{equation}
   y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+\varepsilon\left(\mathbf{s}_{i}\right)
   \tag{6.4}
@@ -325,17 +394,28 @@ p\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} p\le
 p(\boldsymbol{\theta})=\int p\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) p\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots p\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) p\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
 \]</span></p>
 <p><span class="math inline">\(\boldsymbol{\psi}_{l}\)</span> identifies the hyper pram fot the l <em>th</em> level of hierarchy.</p>
-<p>[ integra la hierarchical regression di blangiardo con quello ceh ho giua scritto ]</p>
+<p>[ integra la hierarchical regression di blangiardo con quello ceh ho giua scritto ]
+<a href="prdm.html#eq:linearpred">(6.3)</a></p>
 </div>
-<div id="inla-as-a-hierarchcial-model" class="section level2">
-<h2><span class="header-section-number">6.5</span> INLA as a hierarchcial model</h2>
-<p>Given the linear predictor and the link fucntion <span class="math inline">\(\eta_{i}\)</span> defined in</p>
+<div id="inla-as-a-hierarchical-model-va-parafrasato" class="section level2">
+<h2><span class="header-section-number">6.5</span> INLA as a hierarchical model [va parafrasato]</h2>
+<p>INLA model <a href="#inla"><strong>??</strong></a> can be rewritten in within a hierarchical structure so that the <em>first level</em> belongs to the sampling distribution for <span class="math inline">\(y\)</span>, which are independet and identically distributed given the latent field <span class="math inline">\(\mathbf{\theta}\)</span> (that groups all the regression components such as regressioon padameters, smooth functions) and the hyperparameters:</p>
+<p><span class="math display">\[
+\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim p\left(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1}\right)=\prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}_{1}\right)
+\]</span></p>
+<p>Then at the <em>second level</em> the latent field <span class="math inline">\(\mathbf{\theta}\)</span> is characteriuzed by a multivariate Norma distri ution given all the other hyper parameters <span class="math inline">\(\psi_{2}\)</span>:</p>
+<p><span class="math display">\[
+\boldsymbol{\theta} \mid \boldsymbol{\psi}_{2} \sim \mathrm{MVNormal}\left(\boldsymbol{0}, \boldsymbol{Q}^{-1}\left(\boldsymbol{\psi}_{2}\right)\right)
+\]</span>
+Finally, the hyperparameters <span class="math inline">\(\boldsymbol{v}=\left\{\psi_{1}, \boldsymbol{\psi}_{2}\right\}\)</span> have some prior distribution given by <span class="math inline">\(\psi \sim p(\psi)\)</span></p>
 </div>
-<div id="prediction" class="section level2">
-<h2><span class="header-section-number">6.6</span> Prediction</h2>
+<div id="spatial-kriging" class="section level2">
+<h2><span class="header-section-number">6.6</span> Spatial Kriging</h2>
+<p>Kriging is the operation according which given <span class="math inline">\(y\)</span> observation it is possible to predict over <span class="math inline">\(\mathbf{s}_{0}\)</span> new locations not yet observed.</p>
+<p>[manca solo estimatore kriging e un po’ di matematica dietro]</p>
 </div>
-<div id="model-checking-and-selection" class="section level2">
-<h2><span class="header-section-number">6.7</span> Model Checking and Selection</h2>
+<div id="model-checking-and-comparison" class="section level2">
+<h2><span class="header-section-number">6.7</span> Model Checking and Comparison</h2>
 
 </div>
 </div>

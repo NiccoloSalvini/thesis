@@ -1,3 +1,4 @@
+
 # INLA bayesian computation {#inla-spde}
 
 INLA [@Rue2009] stands for Integrated Nested Laplace approximation and constitutes an computational alternative to traditional MCMC method. INLA does approximate bayesian inference on special type of models called LGM latent gaussian models due to the fact that they are _computationally_ convenient. The benefits are many:
@@ -13,7 +14,7 @@ The combination of INLA and SPDE (Stochastic Partial Differential Equations) all
 
 ## Latent Gaussian Models LGM 
 
-Following the notation imposed in [@Blangiardo-Cameletti] and in [@Moraga2019] a reversed approach might better offer the intuition. In order to define a Latent Gaussain Model Within the bayesian framework it is convenient to specify at first, given some observations  $y_{i \ldots n}$, an  _exponential family_ (Gaussian Poisson Exponential) distribution function characterized by some parameters $\phi_{i}$ (usually expressed by the mean $\left.E\left(y_{i}\right)\right)$) and some other hyper-parameters  $\psi_{k}$. The parameter  $\phi_{i}$ can be defined as an additive latent linear predictor $\eta_{i}$ [@Krainski-Rubio] by a link function $g(\cdot)$, i.e. $g\left(\phi_{i}\right)=\eta_{i}$. A comprehensive expression of the linear predictor take into account all the possible effects: 
+Following the notation imposed in [@Blangiardo-Cameletti] and in [@Moraga2019] a reversed approach might better offer the intuition. In order to define a Latent Gaussain Model Within the bayesian framework it is convenient to specify at first, given some observations  $y_{i \ldots n}$, an  _exponential family_ (Gaussian Poisson Exponential) distribution function characterized by some parameters $\phi_{i}$ (usually expressed by the mean $\left.E\left(y_{i}\right)\right$) and some other hyper-parameters  $\psi_{k}$. The parameter  $\phi_{i}$ can be defined as an additive latent linear predictor $\eta_{i}$ [@Krainski-Rubio] by a link function $g(\cdot)$, i.e. $g\left(\phi_{i}\right)=\eta_{i}$. A comprehensive expression of the linear predictor take into account all the possible effects: 
 
 $$
 \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
@@ -64,7 +65,7 @@ where $\psi_{-k}$ is a vector of hyper parameters $\psi$ without the element $\p
 
 
 
- [ DA RIMETTERE DA QUI ]
+[[[[[[[[[[[[[[[[[[[[[[ DA RIMETTERE DA QUI ]]]]]]]]]]]]]]]]]]]]]]
 
 
 ## Laplace Approximation
@@ -259,3 +260,5 @@ A <- inla.spde.make.A(mesh = mesh, loc = coo)
 
 
 
+
+<!--chapter:end:05-inla_spde.Rmd-->

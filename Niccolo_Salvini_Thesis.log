@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  17 OCT 2020 14:51
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  18 OCT 2020 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1188,316 +1188,307 @@ Chapter 4.
 [56
 
 ]
-Overfull \hbox (102.21696pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.21696pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ X                        <int> 1, 2, 3, 4, 5, 6, 7, 8, 9
 , 10, 11, 12, 13,...[] 
  []
 
 
-Overfull \hbox (102.18115pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.18115pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ ID                       <int> 82585523, 82710269, 80532
 997, 80880239, 82...[] 
  []
 
 
-Overfull \hbox (102.20515pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.20515pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LAT                      <dbl> 45.4770, 45.4709, 45.4605
 , 45.4709, 45.470...[] 
  []
 
 
-Overfull \hbox (102.1332pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.1332pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LONG                     <dbl> 9.15101, 9.20868, 9.18927
 , 9.20868, 9.2086...[] 
  []
 
 
-Overfull \hbox (102.24118pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24118pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOCATION                 <chr> "piazzale arduino C.A.", 
 "via antonio kram...[] 
  []
 
 
-Overfull \hbox (102.24118pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24118pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ CONDOM                   <int> 310, 117, 417, 117, 133, 
 170, 333, 317, 35...[] 
  []
 
 
-Overfull \hbox (102.1332pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.1332pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ BUILDAGE                 <int> 1940, 1920, 1967, 1920, 1
 920, 1990, 1900, ...[] 
  []
 
 
-Overfull \hbox (102.22919pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.22919pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ FLOOR                    <chr> "6°, con ascensore", "1° 
 piano", "4°, con ...[] 
  []
 
 
-Overfull \hbox (102.24123pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24123pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ INDIVSAPT                <chr> "Appartamento", "Appartam
 ento", "Appartame...[] 
  []
 
 
-Overfull \hbox (102.24113pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24113pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOCALI                   <chr> "3 (2 camere da letto, 1 
 altro), 2 bagni, ...[] 
  []
 
 
-Overfull \hbox (102.24121pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24121pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ TPPROP                   <chr> "Residenziale", "Residenz
 iale", "Residenzi...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ STATUS                   <chr> "Nuovo / In costruzione",
  "Ottimo / Ristru...[] 
  []
 
 
-Overfull \hbox (102.24118pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24118pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ HEATING                  <chr> "Centralizzato, a radiato
 ri, alimentato a ...[] 
  []
 
 
-Overfull \hbox (102.24113pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24113pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ AC                       <chr> "Autonomo, freddo", NA, "
 Autonomo, freddo"...[] 
  []
 
 
-Overfull \hbox (102.2052pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.2052pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ PUB_DATE                 <chr> "2020-09-22", "2020-09-22
 ", "2020-09-24", ...[] 
  []
 
 
-Overfull \hbox (102.2172pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.2172pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ CATASTINFO               <chr> "Classe A/3, rendita \200
  697", "Classe A/...[] 
  []
 
 
-Overfull \hbox (102.2411pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.2411pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ APTCHAR                  <chr> "- - fibra ottica- - - vi
 deocitofono- - - ...[] 
  []
 
 
-Overfull \hbox (102.22911pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.22911pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ PHOTOSNUM                <int> 20, 20, 20, 20, 20, 20, 2
 0, 20, 16, 20, 18...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ AGE                      <chr> "Skyline RE Milano", "Sky
 line RE Milano", ...[] 
  []
 
 
-Overfull \hbox (102.24126pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24126pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOWRDPRICE.originalPrice <chr> NA, NA, NA, "\200 1.400",
  NA, NA, NA, NA, ...[] 
  []
 
 
-Overfull \hbox (102.24124pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24124pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOWRDPRICE.currentPrice  <chr> NA, NA, NA, "\200 1.300",
  NA, NA, NA, NA, ...[] 
  []
 
 
-Overfull \hbox (102.2412pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.2412pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOWRDPRICE.passedDays    <int> NA, NA, NA, 8, NA, NA, NA
 , NA, NA, NA, NA,...[] 
  []
 
-
-Overfull \hbox (102.24115pt too wide) in paragraph at lines 1191--1191
+[57]
+Overfull \hbox (102.24115pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOWRDPRICE.date          <int> NA, NA, NA, 8, NA, NA, NA
 , NA, NA, NA, NA,...[] 
  []
 
 
-Overfull \hbox (102.24109pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24109pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ ENCLASS                  <lgl> NA, NA, NA, NA, NA, NA, N
 A, NA, NA, NA, NA...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ CONTR                    <chr> "Affitto", "Affitto", "Af
 fitto", "Affitto"...[] 
  []
 
-[57]
-Overfull \hbox (102.24107pt too wide) in paragraph at lines 1191--1191
+
+Overfull \hbox (102.24107pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ DISP                     <lgl> NA, NA, NA, NA, NA, NA, N
 A, NA, NA, NA, NA...[] 
  []
 
 
-Overfull \hbox (102.24118pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24118pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ TOTPIANI                 <chr> "7 piani", "5 piani", "4 
 piani", "5 piani"...[] 
  []
 
 
-Overfull \hbox (102.24109pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24109pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ PAUTO                    <chr> NA, NA, NA, NA, NA, NA, N
 A, NA, "1 in gara...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ REVIEW                   <chr> "Rif: CITY LIFE CUBE - OK
  CONTRATTO SOCIET...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ HASMULTI                 <lgl> TRUE, TRUE, TRUE, TRUE, T
 RUE, TRUE, TRUE, ...[] 
  []
 
 
-Overfull \hbox (102.24113pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24113pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ PRICE                    <int> 2450, 1200, 3000, 1300, 1
 700, 3850, 5000, ...[] 
  []
 
 
-Overfull \hbox (102.21715pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.21715pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ SQFEET                   <int> 110, 82, 180, 82, 82, 157
 , 208, 160, 90, 4...[] 
  []
 
 
-Overfull \hbox (102.24092pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24092pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ NROOM                    <int> 3, 2, 5, 2, 3, 5, 5, 4, 2
 , 2, 1, 3, 2, 3, ...[] 
  []
 
 
-Overfull \hbox (102.24117pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ TITLE                    <chr> "Trilocale piazzale ARDUI
 NO, Milano", "Bil...[] 
  []
 
 [58]
 Chapter 5.
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 1222.
-
 [59
 
-] [60] [61]
-Underfull \hbox (badness 1910) in paragraph at lines 1288--1289
+]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 12.0pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 8.4pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 6.0pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 12.0011pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 8.40076pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 6.00055pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 11.99872pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 8.3991pt on input line 1235.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 5.99936pt on input line 1235.
+[60]
+Overfull \hbox (2.8808pt too wide) detected at line 1260
+[][]
+ []
+
+[61]
+Underfull \hbox (badness 1910) in paragraph at lines 1293--1294
 []\TU/lmr/m/n/12 If x0 is set equal to the mode $[][] [] [][][][][][]$, log f(x
 ) then log
  []
 
 [62]
-Missing character: There is no 𝜙 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no ⋅ in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜙 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝛽 in font [lmroman12-regular]:mapping=tex-text;!
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1326.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1326.
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-[63]
-Missing character: There is no 𝜃 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝟎 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no ⋅ in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no ′ in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-
-Overfull \hbox (0.10876pt too wide) detected at line 1368
-[][]
- []
-
-[64]
-Underfull \hbox (badness 5475) in paragraph at lines 1371--1371
+Underfull \hbox (badness 5475) in paragraph at lines 1327--1327
 []\TU/lmr/bx/n/17.28 Approximate Bayesian inference with
  []
 
+[63]
 Missing character: There is no 𝜓 in font [lmroman12-regular]:mapping=tex-text;!
-[65]
 Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
+[64]
 Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
 
-Overfull \hbox (3.85347pt too wide) in paragraph at lines 1408--1413
+Overfull \hbox (3.85347pt too wide) in paragraph at lines 1364--1369
 []\TU/lmr/m/n/12 where $[] []$ is the Laplace Gaussian approximation to $[] []$
 
  []
 
-[66]
+[65]
 Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no 𝛴 in font [lmroman12-bold]:mapping=tex-text;!
 Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
-[67] [68]
+[66]
 File: images/triangle-mesh-1.png Graphic file (type bmp)
 <images/triangle-mesh-1.png>
-[69]
+[67] [68]
 Chapter 6.
-[70
+[69
 
 ]
 File: images/prd_image.PNG Graphic file (type bmp)
 <images/prd_image.PNG>
-[71]
+[70]
 File: images/prdprocess.png Graphic file (type bmp)
 <images/prdprocess.png>
 Missing character: There is no 𝛴 in font [lmroman12-bold]:mapping=tex-text;!
-[72] [73] [74]
+[71] [72] [73]
 File: images/variogram.png Graphic file (type bmp)
 <images/variogram.png>
-[75]
+[74]
 Missing character: There is no é in font lmmi8!
 Missing character: There is no é in font lmmi8!
-[76] [77]
+[75] [76]
 
-LaTeX Warning: Reference `(' on page 78 undefined on input line 1605.
+LaTeX Warning: Reference `(' on page 77 undefined on input line 1561.
 
-[78] [79] [80]
+[77] [78] [79]
 File: images/simple.PNG Graphic file (type bmp)
 <images/simple.PNG>
-[81]
+[80]
 File: images/thetas.PNG Graphic file (type bmp)
 <images/thetas.PNG>
 File: images/chis.PNG Graphic file (type bmp)
 <images/chis.PNG>
+[81]
+Overfull \hbox (19.76617pt too wide) in paragraph at lines 1655--1655
+[]\TU/lmr/bx/n/17.28 INLA as a hierarchical model [va parafrasato] 
+ []
+
+
+LaTeX Warning: Reference `inla' on page 82 undefined on input line 1657.
+
+Missing character: There is no 𝜃 in font [lmroman12-bold]:mapping=tex-text;!
+Missing character: There is no 𝜃 in font [lmroman12-bold]:mapping=tex-text;!
 [82] [83]
 Chapter 7.
 [84
@@ -1509,26 +1500,26 @@ Chapter 8.
 ] [86
 
 ] [87] [88])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1716.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1698.
 [89]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1716.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1698.
 (./Niccolo_Salvini_Thesis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1716.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1716.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1698.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1698.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: 1FD87539650F21020D9916F0D8B39EB0;9139.
+(rerunfilecheck)             Checksum: 96581D040D2EA3F27632BA5464F9939C;9300.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1716.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1698.
  ) 
 Here is how much of TeX's memory you used:
- 19108 strings out of 481269
- 337814 string characters out of 5923245
- 760738 words of memory out of 5000000
- 36285 multiletter control sequences out of 15000+600000
+ 19112 strings out of 481269
+ 337924 string characters out of 5923245
+ 760996 words of memory out of 5000000
+ 36289 multiletter control sequences out of 15000+600000
  543260 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  53i,19n,118p,3457b,553s stack positions out of 5000i,500n,10000p,200000b,80000s

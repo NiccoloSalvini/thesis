@@ -1,0 +1,334 @@
+
+# Infrastructure {#Infrastructure}
+
+<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
+
+  
+In order to provide a fast and easy to use service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges regards not only scraping but also the way the service has to respond to the users. Service has to be fast otherwise data become obsolete and so happen to analysis that relied on those data. Service has to be deployed so that in does not only run locally. Service needs to be scaled when needed since when the number of users increases the run time performance should not decrease. Service has to be maintained up to date so that each function can be reshaped with respect to immobiliare.it layout changes. On the other hand code behind the service has to be kept freezed to certain version, so that when packages are updated service still runs. Furthemore service has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud, so that it can be tracked back the evolution of the phenomenon.
+Open source solutions are available for back-end and front-end to meet the requirements before. Documentations related to technologies served are up to date and offer flexible solutions to embed the R environment. As a general discussion technologies used can be thought as the distance between something running locally on the laptop and something that is actually put into production, seen by company stakeholders, solving business problem. When such technologies are applied data scientist and counterparts gradually close the gap. Insights are better communicated (they can be interactive or automated) and services can be shared over a wider range of subjects. Nonetheless when the infrastructure is made with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber [@plumber]). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny [@shiny], a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.
+The actual idea is to provide an API with 4 endpoints which calls parallelized scraping functions. On the other hand  (chapter \@ref(scraping)) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods \@ref(prdm).
+
+Technologies involved are:
+
+- GitHub version control
+- Scheduler cron job, section \@ref(scheduler)
+- Docker containers, section \@ref(docker)
+- Plumber REST API, section \@ref(plumberapi)
+- NGINX reverse proxy, section \@ref(nginx)
+- AWS (Amazon Web Services) EC2 \@ref(aws)
+- MongoDB Atlas
+- Shiny, see chapter \@ref(application)
+
+
+![complete infrastructure (Matt Dancho source)](images/prova.PNG)
+
+As a side note even each single part of this thesis has been made stand alone and can be easily accessed and modified through a gitbook deployed at @[link](https://niccolosalvini.github.io/Thesis/). RMarkdown knits the .rmd files extension and coverts them into .html files (the book's chapters). All the documents are then pushed to a Github repository with git. By a simple trick, since all the files are static html, they can be displayed through GH pages as it is a website whose link is a github subdomain. The pdf output for the thesis can be obtained by clicking the download button, then choosing output pdf in the upper banner. A Latex engine (Xelatex) wrapped into the website compiles the sequence of RMarkdown documents according to a predefined .tex template. Formatting can be tuned by modifying the .yml file, that sets general instructions for the pdf document. All of this has been possible thanks to Bookdown [@bookdown1] once again a R well documented package [@bookdown2] to build interactive books along with RMarkdown [@rmarkdown1].
+
+Some of the main technologies implied will be viewed singularly, nonetheless for brevity some of them will be skipped.
+
+
+## Scheduler{#scheduler}
+
+A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
+
+- Short term scheduler: it can trigger and queue the "ready to go" tasks
+  - with pre-emption 
+  - without pre-emption
+
+The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one. 
+
+- Medium term scheduler 
+- Long term scheduler
+
+for some other useful but beyond the scope refereces, such as the scheduling algorithm the reader can refer to [@wiki:scheduler].
+
+### Cron Jobs
+
+Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
+
+Each line of a crontab file represents a job, and has this structure
+
+![crontab](images/crontab.PNG)
+
+Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.
+
+45 23 * * 6 /home/oracle/scripts/scheduler.sh
+
+Some rather unusual scheduling definitions for crontabs can be found in this reference [@wiki:cronjob]. Crontab's syntax completion can be made easier through [this](https://crontab.guru/) GUI.  
+
+The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL *mongoDB* database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance:
+
+30 11 * * * /home/oracle/scripts/get_data.R
+
+Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and the substantial inability to share data. To a certain extent what it has been already done since now might fit for personal use: a scheduler can daily execute the scraping scripts  and  generate a .csv file. Furthermore an application can rely on those data, but evident reasons suggest that it does not suite any need. What it will do the trick would be an open source dedicated software environment or *container* that will contains scraping functions and a scheduler on cloud solving a pair of the problems arisen. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.
+
+## Docker{#docker}
+
+### What is Docker
+
+_Docker_ is a software tool to create and deploy applications using containers.
+_Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.
+
+
+![docker container vs VM](images/dockerVSvirtualmachines.PNG)
+
+When containers are built  _Docker container Images_ are created and can be open sourced with Docker Hub
+_Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub behind authentication allows to integrate GitHub in the Docker project repository. Once the connection is authorized on local machine changes are made and then pushed by version control to the remote GH repository. The push command triggers the automatic building (pre-set by the user, branch should be given) of the image in the docker hub repository. The just created docker image can be tagged so that firstly it is recognizable and secondly can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \@ref(aws).
+Docker building and testing images can be very time consumin. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container. 
+Rstudio [package manager](https://packagemanager.rstudio.com/client/#/) includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation [@nolis_2020].
+In addition an open source project named [rocker](https://www.rocker-project.org/images/) have already narrowed the path building custom R images for R and  docker users. What can be read from their own website about them: "The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment."
+Enabling caching when container images are built heavily shorten the total duration for containerization.
+
+### Why Docker
+
+Indeed, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure) have experienced a huge growth and both refer to the same demand input: _containers_ .
+The landscape of Data Science is changing [@Skills_Explorer] from reporting to application building:
+In 2015 - Businesses reports drive better decisions
+In 2020 - Businesses need apps to empower better decision making at all levels
+
+![docker-stats](images/Inkedindeed_jobs_LI.jpg)
+
+For all the things said what docker is bringing to business [@red_hat_customer_portal]:
+
+- _Speed application deployment_ : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.
+- _Portability across machines_ : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.
+- _Version control and component reuse_ : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion
+- _Sharing_ : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.
+- _Lightweight footprint and minimal overhead_ : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.
+- _Fault isolation_ :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates.
+
+The way to tell docker which system requirements are needed in the newly born software is a _Dockerfile_.
+
+### Dockerfile{#dockerfile}
+
+Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is "Dockerfile". When It is matched then it trriggers the building of the image.
+
+The Dockerfile used to trigger the building of the service docker container has the following set of instructions:
+
+![dockerfile](images/dockerfile.PNG)
+
+
+- `FROM rocker/tidyverse:latest` : the command imports a pre-built image by the rocker team that contains the latest (tag latest) version of base-R along with the tidyverse packages.
+
+
+- `MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"` : The command tags the maintainer and its e-mail contact information.
+
+
+- `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` :The command update and install Linux dependencies needed for running R packages. `rvest` requires libxml2-dev and `magrittr` needs libudunits2-dev. If they are not installed then associated libraries can not be loaded. Linux dependencies needed have been found by trial and error while building containers. Building  logs messages print errors and suggest which dependency is mandatory.
+
+
+- `RUN R -e "install.packages(c('plumber','tibble','...',dependencies=TRUE)` : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their direct R dependencies the option `dependencies=TRUE` is needed. 
+
+
+- `RUN R -e "install.packages('https://cran.r-project.org/.../iterators, type='source')`
+`RUN R -e "install.packages('https://cran.r-project.org/.../foreach/, type='source')`
+`RUN R -e "install.packages('https://cran.r-project.org/.../doParallel, type='source')`
+DoParallel was not available in package manager for R version later than 4.0.0. For this reason the choice was to install a previous source version by the online repository, as well as its dependencies.
+
+
+- `COPY \\` The command tells Docker copies all the files in the container.
+
+
+- `EXPOSE 8000` :  the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is recommended [@docker_documentation_2020] )
+
+- `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker to execute the file main.R within the container that triggers the API start. In main.R it are pecified both the port and the host where API expects to be exposed (in this case port 8000). 
+
+In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters. 
+
+## API 
+
+API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and impacting positively on the budget.
+APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties.
+There are many types of API that exploit different medium to communicate with apps or services. HTTP API are a special type of API that accepts http requests as input and elaborate them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform.
+HTTP APIs have now become the predominant medium by which software exchanges information, further documentation and differences between REST and RESTful API can be found [here](https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html).
+
+
+API examples: 
+- Google Maps API: allows developers to embed geo-location data using JavaScript. The Google Maps API is designed to work on mobile and desktop.
+- YouTube API: allows developers integrate YouTube videos and functionalities into websites or applications.
+- Google Analytics API: allows to track website performance in terms of audience, monetization and other important metrics through the Google Analytics interface. The website the thesis come from has this implementation working.
+
+This is obtained by embedding the existing R source code into the Plumber API framework.
+
+![API functioning](images/Rest-API.png)
+
+### Plumber API{#plumberapi}
+
+Plumber [@api_generator_for_r] allows the user to create a web API by simply adding decoration comments to the existing R source code. Decorations are a special type of comments that suggests to plumber where and when the API parts are. Below the original API source code.
+
+
+```r
+# plumber.R
+
+# * Echo back the input * @param msg The message to echo * @get /echo
+function(msg = "") {
+    list(msg = paste0("The message is: '", msg, "'"))
+}
+
+# * Plot a histogram * @serializer png * @get /plot
+function() {
+    rand <- rnorm(100)
+    hist(rand)
+}
+
+# * Return the sum of two numbers * @param a The first number to add * @param b
+# The second number to add * @post /sum
+function(a, b) {
+    as.numeric(a) + as.numeric(b)
+}
+```
+
+three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
+Decorations are marked as this `#*` and they are followed by specific keywords denoted with `@`.
+- the `@params` keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
+- `#* @serializer` specifies the extension of the output file when needed.
+- `#* @get`  specifies the method of HTTP request sent.
+- `/echo` is the end point name.
+- `@filter` decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.
+- many more...
+
+### Immobiliare.it HTTP API  
+
+The API service is composed by three endpoints */scrape* , */links* and */complete*:
+
+- */scrape performs a fast scraping that extracts 5 covariates directly from filtered url. url from which data extraction takes place might be composed through parameters. By default the end point scrape data from Milan  real estate rental market. Fast scraping is reached thanks to avoiding to access to single links. It is a superficial scraping and does not contain geospatial, however it might fit for regression settings.
+
+- */links: extracts the list of single links belonging to each of the page, looking at section \@ref(webstructure) each 25 single links for each sibling. It displays sufficient performances in terms of run time. It is propaedeutic to apply the following endpoint. 
+
+- */complete:  both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.
+
+
+![swagger](images/swagger.PNG)
+
+### API source code
+
+- Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey
+
+```r
+# * Get all the links * @param city [chr string] the city you are interested to
+# extract data (lowercase without accent) * @param npages [positive integer]
+# number of pages to scrape default = 10, min = 2, max = 300 * @param type [chr
+# string] affitto = rents, vendita = sell (vendita no available for now) * @get
+# /links/<npages:int>/<city:chr>/<type:chr>/<.thesis:bool>
+function(npages = 10, city = "milano", type = "affitto", .thesis = F, req) {
+    cat("\n\n port:", req$SERVER_PORT, "\n server_name:", req$SERVER_NAME, "\n\n")
+    if (npages > 300 & npages > 0) {
+        stop("npages must be between 1 and 1,000")
+    }
+    if (.thesis) {
+        list(all.links(npages, city, type, .thesis = TRUE))
+    } else {
+        list(all.links(npages, city, type))
+    }
+}
+
+
+# * Get the complete data from single links (not the raw) * @param city [chr
+# string] the city you are interested to extract data (lowercase without accent)
+# * @param npages [positive integer] number of pages to scrape default = 10, min
+# = 2, max = 300 * @param type [chr string] affitto = rents, vendita = sell
+# (vendita no available for now) * @get
+# /complete/<npages:int>/<city:chr>/<type:chr>/<.thesis:bool>
+function(npages = 10, city = "milano", type = "affitto", .thesis = F, req) {
+    if (npages > 300 & npages > 0) {
+        stop("npages must be between 1 and 1,000")
+    }
+    if (.thesis) {
+        links = all.links(npages, city, type, .thesis = TRUE)
+        list(complete(links))
+    } else {
+        links = all.links(npages, city, type)
+        list(complete(links))
+    }
+}
+```
+
+
+### API documentation
+
+
+- Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey
+```r
+      GET */scrape
+      @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze"--> lowercase, without accent)
+      @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300
+      @param type [chr string] "affitto" = rents, "vendita"  = sell 
+      @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" 
+      content-type: application/json 
+```
+- Get all the links 
+
+```r
+      GET */link
+      @param city [chr string] the city you are interested to extract data (lowercase without accent)
+      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
+      @param type [chr string] "affitto" = rents, "vendita"  = sell 
+      @param .thesis [logical] data used for master thesis
+      content-type: application/json 
+```   
+      
+-  Get the complete set of covariates (52) from each single links, takes a while
+
+```r
+      GET */complete
+      @param city [chr string] the city you are interested to extract data (lowercase without accent)
+      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
+      @param type [chr string] "affitto" = rents, "vendita"  = sell 
+      @param .thesis [logical] data used for master thesis
+      content-type: application/json
+            
+```
+
+
+## NGINX reverse proxy server{#nginx}
+
+For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
+[...]
+
+When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
+[...]
+
+
+.conf file and installation on Linux server. Security and Authentication. 
+
+## AWS EC2 server{#aws}
+
+Executing API on a public server allows to share data with a multitude of subjects. Since it can not be specified a-priori how many users are going to enjoy the service a scalable solution fills the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for relatively a cheap price.
+AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
+Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+[few words still on EC2]
+
+### Launch an EC2 instance
+
+The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the "add storage" step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \@ref(dockerfile), has been exposed and needs to be linked to the security port opened. 
+
+![aws_dashboard](images/aws.PNG)
+
+At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem  file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available. 
+
+
+
+posso far vedere:
+- come si fa deplyment su AWS quindi
+  - inizializzazione istanza
+  - settare paramtri
+  - mettere spazio macchina
+- spiegare perchè conviene tenere un server AWS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:03-infrastructure.Rmd-->

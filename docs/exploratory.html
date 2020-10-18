@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Exploratory Analysis | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Exploratory Analysis | End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA" />
   <meta property="og:type" content="book" />
@@ -126,7 +126,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="css\style.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 
 <body>
@@ -191,10 +191,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#gaussian-random-fields"><i class="fa fa-check"></i><b>4.4</b> Gaussian random fields</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA bayesian computation</a><ul>
-<li class="chapter" data-level="5.0.1" data-path="inla-spde.html"><a href="inla-spde.html#introduction"><i class="fa fa-check"></i><b>5.0.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#inla"><i class="fa fa-check"></i><b>5.1</b> INLA</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#laplace-approximation"><i class="fa fa-check"></i><b>5.2</b> Laplace Approximation</a></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#latentGaussian"><i class="fa fa-check"></i><b>5.3</b> Latent Gaussian Models</a></li>
+<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#latent-gaussian-models-lgm"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
+<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approximation-in-inla-setting"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a></li>
+<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#laplace-approximation"><i class="fa fa-check"></i><b>5.3</b> Laplace Approximation</a></li>
 <li class="chapter" data-level="5.4" data-path="inla-spde.html"><a href="inla-spde.html#approximate-bayesian-inference-with-inla"><i class="fa fa-check"></i><b>5.4</b> Approximate Bayesian inference with INLA</a></li>
 <li class="chapter" data-level="5.5" data-path="inla-spde.html"><a href="inla-spde.html#the-projector-matrix"><i class="fa fa-check"></i><b>5.5</b> The Projector Matrix</a></li>
 </ul></li>
@@ -209,9 +208,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>6.3.1</b> Parameter estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#hierarchical-bayesian-regression"><i class="fa fa-check"></i><b>6.4</b> Hierarchical Bayesian Regression</a></li>
-<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchcial-model"><i class="fa fa-check"></i><b>6.5</b> INLA as a hierarchcial model</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#prediction"><i class="fa fa-check"></i><b>6.6</b> Prediction</a></li>
-<li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#model-checking-and-selection"><i class="fa fa-check"></i><b>6.7</b> Model Checking and Selection</a></li>
+<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchical-model-va-parafrasato"><i class="fa fa-check"></i><b>6.5</b> INLA as a hierarchical model [va parafrasato]</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.6</b> Spatial Kriging</a></li>
+<li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.7</b> Model Checking and Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>7</b> Shiny Web App</a><ul>
 <li class="chapter" data-level="7.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>7.1</b> Example one</a></li>
@@ -256,11 +255,13 @@ FLOOR: <em>numeric</em> the floor at which is located the apartement/ house
 INDISVAP: <em>categorical</em> If it the rental ad regards an indipendent structure or an apartement in a building
 …</p>
 <p>At a first glance it could be possible to see some missing values in some consistent measure in LOWPRCE and its derivations, Energy calss Disp Pauto.</p>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
 </div>
 <div id="data-glimpse" class="section level2">
 <h2><span class="header-section-number">4.2</span> Data Glimpse</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="exploratory.html#cb19-1"></a><span class="kw">library</span>(knitr)</span>
-<span id="cb19-2"><a href="exploratory.html#cb19-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="exploratory.html#cb21-1"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb21-2"><a href="exploratory.html#cb21-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
 <pre><code>## Rows: 250
 ## Columns: 34
 ## $ X                        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,...

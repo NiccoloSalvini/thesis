@@ -1,0 +1,66 @@
+--- 
+title: "End-to-End Real Estate Rental app, a Bayesian spatial modelling approach wtih INLA"
+author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
+url: 'https://niccolosalvini.github.io/Thesis/'
+date: "date: Last compiled on 18 ottobre, 2020"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+classoption: oneside
+bibliography: [refs.bib, Rpackages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: NiccoloSalvini/Thesis
+favicon: "images/favicon.ico" 
+cover-image: "images/spat-touch.png"
+description: " Niccolò Salvini master's thesis project"
+apple-touch-icon: "images/spatial.png"
+apple-touch-icon-size: 120
+papersize: a4
+geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  
+fontsize: 12pt
+linestretch: 1.5
+toc-depth: 2
+fig_width: 7
+fig_height: 6
+fig_caption: true
+links-as-notes: true  
+lot: true 
+lof: true
+---
+
+
+
+# Preliminary Content {-}
+
+## Abstract {-}
+
+
+
+
+This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled scraping techniques wrapped into an API (plumber). The API is then added into a docker container and served with AWS EC2 instance. On the other side a Shiny application calls the endpoints gathering geospatial data. The application back end integrates in the its server part a bayesian spatial models. INLA is the computing choice. Visualization are rendered with rayshader.
+
+## Acknowledgements {-}
+
+First of all I acknowledge a special debt to **Professor Della Vedova** who has patently followed me during this 6 months long journey, he has encouraged me and let me try things never done before. Our communication through this process has always been transparent and each moment spent was a lesson to learn. I came with strong ideas to his office desk and he let me shape my dissertation giving me blank paper. Most of all when something was not working he has always been keen to solve and suggest a better approach. I owe a lot also to Dr. **Vincenzo Nardelli**, he is one of the kindest and most talented guys I have ever met. I took a big inspiration by its works. He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics. Sometimes I feel like I am copying him, but then I realize that it is inspiration. I owe also a huge thanks to **professor Lucia Paci**. She has been one of the top teacher in my master course to me by far. She has the capability to explain very hard stuff with ease without omitting anything. She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got. The bayesian statistical part relies on her thoughts and on her experience on the subject. 
+I will not for sure miss to thank my beautiful girlfriend **Elisabetta**, She has seen my darkest times and my deepest insecurities, she did not even blink and she kept helping me like day one. Without her really anything would not have been even possible. She is so smart and she know me so well that when I had downs, even though she had had her own issues, she carried the weights and broght the only medicine I know: "Sciacchiata o Gelato". I would love to thank my father **Muzio** to be such a big milestone both in my career and private life, he has always encouraged me pursuing my dream by never setting any sort of limit. Its life could be compressed into a Frank Sinatra song "My Way" and observing him, working speakly, I wish the future would bless me with its same independence and freedom. Special thanks are dedicated also to my beloved uncles, zia **Jolanda** and zio **Luciano**.  They put a stake on me, they always make me feel special and talented even though university has never given me the chance to truly express myself. Me and Zio Luciano conversations are inspirational, he knows all the ropes, he is the most talented business man I am ever going to see in my entire life, I wish I could have a tenth of its talent. What I do is mainly because of its enormous successes and sacrifices. Memory is just for people that have to rely on past to act in the present. You take care of today so that tomorrow you can shape the future. Zia Jolanda you gave me back the most important thing, family, you have never missed special and difficult moments. You supported me and my mother throughout our exhausting journey I would never find the words and express much gratitude for what you did. You are an angel. 
+To all my friend thanks for each of your unpecified different support, unfortunately this is becoming too long, a party is going to happen and a piece of a paper will do justice.
+
+## Dedication {-}
+
+To my beloved mother, Maria Cristina. She has done so much for me you would not even know. We have been facing fires and flames for God knows how long, and now look where we are. You can not imagine how strong she is and if you do it please try to explain me then. I have always thought that mothers have this type of superpowers, but I belive me my mother exaggerates.
+Our relationship has never been easy, we have both of us strong attitudes, nevertheless we keep on persisting and the reason is that we can not be set apart. Never.
+The most I have done since I remember is for her and for her satisfaction. I do not regret it. She is my inspiration, and I hope someday that I will live up to you mamma. she went "all in" sending me in Milan. 
+She did right.
+Mum's always right.
+
+
+_keywords_ : Bayesian Statistics, RESTFUL API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Jobs.
+
+
+
+
+
+
+
+<!--chapter:end:index.Rmd-->
