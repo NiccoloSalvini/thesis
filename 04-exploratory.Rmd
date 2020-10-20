@@ -37,6 +37,3 @@ glimpse(data)
 
 ###  Semivariogram Covariogram
 
-[ en passant anche isotropy and anisotropy. Con stazionarietà forte e debole]
-
-##  Gaussian random fields

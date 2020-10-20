@@ -1,13 +1,8 @@
 # Point Referenced Data Modeling {#prdm}
 
-Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of measurements, as an example diseases ones cancer detection [@Bell2006] at several sites, epidemic ones COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020], environmental ones likewise PM concentration in the North-Italian [@Cameletti2012]. As a further argument house prices smoothly varies between closer neighborhoods [@Bayesian_INLA_Rubio]. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. API generated data are point referenced data, so modeling methodologies applied during the analysis exclusively regard the just introduced data type.
-As a side note spatial data can be distinguished into 3 main categories:
+Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, as an example disease cancer detection [@Bell2006] at several sites, epidemic ones due to COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020], also environmental ones as PM pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. As a further argument house prices smoothly varies between closer neighborhoods as observed in [@Bayesian_INLA_Rubio]. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. API generated data are point referenced data, so modeling methodologies applied during the analysis exclusively regard the just introduced data type, even though INLA can fit other data types.
 
-* areal data: 
-* point referenced data 
-* point pattern data
-
-Spatial data can also be measured according to a 3rd dimension (4th where there is elevation) which is time. In this settign it might be interesting to research time correlation between subsequent spatial data time points [@PACI2017149]. Since API generated data on a daily basis stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model. 
+Spatial data can also be measured according to a 3rd (or even a 4th in the case elevation data) dimension which is time. In this setting it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is [@PACI2017149]. Anyway since API generates data on a daily basis and then stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model. 
 What It can be observed in point reference data type is just a sample, some sites, from a continuous unobserved spatial process \@ref(GP) which we aim to estimate.
 
 ![point referenced data example, Milan Rental Real Estate, Author's Source](images/prd_image.PNG)
@@ -15,27 +10,29 @@ What It can be observed in point reference data type is just a sample, some site
 
 ## Gaussian Process (GP){#GP}
 
-For simplicity lets consider $y$ of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
+For simplicity lets consider $y$ point of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
 from a random spatial process $Y$, such that: $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of an unobserved random spatial process.
 $\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$ , where $D$ is a subset of r-dimensional Euclidean space $\mathbb{R}^{r}$. 
 When $r = 1$ it is a simple stochastic process widely explored in literature i.e. time series process. Nevertheless geostatistical data belong always to $r = 2$ or eventually $r = 3$, when elevation is available. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
 
 ![3D scatterplot and surface, Stockton data.](images/prdprocess.png)
 
-A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are random _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)$ follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left(\mu\left(\boldsymbol{s}_{1}\right), \ldots, \mu\left(\boldsymbol{s}_{n}\right)\right)$ and covariance matrix $\mathbf{\Sigma}$ [@Blangiardo-Cameletti]. The covariance matrix relates each observation to each others through a spatial covariance function defined as $\mathcal{C}(\cdot)$.  The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the _validity_ characteristics from the random spatial process, furthermore it has to be _positive definite_.  Below a generalised version for the $i$th observation and $j$th:
+A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$  follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{\Sigma}$ [@Blangiardo-Cameletti]. The covariance matrix relates each observation to each of the others through a spatial covariance function defined as $\mathcal{C}(\cdot)$.  The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the _validity_ characteristics from the random spatial process, furthermore it has to be _positive definite_.  Below a generalised version for two random $i$th $j$th observations:
 
 \begin{equation}
 \operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)
 (\#eq:cov)
 \end{equation}
 
-GP has to meet two important properties: it has to be **Stationary** and  **Isotropic**. 
+GP has to meet two important properties:
 
-### Stationarity in GP
+* **Stationary**.
+* **Isotropy**.
 
-Stationarity in a stochastic process can be either _strong_  or _weak_. The strong assumption forces that for any given spatial index $n$ and its correspondent locations $s_{1,\ldots,n}$, the distribution of the process $\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}$ is the same of the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$.
-The latter (i.e, weak) ensures that if the GP mean moment is constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[Y(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance between each couple points (euclidean $\left\|s_{i}-s_{j}\right\|$ distance) separation. Distance choice is a major subject but for simplicity Euclidean has been selected. Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. 
 
+**Stationarity** in a stochastic process can be either _strong_  or _weak_. The strong assumption forces that for any given spatial index $n$ and its correspondent locations $s_{1,\ldots,n}$, the distribution of the process $\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}$ is the same of the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$.
+The latter (i.e. weak) ensures that if the GP mean moment is constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[Y(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance between each couple points (euclidean $\left\|s_{i}-s_{j}\right\|$ distance) separation.
+Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. In other words weak stationarity in GP implies being invariant under _translation_ [-@Krainski-Rubio].
 Moreover since it is assumed to be true  $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ leading to also $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed with $2 \gamma(\mathbf{h})$, even tough its half $\gamma(\mathbf{h})$  is more often used as expression, namely _semivariogram_ [@Cressie_2015]. 
 The intuition behind this expression is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther, in compliance with the first law of geography by Tobler: 
 
@@ -59,8 +56,9 @@ where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\math
 
 ![variogram example](images/variogram.png)
 
-### Isotropy in GP 
-The process is said to be **Isotropic** if the covariance function depends only on the between-points distance so it is invariant under rotation [@Krainski-Rubio]. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain $D$ then the process is said to be **Anisotropic**.
+
+
+The process is said to be **Isotropic** if the covariance function depends only on the between-points distance so it is invariant under _rotation_ [-@Krainski-Rubio]. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain $D$ then the process is said to be **Anisotropic**.
 
 $$C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)$$
 
@@ -68,9 +66,7 @@ $$C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ;
 
 There are many covariance functions and their application depends both on data and the scope on the analysis.
 Examples of spatial covariance functions among all the others are: Linear, Spherical, Exponential and Matérn.
-Matérn displays higher degree of flexibility since it has many tuning parameter. It can be also accounted as the most used in geostatistics [@Krainski2018] and [@Bayesian_INLA_Rubio]. Matérn is tuned mainly by two parameters, a scaling one $\kappa>0$ (the most of the times set equal to the range) and a smoothing one $\nu>0$. By decomposing it into a more granular form and cosidering two generic locations $\mathbf{S}_{i}$  and $\mathbf{S}_{j}$,  a _stationary_ and _isotropic_ Matérn _correlation_ function [@Krainski2018]. Keep in mind notation \@ref(eq:cov): 
-
-
+Matérn is special since when it is used in combination to a GMRF covariance the SPDE approach can be adopted \@ref(spde).  It can be also accounted as the most used in geostatistics [@Krainski2018] and [@Bayesian_INLA_Rubio]. Matérn is tuned mainly by two parameters, a scaling one $\kappa>0$ (the most of the times set equal to the range) and a smoothing one $\nu>0$. By decomposing it into a more granular form and cosidering two generic locations $\mathbf{S}_{i}$  and $\mathbf{S}_{j}$,  a _stationary_ and _isotropic_ Matérn _correlation_ function [@Krainski2018]. Keep in mind notation \@ref(eq:cov): 
 
 $$
 \operatorname{Cor}_{Matérn}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)^{\nu} K_{\nu}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)
@@ -81,9 +77,9 @@ Then if $u(\mathbf{s})$ is a realization from $U(\mathbf{s})$ at $n$ locations t
 Covarianca function has to be
 
 
-## Hedonic class models for Rental House Market
+## Hedonic Price Models for Rental House Market
 
-The theoretical foundation of the Hedonic Price Models (from now on HPM) relies on the consumer utility theory of Lancaster’s (1966) and in Rosen's model [Rosen, 1974]. The general principle in HPM suggests that the value of a commodity can be calculated by the estimated values of its separate properties. Applying HPM to real estate, house pricing (also renting) is given by the unit cost of each household characteristic, therefore the expenditures associated with them. More generally the discussion might be also opened to how much adding a household expenditure impacts the total price of the house [letteratura]. It can be also extended to how much a new infrastructure (transports, new public places) will drive house price value [letteratura]. Both of the two points mentioned are interesting research prospects but are beyond the scope of the analysis. 
+The theoretical foundation of the Hedonic Price Models (from now on HPM) relies on the consumer utility theory of Lancaster’s (1966) and in Rosen's model [Rosen, 1974]. The general principle in HPM suggests that the value of a commodity can be calculated by the estimated values of its separate properties. Applying HPM to real estate, house pricing (but also renting) is given by the unit cost of each household characteristic, therefore the expenditures associated with them. More generally the discussion might be also opened to how much adding a household expenditure impacts the total price of the house [letteratura]. It can be also extended to how much a new infrastructure (transports, new public places) will drive house price value [letteratura]. Both of the two points mentioned are interesting research prospects but are beyond the scope of the analysis. 
 According to HPM Hedonic Price function establishes a general functional relationship between the observed household expenditures on housing, $P(C)$, and the level of characteristics contained in vector $C$. $P(C)=f\left(c_{1}, c_{2}, c_{3}, \ldots, c_{n}\right)$. 
 A first attempt to include spatial effect in urban economic literature is provided by Alonso (1964). Its contribution was to raise voice on house prices (also rent) mainly depending on land price and a number of purely spatial covariates like CBD, the distance from City Business District. Other covariates were transport cost per kilometer and community income, even though they were defined also as spatial parameters through distances. The model proposed by Alonso is called monocentric since the centroid from which distances are calculated is only one. Moreover a first touch to spatial data thory was done since the CBD was defined as areal unit with well-defined boundaries of regular or irregular shape. However Applications of the model were not convincing since obervations offered a different picture. Results instead displayed a Poly-centric areal structure (universities and Malls) which might have driven prices. The model also assumed that covariates like CBD are only informative within city center boundaries and then displayed no significance out of the core of the city. Poly-centric theory was also more coherent with the architectural and socio-economical evolution of cities during recent times, therefore mono centric theory was then criticized and abandoned. Critics regarded also neighborhood quality measure and boundary problems Dubin (1987). Dubin for these reasons developed a geostatistical model including areal effects in the error term since handling these covariates was posing several hard challenges. Here relies part of the reason why the problem in this analysis is approached as point reference and not as areal.
 During literature evolution on HPM, as it is already been explained, discussions on vector $C$ have risen. Though generally they can be grouped into two macro domains:
@@ -92,14 +88,14 @@ During literature evolution on HPM, as it is already been explained, discussions
 - Effects associated with the geographic location (locational effects), both between houses and within other existing infrastructures, events or areas. (outer data effect)
 
 For the scope of the analysis residential structure covariates and locational between houses effects are considered. Exogenous effects such as crime rate and transports are not included in the model since prices and rents are already incorporating that information. 
-As a final remark scholars would argue that rent values do not represent the actual value of real estate. Nevertheless in empirical analysis rent value are considered a proxy for the price of real estate [@Herath_Maier_2011]. A further argument to endorse this hypothesis is brought by [@sellingVSrental] considering housing a commodity, then the selling or the rental should be considered interchangeable economic actions with respect to same inner need to satisfy. This is also stronger in this case since the latter statement is referred to a paper exclusively based on italian real estate analysis. Moreover Capozza and Seguin [@Capozza_Seguin_1996] discussed about how much rent-price ratio predicts future changes both in rents and prices. Among other issues raised they pinpointed the decomposition of rent-price ratio into two parts: the predictable part and the unexplained residuals part. The predictable part was in negative relationship with price changes, in other words cities in which prices are relatively high with respect to rents are associated with higher capital gains that justifies that misalignment. This is also true for the opposite, that is cities in which prices are higher with respect to the rents, and this can not be associated to any local condition, realizes lower capital gains. One other demonstration of price-rent exchangeablity and strong correlation is offered by Clark [@Clark_1995] which traces the Capozza and Seguin work. Rent-price ratio is negatively correlated with following future changes in rents. In other words prices are still higher when areas in which they are observed documents an increase in rent prices. All the literature review above is oriented to a long-run alignement of price and rent. 
+As a final remark scholars would argue that rent values do not represent the actual value of real estate. Nevertheless in empirical analysis rent value are considered a proxy for the price of real estate [@Herath_Maier_2011]. A further argument to endorse this hypothesis is brought by @sellingVSrental considering housing a commodity, then the selling or the rental should be considered interchangeable economic actions with respect to same inner need to satisfy. This assumption is also stronger than the previous since the latter statement is referred to analysis based on italian real estate data. Moreover @Capozza_Seguin_1996 discussed about how much rent-price ratio predicts future changes both in rents and prices. Among other issues raised they pinpointed the decomposition of rent-price ratio into two parts: the predictable part and the unexplained residuals part. The predictable part was in negative relationship with price changes, in other words cities in which prices are relatively high with respect to rents are associated with higher capital gains that justifies that misalignment. This is also true for the opposite, that is cities in which prices are higher with respect to the rents, and this can not be associated to any local condition, realizes lower capital gains. One other demonstration of price-rent exchangeablity and strong correlation is offered by Clark [@Clark_1995] which traces the Capozza and Seguin work. Rent-price ratio is negatively correlated with following future changes in rents. In other words prices are still higher when areas in which they are observed documents an increase in rent prices. All the literature review above is oriented to a long-run alignment of price and rent. 
 
 
 ## Regression for univariate spatial data 
 
-Since the relationships between the characteristics of the house, i.e. vector $C$, and the price $P$ is not defined in economic literature it is possible to assume any $f$ functional form. The open possibility to apply any relationship between covariates comes very handy in the INLA setting \ref(latentGaussian) since latent gaussian models are prepared to accept any $f$ link function that modifies the linear predictor. 
-What the vats majority of econometric literature applies is a logarithmic scale trasnformation to the y price response variable. The transformation smooths the skewness of prices leading to best estimates. This argumentation can be taken also for prices regarding house rents.
-If it assumed a linear relationship among covariates then a classical bayesian non-spatial linear regression can relate a $log(y)$ response variable with its covariates and error through the expression:
+Since in HPM the relationships between the characteristics of the house, i.e. vector $C$, and the price $P(C)$ is not defined in economic literature it is possible to assume any $f$ functional form that relates covariates. The open possibility to apply any relationship between covariates comes very handy in the INLA setting, since Latent Gaussian Models are prepared to accept a wide range of $f$ functions that model covariates \@ref(LGM). Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.
+Moreover what the latest econometric literature (Greene, 2018) suggests is to apply a log-linear model. This is due to the fact that the transformation smooths the skewness of prices leading to best estimates. Moreover it gives an intuitive suggestion on percent price variation through betas thanks to logarithm properties. This argumentation as Greene suggests can be extended also to rent prices.
+If it assumed a log-linear relationship among covariates then a classical bayesian non-spatial linear regression can relate a $log(y)$ response variable with its covariates and error through the expression:
 
 
 \begin{equation}
@@ -107,7 +103,7 @@ If it assumed a linear relationship among covariates then a classical bayesian n
 (\#eq:genreg)
 \end{equation}
 
-where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$  and $\mu_{i}$ is the mean structure that might linearly depend on some $\mathbf{X}$ covariates, $\beta$ coefficients and $\varepsilon_{i}$ white noise error. Keeping in mind the INLA notation, the linear predictor can be written as
+where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$  and $\mu_{i}$ is the mean structure that might linearly depend on some $\mathbf{X}$ covariates, $\boldsymbol{\beta}$ coefficients and $\varepsilon_{i}$ white noise error. The linear predictor as is chapter \@ref(LGM) can be written as: 
 
 \begin{equation}
   \eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}
@@ -154,56 +150,56 @@ Then the estimation in vector notation is:
 $$\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} \Sigma^{-1} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \Sigma^{-1} \mathbf{y}$$
 
 
-## Hierarchical Bayesian Regression 
+## Hierarchical Bayesian Regression{#hierreg}
 
-Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. The problem can be viewed by a different angle considering that observations might fall into different categories such that some of them belong to levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be facetted by which floor they belong or whether they fall into different energy classes and many others more. Simplyfing the discussion and considering just one single 9 levels category, data can be organized in the way that each single observation (squares in figure below) belongs to its respective belonging category (circles in figure). 
+Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. Taking a few steps back the problem can be reformulated into a easier setting starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on categories. Therefore observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they might belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti -@Blangiardo-Cameletti consider data grouped by just one 9-levels-category. Data for the reason stated before can be organized in a way such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive categories (circles in figure).  
 
 ![simplifing_problem](images/simple.PNG)
 
-At this point data can be conveniently grouped into two meta-categories: _fist level_ and _second level_ [@Blangiardo-Cameletti]. _First level_ are identified by sampling observations which have a certain probability distribution. _Second level_ (circles) are categories and might be associated to a set of parameters $\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}$.
-Since the structure once again in the analysis is hierarchical, a DAG (Directed Acyclical Graph) @Blangiardo-Cameletti representation might sort out ideas. If categories are represented by different thetas nodes $\theta$ and edges are the logical condition to belong to the precise category for observations then:
+Moreover data can be also conveniently distinguished by two meta-categories: _fist level_ and _second level_. _First level_ are identified by sampling observations which are drawn by the same probability distribution. _Second level_ (circles) are categories and might be associated to a set of parameters $\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}$.
+Since the structure is hierarchical, a DAG (Directed Acyclical Graph) -@Blangiardo-Cameletti representation might sort out ideas. If categories are represented by different thetas nodes $\theta$ and edges are the logical condition to belong to the precise category for observations then:
 
-![thetas](images/thetas.PNG)  ![chis](images/chis.PNG)
+![thetas, Blangiardo-Cameletti's source ](images/thetas.PNG)  ![chis, Blangiardo-Cameletti's source](images/chis.PNG)
 
 To fully take into account the hierarchical structure of the data $\left\{\theta_{1}, \ldots, \theta_{J}\right\}$ can be assumed to come from a distribution $p\left(\theta_{j} \mid \psi\right)$ characterized by $\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}$ hyper parameters, see left figure. If $\theta_{j}$ come from the same distribution they are assumed also to be sharing information [@Blangiardo-Cameletti]. In a hierarchical framework this can be specified by: 
 
 $$
-p\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} p\left(\theta_{j} \mid \psi\right) p(\psi) \mathrm{d} \psi
+\pi\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
 $$
 
 theta $\theta_{j}$ parameters are similar in the sense they come from the same distribution family characterized by $\boldsymbol{\psi}$ hyper parameters, which at their own time are identified by priors (fixed quantities). This structure can extended to allow more than two levels of hierarchy since  the marginal distributions of $\theta$ can be decomposed into the product of their conditional distribution given some hyperparameter $\psi$ as well as their prior distribution $p(\psi)$.
 
 $$
-p(\boldsymbol{\theta})=\int p\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) p\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots p\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) p\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
+\pi(\boldsymbol{\theta})=\int \pi\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) \pi\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots \pi\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) \pi\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
 $$
 
-$\boldsymbol{\psi}_{l}$ identifies the hyper pram fot the  l _th_ level of hierarchy.
+$\boldsymbol{\psi}_{l}$ identifies the hyper pram for the  l _th_ level of hierarchy.
 
 [ integra la hierarchical regression di blangiardo con quello ceh ho giua scritto ]
 \@ref(eq:linearpred)
 
 ## INLA as a hierarchical model [va parafrasato]
 
-INLA model \@ref(inla) can be rewritten in within a hierarchical structure so that the _first level_ belongs to the sampling distribution for $y$, which are independet and identically distributed given the latent field $\mathbf{\theta}$ (that groups all the regression components such as regressioon padameters, smooth functions) and the hyperparameters: 
+The model can be then rewritten in LGM terms following section \@ref(LGM), within the bayesian hierarchical structure. This enables INLA computation and its benefits.
+The _first level_ belongs to the sampling distribution for $y$, which are conditional to parameter and hyper parameter  given the latent field $\mathbf{\theta}$ and the hyper parameters $\boldsymbol{\psi}$: 
 
 $$
-\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim p\left(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1}\right)=\prod_{i=1}^{n} p\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}_{1}\right)
+\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \pi\left(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1}\right)=\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}_{1}\right)
 $$
 
-Then at the _second level_  the latent field $\mathbf{\theta}$ is characteriuzed by a multivariate Norma distri ution given all the other hyper parameters $\psi_{2}$: 
+Then at the _second level_ the latent field $\boldsymbol{\theta}$ is characterized by a multivariate Normal distribution given all the other hyper parameters $\psi_{2}$: 
 
 $$
 \boldsymbol{\theta} \mid \boldsymbol{\psi}_{2} \sim \mathrm{MVNormal}\left(\boldsymbol{0}, \boldsymbol{Q}^{-1}\left(\boldsymbol{\psi}_{2}\right)\right)
 $$
-Finally, the hyperparameters $\boldsymbol{v}=\left\{\psi_{1}, \boldsymbol{\psi}_{2}\right\}$ have some prior distribution given by $\psi \sim p(\psi)$
-
-
+Finally, the hyperparameters $\boldsymbol{v}=\left\{\psi_{1}, \boldsymbol{\psi}_{2}\right\}$ have some prior distribution given by $\psi \sim \pi(\psi)$
 
 ## Spatial Kriging
 
 Kriging is the operation according which given $y$ observation it is possible to predict over $\mathbf{s}_{0}$ new locations not yet observed. 
 
 [manca solo estimatore kriging e un po' di matematica dietro]
+
 
 
 ## Model Checking and Comparison

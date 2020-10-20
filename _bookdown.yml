@@ -5,10 +5,11 @@ rmd_files:
     - "02-scraping.Rmd"
     - "03-infrastructure.Rmd"
     - "04-exploratory.Rmd"
-    - "05-inla_spde.Rmd"
+    - "05-inla.Rmd"
     - "06-prd_modelling.Rmd"
-    - "07-application.Rmd"
-    - "08-conclusions.Rmd"
+    - "07-spde.Rmd"
+    - "08-application.Rmd"
+    - "09-conclusions.Rmd"
     - "99-references.Rmd"
 language:
   ui:

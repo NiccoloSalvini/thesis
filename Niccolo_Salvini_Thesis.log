@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  18 OCT 2020 11:54
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  20 OCT 2020 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1011,55 +1011,38 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 11.99872pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 8.3991pt on input line 3.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 4.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 4.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 4.
-
-Underfull \hbox (badness 10000) in paragraph at lines 4--4
- [][] [][]\TU/lmr/m/n/12 Immobiliare.it Webscraping website $[][][][][][][][][]
- [] 
- []
-
 [1
 
-] [2])
+])
 \tf@toc=\write5
 \openout5 = `Niccolo_Salvini_Thesis.toc'.
 
-[3] (./Niccolo_Salvini_Thesis.lot)
+[2] (./Niccolo_Salvini_Thesis.lot)
 \tf@lot=\write6
 \openout6 = `Niccolo_Salvini_Thesis.lot'.
 
-[4
+[3
 
 ] (./Niccolo_Salvini_Thesis.lof)
 \tf@lof=\write7
 \openout7 = `Niccolo_Salvini_Thesis.lof'.
 
-[5
+[4
 
 ]
 Chapter 1.
-[6
+[5
 
 ]
 Chapter 2.
-[7
+[6
 
 ]
 File: images/content-vs-html-title.png Graphic file (type bmp)
 <images/content-vs-html-title.png>
-[8] [9] [10]
+[7] [8] [9]
 File: images/tree_html.PNG Graphic file (type bmp)
 <images/tree_html.PNG>
-
-Underfull \hbox (badness 1038) in paragraph at lines 198--198
-[]\TU/lmr/bx/n/14.4 Immobiliare.it Webscraping website $[][][][][][][][][] []
- []
-
 
 Overfull \hbox (136.39343pt too wide) in paragraph at lines 200--201
 \TU/lmtt/m/n/12 https://www.immobiliare.it/affitto-case/milano/?criterio=rileva
@@ -1072,7 +1055,7 @@ Overfull \hbox (173.47339pt too wide) in paragraph at lines 200--201
 nza&superficieMinima=60&pag=4\TU/lmr/m/n/12 .
  []
 
-[11]
+[10]
 File: images/website_tree.jpg Graphic file (type bmp)
 <images/website_tree.jpg>
 File: images/children_str.jpg Graphic file (type bmp)
@@ -1080,52 +1063,59 @@ File: images/children_str.jpg Graphic file (type bmp)
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 215.
 
-LaTeX Warning: Reference `fig:workflow' on page 12 undefined on input line 217.
+LaTeX Warning: Reference `fig:workflow' on page 11 undefined on input line 217.
 
 
-[12] [13]
+[11] [12]
 File: images/workflow.png Graphic file (type bmp)
 <images/workflow.png>
-[14]
+[13]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 231.
 
 Underfull \vbox (badness 3623) detected at line 253
  []
 
-[15] [16]
+[14] [15]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <6> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 263.
-[17] [18] [19] [20] [21] [22]
+[16] [17] [18] [19] [20] [21]
 File: images/how_web_works.png Graphic file (type bmp)
 <images/how_web_works.png>
-[23] [24] [25] [26] [27]
+[22] [23] [24] [25] [26]
 Overfull \vbox (0.80362pt too high) detected at line 620
  []
 
-[28]
+[27]
 File: images/run_timefurrr.png Graphic file (type bmp)
 <images/run_timefurrr.png>
-[29] [30]
+[28] [29]
 File: images/run_timeforeach.png Graphic file (type bmp)
 <images/run_timeforeach.png>
-[31] [32] [33] [34]
+[30]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 697.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 697.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 697.
+[31] [32] [33]
 Chapter 3.
-[35
+[34
 
-] [36]
+] [35]
 File: images/prova.PNG Graphic file (type bmp)
 <images/prova.PNG>
-[37] [38]
+[36] [37]
 File: images/crontab.PNG Graphic file (type bmp)
 <images/crontab.PNG>
-[39] [40]
+[38] [39]
 File: images/dockerVSvirtualmachines.PNG Graphic file (type bmp)
 <images/dockerVSvirtualmachines.PNG>
-[41]
+[40]
 File: images/Inkedindeed_jobs_LI.jpg Graphic file (type bmp)
 <images/Inkedindeed_jobs_LI.jpg>
-[42] [43] [44]
+[41] [42] [43]
 File: images/dockerfile.PNG Graphic file (type bmp)
 <images/dockerfile.PNG>
 
@@ -1139,7 +1129,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 883--885
 []\TU/lmtt/m/n/12 RUN apt-get update && apt-get install -y \ libxml2-dev \
  []
 
-[45]
+[44]
 Overfull \hbox (76.62134pt too wide) in paragraph at lines 885--887
 []\TU/lmtt/m/n/12 RUN R -e "install.packages(c([]plumber[],[]tibble[],[]...[],d
 ependencies=TRUE)
@@ -1170,22 +1160,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 907--907
 ][] [] [][][][] [][] [][][] [][] [][] [][]
  []
 
-[46]
+[45]
 File: images/Rest-API.png Graphic file (type bmp)
 <images/Rest-API.png>
-[47] [48] [49]
-
-LaTeX Warning: Reference `webstructure' on page 50 undefined on input line 968.
-
-
+[46] [47] [48]
 File: images/swagger.PNG Graphic file (type bmp)
 <images/swagger.PNG>
-[50] [51] [52] [53]
+[49] [50] [51] [52]
 File: images/aws.PNG Graphic file (type bmp)
 <images/aws.PNG>
-[54] [55]
+[53] [54]
 Chapter 4.
-[56
+[55
 
 ]
 Overfull \hbox (102.21696pt too wide) in paragraph at lines 1199--1199
@@ -1319,7 +1305,7 @@ Overfull \hbox (102.2412pt too wide) in paragraph at lines 1199--1199
 , NA, NA, NA, NA,...[] 
  []
 
-[57]
+[56]
 Overfull \hbox (102.24115pt too wide) in paragraph at lines 1199--1199
 []\TU/lmtt/m/n/12 ## $ LOWRDPRICE.date          <int> NA, NA, NA, 8, NA, NA, NA
 , NA, NA, NA, NA,...[] 
@@ -1391,137 +1377,158 @@ Overfull \hbox (102.24117pt too wide) in paragraph at lines 1199--1199
 NO, Milano", "Bil...[] 
  []
 
-[58]
+[57]
 Chapter 5.
-[59
+[58
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1235.
+(Font)              scaled to size 12.0pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1235.
+(Font)              scaled to size 8.4pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1235.
+(Font)              scaled to size 6.0pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1235.
+(Font)              scaled to size 12.0011pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1235.
+(Font)              scaled to size 8.40076pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1235.
+(Font)              scaled to size 6.00055pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1235.
+(Font)              scaled to size 11.99872pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1235.
+(Font)              scaled to size 8.3991pt on input line 1240.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1235.
-[60]
-Overfull \hbox (2.8808pt too wide) detected at line 1260
+(Font)              scaled to size 5.99936pt on input line 1240.
+[59] [60]
+Overfull \hbox (2.8808pt too wide) detected at line 1272
 [][]
  []
 
 [61]
-Underfull \hbox (badness 1910) in paragraph at lines 1293--1294
-[]\TU/lmr/m/n/12 If x0 is set equal to the mode $[][] [] [][][][][][]$, log f(x
-) then log
+Underfull \hbox (badness 3612) in paragraph at lines 1308--1309
+[]\TU/lmr/m/n/12 compute the Laplace approximation marginals for the parame-
  []
 
-[62]
-Underfull \hbox (badness 5475) in paragraph at lines 1327--1327
-[]\TU/lmr/bx/n/17.28 Approximate Bayesian inference with
+
+Underfull \hbox (badness 5726) in paragraph at lines 1308--1309
+\TU/lmr/m/n/12 ters given the hyper parameter approximation: $[] [] []
  []
 
-[63]
-Missing character: There is no 𝜓 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
-[64]
-Missing character: There is no 𝜽 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
-
-Overfull \hbox (3.85347pt too wide) in paragraph at lines 1364--1369
-[]\TU/lmr/m/n/12 where $[] []$ is the Laplace Gaussian approximation to $[] []$
-
+File: images/CCDapplied.PNG Graphic file (type bmp)
+<images/CCDapplied.PNG>
+[62] [63]
+File: images/summarytable.PNG Graphic file (type bmp)
+<images/summarytable.PNG>
+[64] [65]
+Overfull \hbox (28.06923pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ##               mean    sd 0.025quant 0.5quant 0.975quant   
+mode kld[] 
  []
 
-[65]
-Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 𝛴 in font [lmroman12-bold]:mapping=tex-text;!
-Missing character: There is no 𝝍 in font [lmroman12-regular]:mapping=tex-text;!
+
+Overfull \hbox (28.03326pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ## (Intercept) 10.132 0.242      9.656   10.132     10.608 10
+.132   0[] 
+ []
+
 [66]
-File: images/triangle-mesh-1.png Graphic file (type bmp)
-<images/triangle-mesh-1.png>
-[67] [68]
+Overfull \hbox (28.00917pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ## s1           0.762 0.429     -0.081    0.762      1.606  0
+.762   0[] 
+ []
+
+
+Overfull \hbox (28.0692pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ## s2          -1.584 0.429     -2.428   -1.584     -0.740 -1
+.584   0[] 
+ []
+
+
+Overfull \hbox (58.98106pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ##                                          mean    sd 0.025q
+uant 0.5quant[] 
+ []
+
+
+Overfull \hbox (58.98128pt too wide) in paragraph at lines 1475--1475
+[]\TU/lmtt/m/n/12 ## Precision for the Gaussian observations 0.308 0.031      0
+.251    0.307[] 
+ []
+
+[67]
 Chapter 6.
-[69
+[68
 
 ]
 File: images/prd_image.PNG Graphic file (type bmp)
 <images/prd_image.PNG>
-[70]
+
+Overfull \hbox (13.92044pt too wide) in paragraph at lines 1494--1498
+\TU/lmr/m/n/12 For simplicity lets consider $[]$ point of interest observations
+ $[] [] [] [] [] [] [] [] [] []$
+ []
+
+[69]
 File: images/prdprocess.png Graphic file (type bmp)
 <images/prdprocess.png>
 Missing character: There is no 𝛴 in font [lmroman12-bold]:mapping=tex-text;!
-[71] [72] [73]
+[70] [71]
 File: images/variogram.png Graphic file (type bmp)
 <images/variogram.png>
-[74]
+[72]
 Missing character: There is no é in font lmmi8!
 Missing character: There is no é in font lmmi8!
-[75] [76]
-
-LaTeX Warning: Reference `(' on page 77 undefined on input line 1561.
-
-[77] [78] [79]
+[73] [74] [75] [76] [77] [78]
 File: images/simple.PNG Graphic file (type bmp)
 <images/simple.PNG>
-[80]
 File: images/thetas.PNG Graphic file (type bmp)
 <images/thetas.PNG>
 File: images/chis.PNG Graphic file (type bmp)
 <images/chis.PNG>
-[81]
-Overfull \hbox (19.76617pt too wide) in paragraph at lines 1655--1655
+[79] [80]
+Overfull \hbox (19.76617pt too wide) in paragraph at lines 1692--1692
 []\TU/lmr/bx/n/17.28 INLA as a hierarchical model [va parafrasato] 
  []
 
-
-LaTeX Warning: Reference `inla' on page 82 undefined on input line 1657.
-
 Missing character: There is no 𝜃 in font [lmroman12-bold]:mapping=tex-text;!
-Missing character: There is no 𝜃 in font [lmroman12-bold]:mapping=tex-text;!
-[82] [83]
+[81] [82]
 Chapter 7.
-[84
+[83
 
 ]
 Chapter 8.
+[84
+
+]
+Chapter 9.
 (./Niccolo_Salvini_Thesis.bbl [85
 
 ] [86
 
 ] [87] [88])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1698.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1744.
 [89]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1698.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1744.
 (./Niccolo_Salvini_Thesis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1698.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1698.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1744.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1744.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: 96581D040D2EA3F27632BA5464F9939C;9300.
+(rerunfilecheck)             Checksum: 3559CFB1D7F9A3F89E72A9FF8830D48F;9047.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1698.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1744.
  ) 
 Here is how much of TeX's memory you used:
- 19112 strings out of 481269
- 337924 string characters out of 5923245
- 760996 words of memory out of 5000000
- 36289 multiletter control sequences out of 15000+600000
- 543260 words of font info for 120 fonts, out of 8000000 for 9000
+ 19123 strings out of 481269
+ 338109 string characters out of 5923245
+ 758721 words of memory out of 5000000
+ 36297 multiletter control sequences out of 15000+600000
+ 543268 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 53i,19n,118p,3457b,553s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,19n,118p,3457b,493s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on Niccolo_Salvini_Thesis.pdf (91 pages).

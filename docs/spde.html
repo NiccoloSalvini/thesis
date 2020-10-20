@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</title>
+  <title>Chapter 7 SPDE approach | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 7 SPDE approach | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 7 SPDE approach | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="spde.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="prev" href="prdm.html"/>
+<link rel="next" href="application.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -240,15 +240,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="application" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Shiny Web App</h1>
-<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
-<div id="example-one" class="section level2">
-<h2><span class="header-section-number">8.1</span> Example one</h2>
-</div>
-<div id="example-two" class="section level2">
-<h2><span class="header-section-number">8.2</span> Example two</h2>
+<div id="spde" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> SPDE approach</h1>
+<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
+<p>Observations in the spatial problem setting are considered as realizations of a stationary, isotropic unobserved GP <span class="math inline">\(w(s)\)</span> that we aim to estimate <a href="prdm.html#GP">6.1</a>. Before INLA, GP were treated as multivariate Gaussian densities and Cholesky factorization were applied on the covariance matrices and then fitted with likelihood. Matrices in this settings are very dense and they scale with the order of <span class="math inline">\(O\left(n^{3}\right)\)</span>, leading to a big-n problem.
+The breakthrough, came with <span class="citation">Lindgren, Rue, and Lindström (<a href="#ref-Lindgren2011" role="doc-biblioref">2011</a>)</span> that proves that a stationary, isotropic GP with Matérn covariance and special covariance parameters can be represented as a GMRF using SPDE solutions by finite element method. Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse precision matrix. Sparse matrices enable convenient inner computation properties of GMRF that can be applied with INLA. Bayesian inference on GMRF can take advantage of lower computational cost because of sparsity that leads to a big-o <span class="math inline">\(O\left(n^{3 / 2}\right)\)</span>.</p>
+<p>[vai avanti su spde con tutte le consideraioni matematiche].</p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Lindgren2011">
+<p>Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. “An Explicit Link Between Gaussian Fields and Gaussian Markov Random Fields: The Stochastic Partial Differential Equation Approach.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 73 (4): 423–98. <a href="https://doi.org/10.1111/j.1467-9868.2011.00777.x">https://doi.org/10.1111/j.1467-9868.2011.00777.x</a>.</p>
 </div>
 </div>
             </section>
@@ -256,8 +259,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="spde.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="prdm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -289,7 +292,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/08-application.Rmd",
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/07-spde.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -5,10 +5,10 @@ Thesis
 
 <img src="images/logo.png" align="right" height="80" />
 
-# Bayesian Spatial Modelling: End-to-End web App solution
+# REST API for Real Estate rental data, a spatial bayesian modeling approach with IaNLA.
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 20 settembre, 2020
+*date*: 20 ottobre, 2020
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
 <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">
@@ -40,7 +40,7 @@ a **docker** container and served with **AWS** EC2 instance. On the
 other side all this data coming in is processed by a front-end **Shiny**
 app whose back-end modeling is integrated with **bayesian** spatial
 methods. **INLA** is the computing choice. Visualizations are rendered
-with **rayshader**
+with **rayshader**.
 
 ### Deployment happens:
 

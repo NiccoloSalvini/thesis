@@ -38,7 +38,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 
 <img src="images/logo.png" align="right" height="80" />
  
-# Bayesian Spatial Modelling: End-to-End web App solution
+# REST API for Real Estate rental data, a spatial bayesian modeling approach with IaNLA.
 
 _author_: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
 _date_: `r format(Sys.Date(), "%d %B, %Y")`

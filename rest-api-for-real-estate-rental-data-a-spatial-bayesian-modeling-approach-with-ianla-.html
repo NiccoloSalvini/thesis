@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Thesis</title>
+  <meta name="description" content="Thesis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Thesis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Thesis" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171723874-1');
+</script>
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#rest-api-for-real-estate-rental-data-a-spatial-bayesian-modeling-approach-with-ianla."><i class="fa fa-check"></i><b>1</b> REST API for Real Estate rental data, a spatial bayesian modeling approach with IaNLA.</a><ul>
+<li class="chapter" data-level="1.0.1" data-path=""><a href="#introduction"><i class="fa fa-check"></i><b>1.0.1</b> Introduction:</a></li>
+<li class="chapter" data-level="1.0.2" data-path=""><a href="#deployment-happens"><i class="fa fa-check"></i><b>1.0.2</b> Deployment happens:</a></li>
+<li class="chapter" data-level="1.0.3" data-path=""><a href="#license"><i class="fa fa-check"></i><b>1.0.3</b> License:</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
+<li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
+<li><a Proudly published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Thesis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Thesis</h1>
+</div>
+<div id="rest-api-for-real-estate-rental-data-a-spatial-bayesian-modeling-approach-with-ianla." class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> REST API for Real Estate rental data, a spatial bayesian modeling approach with IaNLA.</h1>
+<p><em>author</em>: <strong><a href="https://niccolosalvini.netlify.app/">Niccolò Salvini</a></strong>
+<em>date</em>: 20 ottobre, 2020</p>
+<p><a href="http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis"><img src="http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg" alt="HitCount" /></a> <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis"> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg" alt="Generic badge" /></a> <a href="https://niccolosalvini.github.io/Thesis/"><img src="https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg" alt="Website" /></a></p>
+<p><br> <br></p>
+<div class="figure"><span id="fig:img1"></span>
+<img src="images/spatial.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
+<p class="caption">
+Figure 1.1: Spatial Data Analysis
+</p>
+</div>
+<div id="introduction" class="section level3">
+<h3><span class="header-section-number">1.0.1</span> Introduction:</h3>
+<p>This thesis has the aim to asses the problem of setting a price for monthly rents in Milan Real Estate taking into consideration inner and outer factors. This is done by exploiting scheduled <strong>scraping</strong> techniques wrapped into an <strong>API</strong> (plumber). The API is then added into a <strong>docker</strong> container and served with <strong>AWS</strong> EC2 instance. On the other side all this data coming in is processed by a front-end <strong>Shiny</strong> app whose back-end modeling is integrated with <strong>bayesian</strong> spatial methods. <strong>INLA</strong> is the computing choice. Visualizations are rendered with <strong>rayshader</strong>.</p>
+</div>
+<div id="deployment-happens" class="section level3">
+<h3><span class="header-section-number">1.0.2</span> Deployment happens:</h3>
+<p>You can interact, modify and download (pdf epub) the Thesis <strong><a href="https://niccolosalvini.github.io/thesis/">HERE</a></strong></p>
+</div>
+<div id="license" class="section level3">
+<h3><span class="header-section-number">1.0.3</span> License:</h3>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licenza Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Quest’opera è distribuita con Licenza <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribuzione 4.0 Internazionale</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin"],
+"google": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>

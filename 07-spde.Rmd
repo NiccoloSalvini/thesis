@@ -1,0 +1,12 @@
+# SPDE approach {#spde}
+
+<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
+
+Observations in the spatial problem setting are considered as realizations of a stationary, isotropic unobserved GP $w(s)$ that we aim to estimate \@ref(GP). Before INLA, GP were treated as multivariate Gaussian densities and Cholesky factorization were applied on the covariance matrices and then fitted with likelihood. Matrices in this settings are very dense and they scale with the order of $O\left(n^{3}\right)$, leading to a big-n problem. 
+The breakthrough, came with @Lindgren2011 that proves that a stationary, isotropic GP with Matérn covariance and special covariance parameters can be represented as a GMRF using SPDE solutions by finite element method. Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse precision matrix. Sparse matrices enable convenient inner computation properties of GMRF that can be applied with INLA. Bayesian inference on GMRF can take advantage of lower computational cost because of sparsity that leads to a big-o $O\left(n^{3 / 2}\right)$.
+
+
+[vai avanti su spde con tutte le consideraioni matematiche].
+
+
+
