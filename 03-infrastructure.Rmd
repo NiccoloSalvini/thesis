@@ -5,7 +5,7 @@
   
 In order to provide a fast and easy to use service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges regards not only scraping but also the way the service has to respond to the users. Service has to be fast otherwise data become obsolete and so happen to analysis that relied on those data. Service has to be deployed so that in does not only run locally. Service needs to be scaled when needed since when the number of users increases the run time performance should not decrease. Service has to be maintained up to date so that each function can be reshaped with respect to immobiliare.it layout changes. On the other hand code behind the service has to be kept freezed to certain version, so that when packages are updated service still runs. Furthemore service has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud, so that it can be tracked back the evolution of the phenomenon.
 Open source solutions are available for back-end and front-end to meet the requirements before. Documentations related to technologies served are up to date and offer flexible solutions to embed the R environment. As a general discussion technologies used can be thought as the distance between something running locally on the laptop and something that is actually put into production, seen by company stakeholders, solving business problem. When such technologies are applied data scientist and counterparts gradually close the gap. Insights are better communicated (they can be interactive or automated) and services can be shared over a wider range of subjects. Nonetheless when the infrastructure is made with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber [@plumber]). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny [@shiny], a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.
-The actual idea is to provide an API with 4 endpoints which calls parallelized scraping functions. On the other hand  (chapter \@ref(scraping)) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods \@ref(prdm).
+The actual idea is to provide a REST API with 4 endpoints which calls parallelized scraping functions. On the other hand  (chapter \@ref(scraping)) a daily scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. It is all meant to be containerized in a Linux env (Ubuntu distr) docker container hosted by a AWS EC2 server. API endpoints are going to be secured with https protocols and protected with authentication by nginx reverse proxy. A Shiny app calls an endpoint with specified parameters which returns up to date data from the former infrastructure. It then models data with bayesian spatial methods \@ref(prdm).
 
 Technologies involved are:
 
@@ -136,8 +136,10 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 
 In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters. 
 
-## API 
+## REST API 
 
+
+(approfondisci REST)
 API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and impacting positively on the budget.
 APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties.
 There are many types of API that exploit different medium to communicate with apps or services. HTTP API are a special type of API that accepts http requests as input and elaborate them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform.
@@ -193,7 +195,7 @@ Decorations are marked as this `#*` and they are followed by specific keywords d
 - `@filter` decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.
 - many more...
 
-### Immobiliare.it HTTP API  
+### Immobiliare.it REST API  
 
 The API service is composed by three endpoints */scrape* , */links* and */complete*:
 
@@ -206,7 +208,7 @@ The API service is composed by three endpoints */scrape* , */links* and */comple
 
 ![swagger](images/swagger.PNG)
 
-### API source code
+### REST API source code
 
 - Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey
 ```{r, eval=FALSE}
@@ -248,7 +250,7 @@ function(npages = 10,
 ```
 
 
-### API documentation
+### REST API documentation
 
 
 - Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey
@@ -298,7 +300,7 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 ## AWS EC2 server{#aws}
 
-Executing API on a public server allows to share data with a multitude of subjects. Since it can not be specified a-priori how many users are going to enjoy the service a scalable solution fills the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for relatively a cheap price.
+Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
 Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
 [few words still on EC2]

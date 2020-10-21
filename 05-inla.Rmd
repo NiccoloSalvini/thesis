@@ -10,7 +10,7 @@ INLA [@Rue2009] stands for Integrated Nested Laplace approximation and constitut
 - Implementation of spatio-temporal model enabled.
 
 INLA uses a combination of analytics approximations and numerical integration to obtain an approximated posterior distribution of the parameters in a shorter time period.
-Notation is imported from @Blangiardo-Cameletti and @Bayesian_INLA_Rubio, and quite differ from the one in the original paper by Rue, Chopin and Martino -@Rue2009. The chrono-logic steps in the methodology presentation follows @Moraga2019 and author choices. As further notation remarks: bold symbols are considered as vectors, so each time they occur they have to be considered like the _ensamble_ of their values. Furthermore $\tilde\pi$ are the Laplace approximation of integrals. Inner functioning of Laplace approximation and its special usage in the INLA setting is beyond the scope, an easy shortcut focused on the INLA application
+Notation is imported from @Blangiardo-Cameletti and @Bayesian_INLA_Rubio, and quite differ from the one in the original paper by Rue, Chopin and Martino -@Rue2009. The chrono-logic steps in the methodology presentation follows @Moraga2019 and author choices. As further notation remarks: bold symbols are considered as vectors, so each time they occur they have to be considered like the _ensamble_ of their values. Furthermore $\tilde\pi$ are the Laplace approximation of integrals. Inner functioning of Laplace approximation and its special usage in the INLA setting is beyond the scope, an easy shortcut for the INLA application is in @Blangiardo-Cameletti.
 
 ## Latent Gaussian Models LGM{#LGM}
 
@@ -101,7 +101,7 @@ $$
 \tilde{\pi}\left(\theta_{i} \mid y\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid  \boldsymbol{\psi}, y\right) \tilde{\pi}(\boldsymbol{\psi} \mid y) \mathrm{d} \psi
 $$
 
-In the end INLA uses the following approximation to compute marginals: 
+In the end INLA uses the following numerical approximation to compute marginals: 
 
 $$
 \tilde{\pi}\left(\theta_{i} \mid y\right) \approx \sum_{j} \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}^{(j)}, y\right) \tilde{\pi}\left(\boldsymbol{\psi}^{(j)} \mid y\right) \Delta_{j}
@@ -131,20 +131,24 @@ At this point there exists three types of approximations for $\pi\left(\boldsymb
 
 (rivedere meglio)
 
-## R-INLA package in a bayesian regression perspective
+## R-INLA package in a bayesian hierarchical regression perspective
 
-INLA computations and methodology is developed in the R-INLA project whose package is available on their [website](http://www.r-inla.org). Download is not available on CRAN (the Comprehensive R Archive Network) so a special source, which is maintained by authors and collaborators through a bitbucket repo, has to be specified. However download information are neatly showed in a dedicated section in the project website. The website offers also a forum where threads can be proposed and an active community is keen to answer. Furthermore the project is gaining importance due to its vast application a cases that recently are exponentiallly growing, examples are [italiano citato nel video onlie di RUE 2020, altro tizio citato da Rue]
-The core function of the package is `inla()`and works as many other regression functions like `glm()` , `lm()` or `gam()`. Inla takes as arguments the formula together with the data (expects a data.frame obj) on which estimation is desired. Many other more alternative methods inside the function can be specifird and are later presented in a table. Inla objects are inla.dataframe summary-type list object containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method to be seen: (meglio se metto direttamente tabella generate in kable())
+### Overview
+
+INLA computations and methodology is developed by the R-INLA project whose package is available on their [website](http://www.r-inla.org). Download is not on CRAN (the Comprehensive R Archive Network) so a special source repo link, which is maintained by authors and collaborators, has to be optioned. The website offers also a forum where a daily discussion group is opened and an active community is keen to answer. Moreover It also contains a number of reference books, whose some of them are open sourced as gitbook. Furthermore the project is gaining importance in the bayesian world due to its recent applications and use cases. 
+The core function of the package is `inla()`and it works as many other regression functions like `glm()`, `lm()` or `gam()`. Inla function takes as arguments the formula (where response and linear predictor are) together with the data (expects a data.frame obj) on which estimation is desired. Many other alternative methods inside the function can be added with respect to the model to be imposed. Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method: (meglio in kable)
+Following Krainski & Rubio -@Krainski-Rubio observations $y(s_{1}), \ldots, y(s_{n})$ are taken from a toy generated dataset and a hierarchical linear regression is fitted. 
 
 ![summary table list object, source: @Krainski-Rubio ](images/summarytable.PNG)
 
 
 ### Linear Predictor
 
-Following Krainski and Rubio -@Krainski-Rubio observations $y(s_{1}), \ldots, y(s_{n})$ come from a Gaussian variable with $\mu_{i}$ and precision $\tau$. The mean moment for the gaussian distribution (i.e. ) $\mu_{i}$  has to be specified as _linear predictor_ through a link function as in section \@ref)(genregvec),i.e $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
+Data is generated from a Gaussian variable and its moments are $\mu_{i}$ and precision $\tau$. 
+The mean moment for the gaussian distribution $\mu_{i}$  has to be specified as _linear predictor_ $\eta_{i}$ (i.e. $E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}$ ). The link function is identity in section \@ref(genregvec) is  $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
 Simplifying the composition of the linear predictor and using spatial dataset SPDEtoy: Spatial covariates as long and lat have to be included in the linear predictor as well as the others, so that linear predictor has this form: $\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, where once again $\beta_{0}$ is the intercept and $\beta_{j}$ are the linear effect on covariates. It is possible to include also non-linear effects with the `f()` specifying the model The prior choice for intercept is uniform. Prior for Gaussian latent field are vague such that have 0 mean and 0.001 precision, then the prior in the precision $\tau$ is gamma with parameters 1 and 0.00005. Prior choice can then be changes.
 
-The summary of the model already described is:
+The summary of the model parameters already described is:
 
 $$
 \begin{aligned}
