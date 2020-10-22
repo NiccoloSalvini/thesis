@@ -135,7 +135,7 @@ At this point there exists three types of approximations for $\pi\left(\boldsymb
 
 ### Overview
 
-INLA computations and methodology is developed by the R-INLA project whose package is available on their [website](http://www.r-inla.org). Download is not on CRAN (the Comprehensive R Archive Network) so a special source repo link, which is maintained by authors and collaborators, has to be optioned. The website offers also a forum where a daily discussion group is opened and an active community is keen to answer. Moreover It also contains a number of reference books, whose some of them are open sourced as gitbook. Furthermore the project is gaining importance in the bayesian world due to its recent applications and use cases. 
+INLA computations and methodology is developed by the R-INLA project whose package is available on their [website](http://www.r-inla.org). Download is not on CRAN (the Comprehensive R Archive Network) so a special source repo link, which is maintained by authors and collaborators, has to be optioned. The website offers also a forum where a daily discussion group is opened and an active community is keen to answer. Moreover It also contains a number of reference books, among which some are fully open sourced as gitbook. Furthermore as Havaard Rue has pointed out in a web-lectureon the topicl, the project is gaining importance in the bayesian world due to its new applications and recent use cases. 
 The core function of the package is `inla()`and it works as many other regression functions like `glm()`, `lm()` or `gam()`. Inla function takes as arguments the formula (where response and linear predictor are) together with the data (expects a data.frame obj) on which estimation is desired. Many other alternative methods inside the function can be added with respect to the model to be imposed. Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method: (meglio in kable)
 Following Krainski & Rubio -@Krainski-Rubio observations $y(s_{1}), \ldots, y(s_{n})$ are taken from a toy generated dataset and a hierarchical linear regression is fitted. 
 
@@ -144,11 +144,11 @@ Following Krainski & Rubio -@Krainski-Rubio observations $y(s_{1}), \ldots, y(s_
 
 ### Linear Predictor
 
-Data is generated from a Gaussian variable and its moments are $\mu_{i}$ and precision $\tau$. 
-The mean moment for the gaussian distribution $\mu_{i}$  has to be specified as _linear predictor_ $\eta_{i}$ (i.e. $E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}$ ). The link function is identity in section \@ref(genregvec) is  $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
-Simplifying the composition of the linear predictor and using spatial dataset SPDEtoy: Spatial covariates as long and lat have to be included in the linear predictor as well as the others, so that linear predictor has this form: $\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, where once again $\beta_{0}$ is the intercept and $\beta_{j}$ are the linear effect on covariates. It is possible to include also non-linear effects with the `f()` specifying the model The prior choice for intercept is uniform. Prior for Gaussian latent field are vague such that have 0 mean and 0.001 precision, then the prior in the precision $\tau$ is gamma with parameters 1 and 0.00005. Prior choice can then be changes.
+SPDEtoy dataset, that has a spatial component, is generated from a $y_{i}$ Gaussian variable; its moments are $\mu_{i}$ and precision $\tau$. 
+The formula that describe the linear predictor has to be stated directly inside the `inla()` function or it can be stored into a variable. The mean moment in the gaussian distribution $\mu_{i}$ is expressed as the _linear predictor_ $\eta_{i}$ (i.e. $E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}$ ). The function that maps the linear predictor into the parameter space is identity as in section \@ref(genregvec) i.e. $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
+After including $s_{1}$ and $s_{2}$ spatial covariates the linear predictor takes the following form: $\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, where once again $\beta_{0}$ is the fixed effect i.e. intercept and the $\beta_{j}$ are the linear effect on covariates. INLA allows also to include non-linear effects with the `f()` method inside the formula. Once the formula is decided then priors has to be picked up; for the intercept a customary choice is uniform. Prior for Gaussian latent parameters are vague and they have 0 mean and 0.001 precision, then the prior for $\tau$ is a gamma with parameters 1 and 0.00005. Prior initial choice can be later adapted.
 
-The summary of the model parameters already described is:
+The summary of the model parameters is:
 
 $$
 \begin{aligned}
@@ -161,44 +161,20 @@ y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 $$
 
 
-```{r, cache=TRUE}
-library(INLA)
+```{r summary, cache=TRUE, echo=FALSE}
+invisible(library(INLA, warn.conflicts = F))
+invisible(library(magrittr, warn.conflicts = ))
 data("SPDEtoy")
-m0 = inla(y ~ s1 + s2, data = SPDEtoy)
+formula = y ~ s1 + s2
+m0 = inla(formula, data = SPDEtoy)
 summary(m0)
 ```
 
 
 
+The output offers a summary of the posterior marginal values for intercept, coefficient and covariates, as well as precision. Below the linear predictor posterior marginal distributions:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![linear predictor marginals, author's creation](images/marginal_distr.png)
 
 
 

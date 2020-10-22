@@ -30,11 +30,11 @@ GP has to meet two important properties:
 * **Isotropy**.
 
 
-**Stationarity** in a stochastic process can be either _strong_  or _weak_. The strong assumption forces that for any given spatial index $n$ and its correspondent locations $s_{1,\ldots,n}$, the distribution of the process $\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}$ is the same of the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$.
-The latter (i.e. weak) ensures that if the GP mean moment is constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[Y(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance between each couple points (euclidean $\left\|s_{i}-s_{j}\right\|$ distance) separation.
-Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. In other words weak stationarity in GP implies being invariant under _translation_ [-@Krainski-Rubio].
-Moreover since it is assumed to be true  $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ leading to also $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed with $2 \gamma(\mathbf{h})$, even tough its half $\gamma(\mathbf{h})$  is more often used as expression, namely _semivariogram_ [@Cressie_2015]. 
-The intuition behind this expression is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther, in compliance with the first law of geography by Tobler: 
+**Stationarity** in a stochastic process can be _strong_  or _weak_ or _intrinsic_. The strong property forces the distribution of the process $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ for any given spatial index $n$ and its correspondent location sets $s_{1,\ldots,n}$ to be the same as the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$. 
+On the other hand the weak property ensures that if the GP mean moment is constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[Y(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance (euclidean $\left\|s_{i}-s_{j}\right\|$ distance) between each couple points.
+Weak stationarity consequences are the most interesting: It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. In other words weak stationarity in GP implies being invariant under _translation_ [-@Krainski-Rubio]. The realationship between strong and weak is not bijective since being strong implies also being weak, but the opposite is not always true for non-Gaussian process.
+Moreover since it is assumed to be true by intrinsic stationary that $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ leading to $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed with $2 \gamma(\mathbf{h})$, even tough its half,i.e. $\gamma(\mathbf{h})$, is more interpretable, namely _semivariogram_ [@Cressie_2015].
+The intuition behind the variogram is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther ( _ergodicity_ of the spatial process), in compliance with the first law of geography by Tobler: 
 
 
 > "Everything is related to everything else, 
@@ -43,7 +43,7 @@ The intuition behind this expression is that the difference in value between two
 >  `r tufte::quote_footer('--- Waldo R. Tobler')`
 
 
-Semivariograms are an efficient tool to asses spatial continuity but they are theoretical. However semivariograms can be fitted to existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:
+Semivariograms are an efficient tool to asses spatial continuity and contiguity but they are theoretical. However semivariograms can be fitted into existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:
 
 $$\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}$$
 
@@ -56,17 +56,16 @@ where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\math
 
 ![variogram example](images/variogram.png)
 
-
-
 The process is said to be **Isotropic** if the covariance function depends only on the between-points distance so it is invariant under _rotation_ [-@Krainski-Rubio]. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain $D$ then the process is said to be **Anisotropic**.
 
 $$C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)$$
 
 ### Matérn covariance function{#Matern}
 
-There are many covariance functions and their application depends both on data and the scope on the analysis.
+There are many covariance functions and their application depend both on data and the scope on the analysis.
 Examples of spatial covariance functions among all the others are: Linear, Spherical, Exponential and Matérn.
-Matérn is special since when it is used in combination to a GMRF covariance the SPDE approach can be adopted \@ref(spde).  It can be also accounted as the most used in geostatistics [@Krainski2018] and [@Bayesian_INLA_Rubio]. Matérn is tuned mainly by two parameters, a scaling one $\kappa>0$ (the most of the times set equal to the range) and a smoothing one $\nu>0$. By decomposing it into a more granular form and cosidering two generic locations $\mathbf{S}_{i}$  and $\mathbf{S}_{j}$,  a _stationary_ and _isotropic_ Matérn _correlation_ function [@Krainski2018]. Keep in mind notation \@ref(eq:cov): 
+Matérn is special since when it is used together with a GP, the SPDE approach can provide a GMRF representation of the same process, chapter \@ref(spde) undisclose this fundamental property.
+Matérn can also be accounted as the most used in geostatistics [@Krainski2018] and [@Bayesian_INLA_Rubio]. Matérn is tuned mainly by two parameters, a scaling one $\kappa>0$ (the most of the times set equal to the range) and a smoothing one $\nu>0$. By decomposing it into a more granular form and cosidering two generic locations $\mathbf{S}_{i}$  and $\mathbf{S}_{j}$,  a _stationary_ and _isotropic_ Matérn _correlation_ function [@Krainski2018] has this form
 
 $$
 \operatorname{Cor}_{Matérn}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)^{\nu} K_{\nu}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)
@@ -74,7 +73,9 @@ $$
 
 where $\|\cdot\|$ is the Euclidean distance, $\Gamma(\cdot)$ is a gamma function and $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The relationship that ties Matérn correlation and covariance is $\mathcal{C}(h_{i,j}) = \operatorname{Cov}_{Matérn}\left(U\left(\mathrm{s}_{i}\right), U\left(\mathrm{s}_{j}\right)\right) = \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)$.
 Then if $u(\mathbf{s})$ is a realization from $U(\mathbf{s})$ at $n$ locations the joint covariance matrix can be defined as each entry of the joint covariance matrix $\Sigma_{i, j}= \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)$. Common customary choice is to assume that $U(.)$ in centered in 0.
-Covarianca function has to be
+
+
+
 
 
 ## Hedonic Price Models for Rental House Market
@@ -93,9 +94,9 @@ As a final remark scholars would argue that rent values do not represent the act
 
 ## Regression for univariate spatial data 
 
-Since in HPM the relationships between the characteristics of the house, i.e. vector $C$, and the price $P(C)$ is not defined in economic literature it is possible to assume any $f$ functional form that relates covariates. The open possibility to apply any relationship between covariates comes very handy in the INLA setting, since Latent Gaussian Models are prepared to accept a wide range of $f$ functions that model covariates \@ref(LGM). Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.
+Since in HPM the relationships between the characteristics of the house, i.e. vector $C$, and the price $P(C)$ is not defined in economic literature it is possible to assume any $f$ functional form that relates covariates. The open possibility to apply any relationship between covariates comes very handy in the INLA setting, since Latent Gaussian Models are prepared to accept a wide range of $f$ linear and non linear functions that model covariates \@ref(LGM). Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method. 
 Moreover what the latest econometric literature (Greene, 2018) suggests is to apply a log-linear model. This is due to the fact that the transformation smooths the skewness of prices leading to best estimates. Moreover it gives an intuitive suggestion on percent price variation through betas thanks to logarithm properties. This argumentation as Greene suggests can be extended also to rent prices.
-If it assumed a log-linear relationship among covariates then a classical bayesian non-spatial linear regression can relate a $log(y)$ response variable with its covariates and error through the expression:
+If it assumed a log-linear model then a classical bayesian non-spatial linear regression can relate a $log(y)$ response variable with its covariates and error through the expression:
 
 
 \begin{equation}
@@ -109,7 +110,8 @@ where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(
   \eta_{i}=\beta_{0}+\sum_{j=1}^{J} \beta_{j} x_{i m}
 (\#eq:linearpred)
 \end{equation}
-where the $i$ pedix is the observation number and the $j$ pedix is the mth covariate.  Moreover it is possible to specify $\eta$ as a function of $\mu$. The link function between them in this case is identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. In GLMs when response variable has to stay between $[0,1]$ (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:
+
+where the $i$th pedix is the observation index and the $j$th pedix is the mth covariate.  Moreover it is possible to specify $\eta$ as a function of $\mu$. The link function between them in this case is identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. In GLMs when response variable has to stay between $[0,1]$ (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:
 
 \begin{equation}
   y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+\varepsilon\left(\mathbf{s}_{i}\right)
@@ -152,31 +154,29 @@ $$\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} \Sigma^{-1} \mathbf
 
 ## Hierarchical Bayesian Regression{#hierreg}
 
-Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. Taking a few steps back the problem can be reformulated into a easier setting starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on categories. Therefore observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they might belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti -@Blangiardo-Cameletti consider data grouped by just one 9-levels-category. Data for the reason stated before can be organized in a way such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive categories (circles in figure).  
+Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. Taking a few steps back the problem can be reformulated into a easier setting starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on these categories. Therefore observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti -@Blangiardo-Cameletti consider grouping data according to just one 9-levels-category factor. Data for the reasons stated before can be organized in a way such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive categories (circles in figure).  
 
 ![simplifing_problem](images/simple.PNG)
 
-Moreover data can be also conveniently distinguished by two meta-categories: _fist level_ and _second level_. _First level_ are identified by sampling observations which are drawn by the same probability distribution. _Second level_ (circles) are categories and might be associated to a set of parameters $\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}$.
-Since the structure is hierarchical, a DAG (Directed Acyclical Graph) -@Blangiardo-Cameletti representation might sort out ideas. If categories are represented by different thetas nodes $\theta$ and edges are the logical condition to belong to the precise category for observations then:
+Moreover data can be also conveniently partitioned into two meta-categories: _fist level_ and _second level_. _First level_ are identified by sampling observations which are drawn by the same probability distribution. _Second level_ (circles) are categories and might be associated to a set of parameters $\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}$.
+Since the structure is hierarchical, a DAG (Directed Acyclical Graph) -@Blangiardo-Cameletti representation might sort out ideas. If categories are represented by different thetas nodes $\theta$ and edges are the logical belonging condition to the precise category then:
 
 ![thetas, Blangiardo-Cameletti's source ](images/thetas.PNG)  ![chis, Blangiardo-Cameletti's source](images/chis.PNG)
 
-To fully take into account the hierarchical structure of the data $\left\{\theta_{1}, \ldots, \theta_{J}\right\}$ can be assumed to come from a distribution $p\left(\theta_{j} \mid \psi\right)$ characterized by $\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}$ hyper parameters, see left figure. If $\theta_{j}$ come from the same distribution they are assumed also to be sharing information [@Blangiardo-Cameletti]. In a hierarchical framework this can be specified by: 
+To fully take into account the hierarchical structure of the data, $\left\{\theta_{1}, \ldots, \theta_{J}\right\}$ is assumed to come from a distribution $\pi\left(\theta_{j} \mid \psi\right)$ characterized by $\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}$ hyper parameters, left figure. If $\theta_{j}$ come from the same distribution they are assumed also to be sharing information [@Blangiardo-Cameletti]. In a hierarchical framework this can be reformulated by: 
 
 $$
 \pi\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
 $$
 
-theta $\theta_{j}$ parameters are similar in the sense they come from the same distribution family characterized by $\boldsymbol{\psi}$ hyper parameters, which at their own time are identified by priors (fixed quantities). This structure can extended to allow more than two levels of hierarchy since  the marginal distributions of $\theta$ can be decomposed into the product of their conditional distribution given some hyperparameter $\psi$ as well as their prior distribution $p(\psi)$.
+theta $\theta_{j}$ parameters are similar in the sense they come from the same distribution family characterized by $\boldsymbol{\psi}$ hyper parameters, which at their own time are identified by priors (fixed quantities). This structure can extended to allow more than two levels of hierarchy since the marginal distributions of $\theta$ can be decomposed into the product of their conditional distribution given some hyperparameter $\psi$ as well as their prior distribution $p(\psi)$.
 
 $$
 \pi(\boldsymbol{\theta})=\int \pi\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) \pi\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots \pi\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) \pi\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
 $$
 
-$\boldsymbol{\psi}_{l}$ identifies the hyper pram for the  l _th_ level of hierarchy.
+$\boldsymbol{\psi}_{l}$ identifies the hyper pram for the  l _th_ level of hierarchy. The property to enable deeper nested hyperparameters (i.e. add $L$ hierarchy levels) is said *Exchangeability* and allows to extend the dimensions in which the problem in evaluated (spatio-temporal models). From a theoretical point of view there is no constraints to how many $L$ levels to consider, as a consequence model interpretability suffers from adding too many layers. 
 
-[ integra la hierarchical regression di blangiardo con quello ceh ho giua scritto ]
-\@ref(eq:linearpred)
 
 ## INLA as a hierarchical model [va parafrasato]
 

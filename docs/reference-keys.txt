@@ -58,3 +58,12 @@ example-one
 example-two
 final-words
 eq:ols
+eq:likelihood
+eq:gmrf
+rest-api
+immobiliare.it-rest-api
+rest-api-source-code
+rest-api-documentation
+further-approximations-prolly-do-not-note-include
+r-inla-package-in-a-bayesian-hierarchical-regression-perspective
+overview
