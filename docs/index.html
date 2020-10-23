@@ -171,11 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker</a></li>
 <li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api"><i class="fa fa-check"></i><b>3.3</b> API</a><ul>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.3</b> REST API</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-http-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it HTTP API</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#api-source-code"><i class="fa fa-check"></i><b>3.3.3</b> API source code</a></li>
-<li class="chapter" data-level="3.3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#api-documentation"><i class="fa fa-check"></i><b>3.3.4</b> API documentation</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-rest-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it REST API</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-source-code"><i class="fa fa-check"></i><b>3.3.3</b> REST API source code</a></li>
+<li class="chapter" data-level="3.3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-documentation"><i class="fa fa-check"></i><b>3.3.4</b> REST API documentation</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server</a></li>
 <li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
@@ -191,11 +191,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
 <li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approximation-in-inla-setting"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-methods-for-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further methods for approximations (prolly do not note include)</a></li>
+<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further approximations (prolly do not note include)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#r-inla-package-in-a-bayesian-perspective"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian perspective</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#linear-predictor"><i class="fa fa-check"></i><b>5.3.1</b> Linear Predictor</a></li>
+<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#linear-predictor"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
@@ -243,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</h1>
 <p class="author"><em><a href="https://niccolosalvini.netlify.app/">Niccolò Salvini</a></em></p>
-<p class="date"><em>date: Last compiled on 20 ottobre, 2020</em></p>
+<p class="date"><em>date: Last compiled on 23 ottobre, 2020</em></p>
 </div>
 <div id="preliminary-content" class="section level1 unnumbered">
 <h1>Preliminary Content</h1>
@@ -255,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Acknowledgements</h2>
 <p>First of all I acknowledge a special debt to <strong>Professor Della Vedova</strong> who has patently followed me during this 6 months long journey, he has encouraged me and let me try things never done before. Our communication through this process has always been transparent and each moment spent was a lesson to learn. I came with strong ideas to his office desk and he let me shape my dissertation giving me blank paper. Most of all when something was not working he has always been keen to solve and suggest a better approach. I owe a lot also to Dr. <strong>Vincenzo Nardelli</strong>, he is one of the kindest and most talented guys I have ever met. I took a big inspiration by its works. He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics. Sometimes I feel like I am copying him, but then I realize that it is inspiration. I owe also a huge thanks to <strong>professor Lucia Paci</strong>. She has been one of the top teacher in my master course to me by far. She has the capability to explain very hard stuff with ease without omitting anything. She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got. The bayesian statistical part relies on her thoughts and on her experience on the subject.
 I will not for sure miss to thank my beautiful girlfriend <strong>Elisabetta</strong>, She has seen my darkest times and my deepest insecurities, she did not even blink and she kept helping me like day one. Without her really anything would not have been even possible. She is so smart and she know me so well that when I had downs, even though she had had her own issues, she carried the weights and broght the only medicine I know: “Sciacchiata o Gelato”. I would love to thank my father <strong>Muzio</strong> to be such a big milestone both in my career and private life, he has always encouraged me pursuing my dream by never setting any sort of limit. Its life could be compressed into a Frank Sinatra song “My Way” and observing him, working speakly, I wish the future would bless me with its same independence and freedom. Special thanks are dedicated also to my beloved uncles, zia <strong>Jolanda</strong> and zio <strong>Luciano</strong>. They put a stake on me, they always make me feel special and talented even though university has never given me the chance to truly express myself. Me and Zio Luciano conversations are inspirational, he knows all the ropes, he is the most talented business man I am ever going to see in my entire life, I wish I could have a tenth of its talent. What I do is mainly because of its enormous successes and sacrifices. Memory is just for people that have to rely on past to act in the present. You take care of today so that tomorrow you can shape the future. Zia Jolanda you gave me back the most important thing, family, you have never missed special and difficult moments. You supported me and my mother throughout our exhausting journey I would never find the words and express much gratitude for what you did. You are an angel.
-To all my friend thanks for each of your unpecified different support, unfortunately this is becoming too long, a party is going to happen and a piece of a paper will do justice.</p>
+To all my friend thanks for each of your unspecified different support, unfortunately this is becoming too long, a party is going to happen and a piece of a paper will do justice.</p>
 </div>
 <div id="dedication" class="section level2 unnumbered">
 <h2>Dedication</h2>
@@ -264,7 +265,7 @@ Our relationship has never been easy, we have both of us strong attitudes, never
 The most I have done since I remember is for her and for her satisfaction. I do not regret it. She is my inspiration, and I hope someday that I will live up to you mamma. she went “all in” sending me in Milan.
 She did right.
 Mum’s always right.</p>
-<p><em>keywords</em> : Bayesian Statistics, RESTFUL API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Jobs.</p>
+<p><em>keywords</em> : Bayesian Statistics, RESTFUL API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Job Scheduler.</p>
 
 </div>
 </div>

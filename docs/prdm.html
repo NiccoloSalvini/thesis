@@ -61,6 +61,70 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -78,6 +142,11 @@
 <li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -122,10 +191,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
 <li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approximation-in-inla-setting"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
+<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further approximations (prolly do not note include)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#r-inla-package-in-a-bayesian-hierarchical-regression-perspective"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
+<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
 <li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#linear-predictor"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
 </ul></li>
@@ -174,38 +243,54 @@
             <section class="normal" id="section-">
 <div id="prdm" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Point Referenced Data Modeling</h1>
-<p>Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon <span class="citation">(Moraga <a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>. Data as such can monitor a vast range of phenomena, as an example disease cancer detection <span class="citation">(Bell et al. <a href="#ref-Bell2006" role="doc-biblioref">2006</a>)</span> at several sites, epidemic ones due to COVID19 spread in China <span class="citation">(Li et al. <a href="#ref-Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020" role="doc-biblioref">2020</a>)</span>, also environmental ones as PM pollution concentration in a North-Italian region Piemonte <span class="citation">(Cameletti et al. <a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>. As a further argument house prices smoothly varies between closer neighborhoods as observed in <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. API generated data are point referenced data, so modeling methodologies applied during the analysis exclusively regard the just introduced data type, even though INLA can fit other data types.</p>
-<p>Spatial data can also be measured according to a 3rd (or even a 4th in the case elevation data) dimension which is time. In this setting it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is <span class="citation">(Paci et al. <a href="#ref-PACI2017149" role="doc-biblioref">2017</a>)</span>. Anyway since API generates data on a daily basis and then stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model.
-What It can be observed in point reference data type is just a sample, some sites, from a continuous unobserved spatial process <a href="prdm.html#GP">6.1</a> which we aim to estimate.</p>
+<p>Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon <span class="citation">(Moraga <a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>. Data as such can monitor a vast range of phenomena, as an example disease cancer detection <span class="citation">(Bell et al. <a href="#ref-Bell2006" role="doc-biblioref">2006</a>)</span> at several sites, COVID19 spread in China <span class="citation">(Li et al. <a href="#ref-Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020" role="doc-biblioref">2020</a>)</span>, PM pollution concentration in a North-Italian region Piemonte <span class="citation">(Cameletti et al. <a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>. Moreover house prices variation, as observed in <span class="citation">Gómez Rubio (<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>, where selling prices smoothly vary between closer neighborhoods. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. Spatial data can be partitioned into three spatial data type whose modeling tools are specific with respect to their category.</p>
+<ul>
+<li>Areal Data</li>
+<li><strong>Point Referenced Data</strong></li>
+<li>Point Pattern Data</li>
+</ul>
+<!-- Potrei mettere lealfet interattivo ma si rovina nella conversione latex
+rimane da provare:
+- salvarlo come oggetto html e poi plottarlo
+- cambiare providers con uno più semplice
+- evitare markers difficile
+-->
 <div class="figure">
-<img src="images/prd_image.PNG" alt="" />
+<img src="images/map.png" alt="" />
 <p class="caption">point referenced data example, Milan Rental Real Estate, Author’s Source</p>
 </div>
+<p>REST API seen in chapter <a href="Infrastructure.html#Infrastructure">3</a> extracts point referenced data, so modeling methodologies described in this analysis will exclusively take into account point referenced techniques.
+In order to extend the notion from discrete measurements (i.e. point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained according to convenient properties. GP are then blended with a specific covariance function, i.e. Matèrn. The reason why last assumption is true will be much more clear in the next chapter <a href="spde.html#spde">7</a>.
+A class of models called Hedonic Price are borrowed from econometric literature and are used to fully integrate covariates coming from the API. Then Hedonic models are exploited into a bayesian hierarchical framework and INLA is applied as computing choice.
+Spatial kriging is essential to predict the process at new locations so that the surface can be plotted and analyzed.
+In the end models have to be checked and verified with sanpling techiniques which are once again specific to the data type and the scope of the analysis.</p>
+<p><em>(forse mettere alla fine come further developments)</em>
+As a side note Spatial data can also be measured according to a 3rd (or even a 4th in the case elevation data) dimension which is the time component. In this setting it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is <span class="citation">Paci et al. (<a href="#ref-PACI2017149" role="doc-biblioref">2017</a>)</span>. Therefore since API generates data on a daily basis and then stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model.</p>
 <div id="GP" class="section level2">
 <h2><span class="header-section-number">6.1</span> Gaussian Process (GP)</h2>
 <p>For simplicity lets consider <span class="math inline">\(y\)</span> point of interest observations <span class="math inline">\(y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)\)</span>
-from a random spatial process <span class="math inline">\(Y\)</span>, such that: <span class="math inline">\(Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)\)</span> observed at location <span class="math inline">\(\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}\)</span>. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of an unobserved random spatial process.
-<span class="math inline">\(\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}\)</span> , where <span class="math inline">\(D\)</span> is a subset of r-dimensional Euclidean space <span class="math inline">\(\mathbb{R}^{r}\)</span>.
-When <span class="math inline">\(r = 1\)</span> it is a simple stochastic process widely explored in literature i.e. time series process. Nevertheless geostatistical data belong always to <span class="math inline">\(r = 2\)</span> or eventually <span class="math inline">\(r = 3\)</span>, when elevation is available. The stochastic process <span class="math inline">\(Y\)</span> is observed in a fixed set of “monitoring stations” and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.</p>
+from a random spatial process <span class="math inline">\(Y\)</span>, such that: <span class="math inline">\(Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)\)</span> observed at location <span class="math inline">\(\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}\)</span>. In the context of geostatistical data each observation has to be considered as a partial realization of an unobserved random spatial process.
+<span class="math inline">\(\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}\)</span>, where surface <span class="math inline">\(D\)</span> is a subset of r-dimensional Euclidean space <span class="math inline">\(\mathbb{R}^{r}\)</span>.
+Moreover When <span class="math inline">\(r = 1\)</span> it is the most simple stochastic process widely explored in literature i.e. time series process. However geostatistical data always have <span class="math inline">\(r = 2\)</span> (i.e. lat and long, eastings and northings) or eventually <span class="math inline">\(r = 3\)</span>, when elevation data is available. The stochastic process <span class="math inline">\(Y\)</span> is observed in a fixed set of “monitoring stations” and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.</p>
 <div class="figure">
 <img src="images/prdprocess.png" alt="" />
 <p class="caption">3D scatterplot and surface, Stockton data.</p>
 </div>
-<p>A collection of <span class="math inline">\(n\)</span> random variables, such as <span class="math inline">\(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\)</span> that are <em>valid</em> spatial processes are said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\)</span> and covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each of the others through a spatial covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>. The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the <em>validity</em> characteristics from the random spatial process, furthermore it has to be <em>positive definite</em>. Below a generalised version for two random <span class="math inline">\(i\)</span>th <span class="math inline">\(j\)</span>th observations:</p>
+<p>A collection of <span class="math inline">\(n\)</span> random variables, such as <span class="math inline">\(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\)</span> that are <em>valid</em> spatial processes are said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\)</span> and covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each of the others through a spatial covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>. The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the <em>validity</em> characteristics from the random spatial process, furthermore it has to be <em>positive definite</em>. Below a generalized version for two random <span class="math inline">\(i\)</span>th <span class="math inline">\(j\)</span>th observations:</p>
 <p><span class="math display" id="eq:cov">\[\begin{equation}
 \operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)
 \tag{6.1}
 \end{equation}\]</span></p>
-<p>GP has to meet two important properties:</p>
+<p>GP in the spatial context has to meet two important properties:</p>
 <ul>
 <li><strong>Stationary</strong>.</li>
 <li><strong>Isotropy</strong>.</li>
 </ul>
-<p><strong>Stationarity</strong> in a stochastic process can be either <em>strong</em> or <em>weak</em>. The strong assumption forces that for any given spatial index <span class="math inline">\(n\)</span> and its correspondent locations <span class="math inline">\(s_{1,\ldots,n}\)</span>, the distribution of the process <span class="math inline">\(\left\{Y\left(s_{1}\right), \ldots, Y\left(s_{n}\right)\right\}\)</span> is the same of the one in <span class="math inline">\(\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}\)</span>, where <span class="math inline">\(h\)</span> is a number belonging to <span class="math inline">\(R^{2}\)</span>.
-The latter (i.e. weak) ensures that if the GP mean moment is constant over the study domain <span class="math inline">\(\mu(\mathbf{s}) \equiv \mu\)</span> (e.g. <span class="math inline">\(E[Y(s)]=\mu, \forall s \in D\)</span>) then the covariance functions does depend only on the distance between each couple points (euclidean <span class="math inline">\(\left\|s_{i}-s_{j}\right\|\)</span> distance) separation.
-Weak stationarity consequences are that It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions <span class="math inline">\(\mathcal{C}(h)\)</span> can summarize the process through the separation vector <span class="math inline">\(h\)</span> <span class="citation">(Banerjee, Carlin, and Gelfand <a href="#ref-Banerjee-Gelfand" role="doc-biblioref">2014</a>)</span>. In other words weak stationarity in GP implies being invariant under <em>translation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>.
-Moreover since it is assumed to be true <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0\)</span>, the second moment of the latter expression can be written as <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}\)</span> leading to also <span class="math inline">\(\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))\)</span>. Last expression is called <em>variogram</em> and can be expressed with <span class="math inline">\(2 \gamma(\mathbf{h})\)</span>, even tough its half <span class="math inline">\(\gamma(\mathbf{h})\)</span> is more often used as expression, namely <em>semivariogram</em> <span class="citation">(Cressie <a href="#ref-Cressie_2015" role="doc-biblioref">2015</a>)</span>.
-The intuition behind this expression is that the difference in value between two near points <span class="math inline">\(Y(\mathbf{s}+\mathbf{h})\)</span> and <span class="math inline">\(Y(\mathbf{h})\)</span> is expected to be small with respect to the ones farther, in compliance with the first law of geography by Tobler:</p>
+<p><strong>Stationarity</strong> in a stochastic process can be <em>strong</em>, <em>weak</em> or <em>intrinsic</em>. The strong property forces the distribution of the process <span class="math inline">\(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\)</span> for any given spatial index <span class="math inline">\(n\)</span> and its correspondent location sets <span class="math inline">\(s_{1,\ldots,n}\)</span> to be the same as the one in <span class="math inline">\(\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}\)</span>, where <span class="math inline">\(h\)</span> is a number belonging to <span class="math inline">\(R^{2}\)</span>.
+On the other hand the weak property ensures that if the GP mean moment is constant over the study domain <span class="math inline">\(\mu(\mathbf{s}) \equiv \mu\)</span> (e.g. <span class="math inline">\(E[Y(s)]=\mu, \forall s \in D\)</span>) then the covariance functions does depend only on the distance (euclidean <span class="math inline">\(\left\|s_{i}-s_{j}\right\|\)</span> distance) between each couple points.
+Weak stationarity consequences are the most interesting: It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions <span class="math inline">\(\mathcal{C}(h)\)</span> can summarize the process through the separation vector <span class="math inline">\(h\)</span> <span class="citation">(Banerjee, Carlin, and Gelfand <a href="#ref-Banerjee-Gelfand" role="doc-biblioref">2014</a>)</span>. In other words weak stationarity in GP implies being invariant under <em>translation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. The relationship between strong and weak is not bijective since being strong implies also being weak, but the opposite is not always true for non-Gaussian process.
+Furthermore since it is assumed to be true by the intrinsic stationary property that <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0\)</span>, the second moment of the latter expression can be written as <span class="math inline">\(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}\)</span> leading to <span class="math inline">\(\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))\)</span>. Last expression is called <em>variogram</em> and can be expressed with <span class="math inline">\(2 \gamma(\mathbf{h})\)</span>, even tough its half,i.e. <span class="math inline">\(\gamma(\mathbf{h})\)</span>, is more interpretable, namely <em>semivariogram</em> <span class="citation">(Cressie <a href="#ref-Cressie_2015" role="doc-biblioref">2015</a>)</span>.
+The intuition behind the variogram is that the difference in value between two near points <span class="math inline">\(Y(\mathbf{s}+\mathbf{h})\)</span> and <span class="math inline">\(Y(\mathbf{h})\)</span> is expected to be small with respect to the ones farther ( <em>ergodicity</em> of the spatial process <span class="citation">Banerjee, Carlin, and Gelfand (<a href="#ref-Banerjee-Gelfand" role="doc-biblioref">2014</a>)</span> ), in compliance with the first law of geography by Tobler:</p>
 <blockquote>
 <p>“Everything is related to everything else,
 but near things are more related than distant things”</p>
@@ -213,9 +298,19 @@ but near things are more related than distant things”</p>
 — Waldo R. Tobler
 </footer>
 </blockquote>
-<p>Semivariograms are an efficient tool to asses spatial continuity but they are theoretical. However semivariograms can be fitted to existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:</p>
+<p>Semivariograms are an efficient tool to asses spatial continuity and contiguity but they are theoretical. However semivariograms can be fitted into existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form:</p>
 <p><span class="math display">\[\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}\]</span></p>
-<p>where <span class="math inline">\(N(t)\)</span> is the set of location pairs such that <span class="math inline">\(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t\)</span> and so <span class="math inline">\(|N(t)|\)</span> is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small <span class="math inline">\(h\)</span>) leading to lower semivariogram values (<span class="math inline">\(\gamma(\mathbf{h})\)</span>), as opposite farther pairs obervations (big <span class="math inline">\(h\)</span>) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation <span class="math inline">\(h\)</span> increases or not, semivariogram values remains the same <span class="math inline">\(\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0\)</span>. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then They are also implied later in the final stage of the modeling process with the aim to asses if any spatial pattern in still present in the residuals. The three main arguments in semivariograms are: <em>range</em> <span class="math inline">\(\sigma^{2}\)</span>, <em>nugget</em> <span class="math inline">\(\tau^{2}\)</span> and <em>sill</em> <span class="math inline">\(\tau^{2}+\sigma^{2}\)</span>.</p>
+<p>where <span class="math inline">\(N(t)\)</span> is the set of location pairs such that <span class="math inline">\(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t\)</span> and so <span class="math inline">\(|N(t)|\)</span> is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small <span class="math inline">\(h\)</span>) leading to lower semivariogram values (<span class="math inline">\(\gamma(\mathbf{h})\)</span>), as opposite farther pairs obervations (big <span class="math inline">\(h\)</span>) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation <span class="math inline">\(h\)</span> increases or not, semivariogram values remains the same <span class="math inline">\(\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0\)</span>. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then they are also implied in the model checking stage with the aim to asses if any spatial pattern is still present in the residuals.
+(metti expressione variogram).</p>
+<p>The process is said to be <strong>Isotropic</strong> if the covariance function depends only on the between-points distance so it is invariant under <em>rotation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. A further way of seeing the property is that Isotropy implies concentric decaying contours that resemble the vanishing of spatial dependence.</p>
+<div class="figure">
+<img src="images/isotropyVSanisotropy.png" alt="" />
+<p class="caption">isotropy VS anisotropy, source <span class="citation">Blanchet-Scalliet et al. (<a href="#ref-blanchetscalliet" role="doc-biblioref">2019</a>)</span></p>
+</div>
+<p>the If the last assumption does not hold and direction towards point are distant from each other in the spatial domain <span class="math inline">\(D\)</span> then the process is said to be <strong>Anisotropic</strong>.</p>
+<p><span class="math display">\[C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)\]</span></p>
+<p>Once
+The three main arguments in semivariograms are: <em>range</em> <span class="math inline">\(\sigma^{2}\)</span>, <em>nugget</em> <span class="math inline">\(\tau^{2}\)</span> and <em>sill</em> <span class="math inline">\(\tau^{2}+\sigma^{2}\)</span>.</p>
 <ul>
 <li><em>range</em>: At some offset distance, the variogram values will stop changing and reach a sort of “plateau”. The distance at which the effect occurs is called the range <span class="math inline">\(\frac{\Delta\gamma(\mathrm{h})}{h} \approx 0\)</span>.</li>
 <li><em>sill</em>: The “plateau” value at which the variogram stops changing <span class="math inline">\(\frac{\Delta\gamma(\mathrm{h})}{h} = 0\)</span>.</li>
@@ -225,13 +320,12 @@ but near things are more related than distant things”</p>
 <img src="images/variogram.PNG" alt="" />
 <p class="caption">variogram example</p>
 </div>
-<p>The process is said to be <strong>Isotropic</strong> if the covariance function depends only on the between-points distance so it is invariant under <em>rotation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain <span class="math inline">\(D\)</span> then the process is said to be <strong>Anisotropic</strong>.</p>
-<p><span class="math display">\[C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)\]</span></p>
 <div id="Matern" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Matérn covariance function</h3>
 <p>There are many covariance functions and their application depend both on data and the scope on the analysis.
 Examples of spatial covariance functions among all the others are: Linear, Spherical, Exponential and Matérn.
-Matérn is special since when it is used together with a GP, the SPDE approach can provide a GMRF representation of the same process <a href="spde.html#spde">7</a>. It can be also accounted as the most used in geostatistics <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> and <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. Matérn is tuned mainly by two parameters, a scaling one <span class="math inline">\(\kappa&gt;0\)</span> (the most of the times set equal to the range) and a smoothing one <span class="math inline">\(\nu&gt;0\)</span>. By decomposing it into a more granular form and cosidering two generic locations <span class="math inline">\(\mathbf{S}_{i}\)</span> and <span class="math inline">\(\mathbf{S}_{j}\)</span>, a <em>stationary</em> and <em>isotropic</em> Matérn <em>correlation</em> function <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> has this form</p>
+Matérn is special since when it is used together with a GP, the SPDE approach can provide a GMRF representation of the same process, chapter <a href="spde.html#spde">7</a> undisclose this fundamental property.
+Matérn can also be accounted as the most used in geostatistics <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> and <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. Matérn is tuned mainly by two parameters, a scaling one <span class="math inline">\(\kappa&gt;0\)</span> (the most of the times set equal to the range) and a smoothing one <span class="math inline">\(\nu&gt;0\)</span>. By decomposing it into a more granular form and cosidering two generic locations <span class="math inline">\(\mathbf{S}_{i}\)</span> and <span class="math inline">\(\mathbf{S}_{j}\)</span>, a <em>stationary</em> and <em>isotropic</em> Matérn <em>correlation</em> function <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> has this form</p>
 <p><span class="math display">\[
 \operatorname{Cor}_{Matérn}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)^{\nu} K_{\nu}\left(\kappa\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|\right)
 \]</span></p>
@@ -334,7 +428,8 @@ Finally, the hyperparameters <span class="math inline">\(\boldsymbol{v}=\left\{\
 </div>
 <div id="spatial-kriging" class="section level2">
 <h2><span class="header-section-number">6.6</span> Spatial Kriging</h2>
-<p>Kriging is the operation according which given <span class="math inline">\(y\)</span> observation it is possible to predict over <span class="math inline">\(\mathbf{s}_{0}\)</span> new locations not yet observed.</p>
+<p>fallo da slides paci e banerjee sudipto
+Kriging is the operation according which given <span class="math inline">\(y\)</span> observation it is possible to predict over <span class="math inline">\(\mathbf{s}_{0}\)</span> new locations not yet observed.</p>
 <p>[manca solo estimatore kriging e un po’ di matematica dietro]</p>
 </div>
 <div id="model-checking-and-comparison" class="section level2">
@@ -349,6 +444,9 @@ Finally, the hyperparameters <span class="math inline">\(\boldsymbol{v}=\left\{\
 </div>
 <div id="ref-Bell2006">
 <p>Bell, B Sue, Richard E Hoskins, Linda Pickle, and Daniel Wartenberg. 2006. <em>International Journal of Health Geographics</em> 5 (1): 49. <a href="https://doi.org/10.1186/1476-072x-5-49">https://doi.org/10.1186/1476-072x-5-49</a>.</p>
+</div>
+<div id="ref-blanchetscalliet">
+<p>Blanchet-Scalliet, Christophette, Céline Helbert, Mélina Ribaud, and Céline Vial. 2019. “Four algorithms to construct a sparse kriging kernel for dimensionality reduction.” <em>Computational Statistics</em>, 1–21. <a href="https://hal.archives-ouvertes.fr/hal-01496521">https://hal.archives-ouvertes.fr/hal-01496521</a>.</p>
 </div>
 <div id="ref-Cameletti2012">
 <p>Cameletti, Michela, Finn Lindgren, Daniel Simpson, and Håvard Rue. 2012. “Spatio-Temporal Modeling of Particulate Matter Concentration Through the SPDE Approach.” <em>AStA Advances in Statistical Analysis</em> 97 (2): 109–31. <a href="https://doi.org/10.1007/s10182-012-0196-3">https://doi.org/10.1007/s10182-012-0196-3</a>.</p>

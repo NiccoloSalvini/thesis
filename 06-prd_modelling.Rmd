@@ -1,40 +1,61 @@
 # Point Referenced Data Modeling {#prdm}
 
-Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, as an example disease cancer detection [@Bell2006] at several sites, epidemic ones due to COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020], also environmental ones as PM pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. As a further argument house prices smoothly varies between closer neighborhoods as observed in [@Bayesian_INLA_Rubio]. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. API generated data are point referenced data, so modeling methodologies applied during the analysis exclusively regard the just introduced data type, even though INLA can fit other data types.
+Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g. latlong, eastings and northings) that originate from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, as an example disease cancer detection [@Bell2006] at several sites, COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020], PM pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. Moreover house prices variation, as observed in @Bayesian_INLA_Rubio, where selling prices smoothly vary between closer neighborhoods. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. Spatial data can be partitioned into three spatial data type whose modeling tools are specific with respect to their category.
 
-Spatial data can also be measured according to a 3rd (or even a 4th in the case elevation data) dimension which is time. In this setting it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is [@PACI2017149]. Anyway since API generates data on a daily basis and then stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model. 
-What It can be observed in point reference data type is just a sample, some sites, from a continuous unobserved spatial process \@ref(GP) which we aim to estimate.
+- Areal Data
+- **Point Referenced Data**
+- Point Pattern Data
 
-![point referenced data example, Milan Rental Real Estate, Author's Source](images/prd_image.PNG)
+
+<!-- Potrei mettere lealfet interattivo ma si rovina nella conversione latex
+rimane da provare:
+- salvarlo come oggetto html e poi plottarlo
+- cambiare providers con uno più semplice
+- evitare markers difficile
+-->
+
+![point referenced data example, Milan Rental Real Estate, Author's Source](images/map.png)
+
+
+REST API seen in chapter \@ref(Infrastructure) extracts point referenced data, so modeling methodologies described in this analysis will exclusively take into account point referenced techniques.
+In order to extend the notion from discrete measurements (i.e. point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained according to convenient properties. GP are then blended with a specific covariance function, i.e. Matèrn. The reason why last assumption is true will be much more clear in the next chapter \@ref(spde). 
+A class of models called Hedonic Price are borrowed from econometric literature and are used to fully integrate covariates coming from the API. Then Hedonic models are exploited into a bayesian hierarchical framework and INLA is applied as computing choice. 
+Spatial kriging is essential to predict the process at new locations so that the surface can be plotted and analyzed. 
+In the end models have to be checked and verified with sanpling techiniques which are once again specific to the data type and the scope of the analysis.
+
+
+
+_(forse mettere alla fine come further developments)_
+As a side note Spatial data can also be measured according to a 3rd (or even a 4th in the case elevation data) dimension which is the time component. In this setting it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is @PACI2017149. Therefore since API generates data on a daily basis and then stores a .json file on a DB, future research on this data might consider the idea to include the time component in the model. 
 
 
 ## Gaussian Process (GP){#GP}
 
 For simplicity lets consider $y$ point of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$
-from a random spatial process $Y$, such that: $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation, once again, has to be considered as a partial realization of an unobserved random spatial process.
-$\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$ , where $D$ is a subset of r-dimensional Euclidean space $\mathbb{R}^{r}$. 
-When $r = 1$ it is a simple stochastic process widely explored in literature i.e. time series process. Nevertheless geostatistical data belong always to $r = 2$ or eventually $r = 3$, when elevation is available. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
+from a random spatial process $Y$, such that: $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of geostatistical data each observation has to be considered as a partial realization of an unobserved random spatial process.
+$\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$, where surface $D$ is a subset of r-dimensional Euclidean space $\mathbb{R}^{r}$. 
+Moreover When $r = 1$ it is the most simple stochastic process widely explored in literature i.e. time series process. However geostatistical data always have $r = 2$ (i.e. lat and long, eastings and northings) or eventually $r = 3$, when elevation data is available. The stochastic process $Y$ is observed in a fixed set of "monitoring stations" and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.  
 
 ![3D scatterplot and surface, Stockton data.](images/prdprocess.png)
 
-A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$  follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{\Sigma}$ [@Blangiardo-Cameletti]. The covariance matrix relates each observation to each of the others through a spatial covariance function defined as $\mathcal{C}(\cdot)$.  The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the _validity_ characteristics from the random spatial process, furthermore it has to be _positive definite_.  Below a generalised version for two random $i$th $j$th observations:
+A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$  follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{\Sigma}$ [@Blangiardo-Cameletti]. The covariance matrix relates each observation to each of the others through a spatial covariance function defined as $\mathcal{C}(\cdot)$. The covariance function ensures that all the values that are close together in input space will produce output values that are close together. Covariance function needs to inherits the _validity_ characteristics from the random spatial process, furthermore it has to be _positive definite_.  Below a generalized version for two random $i$th $j$th observations:
 
 \begin{equation}
 \operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right)
 (\#eq:cov)
 \end{equation}
 
-GP has to meet two important properties:
+GP in the spatial context has to meet two important properties:
 
 * **Stationary**.
 * **Isotropy**.
 
 
-**Stationarity** in a stochastic process can be _strong_  or _weak_ or _intrinsic_. The strong property forces the distribution of the process $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ for any given spatial index $n$ and its correspondent location sets $s_{1,\ldots,n}$ to be the same as the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$. 
+**Stationarity** in a stochastic process can be _strong_, _weak_ or _intrinsic_. The strong property forces the distribution of the process $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ for any given spatial index $n$ and its correspondent location sets $s_{1,\ldots,n}$ to be the same as the one in $\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(\boldsymbol{s}_{n}+\boldsymbol{h}\right)\right\}$, where $h$ is a number belonging to $R^{2}$. 
 On the other hand the weak property ensures that if the GP mean moment is constant over the study domain $\mu(\mathbf{s}) \equiv \mu$ (e.g. $E[Y(s)]=\mu, \forall s \in D$) then the covariance functions does depend only on the distance (euclidean $\left\|s_{i}-s_{j}\right\|$ distance) between each couple points.
-Weak stationarity consequences are the most interesting: It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. In other words weak stationarity in GP implies being invariant under _translation_ [-@Krainski-Rubio]. The realationship between strong and weak is not bijective since being strong implies also being weak, but the opposite is not always true for non-Gaussian process.
-Moreover since it is assumed to be true by intrinsic stationary that $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ leading to $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed with $2 \gamma(\mathbf{h})$, even tough its half,i.e. $\gamma(\mathbf{h})$, is more interpretable, namely _semivariogram_ [@Cressie_2015].
-The intuition behind the variogram is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther ( _ergodicity_ of the spatial process), in compliance with the first law of geography by Tobler: 
+Weak stationarity consequences are the most interesting: It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions $\mathcal{C}(h)$ can summarize the process through the separation vector $h$ [@Banerjee-Gelfand]. In other words weak stationarity in GP implies being invariant under _translation_ [-@Krainski-Rubio]. The relationship between strong and weak is not bijective since being strong implies also being weak, but the opposite is not always true for non-Gaussian process.
+Furthermore since it is assumed to be true by the intrinsic stationary property that $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0$, the second moment of the latter expression can be written as $E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}$ leading to $\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))$. Last expression is called _variogram_ and can be expressed with $2 \gamma(\mathbf{h})$, even tough its half,i.e. $\gamma(\mathbf{h})$, is more interpretable, namely _semivariogram_ [@Cressie_2015].
+The intuition behind the variogram is that the difference in value between two near points $Y(\mathbf{s}+\mathbf{h})$ and $Y(\mathbf{h})$ is expected to be small with respect to the ones farther ( _ergodicity_ of the spatial process  @Banerjee-Gelfand ), in compliance with the first law of geography by Tobler: 
 
 
 > "Everything is related to everything else, 
@@ -48,7 +69,20 @@ Semivariograms are an efficient tool to asses spatial continuity and contiguity 
 $$\hat{\gamma}(t)=\frac{1}{2}|N(t)| \sum_{\left(\mathbf{s}_{i}, \mathbf{s}_{j}\right) \in N(t)}\left(Y\left(\mathbf{s}_{i}\right)-Y\left(\mathbf{s}_{j}\right)\right)^{2}$$
 
 
-where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t$ and so $|N(t)|$ is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small $h$) leading to lower semivariogram values ($\gamma(\mathbf{h})$), as opposite farther pairs obervations (big $h$) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation $h$ increases or not, semivariogram values remains the same $\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0$. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then They are also implied later in the final stage of the modeling process with the aim to asses if any spatial pattern in still present in the residuals. The three main arguments in semivariograms are: _range_ $\sigma^{2}$, _nugget_ $\tau^{2}$ and _sill_ $\tau^{2}+\sigma^{2}$. 
+where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t$ and so $|N(t)|$ is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small $h$) leading to lower semivariogram values ($\gamma(\mathbf{h})$), as opposite farther pairs obervations (big $h$) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation $h$ increases or not, semivariogram values remains the same $\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0$. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then they are also implied in the model checking stage with the aim to asses if any spatial pattern is still present in the residuals. 
+(metti expressione variogram).
+
+The process is said to be **Isotropic** if the covariance function depends only on the between-points distance so it is invariant under _rotation_ [-@Krainski-Rubio]. A further way of seeing the property is that Isotropy implies concentric decaying contours that resemble the vanishing of spatial dependence. 
+
+![isotropy VS anisotropy, source @blanchetscalliet](images/isotropyVSanisotropy.png)
+
+the If the last assumption does not hold and direction towards point are distant from each other in the spatial domain $D$ then the process is said to be **Anisotropic**.
+
+
+$$C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)$$
+
+Once 
+The three main arguments in semivariograms are: _range_ $\sigma^{2}$, _nugget_ $\tau^{2}$ and _sill_ $\tau^{2}+\sigma^{2}$. 
 
 - _range_: At some offset distance, the variogram values will stop changing and reach a sort of “plateau”. The distance at which the effect occurs is called the range $\frac{\Delta\gamma(\mathrm{h})}{h} \approx 0$.
 - _sill_: The “plateau” value at which the variogram stops changing $\frac{\Delta\gamma(\mathrm{h})}{h} = 0$.
@@ -56,9 +90,6 @@ where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\math
 
 ![variogram example](images/variogram.png)
 
-The process is said to be **Isotropic** if the covariance function depends only on the between-points distance so it is invariant under _rotation_ [-@Krainski-Rubio]. If the last assumption does not hold and direction towards point are distant from each other in the spatial domain $D$ then the process is said to be **Anisotropic**.
-
-$$C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)$$
 
 ### Matérn covariance function{#Matern}
 
@@ -73,9 +104,6 @@ $$
 
 where $\|\cdot\|$ is the Euclidean distance, $\Gamma(\cdot)$ is a gamma function and $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The relationship that ties Matérn correlation and covariance is $\mathcal{C}(h_{i,j}) = \operatorname{Cov}_{Matérn}\left(U\left(\mathrm{s}_{i}\right), U\left(\mathrm{s}_{j}\right)\right) = \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)$.
 Then if $u(\mathbf{s})$ is a realization from $U(\mathbf{s})$ at $n$ locations the joint covariance matrix can be defined as each entry of the joint covariance matrix $\Sigma_{i, j}= \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)$. Common customary choice is to assume that $U(.)$ in centered in 0.
-
-
-
 
 
 ## Hedonic Price Models for Rental House Market
@@ -196,6 +224,7 @@ Finally, the hyperparameters $\boldsymbol{v}=\left\{\psi_{1}, \boldsymbol{\psi}_
 
 ## Spatial Kriging
 
+fallo da slides paci e banerjee sudipto 
 Kriging is the operation according which given $y$ observation it is possible to predict over $\mathbf{s}_{0}$ new locations not yet observed. 
 
 [manca solo estimatore kriging e un po' di matematica dietro]
