@@ -142,6 +142,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -191,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
-<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#linear-predictor"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
@@ -199,12 +204,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>6.2</b> Spatial Covariance Function</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="prdm.html"><a href="prdm.html#Matern"><i class="fa fa-check"></i><b>6.2.1</b> Matérn Covariance Function</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#spatial-hedonic-models-literature-review-and-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Spatial Hedonic models Literature Review and Hedonic Price Models</a></li>
-<li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Regression for univariate spatial data</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>6.4.1</b> Parameter estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hierreg"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian Regression</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchical-model-va-parafrasato"><i class="fa fa-check"></i><b>6.6</b> INLA as a hierarchical model [va parafrasato]</a></li>
+<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
+<li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Point Referenced Regression for univariate spatial data</a></li>
+<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hiermod"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian models</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-model-through-hierarchical-regression"><i class="fa fa-check"></i><b>6.6</b> INLA model through hierarchical regression</a></li>
 <li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.7</b> Spatial Kriging</a></li>
 <li class="chapter" data-level="6.8" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.8</b> Model Checking and Comparison</a></li>
 </ul></li>
@@ -314,7 +317,7 @@ The marginal posterior distribution function for each latent parameter element <
 \pi\left(\psi_{k} \mid y\right)=\int \pi(\boldsymbol{\psi} \mid y) d \psi_{-k}
 \]</span></p>
 <p>where the notation <span class="math inline">\(\psi_{-k}\)</span> is a vector of hyper parameters <span class="math inline">\(\psi\)</span> without considering <span class="math inline">\(k\)</span>th element <span class="math inline">\(\psi_{k}\)</span>.</p>
-<p>The goal is to have approximated solution for latent parameter posterior distributions. To this purpose A <em>hierarchical procedure</em> is now imposed since the “lower” hyper parameter integral, whose approximation for the moment does not exist, is nested inside the “upper” parameter integral that takes hyper param as integrand. Hierarchical structures are welcomed very warmly since they are convenient later in order to fit a hierarchical bayesian model approached in the next chapter <a href="prdm.html#hierreg">6.5</a>). While many approximation strategies are provided and many others are emerging for both the hyper param and for the latent field, the common ground remains to unnest the structure in two steps such that:</p>
+<p>The goal is to have approximated solution for latent parameter posterior distributions. To this purpose A <em>hierarchical procedure</em> is now imposed since the “lower” hyper parameter integral, whose approximation for the moment does not exist, is nested inside the “upper” parameter integral that takes hyper param as integrand. Hierarchical structures are welcomed very warmly since they are convenient later in order to fit a hierarchical bayesian model approached in the next chapter <a href="#hierreg"><strong>??</strong></a>). While many approximation strategies are provided and many others are emerging for both the hyper param and for the latent field, the common ground remains to unnest the structure in two steps such that:</p>
 <ul>
 <li>step 1: compute the Laplace approximation <span class="math inline">\(\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)\)</span> for each hyper parameters marginal: <span class="math inline">\(\tilde\pi\left(\psi_{k} \mid \boldsymbol{y}\right)\)</span></li>
 <li>step 2: compute Laplace approximation <span class="math inline">\(\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right)\)</span> marginals for the parameters given the hyper parameter approximation in step 1: <span class="math inline">\(\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{y}\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) \underbrace{\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{y})}_{\text {Estim. in step 1 }} \mathrm{d} \psi\)</span></li>
@@ -355,14 +358,18 @@ The marginal posterior distribution function for each latent parameter element <
 <div id="overview" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Overview</h3>
 <p>INLA computations and methodology is developed by the R-INLA project whose package is available on their <a href="http://www.r-inla.org">website</a>. Download is not on CRAN (the Comprehensive R Archive Network) so a special source repo link, which is maintained by authors and collaborators, has to be optioned. The website offers also a forum where a daily discussion group is opened and an active community is keen to answer. Moreover It also contains a number of reference books, among which some of them are fully open sourced as gitbook. Furthermore as Havaard Rue has pointed out in a web-lecture on the topic, the project is gaining importance due to its new applications and recent use cases, but by no means it is replacing the older MCMC methods, rather INLA can integrate pre existing procedures.
-The core function of the package is <code>inla()</code>and it works as many other regression functions like <code>glm()</code>, <code>lm()</code> or <code>gam()</code>. Inla function takes as arguments the formula (where are response and linear predictor) together with the data (expects a data.frame obj) on which estimation is desired. Many other alternative methods inside the function can be added with respect to the model to be imposed but are not covered here. Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method: (se riesco più elegante in kable)
+The core function of the package is <code>inla()</code>and it works as many other regression functions like <code>glm()</code>, <code>lm()</code> or <code>gam()</code>. Inla function takes as arguments the formula (where are response and linear predictor), the data (expects a data.frame obj) on which estimation is desired together with the distribution of the data. Many other methods inside the function can be added through lists, such as <code>control.family</code> and <code>control.fixed</code> which let the analyst specifying priors distribution both for <span class="math inline">\(\boldsymbol{\theta}\)</span> parameters, <span class="math inline">\(\boldsymbol{\psi}\)</span> hyper parameters and the outcome precision <span class="math inline">\(\tau\)</span>, default values are non-informative.
+<code>control.fixed</code> as said regulates prior specification through a plain list when there only a single fixed effect, instead it does it with nested lists when fixed effects are greater than 2, a guided example might better display the behaviour:
+<code>control.fixed = list(mean = list(a = 1, b = 2, default = 0))</code>
+In the chuck above it is assigned prior mean equal to 1 for fixed effect “a” and equal 2 for “b”; the rest of the prior means are set equal to 0.
+Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method: (se riesco più elegante in kable)
 Following Krainski &amp; Rubio <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span> observations <span class="math inline">\(y(s_{1}), \ldots, y(s_{n})\)</span> are taken from a toy generated dataset and a hierarchical linear regression is fitted.</p>
 <div class="figure">
 <img src="images/summarytable.PNG" alt="" />
 <p class="caption">summary table list object, source: <span class="citation">Krainski (<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span></p>
 </div>
 </div>
-<div id="linear-predictor" class="section level3">
+<div id="example" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Linear Predictor</h3>
 <p>SPDEtoy dataset, that has a spatial component, is generated from a <span class="math inline">\(y_{i}\)</span> Gaussian variable; its moments are <span class="math inline">\(\mu_{i}\)</span> and precision <span class="math inline">\(\tau\)</span>.</p>
 <div class="figure">
@@ -388,7 +395,7 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 ## Call:
 ##    &quot;inla(formula = formula, data = SPDEtoy)&quot; 
 ## Time used:
-##     Pre = 2.55, Running = 0.748, Post = 0.366, Total = 3.67 
+##     Pre = 1.33, Running = 0.19, Post = 0.143, Total = 1.67 
 ## Fixed effects:
 ##               mean    sd 0.025quant 0.5quant 0.975quant   mode kld
 ## (Intercept) 10.132 0.242      9.656   10.132     10.608 10.132   0
@@ -412,8 +419,8 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 </div>
 <p>R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One major option which is conveniently packed into a dedicated function computes the higher posterior density interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> with .1 Confidence Level.
 Recall that the interpretation is different from the frequentist: in Bayesian statistics <span class="math inline">\(\beta_{j}\)</span> comes from probability distribution, while frequenstists considers <span class="math inline">\(\beta_{j}\)</span> as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="inla-spde.html#cb4-1"></a><span class="co">## for s2 covariate</span></span>
-<span id="cb4-2"><a href="inla-spde.html#cb4-2"></a><span class="kw">inla.hpdmarginal</span>(<span class="fl">0.90</span>,m0<span class="op">$</span>marginals.fixed<span class="op">$</span>s2)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="inla-spde.html#cb26-1"></a><span class="co">## for s2 covariate</span></span>
+<span id="cb26-2"><a href="inla-spde.html#cb26-2"></a><span class="kw">inla.hpdmarginal</span>(<span class="fl">0.9</span>, m0<span class="op">$</span>marginals.fixed<span class="op">$</span>s2)</span></code></pre></div>
 <pre><code>##                 low      high
 ## level:0.9 -2.291268 -0.879445</code></pre>
 

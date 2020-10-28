@@ -61,6 +61,70 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -78,6 +142,11 @@
 <li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -127,7 +196,7 @@
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
-<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#linear-predictor"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
@@ -135,12 +204,10 @@
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>6.2</b> Spatial Covariance Function</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="prdm.html"><a href="prdm.html#Matern"><i class="fa fa-check"></i><b>6.2.1</b> Matérn Covariance Function</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#spatial-hedonic-models-literature-review-and-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Spatial Hedonic models Literature Review and Hedonic Price Models</a></li>
-<li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Regression for univariate spatial data</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>6.4.1</b> Parameter estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hierreg"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian Regression</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-as-a-hierarchical-model-va-parafrasato"><i class="fa fa-check"></i><b>6.6</b> INLA as a hierarchical model [va parafrasato]</a></li>
+<li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
+<li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Point Referenced Regression for univariate spatial data</a></li>
+<li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hiermod"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian models</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-model-through-hierarchical-regression"><i class="fa fa-check"></i><b>6.6</b> INLA model through hierarchical regression</a></li>
 <li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.7</b> Spatial Kriging</a></li>
 <li class="chapter" data-level="6.8" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.8</b> Model Checking and Comparison</a></li>
 </ul></li>
@@ -226,8 +293,8 @@ Moreover When <span class="math inline">\(r = 1\)</span> it is the most simple s
 <img src="images/prdprocess.png" alt="" />
 <p class="caption">3D scatterplot and surface, Stockton data.</p>
 </div>
-<p>A collection of <span class="math inline">\(n\)</span> random variables, such as <span class="math inline">\(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\)</span> that are <em>valid</em> spatial processes are said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\)</span> and covariance matrix <span class="math inline">\(\mathbf{Q}\)</span>, even tough sometimes it is more convenient to express it through precision matrix <span class="math inline">\(\boldsymbol{Q}^{-1}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each of the others through a covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>.</p>
-<p>GP in the spatial context has to meet two important properties:</p>
+<p>A collection of <span class="math inline">\(n\)</span> random variables, such as <span class="math inline">\(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\)</span> that are <em>valid</em> spatial processes are said to be a <strong>GP</strong> if for any set of spatial index <span class="math inline">\(n\)</span> and for each set of corresponding locations <span class="math inline">\(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\)</span> follows a multivariate <em>Gaussian</em> distribution with mean <span class="math inline">\(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\)</span> and covariance matrix <span class="math inline">\(\mathbf{Q}^{-1}\)</span>, even tough sometimes it is more convenient to express it through precision matrix <span class="math inline">\(\boldsymbol{Q}\)</span> <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. The covariance matrix relates each observation to each of the others through a covariance function defined as <span class="math inline">\(\mathcal{C}(\cdot)\)</span>.</p>
+<p>GP in the spatial context must check two important properties in order to exploit INLA, even though both of these assumptions can be relaxed:</p>
 <ul>
 <li><strong>Stationary</strong>.</li>
 <li><strong>Isotropy</strong>.</li>
@@ -261,8 +328,8 @@ Furthermore through the intrinsic stationary property it is meant that <span cla
 <!-- where $N(t)$ is the set of location pairs such that $\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\|=t$ and so $|N(t)|$ is the number of pairs in the set. As already guessed before empirical semivariogram values are expected to be small at short pairs distance and tends to increase when distance increases. The rational behind is that similar observations are expected to lay close together (small $h$) leading to lower semivariogram values ($\gamma(\mathbf{h})$), as opposite farther pairs obervations (big $h$) tend to be different and associated to greater semivariogram values. Flat semivariogram might indicate small spatial variance, since whether separation $h$ increases or not, semivariogram values remains the same $\frac{\Delta\gamma(\mathbf{h})}{\Delta\mathbf{h}}\approx0$. Semivariograms might be implied earlier in the modeling process to to evaluate the presence of any spatial pattern. Then they are also implied in the model checking stage with the aim to asses if any spatial pattern is still present in the residuals.  -->
 <!-- ![variogram example](images/variogram.png) -->
 <!-- <!-- a qui -->
-<p>The process is said to be <strong>Isotropic</strong> if the covariance function depends only on the between-points distance <span class="math inline">\(\left\|\mathbf{h}\right\|\)</span> so it is invariant under <em>rotation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. A further way of seeing the property is that Isotropy implies concentric decaying contours that resemble the vanishing of spatial dependence, so covariance values.
-then if the last assumption does not hold and direction towards point are distant from each other matters in the spatial domain <span class="math inline">\(D\)</span>, then the process is said to be <strong>Anisotropic</strong>.
+<p>The process is said to be <strong>Isotropic</strong> if the covariance function depends only on the between-points distance <span class="math inline">\(\left\|\mathbf{h}\right\|\)</span> so it is invariant under <em>rotation</em> <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>. A further way of seeing the property is that Isotropy implies concentric decaying contours that resemble the vanishing of spatial dependence, and so covariance values too.
+then if the last assumption does not hold and direction towards point are distant from each other matters within the spatial domain <span class="math inline">\(D\)</span>, then is said to be <strong>Anisotropic</strong>.
 Formalizing the results:</p>
 <p><span class="math display">\[\mathcal{C}(\mathbf{h})=\mathcal{C}(\|\mathbf{h}\|)\]</span></p>
 <div class="figure">
@@ -285,9 +352,20 @@ In addition covariance function must share characteristic properties of function
 <!-- \operatorname{Cov}\left(y\left(s_{i}\right), y\left(s_{j}\right)\right) -->
 <!-- (\#eq:cov) -->
 <!-- \end{equation} -->
-<p>Covariance functions need also to inherit the properties of stationarity and isotropy from GPs, so that the covariance function is mean constant in <span class="math inline">\(D\)</span> i.e. <span class="math inline">\(\mathcal{C}(\mathbf{s}, \mathbf{s}+\mathbf{h})=\mathcal{C}(\mathbf{h}), \forall \mathbf{h} \in \mathbb{R}^{r}\)</span> and it depends on distance, not direction i.e. <span class="math inline">\(\mathcal{C}(\mathbf{h})=\mathcal{C}(\|\mathbf{h}\|)\)</span>
+<p>Covariance functions under stationary and isotropic GPs displays two important properties: they are constant in mean within <span class="math inline">\(D\)</span> i.e. <span class="math inline">\(\mathcal{C}(\mathbf{s}, \mathbf{s}+\mathbf{h})=\mathcal{C}(\mathbf{h}), \forall \mathbf{h} \in \mathbb{R}^{r}\)</span> and they depends on distance vector <span class="math inline">\(\mathbf{h}\)</span>, not direction i.e. <span class="math inline">\(\mathcal{C}(\mathbf{h})=\mathcal{C}(\|\mathbf{h}\|)\)</span>
 There are many covariance functions and ways to relate distant points on a spatial domain <span class="math inline">\(D\)</span>. Typically the choice of the Covariance can depend either on data or the scope of the analysis. Covariance functions are wrapped into special hyper parameters which are mainly three:</p>
-<p>A summary of the most popular covariance functions are presented in the table below:</p>
+<ol style="list-style-type: decimal">
+<li><em>Range</em>: At some offset distance, the variogram values will stop changing and reach a “plateau”. The distance at which this occurs is called the range.</li>
+<li><em>Sill</em>: The “plateau” value at which the variogram stops changing.</li>
+<li><em>Nugget</em>: The discontinuity at the origin. Although this theoretically should be zero, sampling error and short scale variability can cause it to be non-zero</li>
+</ol>
+<p>(espressione della covariance function insieme a alle <span class="math inline">\(\sigma^2\)</span> come: <span class="math inline">\(C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)\)</span>)
+spiega anche queste due sotto</p>
+<p><span class="math display">\[
+\mathbf{w}=\left(w\left(\mathbf{s}_{1}\right), \ldots, w\left(\mathbf{s}_{n}\right)\right)^{\prime} \sim \mathrm{N}\left(\mathbf{0}, \sigma^{2} \mathbf{R}(\phi)\right) \text { where } \left.\mathbf{R}(\phi)_{i j}=\rho\left(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\| ; \phi\right)\right)
+\]</span></p>
+<p><span class="math inline">\(\Sigma_{\theta}=\sigma^{2} \mathbf{R}(\phi)+\tau^{2} I_{n}\)</span></p>
+<p>A summary of the most used covariance functions are presented below.</p>
 <p><span class="math display">\[
 \begin{aligned}
 &amp;\text { Exponential } \quad \mathcal{C}(\mathbf{h})=\left\{\begin{array}{cl}
@@ -310,11 +388,11 @@ There are many covariance functions and ways to relate distant points on a spati
 Matérn can also be accounted as the most used in geostatistics <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span> and <span class="citation">(Gómez Rubio <a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span> and is tuned mainly by two parameters, a scaling one <span class="math inline">\(\kappa&gt;0\)</span>, usually set equal to the range by the relation <span class="math inline">\(\sigma^{2}=\frac{\sqrt{8 \lambda}}{\kappa}\)</span>) and a smoothing one <span class="math inline">\(\nu&gt;0\)</span>. A <em>stationary</em> and <em>isotropic</em> Matérn covariance function has this form:</p>
 <p><span class="math display">\[
 \mathcal{C}(\mathbf{h})=\left\{\begin{array}{ll}
-\tau^{2}+\sigma^{2} &amp; \text { if } t=0 \\
-\frac{\sigma^{2}}{2^{\nu-1} \Gamma(\nu)}(\phi t)^{\nu} K_{\nu}(\phi t) &amp; \text { if } t&gt;0
+\tau^{2}+\sigma^{2} &amp; \text { if } h=0 \\
+\frac{\sigma^{2}}{2^{\nu-1} \Gamma(\nu)}(\phi t)^{\nu} K_{\nu}(\phi t) &amp; \text { if } h&gt;0
 \end{array}\right.
-\]</span>
-<span class="math inline">\(\Gamma(\nu)\)</span> is a Gamma function depending on <span class="math inline">\(\nu\)</span> values, <span class="math inline">\(K_{\nu}(\cdot)\)</span> is a modified Bessel function of second kind. The smoothness parameter <span class="math inline">\(\nu\)</span> in the figure below takes 4 different values showing the potentiality of Matérn to relates distances to covariance values. When <span class="math inline">\(\nu = 1\)</span> … When <span class="math inline">\(\nu = 1/2\)</span> it becomes the exponential covariance function, When <span class="math inline">\(\nu = 3/2\)</span> it uncovers a convenient closed form, when <span class="math inline">\(\nu \approx \infty\)</span>, in this case for representation purposes <span class="math inline">\(\nu = 80\)</span> it becomes Gaussian covariance function.</p>
+\]</span></p>
+<p><span class="math inline">\(\Gamma(\nu)\)</span> is a Gamma function depending on <span class="math inline">\(\nu\)</span> values, <span class="math inline">\(K_{\nu}(\cdot)\)</span> is a modified Bessel function of second kind. The smoothness parameter <span class="math inline">\(\nu\)</span> in the figure below takes 4 different values showing the potentiality of Matérn to relates distances to covariance values. When <span class="math inline">\(\nu = 1\)</span> … When <span class="math inline">\(\nu = 1/2\)</span> it becomes the exponential covariance function, When <span class="math inline">\(\nu = 3/2\)</span> it uncovers a convenient closed form, when <span class="math inline">\(\nu \approx \infty\)</span>, in this case for representation purposes <span class="math inline">\(\nu = 80\)</span> it becomes Gaussian covariance function.</p>
 <div class="figure">
 <img src="images/matern.png" alt="" />
 <p class="caption">matern correlation function for 4 diff values of nu with phi fixed, author’s source</p>
@@ -328,8 +406,8 @@ Matérn can also be accounted as the most used in geostatistics <span class="cit
 <!-- Then if $u(\mathbf{s})$ is a realization from $U(\mathbf{s})$ at $n$ locations the joint covariance matrix can be defined as each entry of the joint covariance matrix $\Sigma_{i, j}= \sigma_{u}^{2} \operatorname{Cor}_{M}\left(U\left(\mathbf{s}_{i}\right), U\left(\mathbf{s}_{j}\right)\right)$. Common customary choice is to assume that $U(.)$ in centered in 0. -->
 </div>
 </div>
-<div id="spatial-hedonic-models-literature-review-and-hedonic-price-models" class="section level2">
-<h2><span class="header-section-number">6.3</span> Spatial Hedonic models Literature Review and Hedonic Price Models</h2>
+<div id="hedonic-models-literature-review-and-spatial-hedonic-price-models" class="section level2">
+<h2><span class="header-section-number">6.3</span> Hedonic models Literature Review and Spatial Hedonic Price Models</h2>
 <p>The theoretical foundation of the Hedonic Price Models (from now on HPM) relies on the consumer utility theory of <span class="citation">Lancaster (<a href="#ref-Lancaster" role="doc-biblioref">1966</a>)</span> together with <span class="citation">Rosen (<a href="#ref-Rosen" role="doc-biblioref">1974</a>)</span> market equilibrium. According to Lancaster the utility of a commodity does not exist by itself, instead it exists as the sum of the utilities associated to its separable characteristics. Integrating Lancater, Rosen introduces HPM and suggests that each separate commodity characteristics are priced by the markets on the basis of supply and demand equilibrium. Applying HPM to Real Estate in a market context, from the buy side house prices (but also renting) are set as the unit cost of each household attributes, conversely from the selling side the expenditures associated to build of each them.
 Formalizing the results, Hedonic Price <span class="math inline">\(P\)</span> in Real Estate is expressed as a general <span class="math inline">\(f\)</span> functional form that takes as input the house characteristics vector <span class="math inline">\(\mathbf{C}\)</span>.</p>
 <p><span class="math display">\[P=f\left(c_{1}, c_{2}, c_{3}, \ldots, c_{n}\right)\]</span></p>
@@ -341,90 +419,104 @@ As Ling has observed the emerging trends are in the field of semi-parametric and
 <p>A further aspect of the problem is posed by scholars that does not consider rents to be representative for the actual value of real estate. Nevertheless in empirical analysis rent value are considered a proxy for real estate pricing <span class="citation">(Herath and Maier <a href="#ref-Herath_Maier_2011" role="doc-biblioref">2011</a>)</span>. A further argument to endorse this hypothesis is brought by <span class="citation">Manganelli, Morano, and Tajani (<a href="#ref-sellingVSrental" role="doc-biblioref">2013</a>)</span> considering housing a commodity, then the selling or the rental should be considered interchangeable economic actions with respect to same inner need to be satisfied. This is also truer to the thesis’ extent since Manganelli, Morano, and Tajani have centered their analysis exactly on italian real estate data. Moreover <span class="citation">Capozza and Seguin (<a href="#ref-Capozza_Seguin_1996" role="doc-biblioref">1996</a>)</span> discussed on how much rent-price ratio predicts future changes both in rents and prices. Among all the other discussions raised they brought the decomposition of rent-price ratio into two parts: the predictable part and the unexplained residuals part. The predictable part was discovered to be negatively correlated with price changes, in other words cities in which prices are relatively high with respect to rents are associated with higher capital gains that might justify that misalignment. This is also true for the opposite, that is cities in which prices are lower with respect to the rents, and this effect can not be associated to any local condition, realize lower capital gains. A further argument is offered by Clark <span class="citation">(Clark <a href="#ref-Clark_1995" role="doc-biblioref">1995</a>)</span> which went after the Capozza and Seguin work. Rent-price ratio is negatively correlated with following future changes in rents. In other words prices are still higher when areas in which they are observed documents an increase in rent prices. All the literature review above is oriented to a long-run alignment of price and rent.</p>
 </div>
 <div id="univariateregr" class="section level2">
-<h2><span class="header-section-number">6.4</span> Regression for univariate spatial data</h2>
-<p>Since in HPM the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(\mathbf{C}\)</span>, and the price <span class="math inline">\(P\)</span> is not in any case fixed by economic literature it is possible to assume any <span class="math inline">\(f\)</span> functional form that can relates covariates. The open possibility to apply any relationship between covariates comes very handy in the INLA setting, since Latent Gaussian Models are prepared to accept a wide range of <span class="math inline">\(f\)</span> linear and non linear functions that model covariates <a href="inla-spde.html#LGM">5.1</a>. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.
-Moreover what the vast majority of econometric literature <em>(Greene, 2018)</em> encourage to apply a is log-linear model. This is due to the fact that log transformation smooths the skewness of prices normalizing the curve, leading to more accurate estimates.
-If it assumed a log-linear model then a bayesian non-spatial linear regression can relate a <span class="math inline">\(log(y)\)</span> response variable with its covariates and error through the expression:</p>
-<p><span class="math display" id="eq:genreg">\[\begin{equation}
-    \log(y_{i})=\mu_{i}+\varepsilon_{i}
-\tag{6.1}
-\end{equation}\]</span></p>
-<p>where <span class="math inline">\(y_{i}\)</span> is normally distributed as <span class="math inline">\(y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)\)</span> and <span class="math inline">\(\mu_{i}\)</span> is the mean structure that linearly depends on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\boldsymbol{\beta}\)</span> coefficients and <span class="math inline">\(\varepsilon_{i}\)</span> white noise error. The linear predictor as is chapter <a href="inla-spde.html#LGM">5.1</a> can be written as:</p>
-<p><span class="math display" id="eq:linearpred">\[\begin{equation}
-  \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
-\tag{6.2}
-\end{equation}\]</span></p>
-<p>Once again, <span class="math inline">\(i\)</span>th pedix is the observation index and the <span class="math inline">\(m\)</span>th pedix is the mth covariate. <span class="math inline">\(f_{l}(\cdot), \forall l \in 1 \ldots L\)</span> are a set of random effects defined in terms of a <span class="math inline">\(\boldsymbol{z}\)</span> set of covariates <span class="math inline">\(\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)\)</span> (e.g. rw, ar1). The linear predictor it is possible to specify <span class="math inline">\(\eta\)</span> as a function of <span class="math inline">\(\mu\)</span>. The link function between them in this case is identity, so that <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span>. In GLMs when response variable has to stay between <span class="math inline">\([0,1]\)</span> (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation:</p>
-<p><span class="math display" id="eq:genregvec">\[\begin{equation}
-  y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+\varepsilon\left(\mathbf{s}_{i}\right)
-  \tag{6.3}
-\end{equation}\]</span></p>
-<p>where its OLS estimator is:
-<span class="math display" id="eq:ols">\[\begin{equation}
-  \hat{\beta}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y}
-\tag{6.4}
-\end{equation}\]</span></p>
-<p>However in many cases non-linear functions, like basis function might be a smoother solution to model coordinates when used as covariates <span class="citation">(Krainski et al. <a href="#ref-Krainski2018" role="doc-biblioref">2018</a>)</span>.
-Moreover In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients <span class="math inline">\(\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}\)</span> as well ad on the variance <span class="math inline">\(\sigma^{2}\)</span> of <span class="math inline">\(y_{i}\)</span>. When no expert information is provided vague priors are introduced, meaning that the regression should not be weighted too much on the priors choice.
-Vague priors might be:</p>
-<ul>
-<li><span class="math inline">\(\beta_{m} \sim \operatorname{Normal}\left(0,10^{6}\right)\)</span> for the beta coefficients</li>
-<li><span class="math inline">\(\log (\tau)=\log \left(1 / \sigma^{2}\right) \sim \log \operatorname{Gamma}\left(1,10^{-5}\right)\)</span> for precision</li>
-</ul>
-<p>When leveraging information from location the added <span class="math inline">\(w(\mathbf{s})\)</span> has to be introduced in the previous equation <a href="prdm.html#eq:genregvec">(6.3)</a>. <span class="math inline">\(w(\mathbf{s})\)</span> surface is required in order to incorporate spatial error into regression settings, as well as enabling prediction over the entire domain <span class="math inline">\(D\)</span>:</p>
-<p><span class="math display">\[y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime}\beta_{j}+w(\mathbf{s})+\varepsilon\left(\mathbf{s}_{i}\right)\]</span></p>
-<p>The <span class="math inline">\(w(\mathbf{s})\)</span> in the context of the analysis is approached as a stationary and isotropic GP<a href="prdm.html#GP">6.1</a> whose distribution is multivariate Gaussian with mean <span class="math inline">\(\boldsymbol{\mu}(\mathbf{s}) = 0\)</span> and function of the spatial index <span class="math inline">\(\mathbf{s}\)</span> and covariance function <span class="math inline">\(\mathcal{C}( \cdot \mid \theta)\)</span> .
-<span class="math inline">\(\varepsilon(\mathbf{s})\)</span> is iid and mean centered in 0 with variance <span class="math inline">\(\tau^{2}\)</span> and is called non-spatial error since it contributes to the nugget. The error term is pure since it interferes with the covariance function so that the model can embody the spatial component.
-One of the major advantages of having a a spatial process embedded into a GP is <em>likelihood</em> based inference.</p>
-<div id="parameter-estimation" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> Parameter estimation</h3>
-<p>Gaussian spatial models can be considered as GLM with a particular specification of the precision matrix <span class="math inline">\(\Sigma_{\theta}=\sigma^{2} \mathbf{R}(\phi)+\tau^{2} I_{n}\)</span>,
-then the likelihood can be computed by:
-<span class="math display">\[\mathbf{y} \mid \boldsymbol{\theta}, \boldsymbol{\beta} \sim \mathrm{N}\left(\mathbf{X} \beta, Q_{\theta}\right)\]</span>
-where, <span class="math inline">\(\boldsymbol{\theta}=\left(\sigma^{2}, \tau^{2}, \phi\right)\)</span>
-Since likelihood estimation is possible then MLE can be computed for <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\boldsymbol{\theta}\)</span> are <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> and <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.
-Then the estimation in vector notation is:</p>
-<p><span class="math display">\[\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} Q^{-1} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} Q^{-1} \mathbf{y}\]</span></p>
+<h2><span class="header-section-number">6.4</span> Point Referenced Regression for univariate spatial data</h2>
+<p>Since in HPM the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(\mathbf{C}\)</span> and the price <span class="math inline">\(P\)</span> is not in any case fixed by econometric literature it is possible to assume any <span class="math inline">\(f\)</span> functional form. The open possibility to apply a wide range of relationship between covariates fit in the INLA setting, since Latent Gaussian Models are prepared to accept a any linear and non linear <span class="math inline">\(f\)</span> functions <a href="inla-spde.html#LGM">5.1</a> through the <code>f()</code> method. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.</p>
+<p>Moreover what the vast majority of econometric literature <em>(Greene, 2018)</em> suggest to apply a is log-linear / square root model. This is due to the fact that log transformation / square root smooths the skewness of prices normalizing the curve, leading to more accurate estimates. Having an exponential family generating process lowers even further computational cost for reasons linked to the <span class="math inline">\(\tilde\pi(\boldsymbol{\psi})\)</span> hyper param INLA approximation <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. Notation is taken from the previous chapter <a href="#inla"><strong>??</strong></a>, for brevity purposes <span class="math inline">\(\boldsymbol{\beta}\)</span> <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> indicates vectors incorporating all their respective realizations and the <span class="math inline">\(s\)</span> spatial component is left out in favor of the observation pedix <span class="math inline">\(i\)</span>.<br />
+The simplest log linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process:</p>
+<p><span class="math display">\[
+\log{(y_{i})} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right) \\
+y_{i}=\mu_{i}+\varepsilon_{i}
+\]</span></p>
+<p>then by the following relationship <span class="math inline">\(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right)=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{i m}\)</span> it is possible to specify a more general linear predictor (seen also in chapter <a href="#inla"><strong>??</strong></a>) through an identity link function i.e. <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span> obtaining:</p>
+<p><span class="math display">\[
+\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
+\]</span></p>
+<p>Where, once again, the mean structure linearly depends on some <span class="math inline">\(\mathbf{X}\)</span> covariates, <span class="math inline">\(\boldsymbol{\beta}\)</span> coefficients, <span class="math inline">\(f_{l}(\cdot), \forall l \in 1 \ldots L\)</span> are a set of random effects defined in terms of a <span class="math inline">\(\boldsymbol{z}\)</span> set of covariates <span class="math inline">\(\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)\)</span> (e.g. rw, ar1) and <span class="math inline">\(\varepsilon_{i}\)</span> white noise error.
+Priors have to be specified and a non informativeness for <span class="math inline">\(\tau^2 = 1/\sigma^2\)</span> and <span class="math inline">\(\boldsymbol{\beta}\)</span> is chosen, such that <span class="math inline">\(\pi(\tau^2) \propto 1\)</span> and <span class="math inline">\(\pi(\boldsymbol\beta) \propto 1\)</span>. As a consequence the conditional posterior for the parameters of interest <span class="math inline">\(\boldsymbol{\beta}\)</span> is:</p>
+<p><span class="math display">\[
+\boldsymbol{\beta} \mid \sigma^{2}, \boldsymbol{y}, \boldsymbol{X} \sim \operatorname{MVNormal}\left(\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1} \boldsymbol{X}^{\prime} \boldsymbol{y}, \sigma^{2}\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1}\right)
+\]</span></p>
+<p>where the mean structure corresponds to the OLS estimator: <span class="math inline">\(\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1} \boldsymbol{X}^{\prime} \boldsymbol{y}\)</span>.</p>
+<p>In order to integrate the spatial component into the regression setting <span class="math inline">\(w_{i}\)</span> has to be added to the equation. <span class="math inline">\(w_{i}\)</span> is set as a stationary and isotropic GP with mean 0 and variance as covariance function expressed as Matérn.</p>
+<p><span class="math display">\[\log(y_{i})= \beta_{0} + (\mathbf{X})^{\prime}\boldsymbol{\beta}+w_{i}+\varepsilon_{i}\]</span>
+The new regression setting integrates the <em>spatial error</em> part in the name of <span class="math inline">\(w_{i}\)</span> and a <em>non-spatial error</em> part <span class="math inline">\(\varepsilon_{i}\)</span> distributed normally with mean 0 and variance <span class="math inline">\(\tau^2\)</span> ,i.e. <span class="math inline">\(\mathrm{N}\left(0, \tau^{2}\right)\)</span>, which offers its contribution error to the nuggets through the covariance function.</p>
+<!-- \begin{equation} -->
+<!--     \log(y_{i})=\mu_{i}+\varepsilon_{i} -->
+<!-- (\#eq:genreg) -->
+<!-- \end{equation} -->
+<!-- where $y_{i}$ is normally distributed as $y_{i} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right)$ and $\mu_{i}$ is the mean structure that linearly depends on some $\mathbf{X}$ covariates, $\boldsymbol{\beta}$ coefficients, $f_{l}(\cdot), \forall l \in 1 \ldots L$ are a set of random effects defined in terms of a $\boldsymbol{z}$ set of covariates $\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)$ (e.g. rw, ar1) and  $\varepsilon_{i}$ white noise error. Please recall that the $i$th pedices are the observations and the $m$th pedices are the covariates. The structure is a repetition of what already seen in chapter \@ref(LGM) -->
+<!-- \begin{equation} -->
+<!--   \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right) -->
+<!-- (\#eq:linearpred) -->
+<!-- \end{equation} -->
+<!-- The link function specified in this case is still identity, so that $\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}$. Nevertheless GLMs can be applied with different link function. when response variable has to stay between $[0,1]$ (e.g. probabilities), the link function might be Logit, which leads to logistic regression. More generally expressed in vector notation: -->
+<!-- \begin{equation} -->
+<!--   \log(y_{i})\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+\varepsilon\left(\mathbf{s}_{i}\right) -->
+<!--   (\#eq:genregvec) -->
+<!-- \end{equation} -->
+<!-- where its OLS estimator is: -->
+<!-- \begin{equation} -->
+<!--   \hat{\beta}=\left(\mathbf{X}^{\prime} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} \mathbf{y} -->
+<!-- (\#eq:ols) -->
+<!-- \end{equation} -->
+<!-- Moreover In the context of bayesian analysis a prior distribution has to be imposed on the regression coefficients $\beta = \left\{\beta_{0}, \ldots, \beta_{J}\right\}$ as well ad on the variance  $\sigma^{2}$ of $y_{i}$. When no expert information is provided vague priors are introduced, meaning that the regression should not be weighted too much on the priors choice. -->
+<!-- Vague priors might be: -->
+<!-- - $\beta_{m} \sim \operatorname{Normal}\left(0,10^{6}\right)$ for the beta coefficients -->
+<!-- - $\log (\tau)=\log \left(1 / \sigma^{2}\right) \sim \log \operatorname{Gamma}\left(1,10^{-5}\right)$ for precision -->
+<!-- Spatial modeling goal is to include spatial information from location into the model. This is done within the bayesian frameoùwork and INLA by adding $w(\mathbf{s})$ in the previous equation \@ref(eq:genregvec).  -->
+<!-- $$y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime}\beta_{j}+w(\mathbf{s})+\varepsilon\left(\mathbf{s}_{i}\right)$$ -->
+<!-- The $w(\mathbf{s})$ in the context of the analysis is approached as a stationary and isotropic GP\@ref(GP) whose distribution by definition is multivariate Gaussian with mean $\boldsymbol{\mu}(\mathbf{s}) = 0$ and function of the spatial index $\mathbf{s}$ and covariance function $\mathcal{C}( \cdot \mid \theta)$ . -->
+<!-- $\varepsilon(\mathbf{s})$ is iid and mean centered in 0 with variance $\tau^{2}$ and is called non-spatial error since it contributes to the nugget. The error term is pure since it interferes with the covariance function so that the model can embody the spatial component.  -->
+<!-- One of the major advantages of having a a spatial process embedded into a GP is _likelihood_ based inference.  -->
+<!-- ### Parameter estimation  -->
+<!-- Gaussian spatial models can be considered as GLM with a particular specification of the precision matrix $\Sigma_{\theta}=\sigma^{2} \mathbf{R}(\phi)+\tau^{2} I_{n}$, -->
+<!-- then the likelihood can be computed by: -->
+<!-- $$\mathbf{y} \mid \boldsymbol{\theta}, \boldsymbol{\beta} \sim \mathrm{N}\left(\mathbf{X} \beta, Q_{\theta}\right)$$ -->
+<!-- where,  $\boldsymbol{\theta}=\left(\sigma^{2}, \tau^{2}, \phi\right)$ -->
+<!-- Since likelihood estimation is possible then MLE can be computed for $\boldsymbol{\beta}$ and $\boldsymbol{\theta}$ are $\hat{\boldsymbol{\beta}}$ and $\hat{\boldsymbol{\theta}}$.  -->
+<!-- Then the estimation in vector notation is:  -->
+<!-- $$\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} Q^{-1} \mathbf{X}\right)^{-1} \mathbf{X}^{\prime} Q^{-1} \mathbf{y}$$ -->
 </div>
-</div>
-<div id="hierreg" class="section level2">
-<h2><span class="header-section-number">6.5</span> Hierarchical Bayesian Regression</h2>
-<p>Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. Taking a few steps back the problem can be reformulated into a easier setting starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on these categories. Therefore observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category levels like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> consider grouping data according to just one 9-levels-category factor. Data for the reasons stated before can be organized in a way such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive categories (circles in figure).</p>
+<div id="hiermod" class="section level2">
+<h2><span class="header-section-number">6.5</span> Hierarchical Bayesian models</h2>
+<p>(prova a mettercix dentro direttamente la regressione appena sopra spiegata)</p>
+<p>Spatial Models are characterized by many parameters which at their time might be tuned by some other hyper-parameters. Blangiardo e Cameletti <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> tried to approach the problem from a different angle offering an intuitive solution on how hierarchy relates different levels parameters. This is done by reversing the problem and starting from data back to parameters, instead the other way round. So taking a few steps back the problem can be reformulated by starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on the categories. As a result observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category <em>levels</em> like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti example consider grouping data according to just a single 9 <em>levels</em> category. Data for the reasons stated before can be organized such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive category (circles in figure).</p>
 <div class="figure">
 <img src="images/simple.PNG" alt="" />
-<p class="caption">simplifing_problem</p>
+<p class="caption">9 levels cat vs observaitions, source <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span></p>
 </div>
-<p>Moreover data can be also conveniently partitioned into two meta-categories: <em>fist level</em> and <em>second level</em>. <em>First level</em> are identified by sampling observations which are drawn by the same probability distribution. <em>Second level</em> (circles) are categories and might be associated to a set of parameters <span class="math inline">\(\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span>.
-Since the structure is hierarchical, a DAG (Directed Acyclical Graph) <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> representation might sort out ideas. If categories are represented by different thetas nodes <span class="math inline">\(\theta\)</span> and edges are the logical belonging condition to the precise category then:</p>
-<p><img src="images/thetas.PNG" alt="thetas, Blangiardo-Cameletti’s source" /> <img src="images/chis.PNG" alt="chis, Blangiardo-Cameletti’s source" /></p>
-<p>To fully take into account the hierarchical structure of the data, <span class="math inline">\(\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span> is assumed to come from a distribution <span class="math inline">\(\pi\left(\theta_{j} \mid \psi\right)\)</span> characterized by <span class="math inline">\(\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}\)</span> hyper parameters, left figure. If <span class="math inline">\(\theta_{j}\)</span> come from the same distribution they are assumed also to be sharing information <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. In a hierarchical framework this can be reformulated by:</p>
+<p>Furthermore data can be partitioned into two meta-categories, <em>fist level</em> and <em>second level</em>, highlighting the parameter and hyper paramter chain roles. <em>First level</em> are identified by sampling observations which are drawn by the same probability distribution (squares) . <em>Second level</em> (circles) are categories and might be associated to a set of parameters <span class="math inline">\(\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span>.
+Since the structure is hierarchical, a DAG (Directed Acyclical Graph) <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> representation might sort out ideas. If categories are represented by different <span class="math inline">\(\theta_{j}\)</span> nodes and edges (arrows in the figure) are the logical belonging condition to the category then a single parameter <span class="math inline">\(\theta\)</span> model has the right figure form:</p>
+<p><img src="images/thetas.PNG" alt="DAG representation of hierarchical structure, source Marta Blangiardo (2015)" /> <img src="images/chis.PNG" alt="chis, Blangiardo-Cameletti’s source" /></p>
+<p>To fully take into account the hierarchical structure of the data the model should also consider further lelvels. Since <span class="math inline">\(\left\{\theta_{1}, \ldots, \theta_{J}\right\}\)</span> are assumed to come from the same distribution <span class="math inline">\(\pi(\theta_{j})\)</span>, then they are also assumed to be sharing information <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>, (left figure). When a further parameter <span class="math inline">\(\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}\)</span> is introduced, for which a prior distribution is specified, then the conditional distribution of <span class="math inline">\(\boldsymbol{\theta}\)</span> given <span class="math inline">\(\boldsymbol{\psi}\)</span> is:</p>
 <p><span class="math display">\[
-\pi\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
-\]</span></p>
-<p>theta <span class="math inline">\(\theta_{j}\)</span> parameters are similar in the sense they come from the same distribution family characterized by <span class="math inline">\(\boldsymbol{\psi}\)</span> hyper parameters, which at their own time are identified by priors (fixed quantities). This structure can extended to allow more than two levels of hierarchy since the marginal distributions of <span class="math inline">\(\theta\)</span> can be decomposed into the product of their conditional distribution given some hyperparameter <span class="math inline">\(\psi\)</span> as well as their prior distribution <span class="math inline">\(p(\psi)\)</span>.</p>
+\pi\left(\theta_{1}, \ldots, \theta_{J} \mid \boldsymbol{\psi}\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
+\]</span>
+This is possible thanks to the conditional independence property already encountered in chapter <a href="#inla"><strong>??</strong></a>, which means that each single <span class="math inline">\(\theta\)</span> is conditional independent given <span class="math inline">\(\psi\)</span>
+This structure can extended to allow more than two levels of hierarchy since the marginal prior distributions of <span class="math inline">\(\theta\)</span> can be decomposed into the product of their conditional priors distributions given some hyper parameter <span class="math inline">\(\psi\)</span> as well as their prior distribution <span class="math inline">\(\pi(\psi)\)</span>.</p>
 <p><span class="math display">\[
 \pi(\boldsymbol{\theta})=\int \pi\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) \pi\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots \pi\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) \pi\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
 \]</span></p>
-<p><span class="math inline">\(\boldsymbol{\psi}_{l}\)</span> identifies the hyper pram for the l <em>th</em> level of hierarchy. The property to enable deeper nested hyperparameters (i.e. add <span class="math inline">\(L\)</span> hierarchy levels) is said <em>Exchangeability</em> and allows to extend the dimensions in which the problem in evaluated (spatio-temporal models). From a theoretical point of view there is no constraints to how many <span class="math inline">\(L\)</span> levels to consider, as a consequence model interpretability suffers from adding too many layers.</p>
+<p><span class="math inline">\(\boldsymbol{\psi}_{l}\)</span> identifies the hyper pram for the <span class="math inline">\(l_{th}\)</span> level of hierarchy. Each further parameter level <span class="math inline">\(\psi\)</span> is conditioned to its previous in hierarchy level <span class="math inline">\(l-1\)</span> so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The <em>Exchangeability</em> property enables to have higher <span class="math inline">\(H\)</span> nested DAG (i.e. add further <span class="math inline">\(L\)</span> levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many <span class="math inline">\(L\)</span> levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off.</p>
 </div>
-<div id="inla-as-a-hierarchical-model-va-parafrasato" class="section level2">
-<h2><span class="header-section-number">6.6</span> INLA as a hierarchical model [va parafrasato]</h2>
-<p>The model can be then rewritten in LGM terms following section <a href="inla-spde.html#LGM">5.1</a>, within the bayesian hierarchical structure. This enables INLA computation and its benefits.
-The <em>first level</em> belongs to the sampling distribution for <span class="math inline">\(y\)</span>, which are conditional to parameter and hyper parameter given the latent field <span class="math inline">\(\mathbf{\theta}\)</span> and the hyper parameters <span class="math inline">\(\boldsymbol{\psi}\)</span>:</p>
+<div id="inla-model-through-hierarchical-regression" class="section level2">
+<h2><span class="header-section-number">6.6</span> INLA model through hierarchical regression</h2>
+<p>INLA model seen in section <a href="inla-spde.html#LGM">5.1</a> can be rearranged according to the hierarchical structure considering also the regression settings for point referenced data stated in the previous section <a href="prdm.html#univariateregr">6.4</a>.</p>
+<p>As an initial step it is required to specify a probability distribution for <span class="math inline">\(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\)</span>, this is a mandatory step looking at the <a href="inla-spde.html#example">5.3.2</a> methods needed to compute the <code>inla()</code> function. Normal distribution for simplicity is chosen.</p>
+<p>As <em>first level</em> is picked up an exponential family sampling distribution (e.g. Normally distributed), which is <em>exchangeable</em> with respect to the
+<span class="math inline">\(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\)</span> <em>latent field</em> and hyper parameters <span class="math inline">\(\boldsymbol{\psi_{1}}\)</span>, which includes also the ones coming from the latent Matérn GP process <span class="math inline">\(w_{i}\)</span>. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as <span class="math inline">\(\tau^2\)</span>. <span class="math inline">\(w_{i}\)</span> addresses the spatial autocorrelation between observation through a Matérn covariance function <span class="math inline">\(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\)</span> which is tuned by hyper param included in <span class="math inline">\(\boldsymbol{\psi_1}\)</span>. Moreover the <span class="math inline">\(w_{i}\)</span> surface has to be passed in the formula method definition <a href="inla-spde.html#example">5.3.2</a> via the <code>f()</code> function, so that INLA takes into cosideration the spatial component. where <span class="math inline">\(\mathbf{I}\)</span> denotes the indicator function (i.e., <span class="math inline">\(\mathbf{I}(i = i^{\prime})= 1\)</span> if <span class="math inline">\(i = i^{\prime}\)</span>, and 0 otherwise).</p>
+<p>expressed as <span class="math inline">\(\tau\)</span> in the example in section <a href="inla-spde.html#example">5.3.2</a> indicating the data generating process precision (i.e. <span class="math inline">\(\tau = 1/\sigma^2\)</span>.</p>
 <p><span class="math display">\[
-\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \pi\left(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1}\right)=\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}_{1}\right)
+\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \mathrm{N}\left(\beta_{0}+ (\mathbf{X}_{i})^{\prime}\boldsymbol{\beta} + w_{i} ,  \tau^2 I_{n}\right)=\prod_{i=1}^{n} \mathrm{N}\left(y_{i} \mid \theta_{i}, \psi_{1}\right)
 \]</span></p>
-<p>Then at the <em>second level</em> the latent field <span class="math inline">\(\boldsymbol{\theta}\)</span> is characterized by a multivariate Normal distribution given all the other hyper parameters <span class="math inline">\(\psi_{2}\)</span>:</p>
+<p>Then at the <em>second level</em> the latent field <span class="math inline">\(\boldsymbol{\theta}\)</span> is characterized by a multivariate Normal distribution given the remaining hyper parameters <span class="math inline">\(\boldsymbol{\psi}_2\)</span>, recall that that <span class="math inline">\(\boldsymbol{Q}^{-1}(\boldsymbol{\psi_{2}})\)</span> is the covariance matrix, depending on <span class="math inline">\(\boldsymbol{\psi_{2}}\)</span> hyperparameters. INLA has to specify a Matérn covariace function in order to map the GP spatial surface into a GMRF by SPDE solutions.</p>
 <p><span class="math display">\[
-\boldsymbol{\theta} \mid \boldsymbol{\psi}_{2} \sim \mathrm{MVNormal}\left(\boldsymbol{0}, \boldsymbol{Q}^{-1}\left(\boldsymbol{\psi}_{2}\right)\right)
-\]</span>
-Finally, the hyper parameters <span class="math inline">\(\boldsymbol{v}=\left\{\psi_{1}, \boldsymbol{\psi}_{2}\right\}\)</span> have some prior distribution given by <span class="math inline">\(\psi \sim \pi(\psi)\)</span></p>
+\boldsymbol{\theta} \mid \boldsymbol{\psi}_{2} \sim \operatorname{MVNormal}\left(\boldsymbol{0}, \boldsymbol{Q}^{-1}\left(\boldsymbol{\psi}_{2}\right)\right)
+\]</span></p>
+<p>In the end a <em>third level</em> hyper parameters <span class="math inline">\(\boldsymbol{\psi}=\left\{\boldsymbol{\psi_{1}}, \boldsymbol{\psi}_{2}\right\}\)</span> having some specified prior distribution i.e. <span class="math inline">\(\boldsymbol{\psi} \sim \pi(\boldsymbol{\psi})\)</span>,</p>
 </div>
 <div id="spatial-kriging" class="section level2">
 <h2><span class="header-section-number">6.7</span> Spatial Kriging</h2>
-<p>fallo da slides paci e banerjee sudipto
-Kriging is the operation according which given <span class="math inline">\(y\)</span> observation it is possible to predict over <span class="math inline">\(\mathbf{s}_{0}\)</span> new locations not yet observed.</p>
-<p>[manca solo estimatore kriging e un po’ di matematica dietro]</p>
 </div>
 <div id="model-checking-and-comparison" class="section level2">
 <h2><span class="header-section-number">6.8</span> Model Checking and Comparison</h2>

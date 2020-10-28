@@ -155,7 +155,7 @@ Following Krainski & Rubio -@Krainski-Rubio observations $y(s_{1}), \ldots, y(s_
 ![summary table list object, source: @Krainski-Rubio ](images/summarytable.PNG)
 
 
-### Linear Predictor
+### Linear Predictor{#example}
 
 SPDEtoy dataset, that has a spatial component, is generated from a $y_{i}$ Gaussian variable; its moments are $\mu_{i}$ and precision $\tau$.
 

@@ -33,6 +33,20 @@ glimpse(data)
 
 
 
+We use the dataset extracted from the “PERVAL” database. This database
+contains all information on property transactions, property attributes as well
+as buyers and sellers profiles. Additionally, most observations in the database
+are geo-referenced and therefore spatial analysis is used.
+After removing the apartments with missing characteristics and eliminating
+the apartments corresponding to the tails11 of the price distribution, there are
+7634 observations spanning from 2006 to 2017.
+The key variables of the dataset include the sale price, apartment structural
+characteristics and accessibility variables. The description of all variables is
+listed in Table 1.
+The summary statistics of all continuous variables are presented in Table
+
+
+
 ## Explorative Analysis
 
 ###  Semivariogram Covariogram

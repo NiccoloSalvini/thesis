@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  25 OCT 2020 01:51
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.28)  28 OCT 2020 01:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1383,102 +1383,100 @@ Chapter 5.
 
 ] [61]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1244.
+(Font)              scaled to size 12.0pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1244.
+(Font)              scaled to size 8.4pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1244.
+(Font)              scaled to size 6.0pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1244.
+(Font)              scaled to size 12.0011pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1244.
+(Font)              scaled to size 8.40076pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1244.
+(Font)              scaled to size 6.00055pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1244.
+(Font)              scaled to size 11.99872pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1244.
+(Font)              scaled to size 8.3991pt on input line 1256.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1244.
+(Font)              scaled to size 5.99936pt on input line 1256.
+[62]
 
-Underfull \hbox (badness 1082) in paragraph at lines 1259--1261
-\TU/lmr/m/n/12 dergoing existence of many parameter combination alternatives. E
-ach
- []
+LaTeX Warning: Reference `inla' on page 63 undefined on input line 1281.
 
-[62] [63]
-Overfull \hbox (2.8808pt too wide) detected at line 1283
+[63]
+Overfull \hbox (2.8808pt too wide) detected at line 1297
 [][]
  []
 
 [64]
-Underfull \hbox (badness 2538) in paragraph at lines 1319--1320
-[]\TU/lmr/m/n/12 step 2: compute Laplace approximation marginals for the pa-
- []
+Missing character: There is no 𝜓 in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no ∀ in font [lmroman12-regular]:mapping=tex-text;!
+Missing character: There is no ∈ in font [lmroman12-regular]:mapping=tex-text;!
 
-
-Underfull \hbox (badness 1308) in paragraph at lines 1319--1320
-\TU/lmr/m/n/12 rameters given the hyper parameter approximation: $[] [] []
- []
+LaTeX Warning: Reference `hierreg' on page 65 undefined on input line 1325.
 
 [65]
 File: images/CCDapplied.PNG Graphic file (type bmp)
 <images/CCDapplied.PNG>
-[66] [67]
+[66] [67] [68]
 File: images/summarytable.PNG Graphic file (type bmp)
 <images/summarytable.PNG>
 File: images/cotour_toy.png Graphic file (type bmp)
 <images/cotour_toy.png>
 
-LaTeX Warning: Reference `genregvec' on page 68 undefined on input line 1396.
+LaTeX Warning: Reference `genregvec' on page 69 undefined on input line 1415.
 
-[68] [69]
-Overfull \hbox (28.06923pt too wide) in paragraph at lines 1441--1441
+[69] [70]
+Overfull \hbox (28.06923pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ##               mean    sd 0.025quant 0.5quant 0.975quant   
 mode kld[] 
  []
 
 
-Overfull \hbox (28.03326pt too wide) in paragraph at lines 1441--1441
+Overfull \hbox (28.03326pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ## (Intercept) 10.132 0.242      9.656   10.132     10.608 10
 .132   0[] 
  []
 
 
-Overfull \hbox (28.00917pt too wide) in paragraph at lines 1441--1441
+Overfull \hbox (28.00917pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ## s1           0.762 0.429     -0.081    0.762      1.606  0
 .762   0[] 
  []
 
 
-Overfull \hbox (28.0692pt too wide) in paragraph at lines 1441--1441
+Overfull \hbox (28.0692pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ## s2          -1.584 0.429     -2.428   -1.584     -0.740 -1
 .584   0[] 
  []
 
 
-Overfull \hbox (58.98106pt too wide) in paragraph at lines 1441--1441
+Overfull \hbox (58.98106pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ##                                          mean    sd 0.025q
 uant 0.5quant[] 
  []
 
 
-Overfull \hbox (58.98128pt too wide) in paragraph at lines 1441--1441
+Overfull \hbox (58.98128pt too wide) in paragraph at lines 1461--1461
 []\TU/lmtt/m/n/12 ## Precision for the Gaussian observations 0.308 0.031      0
 .251    0.307[] 
  []
 
 File: images/marginal_distr.png Graphic file (type bmp)
 <images/marginal_distr.png>
-[70] [71] [72]
+[71] [72]
 Chapter 6.
 [73
 
 ]
 File: images/map.png Graphic file (type bmp)
 <images/map.png>
+
+LaTeX Warning: Reference `inla' on page 74 undefined on input line 1519.
+
 [74]
-Overfull \hbox (13.92044pt too wide) in paragraph at lines 1509--1513
+Overfull \hbox (13.92044pt too wide) in paragraph at lines 1532--1536
 \TU/lmr/m/n/12 For simplicity lets consider $[]$ point of interest observations
  $[] [] [] [] [] [] [] [] [] []$
  []
@@ -1486,73 +1484,78 @@ Overfull \hbox (13.92044pt too wide) in paragraph at lines 1509--1513
 [75]
 File: images/prdprocess.png Graphic file (type bmp)
 <images/prdprocess.png>
-[76]
+[76] [77]
 File: images/variogram.png Graphic file (type bmp)
 <images/variogram.png>
-[77]
+[78]
 File: images/isotropyVSanisotropy.png Graphic file (type bmp)
 <images/isotropyVSanisotropy.png>
-[78] [79]
+[79] [80]
 File: images/matern.png Graphic file (type bmp)
 <images/matern.png>
-[80] [81] [82] [83] [84] [85]
+[81] [82] [83] [84]
+
+LaTeX Warning: Reference `inla' on page 85 undefined on input line 1698.
+
+
+LaTeX Warning: Reference `inla' on page 85 undefined on input line 1706.
+
+
+Underfull \hbox (badness 6236) in paragraph at lines 1706--1707
+[]\TU/lmr/m/n/12 then by the following relationship $[] [] []
+ []
+
+[85] [86]
 File: images/simple.PNG Graphic file (type bmp)
 <images/simple.PNG>
+[87]
 File: images/thetas.PNG Graphic file (type bmp)
 <images/thetas.PNG>
 File: images/chis.PNG Graphic file (type bmp)
 <images/chis.PNG>
-[86]
-Underfull \hbox (badness 3471) in paragraph at lines 1730--1731
-\TU/lmr/m/n/12 is assumed to come from a distribution $[] []$ characterized by
- []
 
-[87]
-Overfull \hbox (19.76617pt too wide) in paragraph at lines 1745--1745
-[]\TU/lmr/bx/n/17.28 INLA as a hierarchical model [va parafrasato] 
- []
+LaTeX Warning: Reference `inla' on page 88 undefined on input line 1749.
 
-Missing character: There is no 𝜃 in font [lmroman12-bold]:mapping=tex-text;!
-[88] [89]
+[88] [89] [90]
 Chapter 7.
-[90
+[91
 
-] [91]
+] [92]
 File: images/lattice.png Graphic file (type bmp)
 <images/lattice.png>
-[92] [93]
+[93] [94]
 Chapter 8.
-[94
+[95
 
 ]
 Chapter 9.
-(./Niccolo_Salvini_Thesis.bbl [95
+(./Niccolo_Salvini_Thesis.bbl [96
 
-] [96
+] [97
 
-] [97] [98])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1838.
-[99]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1838.
+] [98] [99])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1843.
+[100]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1843.
 (./Niccolo_Salvini_Thesis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1838.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1838.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1843.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1843.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: 2513FA15C8FAD177F853DD06EDC65D48;10174.
+(rerunfilecheck)             Checksum: 402A89140A61D56C1626DAD6A4584296;10047.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1838.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1843.
  ) 
 Here is how much of TeX's memory you used:
- 19171 strings out of 481269
- 339034 string characters out of 5923245
- 762411 words of memory out of 5000000
- 36340 multiletter control sequences out of 15000+600000
+ 19178 strings out of 481269
+ 339136 string characters out of 5923245
+ 760031 words of memory out of 5000000
+ 36347 multiletter control sequences out of 15000+600000
  543268 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  53i,19n,118p,3457b,491s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (101 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (102 pages).
