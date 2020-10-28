@@ -63,3 +63,11 @@ application
 example-one
 example-two
 final-words
+data-preparation
+na-removal-and-imputation
+spatial-autocorrelation-assessement
+model-specification
+mesh-building
+building-spde-model-on-mesh
+prediction
+finalregr

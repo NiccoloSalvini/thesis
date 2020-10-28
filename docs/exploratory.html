@@ -50,6 +50,10 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -142,11 +146,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
-</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -183,11 +182,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#what-data-is"><i class="fa fa-check"></i><b>4.1</b> What data is</a></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#data-glimpse"><i class="fa fa-check"></i><b>4.2</b> Data Glimpse</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#explorative-analysis"><i class="fa fa-check"></i><b>4.3</b> Explorative Analysis</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="exploratory.html"><a href="exploratory.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.3.1</b> Semivariogram Covariogram</a></li>
+<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
+<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
 <li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
@@ -207,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
 <li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Point Referenced Regression for univariate spatial data</a></li>
 <li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hiermod"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian models</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-model-through-hierarchical-regression"><i class="fa fa-check"></i><b>6.6</b> INLA model through hierarchical regression</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#finalregr"><i class="fa fa-check"></i><b>6.6</b> INLA model through spatial hierarchical regression</a></li>
 <li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.7</b> Spatial Kriging</a></li>
 <li class="chapter" data-level="6.8" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.8</b> Model Checking and Comparison</a></li>
 </ul></li>
@@ -246,10 +249,394 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="exploratory" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Exploratory Analysis</h1>
-<div id="what-data-is" class="section level2">
-<h2><span class="header-section-number">4.1</span> What data is</h2>
-<p>Data come packed from the API end point /complete in JSON format. A preliminary data assessment evidences 34 covariates and a 250 rows, even though the number could be varyign accoriding to the API query sent. Json file is then parsed by the convenient read_csv from the readr package mutating columns by their respective type.
-below the explanation of the columns:</p>
+<p>Data comes packed into the REST API end point <code>*/complete</code> in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the <code>city</code> in which it is aevaluated the real estate market, <code>npages</code> as the number of pages to be scraped, <code>type</code> as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section <a href="#APIdocs"><strong>??</strong></a>. Since to the analysis purposes data should come from the same source (e.g. Milan rental real estate within “circonvallazione”) a dedicated endpoint boolean option <code>.thesis</code> is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The <code>*</code> refers to the EC2 public DNS that is <code>ec2-18-224-40-67.us-east-2.compute.amazonaws.com</code></p>
+<p><code>http://*/complete/120/milano/affitto/.thesis=true</code></p>
+<p>As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.</p>
+<p>A preliminary exploratory analysis evidences 34 covariates and 250 rows. Immoboliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="exploratory.html#cb1-1"></a><span class="kw">library</span>(readr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploratory.html#cb3-1"></a><span class="kw">library</span>(kableExtra)</span>
+<span id="cb3-2"><a href="exploratory.html#cb3-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v dplyr   1.0.2
+## v tibble  3.0.4     v stringr 1.4.0
+## v tidyr   1.1.2     v forcats 0.5.0
+## v purrr   0.3.4</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter()     masks stats::filter()
+## x dplyr::group_rows() masks kableExtra::group_rows()
+## x dplyr::lag()        masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploratory.html#cb8-1"></a>data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/data.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="exploratory.html#cb8-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>X1)</span></code></pre></div>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_character(),
+##   X1 = col_double(),
+##   ID = col_double(),
+##   LAT = col_double(),
+##   LONG = col_double(),
+##   CONDOM = col_double(),
+##   BUILDAGE = col_double(),
+##   PUB_DATE = col_date(format = &quot;&quot;),
+##   PHOTOSNUM = col_double(),
+##   LOWRDPRICE.passedDays = col_double(),
+##   LOWRDPRICE.date = col_double(),
+##   ENCLASS = col_logical(),
+##   DISP = col_logical(),
+##   HASMULTI = col_logical(),
+##   PRICE = col_double(),
+##   SQFEET = col_double(),
+##   NROOM = col_double()
+## )
+## i Use `spec()` for the full column specifications.</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exploratory.html#cb11-1"></a><span class="co">### fai la tabella delle colonne</span></span>
+<span id="cb11-2"><a href="exploratory.html#cb11-2"></a><span class="co">### </span></span>
+<span id="cb11-3"><a href="exploratory.html#cb11-3"></a>ref =<span class="kw">c</span>(</span>
+<span id="cb11-4"><a href="exploratory.html#cb11-4"></a><span class="st">&quot;ID of the apartemente&quot;</span>,</span>
+<span id="cb11-5"><a href="exploratory.html#cb11-5"></a><span class="st">&quot;latitude coordinate&quot;</span>,</span>
+<span id="cb11-6"><a href="exploratory.html#cb11-6"></a><span class="st">&quot;longitude coordinate&quot;</span>,</span>
+<span id="cb11-7"><a href="exploratory.html#cb11-7"></a><span class="st">&quot;the complete address: street name and number&quot;</span>,</span>
+<span id="cb11-8"><a href="exploratory.html#cb11-8"></a><span class="st">&quot;the condominium monthly expenses&quot;</span>,</span>
+<span id="cb11-9"><a href="exploratory.html#cb11-9"></a><span class="st">&quot;the age in which the building was contructed&quot;</span>,</span>
+<span id="cb11-10"><a href="exploratory.html#cb11-10"></a><span class="st">&quot;the floor the apartement is&quot;</span>,</span>
+<span id="cb11-11"><a href="exploratory.html#cb11-11"></a><span class="st">&quot;indipendent propeorty versus apartement&quot;</span>,</span>
+<span id="cb11-12"><a href="exploratory.html#cb11-12"></a><span class="st">&quot;specification of the type and number of rooms&quot;</span>,</span>
+<span id="cb11-13"><a href="exploratory.html#cb11-13"></a><span class="st">&quot;property type residential or not&quot;</span>,</span>
+<span id="cb11-14"><a href="exploratory.html#cb11-14"></a><span class="st">&quot;the actual status of the house, ristrutturato, nuovo, abitabile&quot;</span>,</span>
+<span id="cb11-15"><a href="exploratory.html#cb11-15"></a><span class="st">&quot;the heating system centralized or autonomous&quot;</span>,</span>
+<span id="cb11-16"><a href="exploratory.html#cb11-16"></a><span class="st">&quot;air conditioning hot and cold&quot;</span>,</span>
+<span id="cb11-17"><a href="exploratory.html#cb11-17"></a><span class="st">&quot;the date of publication of the advertisement&quot;</span>,</span>
+<span id="cb11-18"><a href="exploratory.html#cb11-18"></a><span class="st">&quot;land registry infromation&quot;</span>,</span>
+<span id="cb11-19"><a href="exploratory.html#cb11-19"></a><span class="st">&quot;apartement main characteristics&quot;</span>,</span>
+<span id="cb11-20"><a href="exploratory.html#cb11-20"></a><span class="st">&quot;number of photos displayes&quot;</span>,</span>
+<span id="cb11-21"><a href="exploratory.html#cb11-21"></a><span class="st">&quot;estate agency name&quot;</span>,</span>
+<span id="cb11-22"><a href="exploratory.html#cb11-22"></a><span class="st">&quot;If the price is lowered it indicates the starting price&quot;</span>,</span>
+<span id="cb11-23"><a href="exploratory.html#cb11-23"></a><span class="st">&quot;If the price is lowered it indicates the current price&quot;</span>,</span>
+<span id="cb11-24"><a href="exploratory.html#cb11-24"></a><span class="st">&quot;If the price is lowered the days passed since the price has changed&quot;</span>,</span>
+<span id="cb11-25"><a href="exploratory.html#cb11-25"></a><span class="st">&quot;If the price is lowered the date passed since the price has changed&quot;</span>,</span>
+<span id="cb11-26"><a href="exploratory.html#cb11-26"></a><span class="st">&quot;the energy class communicated to the&quot;</span>,</span>
+<span id="cb11-27"><a href="exploratory.html#cb11-27"></a><span class="st">&quot;the type of contract&quot;</span>,</span>
+<span id="cb11-28"><a href="exploratory.html#cb11-28"></a><span class="st">&quot;if it is still avaiable or not&quot;</span>,</span>
+<span id="cb11-29"><a href="exploratory.html#cb11-29"></a><span class="st">&quot;the total number of floors&quot;</span>,</span>
+<span id="cb11-30"><a href="exploratory.html#cb11-30"></a><span class="st">&quot;number of parking box or garages avaibable in the property&quot;</span>,</span>
+<span id="cb11-31"><a href="exploratory.html#cb11-31"></a><span class="st">&quot;estate agency review, long chr string&quot;</span>,</span>
+<span id="cb11-32"><a href="exploratory.html#cb11-32"></a><span class="st">&quot;it if has multimedia option, such as 3D house vitualization home experience or videos&quot;</span>,</span>
+<span id="cb11-33"><a href="exploratory.html#cb11-33"></a><span class="st">&quot;the monthly price &lt;- response&quot;</span>,</span>
+<span id="cb11-34"><a href="exploratory.html#cb11-34"></a><span class="st">&quot;square meters footage&quot;</span>,</span>
+<span id="cb11-35"><a href="exploratory.html#cb11-35"></a><span class="st">&quot;the number of rooms in the house, italian calculation&quot;</span>,</span>
+<span id="cb11-36"><a href="exploratory.html#cb11-36"></a><span class="st">&quot;title of advertisement&quot;</span></span>
+<span id="cb11-37"><a href="exploratory.html#cb11-37"></a>)</span>
+<span id="cb11-38"><a href="exploratory.html#cb11-38"></a></span>
+<span id="cb11-39"><a href="exploratory.html#cb11-39"></a>names =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st">  </span>names</span>
+<span id="cb11-40"><a href="exploratory.html#cb11-40"></a><span class="kw">tibble</span>(</span>
+<span id="cb11-41"><a href="exploratory.html#cb11-41"></a>  <span class="dt">name =</span> names,</span>
+<span id="cb11-42"><a href="exploratory.html#cb11-42"></a>  <span class="dt">ref  =</span> ref </span>
+<span id="cb11-43"><a href="exploratory.html#cb11-43"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-44"><a href="exploratory.html#cb11-44"></a><span class="st">  </span><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
+<span id="cb11-45"><a href="exploratory.html#cb11-45"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="dt">full_width =</span> F)</span></code></pre></div>
+<table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+ref
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ID
+</td>
+<td style="text-align:left;">
+ID of the apartemente
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAT
+</td>
+<td style="text-align:left;">
+latitude coordinate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LONG
+</td>
+<td style="text-align:left;">
+longitude coordinate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOCATION
+</td>
+<td style="text-align:left;">
+the complete address: street name and number
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CONDOM
+</td>
+<td style="text-align:left;">
+the condominium monthly expenses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUILDAGE
+</td>
+<td style="text-align:left;">
+the age in which the building was contructed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FLOOR
+</td>
+<td style="text-align:left;">
+the floor the apartement is
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INDIVSAPT
+</td>
+<td style="text-align:left;">
+indipendent propeorty versus apartement
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOCALI
+</td>
+<td style="text-align:left;">
+specification of the type and number of rooms
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TPPROP
+</td>
+<td style="text-align:left;">
+property type residential or not
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+STATUS
+</td>
+<td style="text-align:left;">
+the actual status of the house, ristrutturato, nuovo, abitabile
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HEATING
+</td>
+<td style="text-align:left;">
+the heating system centralized or autonomous
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AC
+</td>
+<td style="text-align:left;">
+air conditioning hot and cold
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PUB_DATE
+</td>
+<td style="text-align:left;">
+the date of publication of the advertisement
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CATASTINFO
+</td>
+<td style="text-align:left;">
+land registry infromation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+APTCHAR
+</td>
+<td style="text-align:left;">
+apartement main characteristics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHOTOSNUM
+</td>
+<td style="text-align:left;">
+number of photos displayes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGE
+</td>
+<td style="text-align:left;">
+estate agency name
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOWRDPRICE.originalPrice
+</td>
+<td style="text-align:left;">
+If the price is lowered it indicates the starting price
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOWRDPRICE.currentPrice
+</td>
+<td style="text-align:left;">
+If the price is lowered it indicates the current price
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOWRDPRICE.passedDays
+</td>
+<td style="text-align:left;">
+If the price is lowered the days passed since the price has changed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOWRDPRICE.date
+</td>
+<td style="text-align:left;">
+If the price is lowered the date passed since the price has changed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENCLASS
+</td>
+<td style="text-align:left;">
+the energy class communicated to the
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CONTR
+</td>
+<td style="text-align:left;">
+the type of contract
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DISP
+</td>
+<td style="text-align:left;">
+if it is still avaiable or not
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOTPIANI
+</td>
+<td style="text-align:left;">
+the total number of floors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAUTO
+</td>
+<td style="text-align:left;">
+number of parking box or garages avaibable in the property
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+REVIEW
+</td>
+<td style="text-align:left;">
+estate agency review, long chr string
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HASMULTI
+</td>
+<td style="text-align:left;">
+it if has multimedia option, such as 3D house vitualization home experience or videos
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRICE
+</td>
+<td style="text-align:left;">
+the monthly price &lt;- response
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SQFEET
+</td>
+<td style="text-align:left;">
+square meters footage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NROOM
+</td>
+<td style="text-align:left;">
+the number of rooms in the house, italian calculation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TITLE
+</td>
+<td style="text-align:left;">
+title of advertisement
+</td>
+</tr>
+</tbody>
+</table>
+<p>[immagine coi punti sulla mappa]</p>
+<div id="data-preparation" class="section level2">
+<h2><span class="header-section-number">4.1</span> Data preparation</h2>
+<div id="na-removal-and-imputation" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> NA removal and imputation</h3>
+<p>[NA presence]</p>
+</div>
+</div>
+<div id="spatial-autocorrelation-assessement" class="section level2">
+<h2><span class="header-section-number">4.2</span> Spatial Autocorrelation assessement</h2>
+</div>
+<div id="model-specification" class="section level2">
+<h2><span class="header-section-number">4.3</span> Model Specification</h2>
+</div>
+<div id="mesh-building" class="section level2">
+<h2><span class="header-section-number">4.4</span> Mesh building</h2>
+<div id="building-spde-model-on-mesh" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> BUilding SPDE model on mesh</h3>
+</div>
+</div>
+<div id="prediction" class="section level2">
+<h2><span class="header-section-number">4.5</span> Prediction</h2>
 <p>ID: <em>numeric</em> a primary key number from immobiliare to identify univocally the advertisement
 LAT: <em>numeric</em> Exact latitude where the apartement is located (that compose the spatial covariate)
 LONG: <em>numeric</em> Exact longitude where the apartement is located (that compose the spatial covariate)
@@ -258,68 +645,7 @@ BUILDAGE: <em>numeric</em> the year in which the building has been built
 FLOOR: <em>numeric</em> the floor at which is located the apartement/ house
 INDISVAP: <em>categorical</em> If it the rental ad regards an indipendent structure or an apartement in a building
 …</p>
-<p>At a first glance it could be possible to see some missing values in some consistent measure in LOWPRCE and its derivations, Energy calss Disp Pauto.</p>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
-</div>
-<div id="data-glimpse" class="section level2">
-<h2><span class="header-section-number">4.2</span> Data Glimpse</h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="exploratory.html#cb21-1"></a><span class="kw">library</span>(knitr)</span>
-<span id="cb21-2"><a href="exploratory.html#cb21-2"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
-<pre><code>## Rows: 250
-## Columns: 34
-## $ X                        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,...
-## $ ID                       &lt;int&gt; 82585523, 82710269, 80532997, 80880239, 82...
-## $ LAT                      &lt;dbl&gt; 45.4770, 45.4709, 45.4605, 45.4709, 45.470...
-## $ LONG                     &lt;dbl&gt; 9.15101, 9.20868, 9.18927, 9.20868, 9.2086...
-## $ LOCATION                 &lt;chr&gt; &quot;piazzale arduino C.A.&quot;, &quot;via antonio kram...
-## $ CONDOM                   &lt;int&gt; 310, 117, 417, 117, 133, 170, 333, 317, 35...
-## $ BUILDAGE                 &lt;int&gt; 1940, 1920, 1967, 1920, 1920, 1990, 1900, ...
-## $ FLOOR                    &lt;chr&gt; &quot;6°, con ascensore&quot;, &quot;1° piano&quot;, &quot;4°, con ...
-## $ INDIVSAPT                &lt;chr&gt; &quot;Appartamento&quot;, &quot;Appartamento&quot;, &quot;Appartame...
-## $ LOCALI                   &lt;chr&gt; &quot;3 (2 camere da letto, 1 altro), 2 bagni, ...
-## $ TPPROP                   &lt;chr&gt; &quot;Residenziale&quot;, &quot;Residenziale&quot;, &quot;Residenzi...
-## $ STATUS                   &lt;chr&gt; &quot;Nuovo / In costruzione&quot;, &quot;Ottimo / Ristru...
-## $ HEATING                  &lt;chr&gt; &quot;Centralizzato, a radiatori, alimentato a ...
-## $ AC                       &lt;chr&gt; &quot;Autonomo, freddo&quot;, NA, &quot;Autonomo, freddo&quot;...
-## $ PUB_DATE                 &lt;chr&gt; &quot;2020-09-22&quot;, &quot;2020-09-22&quot;, &quot;2020-09-24&quot;, ...
-## $ CATASTINFO               &lt;chr&gt; &quot;Classe A/3, rendita \200 697&quot;, &quot;Classe A/...
-## $ APTCHAR                  &lt;chr&gt; &quot;- - fibra ottica- - - videocitofono- - - ...
-## $ PHOTOSNUM                &lt;int&gt; 20, 20, 20, 20, 20, 20, 20, 20, 16, 20, 18...
-## $ AGE                      &lt;chr&gt; &quot;Skyline RE Milano&quot;, &quot;Skyline RE Milano&quot;, ...
-## $ LOWRDPRICE.originalPrice &lt;chr&gt; NA, NA, NA, &quot;\200 1.400&quot;, NA, NA, NA, NA, ...
-## $ LOWRDPRICE.currentPrice  &lt;chr&gt; NA, NA, NA, &quot;\200 1.300&quot;, NA, NA, NA, NA, ...
-## $ LOWRDPRICE.passedDays    &lt;int&gt; NA, NA, NA, 8, NA, NA, NA, NA, NA, NA, NA,...
-## $ LOWRDPRICE.date          &lt;int&gt; NA, NA, NA, 8, NA, NA, NA, NA, NA, NA, NA,...
-## $ ENCLASS                  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
-## $ CONTR                    &lt;chr&gt; &quot;Affitto&quot;, &quot;Affitto&quot;, &quot;Affitto&quot;, &quot;Affitto&quot;...
-## $ DISP                     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
-## $ TOTPIANI                 &lt;chr&gt; &quot;7 piani&quot;, &quot;5 piani&quot;, &quot;4 piani&quot;, &quot;5 piani&quot;...
-## $ PAUTO                    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, &quot;1 in gara...
-## $ REVIEW                   &lt;chr&gt; &quot;Rif: CITY LIFE CUBE - OK CONTRATTO SOCIET...
-## $ HASMULTI                 &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
-## $ PRICE                    &lt;int&gt; 2450, 1200, 3000, 1300, 1700, 3850, 5000, ...
-## $ SQFEET                   &lt;int&gt; 110, 82, 180, 82, 82, 157, 208, 160, 90, 4...
-## $ NROOM                    &lt;int&gt; 3, 2, 5, 2, 3, 5, 5, 4, 2, 2, 1, 3, 2, 3, ...
-## $ TITLE                    &lt;chr&gt; &quot;Trilocale piazzale ARDUINO, Milano&quot;, &quot;Bil...</code></pre>
-<p>We use the dataset extracted from the “PERVAL” database. This database
-contains all information on property transactions, property attributes as well
-as buyers and sellers profiles. Additionally, most observations in the database
-are geo-referenced and therefore spatial analysis is used.
-After removing the apartments with missing characteristics and eliminating
-the apartments corresponding to the tails11 of the price distribution, there are
-7634 observations spanning from 2006 to 2017.
-The key variables of the dataset include the sale price, apartment structural
-characteristics and accessibility variables. The description of all variables is
-listed in Table 1.
-The summary statistics of all continuous variables are presented in Table</p>
-</div>
-<div id="explorative-analysis" class="section level2">
-<h2><span class="header-section-number">4.3</span> Explorative Analysis</h2>
-<div id="semivariogram-covariogram" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Semivariogram Covariogram</h3>
 
-</div>
 </div>
 </div>
             </section>
@@ -381,20 +707,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -250,7 +250,7 @@ function(npages = 10,
 ```
 
 
-### REST API documentation
+### REST API documentation{#APIdocs}
 
 
 - Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey

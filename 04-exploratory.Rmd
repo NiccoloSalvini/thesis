@@ -1,9 +1,146 @@
 # Exploratory Analysis {#exploratory}
 
-## What data is
 
-Data come packed from the API end point /complete in JSON format. A preliminary data assessment evidences 34 covariates and a  250 rows, even though the number could be varyign accoriding to the API query sent. Json file is then parsed by the convenient read_csv from the readr package mutating columns by their respective type. 
-below the explanation of the columns:
+
+```{r global.options, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,  
+  strip.white = TRUE,
+  message = FALSE,
+  cache = TRUE,
+  echo = FALSE
+)
+
+# libraries are in the libs.R pac
+# source(file ="libs.R")
+
+library(readr)
+library(kableExtra)
+library(tidyverse)
+library(viridis)
+library(leaflet)
+library(sp)
+library(gstat)
+```
+
+Data comes packed into the REST API end point `*/complete` in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the `city` in which it is aevaluated the real estate market, `npages` as the number of pages to be scraped, `type` as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section \@ref(APIdocs).  Since to the analysis purposes data should come from the same source (e.g. Milan rental real estate within "circonvallazione") a dedicated endpoint boolean option `.thesis` is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The `*` refers to the EC2 public DNS that is `ec2-18-224-40-67.us-east-2.compute.amazonaws.com`
+
+`http://*/complete/120/milano/affitto/.thesis=true`
+
+As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.
+
+A preliminary exploratory analysis evidences 34 covariates and 250 rows. Immoboliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present. 
+
+```{r data_summary}
+
+data = read_csv("data/data.csv") %>% 
+  dplyr::select(-X1)
+
+### fai la tabella delle colonne
+### 
+ref =c(
+"ID of the apartemente",
+"latitude coordinate",
+"longitude coordinate",
+"the complete address: street name and number",
+"the condominium monthly expenses",
+"the age in which the building was contructed",
+"the floor the apartement is",
+"indipendent propeorty versus apartement",
+"specification of the type and number of rooms",
+"property type residential or not",
+"the actual status of the house, ristrutturato, nuovo, abitabile",
+"the heating system centralized or autonomous",
+"air conditioning hot and cold",
+"the date of publication of the advertisement",
+"land registry infromation",
+"apartement main characteristics",
+"number of photos displayes",
+"estate agency name",
+"If the price is lowered it indicates the starting price",
+"If the price is lowered it indicates the current price",
+"If the price is lowered the days passed since the price has changed",
+"If the price is lowered the date passed since the price has changed",
+"the energy class communicated to the",
+"the type of contract",
+"if it is still avaiable or not",
+"the total number of floors",
+"number of parking box or garages avaibable in the property",
+"estate agency review, long chr string",
+"it if has multimedia option, such as 3D house vitualization home experience or videos",
+"the monthly price <- response",
+"square meters footage",
+"the number of rooms in the house, italian calculation",
+"title of advertisement"
+)
+
+names = data %>%  names
+tibble(
+  name = names,
+  ref  = ref 
+) %>% 
+  kbl() %>%
+  kable_paper(full_width = F)
+```
+
+Geographics coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters. leaflet object exprets data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform 
+
+```{r leaflet_visuals}
+data = data %>%  
+  dplyr::select(LAT, LONG, PRICE ) 
+pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
+
+leaflet(data) %>%
+  setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(lng = ~LONG, lat = ~LAT, color = ~ pal(PRICE)) %>%
+  addLegend("bottomright",
+    pal = pal, values = ~PRICE,
+    title = "Prices"
+  ) %>%
+  addScaleBar(position = c("bottomleft"))
+
+```
+
+
+##  Data preparation 
+
+As already pointed out some data went missing since immobiliare provides data that in turn is filled by estate agencies or privates. Some of missings can be reverse engineered by other information in the web pages e.g. given the address it is possible to trace back the lat and long coordinates, eventhough this is already done by inner API calls within scraping functions. Some of the information lacking in the summary table they might be desumed and then imputed the estate agency review. This could be done by implying text mining procedure...
+
+
+### NA removal and imputation 
+
+[NA presence]
+
+## Spatial Autocorrelation assessement 
+
+
+## Model Specification 
+
+
+## Mesh building 
+
+
+### BUilding SPDE model on mesh
+
+
+## Spatial Kriging (Prediction)
+
+
+```{r variogram}
+semivar = variogram(PRICE~1, 
+                       locations= ~LONG+LAT,
+                       data=data)
+
+fit.vgm = fit.variogram(semivar, vgm("Sph"))
+krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)
+
+```
+
+
+
+
+
 
 ID: _numeric_ a primary key number from immobiliare to identify univocally the advertisement 
 LAT: _numeric_ Exact latitude where the apartement is located (that compose the spatial covariate) 
@@ -17,37 +154,4 @@ INDISVAP: _categorical_ If it the rental ad regards an indipendent structure or 
 
 
 
-At a first glance it could be possible to see some missing values in some consistent measure in LOWPRCE and its derivations, Energy calss Disp Pauto. 
-
-```{r, echo=FALSE, message=FALSE }
-library(readr)
-library(tidyverse)
-  data =  read.csv("data/data.csv")
-```
-
-## Data Glimpse 
-```{r}
-library(knitr)
-glimpse(data) 
-```
-
-
-
-We use the dataset extracted from the “PERVAL” database. This database
-contains all information on property transactions, property attributes as well
-as buyers and sellers profiles. Additionally, most observations in the database
-are geo-referenced and therefore spatial analysis is used.
-After removing the apartments with missing characteristics and eliminating
-the apartments corresponding to the tails11 of the price distribution, there are
-7634 observations spanning from 2006 to 2017.
-The key variables of the dataset include the sale price, apartment structural
-characteristics and accessibility variables. The description of all variables is
-listed in Table 1.
-The summary statistics of all continuous variables are presented in Table
-
-
-
-## Explorative Analysis
-
-###  Semivariogram Covariogram
 
