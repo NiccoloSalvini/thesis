@@ -1,7 +1,5 @@
 # Exploratory Analysis {#exploratory}
 
-
-
 ```{r global.options, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,  
@@ -114,6 +112,11 @@ As already pointed out some data went missing since immobiliare provides data th
 
 ## Spatial Autocorrelation assessement 
 
+```{r variogram}
+semivar = variogram(PRICE~1, 
+                       locations= ~LONG+LAT,
+                       data=data)
+```
 
 ## Model Specification 
 

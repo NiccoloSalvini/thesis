@@ -15,10 +15,16 @@ pacchetti = c("tidyverse",
               "INLA",
               "patchwork",
               "rgdal",
-              "here")
+              "here",
+              "memoise",
+              "ratelimitr",
+              "polite")
 
 ## RUN COMMAND TO ADD LIBRARY
 ## write.bib(pacchetti, file = "Rpackages.bib", append = TRUE)
+##
+## ADD PACK CITATION
+## citation("pack") %>%  toBibtex()
 
 invisible(lapply(pacchetti, library, character.only = TRUE))
 

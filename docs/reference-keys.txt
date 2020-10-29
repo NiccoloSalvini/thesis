@@ -71,3 +71,9 @@ mesh-building
 building-spde-model-on-mesh
 prediction
 finalregr
+security-provisions-user-agents-proxies-and-handlers
+handlers-and-trycatch
+legal-profiles-ancora-non-validato
+APIdocs
+spatial-kriging-prediction
+further-integrations

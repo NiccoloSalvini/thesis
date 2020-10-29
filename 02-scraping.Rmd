@@ -1,16 +1,30 @@
 # Scraping {#scraping}
 
+The following chapter covers a gentle introduction and concepts of web scraping centered on immobiliare.it. It starts in general terms by ideally segmenting websites in two meta-concepts: website structure and content architecture, then it provokes this segmentation to the specific immobiliare.it case. The abstract workflow will ease the identification of the first "high level" challenge to be fronting during scraping, which is mainly understanding how the website is structured and how to reverse engineer the url composition. The structure is unrolled so that each part can be singularly and directly accessed and the problem can be passed to "lower levels". At this point a rooted-tree graph representation is used to map scraping functions into immobiliare content architecture. By means of `rvest` scraping is possible and the main function involved are presented. A specific function to scrape price (the response var of the analysis) is shown and then also a second function, that takes care of grouping all the scraping functions into a single one. Scraping best practices are applied both on the web server side, kindly requesting permission and delayed sending rate; and from the web client side by granting continuous scraping, avoiding server blocks by User Agent rotation and trycatches / handlers for easy debugging. Then run time issues are fronted presenting two different options for looping construction, `furrr` and `foreach`. The latter has displayed interesting results and further improvements are taken into consideration. Then an overview of the open challenges is offered so that this work might be extended or integrated with other technologies. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
 
-```{r, echo=FALSE, warning=FALSE}
-library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+```{r global.options, include=FALSE}
+knitr::opts_chunk$set(
+  tidy.opts=list(width.cutoff=80),
+  tidy=TRUE,
+  warning = FALSE,  
+  strip.white = TRUE,
+  message = FALSE,
+  cache = TRUE,
+  echo = FALSE
+)
+
+# libraries are in the libs.R pac
+# source(file ="libs.R")
+
+library(furrr)
+library(robotstxt)
+library(magrittr)
 ```
 
 
-## What is Web Scraping 
+## What is Web Scraping
 
-Web Scraping is a techniques that involves informatics and statistics aimed at extracting data from static or dynamic internet web pages. It can be done automatically and simultaneously as well as by a scheduler that palns its execution at a given time. Due to the absence of API's to call regarding Milan Real Estate rental markets, this practice has to be forcly applied. The reason behind that and personal hope is to open source the scraping API so that in the future further analysis will be available without putting effort in gathering data fresh data.
-_Content distribution is managed by HTTP protocols, which are a common standard to connect web clients. Web browsers (i.e. one among the others web clients) download the content and parses them making possible to read them_The athomical unit of measurement in scraping is the url, which are the locations where this data exchanges abstractly happens._ [ questo in API infra ]
+Web Scraping is a technique aimed at extracting data from static or dynamic internet web pages. It can be done automatically and simultaneously but also by a  scheduler that plans execution at a given time. Due to the absence of API's to call regarding Milan Real Estate rental markets, this practice has to be forcly applied. The reason behind that and personal hope is to open source the scraping API so that in the future further analysis will be available without putting effort in gathering data fresh data.
 Data/content in webpages is the most of the times well organized and accessible by urls. This is made possible by the effort put into building both the _website structure_ and the _content architecture_. For website structure it is meant the way urls, pointing to webpages, are arranged throughout the website.
 Website structure constitutes a _first dimension_ of hierarchy. Some popular structures examples might regard social-networks where posts can be scrolled down within a single page named the wall. Scrolling down might end due to fewer posts, but the perception is a never-ending webpage associated to a single url. Instead personal profiles are dedicated to a specified unique url and even in profiles posts are allocated into a sub domain and might be scrolled down arranged by time since the day of social subscription. Online newspapers display their articles in the front wall and by accessing to one of them all the related following articles sometimes can be reached by an arrow, pointing right or left. Articles can also be suggested and the more the website is explored the more articles are likely to be seen twice within the same session. It will soon end up into a suggestion loop that it will recursively shows the same contents; recursive structures are popular in newspaper-type websites. Online Retailers as Amazon, based on filters, groups inside a single webpage (i.e. page n° 1) a fixed set of items, having their dedicated personal url attached to them. Furthermore Amazon offers the opportunity to skip to the following page (i.e. page n° 2), searching for another different and fixed set of items and so on until the last page/url. Generally website structures try to reflect both the user expectations with respect to the product on the website and the design expression of the web developer. For these reasons for each websites usage category exists a multitude of content architectures. For each content architectures there are multiple front end languages which are destinated to multiple end users. In the future expectations are tailor made webpages on users with respect to its personal preferences. Moreover web design in scraping plays an important role since the more sophisticated graphical technologies are implied, the harder will be to scrape information. 
 
@@ -25,7 +39,7 @@ First and Second dimension of the scraping problem imply hierarchy, a simple way
 
 ###  Immobiliare.it Webscraping website structure{#webstructure}
 
-The structure of the website resembles the one encountered for the popular online retailer Amazon. According to the query filters (e.g. number of rooms 5, price less than 600 p.m. etc), the url is shaped so that each further filter added is appened at the end to the domain url `https://www.immobiliare.it/` root node (see figure below). Once filters are all applied to the root domain this constitutes the new url root domain node that might have this appereance: `https://www.immobiliare.it/affitto-case/milano/?criterio=rilevanza&superficieMinima=60`.  Sinced this is true only for page n°1 and contains the first 25 advs all the remaining siblings nodes corresponding to next pages have to be generated. Here comes handy the Local reproducibility property introduced in the previous section. The rest of the siblings, i.e. the ones belonging to page 2 (with the attached 25 advs) and to page 3 can be generated by appending `&pag=n` at the end of the url, where n is the page number reference (from now on referred as _pagination_). For page number 4 the exact url that points to the web page, being equal the filters from above, is  `https://www.immobiliare.it/affitto-case/milano/?criterio=rilevanza&superficieMinima=60&pag=4`. Author customary choice is to stop pagination up to 300 pages since spatial data can not be to large due to computational burdens. Moreover thanks to the reverse engineer applied to url building tree height $\mathbf{H}$ is pruned, so the parsing part is cut short. At this point pagination has generated a list of siblings urls whose children number is fixed (i.e. 25 per page). That makes those trees k-ary, where k is 25 indicating the number of children. K-ary trees with equal content structure shared across siblings allow to design a single function to call that could be mapped to all the other siblings. In addition in order to further disassemble the website and making available the whole set of single rental advertisement links for each page (ranging from 1 to 300) a specific function has been made. As a consequence a single function call `scrape_href()` can grab all the links inside page 1. The function is then iterated along all the previously generated siblings (i.e. pages) obtaining a collection of all the single ads links belonging to the set of pages generated. 
+The structure of the website resembles the one from the popular online retailer Amazon. According to the query filters selected in a dedicated section (e.g. number of rooms 5, price less than 600 p.m. etc), the url is shaped so that each further filter added is appened at the end to the domain url `https://www.immobiliare.it/` root node (see figure below). Filters are appended to the url with a given syntax, that is proper of the website and that is configurable in general url composition. Once filters are all applied to the root domain this constitutes the new url root domain node that might have this appereance: `https://www.immobiliare.it/affitto-case/milano/?criterio=rilevanza&superficieMinima=60`.  Since this is true only for page n°1 and contains the first 25 advs all the remaining siblings nodes corresponding to next pages have to be generated. Here comes handy the Local reproducibility property introduced in the previous section. The rest of the siblings, i.e. the ones belonging to page 2 (with the attached 25 advs) and to page 3 can be generated by appending `&pag=n` at the end of the url, where n is the page number reference (from now on referred as _pagination_). For page number 4 the exact url that points to the web page, being equal the filters from above, is  `https://www.immobiliare.it/affitto-case/milano/?criterio=rilevanza&superficieMinima=60&pag=4`. Author customary choice is to stop pagination up to 300 pages since spatial data can not be to large due to computational burdens. Moreover thanks to the reverse engineer applied to url building tree height $\mathbf{H}$ is pruned, so the parsing part is cut short. At this point pagination has generated a list of siblings urls whose children number is fixed (i.e. 25 per page). That makes those trees k-ary, where k is 25 indicating the number of children. K-ary trees with equal content structure shared across siblings allow to design a single function to call that could be mapped to all the other siblings. In addition in order to further disassemble the website and making available the whole set of single rental advertisement links for each page (ranging from 1 to 300) a specific function has been made. As a consequence a single function call `scrape_href()` can grab all the links inside page 1. The function is then iterated along all the previously generated siblings (i.e. pages) obtaining a collection of all the single ads links belonging to the set of pages generated. 
 
 ![website_tree](images/website_tree.jpg)
 
@@ -42,7 +56,7 @@ The workflow below schematize what scraping is doing:
 
 In the right part of the dashed vertical line is represented a sequence of `rvest`[@rvest] functions that follow a general step by step text comprehension rules. `rvest` first handles parsing the html content of the web page within the session object `read_html()`, secondly looking for a single node `html_nodes()` through CSS. CSS is the way to tell `rvest` to point to a precise node in the webpage and this is brought by query. Thirdly it converts the content into readable text with `html_text()`. The entire process can be also thought as an autoencoder, where adding decoding layer after layer on top of the starting url, it can be reached the final requested payload data wanted. The reason why the process appear straightforward and simple relies in the blending with `rvest` by the pipe `%>%` operator. Below it is shown a function that exemplifies scrapping the price.
 
-```{r genscraping, tidy=FALSE, linewidth = 70}
+```{r genscraping, tidy=FALSE, linewidth = 70, echo=TRUE, eval=FALSE}
 scrapeprice.imm = function(session) {
   
   opensess = read_html(session)
@@ -215,7 +229,7 @@ Below it is printed the tree structure folder that composes the main elements of
 
 
 
-##  Scraping Best Practices and Robottxt{#best-practices}
+##  Scraping Best Practices and Security provisions{#best-practices}
 
 Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers and the like to access or not access certain parts of a webpage. The de facto ‘standard’ never made it beyond a informal “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread (e.g. https://en.wikipedia.org/robots.txt, https://www.google.com/robots.txt) and bots from Google, Yahoo and the like will adhere to the rules defined in robots.txt files, although their _interpretation_ of those rules might differ.
 
@@ -228,10 +242,9 @@ Some interpretation problems:
 - redirects involving protocol changes - e.g. upgrading from http to https - are followed and considered no domain or subdomain change - so whatever is found at the end of the redirect is considered to be the - robots.txt file for the original domain
 - redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested
 
-For the thesis purposes it has been designed a dedicated function to inspect whether the domain requires specific actions or prevents some activity on thw target website. The following `checkpermission()` function has been integrated inside the scraping architecture and it is called once at the very beginning.
+For the thesis purposes it has been designed a dedicated function to assess whether the domain or the related paths require specific actions or they prevent some activity on the target. The following `checkpermission()` function has been integrated inside the scraping system and it is called once at the starting point.
 
-```{r, warning=FALSE}
-library(robotstxt)
+```{r robotstxt, echo=TRUE}
 dominio = "immobiliare.it"
 
 checkpermission = function(dom) {
@@ -241,36 +254,35 @@ checkpermission = function(dom) {
   if (vd) {
     cat("\nrobot.txt for",dom, "is okay with scraping!")
   } else {cat("\nrobot.txt does not like what you're doing")
-    ## stop()
+    stop()
   }
 }
+## metti path allowed check
 checkpermission(dominio)
 ```
 
 
-Further improvements in this direction came from the `polite` package [@polite] which combines the power of the `robotstxt`, the `ratelimitr` to rate-limiting requests and the `memoise` for response caching. This package is wrapped up around 3 simple but effective ideas: 
+Further improvements in this direction might come with the `polite` package [@polite] which combines the power of the `robotstxt`, the `ratelimitr` [@ratelimitr] to limit sequential requests together with the `memoise` [@memoise] for response caching. This package is wrapped up around 3 simple but effective ideas: 
 
 > The three pillars of a polite session are seeking permission, taking slowly and never asking twice.
 
-The three pillars constitute the Ethical web scraping manifesto [@densmore_2019] which are common
-shared practises that are aimed to self regularize scrapers. This has not nothing to do with law but since many scrapers themselves, as website administrators or analyst, have fought with bots.
-Bots might fake out real client logs and might stain analytics, so here it is born the choice to fine common ground and politely ask for permission.
+The three pillars constitute the _Ethical_ web scraping manifesto [@densmore_2019] which are common shared practises that are aimed to self regularize scrapers. These have to be intended as best practices, not in any case as law enforcements, however many scrapers themselves, as website administrators or analyst, have fought in their daily working tasks with bots. Crawling bots in intensive scraping processes might fake real client navigation logs and as a consequence might induce distorted analytics. Due to this fact comes the need to find a common operating ground and therefore politely asking for permission.
 
-## User agents, Proxies, Handlers 
+## Security provisions: User agents, Proxies and Handlers 
 
 HTTP requests to the website server by web clients come with some mandatory information packed in it. The process according to which HTTP protocols allow to exchange information can be easily thought with an  everyday real world analogy. As a generic person A rings the door's bell of person B's house. A comes to B door with its personal information, its name, surname, where he lives etc. At this point B may either answer to A requests by opening the door and let him enter given the set of information he has, or it may not since B is not sure of the real intentions of A. This typical everyday situation in nothing more what happens billions of times on the internet everyday, the user (in the example above A) is interacting with a server website (part B) sending packets of information. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user log to the website. The language the two parties exchanges are coded in numbers that ranges from 100 to 511, each of which has its own specific significance. A popular case of this type of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.
 
 ![How Web Works](images/how_web_works.png)
 
-This procedure is a day to day issue to people that are trying to collect information from websites. Google performs it everyday with its spider crawlers, which are very sophisticated bots that scrapes over a enormous range of websites. This challenge can be addressed in multiple ways, there are some specific Python packages that overcome this issue. The are also certain types of scraping as the Selenium web driver automation that simulates browser automation. Selenium allows the user not to be easily detected by the server immune system and peaceful. Precautions have not been taken lightly, and a simple but effective approach is proposed.
+This procedure is a dayly issue to people that are trying to collect information from websites. Google performs it everyday with its spider crawlers, which are very sophisticated bots that scrapes over a enormous range of websites. This challenge can be addressed in multiple ways, there are some specific Python packages that overcome this issue. The are also certain types of scraping as the Selenium web driver automation that simulates browser automation. Selenium allows the user not to be easily detected by the server immune system and peaceful. Precautions have not been taken lightly, and a simple but effective approach is proposed.
 
-### User agents Spoofing{#spoofing}
+### User Agents Spoofing{#spoofing}
 
-A user agent [@whoishostingthis.com] is a string of characters in each web browser that serves as an identification agent. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string contains the user application or software, the operating system (and their versions), the web client, the web client’s version, and the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in form of a HTTP request header. Since the User Agents acts as middle man between the client request and the server response what it would be better doing is to actively faking it so that each time a web browser presents himself to a web server it has a different specifications, different web client, different operating system and so on.
+A user agent [@whoishostingthis.com] is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them 
+Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
+Below the user agents rotation pool:
 
-The simple approach followed was building a vector of samples of different existing and updated User Agents (UA). Then whenever a request from a web browser is served to a web server 1 random sample string is drawn from the user agents deck. So each time the user is sending the requests it appears to have a different "identity". Below the user agents rotating pool:
-
-```{r, size = "tiny"}
+```{r agents, size = "tiny", echo=TRUE}
 set.seed(27)
 agents =  c('Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
             'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
@@ -286,22 +298,22 @@ agents[sample(1)]
 
 ```
 
+A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
+While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
+Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they  will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+- Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
+- Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
 
-An improvement to this could be further using rotating proxies. A proxy server acts as a gateway between the web user and the web server. It’s an intermediary server himself, separating end clients from the websites they are browsing. Proxy servers provide varying layers of functionality, security, and privacy are some of the examples.
-While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server you requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website to you.
-Many proxy servers are offered in a paid version so in this case since security barriers of the target website are not high they will not be implemented. It has to be mentioned that many online services are providing free proxies but the turnaround of this solutions are many, two of them are:
-- Proxies to be free are widely shared among people, so as long as someone has used them for illegal purposes the user is inheriting their mistakes when caught.
-- Some of those proxies, pretty all the ones coming from low ranked websites, are tracked so there might be a user privacy violation issue.
+### Handlers and Trycatch
 
-### Handlers
+During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring. Some others might interest content architecture where data is reallocated to some other places in the webpage, then CSS query are no more able to catch data. Handlers in the form of trycatch error workarounds are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when debugging handlers are not implied: `get.data.catsing()` triggers 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single urls to be scrapped. That leads to a number of 8500 single data information, the probability given 8500 associated to something going missing or misparsed is undoubtedly high.
+The solution proposed tries to handle fails by implementing as many trycatches as scrapping fucntions inside the a the single `get.data.catsing()` call. Then inside each single scrapping function are put the handlers. This set up allows to catch (and in some cases prevent) fails starting from the very end of the scraping process. As a consequence of this setting when a scrapping function is not able to gather data an error inside the function is thrown, then the error call is intercepted by the corresponding trycatch, which at the end messages where the error occurs.
+Below some of the main handlers implied:
 
-During scraping many difficulties might be met. Starting from the things that have been previously explained at the chapter start. Some of them are: a varying url structure so that the html tree hierarchies are changed, payloads are not correctly parsed with respect to previous scraping sessions. ending with the ones that have just been said a few lines ago. Handlers and trycatch error workarounds are explicitly built in this sense. The continuous testing of the scraping functioning while developing has required the maintainer to track where the error occurs. A few numbers: the "agglomerative" function `get.data.catsing()` triggers more than 36 scrapping functions that are going to catch 36 different data pieces. If one of them went missing then the other one would be missing too. Then when row-data is binded together one entry column might not exists making the process fail.  
-Then the solution to that is to call inside the aggolmerative function as much as trycatch as many scrapping functions are involved. The trycatch can leverage the gap by introducing a specified quantity and alerting that something went wrong. On top of that many other handlers are called throughout the procedure:
+- `.get_ua()` verifies that the User Agent in the session is not the default one.
 
-- `get_ua()` verifies that the user agent coming from the session request is not the default one
-
-```{r, eval=FALSE, echo=TRUE}
-get_ua = function(sess) {
+```{r .get_ua, eval=FALSE, echo=TRUE}
+.get_ua = function(sess) {
   stopifnot(is.session(sess))
   stopifnot(is_url(sess$url))
   ua = sess$response$request$options$useragent
@@ -310,11 +322,11 @@ get_ua = function(sess) {
 ```
 
 
-- `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
+- `.is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
 
-```{r, size="tiny", linewidth = 70, tidy=TRUE}
+```{r .is_url, size="tiny", linewidth = 70, tidy=TRUE, echo=TRUE}
 
-is_url = function(url){
+.is_url = function(url){
   re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
   grepl(re, url)
 }
@@ -322,9 +334,9 @@ is_url = function(url){
 
 
 
-- `.get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed.
+- `.get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
 
-```{r, linewidth = 70, tidy=FALSE, eval=FALSE, echo=TRUE}
+```{r .get_delay, linewidth = 70, tidy=FALSE, echo=TRUE}
 .get_delay = function(domain) {
   
   message(sprintf("Refreshing robots.txt data for %s...", domain))
@@ -340,16 +352,17 @@ is_url = function(url){
   }
   
 }
+get_delay =  memoise::memoise(.get_delay) ## so that .get_delay results are cached
+.get_delay(domain = dominio)
 
-get_delay =  memoise::memoise(.get_delay)
 ```
 
-### Parallel Computing
+## Parallel Computing
 
-Since are opened as many sessions as single links and since for each link are going to be called many functions computations can take a while. Reporting it into numbers in order to get a usable dataset 300 pages are considered, which at their own time contains 25 links per page, for which almost 34 different functions are called. For the sake of the analysis and the app this should not bother the end user because scraping tasks are performed daily by a scheduler and a single day is sufficient amount of runtime. In any case functions are optimized following optimization criteria. Run time is crucial when dealing with active web pages and time to market in real estate is very important, here comes the need to have always fresh data. A way to secure fresh new data is to have lightweight computation on a single machine o heavy computation spread among a pool of different machines, in this case multi-threaded sessions.  All the following runtime examinations are performed on the `scrape` functions a lightweight version of the final scraping API function. A first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`, along with a `future` parallel backend. The approach has shows decent results, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear. Empirical demonstrations have been made:
+Since are opened as many sessions as single links and since for each link are supposed to be called 34 functions run time computation can take a while. Run time is crucial when dealing with active web pages and time to market in real estate is very important, in here originates the need to have always up-to-date data. Run time optimization involves each level of the scraping process from the "lowest" i.e. inside each single function to the "highest" i.e. the agglomerative function. Inside single scraping functions as a general criteria for loops are avoided due to Rcpp reasons, vectorization is preferred. Within agglomerative function instead the approach was to test two different results. All the following runtime examinations are performed on the `scrape()` functions which is a lightweight version of the final API function. 
+The first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`, along with a `future` parallel back end. The approach has shown decent preformance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
 
 ```{r, message=FALSE, eval=FALSE, linewidth = 70 }
-library(furrr)
 
 vecelaps = c()
 start = c()
@@ -389,20 +402,21 @@ p
 ![computational complexity analysis with Furrr](images/run_timefurrr.png)
 
 
-On the x-axis the number of urls which are evaluated together, on y axis the run time taken measured in seconds. Iteration after iteration the urls considered are increased by a unity. Looking at the smooth curve in between confidence lines a first guess might be linear time $\mathbf{O}(n)$, where n are the links considered.
+On the x-axis in the figure the number of urls which are evaluated together, on y axis the run time taken measured in seconds. Iteration after iteration the urls considered are cumulated one at at a time. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time $\mathcal{O}(n)$, where n are the links considered.
 
-A second attempt tried to explore the `foreach` package [@foreach]. This interesting package enables a new looping construct for executing R code in an iterative way. The main reason for using the `foreach` package is that it supports *parallel execution*, that is, it can execute those repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction is straightforward:
+A second attempt tried to explore the `foreach` package [@foreach]. This quite recent package enables a new looping construct for executing R code in an iterative way. The core reason for using the `foreach` package is that it supports *parallel execution*, that is, it can execute those repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction follows the r-base looping idea, below steps are summarized:
 
 - start clusters on processors cores
-- define the iterator, in this case i = to the elements that are going to be looped through
+- define the iterator, i.e. "i"  equal to the number of elements that are going to be looped
 - `.packages`: Inherits the packages that are used in the tasks define below
-- `.combine`: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows). It has to be a string.
+- `.combine`: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows).
 - `.errorhandling`: specifies how a task evaluation error should be handle.
 - `%dopar%`: the dopar keyword suggests foreach with parallelization method
 - then the function within the elements are iterated
 - close clusters
 
-One major important thing concerns the fact that th function within iterators repeats itself should be standalone. For standalone it is meant that the body function should be defined inside, as it would be a an empty environment. As a matter of fact packages has to be taken inside each time, and if the function is not defined inside body (or is not source from some other locations) the clusters can not operate and an error is printed.
+One major concern regards that functions inside the %dopar% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the  %dopar%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
+
 
 ```{r eval=FALSE, linewidth = 70, tidy= FALSE}
 cl = makeCluster(detectCores()-1) 
@@ -430,25 +444,26 @@ stopCluster(cl)
 
 ![computational complexity analysis with Furrr](images/run_timeforeach.png)
 
-It can be seen quite easily that the curve now is flattened and first guess is logarithmic time $\mathbf{O}(log(n))$. 
+It can be grasped quite easily that the curve now is flattened and a confident guess migh be logarithmic time $\mathcal{O}(log(n))$. 
 
-A further improvement could be obtained using a new package called `doAzureParallel` which is built on top of foreach. doAzureParallel enables different Virtual Machines operates parallel computing throughout Microsoft Azure cloud, but this comes at a substantial monetary cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster, even though actually what it is really needed it is something that separates session. Unleashing Virtual Machines permits from one hand to further increase computational power and the number of potential requests, from the other it can splits requests among different user agents (a pool for each VM) masquerading even better the scraping automation. 
+A further performance improvement could be obtained using a new package called `doAzureParallel` which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud, but this comes at a substantial monetary cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster, even though actually the goal is to have something that separates different sessions. Unleashing Virtual Machines allows from one hand to further increase computational capabilties, so the number of potential requests, from the other it can partition requests among different proper machines (a pool of agents for each VM) extending even more the combination of IDs and as a consequence masquerading even better the scraping automation.
 
 
-## Further Improvements{#challenges}
+## Open Challenges{#challenges}
 
-The main challenge remains unsolved since each single elements has been finely optimized but API continues to be unstable. What it can not be optimized are the system ad choices to change the layout of the page or to change the url structure (allocation of datain the web page). The way the API is designed really facilitates responsive fast debugging but this can not be by any means automatized. The API necessitates frequently to resort to continuous integration (i.e. CI) review to verify the working status. Moreover Error messages can not really be undestood sometimes, this is due to functions that are called within a parallel beckend that does not allow [refererenza su stack overflow di errore di print] to print error on console. So each time an error occur the "main" functions needs to be taken out of from the foreach cluster and evaluated in isolation where the loop stops. This is trivial and time consuming but for the time being no solutions have been provided. 
+The main challenge remains unsolved since each single elements have been finely optimized but scraping function and so REST API must be continuously maintained.   Indeed What it can not be a-priori optimized are the future changes that involves the website structure. Content architecture as opposite, with some sophistication can take care of finding exact information within the webpage even if the designed is changed. The idea developed in the package @Rcrawler, even though results are not always acceptable, is to crawl the website and to search for targeted keywords. Once keywords are found the scraping algorithm looks for the related information that should be located throughout the html files locally stored. html are known to be very lightweight so computation of this kind is not bothering run time. For this reasons performances with algorithm of this species are very neat but results, as anticipated, are under the expectation. As a solution an accurate text mining approach can be considered as a further enachement. It should be also pointed out that @Rcrawler is designed to scrape a vast number of websites, as contrary the scraping functions here presented are exclusively designed to be applied on immobliare.it, even though they can be extended to other related website with no effort.
+The way the scraping function are designed really facilitates responsive fast debugging but this can not be by any means automatized. The API necessitates frequently to resort to continuous integration (i.e. CI) review to verify the working status. Moreover Error messages can not really be understood sometimes even with handlers, this is due to functions that are called within a parallel beckend that does not allow to print error on console as in this  [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). So each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found. 
 
-## Legal Challenges (ancora non validato)
+## Legal Profiles (ancora non validato)
 
-"Data that are online and public are always available for all" is never a good answer to the question "Can I use those web data to my scope". [Immobiliare.it](https://www.immobiliare.it/) is not providing any open source data from its own database neither it is planning to do so in the future. It has not even provided a paid API through which might be possible to perform analysis.
-A careful reading of their terms has been done to get this service running without any legal consequence, as a reference further information can be collected in their  [specialized section](https://www.immobiliare.it/terms/). Nevertheless the golden standard for scraping was respected since the robottxt file talks clearly permitting any action as demonstrated above. So if it might be the case of misuse of their intellectual their property, it will be also the case of misunderstanding between servers response and immobiliare.it intent to preserve their own intellectual property.
-What it has been really surprising are the low barriers to request information to their severs with respect to other online players. Best practices are applied and delayed requests have been sent to normalized traffic congestion in compliance to anti-dossing rules. But scraping criteria followed are fully based on common shared best practises  (see section \@ref(best-practices)), and not any sort of agreements between parties (i.e. general terms and agreements). As a result a possible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website but in the long run when scrapers are few, but in the long run it will cause delays as soon as subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers predefined ones. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e. is labled as web bot) it is immediately blocked and 404 response is sent back. 
+"Data that is online and public is always available for all" is never a good answer to the question "Can I use those web data to my scope". [Immobiliare.it](https://www.immobiliare.it/) is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
+A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their [specialized section](https://www.immobiliare.it/terms/). Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.
+What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \@ref(best-practices)), and *not* any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e. is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
 
 - Idealista content is composed by Javascript so and html parser can no get that.
 - Idealista blocks also certain web browser that have a demonstrated "career" in scraping procedures.
 
-All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estates country as Spain and France. So what they thought was to raise awareness on scraping procedure that in a certain way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.
+All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estate country as Spain and France. So the hidden intention was to raise awareness on scraping procedure that in a certain remote way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.
 
 
 
