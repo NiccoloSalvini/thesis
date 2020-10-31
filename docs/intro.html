@@ -50,6 +50,10 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -153,41 +157,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website structure</a></li>
 <li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robottxt</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
-<li class="chapter" data-level="2.3.3" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.3.3</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Security provisions</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User agents, Proxies and Handlers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatch"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.4</b> Further Improvements</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.5</b> Legal Challenges (ancora non validato)</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker</a></li>
-<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker</a></li>
-<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.1</b> Why Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.2</b> Dockerfile</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.3</b> REST API</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber REST API</a></li>
 <li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-rest-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it REST API</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-source-code"><i class="fa fa-check"></i><b>3.3.3</b> REST API source code</a></li>
-<li class="chapter" data-level="3.3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-documentation"><i class="fa fa-check"></i><b>3.3.4</b> REST API documentation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.3.3</b> REST API documentation</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server</a></li>
 <li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.5.1</b> Launch an EC2 instance</a></li>
 </ul></li>
+<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#what-data-is"><i class="fa fa-check"></i><b>4.1</b> What data is</a></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#data-glimpse"><i class="fa fa-check"></i><b>4.2</b> Data Glimpse</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#explorative-analysis"><i class="fa fa-check"></i><b>4.3</b> Explorative Analysis</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="exploratory.html"><a href="exploratory.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.3.1</b> Semivariogram Covariogram</a></li>
+<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
+<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>4.5</b> Spatial Kriging (Prediction)</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
 <li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
@@ -207,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
 <li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Point Referenced Regression for univariate spatial data</a></li>
 <li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hiermod"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian models</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-model-through-hierarchical-regression"><i class="fa fa-check"></i><b>6.6</b> INLA model through hierarchical regression</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#finalregr"><i class="fa fa-check"></i><b>6.6</b> INLA model through spatial hierarchical regression</a></li>
 <li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.7</b> Spatial Kriging</a></li>
 <li class="chapter" data-level="6.8" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.8</b> Model Checking and Comparison</a></li>
 </ul></li>
@@ -249,14 +256,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 <p>Main themes:</p>
 <ul>
-<li>General introduction to the problem to solve</li>
-<li>Open Data discussion</li>
 <li>Research Question</li>
-<li>Milan Real Estate Controversies</li>
-<li></li>
+<li>Milan Real Estate Controversies in relation to research question</li>
+<li>why the API (perchè mi mancano i dati e perchè è il futuro)</li>
+<li>Open Data discussion personal hope of data sharing and benefits from oper source</li>
 <li>Why a Bayesian approach</li>
+<li>Why INLA</li>
 </ul>
+<!-- estratto dall'introduzione dellpinfrastrutture, ha senso messo qua  -->
+<p>As a general discussion technologies implied can be thought as the distance between a service running locally on a laptop and something that it can actually be put into production, shared among company stakeholders, solving business related problems. When such technologies are applied data scientist and interlocutors gradually close the gap. Insights are better communicated, data is up-to-date and automation can save time. Nonetheless when the infrastructure is structured with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span>). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span>, a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.</p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-shiny">
+<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2020. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.</p>
+</div>
+<div id="ref-plumber">
+<p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
+</div>
 </div>
             </section>
 

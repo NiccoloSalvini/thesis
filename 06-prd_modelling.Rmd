@@ -223,7 +223,7 @@ Moreover what the vast majority of econometric literature _(Greene, 2018)_ sugge
 The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)
 
 $$
-\log{(y_{i})} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right) \\
+\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2}) \\
 y_{i}=\mu_{i}+\varepsilon_{i}
 $$
 
@@ -335,7 +335,7 @@ INLA model seen in section \@ref(LGM) can be rearranged according to the hierarc
 
 As an initial step it is required to specify a probability distribution for $\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)$, this is a mandatory step looking at the \@ref(example) methods needed to compute the `inla()` function. A Normal distribution for simplicity is chosen.
 
-As _first level_ is picked up an exponential family sampling distribution (i.e. Normally distributed), which is _exchangeable_ with respect to the $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}$ *latent field*  and hyper parameters $\boldsymbol{\psi_{1}} = \left\{\right}$, which includes also the ones coming from the latent Matérn GP process $w_{i}$. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as $\tau^2$. $w_{i}$ addresses the spatial autocorrelation between observation through a Matérn covariance function $\mathcal{C}(\cdot | \boldsymbol\psi_{1})$ which in turn is tuned by hyper param included in $\boldsymbol{\psi_1}$. Moreover the $w_{i}$ surface has to be passed in the formula method definition \@ref(example) via the `f()` function, so that INLA takes into cosideration the spatial component. 
+As _first level_ is picked up an exponential family sampling distribution (i.e. Normally distributed), which is _exchangeable_ with respect to the $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}$ *latent field*  and hyper parameters $\boldsymbol{\psi_{1}}$, which includes also the ones coming from the latent Matérn GP process $w_{i}$. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as $\tau^2$. $w_{i}$ addresses the spatial autocorrelation between observation through a Matérn covariance function $\mathcal{C}(\cdot | \boldsymbol\psi_{1})$ which in turn is tuned by hyper param included in $\boldsymbol{\psi_1}$. Moreover the $w_{i}$ surface has to be passed in the formula method definition \@ref(example) via the `f()` function, so that INLA takes into cosideration the spatial component. 
 
 
 $$
@@ -375,32 +375,6 @@ where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distrib
 
 
 ## Model Checking and Comparison
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -50,6 +50,10 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -153,41 +157,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website structure</a></li>
 <li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Robottxt</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#user-agents-proxies-handlers"><i class="fa fa-check"></i><b>2.3</b> User agents, Proxies, Handlers</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User agents Spoofing</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
-<li class="chapter" data-level="2.3.3" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.3.3</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Security provisions</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User agents, Proxies and Handlers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatch"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatch</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.4</b> Further Improvements</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#legal-challenges-ancora-non-validato"><i class="fa fa-check"></i><b>2.5</b> Legal Challenges (ancora non validato)</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#what-is-docker"><i class="fa fa-check"></i><b>3.2.1</b> What is Docker</a></li>
-<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.2</b> Why Docker</a></li>
-<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.3</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.1</b> Why Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.2</b> Dockerfile</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.3</b> REST API</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber API</a></li>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber REST API</a></li>
 <li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-rest-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it REST API</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-source-code"><i class="fa fa-check"></i><b>3.3.3</b> REST API source code</a></li>
-<li class="chapter" data-level="3.3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api-documentation"><i class="fa fa-check"></i><b>3.3.4</b> REST API documentation</a></li>
+<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.3.3</b> REST API documentation</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server</a></li>
 <li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.5.1</b> Launch an EC2 instance</a></li>
 </ul></li>
+<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#what-data-is"><i class="fa fa-check"></i><b>4.1</b> What data is</a></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#data-glimpse"><i class="fa fa-check"></i><b>4.2</b> Data Glimpse</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#explorative-analysis"><i class="fa fa-check"></i><b>4.3</b> Explorative Analysis</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="exploratory.html"><a href="exploratory.html#semivariogram-covariogram"><i class="fa fa-check"></i><b>4.3.1</b> Semivariogram Covariogram</a></li>
+<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
+<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>4.5</b> Spatial Kriging (Prediction)</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
 <li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
@@ -207,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>6.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
 <li class="chapter" data-level="6.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>6.4</b> Point Referenced Regression for univariate spatial data</a></li>
 <li class="chapter" data-level="6.5" data-path="prdm.html"><a href="prdm.html#hiermod"><i class="fa fa-check"></i><b>6.5</b> Hierarchical Bayesian models</a></li>
-<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#inla-model-through-hierarchical-regression"><i class="fa fa-check"></i><b>6.6</b> INLA model through hierarchical regression</a></li>
+<li class="chapter" data-level="6.6" data-path="prdm.html"><a href="prdm.html#finalregr"><i class="fa fa-check"></i><b>6.6</b> INLA model through spatial hierarchical regression</a></li>
 <li class="chapter" data-level="6.7" data-path="prdm.html"><a href="prdm.html#spatial-kriging"><i class="fa fa-check"></i><b>6.7</b> Spatial Kriging</a></li>
 <li class="chapter" data-level="6.8" data-path="prdm.html"><a href="prdm.html#model-checking-and-comparison"><i class="fa fa-check"></i><b>6.8</b> Model Checking and Comparison</a></li>
 </ul></li>
@@ -250,9 +257,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="refs" class="references">
 <div>
 <p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</p>
-</div>
-<div>
-<p>“An Api Generator for R.” 2020. <em>An API Generator for R</em>. <a href="https://www.rplumber.io/">https://www.rplumber.io/</a>.</p>
 </div>
 <div>
 <p>Banerjee, Sudipto, Bradley P. Carlin, and Alan E. Gelfand. 2014. <em>Hierarchical Modeling and Analysis for Spatial Data</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/b17115">https://doi.org/10.1201/b17115</a>.</p>
@@ -301,6 +305,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Inc., Red Hat. 2020. “7.2. Advantages of Using Docker Red Hat Enterprise Linux 7.” <em>Red Hat Customer Portal</em>. <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker</a>.</p>
+</div>
+<div>
+<p>Khalil, Salim. 2018. <em>Rcrawler: Web Crawler and Scraper</em>. <a href="https://CRAN.R-project.org/package=Rcrawler">https://CRAN.R-project.org/package=Rcrawler</a>.</p>
 </div>
 <div>
 <p>Krainski, Elias, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and INLA</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429031892">https://doi.org/10.1201/9780429031892</a>.</p>
@@ -360,6 +367,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Rue, Håvard, Sara Martino, and Nicolas Chopin. 2009. “Approximate Bayesian Inference for Latent Gaussian Models by Using Integrated Nested Laplace Approximations.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 71 (2): 319–92. <a href="https://doi.org/10.1111/j.1467-9868.2008.00700.x">https://doi.org/10.1111/j.1467-9868.2008.00700.x</a>.</p>
 </div>
 <div>
+<p>Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for R</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.</p>
+</div>
+<div>
 <p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
 </div>
 <div>
@@ -372,6 +382,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wickham, Hadley. 2019. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.</p>
 </div>
 <div>
+<p>Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://CRAN.R-project.org/package=memoise">https://CRAN.R-project.org/package=memoise</a>.</p>
+</div>
+<div>
 <p>Wikipedia contributors. 2020. “Cron — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592">https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592</a>.</p>
 </div>
 <div>
@@ -381,7 +394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
 </div>
 <div>
-<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+<p>2018. <em>What Is a REST API?</em> Red Hat. <a href="https://www.redhat.com/en/topics/api/what-is-a-rest-api">https://www.redhat.com/en/topics/api/what-is-a-rest-api</a>.</p>
 </div>
 </div>
 </div>

@@ -1,16 +1,18 @@
 # Exploratory Analysis {#exploratory}
 
-```{r global.options, include=FALSE}
+<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
+
+```{r, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,  
   strip.white = TRUE,
   message = FALSE,
-  cache = TRUE,
+  cache = FALSE,
   echo = FALSE
 )
 
-# libraries are in the libs.R pac
-# source(file ="libs.R")
+# libraries are in libs.R
+# source(here::here("libs.R"))
 
 library(readr)
 library(kableExtra)
@@ -77,13 +79,13 @@ tibble(
   name = names,
   ref  = ref 
 ) %>% 
-  kbl() %>%
-  kable_paper(full_width = F)
+  kbl() 
+  
 ```
 
 Geographics coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters. leaflet object exprets data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform 
 
-```{r leaflet_visuals}
+```{r leaflet_visuals, cache=FALSE, eval=FALSE}
 data = data %>%  
   dplyr::select(LAT, LONG, PRICE ) 
 pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
@@ -112,7 +114,7 @@ As already pointed out some data went missing since immobiliare provides data th
 
 ## Spatial Autocorrelation assessement 
 
-```{r variogram}
+```{r semivariogram}
 semivar = variogram(PRICE~1, 
                        locations= ~LONG+LAT,
                        data=data)
@@ -134,25 +136,14 @@ semivar = variogram(PRICE~1,
 semivar = variogram(PRICE~1, 
                        locations= ~LONG+LAT,
                        data=data)
-
-fit.vgm = fit.variogram(semivar, vgm("Sph"))
-krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)
+# 
+# fit.vgm = fit.variogram(semivar, vgm("Sph"))
+# krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)
 
 ```
 
 
 
-
-
-
-ID: _numeric_ a primary key number from immobiliare to identify univocally the advertisement 
-LAT: _numeric_ Exact latitude where the apartement is located (that compose the spatial covariate) 
-LONG: _numeric_ Exact longitude where the apartement is located (that compose the spatial covariate)
-CONDOM:  _numeric_ The condominium price which is an important component in the final cost structure
-BUILDAGE: _numeric_ the year in which the building has been built
-FLOOR: _numeric_ the floor at which is located the apartement/ house
-INDISVAP: _categorical_ If it the rental ad regards an indipendent structure or an apartement in a building
-...
 
 
 
