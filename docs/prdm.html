@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</title>
+  <title>Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 6 Point Referenced Data Modeling | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -158,15 +158,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Security provisions</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User agents, Proxies and Handlers</a><ul>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User Agents, Proxies and Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatch"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatch</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatches"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatches</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> REST API Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a>
           </h1>
         </div>
 
@@ -430,7 +430,7 @@ As Ling has observed the emerging trends are in the field of semi-parametric and
 <p>Moreover what the vast majority of econometric literature <em>(Greene, 2018)</em> suggest to apply a is log-linear / square root model. This is due to the fact that log transformation / square root smooths the skewness of prices normalizing the curve, leading to more accurate estimates. Having an exponential family generating process lowers even further computational cost for reasons linked to the <span class="math inline">\(\tilde\pi(\boldsymbol{\psi})\)</span> hyper param INLA approximation <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. Notation is taken from the previous chapter <a href="#inla"><strong>??</strong></a>, for brevity purposes <span class="math inline">\(\boldsymbol{\beta}\)</span> <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> indicates vectors incorporating all their respective realizations and the <span class="math inline">\(s\)</span> spatial component is left out in favor of the observation pedix <span class="math inline">\(i\)</span>.<br />
 The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)</p>
 <p><span class="math display">\[
-\log{(y_{i})} \sim \operatorname{Normal}\left(\mu_{i}, \sigma^{2}\right) \\
+\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2}) \\
 y_{i}=\mu_{i}+\varepsilon_{i}
 \]</span></p>
 <p>then by the following relationship <span class="math inline">\(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right)=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{i m}\)</span> it is possible to specify a more general linear predictor (seen also in chapter <a href="#inla"><strong>??</strong></a>) through an identity link function i.e. <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span> obtaining:</p>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Infrastructure | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</title>
+  <title>Chapter 3 REST API Infrastructure | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Infrastructure | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 3 REST API Infrastructure | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Infrastructure | REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 3 REST API Infrastructure | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -158,15 +158,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code>rvest</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Security provisions</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User agents, Proxies and Handlers</a><ul>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User Agents, Proxies and Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatch"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatch</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatches"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatches</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> Infrastructure</a><ul>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> REST API Infrastructure</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a>
           </h1>
         </div>
 
@@ -252,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="Infrastructure" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Infrastructure</h1>
+<h1><span class="header-section-number">Chapter 3</span> REST API Infrastructure</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 <p>In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.5</a> are many and still some remains unsolved. Challenges regards not only scraping per se, but also the way the service has to interact with the users. Interactions are many and consequently are problems arised. API service has to be fast otherwise data become obsolete and so happen to the analysis that have relied on those data. Service has to be deployed so that it can be shared over a wider range of clients. Service has to be scalable at need since, due to deployment, when the number of users increases the run time performance should not decrease. Moreover from one hand service has to be continuously integrated and reviewed so that each function can be responsive to immobiliare.it changes. But on the other code behind the service has to be version controlled and freezed, so that when packages are updated service can prevent fails. API has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud database, so that it can be tracked back the evolution of the phenomenon under inspection.
 Open source solutions for each of the requirements stated are available for back-end and front-end integration. Moreover documentations related to technologies served are able to offer flexible solutions to be embedded into the R ecosystem.
@@ -397,7 +397,7 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 </div>
 <div id="plumberapi" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Plumber REST API</h3>
-<p>Plumber <span class="citation">(<span class="citeproc-not-found" data-reference-id="an_api_generator_for_r"><strong>???</strong></span>)</span> allows the user to create a REST API by adding decoration comments to the existing R code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
+<p>Plumber allows the user to create a REST API by adding decoration comments to the existing R code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
 <p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
 Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.

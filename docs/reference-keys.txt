@@ -10,7 +10,7 @@ immobiliare.it-webscraping-content-architecture-with-rvest
 best-practices
 security-provisions-user-agents-proxies-and-handlers
 spoofing
-handlers-and-trycatch
+handlers-and-trycatches
 parallel-computing
 challenges
 legal-profiles-ancora-non-validato

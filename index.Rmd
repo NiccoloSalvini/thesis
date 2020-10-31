@@ -1,8 +1,8 @@
 --- 
-title: "REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA."
+title: "REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA."
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "date: Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
