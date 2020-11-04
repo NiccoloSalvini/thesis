@@ -2,24 +2,7 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-```{r global.options, include=FALSE}
-knitr::opts_chunk$set(
-  tidy.opts=list(width.cutoff=80),
-  tidy=TRUE,
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
 
-# libraries are in the libs.R pac
-# source(here::here("libs.R"))
-
-library(furrr)
-library(robotstxt)
-library(magrittr)
-```
 
 The following chapter covers a gentle introduction and concepts of web scraping centered on immobiliare.it. It starts in general terms by ideally segmenting websites in two meta-concepts: website structure and content architecture, then it provokes this segmentation to the specific immobiliare.it case. The abstract workflow will ease the identification of the first "high level" challenge to be fronting during scraping, which is mainly understanding how the website is structured and how to reverse engineer the url composition. The structure is unrolled so that each part can be singularly and directly accessed and the problem can be passed to "lower levels". At this point a rooted-tree graph representation is used to map scraping functions into immobiliare content architecture. By means of `rvest` scraping is possible and the main function involved are presented. A specific function to scrape price (the response var of the analysis) is shown and then also a second function, that takes care of grouping all the scraping functions into a single one. Scraping best practices are applied both on the web server side, kindly requesting permission and delayed sending rate; and from the web client side by granting continuous scraping, avoiding server blocks by User Agent rotation and trycatches / handlers for easy debugging. Then run time issues are fronted presenting two different options for looping construction, `furrr` and `foreach`. The latter has displayed interesting results and further improvements are taken into consideration. Then an overview of the open challenges is offered so that this work might be extended or integrated with other technologies. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
 
@@ -47,7 +30,7 @@ Up to this process pagination has generated a list of siblings nodes whose child
 ![immobiliare.it website structure, author source](images/website_tree1.jpg){#fig:website_tree1}
 
 
-### Immobiliare.it Webscraping content architecture with `rvest`{#ContentArchitecture}
+### Immobiliare.it Webscraping content architecture with `rvest`
 
 To start a general scraping function the only requirement is a target url (i.e. the filtered root node url). Then a list `html_session` object is opened by specifying the url and  the request data that the user need to send to the web server (see left part to dashed line image \@ref(fig:workflow)). Information to be attached to the web server request will be further explored later, tough they are mainly three: User Agents, emails references and proxy servers. `html_session` objects contains a number of useful information such as: the url, the response, coockies, session times etc. Once the connection is established (request response 200) all the following operations rely on the opened session, in other words for the time being in the session the user will be authorized with the before-provided characteristics through the request.
 The list object contains mostly the html content of the webpage and that is where data needs to be parsed. The list can disclose as well other interesting meta information related to the session but they are not collected.
@@ -62,40 +45,32 @@ To the right of dashed line in the flow chart are painted a sequence of `rvest`[
 
 The code chunk below shows a function that can scrape the price.
 
-```{r genscraping, tidy=TRUE, linewidth = 70, echo=TRUE, eval=FALSE}
+
+```r
 scrapeprice.imm = function(session) {
-  
-  opensess = read_html(session)
-  price  = opensess %>% 
-    html_nodes(css =".im-mainFeatures__title") %>% 
-    html_text() %>%
-    str_trim() 
-  
-  if(is.null(price) || identical(price, character(0))) {
-    price2 = opensess %>%
-      html_nodes(css ='.im-features__value , .im-features__title') %>% 
-      html_text() %>%
-      str_trim()
     
-    if ("prezzo" %in% price2) {
-      pos = match("prezzo",price2)
-      return(price2[pos+1])  %>% 
-        str_replace_all(c("€"="","\\."="")) %>% 
-        str_extract( "\\-*\\d+\\.*\\d*") %>%  
-        str_replace_na() %>% 
-        str_replace("NA", "Prezzo Su Richiesta")
+    opensess = read_html(session)
+    price = opensess %>% html_nodes(css = ".im-mainFeatures__title") %>% html_text() %>% 
+        str_trim()
+    
+    if (is.null(price) || identical(price, character(0))) {
+        price2 = opensess %>% html_nodes(css = ".im-features__value , .im-features__title") %>% 
+            html_text() %>% str_trim()
+        
+        if ("prezzo" %in% price2) {
+            pos = match("prezzo", price2)
+            return(price2[pos + 1]) %>% str_replace_all(c(`\200` = "", `\\.` = "")) %>% 
+                str_extract("\\-*\\d+\\.*\\d*") %>% str_replace_na() %>% str_replace("NA", 
+                "Prezzo Su Richiesta")
+        } else {
+            return(NA_character_)
+        }
     } else {
-      return(NA_character_)
+        return(price) %>% str_replace_all(c(`\200` = "", `\\.` = "")) %>% str_extract("\\-*\\d+\\.*\\d*") %>% 
+            str_replace_na() %>% str_replace("NA", "Prezzo Su Richiesta")
+        
     }
-  } else {
-    return(price) %>% 
-      str_replace_all(c("€"="","\\."="")) %>% 
-      str_extract( "\\-*\\d+\\.*\\d*") %>%  
-      str_replace_na() %>% 
-      str_replace("NA", "Prezzo Su Richiesta")
-      
-  }
-  
+    
 }
 ```
 
@@ -105,7 +80,8 @@ The function takes as a single argument a session object which is at first initi
 Once all the functions have been created they need to be called together and then data coming after them need to be combined. This is done by `get,data.catsing()` which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a `foreach` parallel loop called by `scrape.all.info()` 
 
 
-```{r scrapeallinfo, tidy = FALSE, linewidth = 70, eval = FALSE, echo = TRUE, size = "tiny"}
+
+```r
 scrape.all.info = function(url = "https://www.immobiliare.it/affitto-case...",
                            vedi = FALSE, 
                            scrivi = FALSE, 
@@ -251,21 +227,28 @@ Some interpretation problems:
 
 For the thesis purposes it has been designed a dedicated function to assess whether the domain or the related paths require specific actions or they prevent some activity on the target. The following `checkpermission()` function has been integrated inside the scraping system and it is called once at the starting point.
 
-```{r robotstxt, echo=TRUE}
+
+```r
 dominio = "immobiliare.it"
 
 checkpermission = function(dom) {
-  
-  robot = robotstxt(domain = dom)
-  vd = robot$check()[1]
-  if (vd) {
-    cat("\nrobot.txt for",dom, "is okay with scraping!")
-  } else {cat("\nrobot.txt does not like what you're doing")
-    stop()
-  }
+    
+    robot = robotstxt(domain = dom)
+    vd = robot$check()[1]
+    if (vd) {
+        cat("\nrobot.txt for", dom, "is okay with scraping!")
+    } else {
+        cat("\nrobot.txt does not like what you're doing")
+        stop()
+    }
 }
 ## metti path allowed check
 checkpermission(dominio)
+```
+
+```
+## 
+## robot.txt for immobiliare.it is okay with scraping!
 ```
 
 
@@ -289,20 +272,24 @@ A user agent [@whoishostingthis.com] is a string of characters in each web brows
 Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
 Below the user agents rotation pool:
 
-```{r agents, size = "tiny", echo=TRUE}
-set.seed(27)
-agents =  c('Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14',
-            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0')
-agents[sample(1)]
 
+```r
+set.seed(27)
+agents = c("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14", 
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36", 
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36", 
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0")
+agents[sample(1)]
+```
+
+```
+## [1] "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
 ```
 
 A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
@@ -319,23 +306,24 @@ Below some of the main handlers implied:
 
 - `.get_ua()` verifies that the User Agent in the session is not the default one.
 
-```{r .get_ua, eval=FALSE, echo=TRUE}
+
+```r
 .get_ua = function(sess) {
-  stopifnot(is.session(sess))
-  stopifnot(is_url(sess$url))
-  ua = sess$response$request$options$useragent
-  return(ua)
+    stopifnot(is.session(sess))
+    stopifnot(is_url(sess$url))
+    ua = sess$response$request$options$useragent
+    return(ua)
 }
 ```
 
 
 - `.is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
 
-```{r .is_url, size="tiny", linewidth = 70, tidy=TRUE, echo=TRUE}
 
-.is_url = function(url){
-  re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
-  grepl(re, url)
+```r
+.is_url = function(url) {
+    re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
+    grepl(re, url)
 }
 ```
 
@@ -343,7 +331,8 @@ Below some of the main handlers implied:
 
 - `.get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
 
-```{r .get_delay, linewidth = 70, tidy=FALSE, echo=TRUE}
+
+```r
 .get_delay = function(domain) {
   
   message(sprintf("Refreshing robots.txt data for %s...", domain))
@@ -361,7 +350,10 @@ Below some of the main handlers implied:
 }
 get_delay =  memoise::memoise(.get_delay) ## so that .get_delay results are cached
 .get_delay(domain = dominio)
+```
 
+```
+## [1] NA
 ```
 
 ## Parallel Computing
@@ -369,41 +361,9 @@ get_delay =  memoise::memoise(.get_delay) ## so that .get_delay results are cach
 Since are opened as many sessions as single links and since for each link are supposed to be called 34 functions run time computation can take a while. Run time is crucial when dealing with active web pages and time to market in real estate is very important, in here originates the need to have always up-to-date data. Run time optimization involves each level of the scraping process from the "lowest" i.e. inside each single function to the "highest" i.e. the agglomerative function. Inside single scraping functions as a general criteria for loops are avoided due to Rcpp reasons, vectorization is preferred. Within agglomerative function instead the approach was to test two different results. All the following runtime examinations are performed on the `scrape()` functions which is a lightweight version of the final API function. 
 The first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`, along with a `future` parallel back end. The approach has shown decent preformance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
 
-```{r, message=FALSE, eval=FALSE, linewidth = 70 }
 
-vecelaps = c()
-start = c()
-end = c()
-for (i in 1:len(list.of.pages.imm[1:20])) {
-  start[i] = Sys.time()
-  cat("\n\n run iteration",i,"over 20 total\n")
-  list.of.pages.imm[1:i] %>% 
-    furrr::future_map(get.data.caturl, .progress = T) %>% 
-    bind_rows()
-  
-  end[i] = Sys.time()
-  vecelaps[i] = end[i]-start[i]
-}
 
-```
 
-```{r, eval=FALSE, linewidth = 70, tidy=FALSE}
-furrrmethod = tibble(start,
-                      end,
-                      vettoelaps)
-
-# ggplot (themed) run time meausurament method 1
-p = ggplot(furrrmethod,aes(x=1:20, y=vettoelaps)) +
-  geom_line( color="steelblue") + 
-  geom_point() +
-  xlab("Num URLS evaluated") +
-  ylab("run time (in seconds)") +
-  ggtitle("Run-Time for First method (furrr multisession)") +
-  stat_smooth(method=lm) +
-  theme_nicco()
-p
-
-```
 
 
 ![computational complexity analysis with Furrr](images/run_timefurrr.png)
@@ -425,28 +385,7 @@ A second attempt tried to explore the `foreach` package [@foreach]. This quite r
 One major concern regards that functions inside the %dopar% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the  %dopar%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
 
 
-```{r eval=FALSE, linewidth = 70, tidy= FALSE}
-cl = makeCluster(detectCores()-1) 
-registerDoParallel(cl)
 
-vettoelaps1 = c()
-start1 = c()
-end1 = c()
-for (j in 1:len(list.of.pages.imm[1:20])) {
-  start1[j] = Sys.time()
-  cat("\n\n run iteration",j,"over 20 total\n")
-  foreach(i = seq_along(list.of.pages.imm[1:j]),
-          .packages = lista.pacchetti,
-          .combine = "bind_rows",
-          .errorhandling='pass') %dopar% {
-            source("main.R")
-            x = get.data.caturl(list.of.pages.imm[i])
-            }
-  end1[j] = Sys.time()
-  vettoelaps1[j] = end1[j] -start1[j]
-}
-stopCluster(cl)
-```
 
 
 ![computational complexity analysis with Furrr](images/run_timeforeach.png)

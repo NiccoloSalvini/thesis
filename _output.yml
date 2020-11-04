@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: css/style.css
+  table_css: false
   includes:
     in_header: google_analytics.html
   config:
@@ -8,13 +9,13 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: yes
       before: |
-        <li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
+        <li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
       after: |
         <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
         <li><a Proudly published with bookdown</a></li>
     edit:
-      link: https://github.com/NiccoloSalvini/Thesis/edit/master/%s
+      link: https://github.com/NiccoloSalvini/thesis/edit/master/%s
       text: "Edit"
     sharing:
       facebook: yes
@@ -22,11 +23,11 @@ bookdown::gitbook:
       google: no
       linkedin: yes
       all: ['facebook', 'google', 'twitter', 'linkedin']
-    download: ["pdf", "epub"]
+    download: "pdf"
 bookdown::pdf_book:
   latex_engine: xelatex
   citation_package: natbib
+  keep_tex: yes
   includes:
     in_header: preamble.tex
     before_body: title-page.tex
-bookdown::epub_book: default

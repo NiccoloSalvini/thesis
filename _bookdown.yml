@@ -4,15 +4,17 @@ rmd_files:
     - "01-intro.Rmd"
     - "02-scraping.Rmd"
     - "03-infrastructure.Rmd"
-    - "04-exploratory.Rmd"
-    - "05-inla.Rmd"
-    - "06-prd_modelling.Rmd"
-    - "07-spde.Rmd"
+    - "04-inla.Rmd"
+    - "05-prd_modelling.Rmd"
+    - "06-spde.Rmd"
+    - "07-exploratory.Rmd"
     - "08-application.Rmd"
     - "09-conclusions.Rmd"
     - "99-references.Rmd"
+new_session: yes
 language:
   ui:
     chapter_name: "Chapter "
+    edit: "Edit "
 delete_merged_file: true
 output_dir: "docs"

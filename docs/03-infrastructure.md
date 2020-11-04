@@ -167,7 +167,8 @@ open REST API examples:
 
 Plumber allows the user to create a REST API by adding decoration comments to the existing R code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:
 
-```{r, eval=FALSE}
+
+```r
 # plumber.R
 
 #* Echo back the input

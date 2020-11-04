@@ -31,10 +31,9 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="scraping.html"/>
-<link rel="next" href="exploratory.html"/>
+<link rel="next" href="inla-spde.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,10 +49,21 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -143,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
+<li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
@@ -185,27 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
+<li class="chapter" data-level="4" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
+<li class="chapter" data-level="4.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>4.1</b> Latent Gaussian Models LGM</a></li>
+<li class="chapter" data-level="4.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>4.2</b> Approximation in INLA setting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>4.2.1</b> further approximations (prolly do not note include)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
-<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>4.5</b> Spatial Kriging (Prediction)</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
-<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further approximations (prolly do not note include)</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
-<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
+<li class="chapter" data-level="4.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>4.3.1</b> Overview</a></li>
+<li class="chapter" data-level="4.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>4.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><a href="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><i class="fa fa-check"></i><b>5</b> <code>{r kableextra_conStyle} # data("mtcars") # kable(mtcars[1:5, 1:5]) %&gt;% #   kable_styling(latex_options = c("striped", "scale_down")) #</code></a></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="6.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>6.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>6.2</b> Spatial Covariance Function</a><ul>
@@ -223,11 +223,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="spde.html"><a href="spde.html#spde-within-r-inla"><i class="fa fa-check"></i><b>7.2</b> SPDE within R-INLA</a></li>
 <li class="chapter" data-level="7.3" data-path="spde.html"><a href="spde.html#first-point-krainsky-rubio-too-technical"><i class="fa fa-check"></i><b>7.3</b> First Point Krainsky Rubio TOO TECHNICAL</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Shiny Web App</a><ul>
-<li class="chapter" data-level="8.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>8.1</b> Example one</a></li>
-<li class="chapter" data-level="8.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>8.2</b> Example two</a></li>
+<li class="chapter" data-level="8" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>8</b> Exploratory Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>8.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>8.1.1</b> NA removal and imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="8.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>8.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>8.3</b> Model Specification</a></li>
+<li class="chapter" data-level="8.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>8.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>8.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>8.5</b> Spatial Kriging (Prediction)</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>9</b> Shiny Web App</a><ul>
+<li class="chapter" data-level="9.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>9.1</b> Example one</a></li>
+<li class="chapter" data-level="9.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>9.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
@@ -266,7 +277,7 @@ For all the requirements the idea is to provide a REST Plumber API with 4 endpoi
 <li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.4</a></li>
 <li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.5</a></li>
 <li>MongoDB Atlas</li>
-<li>Shiny, see chapter <a href="application.html#application">8</a></li>
+<li>Shiny, see chapter <a href="application.html#application">9</a></li>
 </ul>
 <div class="figure">
 <img src="images/prova.png" alt="" />
@@ -317,15 +328,14 @@ Containers can be thought as an abstraction at the app layers that groups code a
 <img src="images/dockerVSvirtualmachines.PNG" alt="" />
 <p class="caption">docker container vs VM</p>
 </div>
-<p>When containers are built <em>Docker container Images</em> are created and can be open sourced with Docker Hub
-<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub behind authentication allows to integrate GitHub in the Docker project repository. Once the connection is authorized on local machine changes are made and then pushed by version control to the remote GH repository. The push command triggers the automatic building (pre-set by the user, branch should be given) of the image in the docker hub repository. The just created docker image can be tagged so that firstly it is recognizable and secondly can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.5</a>.
-Docker building and testing images can be very time consumin. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
+<p>When containers are built <em>Docker container Images</em> are created and can be open sourced through Docker Hub.
+<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.5</a>.
+Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
 Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(Nolis <a href="#ref-nolis_2020" role="doc-biblioref">2020</a>)</span>.
-In addition an open source project named <a href="https://www.rocker-project.org/images/">rocker</a> have already narrowed the path building custom R images for R and docker users. What can be read from their own website about them: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment.”
-Enabling caching when container images are built heavily shorten the total duration for containerization.</p>
+In addition to that an open source project named <a href="https://www.rocker-project.org/images/">rocker</a> has narrowed the path fro developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment.”</p>
 <div id="why-docker" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Why Docker</h3>
-<p>Indeed, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure) have experienced a huge growth and both refer to the same demand input: <em>containers</em> .
+<p><a href="https://it.indeed.com/">Indeed</a>, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure) have experienced a huge growth and both refer to the same demand input: <em>containers</em> .
 The landscape of Data Science is changing <span class="citation">(Economist at the Indeed Hiring Lab <a href="#ref-Skills_Explorer" role="doc-biblioref">2020</a>)</span> from reporting to application building:
 In 2015 - Businesses reports drive better decisions
 In 2020 - Businesses need apps to empower better decision making at all levels</p>
@@ -398,6 +408,30 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 <div id="plumberapi" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Plumber REST API</h3>
 <p>Plumber allows the user to create a REST API by adding decoration comments to the existing R code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Infrastructure.html#cb12-1"></a><span class="co"># plumber.R</span></span>
+<span id="cb12-2"><a href="Infrastructure.html#cb12-2"></a></span>
+<span id="cb12-3"><a href="Infrastructure.html#cb12-3"></a><span class="co">#* Echo back the input</span></span>
+<span id="cb12-4"><a href="Infrastructure.html#cb12-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb12-5"><a href="Infrastructure.html#cb12-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb12-6"><a href="Infrastructure.html#cb12-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb12-7"><a href="Infrastructure.html#cb12-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb12-8"><a href="Infrastructure.html#cb12-8"></a>}</span>
+<span id="cb12-9"><a href="Infrastructure.html#cb12-9"></a></span>
+<span id="cb12-10"><a href="Infrastructure.html#cb12-10"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb12-11"><a href="Infrastructure.html#cb12-11"></a><span class="co">#* @serializer png</span></span>
+<span id="cb12-12"><a href="Infrastructure.html#cb12-12"></a><span class="co">#* @get /plot</span></span>
+<span id="cb12-13"><a href="Infrastructure.html#cb12-13"></a><span class="cf">function</span>() {</span>
+<span id="cb12-14"><a href="Infrastructure.html#cb12-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb12-15"><a href="Infrastructure.html#cb12-15"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb12-16"><a href="Infrastructure.html#cb12-16"></a>}</span>
+<span id="cb12-17"><a href="Infrastructure.html#cb12-17"></a></span>
+<span id="cb12-18"><a href="Infrastructure.html#cb12-18"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb12-19"><a href="Infrastructure.html#cb12-19"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb12-20"><a href="Infrastructure.html#cb12-20"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb12-21"><a href="Infrastructure.html#cb12-21"></a><span class="co">#* @post /sum</span></span>
+<span id="cb12-22"><a href="Infrastructure.html#cb12-22"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb12-23"><a href="Infrastructure.html#cb12-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb12-24"><a href="Infrastructure.html#cb12-24"></a>}</span></code></pre></div>
 <p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
 Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
@@ -426,30 +460,30 @@ Decorations are marked as this <code>#*</code> and they are followed by specific
 <ul>
 <li>Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Infrastructure.html#cb12-1"></a>      GET <span class="op">*</span><span class="er">/</span>scrape</span>
-<span id="cb12-2"><a href="Infrastructure.html#cb12-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested <span class="cf">in</span> (e.g. <span class="st">&quot;roma&quot;</span>, <span class="st">&quot;milano&quot;</span>, <span class="st">&quot;firenze&quot;</span><span class="op">-</span>-&gt;<span class="st"> </span>lowercase, without accent)</span>
-<span id="cb12-3"><a href="Infrastructure.html#cb12-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape, default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
-<span id="cb12-4"><a href="Infrastructure.html#cb12-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
-<span id="cb12-5"><a href="Infrastructure.html#cb12-5"></a>      <span class="op">@</span>param macrozone [chr string] avail<span class="op">:</span><span class="st"> </span>Roma, Firenze, Milano, Torino; e.g. <span class="st">&quot;fiera&quot;</span>, <span class="st">&quot;centro&quot;</span>, <span class="st">&quot;bellariva&quot;</span>, <span class="st">&quot;parioli&quot;</span> </span>
-<span id="cb12-6"><a href="Infrastructure.html#cb12-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Infrastructure.html#cb13-1"></a>      GET <span class="op">*</span><span class="er">/</span>scrape</span>
+<span id="cb13-2"><a href="Infrastructure.html#cb13-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested <span class="cf">in</span> (e.g. <span class="st">&quot;roma&quot;</span>, <span class="st">&quot;milano&quot;</span>, <span class="st">&quot;firenze&quot;</span><span class="op">-</span>-&gt;<span class="st"> </span>lowercase, without accent)</span>
+<span id="cb13-3"><a href="Infrastructure.html#cb13-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape, default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb13-4"><a href="Infrastructure.html#cb13-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
+<span id="cb13-5"><a href="Infrastructure.html#cb13-5"></a>      <span class="op">@</span>param macrozone [chr string] avail<span class="op">:</span><span class="st"> </span>Roma, Firenze, Milano, Torino; e.g. <span class="st">&quot;fiera&quot;</span>, <span class="st">&quot;centro&quot;</span>, <span class="st">&quot;bellariva&quot;</span>, <span class="st">&quot;parioli&quot;</span> </span>
+<span id="cb13-6"><a href="Infrastructure.html#cb13-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
 <ul>
 <li>Get all the links</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Infrastructure.html#cb13-1"></a>      GET <span class="op">*</span><span class="er">/</span>link</span>
-<span id="cb13-2"><a href="Infrastructure.html#cb13-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested to extract <span class="kw">data</span> (lowercase without accent)</span>
-<span id="cb13-3"><a href="Infrastructure.html#cb13-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
-<span id="cb13-4"><a href="Infrastructure.html#cb13-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
-<span id="cb13-5"><a href="Infrastructure.html#cb13-5"></a>      <span class="op">@</span>param .thesis [logical] data used <span class="cf">for</span> master thesis</span>
-<span id="cb13-6"><a href="Infrastructure.html#cb13-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
-<ul>
-<li>Get the complete set of covariates (52) from each single links, takes a while</li>
-</ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Infrastructure.html#cb14-1"></a>      GET <span class="op">*</span><span class="er">/</span>complete</span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Infrastructure.html#cb14-1"></a>      GET <span class="op">*</span><span class="er">/</span>link</span>
 <span id="cb14-2"><a href="Infrastructure.html#cb14-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested to extract <span class="kw">data</span> (lowercase without accent)</span>
 <span id="cb14-3"><a href="Infrastructure.html#cb14-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
 <span id="cb14-4"><a href="Infrastructure.html#cb14-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
 <span id="cb14-5"><a href="Infrastructure.html#cb14-5"></a>      <span class="op">@</span>param .thesis [logical] data used <span class="cf">for</span> master thesis</span>
-<span id="cb14-6"><a href="Infrastructure.html#cb14-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json</span></code></pre></div>
+<span id="cb14-6"><a href="Infrastructure.html#cb14-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json </span></code></pre></div>
+<ul>
+<li>Get the complete set of covariates (52) from each single links, takes a while</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="Infrastructure.html#cb15-1"></a>      GET <span class="op">*</span><span class="er">/</span>complete</span>
+<span id="cb15-2"><a href="Infrastructure.html#cb15-2"></a>      <span class="op">@</span>param city [chr string] the city you are interested to extract <span class="kw">data</span> (lowercase without accent)</span>
+<span id="cb15-3"><a href="Infrastructure.html#cb15-3"></a>      <span class="op">@</span>param npages [positive integer] number of pages to scrape default =<span class="st"> </span><span class="dv">10</span>, min  =<span class="st"> </span><span class="dv">2</span>, max =<span class="st"> </span><span class="dv">300</span></span>
+<span id="cb15-4"><a href="Infrastructure.html#cb15-4"></a>      <span class="op">@</span>param type [chr string] <span class="st">&quot;affitto&quot;</span> =<span class="st"> </span>rents, <span class="st">&quot;vendita&quot;</span>  =<span class="st"> </span>sell </span>
+<span id="cb15-5"><a href="Infrastructure.html#cb15-5"></a>      <span class="op">@</span>param .thesis [logical] data used <span class="cf">for</span> master thesis</span>
+<span id="cb15-6"><a href="Infrastructure.html#cb15-6"></a>      content<span class="op">-</span>type<span class="op">:</span><span class="st"> </span>application<span class="op">/</span>json</span></code></pre></div>
 </div>
 </div>
 <div id="nginx" class="section level2">
@@ -519,7 +553,7 @@ Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure
         </div>
       </div>
 <a href="scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploratory.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="inla-spde.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -551,7 +585,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/03-infrastructure.Rmd",
+"link": "https://github.com/NiccoloSalvini/thesis/edit/master/03-infrastructure.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -562,7 +596,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Niccolo_Salvini_Thesis.pdf", "Niccolo_Salvini_Thesis.epub"],
+"download": ["Niccolo_Salvini_Thesis.pdf"],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true

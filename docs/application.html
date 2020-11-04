@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
+  <title>Chapter 9 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 9 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 9 Shiny Web App | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -30,11 +30,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="spde.html"/>
+<link rel="prev" href="exploratory.html"/>
 <link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,10 +49,21 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -143,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
+<li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
@@ -185,27 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
+<li class="chapter" data-level="4" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
+<li class="chapter" data-level="4.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>4.1</b> Latent Gaussian Models LGM</a></li>
+<li class="chapter" data-level="4.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>4.2</b> Approximation in INLA setting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>4.2.1</b> further approximations (prolly do not note include)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
-<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>4.5</b> Spatial Kriging (Prediction)</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
-<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further approximations (prolly do not note include)</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
-<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
+<li class="chapter" data-level="4.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>4.3.1</b> Overview</a></li>
+<li class="chapter" data-level="4.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>4.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><a href="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><i class="fa fa-check"></i><b>5</b> <code>{r kableextra_conStyle} # data("mtcars") # kable(mtcars[1:5, 1:5]) %&gt;% #   kable_styling(latex_options = c("striped", "scale_down")) #</code></a></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="6.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>6.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>6.2</b> Spatial Covariance Function</a><ul>
@@ -223,11 +223,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="spde.html"><a href="spde.html#spde-within-r-inla"><i class="fa fa-check"></i><b>7.2</b> SPDE within R-INLA</a></li>
 <li class="chapter" data-level="7.3" data-path="spde.html"><a href="spde.html#first-point-krainsky-rubio-too-technical"><i class="fa fa-check"></i><b>7.3</b> First Point Krainsky Rubio TOO TECHNICAL</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Shiny Web App</a><ul>
-<li class="chapter" data-level="8.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>8.1</b> Example one</a></li>
-<li class="chapter" data-level="8.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>8.2</b> Example two</a></li>
+<li class="chapter" data-level="8" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>8</b> Exploratory Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>8.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>8.1.1</b> NA removal and imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="8.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>8.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>8.3</b> Model Specification</a></li>
+<li class="chapter" data-level="8.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>8.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>8.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>8.5</b> Spatial Kriging (Prediction)</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>9</b> Shiny Web App</a><ul>
+<li class="chapter" data-level="9.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>9.1</b> Example one</a></li>
+<li class="chapter" data-level="9.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>9.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
@@ -252,13 +263,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="application" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Shiny Web App</h1>
+<h1><span class="header-section-number">Chapter 9</span> Shiny Web App</h1>
 <p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
 <div id="example-one" class="section level2">
-<h2><span class="header-section-number">8.1</span> Example one</h2>
+<h2><span class="header-section-number">9.1</span> Example one</h2>
 </div>
 <div id="example-two" class="section level2">
-<h2><span class="header-section-number">8.2</span> Example two</h2>
+<h2><span class="header-section-number">9.2</span> Example two</h2>
 
 </div>
 </div>
@@ -267,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="spde.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -300,7 +311,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/08-application.Rmd",
+"link": "https://github.com/NiccoloSalvini/thesis/edit/master/08-application.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -311,7 +322,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Niccolo_Salvini_Thesis.pdf", "Niccolo_Salvini_Thesis.epub"],
+"download": ["Niccolo_Salvini_Thesis.pdf"],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true

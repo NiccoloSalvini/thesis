@@ -223,7 +223,10 @@ Moreover what the vast majority of econometric literature _(Greene, 2018)_ sugge
 The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)
 
 $$
-\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2}) \\
+\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2})
+$$
+
+$$
 y_{i}=\mu_{i}+\varepsilon_{i}
 $$
 

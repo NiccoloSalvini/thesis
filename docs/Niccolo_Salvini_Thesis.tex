@@ -1,4 +1,5 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
@@ -7,19 +8,18 @@
   oneside]{book}
 \usepackage{lmodern}
 \usepackage{setspace}
-\setstretch{1.5}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -39,13 +39,58 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Spatial Machine Learning modelling: End-to-End web app solution},
+  pdftitle={REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.},
   pdfauthor={Niccolò Salvini},
-  pdfborder={0 0 0},
-  breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[left=4cm, right=3cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
@@ -58,28 +103,43 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-  \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-  \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+% Make links footnotes instead of hotlinks:
+\DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% \usepackage{color}
+% \usepackage{fancyvrb}
+% \newcommand{\VerbBar}{|}
+% \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+% % Add ',fontsize=\small' for more characters per line
+% \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% \usepackage{framed}
+% \definecolor{shadecolor}{RGB}{248,248,248}
+% \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \usepackage{booktabs}
 \usepackage{pdfpages}
 \usepackage{amsthm}
+\usepackage{tabu}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
@@ -88,12 +148,26 @@
 \makeatother
 \let\oldmaketitle\maketitle
 \AtBeginDocument{\let\maketitle\relax}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
-\title{Spatial Machine Learning modelling: End-to-End web app solution}
+\title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{14 settembre, 2020}
+\date{Last compiled on 03 novembre, 2020}
 
 \begin{document}
 \maketitle
@@ -105,157 +179,1612 @@
 \maketitle
 
 {
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
+\listoftables
+\listoffigures
+\setstretch{1.5}
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
 
 Main themes:
 
 \begin{itemize}
+\tightlist
 \item
-  (open data)
+  Research Question
 \item
-  research question
+  Milan Real Estate Controversies in relation to research question
 \item
-  milan market real estate
+  why the API (perchè mi mancano i dati e perchè è il futuro)
 \item
-  latest improvements in the subject matter
+  Open Data discussion personal hope of data sharing and benefits from oper source
 \item
-  why both bayesian and non bayes methods
+  Why a Bayesian approach
 \item
+  Why INLA
 \end{itemize}
 
-We are living in the big data era, so we could be brought to think that evrething is a ``one click'' distant from us. Well, this is not totally true, moreover in some places this is truer. The main issue can be addressed to the lack of open data and the lack of relative infrastructure. This settings characterizes slow old economies and unfortunately Italy is one of them. Economies, and citizens on a later step, can largely benefit from public data and its usage. Some people in addition are in favour of the position that all data should be open.
-Since I am living in italy and my \citep{lovelace_geocomputation_2019} goal is to an \citep{R-furrr} alyse market
-
-The importance of data indeed justifies its accumulation and according to the latest reports is surpassing gold, despite these periods of uncertainity. The expression data is the new oil has neven been so appropirate in these times.
-On the other hand is not for sure easy to assing a price amount to data due to its untangible nature.
-the most straightfoprward and liberal approach could lead us to think that the price data should be exchanged the piceThe value attributed to data is not for sure self explanatory. It really depends on two major metrics: the usage that can be done through (with respect of the state of the art technology) it and the functionality with respect of other existing data. some data can be strategically important given the fact that someone already possess the complementary and can attribute some sort of competitive advantage. On the other hand as already been highlighted it really depends on the existing technology stack. Some data can be very useful but too costly either to process or to store.
-
-During an interesting conversation with some friends we had a discussion on how data should be treated: as a sort of currency or a sort of commodity (raw material).
-some people may say that the inner functioning is pretty much as a commodity. It gains value by its specialized usage and treatment. Sometimes a collection of data can represent the complementary part of a more general dataset that can not be used otherwise, in this analogy case a semifinished product. commodities sometimes are calmed, so that their prices are fixed to a certain amount, so it is for data, the
-
-Durante una conversazione con alcuni amici
-
-\begin{figure}
-
-{\centering \includegraphics[width=8.17in]{images/spatial} 
-
-}
-
-\caption{API functioning}\label{fig:casuale}
-\end{figure}
-
-La ricerca che ho inteso fare sul mercato degli affitti a Milano mi ha aperto le porte a comprendere come poco digitalizzata e all'avanguardia sia la nostra amata penisola. L'indisposizione ai dati aperti, coperta da un sottile velo di ipocrisia chiamato privacy (ma quale?), ha reso non solo impossibile reperire i dati geospaziali tramite API di alcune aree dell'italia, ma ha reso necessario che costruissi delle funzioni che li estressero, appoggiandomi a cavilli. La questione è legale e relativaemnte complessa, e di certo la tesi non si indirizza a questi problemi, ma i dati che sono stato capace di scoprire e di farlo nella assoluta legalità si appoggiano ad una mancanza di autorizzazioni al trattamento che Immobiliare.it ha nel suo sito.
-Un altro esempio di ritardo tecnologico riguarda l'assenza dei dati di elevazione su alcuni territori italiani.
-Se per esempio immobilaire, come ha fatto un altro grosso player sul mercato, avesse apposto una checkbox obbigatoria da contrassegnare con relativi termini e trattamento dei dati io non avrei potuto accedere ai dati. La situazione aldifuori dell'italia è abbastanza uniforme, eccetto qualche paese noto come Germania e Francia, e meno noto come la Polonia, con tutte altre piattaforme e regole di trattamento dati. La domanda quindi sorge spontanea, perchè i dati degli italiani e degli europei sono meno accessibili dei dati degli americani?
-Mentre in America è sufficiente richiamare un API con latitudine e longitudine della quadrettatura di terra necessaria per ottenere i dati di elevazione (.tif), in Italia l'unica soluzione è pagare google che tramite le sue private API è in grado di venderceli dietro autenticazione.
-La risposta aldilà dei confini della legge presumibilmente risiede in un congiunturale ritardo di infrastrutture tecnologiche condivise e di indirizzo comune europeo sulla questione.
-L'esigenza di dati aperti nasce per la risoluzione di problemi comuni a tutti, i dati sanitari hanno la missione di tentare risolvere problemi di natura sanitaria, i dati economici auspicabilmente curano probelmi o asimmentrie di un mercato. Il mercato degli affitti a Milano gode di sempiteerna gloria e ha visto la crescita degli affitti e dei prezzi degli immobili di paripasso al punto che una bolla è stata presunta. Diversi fattori hanno reso tale il fenomeno e diverse opinioni si sono spese sul tema. Alcuni pensano che dopo Expo la città abbia goduto di una spinta economia e innovativa che l'ha resa un'isola felice in mezzo ad un'italia che affanna. Altri ritengono che Milano goda di ottime infrastrutture, ma che la sua notorietà ed il suo appeal si sia sostituito a tutto quello che manca nelle altre città, ma che in Milano appare. La mia opinione è che sia una media di questi due pareri.
-Un altro fattore è imporatante nella descrizione del fenomeno: l'asimmetria di infromazione tra chi cerca casa a Milano venendo da fuori e colui che affitta. Tale asimmetria viene ancora più esasperata al crescere della fretta che l'entrante ha nel trovare la locazione opportuna. La scelta diventa in molti casi antieconomica, nello specifico la domanda si genuflette all'offerta e accetta le svattaggiose condizioni proposte.
-Infatti quello che appare certo è che i prezzi degli affitti se comparati ai salari per posizioni junior e di stage è falsato. Proprio qui nasce l'esigenza di approfondirne il perchè e fornire all'utente finale (un potenziale studente, un futuro lavoratore etc.) uno strumento che gli permetta di capire il prezzo stimato tramite predizione spaziale date le coordinate geografiche e gli attributi dell'appartamento e contestualmente fornire un mezzo di comparazione per altri immobili nelle vicinanze. Dall'altro lato dia un'idea chiara a chi vuole dare in affitto l'immobile, un prezzo rappresentativo, che ha fondamento nel modello utilizzato e nelle assunzioni che lo stesso modello impone alla realtà. Questo fa sì che da entrambi i lati ci sia trasparenza e che eventuali maggiorazioni di prezzo richiesto rispetto al sopradetto modello vengano penalizzate in favore di sconti applicati su altri immobili. Auspicabilmente i prezzi già gonfi si smusseranno in tutta la regione spaziale considerata, adattandosi alla domanda piuttosto che al capriccio dell'offerta.
+As a general discussion technologies implied can be thought as the distance between a service running locally on a laptop and something that it can actually be put into production, shared among company stakeholders, solving business related problems. When such technologies are applied data scientist and interlocutors gradually close the gap. Insights are better communicated, data is up-to-date and automation can save time. Nonetheless when the infrastructure is structured with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber \citep{plumber}). As a further example developers in RStudio have created an entire new paradigm i.e.~Shiny \citep{shiny}, a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest {[}metti tag{]} and shinyloadtest {[}metti tag{]} to simulate sessions and verify network traffic congestion.
 
 \hypertarget{scraping}{%
 \chapter{Scraping}\label{scraping}}
 
-\citep{lovelace_geocomputation_2019, R-rvest}
+The following chapter covers a gentle introduction and concepts of web scraping centered on immobiliare.it. It starts in general terms by ideally segmenting websites in two meta-concepts: website structure and content architecture, then it provokes this segmentation to the specific immobiliare.it case. The abstract workflow will ease the identification of the first ``high level'' challenge to be fronting during scraping, which is mainly understanding how the website is structured and how to reverse engineer the url composition. The structure is unrolled so that each part can be singularly and directly accessed and the problem can be passed to ``lower levels''. At this point a rooted-tree graph representation is used to map scraping functions into immobiliare content architecture. By means of \texttt{rvest} scraping is possible and the main function involved are presented. A specific function to scrape price (the response var of the analysis) is shown and then also a second function, that takes care of grouping all the scraping functions into a single one. Scraping best practices are applied both on the web server side, kindly requesting permission and delayed sending rate; and from the web client side by granting continuous scraping, avoiding server blocks by User Agent rotation and trycatches / handlers for easy debugging. Then run time issues are fronted presenting two different options for looping construction, \texttt{furrr} and \texttt{foreach}. The latter has displayed interesting results and further improvements are taken into consideration. Then an overview of the open challenges is offered so that this work might be extended or integrated with other technologies. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
 
-Lo web scraping è una tecnica di estrazione dei dati da pagine internet statiche o dinamiche in maniera automatica e simulatanea \citep{wiki:xxx}. L'impossibilità di reperire dati aperti aggiornati riguardo l'affitto sul mercato italiano mi ha spinto a sviluppare sofisticate tecniche di estrazione di dati orientate ad alleggerire lo sforzo e aumentare la velocità di reperimento: da una parte nel preprocessing del dataset, nella successiva del fragente del modelling, per finire con la reattività di risposta dell'applicazione.
-Le informazioni sui siti appaiono spesso ordinate e semplici, tuttavia ogni sito web ha una propria architettura e un proprio linguaggio. Per architettura intendo struttura gerarchica secondo cui è organizatto un sito internet: una semplificazione della struttura di un sito web può essere un insieme di cartelle innestate una dentro l'altra collegate tra loro da riferimenti tramite l'url. la natura gerarchica della struttura prevede che si usi un linguaggio che fa propria questa caratteristica, HTML è il preferito. L'html si organizza in nodi ed angoli, esattamente come un grafo; che aggiunta la componente gerarchica fa sì che questo sia un albero. Difatti spesso ci si riferisce alla struttura delle pagine web come html tree. Ogni elemento nella pagina ha un suo preciso posto nel codice sorgente della stessa e ha un preciso valore o più valori. Possiamo immaginare ogni nodo della pagina come una lista di valori che è collegata ad un nodo precedente detto padre da una struttura gerarchica superiore, ed eventiualmente ad un nodo successivo detto figlio. Pertanto tutte le informazioni che giacciono sotto al nodo padre sono parenti del nodo padre e sono direttamente collegate (directed nel senso dell'interpretazione), parallelamente ci saranno altri nodi padre che saranno adiacenti al nodo padre, i quali avranno nodi figli e così via.
-La complessità della pagina e del codice è tanto maggiore quanto il livello dell'albero aumenta, tanto più l'albero è folto tanto più sarà difficile individurare il ramo o la foglia che ci interessa. Ragionevolemnte accade lo stesso per la funzione di scraping e il tempo di scraping.
-Html organizza i contenuti e le relazioni tra loro, il css (Cascading Style Sheets) invece si occupa dello stile e della formattazione degli stessi. il css è uno strumento molto potente in mano ad uno scraper perchè permette di recuperare informazioni simili tra loro ma che occupano nodi con posizione gerarchica diversa all'interno della pagina. Pertanto una volta letto l'html della pagina sarà necessario recuperare la query css per raccogliere tutti gli elementi di interesse tramite la funzione di scraping.
-Successivamente occorre notare che l'encoding da html a stringa di testo non è quasi mai lineare, spesso occorre riformattare, cancellare spazi, convertire la natura dell'oggetto estratto etc.
-Il successivo elemento di complessità incontrato durante questa prima fase è stato interfacciarsi con un server attento alle richieste GET degli utenti. I dati viaggiano in pacchetti da un server che ospita un sito internet al nostro laptop. tutte le volte che cerchiamo di accedere ad un sito stiamo mandando una richiesta di ricezione di pacchetti dati ad un server in qualche luogo remoto del mondo. Quandi bussiamo alla porta del server se non siamo sospetti e superiamo i criteri autostabiliti dal server questo risponde, e lo fa con un numero che spazia da 200 a 500, due esempi: 200 se la risposta è positiva, 404 se la risposta è negativa. I criteri secondo cui gli utenti sono calssificati secondo utente normale o utente sospetto (aka bot) sono sintetizzati in un documento di testo chiamato robot.txt. Questo file di testo raccoglie tra le altre due infromazioni principali il delay time, cioè il tempo preferito dal server che deve intercorrere tra una richiesta dati e la successiva e quale utente è autorizzato ad accedere. Ogni utente posside un indirizzo IP che nelle richieste a server si codifica in user agent, cioè una stringa di testo dove vengono raccolte le infromzioni significative circa il dispositivo da cui provengono le richieste, un esempio:
+\hypertarget{what-is-web-scraping}{%
+\section{What is Web Scraping}\label{what-is-web-scraping}}
 
-`Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+Web Scraping is a technique aimed at extracting data from static or dynamic internet web pages. It can be applied simultaneously or automatically by a scheduler that plans execution at a given time. Content in webpages is the most of the times well organized and accessible.
+(puoi dire meglio)
+This is made possible by the effort put into building both the \emph{website structure} and the \emph{content architecture}. For website structure it is meant the way urls, pointing to webpages, are arranged throughout the website.
+Website structure constitutes a \emph{first dimension} of hierarchy. Some popular structure examples might regard social-networks where posts can be scrolled down within a single url page named the wall. Scrolling down might end due to few posts, but the perception related to the scroll option is a never-ending webpage associated to a single url. Instead personal profiles are dedicated to a specified unique url and even in profiles posts are allocated into a sub domain and might be scrolled down arranged by time since the day of social subscription. Online newspapers display their articles in the front wall and by accessing to one of them all the related following articles sometimes can be reached by an arrow, pointing right or left. Articles can also be suggested and the more the website is explored the more articles are likely to be seen twice within the same session. It will soon end up into a suggestion loop that it will recursively shows the same contents; recursive structures are popular in newspaper-type websites. Online Retailers as Amazon, based on filters, groups inside a single webpage (i.e.~page n° 1) a fixed set of items, having their dedicated personal url attached to them. Furthermore Amazon offers the opportunity to skip to the following page (i.e.~page n° 2), searching for another different and fixed set of items and so on until the last page/url. Generally website structures try to reflect both the user expectations with respect to the product on the website and the design expression of the web developer. For these reasons for each websites usage category exists a multitude of content architectures. For each content architectures there are multiple front end languages which are destinated to multiple end users. In the future expectations are tailor made webpages on users with respect to its personal preferences. Moreover web design in scraping plays an important role since the more sophisticated graphical technologies are implied, the harder will be to scrape information.
 
-dove ogni segmento della stringa rispecchia una caratteristica del laptop del richiedente, Chrome/54.0.2840.71 è la versione del browser chrome da cui proviene la richiesta Safari/537.36', è il motore di ricerca etc.
+\begin{figure}
+\centering
+\includegraphics{images/content-vs-html-title.png}
+\caption{general website structure}
+\end{figure}
+
+A \emph{second dimension} of hierarchy is brought by content architecture in the name of the language used for content creation and organization i.e.~HTML. HTML stands for Hyper Text Markup Language and \ldots{}
+HTML drives the hierarchy structure that is then generalized to the website structure. According to this point of view the hierarchical website structure is a consequence of the content architecture by means of HTML language ( \emph{arborescence}: direction from root to leaves).
+CSS language stands for Cascading Style Sheets and takes care of the style of the webpage. The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different designs on the web. Some websites' components also might be tuned by Javascript language, which in the context of scraping adds a further layer of difficulty. As a matter of fact since Javascript components are dynamic within the webpage, scraping requires specialized libraries to enable different parser to get the content. CSS allows the scraper to target a class of objects in the web page that shares same style (e.g.~same css query) so that each element that belongs to the class (i.e.~share same style) can be gathered. This practice provides enormous advantages since by CSS a set of objects can be obtained within a single function call.
+First and Second dimension of the scraping problem imply hierarchy, a simple way to approach the problem is to represent it through already known data structures. One way to imagine hierarchy in both of the two dimensions are graph based data structures named as \textbf{Rooted Trees}. By analyzing the first dimension through the lenses of Rooted trees it is possible to compress the whole problem into the general graph based jargon \citep{Graph_Diestel}. Rooted trees must start with a root node which is the domain of the web page. Each \emph{Node} is a url destination and each \emph{Edge} is the connection between nodes. Connections have been made possible in the website by nesting urls inside webpages so that within a single webpage the user can access to a number of other related links. Furthermore, as an extension to the rooted tree framework a general graph theory component is introduced, i.e.~the \emph{Weight}. Each edge is associated to a weight whose interpretation is the run time cost to walk from a node to its conncted other nodes (e.g.~from a url to the other). In addition the content inside each node takes the name of payload, which ultimately is the scope of the scraping processes. The walk from node 17 to node 8 in figure below (even though that is the case of a binary rooted tree) is called path and it represented as an ordered list of nodes connected by edges. In this context each node can have both a fixed and variable outgoing sub-nodes that are called \emph{Children} . When root trees have a fixed set of children are called \emph{k-ary} rooted trees. A node is said to be \emph{Parent} to other nodes when it is connected to them by outgoing edge, in right figure below ``head'' is the parent of nodes ``title'' and ``meta''. Nodes in the tree that shares the same parent node are said \emph{Siblings}, ``head'' and ``body'' are siblings in figure @ref(tree\_html). Moreover \emph{Subtrees} are a set of nodes and edges comprised of a parent and its descendants e.g.~node ``body'' with all of its descendants might constitute a subtree. The concept of subtree in both of the dimensions plays crucial role in cutting run time scraping processes and fake headers provision (see section \ref{spoofing}). If the website strucuture is locally reproducible and the content architecture within webpages tends to be equal, then functions for a single subtree might be extended to the rest of others subtrees that are siblings to the same parent node. Local reproducibility is a property according to which starting from a single url all the related urls can be inferred from a pattern. Equal content architecture throughout different single links means to have sort of standard shared-within advs criteria that each single rental advertisement has to refer. In addition two more metrics have might better describe the tree: \emph{level} and \emph{height}. The level of a node \(\mathbf{L}\) counts the number of edges on the path from the root node to \(\mathbf{L}\). The height is the maximum level for any node in the tree, from now on \(\mathbf{H}\). What is worth to be anticipating is that functions are not going to be applied directly to siblings in the more general rooted tree. Instead it would be better segmenting the highest level rooted tree into a sequence of single subtrees whose roots are the siblings for reasons explained in section \ref{spoofing}.
+
+\begin{figure}
+\centering
+\includegraphics{images/tree_html.PNG}
+\caption{html\_tree}
+\end{figure}
+
+\hypertarget{webstructure}{%
+\subsection{Immobiliare.it Webscraping website structure}\label{webstructure}}
+
+The structure of the website resembles the one from the popular online retailer Amazon. According to the query filters selected in a dedicated section (e.g.~city, number of rooms 5, square footage less than 60 \(m^2\) etc), the url is shaped so that each further filter is appended at the end of the domain url \texttt{https://www.immobiliare.it/} root node. Filters are appended to the domain with a proper syntax, not all the syntax are equal. Once filters are all applied to the root domain this constitutes the new url root domain node that might have this appearance by filtering for rents in Milan city when square footage is less than 60 \(m^2\): domain +\texttt{affitto-case/milano/?superficieMinima=60}. Since this is true only for page n°1 containing the first 25 advs (see figure @ref(fig:website\_tree1)) all the remaining siblings nodes corresponding to the subsequent pages have to be generated. Here the utility of Local reproducibility property introduced in the previous section. The remaining siblings, i.e.~the ones belonging to page 2 (with the attached 25 links),to page 3 etc. can be generated by adding a further filter \texttt{\&pag=n}, where n is the page number reference (from now on referred as \emph{pagination}). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational constraints.
+Up to this process pagination has generated a list of siblings nodes whose children elements number is fixed (i.e.~25 links per page @ref(fig:website\_tree1) lower part). That makes those trees \emph{k-ary}, where k is 25 indicating the number of children leaves. K-ary trees are rooted trees in which each node has no more than k children, in this particular case final leaves. The well known binary rooted tree is actually a special case of k-ary when \(k = 2\). Filters reverse engineering process and 25-ary trees with equal content structure across siblings allow to design a single function to call that could be mapped for all the other siblings. In addition in order to further unroll the website a specific scraping function grabs the whole set of 25 links per page. As a result a single function call of \texttt{scrape\_href()} can grab the links corresponding to page 1. Then the function is mapped for all the generated siblings nodes (i.e.~up to 300) obtaining a collection of all links belonging to the set of pages. Ultimately the complete set of links corresponds to every single advertisement posted on immobilaire.it at a given time.
+
+\begin{figure}
+\hypertarget{fig:website_tree1}{%
+\centering
+\includegraphics{images/website_tree1.jpg}
+\caption{immobiliare.it website structure, author source}\label{fig:website_tree1}
+}
+\end{figure}
+
+\hypertarget{immobiliare.it-webscraping-content-architecture-with-rvest}{%
+\subsection{\texorpdfstring{Immobiliare.it Webscraping content architecture with \texttt{rvest}}{Immobiliare.it Webscraping content architecture with rvest}}\label{immobiliare.it-webscraping-content-architecture-with-rvest}}
+
+To start a general scraping function the only requirement is a target url (i.e.~the filtered root node url). Then a list \texttt{html\_session} object is opened by specifying the url and the request data that the user need to send to the web server (see left part to dashed line image \ref{fig:workflow}). Information to be attached to the web server request will be further explored later, tough they are mainly three: User Agents, emails references and proxy servers. \texttt{html\_session} objects contains a number of useful information such as: the url, the response, coockies, session times etc. Once the connection is established (request response 200) all the following operations rely on the opened session, in other words for the time being in the session the user will be authorized with the before-provided characteristics through the request.
+The list object contains mostly the html content of the webpage and that is where data needs to be parsed. The list can disclose as well other interesting meta information related to the session but they are not collected.
+The figure in @ref(fig:rvest flow chart, missing source) sketches what the scraping needs to front:
+
+\begin{figure}
+\hypertarget{fig:workflow}{%
+\centering
+\includegraphics{images/workflow.png}
+\caption{rvest flow chart, missing source}\label{fig:workflow}
+}
+\end{figure}
+
+To the right of dashed line in the flow chart are painted a sequence of \texttt{rvest}\citep{rvest} functions that follow a general step by step text comprehension rules. \texttt{rvest} first handles parsing the html content of the web page within the session object \texttt{read\_html()}, secondly It looks for a single node \texttt{html\_nodes()} through a CSS query. CSS is a way to route \texttt{rvest} to consider a precise node in the webpage. Thirdly it converts the content (i.e.~payload) into a human readable text with \texttt{html\_text()}. The sketch of immboliare.it content strucures is reported in the figure below:
+
+\begin{figure}
+\centering
+\includegraphics{images/content_structure.jpg}
+\caption{immobiliare.it content structure, author's source}
+\end{figure}
+
+The code chunk below shows a function that can scrape the price.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scrapeprice.imm =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(session) \{}
+    
+\NormalTok{    opensess =}\StringTok{ }\KeywordTok{read_html}\NormalTok{(session)}
+\NormalTok{    price =}\StringTok{ }\NormalTok{opensess }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_nodes}\NormalTok{(}\DataTypeTok{css =} \StringTok{".im-mainFeatures__title"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_text}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\KeywordTok{str_trim}\NormalTok{()}
+    
+    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{is.null}\NormalTok{(price) }\OperatorTok{||}\StringTok{ }\KeywordTok{identical}\NormalTok{(price, }\KeywordTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{))) \{}
+\NormalTok{        price2 =}\StringTok{ }\NormalTok{opensess }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_nodes}\NormalTok{(}\DataTypeTok{css =} \StringTok{".im-features__value , .im-features__title"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{            }\KeywordTok{html_text}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_trim}\NormalTok{()}
+        
+        \ControlFlowTok{if}\NormalTok{ (}\StringTok{"prezzo"} \OperatorTok{%in%}\StringTok{ }\NormalTok{price2) \{}
+\NormalTok{            pos =}\StringTok{ }\KeywordTok{match}\NormalTok{(}\StringTok{"prezzo"}\NormalTok{, price2)}
+            \KeywordTok{return}\NormalTok{(price2[pos }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{`}\DataTypeTok{\textbackslash{}200}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{, }\StringTok{`}\CharTok{\textbackslash{}\textbackslash{}}\DataTypeTok{.}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                }\KeywordTok{str_extract}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d*"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }
+                \StringTok{"Prezzo Su Richiesta"}\NormalTok{)}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+            \KeywordTok{return}\NormalTok{(}\OtherTok{NA_character_}\NormalTok{)}
+\NormalTok{        \}}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \KeywordTok{return}\NormalTok{(price) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{`}\DataTypeTok{\textbackslash{}200}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{, }\StringTok{`}\CharTok{\textbackslash{}\textbackslash{}}\DataTypeTok{.}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d*"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{            }\KeywordTok{str_replace_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }\StringTok{"Prezzo Su Richiesta"}\NormalTok{)}
+        
+\NormalTok{    \}}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The function takes as a single argument a session object which is at first initialized in one other function. Then It reads the inner html content in the session storing the information into an obj called the \texttt{opensess}. Another obj is created, namely price, right after the pipe operator a css query into the html is called. The css query \texttt{.im-mainFeatures\_\_title} points to a precise data location inside the web page, right below the main title. Expectation are that price is a one-element chr vector, containing the price and other unnecessary non-UTF characters. Then the algorithm enters into the first \texttt{if} statement. The handler checks if the object \texttt{price} is empty. If it doesn't the algorithm jumps to the end of the algorithm and returns the cleaned quantity. But If it does it takes again the \texttt{opensess} and tries with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title} where price might be also found. Please note that this is all done within the same session, so no more additional request information has to be sent. Since the latter css query points to data stored inside a list, for the time being the newly created obj price2 is a list containing various information. Then the algorithm flow enters into the second \texttt{if} statement that checks whether the \texttt{"prezzo"} is matched the list or not, if it does it returns the +1 position index element with respect to the ``prezzo'' positioning. This happens because data in price2 list are stored by couples sequentially, e.g.~{[}title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese{]}. When it returns the element corresponding to +1 position index it applies also some data wrangling with \texttt{stringr} package to keep out overabundant characters. The function then escapes in the else statement by setting \texttt{price2\ =\ NA\_Character\_} once no css query could be finding the price information. the \emph{character-string} type has to be imposed due to fact that later they can not be bind. In other words if the function is evaluated for a url and returns the price quantity, but then is evaluated for url2 and outputs NA (no character) then results can not be combined into dataframe due to different types.
+
+Once all the functions have been created they need to be called together and then data coming after them need to be combined. This is done by \texttt{get,data.catsing()} which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a \texttt{foreach} parallel loop called by \texttt{scrape.all.info()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scrape.all.info =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{url =} \StringTok{"https://www.immobiliare.it/affitto-case..."}\NormalTok{,}
+                           \DataTypeTok{vedi =} \OtherTok{FALSE}\NormalTok{, }
+                           \DataTypeTok{scrivi =} \OtherTok{FALSE}\NormalTok{, }
+                           \DataTypeTok{silent =} \OtherTok{FALSE}\NormalTok{)\{}
+  \ControlFlowTok{if}\NormalTok{ (silent) \{}
+\NormalTok{    start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{()); }\KeywordTok{cat}\NormalTok{(}\StringTok{'Starting the process...}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{'}\NormalTok{)}
+    \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{The process has started in'}\NormalTok{,}\KeywordTok{format}\NormalTok{(start,}\DataTypeTok{usetz =} \OtherTok{TRUE}\NormalTok{))  }
+\NormalTok{  \}}
+  \CommentTok{# open parallel multisession}
+\NormalTok{  cl =}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\KeywordTok{detectCores}\NormalTok{()}\OperatorTok{-}\DecValTok{1}\NormalTok{) }\CommentTok{#using max cores - 1 for parallel processing}
+  \KeywordTok{registerDoParallel}\NormalTok{(cl)}
+\NormalTok{  start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{())}
+  
+  \ControlFlowTok{if}\NormalTok{ (silent) \{}
+    \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{Start all the requests at time:'}\NormalTok{, }\KeywordTok{format}\NormalTok{(start,}\DataTypeTok{usetz =}\NormalTok{ T))  }
+\NormalTok{  \}}
+\NormalTok{  ALL =}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{i =} \KeywordTok{seq_along}\NormalTok{(links),}
+                \DataTypeTok{.packages =}\NormalTok{ lista.pacchetti,}
+                \DataTypeTok{.combine =} \StringTok{"bind_rows"}\NormalTok{,}
+                \DataTypeTok{.multicombine =} \OtherTok{FALSE}\NormalTok{,}
+                \DataTypeTok{.export =}\StringTok{"links"}\NormalTok{ ,}
+                \DataTypeTok{.verbose =} \OtherTok{TRUE}\NormalTok{,}
+                \DataTypeTok{.errorhandling=}\StringTok{'pass'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\NormalTok{\{}
+                  \KeywordTok{source}\NormalTok{(}\StringTok{"utils.R"}\NormalTok{)}
+                  \KeywordTok{sourceEntireFolder}\NormalTok{(}\StringTok{"functions_singolourl"}\NormalTok{)}
+\NormalTok{                  get.data.catsing =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(singolourl)\{}
+                    
+                    \CommentTok{# dormi()}
+                    \CommentTok{# }
+                    \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is_url}\NormalTok{(singolourl))\{}
+                      \KeywordTok{stop}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"The following url does not seem either to exist or it is invalid"}\NormalTok{, singolourl))}
+\NormalTok{                    \}}
+                    
+\NormalTok{                    session =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(singolourl, }\KeywordTok{user_agent}\NormalTok{(agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{class}\NormalTok{(session) }\OperatorTok{==}\StringTok{ "session"}\NormalTok{) \{}
+\NormalTok{                      session =}\StringTok{ }\NormalTok{session}\OperatorTok{$}\NormalTok{response  }
+\NormalTok{                    \}}
+                      
+\NormalTok{                    id         =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapehouse.ID}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapehouse.ID"}\NormalTok{) \})}
+\NormalTok{                    lat        =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapelat.imm}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapelat.imm"}\NormalTok{) \})}
+\NormalTok{                    long       =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapelong.imm}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapelong.imm"}\NormalTok{) \})}
+\NormalTok{                    location   =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{take.address}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in take.address"}\NormalTok{) \})}
+\NormalTok{                    condom     =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapecondom.imm}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapecondom.imm"}\NormalTok{) \})}
+\NormalTok{                    buildage   =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapeagebuild.imm}\NormalTok{(session)\},}
+                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapeagebuild.imm"}\NormalTok{) \})}
+                    
+\NormalTok{                  ...}
+                  
+\NormalTok{                   combine =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{ID        =}\NormalTok{ id,}
+                                     \DataTypeTok{LAT       =}\NormalTok{ lat, }
+                                     \DataTypeTok{LONG      =}\NormalTok{ long,}
+                                     \DataTypeTok{LOCATION  =}\NormalTok{ location,}
+                                     \DataTypeTok{CONDOM    =}\NormalTok{ condom,}
+                                     \DataTypeTok{BUILDAGE  =}\NormalTok{ buildage,}
+                                    
+\NormalTok{                  ...}
+                  
+                  
+                  \KeywordTok{return}\NormalTok{(combine) }
+                  \ErrorTok{\}}
+  \KeywordTok{stopCluster}\NormalTok{(cl)}
+  \KeywordTok{return}\NormalTok{(ALL)}
+\ErrorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The skeleton constitutes a standard format adopted for many other scraping function in the analysis. Being equal the css query what it changes is the matching term, i.e.~``numero camere'' instead of ``prezzo'' to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. Those that are not they are a few and they do not need to be scraped.
+In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence oh that functions need also to be broken down by pieces into many single .R files whose names correspond to each important information.
+Below it is printed the tree structure folder that composes the main elements of the scraping procedure. It can be notices that the two folders, namely functions\_singolourl and functions\_url enclose all the single functions that allows to grab single information from session. Folders with a customized function are then sourced within the two main functions, scrape.all and scrape.all.info so data can be extracted.
+
+\begin{verbatim}
+ levelName
+1  immobiliare.it-WebScraping     
+2   ¦--functions_singolourl       
+3   ¦   ¦--0scrapesqfeetINS.R     
+4   ¦   ¦--0scrapenroomINS.R      
+5   ¦   ¦--0scrapepriceINS.R      
+6   ¦   ¦--0scrapetitleINS.R      
+7   ¦   ¦--ScrapeAdDate.R         
+8   ¦   ¦--ScrapeAge.R            
+9   ¦   ¦--ScrapeAgeBuilding.R    
+10  ¦   ¦--ScrapeAirConditioning.R
+11  ¦   ¦--ScrapeAptChar.R        
+12  ¦   ¦--ScrapeCatastInfo.R     
+13  ¦   ¦--ScrapeCompart.R        
+14  ¦   ¦--ScrapeCondom.R         
+15  ¦   ¦--ScrapeContr.R          
+16  ¦   ¦--ScrapeDisp.R           
+17  ¦   ¦--ScrapeEnClass.R        
+18  ¦   ¦--ScrapeFloor.R          
+19  ¦   ¦--ScrapeHasMulti.R       
+20  ¦   ¦--ScrapeHeating.R        
+21  ¦   ¦--ScrapeHouseID.R        
+22  ¦   ¦--ScrapeHouseTxtDes.R    
+23  ¦   ¦--ScrapeLAT.R            
+24  ¦   ¦--ScrapeLONG.R           
+25  ¦   ¦--ScrapeLoweredPrice.R   
+26  ¦   ¦--ScrapeMetrature.R      
+27  ¦   ¦--ScrapePhotosNum.R      
+28  ¦   ¦--ScrapePostAuto.R       
+29  ¦   ¦--ScrapePropType.R       
+30  ¦   ¦--ScrapeReaReview.R      
+31  ¦   ¦--ScrapeStatus.R         
+32  ¦   ¦--ScrapeTotPiani.R       
+33  ¦   ¦--ScrapeType.R           
+34  ¦   °--take_location.R        
+35  ¦--scrapeALL.R                
+36  ¦--scrapeALLINFO.R            
+37  ¦--functions_url              
+38  ¦   ¦--ScrapeHREF.R           
+39  ¦   ¦--ScrapePrice.R          
+40  ¦   ¦--ScrapePrimaryKey.R     
+41  ¦   ¦--ScrapeRooms.R          
+42  ¦   ¦--ScrapeSpace.R          
+43  ¦   °--ScrapeTitle.R          
+44  ¦--libs.R                     
+45  ¦--utils.R                    
+46  ¦--README.Rmd                 
+47  ¦--README.md                  
+48  °--simulations                
+49      ¦--rt_match_vs_forloop.R  
+50      °--runtime_simul.R
+\end{verbatim}
+
+\hypertarget{best-practices}{%
+\section{Scraping Best Practices and Security provisions}\label{best-practices}}
+
+Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers and the like to access or not access certain parts of a webpage. The de facto `standard' never made it beyond a informal ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread (e.g.~\url{https://en.wikipedia.org/robots.txt}, \url{https://www.google.com/robots.txt}) and bots from Google, Yahoo and the like will adhere to the rules defined in robots.txt files, although their \emph{interpretation} of those rules might differ.
+
+Robots.txt files are plain text and always found at the root of a website's domain. The syntax of the files in essence follows a fieldname: value scheme with optional preceding user-agent: \ldots{} lines to indicate the scope of the following rule block. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. \# serves to comment lines and parts of lines. Everything after \# until the end of line is regarded a comment. Possible field names are: user-agent, disallow, allow, crawl-delay, sitemap, and host. For further notions \citep[\citet{google:robottxt}]{robotstxt}
+
+Some interpretation problems:
 
 \begin{itemize}
 \tightlist
 \item
-  Copia e incolla manuale
+  finding no robots.txt file at the server (e.g.~HTTP status code 404) implies that everything is permitted
 \item
-  Web scraper
+  subdomains should have there own robots.txt file if not it is assumed that everything is allowed
 \item
-  HTML parsing
+  redirects involving protocol changes - e.g.~upgrading from http to https - are followed and considered no domain or subdomain change - so whatever is found at the end of the redirect is considered to be the - robots.txt file for the original domain
 \item
-  Analisi con Visione computerizzata
-\item
-  DOM parsing
-\item
-  Riconoscimento dell'annotazione semantica
-\item
-  Aggregazione verticale
-\item
-  Text pattern matching
+  redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested
 \end{itemize}
 
-funzioni di scraping.
+For the thesis purposes it has been designed a dedicated function to assess whether the domain or the related paths require specific actions or they prevent some activity on the target. The following \texttt{checkpermission()} function has been integrated inside the scraping system and it is called once at the starting point.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dominio =}\StringTok{ "immobiliare.it"}
+
+\NormalTok{checkpermission =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dom) \{}
+    
+\NormalTok{    robot =}\StringTok{ }\KeywordTok{robotstxt}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dom)}
+\NormalTok{    vd =}\StringTok{ }\NormalTok{robot}\OperatorTok{$}\KeywordTok{check}\NormalTok{()[}\DecValTok{1}\NormalTok{]}
+    \ControlFlowTok{if}\NormalTok{ (vd) \{}
+        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt for"}\NormalTok{, dom, }\StringTok{"is okay with scraping!"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt does not like what you're doing"}\NormalTok{)}
+        \KeywordTok{stop}\NormalTok{()}
+\NormalTok{    \}}
+\NormalTok{\}}
+\CommentTok{## metti path allowed check}
+\KeywordTok{checkpermission}\NormalTok{(dominio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## robot.txt for immobiliare.it is okay with scraping!
+\end{verbatim}
+
+Further improvements in this direction might come with the \texttt{polite} package \citep{polite} which combines the power of the \texttt{robotstxt}, the \texttt{ratelimitr} \citep{ratelimitr} to limit sequential requests together with the \texttt{memoise} \citep{memoise} for response caching. This package is wrapped up around 3 simple but effective ideas:
+
+\begin{quote}
+The three pillars of a polite session are seeking permission, taking slowly and never asking twice.
+\end{quote}
+
+The three pillars constitute the \emph{Ethical} web scraping manifesto \citep{densmore_2019} which are common shared practises that are aimed to self regularize scrapers. These have to be intended as best practices, not in any case as law enforcements, however many scrapers themselves, as website administrators or analyst, have fought in their daily working tasks with bots. Crawling bots in intensive scraping processes might fake real client navigation logs and as a consequence might induce distorted analytics. Due to this fact comes the need to find a common operating ground and therefore politely asking for permission.
+
+\hypertarget{security-provisions-user-agents-proxies-and-handlers}{%
+\section{Security provisions: User Agents, Proxies and Handlers}\label{security-provisions-user-agents-proxies-and-handlers}}
+
+HTTP requests to the website server by web clients come with some mandatory information packed in it. The process according to which HTTP protocols allow to exchange information can be easily thought with an everyday real world analogy. As a generic person A rings the door's bell of person B's house. A comes to B door with its personal information, its name, surname, where he lives etc. At this point B may either answer to A requests by opening the door and let him enter given the set of information he has, or it may not since B is not sure of the real intentions of A. This typical everyday situation in nothing more what happens billions of times on the internet everyday, the user (in the example above A) is interacting with a server website (part B) sending packets of information. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user log to the website. The language the two parties exchanges are coded in numbers that ranges from 100 to 511, each of which has its own specific significance. A popular case of this type of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.
+
+\begin{figure}
+\centering
+\includegraphics{images/how_web_works.png}
+\caption{How Web Works}
+\end{figure}
+
+This procedure is a dayly issue to people that are trying to collect information from websites. Google performs it everyday with its spider crawlers, which are very sophisticated bots that scrapes over a enormous range of websites. This challenge can be addressed in multiple ways, there are some specific Python packages that overcome this issue. The are also certain types of scraping as the Selenium web driver automation that simulates browser automation. Selenium allows the user not to be easily detected by the server immune system and peaceful. Precautions have not been taken lightly, and a simple but effective approach is proposed.
+
+\hypertarget{spoofing}{%
+\subsection{User Agents Spoofing}\label{spoofing}}
+
+A user agent \citep{whoishostingthis.com} is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them
+Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
+Below the user agents rotation pool:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{27}\NormalTok{)}
+\NormalTok{agents =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36"}\NormalTok{, }
+    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0"}\NormalTok{)}
+\NormalTok{agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+\end{verbatim}
+
+A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
+While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
+Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+- Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
+- Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
+
+\hypertarget{handlers-and-trycatches}{%
+\subsection{Handlers and Trycatches}\label{handlers-and-trycatches}}
+
+During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring. Some others might interest content architecture where data is reallocated to some other places in the webpage, then CSS query are no more able to catch data. Handlers in the form of trycatch error workarounds are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when debugging handlers are not implied: \texttt{get.data.catsing()} triggers 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single urls to be scrapped. That leads to a number of 8500 single data information, the probability given 8500 associated to something going missing or misparsed is undoubtedly high.
+The solution proposed tries to handle fails by implementing as many trycatches as scrapping fucntions inside the a the single \texttt{get.data.catsing()} call. Then inside each single scrapping function are put the handlers. This set up allows to catch (and in some cases prevent) fails starting from the very end of the scraping process. As a consequence of this setting when a scrapping function is not able to gather data an error inside the function is thrown, then the error call is intercepted by the corresponding trycatch, which at the end messages where the error occurs.
+Below some of the main handlers implied:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{.get\_ua()} verifies that the User Agent in the session is not the default one.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{.get_ua =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(sess) \{}
+    \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is.session}\NormalTok{(sess))}
+    \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is_url}\NormalTok{(sess}\OperatorTok{$}\NormalTok{url))}
+\NormalTok{    ua =}\StringTok{ }\NormalTok{sess}\OperatorTok{$}\NormalTok{response}\OperatorTok{$}\NormalTok{request}\OperatorTok{$}\NormalTok{options}\OperatorTok{$}\NormalTok{useragent}
+    \KeywordTok{return}\NormalTok{(ua)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{.is\_url()} verifies that the url input needed has the canonic form. This is done by a REGEX query.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{.is_url =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(url) \{}
+\NormalTok{    re =}\StringTok{ "^(?:(?:http(?:s)?|ftp)://)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S+(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])\{2,\})(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d)\{2,5\})?(?:/(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?$"}
+    \KeywordTok{grepl}\NormalTok{(re, url)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{.get\_delay()} checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{.get_delay =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(domain) \{}
+  
+  \KeywordTok{message}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"Refreshing robots.txt data for %s..."}\NormalTok{, domain))}
+  
+\NormalTok{  cd_tmp =}\StringTok{ }\NormalTok{robotstxt}\OperatorTok{::}\KeywordTok{robotstxt}\NormalTok{(domain)}\OperatorTok{$}\NormalTok{crawl_delay}
+  
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(cd_tmp) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+\NormalTok{    star =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(cd_tmp, useragent}\OperatorTok{==}\StringTok{"*"}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{nrow}\NormalTok{(star) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) star =}\StringTok{ }\NormalTok{cd_tmp[}\DecValTok{1}\NormalTok{,]}
+    \KeywordTok{as.numeric}\NormalTok{(star}\OperatorTok{$}\NormalTok{value[}\DecValTok{1}\NormalTok{])}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    10L}
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+\NormalTok{get_delay =}\StringTok{  }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(.get_delay) }\CommentTok{## so that .get_delay results are cached}
+\KeywordTok{.get_delay}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dominio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\hypertarget{parallel-computing}{%
+\section{Parallel Computing}\label{parallel-computing}}
+
+Since are opened as many sessions as single links and since for each link are supposed to be called 34 functions run time computation can take a while. Run time is crucial when dealing with active web pages and time to market in real estate is very important, in here originates the need to have always up-to-date data. Run time optimization involves each level of the scraping process from the ``lowest'' i.e.~inside each single function to the ``highest'' i.e.~the agglomerative function. Inside single scraping functions as a general criteria for loops are avoided due to Rcpp reasons, vectorization is preferred. Within agglomerative function instead the approach was to test two different results. All the following runtime examinations are performed on the \texttt{scrape()} functions which is a lightweight version of the final API function.
+The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping through a list with the \texttt{purrr}, along with a \texttt{future} parallel back end. The approach has shown decent preformance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
+
+\begin{figure}
+\centering
+\includegraphics{images/run_timefurrr.png}
+\caption{computational complexity analysis with Furrr}
+\end{figure}
+
+On the x-axis in the figure the number of urls which are evaluated together, on y axis the run time taken measured in seconds. Iteration after iteration the urls considered are cumulated one at at a time. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time \(\mathcal{O}(n)\), where n are the links considered.
+
+A second attempt tried to explore the \texttt{foreach} package \citep{foreach}. This quite recent package enables a new looping construct for executing R code in an iterative way. The core reason for using the \texttt{foreach} package is that it supports \emph{parallel execution}, that is, it can execute those repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction follows the r-base looping idea, below steps are summarized:
+
+\begin{itemize}
+\tightlist
+\item
+  start clusters on processors cores
+\item
+  define the iterator, i.e.~``i'' equal to the number of elements that are going to be looped
+\item
+  \texttt{.packages}: Inherits the packages that are used in the tasks define below
+\item
+  \texttt{.combine}: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind\_rows).
+\item
+  \texttt{.errorhandling}: specifies how a task evaluation error should be handle.
+\item
+  \texttt{\%dopar\%}: the dopar keyword suggests foreach with parallelization method
+\item
+  then the function within the elements are iterated
+\item
+  close clusters
+\end{itemize}
+
+One major concern regards that functions inside the \%dopar\% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the \%dopar\%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
+
+\begin{figure}
+\centering
+\includegraphics{images/run_timeforeach.png}
+\caption{computational complexity analysis with Furrr}
+\end{figure}
+
+It can be grasped quite easily that the curve now is flattened and a confident guess migh be logarithmic time \(\mathcal{O}(log(n))\).
+
+A further performance improvement could be obtained using a new package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud, but this comes at a substantial monetary cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster, even though actually the goal is to have something that separates different sessions. Unleashing Virtual Machines allows from one hand to further increase computational capabilties, so the number of potential requests, from the other it can partition requests among different proper machines (a pool of agents for each VM) extending even more the combination of IDs and as a consequence masquerading even better the scraping automation.
+
+\hypertarget{challenges}{%
+\section{Open Challenges}\label{challenges}}
+
+The main challenge remains unsolved since each single elements have been finely optimized but scraping function and so REST API must be continuously maintained. Indeed What it can not be a-priori optimized are the future changes that involves the website structure. Content architecture as opposite, with some sophistication can take care of finding exact information within the webpage even if the designed is changed. The idea developed in the package \citet{Rcrawler}, even though results are not always acceptable, is to crawl the website and to search for targeted keywords. Once keywords are found the scraping algorithm looks for the related information that should be located throughout the html files locally stored. html are known to be very lightweight so computation of this kind is not bothering run time. For this reasons performances with algorithm of this species are very neat but results, as anticipated, are under the expectation. As a solution an accurate text mining approach can be considered as a further enachement. It should be also pointed out that \citet{Rcrawler} is designed to scrape a vast number of websites, as contrary the scraping functions here presented are exclusively designed to be applied on immobliare.it, even though they can be extended to other related website with no effort.
+The way the scraping function are designed really facilitates responsive fast debugging but this can not be by any means automatized. The API necessitates frequently to resort to continuous integration (i.e.~CI) review to verify the working status. Moreover Error messages can not really be understood sometimes even with handlers, this is due to functions that are called within a parallel beckend that does not allow to print error on console as in this \href{https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar}{stackoverflow reproducible example}. So each time an error occurs the ``main'' functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.
+
+\hypertarget{legal-profiles-ancora-non-validato}{%
+\section{Legal Profiles (ancora non validato)}\label{legal-profiles-ancora-non-validato}}
+
+``Data that is online and public is always available for all'' is never a good answer to the question ``Can I use those web data to my scope''. \href{https://www.immobiliare.it/}{Immobiliare.it} is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
+A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their \href{https://www.immobiliare.it/terms/}{specialized section}. Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.
+What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \ref{best-practices}), and \emph{not} any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e.~is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
+
+\begin{itemize}
+\tightlist
+\item
+  Idealista content is composed by Javascript so and html parser can no get that.
+\item
+  Idealista blocks also certain web browser that have a demonstrated ``career'' in scraping procedures.
+\end{itemize}
+
+All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estate country as Spain and France. So the hidden intention was to raise awareness on scraping procedure that in a certain remote way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.
 
 \hypertarget{Infrastructure}{%
-\chapter{Infrastructure}\label{Infrastructure}}
+\chapter{REST API Infrastructure}\label{Infrastructure}}
 
-The scraping functions, as they are designed, produce two .csv extension (if the boolean \texttt{write\ =\ TRUE}) files that should be joined by a primary key. But for the sake of
-In order to gove the possibility to have a daily updated saptial analysis on data we need to continously have fresh data. In the website data come and go, as products in a marketplace, so the main idea is to have something that catches the new added and deletes what it is already taken.
-Nowadays we have many open source, nearly cost free, techonlogies that allow us to have corporate grade applications that can be orizontally scaled at need. Most of them come with great docuemntation and ready to use examples that flatten the learning curve.
-At frist a choice has to be made: either we provide a csv file day by day to feed the application, or we exploit some portable and fast solutions as API.
+In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \ref{challenges} are many and still some remains unsolved. Challenges regards not only scraping per se, but also the way the service has to interact with the users. Interactions are many and consequently are problems arised. API service has to be fast otherwise data become obsolete and so happen to the analysis that have relied on those data. Service has to be deployed so that it can be shared over a wider range of clients. Service has to be scalable at need since, due to deployment, when the number of users increases the run time performance should not decrease. Moreover from one hand service has to be continuously integrated and reviewed so that each function can be responsive to immobiliare.it changes. But on the other code behind the service has to be version controlled and freezed, so that when packages are updated service can prevent fails. API has to be also secured granting access only to the ones authorized. In the end Service has to be run at a certain given times and storing data on cloud database, so that it can be tracked back the evolution of the phenomenon under inspection.
+Open source solutions for each of the requirements stated are available for back-end and front-end integration. Moreover documentations related to technologies served are able to offer flexible solutions to be embedded into the R ecosystem.
+For all the requirements the idea is to provide a REST Plumber API with 4 endpoints which calls parallelized scraping functions built in section \ref{scraping}. On top of that a daily Cron Job scheduler, exposing one API endpoint, produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a AWS EC2 server. API endpoints are secured with https protocols and protected with authentication by nginx reverse proxy. On a second server a Shiny App calls one endpoint with specified parameters which returns daily data from the former infrastructure.
 
-\textbf{(va prafrasato)}
+Technologies involved are:
 
-API is a set of definitions and protocols for building and integrating application software. API stands for application programming interface.
-
-APIs let your product or service communicate with other products and services without having to know how they're implemented. This can simplify app development, saving time and money. When you're designing new tools and products---or managing existing ones---APIs give flexibility; simplify design, administration, and use; and provide opportunities for innovation.
-
-APIs are sometimes thought of as contracts, with documentation that represents an agreement between parties: If party 1 sends a remote request structured a particular way, this is how party 2's software will respond.
+\begin{itemize}
+\tightlist
+\item
+  GitHub version control
+\item
+  Scheduler cron job, section \ref{scheduler}
+\item
+  Docker containers, section \ref{docker}
+\item
+  Plumber REST API, section \ref{plumberapi}
+\item
+  NGINX reverse proxy, section \ref{nginx}
+\item
+  AWS (Amazon Web Services) EC2 \ref{aws}
+\item
+  MongoDB Atlas
+\item
+  Shiny, see chapter \ref{application}
+\end{itemize}
 
 \begin{figure}
-\includegraphics[width=16.25in]{images/API-page-graphic} \caption{API functioning}\label{fig:API}
+\centering
+\includegraphics{images/prova.PNG}
+\caption{complete infrastructure (Matt Dancho source)}
 \end{figure}
 
-Because APIs simplify how developers integrate new application components into an existing architecture, they help business and IT teams collaborate. Business needs often change quickly in response to ever shifting digital markets, where new competitors can change a whole industry with a new app. In order to stay competitive, it's important to support the rapid development and deployment of innovative services. Cloud-native application development is an identifiable way to increase development speed, and it relies on connecting a microservices application architecture through APIs.
+As a side note each single part of this thesis has been made according to the same API inspiring criteria of reproducibility and self containerization. RMarkdown \citep{rmarkdown1} documents (book's chapters) are compiled and then converted into .html files. Through Bookdown \citep{bookdown2} the resulting documents are put together according to general .yml instruction file and are readble as gitbook.
+Files are then pushed to a \href{https://github.com/NiccoloSalvini/thesis}{Github repository}. By a simple trick with GH pages, .html files are dispalyed into a Github subdomain hosted at \href{https://niccolosalvini.github.io/thesis/}{link}. The resulting deployed gitbook can also produce a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template which formatting rules are contained in a further .yml file. The pdf version of the thesis can be obtained by clicking the download button, then choosing pdf output version in the upper banner. For further references on the topic \citet{bookdown2}
+
+Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasosn some needs to be skipped.
+
+\hypertarget{scheduler}{%
+\section{Scheduler}\label{scheduler}}
+
+A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
+
+\begin{itemize}
+\tightlist
+\item
+  Short term scheduler: it can trigger and queue the ``ready to go'' tasks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    with pre-emption
+  \item
+    without pre-emption
+  \end{itemize}
+\end{itemize}
+
+The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one.
+
+\begin{itemize}
+\tightlist
+\item
+  Medium term scheduler
+\item
+  Long term scheduler
+\end{itemize}
+
+for some other useful but beyond the scope refereces, such as the scheduling algorithm the reader can refer to \citep{wiki:scheduler}.
+
+\hypertarget{cron-jobs}{%
+\subsection{Cron Jobs}\label{cron-jobs}}
+
+Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
+
+Each line of a crontab file represents a job, and has this structure
 
 \begin{figure}
-\includegraphics[width=19.9in]{images/FIRENZE} \caption{API functioning}\label{fig:nicco}
+\centering
+\includegraphics{images/crontab.PNG}
+\caption{crontab}
 \end{figure}
 
-\textbf{(va prafrasato)}
+Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.
 
-Since website are continously changed API philoposhy results in the best choice since it can be easily adapted to future changes
+45 23 * * 6 /home/oracle/scripts/scheduler.sh
 
-\hypertarget{methods}{%
-\chapter{Methods}\label{methods}}
+Some rather unusual scheduling definitions for crontabs can be found in this reference \citep{wiki:cronjob}. Crontab's syntax completion can be made easier through \href{https://crontab.guru/}{this} GUI.
 
-We describe our methods in this chapter.
+The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get\_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get\_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL \emph{mongoDB} database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin arcu eget nulla convallis, in sagittis metus tincidunt. Integer vitae erat convallis, lobortis nunc id, commodo ipsum. Nam sem sem, tristique vitae dolor eget, laoreet aliquet libero. Nulla non feugiat diam. Ut vehicula, ante vitae rhoncus volutpat, eros orci viverra sem, ac tincidunt sem ex at sapien. Nam et odio condimentum, viverra nisl vitae, tempor nisl. Integer euismod convallis augue quis iaculis. Nulla at leo non nisi sollicitudin molestie vel at purus.
+30 11 * * * /home/oracle/scripts/get\_data.R
 
-Nam tincidunt tellus et mattis luctus. Vivamus quis velit at nunc fermentum cursus. Duis elementum in nibh quis luctus. Suspendisse eget sem sit amet quam mattis egestas. Morbi ullamcorper metus eu dolor dapibus, id ultrices tellus euismod. Suspendisse malesuada felis vel tincidunt ullamcorper. Proin placerat auctor urna vel finibus. Sed non dictum orci. Ut volutpat pretium massa, in iaculis mi consectetur quis. Curabitur vitae condimentum nisi, sit amet consectetur justo. Curabitur non fermentum diam. Pellentesque vehicula laoreet elementum. Donec non porttitor ante, ut fermentum ante. In mollis consequat nisl euismod lobortis.
+Since now the computational power comes from the machine on which the system is installed. A smarter solution takes care of it by considering run time limits and the substantial inability to share data. To a certain extent what it has been already done since now might fit for personal use: a scheduler can daily execute the scraping scripts and generate a .csv file. Furthermore an application can rely on those data, but evident reasons suggest that it does not suite any need. What it will do the trick would be an open source dedicated software environment or \emph{container} that will contains scraping functions and a scheduler on cloud solving a pair of the problems arisen. This problem can be addressed with a technology that has seen a huge growth in its usage in the last few years.
 
-Vestibulum scelerisque dui eget est cursus, ut vestibulum libero pretium. Donec non viverra ligula. Suspendisse a viverra purus, in laoreet ligula. Nunc posuere libero ipsum, non vehicula massa gravida id. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas tortor risus, accumsan vitae luctus a, molestie non augue. Nam felis arcu, volutpat vitae eros nec, sollicitudin aliquam orci. Sed sit amet consectetur dui. Morbi finibus, est at blandit consectetur, diam massa ultrices libero, ac dapibus nisl ex id urna. Donec venenatis, nibh malesuada ultricies varius, justo tellus maximus ante, vehicula viverra dolor lorem vitae lacus. Donec nec ultricies ex. Proin vehicula interdum ex a tincidunt.
+\hypertarget{docker}{%
+\section{Docker}\label{docker}}
 
-Duis varius ornare velit, non finibus purus lacinia eget. Fusce fringilla arcu in mauris fermentum, at consequat mauris suscipit. Etiam cursus felis ut consequat maximus. Vestibulum auctor sollicitudin nisl, eget molestie enim faucibus sit amet. Aenean luctus non ligula scelerisque maximus. Aenean finibus, nulla sit amet interdum ornare, justo nisl tempor diam, sit amet sollicitudin lacus tortor sit amet mi. Aliquam erat volutpat. Quisque vehicula facilisis ligula ut porta. Aenean eleifend arcu luctus ligula congue lacinia. Proin nunc mauris, cursus vel risus at, dapibus imperdiet est. Fusce eget nisi nec eros vehicula ullamcorper. Integer feugiat vulputate lacus id posuere. Nunc tincidunt, ante ac convallis elementum, ipsum elit rutrum risus, vitae dapibus augue leo in lacus.
+\emph{Docker} is a software tool to create and deploy applications using containers.
+\emph{Docker containers} are a standard unit of software (i.e.~software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.
 
-Integer et aliquam mi, ac blandit arcu. Integer sit amet tristique orci. Aenean consectetur tempor diam, id finibus massa tempus non. Cras sagittis nibh vitae aliquet laoreet. Sed facilisis luctus mi. Donec est sapien, porta consectetur varius in, pulvinar sed ligula. Suspendisse potenti. Maecenas porta neque at accumsan eleifend. Proin porta imperdiet ipsum, sed viverra purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris dapibus libero ac ultrices commodo. Donec dictum lectus id urna volutpat, vitae eleifend neque gravida. Mauris aliquam augue ac eros sagittis interdum. Sed dapibus placerat bibendum.
+\begin{figure}
+\centering
+\includegraphics{images/dockerVSvirtualmachines.PNG}
+\caption{docker container vs VM}
+\end{figure}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet lacus ut maximus tempus. Integer dolor massa, ornare vitae ultrices pharetra, lacinia ut felis. Phasellus et vulputate mi, eu ultricies nisi. Phasellus interdum risus tristique tortor fermentum, blandit vehicula turpis elementum. Nullam eget arcu faucibus, blandit lacus ut, pharetra felis. Praesent malesuada mattis augue vel convallis. Curabitur sodales sollicitudin nunc, eget gravida risus condimentum non. Cras laoreet eget erat eget dapibus. Vivamus volutpat consequat libero at dapibus. Nulla convallis sapien neque, sit amet scelerisque enim luctus at. Praesent vehicula convallis purus. In a metus nec tellus mattis vestibulum. Vestibulum ultrices eleifend quam eu tincidunt.
+When containers are built \emph{Docker container Images} are created and can be open sourced through Docker Hub.
+\emph{Docker Hub} is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \ref{aws}.
+Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
+Rstudio \href{https://packagemanager.rstudio.com/client/\#/}{package manager} includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation \citep{nolis_2020}.
+In addition to that an open source project named \href{https://www.rocker-project.org/images/}{rocker} has narrowed the path fro developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: ``The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment.''
 
-Phasellus mauris elit, volutpat sit amet suscipit ut, scelerisque sed quam. Quisque maximus, justo non porta sollicitudin, ante lorem placerat nulla, nec commodo mi mauris eget risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ornare eleifend sem quis mollis. Proin vestibulum tristique erat, eu suscipit neque ornare et. Aenean scelerisque, nibh nec rutrum varius, justo nulla ultrices erat, non maximus mi massa vel mi. Integer ante arcu, accumsan vitae quam nec, faucibus cursus leo. Donec feugiat nunc quis orci ornare dignissim. Vivamus posuere enim et odio pretium, non tincidunt diam finibus. Praesent ut odio vitae magna euismod tempus. Ut laoreet nibh quis iaculis faucibus. Vivamus neque turpis, tempus ac orci id, volutpat laoreet nunc.
+\hypertarget{why-docker}{%
+\subsection{Why Docker}\label{why-docker}}
 
-Nulla congue nunc elit, sit amet convallis urna lacinia eget. In massa erat, tempor eu erat ac, luctus sollicitudin felis. Curabitur urna ipsum, condimentum vel hendrerit a, imperdiet maximus ipsum. Morbi maximus malesuada efficitur. Phasellus id velit nec quam efficitur efficitur. Aenean a diam ut enim vehicula auctor ac nec sapien. Mauris in dapibus ex, quis consectetur ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at iaculis nulla. Aliquam turpis lacus, fermentum a malesuada eu, ornare sed libero. Fusce dictum fermentum ipsum, quis congue libero lacinia vel. Sed in finibus ligula. Vestibulum sagittis vel ex a mattis. Phasellus suscipit justo at augue porttitor pellentesque.
+\href{https://it.indeed.com/}{Indeed}, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market. Many changes are relevant in key technologies. Two among the others technologies (i.e.~docker and Azure) have experienced a huge growth and both refer to the same demand input: \emph{containers} .
+The landscape of Data Science is changing \citep{Skills_Explorer} from reporting to application building:
+In 2015 - Businesses reports drive better decisions
+In 2020 - Businesses need apps to empower better decision making at all levels
 
-Nulla sed tellus vel nisl rutrum mattis a et est. Aenean dolor nunc, placerat quis enim a, fermentum malesuada enim. Aliquam erat volutpat. In ut est non velit vehicula hendrerit. Pellentesque eu erat finibus, viverra velit ac, tempus odio. Suspendisse potenti. Curabitur vulputate metus non ligula maximus sollicitudin. Donec facilisis augue sed urna lobortis, eu tempus mi ultrices. Aliquam fringilla sagittis felis, ac commodo arcu porttitor at. Ut lorem ex, gravida a porttitor in, feugiat vel ex. Aliquam consequat finibus ante, sed commodo sem. Ut ac mollis dui. Curabitur nec eros congue, pulvinar quam at, tincidunt dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu elit vulputate, scelerisque felis ut, accumsan nunc.
+\begin{figure}
+\centering
+\includegraphics{images/Inkedindeed_jobs_LI.jpg}
+\caption{docker-stats}
+\end{figure}
 
-In non odio et risus rhoncus viverra nec in odio. Ut viverra metus eget nisi molestie sodales. Vestibulum ligula felis, malesuada quis vehicula eu, bibendum finibus diam. Donec ut rhoncus odio, tristique sodales orci. Praesent a ex lectus. Maecenas tristique sapien lorem, vel lobortis lorem porta sodales. Suspendisse ligula justo, iaculis id lorem eu, consequat vulputate lectus. Nunc molestie lacus at elit tempor, at rhoncus justo hendrerit. Nullam luctus lectus ac orci interdum, vitae varius libero pellentesque. Nunc lacinia erat lectus. Sed sit amet venenatis quam. Mauris interdum mauris sem, sit amet interdum eros tincidunt a.
+For all the things said what docker is bringing to business \citep{red_hat_customer_portal}:
 
-Nam at dolor dui. Praes ent efficitur leo erat, id blandit neque ultrices non. Morbi eget dignissim eros. Praesent rhoncus maximus accumsan. Quisque et consectetur odio, id vehicula leo. Integer tempor diam augue, nec rhoncus ex suscipit id. Sed nec tempor tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat tincidunt tortor quis efficitur. Maecenas pellentesque dapibus nisi, sed commodo augue. Fusce condimentum dignissim quam id feugiat. Mauris maximus ex vel enim viverra, eget placerat massa consectetur. Integer pellentesque finibus ipsum, quis vestibulum elit ultrices a. Vivamus nunc velit, lobortis at hendrerit non, laoreet nec urna.
+\begin{itemize}
+\tightlist
+\item
+  \emph{Speed application deployment} : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.
+\item
+  \emph{Portability across machines} : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transfered to another machine that runs Docker, and executed there without compatibility issues.
+\item
+  \emph{Version control and component reuse} : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion
+\item
+  \emph{Sharing} : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.
+\item
+  \emph{Lightweight footprint and minimal overhead} : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.
+\item
+  \emph{Fault isolation} :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates.
+\end{itemize}
 
-Vestibulum ullamcorper, lacus sed malesuada porta, lectus nisi lacinia augue, at mollis lorem purus sit amet metus. Quisque et mauris leo. Donec id risus id nisl auctor gravida. Suspendisse sed tempor risus. Integer ornare sem quis turpis accumsan finibus. Morbi in ex dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id laoreet erat. Curabitur tempor faucibus turpis, a bibendum turpis dignissim tempor.
+The way to tell docker which system requirements are needed in the newly born software is a \emph{Dockerfile}.
 
-\hypertarget{applications}{%
-\chapter{Applications}\label{applications}}
+\hypertarget{dockerfile}{%
+\subsection{Dockerfile}\label{dockerfile}}
+
+Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command \texttt{docker\ build} from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is ``Dockerfile''. When It is matched then it trriggers the building of the image.
+
+The Dockerfile used to trigger the building of the service docker container has the following set of instructions:
+
+\begin{figure}
+\centering
+\includegraphics{images/dockerfile.PNG}
+\caption{dockerfile}
+\end{figure}
+
+\begin{itemize}
+\item
+  \texttt{FROM\ rocker/tidyverse:latest} : the command imports a pre-built image by the rocker team that contains the latest (tag latest) version of base-R along with the tidyverse packages.
+\item
+  \texttt{MAINTAINER\ Niccolo\ Salvini\ "niccolo.salvini27@gmail.com"} : The command tags the maintainer and its e-mail contact information.
+\item
+  \texttt{RUN\ apt-get\ update\ \&\&\ apt-get\ install\ -y\ \textbackslash{}\ libxml2-dev\ \textbackslash{}\ libudunits2-dev} :The command update and install Linux dependencies needed for running R packages. \texttt{rvest} requires libxml2-dev and \texttt{magrittr} needs libudunits2-dev. If they are not installed then associated libraries can not be loaded. Linux dependencies needed have been found by trial and error while building containers. Building logs messages print errors and suggest which dependency is mandatory.
+\item
+  \texttt{RUN\ R\ -e\ "install.packages(c(\textquotesingle{}plumber\textquotesingle{},\textquotesingle{}tibble\textquotesingle{},\textquotesingle{}...\textquotesingle{},dependencies=TRUE)} : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their direct R dependencies the option \texttt{dependencies=TRUE} is needed.
+\item
+  \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../iterators,\ type=\textquotesingle{}source\textquotesingle{})}
+  \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../foreach/,\ type=\textquotesingle{}source\textquotesingle{})}
+  \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../doParallel,\ type=\textquotesingle{}source\textquotesingle{})}
+  DoParallel was not available in package manager for R version later than 4.0.0. For this reason the choice was to install a previous source version by the online repository, as well as its dependencies.
+\item
+  \texttt{COPY\ \textbackslash{}\textbackslash{}} The command tells Docker copies all the files in the container.
+\item
+  \texttt{EXPOSE\ 8000} : the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is recommended \citep{docker_documentation_2020} )
+\item
+  \texttt{ENTRYPOINT\ {[}"Rscript",\ "main.R"{]}} : the command tells docker to execute the file main.R within the container that triggers the API start. In main.R it are pecified both the port and the host where API expects to be exposed (in this case port 8000).
+\end{itemize}
+
+In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.
+
+\hypertarget{rest-api}{%
+\section{REST API}\label{rest-api}}
+
+API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they're implemented. This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+There are many types of API that exploit different media and architectures to communicate with apps or services.
+The specification REST stands for REpresentational State Transfer and is a set of architectural principles. When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as more comfortable to be read and parsed.
+In order for an API to be considered RESTful, it has to conform to these criteria:
+
+(rivedi elenco)
+- A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
+- Stateless client-server communication, meaning no client information is stored between requests and each request is separate and unconnected.
+- Cacheable data that streamlines client-server interactions.
+- A uniform interface between components so that information is transferred in a standard form. This requires that:
+- resources requested are identifiable and separate from the representations sent to the client.
+- resources can be manipulated by the client via the representation they receive because the representation contains enough information to do so.
+- self-descriptive messages returned to the client have enough information to describe how the client should process it.
+- hypermedia, meaning that after accessing a resource the client should be able to use hyperlinks to find all other currently available actions they can take.
+- A layered system that organizes each type of server (those responsible for security, load-balancing, etc.) involved the retrieval of requested information into hierarchies, invisible to the client.
+
+REST API accepts http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g.~/GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this \href{https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html}{reference}.
+
+open REST API examples:
+- BigQuery API API: A data platform for customers to create, manage, share and query data.
+- YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
+- Cloud Natural Language API: Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations, to developers.
+- Skyscanner Flight Search API: The Skyscanner API lets you search for flights \& get flight prices from Skyscanner's database of prices, as well as get live quotes directly from ticketing agencies.
+- Openweathermap API: current weather data for any location on Earth including over 200,000 cities.
+
+\begin{figure}
+\centering
+\includegraphics{images/Rest-API.png}
+\caption{API functioning}
+\end{figure}
+
+\hypertarget{plumberapi}{%
+\subsection{Plumber REST API}\label{plumberapi}}
+
+Plumber allows the user to create a REST API by adding decoration comments to the existing R code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plumber.R}
+
+\CommentTok{#* Echo back the input}
+\CommentTok{#* @param msg The message to echo}
+\CommentTok{#* @get /echo}
+\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{msg=}\StringTok{""}\NormalTok{) \{}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{msg =} \KeywordTok{paste0}\NormalTok{(}\StringTok{"The message is: '"}\NormalTok{, msg, }\StringTok{"'"}\NormalTok{))}
+\NormalTok{\}}
+
+\CommentTok{#* Plot a histogram}
+\CommentTok{#* @serializer png}
+\CommentTok{#* @get /plot}
+\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  rand =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+  \KeywordTok{hist}\NormalTok{(rand)}
+\NormalTok{\}}
+
+\CommentTok{#* Return the sum of two numbers}
+\CommentTok{#* @param a The first number to add}
+\CommentTok{#* @param b The second number to add}
+\CommentTok{#* @post /sum}
+\ControlFlowTok{function}\NormalTok{(a, b) \{}
+  \KeywordTok{as.numeric}\NormalTok{(a) }\OperatorTok{+}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(b)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
+Decorations are marked as this \texttt{\#*} and they are followed by specific keywords denoted with \texttt{@}.
+- the \texttt{@params} keyword refers to parameter that specifies the corpus of the HTTP request, i.e.~the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
+- \texttt{\#*\ @serializer} specifies the extension of the output file when needed.
+- \texttt{\#*\ @get} specifies the method of HTTP request sent.
+- \texttt{/echo} is the end point name.
+- \texttt{@filter} decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.
+
+Many more options are available to customize plumber API but are beyond the scope, a valuable resource for further insights can be found in the dedicated package website \citep{an_api_generator_for_r}
+
+\hypertarget{immobiliare.it-rest-api}{%
+\subsection{Immobiliare.it REST API}\label{immobiliare.it-rest-api}}
+
+The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph{/complete} and \emph{/get\_data}:
+
+\begin{itemize}
+\item
+  */scrape performs a fast scraping of the website that leverages a shortest path to directly extract 5 covariates from url. url from which data extraction takes place might be composed through parameters. By default the end point scrape data from Milan real estate rental market. Fast scraping is reached thanks to avoiding to access to single links. It is a superficial scraping and does not contain geospatial, however it might fit for regression settings.
+\item
+  */links: extracts the list of single links belonging to each of the page, looking at section \ref{webstructure} each 25 single links for each sibling. It displays sufficient performances in terms of run time. It is propaedeutic to apply the following endpoint.
+\item
+  */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.
+\item
+  */get\_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/swagger.PNG}
+\caption{swagger}
+\end{figure}
+
+\hypertarget{APIdocs}{%
+\subsection{REST API documentation}\label{APIdocs}}
+
+\begin{itemize}
+\tightlist
+\item
+  Get FAST data, it covers 5 covariates: title, price, num of rooms, sqmeter, primarykey
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{      GET }\OperatorTok{*}\ErrorTok{/}\NormalTok{scrape}
+      \OperatorTok{@}\NormalTok{param city [chr string] the city you are interested }\ControlFlowTok{in}\NormalTok{ (e.g. }\StringTok{"roma"}\NormalTok{, }\StringTok{"milano"}\NormalTok{, }\StringTok{"firenze"}\OperatorTok{-}\NormalTok{->}\StringTok{ }\NormalTok{lowercase, without accent)}
+      \OperatorTok{@}\NormalTok{param npages [positive integer] number of pages to scrape, default =}\StringTok{ }\DecValTok{10}\NormalTok{, min  =}\StringTok{ }\DecValTok{2}\NormalTok{, max =}\StringTok{ }\DecValTok{300}
+      \OperatorTok{@}\NormalTok{param type [chr string] }\StringTok{"affitto"}\NormalTok{ =}\StringTok{ }\NormalTok{rents, }\StringTok{"vendita"}\NormalTok{  =}\StringTok{ }\NormalTok{sell }
+      \OperatorTok{@}\NormalTok{param macrozone [chr string] avail}\OperatorTok{:}\StringTok{ }\NormalTok{Roma, Firenze, Milano, Torino; e.g. }\StringTok{"fiera"}\NormalTok{, }\StringTok{"centro"}\NormalTok{, }\StringTok{"bellariva"}\NormalTok{, }\StringTok{"parioli"} 
+\NormalTok{      content}\OperatorTok{-}\NormalTok{type}\OperatorTok{:}\StringTok{ }\NormalTok{application}\OperatorTok{/}\NormalTok{json }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Get all the links
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{      GET }\OperatorTok{*}\ErrorTok{/}\NormalTok{link}
+      \OperatorTok{@}\NormalTok{param city [chr string] the city you are interested to extract }\KeywordTok{data}\NormalTok{ (lowercase without accent)}
+      \OperatorTok{@}\NormalTok{param npages [positive integer] number of pages to scrape default =}\StringTok{ }\DecValTok{10}\NormalTok{, min  =}\StringTok{ }\DecValTok{2}\NormalTok{, max =}\StringTok{ }\DecValTok{300}
+      \OperatorTok{@}\NormalTok{param type [chr string] }\StringTok{"affitto"}\NormalTok{ =}\StringTok{ }\NormalTok{rents, }\StringTok{"vendita"}\NormalTok{  =}\StringTok{ }\NormalTok{sell }
+      \OperatorTok{@}\NormalTok{param .thesis [logical] data used }\ControlFlowTok{for}\NormalTok{ master thesis}
+\NormalTok{      content}\OperatorTok{-}\NormalTok{type}\OperatorTok{:}\StringTok{ }\NormalTok{application}\OperatorTok{/}\NormalTok{json }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Get the complete set of covariates (52) from each single links, takes a while
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{      GET }\OperatorTok{*}\ErrorTok{/}\NormalTok{complete}
+      \OperatorTok{@}\NormalTok{param city [chr string] the city you are interested to extract }\KeywordTok{data}\NormalTok{ (lowercase without accent)}
+      \OperatorTok{@}\NormalTok{param npages [positive integer] number of pages to scrape default =}\StringTok{ }\DecValTok{10}\NormalTok{, min  =}\StringTok{ }\DecValTok{2}\NormalTok{, max =}\StringTok{ }\DecValTok{300}
+      \OperatorTok{@}\NormalTok{param type [chr string] }\StringTok{"affitto"}\NormalTok{ =}\StringTok{ }\NormalTok{rents, }\StringTok{"vendita"}\NormalTok{  =}\StringTok{ }\NormalTok{sell }
+      \OperatorTok{@}\NormalTok{param .thesis [logical] data used }\ControlFlowTok{for}\NormalTok{ master thesis}
+\NormalTok{      content}\OperatorTok{-}\NormalTok{type}\OperatorTok{:}\StringTok{ }\NormalTok{application}\OperatorTok{/}\NormalTok{json}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{nginx}{%
+\section{NGINX reverse proxy server}\label{nginx}}
+
+For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
+{[}\ldots{]}
+
+When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
+{[}\ldots{]}
+
+.conf file and installation on Linux server. Security and Authentication.
+
+\hypertarget{aws}{%
+\section{AWS EC2 server}\label{aws}}
+
+Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named \href{https://aws.amazon.com/en/aws-cost-management/}{amazon cost manager}.
+Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+{[}few words still on EC2{]}
+
+\hypertarget{launch-an-ec2-instance}{%
+\subsection{Launch an EC2 instance}\label{launch-an-ec2-instance}}
+
+The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a ``Free Tier Eligible'' server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the ``add storage'' step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \ref{dockerfile}, has been exposed and needs to be linked to the security port opened.
+
+\begin{figure}
+\centering
+\includegraphics{images/aws.PNG}
+\caption{aws\_dashboard}
+\end{figure}
+
+At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with \href{https://www.putty.org/}{PuTTY}, which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available.
+
+\hypertarget{further-integrations}{%
+\section{Further Integrations}\label{further-integrations}}
+
+Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9}{this link}
+
+\hypertarget{inla-spde}{%
+\chapter{INLA computation}\label{inla-spde}}
+
+INLA \citep{Rue2009} stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are \emph{computationally} convenient. The benefits are many, some among the other are:
+
+\begin{itemize}
+\tightlist
+\item
+  Low computational costs, even for large models.
+\item
+  It provides high accuracy.
+\item
+  Can define very complex models within that framework.
+\item
+  Most important statistical models are LGM.
+\item
+  Very good support for spatial models.
+\item
+  Implementation of spatio-temporal model enabled.
+\end{itemize}
+
+INLA uses a combination of analytics approximations and numerical integration to obtain an approximated posterior distribution of the parameters in a shorter time period.
+The chronologic steps in the methodology presentation follows the course sailed by \citet{Moraga2019} blended with the author choice to skip details. As a matter of fact the aim of the chapter is to provide a comprehensive intuition oriented to the immediate application of the methodology, without stepping too long on mathematical details. By the way details e.g model assessment and control options are handled under the hood by the package and can be tuned within the main function, most of them are covered by \citet{Bayesian_INLA_Rubio}. Notation is imported from \citet{Blangiardo-Cameletti} and \citet{Bayesian_INLA_Rubio}, and quite differ from the one presented in the original paper by Rue, Chopin and Martino \citeyearpar{Rue2009}. As further notation remarks: bold symbols are considered as vectors, so each time they occur they have to be considered like the \emph{ensamble} of their values. In addition \(\tilde\pi\) in section \ref{approx} are the Laplace approximation of the underlying integrals. Moreover the inner functioning of Laplace approximation and its special usage within the INLA setting is far from the scope, but an easy shortcut oriented to INLA is in \citet{Blangiardo-Cameletti}.
+
+INLA can fit only Latent Gaussian type of models and the following work tries to encapsulate its properties. Then afterwards a problem can be reshaped into the LGM framework with the explicit purpose to explore its benefits. When models are reduced to LGMs then joint posterior distribution can be rewritten and then approximated with INLA. A hierarchical bayesian structure on the model will help to integrate many parameter and hyperparameter levels and simplify interpretation.
+Generic Information on the project and the R-INLA package are contained in the introduction to last section \ref{inla}. In the end a brief application on a toy spatial dataset is proposed with the aim to fasten the familiarity with the methodology and to come to grip with INLA results.
+
+\hypertarget{LGM}{%
+\section{Latent Gaussian Models LGM}\label{LGM}}
+
+Given some observations \(y_{i \ldots n}\) in order to define a Latent Gaussain Model within the bayesian framework it is convenient to specify at first an \emph{exponential family} (Gaussian, Poisson, Exponential\ldots) distribution function characterized by some parameters \(\phi_{i}\) (usually expressed by the mean \(\left.E\left(y_{i}\right)\right)\)) and some other hyper-parameters \(\psi_{k} ,\forall k \in \ 1\ldots K\). The parameter \(\phi_{i}\) can be defined as an additive \emph{latent linear predictor} \(\eta_{i}\), as pointed out by Krainski and Rubio (\citeyearpar{Krainski-Rubio}) through a link function \(g(\cdot)\), i.e.~\(g\left(\phi_{i}\right)=\eta_{i}\). A comprehensive expression of the linear predictor takes into account all the possible effects on covariates
+
+\[
+\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
+\]
+
+where \(\beta_{0}\) is the intercept, \(\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}\) are the coefficient that quantifies the linear effects on covariates \(\boldsymbol{x}=\left({x}_{1}, \ldots, {x}_{M}\right)\) and \(f_{l}(\cdot), \forall l \in 1 \ldots L\) are a set of random effects defined in terms of a \(\boldsymbol{z}\) set of covariates \(\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)\) (e.g.~rw, ar1). As a consequence of the last assumption the class of LGM can receive a wide range of models e.g.~GLM, GAM, GLMM, linear models and spatio-temporal models. This constitutes one of the main advantages of INLA, which can fit many different models, starting from simpler and ending with more complex. Contributors recently are extending the methodology to many areas as well as models moreover they are trying to incorporate INLA with non gaussian latent models as Rubio \citeyearpar{Bayesian_INLA_Rubio} pointed out.
+All the latent components can be conveniently grouped into a variable denoted with \(\boldsymbol{\theta}\) such that: \(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\) and the same can de done for hyper parameters \(\boldsymbol{\psi} = \left\{\psi_{1}, \ldots, \psi_{K}\right\}\).
+Then the probability distribution conditioned to parameters and hyper parameters is then:
+
+\[
+y_{i} \mid \boldsymbol{\theta}, \boldsymbol{\psi} \sim \pi\left(y_{i} \mid \boldsymbol{\theta},\boldsymbol{\psi}\right)
+\]
+
+Since data \(\left(y_{1}, \ldots, y_{n}\right)\) is drawn by the same distribution family but it is conditioned to parameters which are conditional independent (i.e.~\(\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)\)) \citep{GMRFRue} then the joint distribution is given by the product of all the independent parameters i.e.~the likelihood. Moreover the Product operator index \(i\) ranges from 1 to \(n\), i.e.~\(\mathbf{I} = \left\{1 \ldots n \right\}\). When an observation is missing so the corresponding \(i \notin \mathbf{I}\) INLA automatically will not include it in the model avoiding errors \citeyearpar{Bayesian_INLA_Rubio}. As a consequence the likelihood expression is:
+
+\begin{equation}
+\pi(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i \in \mathbb{I}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)
+\label{eq:likelihood}
+\end{equation}
+
+Each data point is connected to one combination \(\theta_{i}\) out of all the possible linear combinations of elements in \(\boldsymbol{\theta}\) \emph{latent field}. The latent aspect of the field regards the undergoing existence of many parameter combination alternatives. Furthermore hyper parameters are by definition independent, in other words \(\boldsymbol{\psi}\) will be the product of many univariate priors \citep{Bayesian_INLA_Rubio}. A Multivariate Normal distribution is imposed on the latent field \(\boldsymbol{\theta}\) such that it is centered in 0 with precision matrix \(\boldsymbol{Q(\psi)}\) (the inverse of the covariance matrix \(\boldsymbol{Q}^{-1}(\boldsymbol{\psi})\)) depending only on \(\boldsymbol{\psi}\) hyper parameter vector i.e., \(\boldsymbol{\theta} \sim \operatorname{Normal}\left(\mathbf{0}, \boldsymbol{Q}^{-1}(\boldsymbol{\psi})\right)\). As a notation remark some authors choose to keep the covariance matrix expression as \(\boldsymbol{Q}\) and its inverse precision matrix as \(\boldsymbol{Q}^{-1}\). This is strongly not encouraged fro two reasons: the first is that the default hyperpramater option in INLA R package uses the precision matrix, the second it over complicates notation when writing down conditional expectation as Rue pointed out \emph{miss lit}. However notation for covariance function introduced in chapter \ref{Matern} i.e.~Matérn has to be expressed through covariance matrix, this passage will be cleared out in the dedicated section so that confusion is avoided.
+The exponential family density function is then expressed through:
+
+\begin{equation}
+\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi})=(2 \pi)^{-n / 2}| \boldsymbol{Q(\psi)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta} \boldsymbol{Q(\psi)} \boldsymbol{\theta}\right)
+\label{eq:gmrf}
+\end{equation}
+
+The conditional independence assumption on the latent field \(\boldsymbol{\theta}\) leads \(\boldsymbol{Q(\psi)}\) to be a sparse precision matrix since for a general pair of combinations \(\theta_{i}\) and \(\theta_{j}\) the resulting element in the precision matrix is 0 i.e.~\(\theta_{i} \perp \theta_{j} \mid \theta_{-i, j} \Longleftrightarrow Q_{i j}(\boldsymbol{\psi})=0\) \citeyearpar{Blangiardo-Cameletti}.
+A probability distribution function with those characteristics is said \emph{Gaussian Markov random field} (\textbf{GMRF}). GMRF as a matter of fact are Gaussian variables with Markov properties which are encoded in the precision matrix \(\boldsymbol{Q}\) \citep{Rue2009}. (puoi dire di più)
+From here it comes the source of run time computation saving, inherited using GMRF for inference. As a consequence of GMRF representation of the latent field, matrices are sparse so numerical methods can be exploited \citep{Blangiardo-Cameletti}. \emph{Moreover when Gaussian Process (see chapter \ref{GP}), which are used to integrate spatial components, are represented as GMRF through SPDE (Stochastic Partial Differential Equations) approach, then INLA can be used as a computing choice. This last assumption will be framed in chapter \ref{inla} and verified in chapter \ref{spde}.}
+Once priors distributions are specified for \(\boldsymbol{\psi}\) then the joint posterior distribution for \(\boldsymbol{\theta}\) and \(\boldsymbol{\psi}\) is
+
+\[
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y)\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {prior }} \times \underbrace{\pi(\theta \mid \psi)}_{\text {GMRF }} \times \underbrace{\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)}_{\text {likelihood }}
+\]
+
+Last expression is said a Latent Gaussian Models, \textbf{LGM}, if the whole set of assumptions imposed since now are met. Therefore all models that can be reduced to a LGM representation are able to host INLA methodology.
+Then plugging in the \emph{likelihood} \eqref{eq:likelihood} and \emph{GMRF} \eqref{eq:gmrf} expression the posterior distribution can be rewritten as
+
+\[
+\begin{aligned}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \pi(y \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\
+& \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\
+& \propto \pi(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i}^{n} \exp \left(\log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right)
+\end{aligned}
+\]
+
+And by joining exponents by their multiplicative property it is obtained
+
+\begin{equation}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) \propto \pi(\psi) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum^{n} \log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right)
+\label{eq:jointpostdistr}
+\end{equation}
+
+\hypertarget{approx}{%
+\section{Approximation in INLA setting}\label{approx}}
+
+INLA is not going to try to estimate the whole posterior distribution from expression \eqref{eq:jointpostdistr}. Instead it will try to estimate the posterior marginal distribution effects for each \(\theta_{i}\) combination in the latent parameter \(\boldsymbol{\theta}\), given the hyper parameter priors specification \(\psi_{k}\). Proper estimation methods however are beyond the scope of the analysis, further excellent references are suggested in their respective part by Rubio \citeyearpar{Bayesian_INLA_Rubio} in section 2.2.2 and Blangiardo \& Cameletti \citeyearpar{Blangiardo-Cameletti} in section 4.7.2.
+The marginal posterior distribution function for each latent parameter element \(\theta_{i}\) is
+
+\begin{equation}
+  \pi(\theta_{i} \mid \boldsymbol{y})=\int \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y}) \pi(\boldsymbol{\psi} \mid \mathbf{y}) d \psi
+\label{eq:latentparam}
+\end{equation}
+
+The posterior marginal integral for each hyper parameter \$\psi\_\{k\}, \forall k \in 1, \ldots, K \$ is
+
+\[
+\pi\left(\psi_{k} \mid y\right)=\int \pi(\boldsymbol{\psi} \mid y) d \psi_{-k}
+\]
+
+where the notation \(\psi_{-k}\) is a vector of hyper parameters \(\psi\) without considering \(k\)th element \(\psi_{k}\).
+
+The goal is to have approximated solution for latent parameter posterior distributions. To this purpose A \emph{hierarchical procedure} is now imposed since the ``lower'' hyper parameter integral, whose approximation for the moment does not exist, is nested inside the ``upper'' parameter integral that takes hyper param as integrand. Hierarchical structures are welcomed very warmly since they are convenient later in order to fit a hierarchical bayesian model approached in the next chapter \ref{hierreg}). While many approximation strategies are provided and many others are emerging for both the hyper param and for the latent field, the common ground remains to unnest the structure in two steps such that:
+
+\begin{itemize}
+\tightlist
+\item
+  step 1: compute the Laplace approximation \(\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)\) for each hyper parameters marginal: \(\tilde\pi\left(\psi_{k} \mid \boldsymbol{y}\right)\)
+\item
+  step 2: compute Laplace approximation \(\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right)\) marginals for the parameters given the hyper parameter approximation in step 1: \(\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{y}\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) \underbrace{\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{y})}_{\text {Estim. in step 1 }} \mathrm{d} \psi\)
+\end{itemize}
+
+Then plugging approximation in the integral observed in \eqref{eq:latentparam} it is obtained:
+
+\[
+\tilde{\pi}\left(\theta_{i} \mid y\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid  \boldsymbol{\psi}, y\right) \tilde{\pi}(\boldsymbol{\psi} \mid y) \mathrm{d} \psi
+\]
+
+In the end INLA by its default approximation strategy thrpugh \emph{simplified Laplace approximation} uses the following numerical approximation to compute marginals:
+
+\[
+\tilde{\pi}\left(\theta_{i} \mid y\right) \approx \sum_{j} \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}^{(j)}, y\right) \tilde{\pi}\left(\boldsymbol{\psi}^{(j)} \mid y\right) \Delta_{j}
+\]
+
+where \{\(\boldsymbol{\psi}^{(j)}\)\} are a set of values of the hyper param \(\psi\) grid used for numerical integration, each of which associated to a specific weight \(\Delta_{j}\). The more the weight \(\Delta_{j}\) is heavy the more the integration point is relevant. Details on how INLA finds those points is beyond the scope, but the strategy and grids seraches are offered in the appendix follwing both Rubio and Blangiardo.
+
+\hypertarget{further-approximations-prolly-do-not-note-include}{%
+\subsection{further approximations (prolly do not note include)}\label{further-approximations-prolly-do-not-note-include}}
+
+INLA focus on this specific integration points by setting up a regular grid about the posterior mode of \(\psi\) with CCD (central composite design) centered in the mode \citep{Bayesian_INLA_Rubio}.
+
+\begin{figure}
+\centering
+\includegraphics{images/CCDapplied.PNG}
+\caption{CCD to spdetoy dataset, source \citet{Blangiardo-Cameletti}}
+\end{figure}
+
+The approximation \(\tilde{\pi}\left(\theta_{i} \mid y\right)\) can take different forms and be computed in different ways. \citet{Rue2009} also discuss how this approximation should be in order to reduce the numerical error \citep{Krainski-Rubio}.
+
+Following \citet{Bayesian_INLA_Rubio}, approximations of the joint posterior for the hyper paramer \(\tilde\pi\left(\psi_{k} \mid \boldsymbol{y}\right)\) is used to compute the marginals for the latent effects and hyper parameters in this way:
+
+\[
+\left.\tilde{\pi}(\boldsymbol{\psi} \mid \mathbf{y}) \propto \frac{\pi(\boldsymbol{\theta}, \boldsymbol{\psi}, y)}{\tilde{\pi}_{G}(\boldsymbol{\theta} \mid \boldsymbol{\psi}, y)}\right|_{\boldsymbol{\theta}=\boldsymbol{\theta}^{*}(\boldsymbol{\psi})}
+\]
+
+In the previous equation \(\tilde{\pi}_{G}(\boldsymbol{\theta} \mid \boldsymbol{\psi}, y)\) is a gaussian approximation to the full condition of the latent effect \({\theta}^{*}(\boldsymbol{\psi})\) is the mode for a given value of the hyper param vector \(\boldsymbol{\psi}\)
+
+At this point there exists three types of approximations for \(\pi\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}, y\right)\)
+
+\begin{itemize}
+\tightlist
+\item
+  first with a gaussian approximation, estimating mean \(\mu_{i}(\boldsymbol{\psi})\) and variance \(\sigma_{i}^{2}(\boldsymbol{\psi})\).
+\item
+  second using the \emph{Laplace Approximation.}
+\item
+  third using \emph{simplified Laplace Approximation}
+\end{itemize}
+
+(rivedere meglio)
+
+\hypertarget{rinla}{%
+\section{R-INLA package in a bayesian hierarchical regression perspective}\label{rinla}}
+
+\hypertarget{overview}{%
+\subsection{Overview}\label{overview}}
+
+INLA computations and methodology is developed by the R-INLA project whose package is available on their \href{http://www.r-inla.org}{website}. Download is not on CRAN (the Comprehensive R Archive Network) so a special source repo link, which is maintained by authors and collaborators, has to be optioned. The website offers also a forum where a daily discussion group is opened and an active community is keen to answer. Moreover It also contains a number of reference books, among which some of them are fully open sourced as gitbook. Furthermore as Havaard Rue has pointed out in a web-lecture on the topic, the project is gaining importance due to its new applications and recent use cases, but by no means it is replacing the older MCMC methods, rather INLA can integrate pre existing procedures.
+The core function of the package is \texttt{inla()}and it works as many other regression functions like \texttt{glm()}, \texttt{lm()} or \texttt{gam()}. Inla function takes as arguments the formula (where are response and linear predictor), the data (expects a data.frame obj) on which estimation is desired together with the distribution of the data. Many other methods inside the function can be added through lists, such as \texttt{control.family} and \texttt{control.fixed} which let the analyst specifying priors distribution both for \(\boldsymbol{\theta}\) parameters, \(\boldsymbol{\psi}\) hyper parameters and the outcome precision \(\tau\), default values are non-informative.
+\texttt{control.fixed} as said regulates prior specification through a plain list when there only a single fixed effect, instead it does it with nested lists when fixed effects are greater than 2, a guided example might better display the behaviour:
+\texttt{control.fixed\ =\ list(mean\ =\ list(a\ =\ 1,\ b\ =\ 2,\ default\ =\ 0))}
+In the chuck above it is assigned prior mean equal to 1 for fixed effect ``a'' and equal 2 for ``b''; the rest of the prior means are set equal to 0.
+Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Results contained in the object are specified in the table below, even though some of them requires special method: (se riesco più elegante in kable)
+Following Krainski \& Rubio \citeyearpar{Krainski-Rubio} observations \(y(s_{1}), \ldots, y(s_{n})\) are taken from a toy generated dataset and a hierarchical linear regression is fitted.
+
+\begin{figure}
+\centering
+\includegraphics{images/summarytable.PNG}
+\caption{summary table list object, source: \citet{Krainski-Rubio}}
+\end{figure}
+
+\hypertarget{example}{%
+\subsection{Linear Predictor}\label{example}}
+
+SPDEtoy dataset, that has a spatial component, is generated from a \(y_{i}\) Gaussian variable; its moments are \(\mu_{i}\) and precision \(\tau\).
+
+\begin{figure}
+\centering
+\includegraphics{images/cotour_toy.png}
+\caption{SPDEtoy plot, author's source}
+\end{figure}
+
+The formula that describe the linear predictor has to be called directly inside the \texttt{inla()} function or it can be stored in the environment into a variable. The mean moment in the gaussian distribution \(\mu_{i}\) is expressed as the \emph{linear predictor} \(\eta_{i}\) (i.e.~\(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}\) ). The function that maps the linear predictor into the parameter space is identity as in section \ref{genregvec} i.e.~\(\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)\).
+After including \(s_{1}\) and \(s_{2}\) spatial covariates the linear predictor takes the following form: \(\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\), where once again \(\beta_{0}\) is the fixed effect i.e.~intercept and the \(\beta_{j}\) are the linear effect on covariates. INLA allows also to include non-linear effects with the \texttt{f()} method inside the formula. \texttt{f} are foundamental since they are used to incorporate the spatial component in the model through the Matérn covariance function, this will be shown in section (boh).
+Once the formula is decided then priors has to be picked up; for the intercept a customary choice is uniform. Prior for Gaussian latent parameters are vague and they have 0 mean and 0.001 precision, then the prior for \(\tau\) is a Gamma with parameters 1 and 0.00005. Prior initial choice can be later adapted.
+
+The summary of the model parameters is:
+
+\[
+\begin{aligned}
+y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
+\mu_{i} &=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i} \\
+\beta_{0} & \sim \text { Uniform } \\
+\beta_{j} & \sim N\left(0,0.001^{-1}\right), j=1,2 \\
+\tau & \sim G a(1,0.00005)
+\end{aligned}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"SPDEtoy"}\NormalTok{)}
+\NormalTok{formula =}\StringTok{ }\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{s1 }\OperatorTok{+}\StringTok{ }\NormalTok{s2}
+\NormalTok{m0 =}\StringTok{ }\KeywordTok{inla}\NormalTok{(formula, }\DataTypeTok{data =}\NormalTok{ SPDEtoy)}
+\end{Highlighting}
+\end{Shaded}
+
+Table: \label{tab:foo}
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:table\_INLA)prova\}
+\centering
+
+\begin{tabular}[t]{lrrrrrrr}
+\toprule
+  & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
+\midrule
+(Intercept) & 10.1321487 & 0.2422118 & 9.6561033 & 10.1321422 & 10.6077866 & 10.1321497 & 7e-07\\
+s1 & 0.7624296 & 0.4293757 & -0.0814701 & 0.7624179 & 1.6056053 & 0.7624315 & 7e-07\\
+s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 & 7e-07\\
+\bottomrule
+\end{tabular}
+
+\textbackslash end\{table\}
+
+The output offers among the others a summary of the posterior marginal values for intercept, coefficient and covariates, as well as precision. Below the plots for the parameters and hyperparameters. From the summary it can be seen that the mean for s2 is negative, so the more the value of the y-coordinates increases the more the output decreases, that is truer looking at the SPDEtoy cotour plot. Plots can be generated by calling the \texttt{plot} function on the inla object, however the one generated below are \texttt{ggplot2} outputs coming from the \$marginals.fixed list object.
+
+\begin{figure}
+\centering
+\includegraphics{images/marginal_distr.png}
+\caption{linear predictor marginals, author's creation}
+\end{figure}
+
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:mtcars\_std\_kable)The mtcars data.\}
+\centering
+
+\begin{tabular}[t]{lrrrrr}
+\toprule
+  & mpg & cyl & disp & hp & drat\\
+\midrule
+Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90\\
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90\\
+Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85\\
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08\\
+Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15\\
+\bottomrule
+\end{tabular}
+
+\textbackslash end\{table\}
+
+R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively \texttt{inla.dmarginal}, \texttt{inla.pmarginal} and \texttt{inla.qmarginal}. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval \texttt{inla.hpdmarginal} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) with .1 Confidence Level.
+
+\begin{verbatim}
+##                 low      high
+## level:0.9 -2.291268 -0.879445
+\end{verbatim}
+
+Recall that the interpretation is different from the frequentist: in Bayesian statistics \(\beta_{j}\) comes from probability distribution, while frequenstists considers \(\beta_{j}\) as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value \citeyearpar{Blangiardo-Cameletti}.
+
+Prova tabella: suggerimento bookdown.
+
+\hypertarget{r-kableextra_constyle-datamtcars-kablemtcars15-15-kable_stylinglatex_options-cstriped-scale_down}{%
+\chapter{\texorpdfstring{\texttt{\{r\ kableextra\_conStyle\}\ \#\ data("mtcars")\ \#\ kable(mtcars{[}1:5,\ 1:5{]})\ \%\textgreater{}\%\ \#\ \ \ kable\_styling(latex\_options\ =\ c("striped",\ "scale\_down"))\ \#}}{\{r kableextra\_conStyle\} \# data("mtcars") \# kable(mtcars{[}1:5, 1:5{]}) \%\textgreater\% \#   kable\_styling(latex\_options = c("striped", "scale\_down")) \#}}\label{r-kableextra_constyle-datamtcars-kablemtcars15-15-kable_stylinglatex_options-cstriped-scale_down}}
+
+\hypertarget{prdm}{%
+\chapter{Point Referenced Data Modeling}\label{prdm}}
+
+Geostatistical data are a collection of samples of geo type data indexed by coordinates (e.g.~latlong, eastings and northings) that originate from a spatially continuous phenomenon \citep{Moraga2019}. Data as such can monitor a vast range of phenomena, as an example disease cancer detection \citep{Bell2006} at several sites, COVID19 spread in China \citep{Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020}, PM pollution concentration in a North-Italian region Piemonte \citep{Cameletti2012}. Moreover house prices variation, as observed in \citet{Bayesian_INLA_Rubio}, where selling prices smoothly vary between closer neighborhoods. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually originates from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:
+
+\begin{quote}
+``Everything is related to everything else,
+but near things are more related than distant things''
+
+\hfill --- Waldo R. Tobler
+\end{quote}
+
+Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance.
+Spatial data can be partitioned into three spatial data type whose modeling tools are specific with respect to their category.
+
+\begin{itemize}
+\tightlist
+\item
+  Areal Data
+\item
+  \textbf{Point Referenced Data}
+\item
+  Point Pattern Data
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/map.png}
+\caption{point referenced data example, Milan Rental Real Estate, Author's Source}
+\end{figure}
+
+REST API seen in chapter \ref{Infrastructure} extracts point referenced data, so modeling methodologies described in this analysis will exclusively take into account point referenced oriented techniques.
+In order to extend the notion from discrete measurements (i.e.~point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained according to convenient properties. GP are then evaluated with a specific covariance function, i.e.~Matèrn. The reason why Matérn is selected as candidate for covariance function will be much more clear in the next chapter \ref{spde}.
+Hedonic Price Models are at first introduced and then a brief literature review is offered. Hedonic Prices brings to this work the theoretical basis but they do not suggest estimation methods, which are essentially the major issue in geostatistics. For this reason Hedonic Models are exploited into a spatial bayesian regression framework with the aim to apply INLA (seen in chpater \ref{inla}) methodology.
+At first standard Bayesian regression is presented as introduction, then the spatial component in the form of a GP is added to the model. Many parameters are considered so far, as a consequence a hierarchy structure is imposed. To this extent an entire section is dedicated to hierarchy which simplifies model building and methodology understanding as well as allowing to bring in many different parameters that come from different levels through the exchangeability property.
+As a matter of fact parameters originate from the Gaussian latent field, but also from Matérn covariance function tuning hyper parameters.
+Then INLA is applied and a GMRF representation of GP is\ldots{}
+Spatial kriging is essential to predict the process at new locations so that the spatial surface can be plotted and analyzed.
+In the end models have to be checked and verified with resampling schemes which are once again specific to the data type and the scope of the analysis.
+
+\emph{(forse mettere alla fine come further developments)}
+As a side note Spatial data can also be measured according to a further dimension which is the Time. Latest literature suggests that spatio temporal models are the most accurate, as a consequence it might be interesting to research time correlation between subsequent spatial data time points, a valuable reference is offered in \citet{PACI2017149}. This will not take an enormous effort due ti the fact that on a daily basis REST API generates data which are stored as .json file on a DB. Future research on this data might consider the idea to include the time component in the model.
+
+\hypertarget{GP}{%
+\section{Gaussian Process (GP)}\label{GP}}
+
+For simplicity lets consider \(y\) point of interest observations \(y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)\)
+from a random spatial process \(Y\), such that: \(Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)\) observed at location \(\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}\). In the context of geostatistical data each observation has to be considered as a partial realization of an unobserved random spatial process.
+\(\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}\), where surface \(D\) is a subset of r-dimensional Euclidean space \(\mathbb{R}^{r}\).
+Moreover When \(r = 1\) it is the most simple stochastic process widely explored in literature i.e.~time series process. However geostatistical data always have \(r = 2\) (i.e.~lat and long, eastings and northings) or eventually \(r = 3\), when elevation data is available. The stochastic process \(Y\) is observed in a fixed set of ``monitoring stations'' and inference can be done regarding moments of the realized process. This information are essential to build a spatially continuous surface over the y-studied variable in order to predict the phenomenon at locations not yet observed.
+
+\begin{figure}
+\centering
+\includegraphics{images/prdprocess.png}
+\caption{3D scatterplot and surface, Stockton data.}
+\end{figure}
+
+A collection of \(n\) random variables, such as \(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\) that are \emph{valid} spatial processes are said to be a \textbf{GP} if for any set of spatial index \(n\) and for each set of corresponding locations \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) follows a multivariate \emph{Gaussian} distribution with mean \(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\) and covariance matrix \(\mathbf{Q}^{-1}_{i,j}, \forall i \neq j\), even tough sometimes it is more convenient to express it through precision matrix \(\boldsymbol{Q}_{i,j}\) \citep{Blangiardo-Cameletti}. The covariance matrix relates each observation to each of the others through a covariance function defined as \(\mathcal{C}(\cdot)\).
+
+GP in the spatial context must check two important properties in order to exploit INLA, even though both of these assumptions can be relaxed:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Stationary}.
+\item
+  \textbf{Isotropy}.
+\end{itemize}
+
+\textbf{Stationarity} in a stochastic process can be \emph{strong}, \emph{weak} or \emph{intrinsic}. The strong property forces the distribution of the process \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) for any given spatial index \(n\) and its correspondent location sets \(s_{1,\ldots,n}\) to be the same as the one in \(\left\{y\left(s_{1}+\boldsymbol{h}\right), \ldots, y\left(s_{n}+\boldsymbol{h}\right)\right\}\), where \(h\) is a number belonging to \(R^{2}\).
+On the other hand the weak property ensures that if the GP mean moment is constant over the study domain \(\mu(\mathbf{s}) \equiv \mu\) (e.g.~\(E[Y(s)]=\mu, \forall s \in D\)) then the covariance functions does depend only on the distance (euclidean \(\left\|s_{i}-s_{j}\right\|\) distance) between each couple points.
+Weak stationarity consequences are the most interesting: It does not matter whether observations are placed either in a specific region, nor the direction towards they are oriented, the covariance functions \(\mathcal{C}(h)\) can summarize the process through the separation vector \(\mathbf{h}\) i.e.~\(\mathcal{C}(\mathbf{s}, \mathbf{s}+\mathbf{h})=\mathcal{C}(\mathbf{h}), \forall \mathbf{h} \in \mathbb{R}^{r}\) \citep{Banerjee-Gelfand}. In other words weak stationarity in GP implies being invariant under \emph{translation} \citeyearpar{Krainski-Rubio}. The relationship between strong and weak is not bijective since being strong implies also being weak, but the opposite is not always true for non-Gaussian process.
+Furthermore through the intrinsic stationary property it is meant that \(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]=0\), the second moment of the latter expression can be written as \(E[Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s})]^{2}\) leading to \(\operatorname{Var}(Y(\mathbf{s}+\mathbf{h})-Y(\mathbf{s}))\). Last expression is called \emph{variogram} and can be expressed with \(2 \gamma(\mathbf{h})\), even tough its half,i.e.~\(\gamma(\mathbf{h})\), is more interpretable, namely \emph{semivariogram} \citep{Cressie_2015}.
+
+Semivariograms are characterized by mainly 3 tuning parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{range} \(\sigma^{2}\): At some offset distance, the variogram values will stop changing and reach a sort of ``plateau''. The distance at which the effect occurs is called the range \(\frac{\Delta\gamma(\mathrm{h})}{h} \approx 0\).
+\item
+  \emph{sill} \(\tau^{2}\): The ``plateau'' value at which the variogram stops changing \(\frac{\Delta\gamma(\mathrm{h})}{h} = 0\).
+\item
+  \emph{nugget} \(\tau^{2}+\sigma^{2}\): The discontinuity at the origin. Although this theoretically should be zero, sampling error and short scale variability can cause it to be non-zero \(\gamma(\mathrm{0})\).
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/variogram.png}
+\caption{variogram example}
+\end{figure}
+
+presi i dati con le relative distanze euclidee a coppie di punti si binnano le distanze grazie ad un offset ottenendo i valori per il semivariogram. ottenuti i valori si fitta il semivargiogram a quei valori, un modo è la likelihood. A questo punto si calcolano le tre grandezze nugget sill e range per poi poter far uscire le funzioni di covarianza.
+
+The process is said to be \textbf{Isotropic} if the covariance function depends only on the between-points distance \(\left\|\mathbf{h}\right\|\) so it is invariant under \emph{rotation} \citeyearpar{Krainski-Rubio}. A further way of seeing the property is that Isotropy implies concentric decaying contours that resemble the vanishing of spatial dependence, and so covariance values too.
+then if the last assumption does not hold and direction towards point are distant from each other matters within the spatial domain \(D\), then is said to be \textbf{Anisotropic}.
+Formalizing the results:
+
+\[\mathcal{C}(\mathbf{h})=\mathcal{C}(\|\mathbf{h}\|)\]
+
+\begin{figure}
+\centering
+\includegraphics{images/isotropyVSanisotropy.png}
+\caption{isotropy VS anisotropy, source \citet{blanchetscalliet}}
+\end{figure}
+
+\hypertarget{spatial-covariance-function}{%
+\section{Spatial Covariance Function}\label{spatial-covariance-function}}
+
+The covariance function \(\mathcal{C}(\cdot)\) ensures that all the values that are close together in input space will produce output values that are close together. \(\mathcal{C}(\cdot)\) needs to inherits the \emph{validity} characteristics from the random spatial process, furthermore it has to be \emph{positive definite}.
+In addition covariance function must share characteristic properties of functions, such as:
+
+(cerca di capire queste\ldots)
+
+\begin{itemize}
+\tightlist
+\item
+  Multiply valid covariance functions (summing independent random variables)
+\item
+  Mixing covariance functions (mixing distributions)
+\item
+  Convolving covariance functions, this will be very important \ldots{}
+\end{itemize}
+
+Covariance functions under stationary and isotropic GPs displays two important properties: they are constant in mean within \(D\) i.e.~\(\mathcal{C}(\mathbf{s}, \mathbf{s}+\mathbf{h})=\mathcal{C}(\mathbf{h}), \forall \mathbf{h} \in \mathbb{R}^{r}\) and they depends on distance vector \(\mathbf{h}\), not direction i.e.~\(\mathcal{C}(\mathbf{h})=\mathcal{C}(\|\mathbf{h}\|)\)
+There are many covariance functions and ways to relate distant points on a spatial domain \(D\). Typically the choice of the Covariance can depend either on data or the scope of the analysis. Covariance functions are wrapped into special hyper parameters which are mainly three:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Range}: At some offset distance, the variogram values will stop changing and reach a ``plateau''. The distance at which this occurs is called the range.
+\item
+  \emph{Sill}: The ``plateau'' value at which the variogram stops changing.
+\item
+  \emph{Nugget}: The discontinuity at the origin. Although this theoretically should be zero, sampling error and short scale variability can cause it to be non-zero
+\end{enumerate}
+
+(espressione della covariance function insieme a alle \(\sigma^2\) come: \(C(\mathbf{s}+\mathbf{h}, \mathbf{s} \mid \theta)=\sigma^{2} \mathbf{R}(\|h\| ; \phi)\))
+spiega anche queste due sotto
+
+\[
+\mathbf{w}=\left(w\left(\mathbf{s}_{1}\right), \ldots, w\left(\mathbf{s}_{n}\right)\right)^{\prime} \sim \mathrm{N}\left(\mathbf{0}, \sigma^{2} \mathbf{R}(\phi)\right) \text { where } \left.\mathbf{R}(\phi)_{i j}=\rho\left(\left\|\mathbf{s}_{i}-\mathbf{s}_{j}\right\| ; \phi\right)\right)
+\]
+
+\(\Sigma_{\theta}=\sigma^{2} \mathbf{R}(\phi)+\tau^{2} I_{n}\)
+
+A summary of the most used covariance functions are presented below.
+
+\[
+\begin{aligned}
+&\text { Exponential } \quad \mathcal{C}(\mathbf{h})=\left\{\begin{array}{cl}
+\tau^{2}+\sigma^{2} & \text { if }  h=0 \\
+\sigma^{2} \exp (-\phi h) & \text { if } h>0 
+\end{array}\right.\\
+&\text { Gaussian } \quad \mathcal{C}(\mathbf{h})=\left\{\begin{array}{cl}
+\tau^{2}+\sigma^{2} & \text { if } h=0 \\
+\sigma^{2} \exp \left(-\phi^{2} h^{2}\right) & \text { if } h>0 
+\end{array}\right. \\
+&\text { Matérn } \quad \mathcal{C}(\mathbf{h})=\left\{\begin{array}{cl}
+\tau^{2}+\sigma^{2} & \text { if } h=0 \\
+\frac{\sigma^{2}}{2^{\nu-1} \Gamma(\nu)}(\phi h)^{\nu} K_{\nu}(\phi h) & \text { if } h>0
+\end{array}\right.
+\end{aligned}
+\]
+
+\hypertarget{Matern}{%
+\subsection{Matérn Covariance Function}\label{Matern}}
+
+Matérn is special since when it is used together with a stationary and isotropic GP, the SPDE approach can provide a GMRF representation of the same process, chapter \ref{spde} discloses this fundamental property.
+Matérn can also be accounted as the most used in geostatistics \citep{Krainski2018} and \citep{Bayesian_INLA_Rubio} and is tuned mainly by two parameters, a scaling one \(\kappa>0\), usually set equal to the range by the relation \(\sigma^{2}=\frac{\sqrt{8 \lambda}}{\kappa}\)) and a smoothing one \(\nu>0\). A \emph{stationary} and \emph{isotropic} Matérn covariance function has this form:
+
+\[
+\mathcal{C}(\mathbf{h})=\left\{\begin{array}{ll}
+\tau^{2}+\sigma^{2} & \text { if } h=0 \\
+\frac{\sigma^{2}}{2^{\nu-1} \Gamma(\nu)}(\phi t)^{\nu} K_{\nu}(\phi t) & \text { if } h>0
+\end{array}\right.
+\]
+
+\(\Gamma(\nu)\) is a Gamma function depending on \(\nu\) values, \(K_{\nu}(\cdot)\) is a modified Bessel function of second kind. The smoothness parameter \(\nu\) in the figure below takes 4 different values showing the potentiality of Matérn to relates distances to covariance values. When \(\nu = 1\) \ldots{} When \(\nu = 1/2\) it becomes the exponential covariance function, When \(\nu = 3/2\) it uncovers a convenient closed form, when \(\nu \approx \infty\), in this case for representation purposes \(\nu = 80\) it becomes Gaussian covariance function.
+
+\begin{figure}
+\centering
+\includegraphics{images/matern.png}
+\caption{matern correlation function for 4 diff values of nu with phi fixed, author's source}
+\end{figure}
+
+ancora di più su matern, forse di più in spde
+
+\hypertarget{hedonic-models-literature-review-and-spatial-hedonic-price-models}{%
+\section{Hedonic models Literature Review and Spatial Hedonic Price Models}\label{hedonic-models-literature-review-and-spatial-hedonic-price-models}}
+
+The theoretical foundation of the Hedonic Price Models (from now on HPM) resides in the consumer utility theory of \citet{Lancaster} together with \citet{Rosen} market equilibrium. According to Lancaster the utility of a commodity does not exist by itself, instead it exists as the sum of the utilities associated to its separable characteristics. Integrating Lancater, Rosen introduces HPM and suggests that each separate commodity characteristics are priced by the markets on the basis of supply and demand equilibrium. Applying HPM to Real Estate in a market context, from the buy side house prices (but also rents) are set as the unit cost of each household attributes, conversely from the selling side the expenditures associated to build of each them.
+Formalizing the results, Hedonic Price \(P\) in Real Estate is expressed as a general \(f\) functional form that takes as input the house characteristics vector \(\mathbf{C}\).
+
+\[P=f\left(c_{1}, c_{2}, c_{3}, \ldots, c_{n}\right)\]
+
+Vector \(\mathbf{C}\) since now might contain a unidentified and presumably vast number of ungrouped characteristics. In this setting \citet{Malpezzi} tried to organize house features by decomposing \(\mathbf{C}\) into mutually exclusive and exhaustive subgroups. An overview of the vector components involved is given by \citet{Ling} according to which \(P\) represents the house price, \(S\) is the structural characteristics of the house, \(N\) represents the neighborhood characteristics, \(L\) signifies the locational characteristics, \(C\) describes the contract conditions and \(T\) is time. \(\beta\) is the vector of the parameters to be estimated. Then
+
+\[P=f\left(S, N, L, C, T, \beta\right)\]
+
+Historically a first attempt to include spatial effect in urban economic literature is provided by \emph{Alonso (1964) miss ref}. Its contribution was to raise voice on house prices (also rent) mainly depending on land price and a number of purely spatial covariates like CBD, the distance from City Business District. Other covariates were transport cost per kilometer and community income, even though they were defined also as spatial parameters through distances. The model proposed by Alonso is called monocentric since the centroid from which distances are calculated is only one. Moreover a first touch to spatial data thory was done since the CBD was defined as areal unit with well-defined boundaries of regular or irregular shape. However applications of the model were not convincing since empirical studies offered a different picture. Results instead displayed a Poly-centric areal structure (universities and Malls) which might be better explaining prices. The model also assumed that covariates like CBD are only informative within city center boundaries and then displayed no significance out of the core of the city. Poly-centric theory was also more coherent with the architectural and socio-economical evolution of cities during that times, therefore mono centric theory was then criticized and abandoned. Critics regarded also neighborhood quality measure and boundary problems \emph{Dubin (1987) miss ref}. Dubin for these reasons developed a model including areal effects in the error term since handling these covariates was posing several hard challenges. Areal data choice for Dubin was forced since he was interested in land values, geostatics interest was not a focus also due to the difficulties in gathering accurate data. Coming to recent literature a change in focus has been made by switching from theory based model to estimation methods. As a consequence to the change in focus \citet{Ling} said that practitioners should spend more time in variable selection and model specification with respect to their specific need.
+As Ling has observed the emerging trends are in the field of semi-parametric and non-parametric methods \citeyearpar{Ling}. Historically semi-parametric regression considers models indexed by spatial coordinates \emph{Pace RK (1995)}. At the same time \emph{Kammann and Wand (2003)} gave birth to geoadditive models where the spatial component is added as a covariate. {[}\ldots{]}
+
+A further aspect of the problem is posed by scholars that do not consider rents to be representative for the actual value of real estate. Nevertheless in empirical analysis rent value are considered a proxy for real estate pricing \citep{Herath_Maier_2011}. A further argument to endorse this hypothesis is brought by \citet{sellingVSrental} considering housing a commodity, then the selling or the rental should be considered interchangeable economic actions with respect to same inner need to be satisfied. This is also truer to the thesis' extent since Manganelli, Morano, and Tajani have centered their analysis exactly on italian real estate data. Moreover \citet{Capozza_Seguin_1996} discussed on how much rent-price ratio predicts future changes both in rents and prices. Among all the other discussions raised they brought the decomposition of rent-price ratio into two parts: the predictable part and the unexplained residuals part. The predictable part was discovered to be negatively correlated with price changes, in other words cities in which prices are relatively high with respect to rents are associated with higher capital gains that might justify that misalignment. This is also true for the opposite, that is cities in which prices are lower with respect to the rents, and this effect can not be associated to any local condition, realize lower capital gains. A further argument is offered by Clark \citep{Clark_1995} which went after the Capozza and Seguin work. Rent-price ratio is negatively correlated with following future changes in rents. In other words prices are still higher when areas in which they are observed documents an increase in rent prices. All the literature review above is oriented to a long-run alignment of price and rent.
+
+\hypertarget{univariateregr}{%
+\section{Point Referenced Regression for univariate spatial data}\label{univariateregr}}
+
+Since in HPM the relationships between the characteristics of the house, i.e.~vector \(\mathbf{C}\) and the price \(P\) is not in any case fixed by econometric literature it is possible to assume any \(f\) functional form. The open possibility to apply a wide range of relationship between covariates fit in the INLA setting, since Latent Gaussian Models are prepared to accept a any linear and non linear \(f\) functions \ref{LGM} through the \texttt{f()} method. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.
+
+Moreover what the vast majority of econometric literature \emph{(Greene, 2018)} suggest to apply a is log-linear / square root model. This is due to the fact that log transformation / square root smooths the skewness of prices normalizing the curve, leading to more accurate estimates. Having an exponential family generating process lowers even further computational cost for reasons linked to the \(\tilde\pi(\boldsymbol{\psi})\) hyper param INLA approximation \citep{Blangiardo-Cameletti}. Notation is taken from the previous chapter \ref{inla}, for brevity purposes \(\boldsymbol{\beta}\) \(\mathbf{X}\) and \(\boldsymbol{y}\) indicates vectors incorporating all their respective realizations and the \(s\) spatial component is left out in favor of the observation pedix \(i\).\\
+The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)
+
+\[
+\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2})
+\]
+
+\[
+y_{i}=\mu_{i}+\varepsilon_{i}
+\]
+
+then by the following relationship \(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right)=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{i m}\) it is possible to specify a more general linear predictor (seen also in chapter \ref{inla}) through an identity link function i.e.~\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\) obtaining:
+
+\[
+\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
+\]
+
+Where, once again, the mean structure linearly depends on some \(\mathbf{X}\) covariates, \(\boldsymbol{\beta}\) coefficients, \(f_{l}(\cdot), \forall l \in 1 \ldots L\) are a set of random effects defined in terms of a \(\boldsymbol{z}\) set of covariates \(\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)\) (e.g.~rw, ar1) and \(\varepsilon_{i}\) white noise error.
+Priors have to be specified and a non informativeness for \(\tau^2 = 1/\sigma^2\) and \(\boldsymbol{\beta}\) is chosen, such that \(\pi(\tau^2) \propto 1\) and \(\pi(\boldsymbol\beta) \propto 1\). As a consequence the conditional posterior for the parameters of interest \(\boldsymbol{\beta}\) is:
+
+\[
+\boldsymbol{\beta} \mid \sigma^{2}, \boldsymbol{y}, \boldsymbol{X} \sim \operatorname{MVNormal}\left(\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1} \boldsymbol{X}^{\prime} \boldsymbol{y}, \sigma^{2}\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1}\right)
+\]
+
+where the mean structure corresponds to the OLS estimator: \(\left(\boldsymbol{X}^{\prime} \boldsymbol{X}\right)^{-1} \boldsymbol{X}^{\prime} \boldsymbol{y}\) for \(\beta\) and then to obtain the marginal posterior for \(\boldsymbol{\beta}\) it is needed to integrate with respect to \(\sigma^2\).
+
+In order to engage the spatial coordinate components into the regression setting \(w_{i}\) has to be added to the equation. \(w_{i}\) is set as a stationary and isotropic GP with mean 0 and variance as covariance function expressed as Matérn.
+Recall that GP
+The new regression setting integrates the \emph{spatial error} part in the name of \(w_{i}\) and a \emph{non-spatial error} part \(\varepsilon_{i}\) distributed normally with mean 0 and variance \(\tau^2\) ,i.e.~\(\mathrm{N}\left(0, \tau^{2}\right)\), which offers its contribution error to the nuggets via the covariance function.
+Consequently there is one more parameter to estimate. It is worth mentioning that the distribution of \(w_{i}\) at a finite number of points is considered a realization of a multivariate Gaussian distribution. In this case, the likelihood estimation is possible and it is the multivariate Gaussian distribution with covariance \(\Sigma\).
+
+\[
+\log(y_{i})= \beta_{0} + (\mathbf{X})^{\prime}\boldsymbol{\beta}+w_{i}+\varepsilon_{i}
+\]
+
+The covariance of the marginal distribution of \(y_{i}\) at a finite number of locations is \(\Sigma_{y} = \Sigma + \tau^2\mathbf{I}\), where \(\mathbf{I}\) denotes the indicator function (i.e., \(\mathbf{I}(i = i^{\prime})= 1\) if \(i = i^{\prime}\), and 0 otherwise). This is a short extension of the basic GF model, and gives one additional parameter to estimate
+
+\hypertarget{hiermod}{%
+\section{Hierarchical Bayesian models}\label{hiermod}}
+
+Spatial Models are characterized by many parameters which in turn are tuned by other hyper-parameters. Traditionally Bayesian hierarchical models are not widely adopted since they have high computational burdens, indeed they can handle very complex interactions via random components, especially when dealing with spatio temporal data \citet{Ling}. Blangiardo e Cameletti \citeyearpar{Blangiardo-Cameletti} tried to approach the problem from a different angle offering an intuitive solution on how hierarchy relates different levels parameters. This is done by reversing the problem and starting from data back to parameters, instead the other way round. So taking a few steps back the problem can be reformulated by starting from grouping observation into categories and then trying to impose a hierarchical structure on data based on the categories. As a result observations might fall into different categories, underlining their natural characteristics, such as: some of them might belong to category \emph{levels} like males or females, married or not-married. Moreover diving into the specific problem house prices can be faceted by which floor they belong or whether they are assigned to different energy classes and many others more. As an example Blangiardo and Cameletti example consider grouping data according to just a single 9 \emph{levels} category. Data for the reasons stated before can be organized such that each single observation (squares in figure below) belongs to its respective mutually exclusive and collectively exhaustive category (circles in figure).
+
+\begin{figure}
+\centering
+\includegraphics{images/simple.PNG}
+\caption{9 levels cat vs observaitions, source \citet{Blangiardo-Cameletti}}
+\end{figure}
+
+Furthermore data can be partitioned into two meta-categories, \emph{fist level} and \emph{second level}, highlighting the parameter and hyper paramter chain roles. \emph{First level} are identified by sampling observations which are drawn by the same probability distribution (squares) . \emph{Second level} (circles) are categories and might be associated to a set of parameters \(\theta=\left\{\theta_{1}, \ldots, \theta_{J}\right\}\).
+Since the structure is hierarchical, a DAG (Directed Acyclical Graph) \citeyearpar{Blangiardo-Cameletti} representation might sort out ideas. If categories are represented by different \(\theta_{j}\) nodes and edges (arrows in the figure) are the logical belonging condition to the category then a single parameter \(\theta\) model has the right figure form:
+
+\includegraphics{images/thetas.PNG} \includegraphics{images/chis.PNG}
+
+To fully take into account the hierarchical structure of the data the model should also consider further lelvels. Since \(\left\{\theta_{1}, \ldots, \theta_{J}\right\}\) are assumed to come from the same distribution \(\pi(\theta_{j})\), then they are also assumed to be sharing information \citep{Blangiardo-Cameletti}, (left figure). When a further parameter \(\boldsymbol{\psi}=\left\{\psi_{1}, \ldots, \psi_{K}\right\}\) is introduced, for which a prior distribution is specified, then the conditional distribution of \(\boldsymbol{\theta}\) given \(\boldsymbol{\psi}\) is:
+
+\[
+\pi\left(\theta_{1}, \ldots, \theta_{J} \mid \boldsymbol{\psi}\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
+\]
+This is possible thanks to the conditional independence property already encountered in chapter \ref{inla}, which means that each single \(\theta\) is conditional independent given \(\psi\)
+This structure can extended to allow more than two levels of hierarchy since the marginal prior distributions of \(\theta\) can be decomposed into the product of their conditional priors distributions given some hyper parameter \(\psi\) as well as their prior distribution \(\pi(\psi)\).
+
+\[
+\pi(\boldsymbol{\theta})=\int \pi\left(\boldsymbol{\theta} \mid \boldsymbol{\psi}_{1}\right) \pi\left(\boldsymbol{\psi}_{1} \mid \boldsymbol{\psi}_{2}\right) \ldots \pi\left(\boldsymbol{\psi}_{L-1} \mid \boldsymbol{\psi}_{L}\right) \pi\left(\boldsymbol{\psi}_{L}\right) \mathrm{d} \boldsymbol{\psi}_{1} \ldots \mathrm{d} \boldsymbol{\psi}_{L}
+\]
+
+\(\boldsymbol{\psi}_{l}\) identifies the hyper pram for the \(l_{th}\) level of hierarchy. Each further parameter level \(\psi\) is conditioned to its previous in hierarchy level \(l-1\) so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The \emph{Exchangeability} property enables to have higher \(H\) nested DAG (i.e.~add further \(L\) levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many \(L\) levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off.
+
+\hypertarget{finalregr}{%
+\section{INLA model through spatial hierarchical regression}\label{finalregr}}
+
+INLA model seen in section \ref{LGM} can be rearranged according to the hierarchical structure considering also the regression settings for point referenced data stated in the previous section \ref{univariateregr}.
+
+As an initial step it is required to specify a probability distribution for \(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\), this is a mandatory step looking at the \ref{example} methods needed to compute the \texttt{inla()} function. A Normal distribution for simplicity is chosen.
+
+As \emph{first level} is picked up an exponential family sampling distribution (i.e.~Normally distributed), which is \emph{exchangeable} with respect to the \(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\) \emph{latent field} and hyper parameters \(\boldsymbol{\psi_{1}}\), which includes also the ones coming from the latent Matérn GP process \(w_{i}\). The Spatial Guassian Process is centered in 0 and with Matérn covariance function as \(\tau^2\). \(w_{i}\) addresses the spatial autocorrelation between observation through a Matérn covariance function \(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\) which in turn is tuned by hyper param included in \(\boldsymbol{\psi_1}\). Moreover the \(w_{i}\) surface has to be passed in the formula method definition \ref{example} via the \texttt{f()} function, so that INLA takes into cosideration the spatial component.
+
+\[
+\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \mathrm{N}\left(\beta_{0}+ (\mathbf{X}_{i})^{\prime}\boldsymbol{\beta} + w_{i} ,  \tau^2 I_{n}\right)=\prod_{i=1}^{n} \mathrm{N}\left(y_{i} \mid \theta_{i}, \psi_{1}\right)
+\]
+
+Then at the \emph{second level} the latent field \(\boldsymbol{\theta}\) is characterized by a Normal distribution given the remaining hyper parameters \(\boldsymbol{\psi}_2\), recall the covariance matrix \(\boldsymbol{Q}^{-1}(\boldsymbol{\psi_{2}})\), depending on \(\boldsymbol{\psi_{2}}\) hyperparameters, is handled now by a Matérn covariace function depeding on its hyperparamter. This is done in order to map the GP spatial surface into a GMRF by SPDE solutions.
+
+\[
+\boldsymbol{\theta} \mid \boldsymbol{\psi}_{2} \sim \mathrm{N}\left(\boldsymbol{0}, \mathcal{C}( \cdot , \cdot  \mid \boldsymbol{\psi}_{2})\right)
+\]
+
+In the end a \emph{third level} hyper parameters \(\boldsymbol{\psi}=\left\{\boldsymbol{\psi_{1}}, \boldsymbol{\psi}_{2}\right\}\) having some specified prior distribution i.e.~\(\boldsymbol{\psi} \sim \pi(\boldsymbol{\psi})\),
+
+\hypertarget{spatial-kriging}{%
+\section{Spatial Kriging}\label{spatial-kriging}}
+
+In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed.
+Assumed the model in the previous section, suppose that \(y^{\star}\) is not a observed occurrence of the response variable at location \(s_{0}\) (not in the data) of the GP \(w_{i}\) spatial surface estimated through observed refereced points in \(\boldsymbol{y}\). As a consequence of exchangeability (first step previous section \ref{finalregr}) then \(\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}\). Then considering INLA notation it is obtained:
+
+\[
+\begin{aligned}
+&\pi\left(y^{\star} \mid \boldsymbol{y}\right)=\frac{\pi\left(\boldsymbol{y}, y^{\star}\right)}{\pi(\boldsymbol{y})} \text { from the conditional probability }\\
+&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\boldsymbol{y} \mid \theta) \pi(\theta) \mathrm{d} \theta}{\pi(\boldsymbol{y})} \text { by exchangeability }\\
+&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\theta \mid y) \pi(y) \mathrm{d} \theta}{\pi(y)} \text { applying Bayes' theorem }\\
+&=\int \pi\left(y^{\star} \mid \boldsymbol{\theta}\right) \pi(\boldsymbol{\theta} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\theta}
+\end{aligned}
+\]
+
+A DAG representation might offr the intuition behind Prediction in spatial models:
+
+\begin{figure}
+\centering
+\includegraphics{images/spatial_prediction.jpg}
+\caption{Spatial prediction representation through DAG, source \citet{Blangiardo-Cameletti}}
+\end{figure}
+
+where \(\pi\left(y^{\star} \mid \boldsymbol{y}\right)\) is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
+
+\hypertarget{model-checking-and-comparison}{%
+\section{Model Checking and Comparison}\label{model-checking-and-comparison}}
+
+\hypertarget{spde}{%
+\chapter{SPDE approach}\label{spde}}
+
+Observations in the spatial problem setting are considered as realizations of a stationary, isotropic unobserved GP \(w(s)\) that we aim to estimate (\ref{GP}). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood. Matrices in this settings were very dense and they were scaling with the order of \(O\left(n^{3}\right)\), leading to obvious big-n problem.
+The breakthrough, came with \citet{Lindgren2011} that proves that a stationary, isotropic GP with Matérn covariance can be represented as a GMRF using SPDE solutions by finite element method \citep{Krainski-Rubio}. In other words given a GP whose covariance matrix is \(\boldsymbol{Q}\), SPDE can provide a method to approximate \(\boldsymbol{Q}\) without computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies.
+Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix \(\boldsymbol{Q}^-1\) . Sparse matrices enable convenient inner computation properties of GMRF that can be exploited with INLA. Bayesian inference on GMRF can take advantage of lower computational cost because of these properties stated before leading to a more feasible big-O \(O\left(n^{3 / 2}\right)\). The following chapter will provide a intuition on SPDE oriented to practitioners. The chapeter once again will follow the track of Krainski \& Rubio \citeyearpar{Krainski-Rubio} and Blangiardo and Cameletti \citeyearpar{Blangiardo-Cameletti} works, together with the street-opener paper from \citet{Miller2019} as compendium. SPDE might be complex for those who are not used to applied mathematics and physics making it difficult not only to grab the concept, but also to find its applications. One more obstacle regards SPDE software implementation, since without deep technical expertise it might be difficult to customize code with the aim to extend the methodology to different models. For a gentle introduction on what a SPDE is from a mathemathical perspective a valuable reference is \citet{Miller2019} in secction 2.1, then also its application to Matérn in 2.3.
+
+\hypertarget{set-spde-problem}{%
+\section{Set SPDE Problem}\label{set-spde-problem}}
+
+Given the statistical model already encountered in chapter \ref{univariateregr}:
+
+\[
+y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+w(\mathbf{s})+\varepsilon\left(\mathbf{s}_{i}\right)
+\]
+
+where \(\eta(\mathbf{s}_{i}) = g (\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime}\beta_{j})\) is the linear predictor, whose link function \(g( \cdot )\) is identity (can be also extended to GLM), where \(w(\mathbf{s})\) is a Gaussian Process with mean structure 0 and \(C(\cdot)\) covariance structure ( where \(\boldsymbol{Q}\) is the covariance matrix and \(Q^{-1}\) precision matrix). Then \(w(s) \sim MV\mathcal{N}(0, \boldsymbol{Q}_{i,j}^{-1})\) and where \(\varepsilon(\mathbf{s}_{i})\) is white noise error such that \(\varepsilon(\mathbf{s}_{i}) \sim \mathcal{N}\left(0, \tau^{2}\right)\).
+Comprehending \(w\) in the model brings two major issues, specify a covariance function for observations as well as how to fit the model. Among all the possible reachable solutions including the SPDE, the common goal is to define covariance function between locations by approximating the precision matrix \(\boldsymbol{Q}^{-1}\), since they are an effective tool to represent covariance function as in section \ref{LGM}.
+For those reasons SPDE approach implies finding an SPDE whose solution have the precision matrix, that is desired for \(w\). \citet{Lindgren2011} proves that an approximate solution to SPDE equations is to represent \(w\) as a sum of basis function multiplied by coefficients \citeyearpar{Miller2019}. Moreover the basis function coefficients are in reality a GMRF (for which fast method comptations already exists).
+
+\hypertarget{spde-within-r-inla}{%
+\section{SPDE within R-INLA}\label{spde-within-r-inla}}
+
+First point addresses the assumption that a GP with Matérn covariance function and \(\nu >0\) is a solution to \emph{SPDE} equations.
+Second point addressed the issues of solving SPDE when grids are irregular, as opposite with the one seen in first point (regular grid for irregular distribution. In here comes FEM used in mathematics and engineering application with the purpose to solve differential equations. Notation is kept coherent with the one for the previous chapter.
+
+\hypertarget{first-point-krainsky-rubio-too-technical}{%
+\section{First Point Krainsky Rubio TOO TECHNICAL}\label{first-point-krainsky-rubio-too-technical}}
+
+A regular 2D grid lattice is considered with infinite number of location points as vertices.
+
+\begin{figure}
+\centering
+\includegraphics{images/lattice.png}
+\caption{lattice 2D regular grid}
+\end{figure}
+
+\hypertarget{exploratory}{%
+\chapter{Exploratory Analysis}\label{exploratory}}
+
+Data comes packed into the REST API end point \texttt{*/complete} in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the \texttt{city} in which it is aevaluated the real estate market, \texttt{npages} as the number of pages to be scraped, \texttt{type} as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section \ref{APIdocs}. Since to the analysis purposes data should come from the same source (e.g.~Milan rental real estate within ``circonvallazione'') a dedicated endpoint boolean option \texttt{.thesis} is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The \texttt{*} refers to the EC2 public DNS that is \texttt{ec2-18-224-40-67.us-east-2.compute.amazonaws.com}
+
+\texttt{http://*/complete/120/milano/affitto/.thesis=true}
+
+As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.
+Interactive maps are done with Leaflet, the result of which is a leaflet map object which can be piped to other leaflet functions. This permits multiple map layers and many control options to be added interactively (LaTex output is statically generated)
+
+A preliminary exploratory analysis evidences 34 covariates and 250 rows. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
+
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{longtable}[t]{>{}l>{\raggedright\arraybackslash}p{20em}}
+\toprule
+name & ref\\
+\midrule
+\textbf{ID} & ID of the apartements\\
+\textbf{LAT} & latitude coordinate\\
+\textbf{LONG} & longitude coordinate\\
+\textbf{LOCATION} & the complete address: street name and number\\
+\textbf{CONDOM} & the condominium monthly expenses\\
+\addlinespace
+\textbf{BUILDAGE} & the age in which the building was contructed\\
+\textbf{FLOOR} & the floor the apartement is\\
+\textbf{INDIVSAPT} & indipendent propeorty versus apartement\\
+\textbf{LOCALI} & specification of the type and number of rooms\\
+\textbf{TPPROP} & property type residential or not\\
+\addlinespace
+\textbf{STATUS} & the actual status of the house, ristrutturato, nuovo, abitabile\\
+\textbf{HEATING} & the heating system centralized or autonomous\\
+\textbf{AC} & air conditioning hot and cold\\
+\textbf{PUB\_DATE} & the date of publication of the advertisement\\
+\textbf{CATASTINFO} & land registry infromation\\
+\addlinespace
+\textbf{APTCHAR} & apartement main characteristics\\
+\textbf{PHOTOSNUM} & number of photos displayes\\
+\textbf{AGE} & estate agency name\\
+\textbf{LOWRDPRICE.originalPrice} & If the price is lowered it indicates the starting price\\
+\textbf{LOWRDPRICE.currentPrice} & If the price is lowered it indicates the current price\\
+\bottomrule
+\end{longtable}
+\endgroup{}
+
+Geographic coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters.
+Leaflet maps are created with leaflet(), the result of which is a leaflet map object which can be piped to other leaflet functions. This allows multiple map layers and control settings to be added interactivelyleaflet object takes as input data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform
+
+\includegraphics[width=1\linewidth]{images/leaflet_prezzi}
+
+\hypertarget{data-preparation}{%
+\section{Data preparation}\label{data-preparation}}
+
+As already pointed out some data went missing since immobiliare provides data that in turn is filled by estate agencies or privates. Some of missings can be reverse engineered by other information in the web pages e.g.~given the address it is possible to trace back the lat and long coordinates, eventhough this is already done by inner API calls within scraping functions. Some of the information lacking in the summary table they might be desumed and then imputed the estate agency review. This could be done by implying text mining procedure\ldots{}
+
+\hypertarget{na-removal-and-imputation}{%
+\subsection{NA removal and imputation}\label{na-removal-and-imputation}}
+
+{[}NA presence{]}
+
+\hypertarget{spatial-autocorrelation-assessement}{%
+\section{Spatial Autocorrelation assessement}\label{spatial-autocorrelation-assessement}}
+
+\hypertarget{model-specification}{%
+\section{Model Specification}\label{model-specification}}
+
+\hypertarget{mesh-building}{%
+\section{Mesh building}\label{mesh-building}}
+
+\hypertarget{building-spde-model-on-mesh}{%
+\subsection{BUilding SPDE model on mesh}\label{building-spde-model-on-mesh}}
+
+\hypertarget{spatial-kriging-prediction}{%
+\section{Spatial Kriging (Prediction)}\label{spatial-kriging-prediction}}
+
+\hypertarget{application}{%
+\chapter{Shiny Web App}\label{application}}
 
 Some \emph{significant} applications are demonstrated in this chapter.
 
@@ -270,6 +1799,6 @@ Some \emph{significant} applications are demonstrated in this chapter.
 
 We have finished a nice book.
 
-  \bibliography{book.bib,packages.bib}
+  \bibliography{refs.bib,Rpackages.bib}
 
 \end{document}

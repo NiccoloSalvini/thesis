@@ -30,11 +30,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="inla-spde.html"/>
+<link rel="prev" href="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"/>
 <link rel="next" href="spde.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,10 +49,21 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -143,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./"> REST API for Real Estate rental data, a spatial bayesian modeling approach with INLA.</a></li>
+<li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
@@ -185,27 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>4.1</b> Data preparation</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>4.1.1</b> NA removal and imputation</a></li>
+<li class="chapter" data-level="4" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
+<li class="chapter" data-level="4.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>4.1</b> Latent Gaussian Models LGM</a></li>
+<li class="chapter" data-level="4.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>4.2</b> Approximation in INLA setting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>4.2.1</b> further approximations (prolly do not note include)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>4.2</b> Spatial Autocorrelation assessement</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>4.3</b> Model Specification</a></li>
-<li class="chapter" data-level="4.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>4.4</b> Mesh building</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>4.4.1</b> BUilding SPDE model on mesh</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>4.5</b> Spatial Kriging (Prediction)</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="inla-spde.html"><a href="inla-spde.html"><i class="fa fa-check"></i><b>5</b> INLA computation</a><ul>
-<li class="chapter" data-level="5.1" data-path="inla-spde.html"><a href="inla-spde.html#LGM"><i class="fa fa-check"></i><b>5.1</b> Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="5.2" data-path="inla-spde.html"><a href="inla-spde.html#approx"><i class="fa fa-check"></i><b>5.2</b> Approximation in INLA setting</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="inla-spde.html"><a href="inla-spde.html#further-approximations-prolly-do-not-note-include"><i class="fa fa-check"></i><b>5.2.1</b> further approximations (prolly do not note include)</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>5.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
-<li class="chapter" data-level="5.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>5.3.2</b> Linear Predictor</a></li>
+<li class="chapter" data-level="4.3" data-path="inla-spde.html"><a href="inla-spde.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package in a bayesian hierarchical regression perspective</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="inla-spde.html"><a href="inla-spde.html#overview"><i class="fa fa-check"></i><b>4.3.1</b> Overview</a></li>
+<li class="chapter" data-level="4.3.2" data-path="inla-spde.html"><a href="inla-spde.html#example"><i class="fa fa-check"></i><b>4.3.2</b> Linear Predictor</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><a href="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html"><i class="fa fa-check"></i><b>5</b> <code>{r kableextra_conStyle} # data("mtcars") # kable(mtcars[1:5, 1:5]) %&gt;% #   kable_styling(latex_options = c("striped", "scale_down")) #</code></a></li>
 <li class="chapter" data-level="6" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>6</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="6.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>6.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="6.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>6.2</b> Spatial Covariance Function</a><ul>
@@ -223,11 +223,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2" data-path="spde.html"><a href="spde.html#spde-within-r-inla"><i class="fa fa-check"></i><b>7.2</b> SPDE within R-INLA</a></li>
 <li class="chapter" data-level="7.3" data-path="spde.html"><a href="spde.html#first-point-krainsky-rubio-too-technical"><i class="fa fa-check"></i><b>7.3</b> First Point Krainsky Rubio TOO TECHNICAL</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Shiny Web App</a><ul>
-<li class="chapter" data-level="8.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>8.1</b> Example one</a></li>
-<li class="chapter" data-level="8.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>8.2</b> Example two</a></li>
+<li class="chapter" data-level="8" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>8</b> Exploratory Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>8.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>8.1.1</b> NA removal and imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="8.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>8.2</b> Spatial Autocorrelation assessement</a></li>
+<li class="chapter" data-level="8.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>8.3</b> Model Specification</a></li>
+<li class="chapter" data-level="8.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>8.4</b> Mesh building</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>8.4.1</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>8.5</b> Spatial Kriging (Prediction)</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>9</b> Shiny Web App</a><ul>
+<li class="chapter" data-level="9.1" data-path="application.html"><a href="application.html#example-one"><i class="fa fa-check"></i><b>9.1</b> Example one</a></li>
+<li class="chapter" data-level="9.2" data-path="application.html"><a href="application.html#example-two"><i class="fa fa-check"></i><b>9.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
@@ -426,11 +437,13 @@ As Ling has observed the emerging trends are in the field of semi-parametric and
 </div>
 <div id="univariateregr" class="section level2">
 <h2><span class="header-section-number">6.4</span> Point Referenced Regression for univariate spatial data</h2>
-<p>Since in HPM the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(\mathbf{C}\)</span> and the price <span class="math inline">\(P\)</span> is not in any case fixed by econometric literature it is possible to assume any <span class="math inline">\(f\)</span> functional form. The open possibility to apply a wide range of relationship between covariates fit in the INLA setting, since Latent Gaussian Models are prepared to accept a any linear and non linear <span class="math inline">\(f\)</span> functions <a href="inla-spde.html#LGM">5.1</a> through the <code>f()</code> method. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.</p>
+<p>Since in HPM the relationships between the characteristics of the house, i.e. vector <span class="math inline">\(\mathbf{C}\)</span> and the price <span class="math inline">\(P\)</span> is not in any case fixed by econometric literature it is possible to assume any <span class="math inline">\(f\)</span> functional form. The open possibility to apply a wide range of relationship between covariates fit in the INLA setting, since Latent Gaussian Models are prepared to accept a any linear and non linear <span class="math inline">\(f\)</span> functions <a href="inla-spde.html#LGM">4.1</a> through the <code>f()</code> method. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.</p>
 <p>Moreover what the vast majority of econometric literature <em>(Greene, 2018)</em> suggest to apply a is log-linear / square root model. This is due to the fact that log transformation / square root smooths the skewness of prices normalizing the curve, leading to more accurate estimates. Having an exponential family generating process lowers even further computational cost for reasons linked to the <span class="math inline">\(\tilde\pi(\boldsymbol{\psi})\)</span> hyper param INLA approximation <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. Notation is taken from the previous chapter <a href="#inla"><strong>??</strong></a>, for brevity purposes <span class="math inline">\(\boldsymbol{\beta}\)</span> <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> indicates vectors incorporating all their respective realizations and the <span class="math inline">\(s\)</span> spatial component is left out in favor of the observation pedix <span class="math inline">\(i\)</span>.<br />
 The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)</p>
 <p><span class="math display">\[
-\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2}) \\
+\log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2})
+\]</span></p>
+<p><span class="math display">\[
 y_{i}=\mu_{i}+\varepsilon_{i}
 \]</span></p>
 <p>then by the following relationship <span class="math inline">\(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right)=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{i m}\)</span> it is possible to specify a more general linear predictor (seen also in chapter <a href="#inla"><strong>??</strong></a>) through an identity link function i.e. <span class="math inline">\(\eta_{i}=g\left(\mu_{i}\right)=\mu_{i}\)</span> obtaining:</p>
@@ -511,9 +524,9 @@ This structure can extended to allow more than two levels of hierarchy since the
 </div>
 <div id="finalregr" class="section level2">
 <h2><span class="header-section-number">6.6</span> INLA model through spatial hierarchical regression</h2>
-<p>INLA model seen in section <a href="inla-spde.html#LGM">5.1</a> can be rearranged according to the hierarchical structure considering also the regression settings for point referenced data stated in the previous section <a href="prdm.html#univariateregr">6.4</a>.</p>
-<p>As an initial step it is required to specify a probability distribution for <span class="math inline">\(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\)</span>, this is a mandatory step looking at the <a href="inla-spde.html#example">5.3.2</a> methods needed to compute the <code>inla()</code> function. A Normal distribution for simplicity is chosen.</p>
-<p>As <em>first level</em> is picked up an exponential family sampling distribution (i.e. Normally distributed), which is <em>exchangeable</em> with respect to the <span class="math inline">\(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\)</span> <em>latent field</em> and hyper parameters <span class="math inline">\(\boldsymbol{\psi_{1}}\)</span>, which includes also the ones coming from the latent Matérn GP process <span class="math inline">\(w_{i}\)</span>. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as <span class="math inline">\(\tau^2\)</span>. <span class="math inline">\(w_{i}\)</span> addresses the spatial autocorrelation between observation through a Matérn covariance function <span class="math inline">\(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\)</span> which in turn is tuned by hyper param included in <span class="math inline">\(\boldsymbol{\psi_1}\)</span>. Moreover the <span class="math inline">\(w_{i}\)</span> surface has to be passed in the formula method definition <a href="inla-spde.html#example">5.3.2</a> via the <code>f()</code> function, so that INLA takes into cosideration the spatial component.</p>
+<p>INLA model seen in section <a href="inla-spde.html#LGM">4.1</a> can be rearranged according to the hierarchical structure considering also the regression settings for point referenced data stated in the previous section <a href="prdm.html#univariateregr">6.4</a>.</p>
+<p>As an initial step it is required to specify a probability distribution for <span class="math inline">\(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\)</span>, this is a mandatory step looking at the <a href="inla-spde.html#example">4.3.2</a> methods needed to compute the <code>inla()</code> function. A Normal distribution for simplicity is chosen.</p>
+<p>As <em>first level</em> is picked up an exponential family sampling distribution (i.e. Normally distributed), which is <em>exchangeable</em> with respect to the <span class="math inline">\(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\)</span> <em>latent field</em> and hyper parameters <span class="math inline">\(\boldsymbol{\psi_{1}}\)</span>, which includes also the ones coming from the latent Matérn GP process <span class="math inline">\(w_{i}\)</span>. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as <span class="math inline">\(\tau^2\)</span>. <span class="math inline">\(w_{i}\)</span> addresses the spatial autocorrelation between observation through a Matérn covariance function <span class="math inline">\(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\)</span> which in turn is tuned by hyper param included in <span class="math inline">\(\boldsymbol{\psi_1}\)</span>. Moreover the <span class="math inline">\(w_{i}\)</span> surface has to be passed in the formula method definition <a href="inla-spde.html#example">4.3.2</a> via the <code>f()</code> function, so that INLA takes into cosideration the spatial component.</p>
 <p><span class="math display">\[
 \boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \mathrm{N}\left(\beta_{0}+ (\mathbf{X}_{i})^{\prime}\boldsymbol{\beta} + w_{i} ,  \tau^2 I_{n}\right)=\prod_{i=1}^{n} \mathrm{N}\left(y_{i} \mid \theta_{i}, \psi_{1}\right)
 \]</span></p>
@@ -615,7 +628,7 @@ Assumed the model in the previous section, suppose that <span class="math inline
           </div>
         </div>
       </div>
-<a href="inla-spde.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-kableextra-constyle-datamtcars-kablemtcars15-15-kable-stylinglatex-options-cstriped-scale-down.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="spde.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -648,7 +661,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/Thesis/edit/master/06-prd_modelling.Rmd",
+"link": "https://github.com/NiccoloSalvini/thesis/edit/master/05-prd_modelling.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -659,7 +672,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Niccolo_Salvini_Thesis.pdf", "Niccolo_Salvini_Thesis.epub"],
+"download": ["Niccolo_Salvini_Thesis.pdf"],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
