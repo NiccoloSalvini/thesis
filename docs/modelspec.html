@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Introduction | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
+  <title>Chapter 8 Model Selection &amp; Fitting | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Introduction | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 8 Model Selection &amp; Fitting | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Introduction | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 8 Model Selection &amp; Fitting | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/spatial.png" />
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="appendix.html"/>
-<link rel="next" href="scraping.html"/>
+<link rel="prev" href="exploratory.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -265,37 +265,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<p>Trento:</p>
-<ul>
-<li>Argomento</li>
-<li>Problema</li>
-<li>Obiettivi</li>
-<li>Metodo</li>
-<li>Struttura della tesi</li>
-</ul>
-<p>Main themes:</p>
-<ul>
-<li>Research Question</li>
-<li>Milan Real Estate Controversies in relation to research question</li>
-<li>why the API (perchè mi mancano i dati e perchè è il futuro)</li>
-<li>Open Data discussion personal hope of data sharing and benefits from oper source</li>
-<li>Why a Bayesian approach</li>
-<li>Why INLA</li>
-</ul>
-<!-- estratto dall'introduzione dellpinfrastrutture, ha senso messo qua  -->
-<p>As a general discussion technologies implied can be thought as the distance between a service running locally on a laptop and something that it can actually be put into production, shared among company stakeholders, solving business related problems. When such technologies are applied data scientist and interlocutors gradually close the gap. Insights are better communicated, data is up-to-date and automation can save time. Nonetheless when the infrastructure is structured with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber <span class="citation">(Trestle Technology, LLC <a href="#ref-plumber" role="doc-biblioref">2018</a>)</span>). As a further example developers in RStudio have created an entire new paradigm i.e. Shiny <span class="citation">(Chang et al. <a href="#ref-shiny" role="doc-biblioref">2020</a>)</span>, a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest [metti tag] and shinyloadtest [metti tag] to simulate sessions and verify network traffic congestion.</p>
+<div id="modelspec" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Model Selection &amp; Fitting</h1>
+<div id="model-criticism" class="section level2">
+<h2><span class="header-section-number">8.1</span> Model Criticism</h2>
+<p>evaluation of the variables to include in the mode,, assumptions of the model i.e. exchangeablity and independence prior distribution to assign to parameters and hyper parameters.</p>
+</div>
+<div id="spatial-kriging-1" class="section level2">
+<h2><span class="header-section-number">8.2</span> Spatial Kriging</h2>
+</div>
+<div id="model-checking-1" class="section level2">
+<h2><span class="header-section-number">8.3</span> Model Checking</h2>
+<p>if (models &gt; 2){</p>
+<p>## Model Selection</p>
+<p>IDEA: proporre due modelli uno più interepretabile con distribuzione normale, e un ò’altro con sempre exponential family ma con Gamma distribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicazione.</p>
+<p>}</p>
 
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-shiny">
-<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2020. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.</p>
-</div>
-<div id="ref-plumber">
-<p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
 </div>
 </div>
             </section>
@@ -303,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="appendix.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="scraping.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exploratory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -336,7 +321,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/NiccoloSalvini/thesis/edit/master/01-intro.Rmd",
+"link": "https://github.com/NiccoloSalvini/thesis/edit/master/08-model_fitting.Rmd",
 "text": "Edit"
 },
 "history": {

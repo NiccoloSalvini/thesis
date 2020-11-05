@@ -167,8 +167,23 @@
 
 \title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 03 novembre, 2020}
+\date{Last compiled on 05 novembre, 2020}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -187,6 +202,22 @@
 \setstretch{1.5}
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
+
+Trento:
+
+\begin{itemize}
+\tightlist
+\item
+  Argomento
+\item
+  Problema
+\item
+  Obiettivi
+\item
+  Metodo
+\item
+  Struttura della tesi
+\end{itemize}
 
 Main themes:
 
@@ -1066,8 +1097,8 @@ At this point instance is prepared to run and in a few minutes is deployed. Key 
 
 Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9}{this link}
 
-\hypertarget{inla-spde}{%
-\chapter{INLA computation}\label{inla-spde}}
+\hypertarget{inla}{%
+\chapter{INLA computation}\label{inla}}
 
 INLA \citep{Rue2009} stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are \emph{computationally} convenient. The benefits are many, some among the other are:
 
@@ -1285,7 +1316,6 @@ y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \end{Highlighting}
 \end{Shaded}
 
-Table: \label{tab:foo}
 \textbackslash begin\{table\}
 
 \textbackslash caption\{(\#tab:table\_INLA)prova\}
@@ -1313,36 +1343,22 @@ The output offers among the others a summary of the posterior marginal values fo
 
 \textbackslash begin\{table\}
 
-\textbackslash caption\{(\#tab:mtcars\_std\_kable)The mtcars data.\}
+\textbackslash caption\{(\#tab:higer\_posterior\_density\_interval)higer posterior density interval\}
 \centering
 
-\begin{tabular}[t]{lrrrrr}
+\begin{tabular}[t]{lrr}
 \toprule
-  & mpg & cyl & disp & hp & drat\\
+  & low & high\\
 \midrule
-Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90\\
-Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90\\
-Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85\\
-Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08\\
-Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15\\
+level:0.9 & -2.291268 & -0.879445\\
 \bottomrule
 \end{tabular}
 
 \textbackslash end\{table\}
 
-R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively \texttt{inla.dmarginal}, \texttt{inla.pmarginal} and \texttt{inla.qmarginal}. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval \texttt{inla.hpdmarginal} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) with .1 Confidence Level.
-
-\begin{verbatim}
-##                 low      high
-## level:0.9 -2.291268 -0.879445
-\end{verbatim}
+R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively \texttt{inla.dmarginal}, \texttt{inla.pmarginal} and \texttt{inla.qmarginal}. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval \texttt{inla.hpdmarginal} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) zwith .1 Confidence Level.
 
 Recall that the interpretation is different from the frequentist: in Bayesian statistics \(\beta_{j}\) comes from probability distribution, while frequenstists considers \(\beta_{j}\) as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value \citeyearpar{Blangiardo-Cameletti}.
-
-Prova tabella: suggerimento bookdown.
-
-\hypertarget{r-kableextra_constyle-datamtcars-kablemtcars15-15-kable_stylinglatex_options-cstriped-scale_down}{%
-\chapter{\texorpdfstring{\texttt{\{r\ kableextra\_conStyle\}\ \#\ data("mtcars")\ \#\ kable(mtcars{[}1:5,\ 1:5{]})\ \%\textgreater{}\%\ \#\ \ \ kable\_styling(latex\_options\ =\ c("striped",\ "scale\_down"))\ \#}}{\{r kableextra\_conStyle\} \# data("mtcars") \# kable(mtcars{[}1:5, 1:5{]}) \%\textgreater\% \#   kable\_styling(latex\_options = c("striped", "scale\_down")) \#}}\label{r-kableextra_constyle-datamtcars-kablemtcars15-15-kable_stylinglatex_options-cstriped-scale_down}}
 
 \hypertarget{prdm}{%
 \chapter{Point Referenced Data Modeling}\label{prdm}}
@@ -1401,7 +1417,11 @@ Moreover When \(r = 1\) it is the most simple stochastic process widely explored
 \caption{3D scatterplot and surface, Stockton data.}
 \end{figure}
 
-A collection of \(n\) random variables, such as \(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\) that are \emph{valid} spatial processes are said to be a \textbf{GP} if for any set of spatial index \(n\) and for each set of corresponding locations \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) follows a multivariate \emph{Gaussian} distribution with mean \(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\) and covariance matrix \(\mathbf{Q}^{-1}_{i,j}, \forall i \neq j\), even tough sometimes it is more convenient to express it through precision matrix \(\boldsymbol{Q}_{i,j}\) \citep{Blangiardo-Cameletti}. The covariance matrix relates each observation to each of the others through a covariance function defined as \(\mathcal{C}(\cdot)\).
+\begin{definition}[GP definition]
+\protect\hypertarget{def:GP}{}{\label{def:GP} \iffalse (GP definition) \fi{} }A collection of \(n\) random variables, such as \(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\) that are \emph{valid} spatial processes are said to be a \textbf{GP} if for any set of spatial index \(n\) and for each set of corresponding locations \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) follows a multivariate \emph{Gaussian} distribution with mean \(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\) and covariance matrix \(\mathbf{Q}^{-1}_{i,j}, \forall i \neq j\)
+\end{definition}
+
+Even tough sometimes it is more convenient to express the covariance matrix as its inverse i.e.~precision matrix \(\boldsymbol{Q}_{i,j}\) \citep{Blangiardo-Cameletti}. The covariance matrix relates each observation to each of the others through a covariance function defined as \(\mathcal{C}(\cdot)\).
 
 GP in the spatial context must check two important properties in order to exploit INLA, even though both of these assumptions can be relaxed:
 
@@ -1556,7 +1576,7 @@ A further aspect of the problem is posed by scholars that do not consider rents 
 Since in HPM the relationships between the characteristics of the house, i.e.~vector \(\mathbf{C}\) and the price \(P\) is not in any case fixed by econometric literature it is possible to assume any \(f\) functional form. The open possibility to apply a wide range of relationship between covariates fit in the INLA setting, since Latent Gaussian Models are prepared to accept a any linear and non linear \(f\) functions \ref{LGM} through the \texttt{f()} method. Hedonic price models are, as a consequence, a subset of models that can be fitted into LGM and therefore by INLA method.
 
 Moreover what the vast majority of econometric literature \emph{(Greene, 2018)} suggest to apply a is log-linear / square root model. This is due to the fact that log transformation / square root smooths the skewness of prices normalizing the curve, leading to more accurate estimates. Having an exponential family generating process lowers even further computational cost for reasons linked to the \(\tilde\pi(\boldsymbol{\psi})\) hyper param INLA approximation \citep{Blangiardo-Cameletti}. Notation is taken from the previous chapter \ref{inla}, for brevity purposes \(\boldsymbol{\beta}\) \(\mathbf{X}\) and \(\boldsymbol{y}\) indicates vectors incorporating all their respective realizations and the \(s\) spatial component is left out in favor of the observation pedix \(i\).\\
-The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting)
+The simplest log-linear bayesian regression model assumes linear relationship between predictors and a Normal data generating process: (log has been taken out for simplicity, bu it will be then considered in the regression setting) (valuta l'idea che per interpretabilità di modellarla come Gamma exponential family anzichè tenerla normale)
 
 \[
 \log{(y_{i})} \sim \operatorname{Normal}(\mu_{i}, \sigma^{2})
@@ -1629,7 +1649,7 @@ INLA model seen in section \ref{LGM} can be rearranged according to the hierarch
 
 As an initial step it is required to specify a probability distribution for \(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\), this is a mandatory step looking at the \ref{example} methods needed to compute the \texttt{inla()} function. A Normal distribution for simplicity is chosen.
 
-As \emph{first level} is picked up an exponential family sampling distribution (i.e.~Normally distributed), which is \emph{exchangeable} with respect to the \(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\) \emph{latent field} and hyper parameters \(\boldsymbol{\psi_{1}}\), which includes also the ones coming from the latent Matérn GP process \(w_{i}\). The Spatial Guassian Process is centered in 0 and with Matérn covariance function as \(\tau^2\). \(w_{i}\) addresses the spatial autocorrelation between observation through a Matérn covariance function \(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\) which in turn is tuned by hyper param included in \(\boldsymbol{\psi_1}\). Moreover the \(w_{i}\) surface has to be passed in the formula method definition \ref{example} via the \texttt{f()} function, so that INLA takes into cosideration the spatial component.
+As \emph{first level} is picked up an \textbf{exponential family} sampling distribution (i.e.~Normally distributed, Gamma one other choice), which is \emph{exchangeable} with respect to the \(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\) \emph{latent field} and hyper parameters \(\boldsymbol{\psi_{1}}\), which includes also the ones coming from the latent Matérn GP process \(w_{i}\). The Spatial Guassian Process is centered in 0 and with Matérn covariance function as \(\tau^2\). \(w_{i}\) addresses the spatial autocorrelation between observation through a Matérn covariance function \(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\) which in turn is tuned by hyper param included in \(\boldsymbol{\psi_1}\). Moreover the \(w_{i}\) surface has to be passed in the formula method definition \ref{example} via the \texttt{f()} function, so that INLA takes into cosideration the spatial component.
 
 \[
 \boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \mathrm{N}\left(\beta_{0}+ (\mathbf{X}_{i})^{\prime}\boldsymbol{\beta} + w_{i} ,  \tau^2 I_{n}\right)=\prod_{i=1}^{n} \mathrm{N}\left(y_{i} \mid \theta_{i}, \psi_{1}\right)
@@ -1668,8 +1688,42 @@ A DAG representation might offr the intuition behind Prediction in spatial model
 
 where \(\pi\left(y^{\star} \mid \boldsymbol{y}\right)\) is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
 
-\hypertarget{model-checking-and-comparison}{%
-\section{Model Checking and Comparison}\label{model-checking-and-comparison}}
+\hypertarget{model-checking}{%
+\section{Model Checking}\label{model-checking}}
+
+(Incrociarlo con altri tesi)
+
+Once the model is set up and fitted a resampling scheme has to be chosen in order to evaluate the model performance. One of the most used method to assess beyasian model quality is LOOCV cross validation and defualt choice fo R-INLA package. From data is left out one single observation and so that the Validation set is \(\boldsymbol{y}_{v} = \boldsymbol{y}_{-i}\) and the Assessement set is a \(\boldsymbol{y}_{a} = \boldsymbol{y}_{i}\)
+the rest of the observations. Two KPI are assumed to be representative:
+
+\begin{itemize}
+\tightlist
+\item
+  CPO conditional predictive ordinate (pettit, 1990): \(CPO_{i} = \pi(y^{\star} \mid \boldsymbol{y}_{v})\)
+\item
+  PIT probability integral tranform (dawid, 1984): \(PIT_{i} = \pi(y^{\star} < y_{i} \mid \boldsymbol{y}_{v})\)
+\end{itemize}
+
+These quantities are used by default by setting control options in the \texttt{inla(control.compute\ =\ list())} list object by setting them equal o TRUE. Inla also provides an inner method to authomatically handlee failing in computing those two quantities, leadind to values of 1 when predictions are not reliable and the ipposite for 0.Moreover the empirical distribution of the PIT can be used to asses predictive performance: if it is Uniform, so there are not values that strongly differ from the others then the model is correctly checked. Otherwise if the dostribtuon almost approxiamtes any of the other possibles then the Cross validation assessement prediction has led incorrectly predict the ``out of the bag'' validation sample.
+
+Posteerior checking method exploits a full cross validation where \(\boldsymbol{y}_{a} = \boldsymbol{y}_{v}\) and it is called predictive checks. Th assessement set now is equal to the validation set,a s a consequence all the observation are evaluated twice. 4 quantities are driver to model estimate quality:
+
+\begin{itemize}
+\tightlist
+\item
+  the \emph{posterior predictive distribution}: \(\pi(y^{\star} \mid \boldsymbol{y}) = \int \pi(y^{\star} \mid \theta_{i})\pi({\theta_{i}} \mid \boldsymbol{y})\mathrm{d}\theta_{i}\) which is the likelihood of a replicate observation. When values are small that indicates that are those values are coming from tails, since the area under the curve (i.e.~probability) is less. If this happens for many observation then outliers are driving the model leading to poor estimates
+\item
+  the \emph{posterior predictive p-value} whose math expression is:\(\pi(y^{\star} \leq y_{i} \mid \boldsymbol{y})\) for which values near to 0 and 1 indicates poor perfomances.
+\item
+  \emph{Root Mean Square Predictive Error RMSE}: \(\sqrt{\frac{1}{n} \sum_{i=1}^{n}(y_{i}-{y}^{\star}_{i})^{2}}\)
+\item
+  \(R^2\)
+\end{itemize}
+
+R-INLA has already antiticipated in chapter 4 section\ref{example} have designed function to compute statistics on posterior distribution as \texttt{inla.pmarginal()} returning the cumulative density distribution.
+
+\hypertarget{prior-specification}{%
+\section{Prior Specification}\label{prior-specification}}
 
 \hypertarget{spde}{%
 \chapter{SPDE approach}\label{spde}}
@@ -1720,38 +1774,47 @@ Interactive maps are done with Leaflet, the result of which is a leaflet map obj
 
 A preliminary exploratory analysis evidences 34 covariates and 250 rows. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
 
-\begingroup\fontsize{8}{10}\selectfont
-
-\begin{longtable}[t]{>{}l>{\raggedright\arraybackslash}p{20em}}
+\begin{longtable}{ll}
 \toprule
 name & ref\\
 \midrule
-\textbf{ID} & ID of the apartements\\
-\textbf{LAT} & latitude coordinate\\
-\textbf{LONG} & longitude coordinate\\
-\textbf{LOCATION} & the complete address: street name and number\\
-\textbf{CONDOM} & the condominium monthly expenses\\
+ID & ID of the apartements\\
+LAT & latitude coordinate\\
+LONG & longitude coordinate\\
+LOCATION & the complete address: street name and number\\
+CONDOM & the condominium monthly expenses\\
 \addlinespace
-\textbf{BUILDAGE} & the age in which the building was contructed\\
-\textbf{FLOOR} & the floor the apartement is\\
-\textbf{INDIVSAPT} & indipendent propeorty versus apartement\\
-\textbf{LOCALI} & specification of the type and number of rooms\\
-\textbf{TPPROP} & property type residential or not\\
+BUILDAGE & the age in which the building was contructed\\
+FLOOR & the floor the apartement is\\
+INDIVSAPT & indipendent propeorty versus apartement\\
+LOCALI & specification of the type and number of rooms\\
+TPPROP & property type residential or not\\
 \addlinespace
-\textbf{STATUS} & the actual status of the house, ristrutturato, nuovo, abitabile\\
-\textbf{HEATING} & the heating system centralized or autonomous\\
-\textbf{AC} & air conditioning hot and cold\\
-\textbf{PUB\_DATE} & the date of publication of the advertisement\\
-\textbf{CATASTINFO} & land registry infromation\\
+STATUS & the actual status of the house, ristrutturato, nuovo, abitabile\\
+HEATING & the heating system centralized or autonomous\\
+AC & air conditioning hot and cold\\
+PUB\_DATE & the date of publication of the advertisement\\
+CATASTINFO & land registry infromation\\
 \addlinespace
-\textbf{APTCHAR} & apartement main characteristics\\
-\textbf{PHOTOSNUM} & number of photos displayes\\
-\textbf{AGE} & estate agency name\\
-\textbf{LOWRDPRICE.originalPrice} & If the price is lowered it indicates the starting price\\
-\textbf{LOWRDPRICE.currentPrice} & If the price is lowered it indicates the current price\\
+APTCHAR & apartement main characteristics\\
+PHOTOSNUM & number of photos displayes\\
+AGE & estate agency name\\
+LOWRDPRICE.originalPrice & If the price is lowered it indicates the starting price\\
+LOWRDPRICE.currentPrice & If the price is lowered it indicates the current price\\
+\addlinespace
+LOWRDPRICE.passedDays & If the price is lowered the days passed since the price has changed\\
+LOWRDPRICE.date & If the price is lowered the date passed since the price has changed\\
+ENCLASS & the energy class communicated to the\\
+CONTR & the type of contract\\
+DISP & if it is still avaiable or not\\
+\addlinespace
+TOTPIANI & the total number of floors\\
+PAUTO & number of parking box or garages avaibable in the property\\
+REVIEW & estate agency review, long chr string\\
+HASMULTI & it if has multimedia option, such as 3D house vitualization home experience or videos\\
+PRICE & the monthly price <- response\\
 \bottomrule
 \end{longtable}
-\endgroup{}
 
 Geographic coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters.
 Leaflet maps are created with leaflet(), the result of which is a leaflet map object which can be piped to other leaflet functions. This allows multiple map layers and control settings to be added interactivelyleaflet object takes as input data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform
@@ -1761,15 +1824,55 @@ Leaflet maps are created with leaflet(), the result of which is a leaflet map ob
 \hypertarget{data-preparation}{%
 \section{Data preparation}\label{data-preparation}}
 
-As already pointed out some data went missing since immobiliare provides data that in turn is filled by estate agencies or privates. Some of missings can be reverse engineered by other information in the web pages e.g.~given the address it is possible to trace back the lat and long coordinates, eventhough this is already done by inner API calls within scraping functions. Some of the information lacking in the summary table they might be desumed and then imputed the estate agency review. This could be done by implying text mining procedure\ldots{}
+As already pointed out some data went missing since immobiliare provides data that in turn is filled by estate agencies or privates through pre compiled standard formats. Some of the missing observations can be reverse engineered by other information in the web pages e.g.~given the street address it is possible to trace back the lat and long coordinates, even though this is already handled by the API through scraping functions with the mechanism found in section \ref{ContentArchitecture}. Some of the information lacking in the summary table they might be desumed and then imputed by the estate agency review which is one of the covariates and where the most of the times missing information can be found. The approach followed in this part is to prune redundant information and ``over'' missing covariates trying to limit the dimensionality of the dataset.
 
 \hypertarget{na-removal-and-imputation}{%
-\subsection{NA removal and imputation}\label{na-removal-and-imputation}}
+\subsection{NA Removal and Imputation}\label{na-removal-and-imputation}}
 
-{[}NA presence{]}
+The first problem to assess is why information are missing. As already pointed out in the introduction part and in section \ref{ContentArchitecture} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed. If in the end of the sequence the covariates values are still missing, the correspondent observation is not imputed and it is left out of the scraped dataset. The author choice to follow this approach relies on empirical observation that suggest when important inframtion is missing then the rest of the covariates also do, as a consequence the observation is not useful. Moreover when the spatial component can no be reverse engineered then it is also the case of left out observation while scraping. The model needs to have a spatial component in order to be evaluted. To this purpose The missing profile is crucial since it can also suggest problems in the scraping procedure. By identifying pattern in missing observation the maintainer can take advanatge of it and then debug the part that causes missingness. In order to identify the pattern a revision of missigness is introduced by \emph{Little and Rubin (2014) miss lit} .randomnes can be devided into 3 categories:
+
+\begin{itemize}
+\tightlist
+\item
+  MCAR (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
+\item
+  MAR (missing at random) likelihood of missin is not equal.
+\item
+  \emph{NMAR} (not missing at random) data that is missing due to a specific cause, scarping can be the cause.
+\end{itemize}
+
+The last iphothesis MNAR is often the case of daily monitoring clinical studies, where patient might drop out the experiment because of death and so as a consequence all the data starting from the death time +1 is missing.
+To assess pattern A \emph{heat map} plot fits the need:
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/Heatmap-1.pdf}
+\caption{\label{fig:Heatmap}Missingness Heatmap plot}
+\end{figure}
+
+Looking at the left hand of the heat map plot \ref{fig:Heatmap} considering from \emph{TOTPIANI} to \emph{AC} there are no relevant patterns and missingness can be traced back to MAR, conditioned mean imputation is applied until \emph{CONDOM} included, the otherS are discarded. In the far right hand side \emph{ENCLASS} and \emph{DISP} data is completely missing, this can be addressed to a scraping fail. Further inspection of the API scraping process focused on those covariates is strongly advised. From \emph{LOWRDPRICE.} covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking are the second co\_occurrence plot \ref{fig:cooccurrence} analysis. Co-occurrence analysis might suggest frequency of missing predictor combinations and \emph{LOWRDPRICE.} class covariates are missing all together in combination. \emph{PAUTO} is missing where lowered price class covariates are missing but this is not true for all the observations leading to the conclusion that \emph{PAUTO} should be treated as a low prevalence covariate, therefore PAUTO is discarded.
+After a further investigation \emph{LOWRDPRICE.} exists when the price covariates is effectively decreased, that leads to group the covariate's information and to encode it as a two levels categorical covariate. Further methods to feature engineer the lowrdprice covariates are profile data.
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/cooccurrence-1.pdf}
+\caption{\label{fig:cooccurrence}Missingness co-occurrence plot}
+\end{figure}
 
 \hypertarget{spatial-autocorrelation-assessement}{%
 \section{Spatial Autocorrelation assessement}\label{spatial-autocorrelation-assessement}}
+
+Spatial data come packed into point reference
+
+\begin{itemize}
+\tightlist
+\item
+  tmap
+\item
+  leaflet
+\item
+  gganimate
+\end{itemize}
 
 \hypertarget{model-specification}{%
 \section{Model Specification}\label{model-specification}}
@@ -1777,22 +1880,80 @@ As already pointed out some data went missing since immobiliare provides data th
 \hypertarget{mesh-building}{%
 \section{Mesh building}\label{mesh-building}}
 
+\emph{PARAFRASARE}
+The SPDE approach approximates the continuous Gaussian field \(w_{i}\) as a discrete Gaussian Markov random field by means of a finite basis function defined on a triangulated mesh of the region of study. The spatial surface can be interpolated performing this approximation with the inla.mesh.2d() function of the R-INLA package. This function creates a Constrained Refined Delaunay Triangulation (CRDT) over the study region, that will be simply referred to as the mesh. Mesh should be intended as a trade off between the accuracy of the GMRF surface representation and the computational cost, in other words the more are the vertices, the finer is the GF approximation, leading to a computational funnel.
+
+\begin{figure}
+\centering
+\includegraphics{images/triangle.jpg}
+\caption{Traingularization intuition, \citet{Krainski-Rubio} source}
+\end{figure}
+
+Arguments can tune triangularization through inla.mesh.2d() :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{loc}:location coordinates that are used as initial mesh vertices
+\item
+  \texttt{boundary}:object describing the boundary of the domain,
+\item
+  \texttt{offset}: argument is a numeric value (or a length two vector) and it is used
+  to set the automatic extension distance. If positive, it is the extension distance
+  in the same scale units. If negative, it is interpreted as a factor relative to the
+  approximate data diameter; i.e., a value of -0.10 (the default) will add a 10\%
+  of the data diameter as outer extension.
+\item
+  \texttt{cutoff}: points at a closer distance than the supplied value are replaced by a single vertex. Hence, it avoids small triangles
+\item
+  \texttt{max.edge}: A good mesh needs to have triangles as regular as possible in size and shape.
+\item
+  \texttt{min.angle}argument (which can be scalar or length two vector) can be used to specify the minimum internal angles of the triangles in the inner domain and the outer extension
+\end{itemize}
+
+A convex hull is a polygon of triangles out of the domain area, in other words the extension made to avoid the boundary effect. All meshes in Figure 2.12 have been made to have a convex hull boundary. If borders are available are generally preferred, so non convex hull meshes are avoided.
+
+\hypertarget{shinyapp-for-mesh-assessment}{%
+\subsection{Shinyapp for mesh assessment}\label{shinyapp-for-mesh-assessment}}
+
+INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively
+
+The mesh builder has a number of options to define the mesh on the left side. These include options to be passed to functions inla.nonconvex.hull() and inla.mesh.2d() and the resulting mesh displayed on the right part.
+
 \hypertarget{building-spde-model-on-mesh}{%
 \subsection{BUilding SPDE model on mesh}\label{building-spde-model-on-mesh}}
 
 \hypertarget{spatial-kriging-prediction}{%
 \section{Spatial Kriging (Prediction)}\label{spatial-kriging-prediction}}
 
-\hypertarget{application}{%
-\chapter{Shiny Web App}\label{application}}
+QUI INCERTEZZE
 
-Some \emph{significant} applications are demonstrated in this chapter.
+\hypertarget{modelspec}{%
+\chapter{Model Selection \& Fitting}\label{modelspec}}
 
-\hypertarget{example-one}{%
-\section{Example one}\label{example-one}}
+\hypertarget{model-criticism}{%
+\section{Model Criticism}\label{model-criticism}}
 
-\hypertarget{example-two}{%
-\section{Example two}\label{example-two}}
+evaluation of the variables to include in the mode,, assumptions of the model i.e.~exchangeablity and independence prior distribution to assign to parameters and hyper parameters.
+
+\hypertarget{spatial-kriging-1}{%
+\section{Spatial Kriging}\label{spatial-kriging-1}}
+
+\hypertarget{model-checking-1}{%
+\section{Model Checking}\label{model-checking-1}}
+
+if (models \textgreater{} 2)\{
+
+\begin{verbatim}
+## Model Selection
+
+
+
+
+  IDEA: proporre due modelli uno più interepretabile con distribuzione normale, e un ò'altro con sempre exponential family ma con Gamma distribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicazione.
+\end{verbatim}
+
+\}
 
 \hypertarget{final-words}{%
 \chapter{Final Words}\label{final-words}}

@@ -8,8 +8,9 @@ rmd_files:
     - "05-prd_modelling.Rmd"
     - "06-spde.Rmd"
     - "07-exploratory.Rmd"
-    - "08-application.Rmd"
+    - "08-model_fitting.Rmd"
     - "09-conclusions.Rmd"
+    - "10-appendix.Rmd"
     - "99-references.Rmd"
 new_session: yes
 language:

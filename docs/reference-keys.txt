@@ -1,9 +1,4 @@
-eq:likelihood
-eq:gmrf
-eq:jointpostdistr
-eq:latentparam
-tab:foo
-tab:unnamed-chunk-2
+gp-basics
 intro
 scraping
 what-is-web-scraping
@@ -30,7 +25,7 @@ nginx
 aws
 launch-an-ec2-instance
 further-integrations
-inla-spde
+inla
 LGM
 approx
 further-approximations-prolly-do-not-note-include
@@ -46,7 +41,8 @@ univariateregr
 hiermod
 finalregr
 spatial-kriging
-model-checking-and-comparison
+model-checking
+prior-specification
 spde
 set-spde-problem
 spde-within-r-inla
@@ -57,11 +53,12 @@ na-removal-and-imputation
 spatial-autocorrelation-assessement
 model-specification
 mesh-building
+shinyapp-for-mesh-assessment
 building-spde-model-on-mesh
 spatial-kriging-prediction
-application
-example-one
-example-two
+modelspec
+model-criticism
+spatial-kriging-1
+model-checking-1
 final-words
-fig:Heatmap
-fig:cooccurrence
+gp-basics-1

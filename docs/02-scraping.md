@@ -30,7 +30,7 @@ Up to this process pagination has generated a list of siblings nodes whose child
 ![immobiliare.it website structure, author source](images/website_tree1.jpg){#fig:website_tree1}
 
 
-### Immobiliare.it Webscraping content architecture with `rvest`
+### Immobiliare.it Webscraping content architecture with `rvest`{#ContentArchitecture}
 
 To start a general scraping function the only requirement is a target url (i.e. the filtered root node url). Then a list `html_session` object is opened by specifying the url and  the request data that the user need to send to the web server (see left part to dashed line image \@ref(fig:workflow)). Information to be attached to the web server request will be further explored later, tough they are mainly three: User Agents, emails references and proxy servers. `html_session` objects contains a number of useful information such as: the url, the response, coockies, session times etc. Once the connection is established (request response 200) all the following operations rely on the opened session, in other words for the time being in the session the user will be authorized with the before-provided characteristics through the request.
 The list object contains mostly the html content of the webpage and that is where data needs to be parsed. The list can disclose as well other interesting meta information related to the session but they are not collected.

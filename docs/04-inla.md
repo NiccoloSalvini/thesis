@@ -1,4 +1,4 @@
-# INLA computation {#inla-spde}
+# INLA computation {#inla}
 
 
 
@@ -211,16 +211,8 @@ Table: (\#tab:higer_posterior_density_interval)higer posterior density interval
 |level:0.9 | -2.291268| -0.879445|
 
 
-R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ with .1 Confidence Level. 
+R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ zwith .1 Confidence Level. 
 
 
 Recall that the interpretation is different from the frequentist: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.
-
-
-
-|     X1|    X2|         X3|
-|------:|-----:|----------:|
-| 0.4375| 1e+03| -1217.8804|
-| 0.2753| 1e+05|  1450.9754|
-| 0.5580| 1e+07|  -439.0247|
 

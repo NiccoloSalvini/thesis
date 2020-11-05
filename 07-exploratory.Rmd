@@ -111,7 +111,7 @@ if(knitr::is_latex_output()){
   pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
   
   leaflet(dati2) %>%
-    addProviderTiles(providers$CartoDB.Positron) %>%
+    # addProviderTiles(providers$CartoDB.Positron) %>%
     setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>%
     addMiniMap() %>% 
     addTiles() %>% 
@@ -157,15 +157,23 @@ Heatmap(
 )
 ```
 
-Looking at the left hand of the heat map plot \@ref(fig:Heatmap) from *TOTPIANI* to *AC* there are no relevant patterns and missingness can be traced back to MAR, conditioned mean imputation is applied. In the far right hand side *ENCLASS* and *DISP* data is completely missing, this can be addressed to a scraping fail. Further inspection of the API scraping process focused on those covariates is strongly advised. From *LOWRDPRICE.* covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking are the second co_occurrence plot \@ref(fig:cooccurrence) analysis. Co-occurrence analysis might suggest frequency of missing predictor combinations and *LOWRDPRICE.* class covariates are missing all together in combination. *PAUTO* is missing where lowered price class covariates are missing but this is not true for all the observations leading to the conclusion that *PAUTO* should be treated as a low prevalence covariate, therefore PAUTO is discarded.
+Looking at the left hand of the heat map plot \@ref(fig:Heatmap) considering from *TOTPIANI* to *AC* there are no relevant patterns and missingness can be traced back to MAR, conditioned mean imputation is applied until *CONDOM* included, the otherS are discarded. In the far right hand side *ENCLASS* and *DISP* data is completely missing, this can be addressed to a scraping fail. Further inspection of the API scraping process focused on those covariates is strongly advised. From *LOWRDPRICE.* covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking are the second co_occurrence plot \@ref(fig:cooccurrence) analysis. Co-occurrence analysis might suggest frequency of missing predictor combinations and *LOWRDPRICE.* class covariates are missing all together in combination. *PAUTO* is missing where lowered price class covariates are missing but this is not true for all the observations leading to the conclusion that *PAUTO* should be treated as a low prevalence covariate, therefore PAUTO is discarded.
 After a further investigation *LOWRDPRICE.* exists when the price covariates is effectively decreased, that leads to group the covariate's information and to encode it as a two levels categorical covariate. Further methods to feature engineer the lowrdprice covariates are profile data. 
 
 ```{r cooccurrence, fig.cap="Missingness co-occurrence plot"}
 gg_miss_upset(data1, nsets = 7) 
+```
+```{r resulting_data}
+drop = data1 %>% dplyr::select(-TOTPIANI,-STATUS, -HEATING, - CONDOM) %>%  names
+
+dati = dati %>%  
+  dplyr::select(-all_of(drop))
 
 ```
 
 ## Spatial Autocorrelation assessement 
+
+
 
 
 Spatial data come packed into point reference 
@@ -180,13 +188,14 @@ semivar = variogram(PRICE~1,
                        data=dati)
 ```
 
-## Model Specification 
+## Model Specification
+
 
 
 ## Mesh building 
 
-The SPDE approach approximates the continuous Gaussian field $w_{i}$ as a discrete Gaussian Markov random field by means of a finite basis function defined on a triangulated mesh of the region of study. The spatial surface can be interpolated with a triangulated mesh to perform this approximation with the inla.mesh.2d() function of the R-INLA package.This function creates a Constrained Refined Delaunay Triangulation (CRDT) over the study region, that will be
-simply referred to as the mesh.
+*PARAFRASARE*
+The SPDE approach approximates the continuous Gaussian field $w_{i}$ as a discrete Gaussian Markov random field by means of a finite basis function defined on a triangulated mesh of the region of study. The spatial surface can be interpolated performing this approximation with the inla.mesh.2d() function of the R-INLA package. This function creates a Constrained Refined Delaunay Triangulation (CRDT) over the study region, that will be simply referred to as the mesh. Mesh should be intended as a trade off between the accuracy of the GMRF surface representation and the computational cost, in other words the more are the vertices, the finer is the GF approximation, leading to a computational funnel. 
 
 ![Traingularization intuition, @Krainski-Rubio source](images/triangle.jpg)
 
@@ -203,17 +212,22 @@ of the data diameter as outer extension.
 * `max.edge`: A good mesh needs to have triangles as regular as possible in size and shape.
 * `min.angle`argument (which can be scalar or length two vector) can be used to specify the minimum internal angles of the triangles in the inner domain and the outer extension
 
-A convex hull is a polygon of triangles out of the domain area, the extension made to avoid the boundary effect. All meshes in Figure 2.12 have been made to have a convex hull boundary. Non-convex hull meshes indeed are 
+A convex hull is a polygon of triangles out of the domain area, in other words the extension made to avoid the boundary effect. All meshes in Figure 2.12 have been made to have a convex hull boundary. If borders are available are generally preferred, so non convex hull meshes are avoided.
 
-```{r non_convex_hull}
-bound1 <- inla.nonconvex.hull(p5)
+```{r non_convex_hull, eval=FALSE}
+bound = inla.nonconvex.hull(coords)
 ```
 
 ### Shinyapp for mesh assessment
 
 INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively
 
+```{r meshbuilder, eval = FALSE}
+INLA::meshbuilder()
+```
 
+
+The mesh builder has a number of options to define the mesh on the left side. These include options to be passed to functions inla.nonconvex.hull() and inla.mesh.2d() and the resulting mesh displayed on the right part.
 
 ### BUilding SPDE model on mesh
 
@@ -222,7 +236,7 @@ INLA includes a Shiny (Chang et al., 2018) application that can be used to tune 
 
 ## Spatial Kriging (Prediction)
 
-
+QUI INCERTEZZE
 ```{r variogram}
 semivar = variogram(PRICE~1, 
                        locations= ~LONG+LAT,
