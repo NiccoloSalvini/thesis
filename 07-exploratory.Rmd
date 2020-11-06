@@ -20,15 +20,35 @@ library(tidyverse)
 library(viridis)
 library(leaflet)
 library(sp)
+library(glue)
 library(gstat)
 library(stringi)
+library(INLA)
 ## missing profile
 library(caret)
 library(tidyverse)
 library(naniar)
+library(forcats)
 library(visdat)
 library(ComplexHeatmap)
 library(patchwork)
+library(ggridges)
+
+
+## Personal ggplot theme 
+theme_nicco = function (base_size = 11, base_family = "") {
+  theme_bw() %+replace% 
+    theme(
+      text = element_text(family = "sans", size = 12),
+      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
+      panel.background  = element_blank(),
+      axis.ticks = element_line(colour = "grey70", size = 0.2),
+      plot.background = element_rect(fill="white", colour=NA),
+      panel.border = element_rect(linetype = "blank", fill = NA),
+      legend.background = element_rect(fill="transparent", colour=NA),
+      legend.key = element_rect(fill="transparent", colour=NA)
+    )
+}
 ```
 
 Data comes packed into the REST API end point `*/complete` in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the `city` in which it is aevaluated the real estate market, `npages` as the number of pages to be scraped, `type` as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section \@ref(APIdocs).  Since to the analysis purposes data should come from the same source (e.g. Milan rental real estate within "circonvallazione") a dedicated endpoint boolean option `.thesis` is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The `*` refers to the EC2 public DNS that is `ec2-18-224-40-67.us-east-2.compute.amazonaws.com`
@@ -45,7 +65,8 @@ A preliminary API data exploratory analysis evidences 34 covariates and 250 rows
 ```{r api_vars}
 
 dati = read_csv("data/data.csv", locale = readr::locale(encoding = "latin1")) %>%
-  dplyr::select(-X1)
+  dplyr::select(-X1) 
+
 ### fai la tabella delle colonne
 ### 
 ref =c(
@@ -100,14 +121,6 @@ tibble(
 
 ## Data preparation 
 
-Data needs to undergo to a cleaning preprocess stage, this is forced since API comes in human readable format, which is not meant to be modeled. cleaning steps regards:
-
-- encoding from UTF-8 to Latin due to italian characters
-- *FLOORS* covariate needs to be separated by its *ASCENSORE* and *ACCDISABILI* components, leading to have 2 further bivariate covariates.
-- *LOCALI* needs to undergo tio the same process,. it has ti be split into 5 categoricals, which are *TOTLOCALI*, *CAMERELETTO*, *ALTRO*, *BAGNO*, *CUCINA*, monolocali are encoded as 1 for all the covariates already said. 
-- *APTCHAR*  is cleaned so that each category has its own place and rare categories are dropped, some of them are *FIBRAOTTICA*, *VETRISPESSI*. a summary table is then proposed below:
-
-
 ```{r data_prep, message=FALSE}
 datiprep = dati %>% 
   select(-TPPROP) %>% 
@@ -117,7 +130,7 @@ datiprep = dati %>%
   replace_na(list(ASCENSORE = "no", ACCDISABILI = "no")) %>% 
   mutate(FLOOR = recode(FLOOR, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
   ## TOTPIANI
-  mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
+  # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
   ## LOCALI
   mutate(LOCALI = if_else(substr(LOCALI,start = 1,stop = 1) == 1, "1", LOCALI)) %>% 
   separate(LOCALI, c("TOTLOCALI", "REST"), sep = "\\s", extra = "merge") %>% 
@@ -138,27 +151,41 @@ datiprep = dati %>%
   mutate(BAGNO = if_else(TOTLOCALI== "1", "1 bagno", BAGNO)) %>% 
   ## CUCINA (ne ho perse qualcuna)
   replace_with_na(replace = list(CUCINA = "1 bagno")) %>% 
-  ## APTCHAR 
-  mutate(APTCHAR = str_remove(APTCHAR, "\\-")) 
+  mutate(TOTLOCALI = recode(TOTLOCALI, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) ## non proviene più di sei locali 
+  
+  ## APTCHAR (non implementato)
+  # aptchar = datiprep %>% 
+  #   select(APTCHAR) %>%
+  #   mutate(APTCHAR = str_remove_all(APTCHAR, "\\-")) %>% 
+  #   mutate(APTCHAR = str_trim(APTCHAR)) %>% 
+  #   separate(APTCHAR, into = LETTERS[1:15],"\\s{2,}")
+  #   
+  #   
 
-
-  
-  
-  
-
-  mutate(nums = str_extract_all(LOCALI, "\\d+")) %>%
-  unnest(nums) %>%
-  group_by(LOCALI) %>%
-  mutate(key = row_number()) %>%
-  spread(key, value = nums, sep = "")
-  
+  ## CATASTINFO
+  #
+  #
 
 ```
 
-Geographic coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters.
-Leaflet maps are created with leaflet(), the result of which is a leaflet map object which can be piped to other leaflet functions. This allows multiple map layers and control settings to be added interactivelyleaflet object takes as input data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform 
+Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API comes in human readable format, which is from one hanb designed to a be readble format, but from the other it is not prepared to be modeled. cleaning steps mainly regards:
 
-```{r leaflet_visuals, out.width="100%"}
+- encoding from UTF-8 to Latin due to Italian characters incorrectly parsed.
+- *FLOORS* covariate needs to be separated by its *ASCENSORE* and *ACCDISABILI* components, leading to have 2 further bivariate covariates.
+- *LOCALI* needs to undergo to be separated in its components too. 5 categories levels drain out: *TOTLOCALI*, *CAMERELETTO*, *ALTRO*, *BAGNO*, *CUCINA*. *TOTLOCALI* is a duplicate for *NROOM* the is discarded.
+- *APTCHAR* is a list column so that each observation has different categories insiside. The preprocess step includes unnesting the list by creating as many bivariate columns as elements in the list. Then new columns flag the existemce of the caracteristics in the apartement. A slice for the fist observation displays:
+
+`r datiprep %>%  select(APTCHAR) %>%  slice(sample(1))  %>% pull`
+
+(sistemare classe energetica)
+
+
+### Maps and Geo-Visualisations
+
+Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *PRICE* indicates unsurprisingly that higher prices are nearer to the city center.
+The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+
+```{r leaflet_visuals, out.width="100%", fig.cap="Leaflet Map}
 
 if(knitr::is_latex_output()){
     knitr::include_graphics("images/leaflet_prezzi.jpg")
@@ -168,17 +195,123 @@ if(knitr::is_latex_output()){
   pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
   
   leaflet(dati2) %>%
-    # addProviderTiles(providers$CartoDB.Positron) %>%
+    # addProviderTiles(providers$CartoDB.Positron) %>% bug in Lealfet while caching
     setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>%
     addMiniMap() %>% 
     addTiles() %>% 
-    addCircles(lng = ~LONG, lat = ~LAT, color = ~ pal(PRICE),weight = 10,radius = ~log(PRICE)) %>%
+    addCircles(lng = ~LONG, 
+               lat = ~LAT, 
+               color = ~ pal(PRICE),
+               weight = 10,
+               radius = ~log(PRICE)) %>%
     addLegend("bottomright",
       pal = pal, values = ~PRICE,
-      title = "Prices"
-    ) %>%
+      title = "Prices") %>%
     addScaleBar(position = c("bottomleft"))
   }
+```
+
+(other more tmap and ggplot)
+
+## Counts and First Orientations
+
+Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:counts) offers a a reordered *TOTLOCALI* 5 levels categories. Bilocali are the most common option for rent, then trilocali comes at second place. The strighforward intution behind suggests that Milan rental market is oriented to "lighter" accomodation solutions in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are relevant.(anche se ti aspetti che ci siano famiglie quindi case un po' più grandi) The prevalence of bilocale is also the result of coherent investement choices by investor across italy. Expeditures and risks associated to having a bilocale are much less than the ones with larger squarefootage.
+
+```{r fct_counts, fig.cap="Most common housedolds categories for Milan Real Estate Market"} 
+datiprep %>%
+  mutate(TOTLOCALI = as_factor(TOTLOCALI)) %>% 
+  count(TOTLOCALI, sort = TRUE) %>% 
+  mutate(TOTLOCALI = fct_reorder(TOTLOCALI, n)) %>%
+  ggplot(aes(n, TOTLOCALI)) +
+  geom_col() +
+  labs(x = "# of houses",
+       y = "",
+       title = "Most common housedolds categories in Milan")+
+  theme_nicco()
+```
+
+quando hai tante categories con fct lump, qhi ci piuoi vedere il condizionatore o l'impianto AC, non varibaoile binaria.
+
+```{r }
+
+datiprep %>%
+  mutate(HEATING = fct_lump(HEATING, 15)) %>%
+  filter(HEATING != "Other") %>%
+  add_count(TOTLOCALI, name = "TOTLOCALI_count") %>% 
+  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
+         TOTLOCALI  = fct_reorder(TOTLOCALI, PRICE)) %>%
+  ggplot(aes(PRICE, TOTLOCALI)) +
+  geom_boxplot() +
+  geom_jitter(width = 0, height = .1, alpha = .25) +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(x = "Price (EUR)",
+       y = "",
+       title = "How much do houses cost for each TOTLOCALI type?")
+```
+
+
+this visualization permits to display bi modals adn multimodsals distribution, Log scales was needed since they are all veru skewd and log scale then is needed also in the model.
+
+(qui ci puoi mettere a confronto per variabile bianria, così vedi cosa includere nel modello esempio sotto dove commentato, )
+
+```{r}
+## non filled
+non_fill = datiprep %>%
+  add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
+  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
+         TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
+  ggplot(aes(PRICE, TOTLOCALI)) + ## qui fill con v avriabile bianria
+  geom_density_ridges() +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(x = "Price (EUR)",
+       y = "",
+       title = "How much do items in each category cost?");non_fill
+
+datiprep %>%
+  add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
+  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
+         TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
+  ggplot(aes(PRICE, TOTLOCALI)) + ## qui fill con v avriabile bianria
+  geom_density_ridges() +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(x = "Price (EUR)",
+       y = "",
+       title = "How much do items in each category cost?")
+```
+
+
+
+
+
+
+prezzo per metro quadrato, molto interessante anche metterlo sulla mappa, forse con un cenntroide. 
+
+
+```{r}
+datiprep_sq <- datiprep %>%
+  rename_all(tolower)  %>% 
+  filter(!is.na(sqfeet),
+         sqfeet >= .001) %>%
+  arrange(desc(sqfeet)) %>%
+  add_count(totlocali, name = "totlocali_count")
+
+datiprep_sq %>%
+  arrange(desc(sqfeet)) %>% 
+  last()
+
+```
+
+What is the highest price per square meter for numer of rooms?
+
+```{r}
+datiprep_sq %>%
+  mutate(totpiani = fct_lump(totpiani, 6)) %>%
+  ggplot(aes(sqfeet, price, color = totpiani)) +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  scale_y_log10()
 ```
 
 ## Missing Assessement and Imputation
@@ -187,13 +320,13 @@ As already pointed out some data went missing since immobiliare provides data th
 
 ### Missing assessement 
 
-The first problem to assess is why information are missing. As already pointed out in the introduction part and in section \@ref(ContentArchitecture) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed.  If in the end of the sequence the covariates values are still missing, the correspondent observation is not imputed and it is left out of the scraped dataset. The author choice to follow this approach relies on empirical observation that suggest when important inframtion is missing then the rest of the covariates also do, as a consequence the observation is not useful. Moreover when the spatial component can no be reverse engineered then it is also the case of left out observation while scraping. The model needs to have a spatial component in order to be evaluted. To this purpose The missing profile is crucial since it can also suggest problems in the scraping procedure. By identifying pattern in missing observation the maintainer can take advanatge of it and then debug the part that causes missingness. In order to identify the pattern a revision of missigness is introduced by _Little and Rubin (2014) miss lit_ .randomnes can be devided into 3 categories:
+The first problem to assess is why information are missing. As already pointed out in the introduction part and in section \@ref(ContentArchitecture) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed.  If in the end of the sequence the covariates values are still missing, the correspondent observation is not imputed and it is left out of the scraped dataset. The author choice to follow this approach relies on empirical observation that suggest when important information is missing then the rest of the covariates also do, as a consequence the observation is not useful. Moreover when the spatial component can no be reverse engineered then it is also the case of left out observation while scraping. The model needs to have a spatial component in order to be evaluted. To this purpose The missing profile is crucial since it can also suggest problems in the scraping procedure. By identifying pattern in missing observation the maintainer can take advantage of it and then debug the part that causes missingness. In order to identify the pattern a revision of missigness is introduced by @Little .randomnes can be devided into 3 categories:
 
 - *MCAR* (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
 - *MAR* (missing at random) likelihood of missin is not equal.
 - *NMAR* (not missing at random) data that is missing due to a specific cause, scarping can be the cause.
 
-The last iphothesis MNAR is often the case of daily monitoring clinical studies [@Kuhn2019], where patient might drop out the experiment because of death and so as a consequence all the data starting from the death time +1 is missing.
+MNAR is often the case of daily monitoring clinical studies [@Kuhn2019], where patient might drop out the experiment because of death and so as a consequence all the data starting from the death time +1 is missing.
 To assess pattern A _heat map_ plot fits the need: 
 
 ```{r Heatmap, fig.cap="Missingness Heatmap plot"}
@@ -211,7 +344,7 @@ Heatmap(
 )
 ```
 
-Looking at the top of the heat map plot \@ref(fig:Heatmap) under the "Predictor" label the first tree split divides data into two sub-groups. The left branch considers from *TOTPIANI* to *AC* and there are no substantial relevant worring patterns.  Then missingness can be traced back to the MAR case. Imputation needs to be applied up to *CONDOM* included, the others are discarded due to rarity (*BUILDAGE*: 14% missing, *CATASTINFO*: 21% and *AC*: 24%). *BAGNO*, *CAMERALETTO* ,*ALTRO* and *CUCINA* are generated as separation of the same variable so it should not surpirise that they have the same missing.
+Looking at the top of the heat map plot \@ref(fig:Heatmap) under the "Predictor" label the first tree split divides data into two sub-groups. The left branch considers from *TOTPIANI* to *CATASTINFO* and there are no substantial relevant worrying patterns.  Then missingness can be traced back to the MAR case. Imputation needs to be applied up to *CONDOM* included, the others are discarded due to rarity: i.e. *BUILDAGE*: 14% missing, *CATASTINFO*: 21% and *AC*: 24%. Moreover *CUCINA*,*ALTRO* are generated as separation of the originale LOCALI variable, so it should not surprise that their missing behavior is similar. Nevertheless their missing % is respectively 13% and 14%, as a consequence  they are discarded. 
 (capire se fare imputation per bagno cameraletto altro e cucina)
 In the far right hand side *ENCLASS* and *DISP* data are completely missing, this can be addressed to a scraping fail to capture data. Further inspection of the API scraping process focused on the two covariates is strongly advised. From *LOWRDPRICE.* covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking at the co_occurrence plot \@ref(fig:cooccurrence). Co-occurrence analysis might suggest frequency of missing predictor combinations and *LOWRDPRICE.* class covariates are displyaing this tyoe of behaviour. *PAUTO* is missing where lowered price class covariates are missing but this is not true for the contrary leading to the conclusion that *PAUTO* should be treated as a rare covariate, therefore *PAUTO* is discarded.
 After a further investigation *LOWRDPRICE.* flags when the *PRICE* covariate is effectively decreased and this is not so common, that is solved by grouping the covariate's information and to encode it as a two levels categorical covariate. Further methods to feature engineer the lowrdprice. class covariates can be treated with profile data, but this is beyond the scope, further references are @Kuhn2019.
@@ -220,24 +353,27 @@ After a further investigation *LOWRDPRICE.* flags when the *PRICE* covariate is 
 gg_miss_upset(data1, nsets = 7) 
 ```
 ```{r resulting_data}
-drop = datiprep %>% dplyr::select(-TOTPIANI, -STATUS, -HEATING, -CONDOM) %>%  names
+drop = datiprep %>% dplyr::select(-ID:LOCATION, ) %>%  names
 
-datiprep = datiprep9 %>%  
+datiprep = datiprep %>%  
   dplyr::select(-all_of(drop))
 
 ```
 
 
-### Imputation
+### Covariates Imputation
 
-A simple approach to front missing observations in the covariates is to build a regression model to explain the covariate with the missing observations and plug-in the obtained estimates (e.g. posterior means) from their predictive distributions (Little and Rubin 2002). This approach is simple and easy to implement in most cases, but it ignores the uncertainty about the imputed values. However it has the benefit to be a reasonable choice with respect to the computational power implied. That makes it the first choice to be followed.
-A further method for imputation has been designed by _Gómez-Rubio, Cameletti, and Blangiardo 2019) miss lit_ by adding a sub-model for the imputations to the final model through the formula. This is directly handled inside the inla function by a latent effect. However the approach makes the model more complex with a further level to handle. 
-At first the additive regression model with all the covariates is called including the covariates with missing values. The response variable *PRICE* has not any missing value.
+A simple approach to front missing observations is to build a regression model to explain the covariates with the missing observations and plug-in the obtained estimates (e.g. posterior means) from their predictive distributions (Little and Rubin 2002). This approach is fast and easy to implement in most cases, but it ignores the uncertainty about the imputed values. However it has the benefit to be a reasonable choice with respect to the numbr of computation required. That makes it the first choice method to follow.
+A further method for imputation has been designed by _Gómez-Rubio, Cameletti, and Blangiardo 2019) miss lit_ by adding a sub-model for the imputations to the final model through the inla functio. This is directly handled inside the predictor formula adding a parameter in the latent field. However the approach makes the model more complex with a further layer of uncertainty to handle. 
+At first the additive regression model with all the covariates is called including the covariates with missing values. The response variable *PRICE* displys no missing values.
 
 ```{r imputation}
-data_miss = dati %>%  select(-ID,-LAT,-LONG, -TITLE,-REVIEW,-PUB_DATE,-LOCATION,-AGE,-APTCHAR, -CONTR) %>% as.data.frame()
+data_miss = datiprep %>%  
+  rename_all(tolower) %>% 
+  select(-id,-lat,-long,-location, -buildage, -totlocali, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice.originalprice,-lowrdprice.currentprice, -lowrdprice.passeddays,-lowrdprice.date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
+  as.data.frame() 
 
-cov_imputation = inla(PRICE ~ 1 + CONDOM +FLOOR+INDIVSAPT+LOCALI+TPPROP+STATUS+HEATING+PHOTOSNUM+TOTPIANI+HASMULTI+SQFEET+NROOM, data = data_miss )
+cov_imputation = inla(price ~ 1 + condom +floor+ascensore+accdisabili+indivsapt+camereletto+bagno+status+heating+photosnum+totpiani+sqfeet+nroom, data = data_miss, verbose = TRUE )
 ```
 
 
