@@ -42,50 +42,51 @@ the covariance essentially is the dot product  [ref dot product](https://mathins
 if for example you take a vector that looks like 1 and 0 and you take the dot product of one other vecto 1 and 0, so that:
 
 $$
-\left[\begin{array}{rrr}
+\left[\begin{array}{l}
 1 \\
 0
 \end{array}\right]\left[\begin{array}{l}
-1&0 \\
-
+1 & 0 \\
 \end{array}\right] = 1
 $$
 You will end up with 1, recall dot productm first element first vcetor times first element second vectro and second element first vector times second element secon vector. So identical vector will get a high dot product value leading to a high similarity measure. Dot product can be indeded as a similarity measure.
 ... But if you take two different vector as 1 0 and 0 1 then:
 
 $$
-\left[\begin{array}{rrr}
+\left[\begin{array}{l}
 1 \\
 0
 \end{array}\right]\left[\begin{array}{l}
-0&1 \\
-
+0 & 1 \\
 \end{array}\right] = 0
 $$
 
 This time the multiplication leads to 0 value, as a matter of fact they are different. They are no similar.
 IF two points are closed the dot product will be high in 2D. What the covariance should be? if variances are assumed to be 1 then in this case i qould expect to be 0, i.e. covariance matrix is:
 
+
+
 $$
-\left[\begin{array}{}
+\left[\begin{array}{ll}
 1 & 0 \\
 0 & 1
 \end{array}\right] = \mathbf{cov_{plot1}}(x_1,x_2)
 $$
+
+
 because I can picka  poin tin two pointa in this cloud. Suppose i increase x1 then my chance of getting a x2 point that is positive or negative is the samee, knowing somthin about x1 give nothign about x2. no information is proivede. On the other hand i the second plot knowing a positive value of 1 can suggest with a certain probability that x2 will be positive (great proabibility. So some information is provided), e.g.
 
 $$
-\left[\begin{array}{}
-1 & 0.5 \\
+\left[\begin{array}{ll}
+1   & 0.5 \\
 0.5 & 1
 \end{array}\right] = \mathbf{cov_{plot2}}(x_1,x_2)
 $$
+
 Some positive number idicates that i expect a positive inc rease iwhen boht of the two are increasing singularly. thsi is what the correlation, the basis to do linear regresssion and non linear- thei is a bivariate gaussian. If the entri3es are  means that they are uncoorellated, if they are non-zero then they are correlated, theby can be both positive or negative (correlatiob)
 
 now lets generate a gassiian distrivution so x_1 and x_2 in 2D and then a third dimension hwere we express probability, this is said joint distribution. So i am going to cu this gaussian at certain point for x_1 and cut a plain rigght thgouth this gauissan imagine to ahava cake and then taka kkniw and cut it.(see the image)
 
-
-![]()
 
 form the man perspective you are goin to see a gaussian distribution, you will be lookong at x_ and you will be seeing a gaussain plot in green. this is the probability of x_1 gievn x_1. also said "conditioned" probabolity. This gaussian has a mean like the one alreasdy seen and this is the center of the gaussian, we can rewrite the mena and variance of the multivariate gaussian describing the cloud of points. sigma are the covaraince martix sigma. 
 

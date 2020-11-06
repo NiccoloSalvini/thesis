@@ -159,9 +159,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li class="chapter" data-level="0.1" data-path="appendix.html"><a href="appendix.html#gp-basics"><i class="fa fa-check"></i><b>0.1</b> GP basics</a></li>
-</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
@@ -242,6 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="modelspec.html"><a href="modelspec.html#model-checking-1"><i class="fa fa-check"></i><b>8.3</b> Model Checking</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
+<li class="chapter" data-level="9.1" data-path="appendix.html"><a href="appendix.html#gp-basics"><i class="fa fa-check"></i><b>9.1</b> GP basics</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
@@ -291,7 +291,12 @@ Files are then pushed to a <a href="https://github.com/NiccoloSalvini/thesis">Gi
 <p>Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasosn some needs to be skipped.</p>
 <div id="scheduler" class="section level2">
 <h2><span class="header-section-number">3.1</span> Scheduler</h2>
-<p>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
+
+<div class="definition">
+<span id="def:scheduler" class="definition"><strong>Definition 3.1  (Scheduler)  </strong></span>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.
+</div>
+
+<p>As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
 <ul>
 <li>Short term scheduler: it can trigger and queue the “ready to go” tasks
 <ul>
@@ -307,8 +312,12 @@ Files are then pushed to a <a href="https://github.com/NiccoloSalvini/thesis">Gi
 <p>for some other useful but beyond the scope refereces, such as the scheduling algorithm the reader can refer to <span class="citation">(Wikiversità <a href="#ref-wiki:scheduler" role="doc-biblioref">2020</a>)</span>.</p>
 <div id="cron-jobs" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Cron Jobs</h3>
-<p>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
-The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.</p>
+
+<div class="definition">
+<span id="def:cronjob" class="definition"><strong>Definition 3.2  (Cronjob)  </strong></span>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+</div>
+
+<p>The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.</p>
 <p>Each line of a crontab file represents a job, and has this structure</p>
 <div class="figure">
 <img src="images/crontab.PNG" alt="" />
@@ -324,9 +333,13 @@ The tasks by cron are driven by a crontab file, which is a configuration file th
 </div>
 <div id="docker" class="section level2">
 <h2><span class="header-section-number">3.2</span> Docker</h2>
-<p><em>Docker</em> is a software tool to create and deploy applications using containers.
+
+<div class="definition">
+<span id="def:docker" class="definition"><strong>Definition 3.3  (Docker)  </strong></span><em>Docker</em> is a software tool to create and deploy applications using containers.
 <em>Docker containers</em> are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
-Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.</p>
+</div>
+
+<p>Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.</p>
 <div class="figure">
 <img src="images/dockerVSvirtualmachines.PNG" alt="" />
 <p class="caption">docker container vs VM</p>
@@ -383,9 +396,19 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 </div>
 <div id="rest-api" class="section level2">
 <h2><span class="header-section-number">3.3</span> REST API</h2>
-<p>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented. This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+
+<div class="definition">
+<span id="def:api" class="definition"><strong>Definition 3.4  (API)  </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
+</div>
+
+This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
 There are many types of API that exploit different media and architectures to communicate with apps or services.
-The specification REST stands for REpresentational State Transfer and is a set of architectural principles. When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic <span class="citation">(<a href="#ref-what_is_a_rest_api" role="doc-biblioref">2018</a>)</span>, as well as more comfortable to be read and parsed.
+
+<div class="definition">
+<span id="def:rest" class="definition"><strong>Definition 3.5  (REST)  </strong></span>The specification REST stands for REpresentational State Transfer and is a set of architectural principles.
+</div>
+
+<p>When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic <span class="citation">(<a href="#ref-what_is_a_rest_api" role="doc-biblioref">2018</a>)</span>, as well as more comfortable to be read and parsed.
 In order for an API to be considered RESTful, it has to conform to these criteria:</p>
 <p>(rivedi elenco)
 - A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
@@ -501,9 +524,13 @@ Proxying is typically used to distribute the load among several servers, seamles
 <div id="aws" class="section level2">
 <h2><span class="header-section-number">3.5</span> AWS EC2 server</h2>
 <p>Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
-AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named <a href="https://aws.amazon.com/en/aws-cost-management/">amazon cost manager</a>.
-Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
-[few words still on EC2]</p>
+AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named <a href="https://aws.amazon.com/en/aws-cost-management/">amazon cost manager</a>.</p>
+
+<div class="definition">
+<p><span id="def:aws" class="definition"><strong>Definition 3.6  (AWS EC2)  </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.</p>
+</div>
+
+<p>[few words still on EC2]</p>
 <div id="launch-an-ec2-instance" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Launch an EC2 instance</h3>
 <p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.2.2</a>, has been exposed and needs to be linked to the security port opened.</p>

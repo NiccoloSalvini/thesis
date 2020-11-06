@@ -5,7 +5,7 @@ Geostatistical data are a collection of samples of geo type data indexed by coor
 > "Everything is related to everything else, 
 > but near things are more related than distant things"
 >
->  <footer>--- Waldo R. Tobler</footer>
+>  \hfill --- Waldo R. Tobler
 
 Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. 
 Spatial data can be partitioned into three spatial data type whose modeling tools are specific with respect to their category.
@@ -50,7 +50,9 @@ Moreover When $r = 1$ it is the most simple stochastic process widely explored i
 
 ![3D scatterplot and surface, Stockton data.](images/prdprocess.png)
 
-\BeginKnitrBlock{definition}\iffalse{-91-71-80-32-100-101-102-105-110-105-116-105-111-110-93-}\fi{}<div class="definition"><span class="definition" id="def:GP"><strong>(\#def:GP)  \iffalse (GP definition) \fi{} </strong></span>A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$  follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{Q}^{-1}_{i,j}, \forall i \neq j$</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-71-80-32-100-101-102-105-110-105-116-105-111-110-93-}\fi{}
+<span class="definition" id="def:GP"><strong>(\#def:GP)  \iffalse (GP definition) \fi{} </strong></span>A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ spatial processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$  follows a multivariate _Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{Q}^{-1}_{i,j}, \forall i \neq j$
+\EndKnitrBlock{definition}
 
 Even tough sometimes it is more convenient to express the covariance matrix as its inverse i.e. precision matrix $\boldsymbol{Q}_{i,j}$ [@Blangiardo-Cameletti]. The covariance matrix relates each observation to each of the others through a covariance function defined as $\mathcal{C}(\cdot)$.
 
@@ -89,7 +91,7 @@ presi i dati con le relative distanze euclidee a coppie di punti si binnano le d
 <!-- > "Everything is related to everything else,  -->
 <!-- > but near things are more related than distant things" -->
 <!-- > -->
-<!-- >  <footer>--- Waldo R. Tobler</footer> -->
+<!-- >  \hfill --- Waldo R. Tobler -->
 
 
 <!-- Semivariograms are an efficient tool to asses spatial continuity and contiguity but they are theoretical. However semivariograms can be fitted into existing data giving birth to empirical semivariograms which are then plotted against their separation vector. The plot can be used to verify the null hypothesis of spatial independence and variability of the process. The below expression is the empirical semivariogram functional form: -->
