@@ -17,12 +17,16 @@ knitr::opts_chunk$set(
 library(readr)
 library(kableExtra)
 library(tidyverse)
+library(broom)
 library(viridis)
 library(leaflet)
 library(sp)
 library(glue)
+library(ggpmisc)
 library(gstat)
 library(stringi)
+library(scales)
+library(plotly)
 library(INLA)
 ## missing profile
 library(caret)
@@ -81,18 +85,18 @@ ref =c(
 "specification of the type and number of rooms",
 "property type residential or not",
 "the actual status of the house, ristrutturato, nuovo, abitabile",
-"the heating system centralized or autonomous",
-"air conditioning hot and cold",
+"the heating system Cen_Rad_Gas (centralizzato a radiatori, alim a gas), Cen_Rad_Met,",
+"air conditioning hot and cold, Autonomo, freddo/caldo, Centralizzato, freddo/caldo",
 "the date of publication of the advertisement",
 "land registry information",
 "apartement main characteristics",
 "number of photos displayed in the advertisement",
 "real estate agency name",
-"If the price is lowered it indicates the starting price",
-"If the price is lowered it indicates the current price",
-"If the price is lowered the days passed since the price has changed",
-"If the price is lowered the date passed since the price has changed",
-"the energy class communicated to the land registers",
+"If the price is lowered it flags the starting price",
+"If the price is lowered it flags the current price",
+"If the price is lowered indicates the days passed since the price has changed",
+"If the price is lowered indicates the date the price has changed",
+"the energy class according to the land registers",
 "the type of contract",
 "if it is still avaiable or already rented",
 "the total number of the building floors",
@@ -128,6 +132,7 @@ datiprep = dati %>%
   mutate(FLOOR = str_remove_all(FLOOR, "°")) %>% 
   separate(FLOOR, c("FLOOR", "ASCENSORE","ACCDISABILI"), sep = ", ", convert = T) %>%
   replace_na(list(ASCENSORE = "no", ACCDISABILI = "no")) %>% 
+  mutate(ASCENSORE = recode(ASCENSORE,"con accesso disabili" = "no")) %>%  
   mutate(FLOOR = recode(FLOOR, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
   ## TOTPIANI
   # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
@@ -185,7 +190,7 @@ Data needs to undergo to many previous cleaning preprocess steps, this is a forc
 Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *PRICE* indicates unsurprisingly that higher prices are nearer to the city center.
 The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
 
-```{r leaflet_visuals, out.width="100%", fig.cap="Leaflet Map}
+```{r leaflet_visuals, out.width="100%", fig.cap="Leaflet Map"}
 
 if(knitr::is_latex_output()){
     knitr::include_graphics("images/leaflet_prezzi.jpg")
@@ -215,7 +220,7 @@ if(knitr::is_latex_output()){
 
 ## Counts and First Orientations
 
-Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:counts) offers a a reordered *TOTLOCALI* 5 levels categories. Bilocali are the most common option for rent, then trilocali comes at second place. The strighforward intution behind suggests that Milan rental market is oriented to "lighter" accomodation solutions in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are relevant.(anche se ti aspetti che ci siano famiglie quindi case un po' più grandi) The prevalence of bilocale is also the result of coherent investement choices by investor across italy. Expeditures and risks associated to having a bilocale are much less than the ones with larger squarefootage.
+Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:counts) offers a a reordered *TOTLOCALI* 5 levels categories. Bilocali are the most common option for rent, then trilocali comes at second place. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodation solutions in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are warmly welcomed
 
 ```{r fct_counts, fig.cap="Most common housedolds categories for Milan Real Estate Market"} 
 datiprep %>%
@@ -230,27 +235,113 @@ datiprep %>%
   theme_nicco()
 ```
 
-quando hai tante categories con fct lump, qhi ci piuoi vedere il condizionatore o l'impianto AC, non varibaoile binaria.
+Two of the most requested features for comfort and livability in rents are the heating/cooling systems installed. Moreover rental market demand regardless of the total house rent duration ready-to accomodate solutions, coming with all the services included.
+x-axis in figure \@ref(fig:price_per_heating) represents log_10 price for both of the two plots for smoothing reasons, so the interpretation of price is into relative percent changes. Furthermore factors are reordered with respect to decreasing price.  
+y-axis are the different level for the categorical variables recoded to simplify lables. Moreover counts per level are expressed btween brackets next to the the respective levels.
+The top plot displays the most prevalent categories  is "Cen_Rad_Met" by far, which is the most polluting as well. Jittering is then applied to highlight observations place with respect to the IQR (Inter Quantile Range) .25 and how outliers affect distribution for categories. A first conclusion is that There are some outliers that are located in autonomous systems, which leads to belive that the most expsive houses are heated by autonomoius heating systems, but that does not represent an implication in monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
-```{r }
+```{r price_heating_ac, fig.cap="Log Monthly Price per Heating and AC system"}
 
-datiprep %>%
-  mutate(HEATING = fct_lump(HEATING, 15)) %>%
+pph =datiprep %>%
+  mutate(HEATING = fct_lump(HEATING, 5)) %>%
   filter(HEATING != "Other") %>%
-  add_count(TOTLOCALI, name = "TOTLOCALI_count") %>% 
-  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
-         TOTLOCALI  = fct_reorder(TOTLOCALI, PRICE)) %>%
-  ggplot(aes(PRICE, TOTLOCALI)) +
+  filter(HEATING != is.na(HEATING)) %>% 
+  mutate(HEATING = recode(HEATING,"Centralizzato, a radiatori" = "Cen_Rad",
+                          "Centralizzato, a radiatori, alimentato a gas" = "Cen_Rad_Gas",
+                          "Centralizzato, a radiatori, alimentato a metano" = "Cen_Rad_Met",
+                          "Autonomo, a radiatori, alimentato a metano" = "Aut_Rad_Met",
+                          "Autonomo, a radiatori, alimentato a gas" = "Aut_Rad_Gas")) %>% 
+  add_count(HEATING, name = "HEATING_count") %>% 
+  mutate(HEATING = glue("{ HEATING } ({ HEATING_count })"),
+         HEATING  = fct_reorder(HEATING, PRICE)) %>%
+  ggplot(aes(PRICE, HEATING)) +
+  ggtitle("Log Monthly Price per Heating and AC systems?")+
+  geom_boxplot() +
+  geom_jitter(width = 0, height = .1, alpha = .25) +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(y = "",
+       x = "") +
+  theme_nicco()
+pph
+```
+
+```{r price_per_ac, fig.cap="Log Monthly Price per Heating system?"}
+
+ppa =datiprep %>%
+  mutate(AC = fct_lump(AC, 4)) %>%
+  # filter(AC != "Other") %>%
+  filter(AC != is.na(AC)) %>% 
+  add_count(AC, name = "AC_count") %>% 
+  mutate(AC = glue("{ AC } ({ AC_count })"),
+         AC  = fct_reorder(AC, PRICE)) %>%
+  ggplot(aes(PRICE, AC)) +
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   labs(x = "Price (EUR)",
-       y = "",
-       title = "How much do houses cost for each TOTLOCALI type?")
+       y = "") +
+  theme_nicco()
+ppa
+pph /ppa
+
 ```
 
 
-this visualization permits to display bi modals adn multimodsals distribution, Log scales was needed since they are all veru skewd and log scale then is needed also in the model.
+```{r}
+datiprep %>%
+  count(AC, sort = T)
+```
+
+What it can be seen form figure \@ref(fig:price_per_floor) Può, essere interessante guardare quali sono gli ultimi piani. 
+
+```{r price_per_floor, fig.cap="Log Monthly Price per apt Floor?"}
+
+ppf = datiprep %>%
+  mutate(FLOOR = fct_lump(FLOOR, 10)) %>%
+  filter(FLOOR != "Other") %>%
+  add_count(FLOOR, name = "FLOOR_count") %>% 
+  mutate(FLOOR = glue("{ FLOOR } ({ FLOOR_count })"),
+         FLOOR  = fct_reorder(FLOOR, FLOOR_count)) %>%
+  ggplot(aes(PRICE, FLOOR)) +
+  ggtitle("Log Monthly price per FLOOR?")+
+  geom_boxplot() +
+  geom_jitter(width = 0, height = .1, alpha = .25) +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(x = "Price (EUR)",
+       y = "")  +
+  theme_nicco()
+ppf
+
+```
+What it can be seen form figure \@ref(fig:price_per_totpiani) 
+
+```{r price_per_totpiani, fig.cap="Log Monthly Price per building Height?"}
+
+ppt = datiprep %>%
+  mutate(TOTPIANI = fct_lump(TOTPIANI, 5)) %>%
+  # filter(TOTPIANI != "Other") %>%
+  add_count(TOTPIANI, name = "TOTPIANI_count") %>% 
+  mutate(TOTPIANI = glue("{ TOTPIANI } ({ TOTPIANI_count })"),
+         TOTPIANI  = fct_reorder(TOTPIANI, PRICE)) %>%
+  ggplot(aes(PRICE, TOTPIANI)) +
+  ggtitle("Log Monthly price per TOTPIANI system?")+
+  geom_boxplot() +
+  geom_jitter(width = 0, height = .1, alpha = .25) +
+  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  labs(x = "Log Price (EUR)",
+       y = "") +
+  theme_nicco()
+ppt
+
+```
+
+
+```{r}
+## provare a ridurre la lunghezza delle lables
+pph / ppf
+```
+
+this visualization intersects allows to discover bimodality in the response variable.  Log scales was needed since they are all veru skewd and log scale then is needed also in the model.
 
 (qui ci puoi mettere a confronto per variabile bianria, così vedi cosa includere nel modello esempio sotto dove commentato, )
 
@@ -260,35 +351,39 @@ non_fill = datiprep %>%
   add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
   mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
          TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
-  ggplot(aes(PRICE, TOTLOCALI)) + ## qui fill con v avriabile bianria
+  ggplot(aes(PRICE, TOTLOCALI)) + 
   geom_density_ridges() +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   labs(x = "Price (EUR)",
        y = "",
-       title = "How much do items in each category cost?");non_fill
+       title = "How much do Cost items in each category cost?") +
+  theme_nicco()
 
-datiprep %>%
+with_fill = datiprep %>%
   add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
   mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
          TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
-  ggplot(aes(PRICE, TOTLOCALI)) + ## qui fill con v avriabile bianria
-  geom_density_ridges() +
+  ggplot(aes(PRICE, TOTLOCALI,fill = ASCENSORE)) + ## qui fill con v avriabile bianria
+  geom_density_ridges(alpha = .5) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   labs(x = "Price (EUR)",
        y = "",
-       title = "How much do items in each category cost?")
+       title = "How much do Cost items in each category cost?") +
+  theme_nicco()
+
+with_fill / non_fill
 ```
 
+What it might be really relevant to research is how monthly prices change with respect to house squarefootage for each house configuration. The idea is to asses how much adding a further square meter affetcs the monthly price for each n-roomed flat.
+One implication is how the property should be developed in order to request a greater amount of money per month. As an example in a situation in which the household has to lot its property into different sub units he can be helped to decide the most proficient choice in economic terms by setting ex ante the squarefootage extensions for each of the properties.
+A further implication can regard economic choices to enlarge new property acquisitions under the expectation to broadened the squarefootage (contruction firms). Some of the choices have an economic sense, some of them have not.
+The plot  \@ref(fig:glm_price_sq) has two contionous variables for x (price) and y (sqfootage) axis, the latter is log 10 scaled due to smoothness reasons. Coloration dicretizes points for the each $j$ household rooms totlocali. A sort of overlapping  piece-wise linear regression (log-linear due to transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the squarefootage surface(i.e.  price ~ sqfeet). Five different regression models are displayed in the top left. The interesting part regards the models slopes $\hat\beta_{1,j}$. The highest corresponds to "Monolocale" for which the increment of a 10 square meter in surface enriches the apartement of a `r 10^(0.00726*10)`% monthly price addition. Almost the same is witnessed in "Bilocale" for which a 10 square meter enlargement gains `r 10^(0.0049*10)`%. One more major thing to notice is the "ensamble" regression line obtained as the interpolation of the plotted ones. The line suggests a clear descending pattern from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the $\hat\beta_1$ predictor slopes coefficients.  
 
+```{r glm_price_sq}
 
+my_formula = y ~ x
 
-
-
-prezzo per metro quadrato, molto interessante anche metterlo sulla mappa, forse con un cenntroide. 
-
-
-```{r}
-datiprep_sq <- datiprep %>%
+datiprep_sq = datiprep %>%
   rename_all(tolower)  %>% 
   filter(!is.na(sqfeet),
          sqfeet >= .001) %>%
@@ -296,22 +391,56 @@ datiprep_sq <- datiprep %>%
   add_count(totlocali, name = "totlocali_count")
 
 datiprep_sq %>%
-  arrange(desc(sqfeet)) %>% 
-  last()
-
+  dplyr::filter(!is.na(totlocali)) %>%
+  mutate(totlocali = fct_lump(totlocali, 5)) %>%
+  ggplot(aes(sqfeet, price, color = totlocali)) +
+  geom_smooth(method = "lm",se = FALSE, formula = my_formula) +
+  stat_poly_eq(formula = my_formula, 
+               eq.with.lhs = "italic(hat(y))~`=`~",
+               aes(label = paste(..eq.label.., sep = "~~~")), 
+               parse = TRUE) +
+  geom_point() +
+  
+  # scale_x_log10(labels = unit_format(suffix = expression("m^2"))) +
+  scale_y_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  scale_x_continuous(labels = unit_format(suffix = "m^2", prefix = "")) +
+  labs(y = "price (EUR)",
+       x = "") +
+  theme_nicco()
 ```
 
-What is the highest price per square meter for numer of rooms?
+In table (...) are displayed the most valuable in absolute terms properties. The first 4 observations are "Bilocale" 
 
-```{r}
+```{r answer_to_quest}
+
+datiprep %>%
+  rename_all(tolower)  %>% 
+  mutate(abs_price = price / sqfeet) %>%
+  arrange(desc(abs_price)) %>% 
+  select(location,totlocali, price, sqfeet,floor, totpiani,abs_price, condom) %>%
+  head() %>% 
+  kable(booktabs = T)
+```
+
+Then fitting a linear model can help to understand how covariates interact with response variable through coefficients interpretation. the The linear model fitted is `lm(log2(price_usd) ~ log2(volume_m3) + category + other_colors, data = .)`. 
+
+```{r Coefficient/Tie fighter plot, eval=FALSE}
+
 datiprep_sq %>%
-  mutate(totpiani = fct_lump(totpiani, 6)) %>%
-  ggplot(aes(sqfeet, price, color = totpiani)) +
-  scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
+  mutate(category = fct_relevel(category, "Tables & desks")) %>%
+  lm(log2(price_usd) ~ log2(volume_m3) + category + other_colors, data = .) %>%
+  tidy(conf.int = TRUE) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(term = ifelse(term == "log2(volume_m3)", "Item volume (doubling)", term),
+         term = str_remove(term, "^category")) %>%
+  mutate(term = fct_reorder(term, estimate)) %>%
+  ggplot(aes(estimate, term)) +
   geom_point() +
-  geom_smooth(method = "lm") +
-  scale_x_log10() +
-  scale_y_log10()
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = .1) +
+  geom_vline(xintercept = 0, color = "red", lty = 2) +
+  labs(x = "Impact on price (relative to Tables & desks)",
+       y = "",
+       title = "What objects are unusually expensive/inexpensive relative to volume?")
 ```
 
 ## Missing Assessement and Imputation
@@ -344,7 +473,7 @@ Heatmap(
 )
 ```
 
-Looking at the top of the heat map plot \@ref(fig:Heatmap) under the "Predictor" label the first tree split divides data into two sub-groups. The left branch considers from *TOTPIANI* to *CATASTINFO* and there are no substantial relevant worrying patterns.  Then missingness can be traced back to the MAR case. Imputation needs to be applied up to *CONDOM* included, the others are discarded due to rarity: i.e. *BUILDAGE*: 14% missing, *CATASTINFO*: 21% and *AC*: 24%. Moreover *CUCINA*,*ALTRO* are generated as separation of the originale LOCALI variable, so it should not surprise that their missing behavior is similar. Nevertheless their missing % is respectively 13% and 14%, as a consequence  they are discarded. 
+Looking at the top of the heat map plot \@ref(fig:Heatmap) under the "Predictor" label the first tree split divides data into two sub-groups. The left branch considers from *TOTPIANI* to *CATASTINFO* and there are no substantial relevant worrying patterns.  Then missingness can be traced back to the MAR case. Imputation needs to be applied up to *CONDOM* included, the others are discarded due to rarity: i.e. *BUILDAGE*: 14% missing, *CATASTINFO*: 21% and *AC*: 24%. Moreover *CUCINA*,*ALTRO* are generated as separation of the original *LOCALI* variable, so it should not surprise that their missing behavior is similar which is respectively 13% and 14%, as a consequence  they are discarded. 
 (capire se fare imputation per bagno cameraletto altro e cucina)
 In the far right hand side *ENCLASS* and *DISP* data are completely missing, this can be addressed to a scraping fail to capture data. Further inspection of the API scraping process focused on the two covariates is strongly advised. From *LOWRDPRICE.* covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking at the co_occurrence plot \@ref(fig:cooccurrence). Co-occurrence analysis might suggest frequency of missing predictor combinations and *LOWRDPRICE.* class covariates are displyaing this tyoe of behaviour. *PAUTO* is missing where lowered price class covariates are missing but this is not true for the contrary leading to the conclusion that *PAUTO* should be treated as a rare covariate, therefore *PAUTO* is discarded.
 After a further investigation *LOWRDPRICE.* flags when the *PRICE* covariate is effectively decreased and this is not so common, that is solved by grouping the covariate's information and to encode it as a two levels categorical covariate. Further methods to feature engineer the lowrdprice. class covariates can be treated with profile data, but this is beyond the scope, further references are @Kuhn2019.
@@ -367,7 +496,7 @@ A simple approach to front missing observations is to build a regression model t
 A further method for imputation has been designed by _Gómez-Rubio, Cameletti, and Blangiardo 2019) miss lit_ by adding a sub-model for the imputations to the final model through the inla functio. This is directly handled inside the predictor formula adding a parameter in the latent field. However the approach makes the model more complex with a further layer of uncertainty to handle. 
 At first the additive regression model with all the covariates is called including the covariates with missing values. The response variable *PRICE* displys no missing values.
 
-```{r imputation}
+```{r imputation, eval=FALSE}
 data_miss = datiprep %>%  
   rename_all(tolower) %>% 
   select(-id,-lat,-long,-location, -buildage, -totlocali, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice.originalprice,-lowrdprice.currentprice, -lowrdprice.passeddays,-lowrdprice.date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
