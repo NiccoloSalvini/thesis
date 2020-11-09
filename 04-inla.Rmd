@@ -205,7 +205,7 @@ m0 = inla(formula, data = SPDEtoy)
 
 
 ```{r table_INLA, echo=FALSE}
-kable(m0$summary.fixed, caption ="prova", booktabs = T)
+kable(m0$summary.fixed, booktabs = T)
 ```
 
 
@@ -213,17 +213,16 @@ The output offers among the others a summary of the posterior marginal values fo
 
 ![linear predictor marginals, author's creation](images/marginal_distr.png)
 
+
+
+R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ zwith .1 Confidence Level, in table \@ref(tab:higer_posterior_density_interval).
+
 ```{r higer_posterior_density_interval, echo=FALSE}
 hpdm = inla.hpdmarginal(0.90,m0$marginals.fixed$s2)
 knitr::kable(
-  hpdm, booktabs = TRUE,
-  caption = 'higer posterior density interval'
+  hpdm, booktabs = TRUE
 )
 ```
-
-
-R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ zwith .1 Confidence Level. 
-
 
 Recall that the interpretation is different from the frequentist: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.
 

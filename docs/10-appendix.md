@@ -8,7 +8,7 @@
 
 lets say there are a cloud of points represented by two variables x1 and x2. the cloud of points describes a realization of this two variable i.e. height and weight and then you just plot it , you might get measurement like that,
 
-![gp cloud of points ](appendix_images/gp_base_1.jpg)
+![gp cloud of points](appendix_images/gp_base_1.jpg)
 or: 
 
 
@@ -18,7 +18,7 @@ each circle is a mesuduraments. now when we use multivariate gaussian we fit gau
 the center is a vector $\mu_{i}$ that it is beacuse we have two components $x_1$ and $x_2$ whhose mean is 0 for each of the other. This is true for all the observation which have two coordinates too $x_1$ and $x_2$. in vector notations we have for the mean:
 
 $$
-\boldsymbol{\mu}=\left[\begin{array}{l}
+\boldsymbol{\mu}=\left[\begin{array}{ll}
 \mu_{x_1} \\
 \mu_{x_2}
 \end{array}\right]
@@ -27,7 +27,7 @@ $$
 for each of the points, e.g. for point 1:
 
 $$
-\mathbf{x_1}=\left[\begin{array}{l}
+\mathbf{x_1}=\left[\begin{array}{ll}
 x_1 \\
 x_2
 \end{array}\right]
@@ -42,10 +42,10 @@ the covariance essentially is the dot product  [ref dot product](https://mathins
 if for example you take a vector that looks like 1 and 0 and you take the dot product of one other vecto 1 and 0, so that:
 
 $$
-\left[\begin{array}{l}
+\left[\begin{array}{ll}
 1 \\
 0
-\end{array}\right]\left[\begin{array}{l}
+\end{array}\right]\left[\begin{array}{ll}
 1 & 0 \\
 \end{array}\right] = 1
 $$
@@ -53,10 +53,10 @@ You will end up with 1, recall dot productm first element first vcetor times fir
 ... But if you take two different vector as 1 0 and 0 1 then:
 
 $$
-\left[\begin{array}{l}
+\left[\begin{array}{ll}
 1 \\
 0
-\end{array}\right]\left[\begin{array}{l}
+\end{array}\right]\left[\begin{array}{ll}
 0 & 1 \\
 \end{array}\right] = 0
 $$

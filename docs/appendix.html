@@ -223,15 +223,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>7.1.1</b> NA Removal and Imputation</a></li>
+<li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#maps-and-geo-visualisations"><i class="fa fa-check"></i><b>7.1.1</b> Maps and Geo-Visualisations</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>7.2</b> Spatial Autocorrelation assessement</a></li>
-<li class="chapter" data-level="7.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>7.3</b> Model Specification</a></li>
-<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>7.4</b> Mesh building</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>7.4.1</b> Shinyapp for mesh assessment</a></li>
-<li class="chapter" data-level="7.4.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>7.4.2</b> BUilding SPDE model on mesh</a></li>
+<li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#counts-and-first-orientations"><i class="fa fa-check"></i><b>7.2</b> Counts and First Orientations</a></li>
+<li class="chapter" data-level="7.3" data-path="exploratory.html"><a href="exploratory.html#missing-assessement-and-imputation"><i class="fa fa-check"></i><b>7.3</b> Missing Assessement and Imputation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>7.3.1</b> Missing assessement</a></li>
+<li class="chapter" data-level="7.3.2" data-path="exploratory.html"><a href="exploratory.html#covariates-imputation"><i class="fa fa-check"></i><b>7.3.2</b> Covariates Imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>7.5</b> Spatial Kriging (Prediction)</a></li>
+<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>7.4</b> Model Specification</a></li>
+<li class="chapter" data-level="7.5" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>7.5</b> Mesh building</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>7.5.1</b> Shinyapp for mesh assessment</a></li>
+<li class="chapter" data-level="7.5.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>7.5.2</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>7.6</b> Spatial Kriging (Prediction)</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>8</b> Model Selection &amp; Fitting</a><ul>
 <li class="chapter" data-level="8.1" data-path="modelspec.html"><a href="modelspec.html#model-criticism"><i class="fa fa-check"></i><b>8.1</b> Model Criticism</a></li>
@@ -277,14 +281,14 @@ or:</p>
 <p>each circle is a mesuduraments. now when we use multivariate gaussian we fit gaussian to data, the process of learning is to fit a gaussian to data, the ultimate goal is to describe the data, the smartest gaussian in the first image is to center the mean in the 0 and the draw a cricle containin all the other observation. Instaed for the second image it is still centering the mean in 0 but now it is an ellipse describing the variability, the size of the elipse descrube the variability of the data.
 the center is a vector <span class="math inline">\(\mu_{i}\)</span> that it is beacuse we have two components <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> whhose mean is 0 for each of the other. This is true for all the observation which have two coordinates too <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. in vector notations we have for the mean:</p>
 <p><span class="math display">\[
-\boldsymbol{\mu}=\left[\begin{array}{l}
+\boldsymbol{\mu}=\left[\begin{array}{ll}
 \mu_{x_1} \\
 \mu_{x_2}
 \end{array}\right]
 \]</span></p>
 <p>for each of the points, e.g. for point 1:</p>
 <p><span class="math display">\[
-\mathbf{x_1}=\left[\begin{array}{l}
+\mathbf{x_1}=\left[\begin{array}{ll}
 x_1 \\
 x_2
 \end{array}\right]
@@ -296,20 +300,20 @@ we do it by correlation with its noraml forms. the covariance is the term that g
 the covariance essentially is the dot product <a href="https://mathinsight.org/dot_product_matrix_notation">ref dot product</a> of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> variable, so what happens when you take the dot product of vectors,
 if for example you take a vector that looks like 1 and 0 and you take the dot product of one other vecto 1 and 0, so that:</p>
 <p><span class="math display">\[
-\left[\begin{array}{l}
+\left[\begin{array}{ll}
 1 \\
 0
-\end{array}\right]\left[\begin{array}{l}
+\end{array}\right]\left[\begin{array}{ll}
 1 &amp; 0 \\
 \end{array}\right] = 1
 \]</span>
 You will end up with 1, recall dot productm first element first vcetor times first element second vectro and second element first vector times second element secon vector. So identical vector will get a high dot product value leading to a high similarity measure. Dot product can be indeded as a similarity measure.
 … But if you take two different vector as 1 0 and 0 1 then:</p>
 <p><span class="math display">\[
-\left[\begin{array}{l}
+\left[\begin{array}{ll}
 1 \\
 0
-\end{array}\right]\left[\begin{array}{l}
+\end{array}\right]\left[\begin{array}{ll}
 0 &amp; 1 \\
 \end{array}\right] = 0
 \]</span></p>

@@ -223,15 +223,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#na-removal-and-imputation"><i class="fa fa-check"></i><b>7.1.1</b> NA Removal and Imputation</a></li>
+<li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#maps-and-geo-visualisations"><i class="fa fa-check"></i><b>7.1.1</b> Maps and Geo-Visualisations</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#spatial-autocorrelation-assessement"><i class="fa fa-check"></i><b>7.2</b> Spatial Autocorrelation assessement</a></li>
-<li class="chapter" data-level="7.3" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>7.3</b> Model Specification</a></li>
-<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>7.4</b> Mesh building</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>7.4.1</b> Shinyapp for mesh assessment</a></li>
-<li class="chapter" data-level="7.4.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>7.4.2</b> BUilding SPDE model on mesh</a></li>
+<li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#counts-and-first-orientations"><i class="fa fa-check"></i><b>7.2</b> Counts and First Orientations</a></li>
+<li class="chapter" data-level="7.3" data-path="exploratory.html"><a href="exploratory.html#missing-assessement-and-imputation"><i class="fa fa-check"></i><b>7.3</b> Missing Assessement and Imputation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>7.3.1</b> Missing assessement</a></li>
+<li class="chapter" data-level="7.3.2" data-path="exploratory.html"><a href="exploratory.html#covariates-imputation"><i class="fa fa-check"></i><b>7.3.2</b> Covariates Imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>7.5</b> Spatial Kriging (Prediction)</a></li>
+<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>7.4</b> Model Specification</a></li>
+<li class="chapter" data-level="7.5" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>7.5</b> Mesh building</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>7.5.1</b> Shinyapp for mesh assessment</a></li>
+<li class="chapter" data-level="7.5.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>7.5.2</b> BUilding SPDE model on mesh</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>7.6</b> Spatial Kriging (Prediction)</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>8</b> Model Selection &amp; Fitting</a><ul>
 <li class="chapter" data-level="8.1" data-path="modelspec.html"><a href="modelspec.html#model-criticism"><i class="fa fa-check"></i><b>8.1</b> Model Criticism</a></li>
@@ -414,7 +418,6 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 <span id="cb16-2"><a href="inla.html#cb16-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
 <span id="cb16-3"><a href="inla.html#cb16-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
 <table>
-<caption>(#tab:table_INLA)prova</caption>
 <colgroup>
 <col width="14%" />
 <col width="13%" />
@@ -475,8 +478,8 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 <img src="images/marginal_distr.png" alt="" />
 <p class="caption">linear predictor marginals, author’s creation</p>
 </div>
+<p>R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> zwith .1 Confidence Level, in table @ref(tab:higer_posterior_density_interval).</p>
 <table>
-<caption>(#tab:higer_posterior_density_interval)higer posterior density interval</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -492,7 +495,6 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 </tr>
 </tbody>
 </table>
-<p>R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> zwith .1 Confidence Level.</p>
 <p>Recall that the interpretation is different from the frequentist: in Bayesian statistics <span class="math inline">\(\beta_{j}\)</span> comes from probability distribution, while frequenstists considers <span class="math inline">\(\beta_{j}\)</span> as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>.</p>
 
 </div>

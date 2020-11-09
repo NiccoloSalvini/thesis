@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.10.31)  5 NOV 2020 16:59
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.10.31)  9 NOV 2020 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -699,7 +699,7 @@ LaTeX Info: Redefining \cite on input line 694.
 \c@definition=\count326
 \c@example=\count327
 \c@exercise=\count328
-No file Niccolo_Salvini_Thesis.aux.
+(./Niccolo_Salvini_Thesis.aux)
 \openout1 = `Niccolo_Salvini_Thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
@@ -1008,11 +1008,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 187.
 LaTeX Info: Redefining \pageref on input line 187.
 LaTeX Info: Redefining \nameref on input line 187.
+(./Niccolo_Salvini_Thesis.out) (./Niccolo_Salvini_Thesis.out)
 \@outlinefile=\write4
 \openout4 = `Niccolo_Salvini_Thesis.out'.
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1118,87 +1116,68 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 5.99936pt on input line 195.
 [1
 
-]
+] (./Niccolo_Salvini_Thesis.toc
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.4pt on input line 3.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 12.0011pt on input line 3.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.40076pt on input line 3.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 11.99872pt on input line 3.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.3991pt on input line 3.
+[1
+
+] [2])
 \tf@toc=\write5
 \openout5 = `Niccolo_Salvini_Thesis.toc'.
 
-[1
-
-]
+[3] (./Niccolo_Salvini_Thesis.lot)
 \tf@lot=\write6
 \openout6 = `Niccolo_Salvini_Thesis.lot'.
 
-[2
+[4
+
+] (./Niccolo_Salvini_Thesis.lof [5
 
 ]
+Underfull \hbox (badness 6859) in paragraph at lines 32--32
+ [][] [][]\TU/lmr/m/n/12 Spatial prediction representation through DAG, source 
+
+ []
+
+)
 \tf@lof=\write7
 \openout7 = `Niccolo_Salvini_Thesis.lof'.
 
-[3
-
-]
+[6]
 Chapter 1.
+[7
 
-Package natbib Warning: Citation `plumber' on page 4 undefined on input line 24
-0.
-
-
-Package natbib Warning: Citation `shiny' on page 4 undefined on input line 240.
-
-
-[4
-
-] [5]
+] [8]
 Chapter 2.
-[6
+[9
 
-] [7]
+] [10]
 File: images/content-vs-html-title.png Graphic file (type bmp)
 <images/content-vs-html-title.png>
-
-Package natbib Warning: Citation `Graph_Diestel' on page 8 undefined on input l
-ine 263.
-
-
-LaTeX Warning: Reference `spoofing' on page 8 undefined on input line 263.
-
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 263.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 263.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 263.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 263.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 263.
-
-LaTeX Warning: Reference `spoofing' on page 8 undefined on input line 263.
-
-[8] [9]
+[11] [12]
 File: images/tree_html.PNG Graphic file (type bmp)
 <images/tree_html.PNG>
-[10] [11]
+[13] [14]
 File: images/website_tree1.jpg Graphic file (type bmp)
 <images/website_tree1.jpg>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 286.
-
-LaTeX Warning: Reference `fig:workflow' on page 12 undefined on input line 288.
-
-
-[12]
+[15]
 File: images/workflow.png Graphic file (type bmp)
 <images/workflow.png>
-
-Package natbib Warning: Citation `rvest' on page 13 undefined on input line 300
-.
-
 File: images/content_structure.jpg Graphic file (type bmp)
 <images/content_structure.jpg>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 312.
-[13]
+[16]
 Underfull \vbox (badness 10000) detected at line 338
  []
 
@@ -1206,7 +1185,7 @@ Underfull \vbox (badness 10000) detected at line 338
 Underfull \vbox (badness 10000) detected at line 338
  []
 
-[14] [15] [16]
+[17] [18] [19]
 Underfull \vbox (badness 10000) detected at line 415
  []
 
@@ -1214,7 +1193,7 @@ Underfull \vbox (badness 10000) detected at line 415
 Overfull \vbox (1.16167pt too high) detected at line 415
  []
 
-[17] [18] [19]
+[20] [21] [22]
 Underfull \hbox (badness 1776) in paragraph at lines 478--479
 \TU/lmr/m/n/12 ders, crawlers, wanderers to access or not access certain parts 
 of a
@@ -1237,154 +1216,48 @@ Underfull \hbox (badness 1810) in paragraph at lines 478--479
 []$[]\TU/lmr/m/n/12 ) and bots from Google, Yahoo and
  []
 
-[20]
-
-Package natbib Warning: Citation `robotstxt' on page 21 undefined on input line
- 480.
-
-
-Package natbib Warning: Citation `google:robottxt' on page 21 undefined on inpu
-t line 480.
-
-[21]
-
-Package natbib Warning: Citation `polite' on page 22 undefined on input line 52
-3.
-
-
-Package natbib Warning: Citation `ratelimitr' on page 22 undefined on input lin
-e 523.
-
-
-Package natbib Warning: Citation `memoise' on page 22 undefined on input line 5
-23.
-
-[22]
-
-Package natbib Warning: Citation `densmore_2019' on page 23 undefined on input 
-line 529.
-
-[23]
+[23] [24] [25] [26]
 File: images/how_web_works.png Graphic file (type bmp)
 <images/how_web_works.png>
-[24]
+[27]
 Overfull \hbox (330.84135pt too wide) in paragraph at lines 570--570
 []\TU/lmtt/m/n/12 ## [1] "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.3
 6 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"[] 
  []
 
-[25] [26] [27]
-
-Package natbib Warning: Citation `furrr' on page 28 undefined on input line 653
-.
-
-[28]
+[28] [29] [30] [31]
 File: images/run_timefurrr.png Graphic file (type bmp)
 <images/run_timefurrr.png>
-
-Package natbib Warning: Citation `foreach' on page 29 undefined on input line 6
-63.
-
-[29]
+[32]
 File: images/run_timeforeach.png Graphic file (type bmp)
 <images/run_timeforeach.png>
-[30]
-
-Package natbib Warning: Citation `Rcrawler' on page 31 undefined on input line 
-700.
-
-
-Package natbib Warning: Citation `Rcrawler' on page 31 undefined on input line 
-700.
-
+[33]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 5.0pt on input line 701.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 5.00046pt on input line 701.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 701.
-[31]
-
-LaTeX Warning: Reference `best-practices' on page 32 undefined on input line 70
-8.
-
-[32] [33] [34]
+[34] [35] [36] [37]
 Chapter 3.
-
-LaTeX Warning: Reference `challenges' on page 35 undefined on input line 723.
-
-
-LaTeX Warning: Reference `scraping' on page 35 undefined on input line 725.
-
-[35
+[38
 
 ]
 
-LaTeX Warning: Reference `scheduler' on page 36 undefined on input line 734.
-
-
-LaTeX Warning: Reference `docker' on page 36 undefined on input line 736.
-
-
-LaTeX Warning: Reference `plumberapi' on page 36 undefined on input line 738.
-
-
-LaTeX Warning: Reference `nginx' on page 36 undefined on input line 740.
-
-
-LaTeX Warning: Reference `aws' on page 36 undefined on input line 742.
-
-
-LaTeX Warning: Reference `application' on page 36 undefined on input line 746.
+LaTeX Warning: Reference `application' on page 39 undefined on input line 746.
 
 File: images/prova.PNG Graphic file (type bmp)
 <images/prova.PNG>
-
-Package natbib Warning: Citation `rmarkdown1' on page 36 undefined on input lin
-e 755.
-
-
-Package natbib Warning: Citation `bookdown2' on page 36 undefined on input line
- 755.
-
-
-Package natbib Warning: Citation `bookdown2' on page 36 undefined on input line
- 756.
-
-[36] [37]
-
-Package natbib Warning: Citation `wiki:scheduler' on page 38 undefined on input
- line 793.
-
+[39] [40]
 File: images/crontab.PNG Graphic file (type bmp)
 <images/crontab.PNG>
-
-Package natbib Warning: Citation `wiki:cronjob' on page 38 undefined on input l
-ine 815.
-
-[38] [39]
+[41] [42]
 File: images/dockerVSvirtualmachines.PNG Graphic file (type bmp)
 <images/dockerVSvirtualmachines.PNG>
-
-LaTeX Warning: Reference `aws' on page 40 undefined on input line 839.
-
-
-Package natbib Warning: Citation `nolis_2020' on page 40 undefined on input lin
-e 841.
-
-[40]
-
-Package natbib Warning: Citation `Skills_Explorer' on page 41 undefined on inpu
-t line 848.
-
-[41]
+[43] [44]
 File: images/Inkedindeed_jobs_LI.jpg Graphic file (type bmp)
 <images/Inkedindeed_jobs_LI.jpg>
-
-Package natbib Warning: Citation `red_hat_customer_portal' on page 42 undefined
- on input line 858.
-
-[42] [43]
+[45] [46]
 File: images/dockerfile.PNG Graphic file (type bmp)
 <images/dockerfile.PNG>
 
@@ -1398,7 +1271,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 897--899
 []\TU/lmtt/m/n/12 RUN apt-get update && apt-get install -y \ libxml2-dev \
  []
 
-[44]
+[47]
 Overfull \hbox (76.62134pt too wide) in paragraph at lines 899--901
 []\TU/lmtt/m/n/12 RUN R -e "install.packages(c([]plumber[],[]tibble[],[]...[],d
 ependencies=TRUE)
@@ -1422,16 +1295,7 @@ Overfull \hbox (153.38936pt too wide) in paragraph at lines 901--906
 oject.org/.../doParallel,
  []
 
-
-Package natbib Warning: Citation `docker_documentation_2020' on page 45 undefin
-ed on input line 908.
-
-[45]
-
-Package natbib Warning: Citation `what_is_a_rest_api' on page 46 undefined on i
-nput line 926.
-
-[46]
+[48] [49]
 Underfull \hbox (badness 10000) in paragraph at lines 940--940
 [][][][]$[][][][][] [] [] [] [][][][] [] [][][] [] [][][][][][] [] [][][] [] []
 [] [] [][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][][][][][][
@@ -1440,23 +1304,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 940--940
 
 File: images/Rest-API.png Graphic file (type bmp)
 <images/Rest-API.png>
-[47] [48] [49]
+[50] [51] [52]
 
-Package natbib Warning: Citation `an_api_generator_for_r' on page 50 undefined 
+Package natbib Warning: Citation `an_api_generator_for_r' on page 53 undefined 
 on input line 997.
 
-
-LaTeX Warning: Reference `webstructure' on page 50 undefined on input line 1008
-.
-
-[50]
+[53]
 File: images/swagger.PNG Graphic file (type bmp)
 <images/swagger.PNG>
-[51] [52]
-
-LaTeX Warning: Reference `dockerfile' on page 53 undefined on input line 1102.
-
-[53]
+[54] [55] [56]
 File: images/aws.PNG Graphic file (type bmp)
 <images/aws.PNG>
 
@@ -1482,50 +1338,11 @@ Overfull \hbox (927.64137pt too wide) in paragraph at lines 1115--1115
 ][][][][][][][][][][][][][][][][][][]$[]| 
  []
 
-[54] [55]
+[57] [58]
 Chapter 4.
+[59
 
-Package natbib Warning: Citation `Rue2009' on page 56 undefined on input line 1
-120.
-
-
-Package natbib Warning: Citation `Moraga2019' on page 56 undefined on input lin
-e 1139.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 56 undefined on 
-input line 1139.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 56 undefined on
- input line 1139.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 56 undefined on 
-input line 1139.
-
-
-Package natbib Warning: Citation `Rue2009' on page 56 undefined on input line 1
-139.
-
-
-LaTeX Warning: Reference `approx' on page 56 undefined on input line 1139.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 56 undefined on
- input line 1139.
-
-[56
-
-]
-
-LaTeX Warning: Reference `inla' on page 57 undefined on input line 1142.
-
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 57 undefined on input
- line 1147.
-
-[57]
+] [60]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
 (Font)              scaled to size 12.0pt on input line 1153.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
@@ -1544,486 +1361,212 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
 (Font)              scaled to size 8.3991pt on input line 1153.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
 (Font)              scaled to size 5.99936pt on input line 1153.
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 58 undefined on 
-input line 1153.
-
-
-Package natbib Warning: Citation `GMRFRue' on page 58 undefined on input line 1
-161.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 58 undefined on 
-input line 1161.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 58 undefined on 
-input line 1168.
-
-
-LaTeX Warning: Reference `Matern' on page 58 undefined on input line 1168.
-
-[58]
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 59 undefined on
- input line 1176.
-
-
-Package natbib Warning: Citation `Rue2009' on page 59 undefined on input line 1
-177.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 59 undefined on
- input line 1178.
-
-
-LaTeX Warning: Reference `GP' on page 59 undefined on input line 1178.
-
-
-LaTeX Warning: Reference `inla' on page 59 undefined on input line 1178.
-
-
-LaTeX Warning: Reference `spde' on page 59 undefined on input line 1178.
-
-[59]
-
-LaTeX Warning: Reference `eq:likelihood' on page 60 undefined on input line 118
-6.
-
-
-LaTeX Warning: Reference `eq:gmrf' on page 60 undefined on input line 1186.
-
-
+[61] [62]
 Overfull \hbox (2.8808pt too wide) detected at line 1194
 [][]
  []
 
-
-LaTeX Warning: Reference `eq:jointpostdistr' on page 60 undefined on input line
- 1206.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 60 undefined on 
-input line 1206.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 60 undefined on
- input line 1206.
-
-[60]
+[63]
 Missing character: There is no 𝜓 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no ∀ in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no ∈ in font [lmroman12-regular]:mapping=tex-text;!
 
-LaTeX Warning: Reference `hierreg' on page 61 undefined on input line 1222.
+LaTeX Warning: Reference `hierreg' on page 64 undefined on input line 1222.
 
-
-LaTeX Warning: Reference `eq:latentparam' on page 61 undefined on input line 12
-32.
-
-[61]
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 62 undefined on 
-input line 1249.
-
+[64]
 File: images/CCDapplied.PNG Graphic file (type bmp)
 <images/CCDapplied.PNG>
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 62 undefined on
- input line 1254.
-
-
-Package natbib Warning: Citation `Rue2009' on page 62 undefined on input line 1
-257.
-
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 62 undefined on input
- line 1257.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 62 undefined on 
-input line 1259.
-
-[62]
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 63 undefined on input
- line 1293.
-
-[63]
+[65] [66] [67]
 File: images/summarytable.PNG Graphic file (type bmp)
 <images/summarytable.PNG>
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 64 undefined on input
- line 1298.
-
 File: images/cotour_toy.png Graphic file (type bmp)
 <images/cotour_toy.png>
-[64]
 
-LaTeX Warning: Reference `genregvec' on page 65 undefined on input line 1312.
+LaTeX Warning: Reference `genregvec' on page 68 undefined on input line 1312.
 
-[65]
-Overfull \hbox (111.13344pt too wide) in paragraph at lines 1341--1350
- [][] 
+[68] [69]
+Overfull \hbox (111.13344pt too wide) in paragraph at lines 1336--1345
+[][] 
  []
 
-[66]
 File: images/marginal_distr.png Graphic file (type bmp)
 <images/marginal_distr.png>
-[67]
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 68 undefined on
- input line 1378.
-
-[68]
+[70] [71]
 Chapter 5.
-
-Package natbib Warning: Citation `Moraga2019' on page 69 undefined on input lin
-e 1383.
-
-
-Package natbib Warning: Citation `Bell2006' on page 69 undefined on input line 
-1383.
-
-
-Package natbib Warning: Citation `Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020' on pa
-ge 69 undefined on input line 1383.
-
-
-Package natbib Warning: Citation `Cameletti2012' on page 69 undefined on input 
-line 1383.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 69 undefined on 
-input line 1383.
-
-[69
+[72
 
 ]
 File: images/map.png Graphic file (type bmp)
 <images/map.png>
-
-LaTeX Warning: Reference `Infrastructure' on page 70 undefined on input line 14
-11.
-
-
-LaTeX Warning: Reference `spde' on page 70 undefined on input line 1412.
-
-
-LaTeX Warning: Reference `inla' on page 70 undefined on input line 1413.
-
-[70]
-
-Package natbib Warning: Citation `PACI2017149' on page 71 undefined on input li
-ne 1421.
-
-[71]
-File: images/prdprocess.png Graphic file (type bmp)
-<images/prdprocess.png>
-[72]
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 73 undefined on
- input line 1441.
-
-
-Package natbib Warning: Citation `Banerjee-Gelfand' on page 73 undefined on inp
-ut line 1455.
-
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 73 undefined on input
- line 1455.
-
-
-Package natbib Warning: Citation `Cressie_2015' on page 73 undefined on input l
-ine 1456.
-
 [73]
-File: images/variogram.png Graphic file (type bmp)
-<images/variogram.png>
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 74 undefined on input
- line 1478.
+Overfull \hbox (13.92044pt too wide) in paragraph at lines 1412--1416
+\TU/lmr/m/n/12 For simplicity lets consider $[]$ point of interest observations
+ $[] [] [] [] [] [] [] [] [] []$
+ []
 
 [74]
+File: images/prdprocess.png Graphic file (type bmp)
+<images/prdprocess.png>
+[75] [76]
+File: images/variogram.png Graphic file (type bmp)
+<images/variogram.png>
+[77]
 File: images/isotropyVSanisotropy.png Graphic file (type bmp)
 <images/isotropyVSanisotropy.png>
-
-Package natbib Warning: Citation `blanchetscalliet' on page 75 undefined on inp
-ut line 1487.
-
-[75] [76]
-
-LaTeX Warning: Reference `spde' on page 77 undefined on input line 1553.
-
-
-Package natbib Warning: Citation `Krainski2018' on page 77 undefined on input l
-ine 1554.
-
-
-Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 77 undefined on 
-input line 1554.
-
+[78] [79]
 File: images/matern.png Graphic file (type bmp)
 <images/matern.png>
+[80] [81] [82] [83] [84]
+Underfull \hbox (badness 6236) in paragraph at lines 1592--1593
+[]\TU/lmr/m/n/12 then by the following relationship $[] [] []
+ []
 
-Package natbib Warning: Citation `Lancaster' on page 77 undefined on input line
- 1576.
-
-
-Package natbib Warning: Citation `Rosen' on page 77 undefined on input line 157
-6.
-
-[77] [78]
-
-Package natbib Warning: Citation `Malpezzi' on page 79 undefined on input line 
-1581.
-
-
-Package natbib Warning: Citation `Ling' on page 79 undefined on input line 1581
-.
-
-
-Package natbib Warning: Citation `Ling' on page 79 undefined on input line 1585
-.
-
-
-Package natbib Warning: Citation `Ling' on page 79 undefined on input line 1586
-.
-
-[79] [80]
-
-Package natbib Warning: Citation `Herath_Maier_2011' on page 81 undefined on in
-put line 1588.
-
-
-Package natbib Warning: Citation `sellingVSrental' on page 81 undefined on inpu
-t line 1588.
-
-
-Package natbib Warning: Citation `Capozza_Seguin_1996' on page 81 undefined on 
-input line 1588.
-
-
-Package natbib Warning: Citation `Clark_1995' on page 81 undefined on input lin
-e 1588.
-
-
-LaTeX Warning: Reference `LGM' on page 81 undefined on input line 1593.
-
-[81]
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 82 undefined on
- input line 1595.
-
-
-LaTeX Warning: Reference `inla' on page 82 undefined on input line 1595.
-
-
-LaTeX Warning: Reference `inla' on page 82 undefined on input line 1606.
-
-[82] [83]
-
-Package natbib Warning: Citation `Ling' on page 84 undefined on input line 1635
-.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 84 undefined on
- input line 1635.
-
+[85] [86]
 File: images/simple.PNG Graphic file (type bmp)
 <images/simple.PNG>
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 84 undefined on
- input line 1640.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 84 undefined on
- input line 1644.
-
-[84]
+[87]
 File: images/thetas.PNG Graphic file (type bmp)
 <images/thetas.PNG>
 File: images/chis.PNG Graphic file (type bmp)
 <images/chis.PNG>
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 85 undefined on
- input line 1648.
-
-[85]
-
-LaTeX Warning: Reference `inla' on page 86 undefined on input line 1653.
-
-
-LaTeX Warning: Reference `LGM' on page 86 undefined on input line 1665.
-
-
-LaTeX Warning: Reference `univariateregr' on page 86 undefined on input line 16
-65.
-
-[86]
-
-LaTeX Warning: Reference `example' on page 87 undefined on input line 1667.
-
-
-LaTeX Warning: Reference `example' on page 87 undefined on input line 1669.
-
-[87]
-
-LaTeX Warning: Reference `finalregr' on page 88 undefined on input line 1687.
-
+[88] [89] [90]
 File: images/spatial_prediction.jpg Graphic file (type bmp)
 <images/spatial_prediction.jpg>
 
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 88 undefined on
- input line 1703.
+Underfull \hbox (badness 4505) in paragraph at lines 1689--1689
+[]\TU/lmr/m/n/12 Figure 5.7: []Spatial prediction representation through DAG, s
+ource
+ []
 
-[88] [89]
+[91]
+Underfull \hbox (badness 1314) in paragraph at lines 1710--1711
+\TU/lmtt/m/n/12 inla(control.compute = list()) \TU/lmr/m/n/12 list object by se
+tting them equal o
+ []
 
-LaTeX Warning: Reference `example' on page 90 undefined on input line 1740.
-
-[90]
+[92] [93]
 Chapter 6.
+[94
 
-LaTeX Warning: Reference `GP' on page 91 undefined on input line 1748.
-
-
-Package natbib Warning: Citation `Lindgren2011' on page 91 undefined on input l
-ine 1749.
-
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 91 undefined on input
- line 1749.
-
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 91 undefined on input
- line 1750.
-
-
-Package natbib Warning: Citation `Blangiardo-Cameletti' on page 91 undefined on
- input line 1750.
-
-
-Package natbib Warning: Citation `Miller2019' on page 91 undefined on input lin
-e 1750.
-
-
-Package natbib Warning: Citation `Miller2019' on page 91 undefined on input lin
-e 1750.
-
-[91
-
-]
-
-LaTeX Warning: Reference `univariateregr' on page 92 undefined on input line 17
-55.
-
-
-LaTeX Warning: Reference `LGM' on page 92 undefined on input line 1762.
-
-
-Package natbib Warning: Citation `Lindgren2011' on page 92 undefined on input l
-ine 1763.
-
-
-Package natbib Warning: Citation `Miller2019' on page 92 undefined on input lin
-e 1763.
-
-[92]
+] [95]
 File: images/lattice.png Graphic file (type bmp)
 <images/lattice.png>
-[93] [94]
+[96] [97]
 Chapter 7.
-
-LaTeX Warning: Reference `APIdocs' on page 95 undefined on input line 1785.
-
-[95
+[98
 
 ]
-Overfull \hbox (90.25345pt too wide) in alignment at lines 1794--1820
+Overfull \hbox (242.07745pt too wide) in alignment at lines 1780--1806
  [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1820
+Underfull \vbox (badness 10000) detected at line 1806
  []
 
 
-Overfull \hbox (217.40544pt too wide) in alignment at lines 1820--1834
+Overfull \hbox (242.07745pt too wide) in alignment at lines 1806--1824
  [] [] 
  []
-
-[96]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 7.1 on input line 1834.
-
-File: images/leaflet_prezzi.jpg Graphic file (type bmp)
-<images/leaflet_prezzi.jpg>
-[97]
-
-LaTeX Warning: Reference `ContentArchitecture' on page 98 undefined on input li
-ne 1844.
-
-
-LaTeX Warning: Reference `ContentArchitecture' on page 98 undefined on input li
-ne 1849.
-
-[98]
-File: 07-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
-<use 07-exploratory_files/figure-latex/Heatmap-1.pdf>
-
-LaTeX Warning: Reference `fig:Heatmap' on page 99 undefined on input line 1870.
-
-
-
-LaTeX Warning: Reference `fig:cooccurrence' on page 99 undefined on input line 
-1870.
 
 [99] [100]
+File: images/leaflet_prezzi.jpg Graphic file (type bmp)
+<images/leaflet_prezzi.jpg>
+[101]
+File: 07-exploratory_files/figure-latex/fctCounts-1.pdf Graphic file (type pdf)
+
+<use 07-exploratory_files/figure-latex/fctCounts-1.pdf>
+[102] [103]
+File: 07-exploratory_files/figure-latex/PricePerAc-1.pdf Graphic file (type pdf
+)
+<use 07-exploratory_files/figure-latex/PricePerAc-1.pdf>
+File: 07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (typ
+e pdf)
+<use 07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf>
+[104]
+
+LaTeX Warning: Reference `fig:GlmPriceSq' on page 105 undefined on input line 1
+893.
+
+[105]
+File: 07-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
+)
+<use 07-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
+
+Overfull \hbox (103.18945pt too wide) in paragraph at lines 1899--1912
+[][] 
+ []
+
+[106]
+File: 07-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
+ pdf)
+<use 07-exploratory_files/figure-latex/TieFighterPlot-1.pdf>
+[107]
+
+LaTeX Warning: Reference `ContentArchitecture' on page 108 undefined on input l
+ine 1934.
+
+[108]
+File: 07-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
+<use 07-exploratory_files/figure-latex/Heatmap-1.pdf>
+[109]
 File: 07-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
 df)
 <use 07-exploratory_files/figure-latex/cooccurrence-1.pdf>
-[101]
+[110] [111]
+Underfull \hbox (badness 1147) in paragraph at lines 1996--1998
+[]\TU/lmr/m/n/12 A further method for imputation has been designed by \TU/lmr/m
+/it/12 Gómez-Rubio,
+ []
+
+[112]
 File: images/triangle.jpg Graphic file (type bmp)
 <images/triangle.jpg>
-
-Package natbib Warning: Citation `Krainski-Rubio' on page 102 undefined on inpu
-t line 1906.
-
-[102] [103] [104]
+[113] [114] [115]
 Chapter 8.
 
-Overfull \hbox (985.9812pt too wide) in paragraph at lines 1971--1971
+Overfull \hbox (985.9812pt too wide) in paragraph at lines 2076--2076
 []  \TU/lmtt/m/n/12 IDEA: proporre due modelli uno più interepretabile con dist
 ribuzione normale, e un ò'altro con sempre exponential family ma con Gamma dist
 ribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicaz
 ione.[] 
  []
 
-[105
+[116
 
 ]
 Chapter 9.
-[106
+[117
 
 ]
 File: appendix_images/gp_base_1.jpg Graphic file (type bmp)
 <appendix_images/gp_base_1.jpg>
-[107
+[118
 
-]
-! Extra alignment tab has been changed to \cr.
-<recently read> \endtemplate 
-                             
-l.2028 1 &
-           0 \\ 
+] [119] [120]
+File: appendix_images/inverse_lemma.jpg Graphic file (type bmp)
+<appendix_images/inverse_lemma.jpg>
+[121] [122] (./Niccolo_Salvini_Thesis.bbl [123] [124
+
+] [125] [126] [127])
+
+Package natbib Warning: There were undefined citations.
+
+[128] (./Niccolo_Salvini_Thesis.aux)
+Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
+
+(rerunfilecheck)             Checksum: C3DD94582550EC9B8DBD94D13F773A88;12169.
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 20030 strings out of 479393
- 346599 string characters out of 5877969
- 811998 words of memory out of 5000000
- 39031 multiletter control sequences out of 15000+600000
+ 20308 strings out of 479393
+ 353108 string characters out of 5877969
+ 823658 words of memory out of 5000000
+ 39286 multiletter control sequences out of 15000+600000
  546100 words of font info for 124 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 94i,18n,118p,3466b,482s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,18n,118p,3459b,523s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (109 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (130 pages).

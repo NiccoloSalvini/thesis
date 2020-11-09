@@ -167,7 +167,7 @@
 
 \title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 05 novembre, 2020}
+\date{Last compiled on 09 novembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -247,10 +247,9 @@ The following chapter covers a gentle introduction and concepts of web scraping 
 \hypertarget{what-is-web-scraping}{%
 \section{What is Web Scraping}\label{what-is-web-scraping}}
 
-Web Scraping is a technique aimed at extracting data from static or dynamic internet web pages. It can be applied simultaneously or automatically by a scheduler that plans execution at a given time. Content in webpages is the most of the times well organized and accessible.
-(puoi dire meglio)
+Content in webpages is the most of the times well organized and accessible.
 This is made possible by the effort put into building both the \emph{website structure} and the \emph{content architecture}. For website structure it is meant the way urls, pointing to webpages, are arranged throughout the website.
-Website structure constitutes a \emph{first dimension} of hierarchy. Some popular structure examples might regard social-networks where posts can be scrolled down within a single url page named the wall. Scrolling down might end due to few posts, but the perception related to the scroll option is a never-ending webpage associated to a single url. Instead personal profiles are dedicated to a specified unique url and even in profiles posts are allocated into a sub domain and might be scrolled down arranged by time since the day of social subscription. Online newspapers display their articles in the front wall and by accessing to one of them all the related following articles sometimes can be reached by an arrow, pointing right or left. Articles can also be suggested and the more the website is explored the more articles are likely to be seen twice within the same session. It will soon end up into a suggestion loop that it will recursively shows the same contents; recursive structures are popular in newspaper-type websites. Online Retailers as Amazon, based on filters, groups inside a single webpage (i.e.~page n° 1) a fixed set of items, having their dedicated personal url attached to them. Furthermore Amazon offers the opportunity to skip to the following page (i.e.~page n° 2), searching for another different and fixed set of items and so on until the last page/url. Generally website structures try to reflect both the user expectations with respect to the product on the website and the design expression of the web developer. For these reasons for each websites usage category exists a multitude of content architectures. For each content architectures there are multiple front end languages which are destinated to multiple end users. In the future expectations are tailor made webpages on users with respect to its personal preferences. Moreover web design in scraping plays an important role since the more sophisticated graphical technologies are implied, the harder will be to scrape information.
+Website structure constitutes a \emph{first dimension} of hierarchy. Some popular structure examples might regard social-networks where posts can be scrolled down within a single url page named the wall. Scrolling down might end due to few posts, but the perception related to the scroll option is a never-ending webpage associated to a single url. Instead personal profiles are dedicated to a specified unique url and even in profiles posts are allocated into a sub domain and might be scrolled down arranged by time since the day of social subscription. Online newspapers display their articles in the front wall and by accessing to one of them all the related following articles sometimes can be reached by an arrow, pointing right or left. Articles can also be suggested and the more the website is explored the more articles are likely to be seen twice within the same session. It will soon end up into a suggestion loop that it will recursively shows the same contents; recursive structures are popular in newspaper-type websites. Online Retailers as Amazon, based on filters, groups inside a single webpage (i.e.~page n° 1) a fixed set of items, having their dedicated personal url attached to them. Furthermore Amazon offers the opportunity to skip to the following page (i.e.~page n° 2), searching for another different and fixed set of items and so on until the last page/url. Generally website structures try to reflect both the user expectations with respect to the product on the website and the design expression of the web developer. For these reasons for each websites usage category exists a multitude of content architectures. For each content architectures there are multiple front end languages which are designated for multiple end users. In the future expectations are tailor made webpages on users with respect to its personal preferences. Moreover web design in scraping plays an important role since the more sophisticated graphical technologies are implied, the harder will be to scrape information.
 
 \begin{figure}
 \centering
@@ -476,7 +475,7 @@ Below it is printed the tree structure folder that composes the main elements of
 \hypertarget{best-practices}{%
 \section{Scraping Best Practices and Security provisions}\label{best-practices}}
 
-Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers and the like to access or not access certain parts of a webpage. The de facto `standard' never made it beyond a informal ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread (e.g.~\url{https://en.wikipedia.org/robots.txt}, \url{https://www.google.com/robots.txt}) and bots from Google, Yahoo and the like will adhere to the rules defined in robots.txt files, although their \emph{interpretation} of those rules might differ.
+Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers to access or not access certain parts of a webpage. The de facto `standard' never made it beyond a informal ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread (e.g.~\url{https://en.wikipedia.org/robots.txt}, \url{https://www.google.com/robots.txt}) and bots from Google, Yahoo and the like will adhere to the rules defined in robots.txt files, although their \emph{interpretation} of those rules might differ.
 
 Robots.txt files are plain text and always found at the root of a website's domain. The syntax of the files in essence follows a fieldname: value scheme with optional preceding user-agent: \ldots{} lines to indicate the scope of the following rule block. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. \# serves to comment lines and parts of lines. Everything after \# until the end of line is regarded a comment. Possible field names are: user-agent, disallow, allow, crawl-delay, sitemap, and host. For further notions \citep[\citet{google:robottxt}]{robotstxt}
 
@@ -545,7 +544,7 @@ This procedure is a dayly issue to people that are trying to collect information
 \hypertarget{spoofing}{%
 \subsection{User Agents Spoofing}\label{spoofing}}
 
-A user agent \citep{whoishostingthis.com} is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them
+The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continuous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them
 Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
 Below the user agents rotation pool:
 
@@ -761,7 +760,11 @@ Some of the main technologies implied will be viewed singularly, nonetheless for
 \hypertarget{scheduler}{%
 \section{Scheduler}\label{scheduler}}
 
-A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
+\begin{definition}[Scheduler]
+\protect\hypertarget{def:scheduler}{}{\label{def:scheduler} \iffalse (Scheduler) \fi{} }A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.
+\end{definition}
+
+As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
 
 \begin{itemize}
 \tightlist
@@ -792,7 +795,9 @@ for some other useful but beyond the scope refereces, such as the scheduling alg
 \hypertarget{cron-jobs}{%
 \subsection{Cron Jobs}\label{cron-jobs}}
 
-Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+\begin{definition}[Cronjob]
+\protect\hypertarget{def:cronjob}{}{\label{def:cronjob} \iffalse (Cronjob) \fi{} }Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+\end{definition}
 The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
 
 Each line of a crontab file represents a job, and has this structure
@@ -818,8 +823,10 @@ Since now the computational power comes from the machine on which the system is 
 \hypertarget{docker}{%
 \section{Docker}\label{docker}}
 
-\emph{Docker} is a software tool to create and deploy applications using containers.
+\begin{definition}[Docker]
+\protect\hypertarget{def:docker}{}{\label{def:docker} \iffalse (Docker) \fi{} }\emph{Docker} is a software tool to create and deploy applications using containers.
 \emph{Docker containers} are a standard unit of software (i.e.~software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+\end{definition}
 Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OSs.
 
 \begin{figure}
@@ -908,9 +915,15 @@ In order to make the system stand-alone and make the service available to a wide
 \hypertarget{rest-api}{%
 \section{REST API}\label{rest-api}}
 
-API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they're implemented. This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+\begin{definition}[API]
+\protect\hypertarget{def:api}{}{\label{def:api} \iffalse (API) \fi{} }API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they're implemented.
+\end{definition}
+This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
 There are many types of API that exploit different media and architectures to communicate with apps or services.
-The specification REST stands for REpresentational State Transfer and is a set of architectural principles. When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as more comfortable to be read and parsed.
+\begin{definition}[REST]
+\protect\hypertarget{def:rest}{}{\label{def:rest} \iffalse (REST) \fi{} }The specification REST stands for REpresentational State Transfer and is a set of architectural principles.
+\end{definition}
+When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as more comfortable to be read and parsed.
 In order for an API to be considered RESTful, it has to conform to these criteria:
 
 (rivedi elenco)
@@ -1076,7 +1089,11 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named \href{https://aws.amazon.com/en/aws-cost-management/}{amazon cost manager}.
-Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+
+\begin{definition}[AWS EC2]
+\protect\hypertarget{def:aws}{}{\label{def:aws} \iffalse (AWS EC2) \fi{} }Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+\end{definition}
+
 {[}few words still on EC2{]}
 
 \hypertarget{launch-an-ec2-instance}{%
@@ -1316,12 +1333,7 @@ y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \end{Highlighting}
 \end{Shaded}
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:table\_INLA)prova\}
-\centering
-
-\begin{tabular}[t]{lrrrrrrr}
+\begin{tabular}{lrrrrrrr}
 \toprule
   & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
 \midrule
@@ -1331,8 +1343,6 @@ s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 
 \bottomrule
 \end{tabular}
 
-\textbackslash end\{table\}
-
 The output offers among the others a summary of the posterior marginal values for intercept, coefficient and covariates, as well as precision. Below the plots for the parameters and hyperparameters. From the summary it can be seen that the mean for s2 is negative, so the more the value of the y-coordinates increases the more the output decreases, that is truer looking at the SPDEtoy cotour plot. Plots can be generated by calling the \texttt{plot} function on the inla object, however the one generated below are \texttt{ggplot2} outputs coming from the \$marginals.fixed list object.
 
 \begin{figure}
@@ -1341,22 +1351,15 @@ The output offers among the others a summary of the posterior marginal values fo
 \caption{linear predictor marginals, author's creation}
 \end{figure}
 
-\textbackslash begin\{table\}
+R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively \texttt{inla.dmarginal}, \texttt{inla.pmarginal} and \texttt{inla.qmarginal}. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval \texttt{inla.hpdmarginal} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) zwith .1 Confidence Level, in table @ref(tab:higer\_posterior\_density\_interval).
 
-\textbackslash caption\{(\#tab:higer\_posterior\_density\_interval)higer posterior density interval\}
-\centering
-
-\begin{tabular}[t]{lrr}
+\begin{tabular}{lrr}
 \toprule
   & low & high\\
 \midrule
 level:0.9 & -2.291268 & -0.879445\\
 \bottomrule
 \end{tabular}
-
-\textbackslash end\{table\}
-
-R-Inla also has r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively \texttt{inla.dmarginal}, \texttt{inla.pmarginal} and \texttt{inla.qmarginal}. One major option which is conveniently packed into a dedicated function computes the higher posterior density credibility interval \texttt{inla.hpdmarginal} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) zwith .1 Confidence Level.
 
 Recall that the interpretation is different from the frequentist: in Bayesian statistics \(\beta_{j}\) comes from probability distribution, while frequenstists considers \(\beta_{j}\) as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value \citeyearpar{Blangiardo-Cameletti}.
 
@@ -1772,7 +1775,7 @@ Data comes packed into the REST API end point \texttt{*/complete} in .json forma
 As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.
 Interactive maps are done with Leaflet, the result of which is a leaflet map object which can be piped to other leaflet functions. This permits multiple map layers and many control options to be added interactively (LaTex output is statically generated)
 
-A preliminary exploratory analysis evidences 34 covariates and 250 rows. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
+A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
 
 \begin{longtable}{ll}
 \toprule
@@ -1785,64 +1788,165 @@ LOCATION & the complete address: street name and number\\
 CONDOM & the condominium monthly expenses\\
 \addlinespace
 BUILDAGE & the age in which the building was contructed\\
-FLOOR & the floor the apartement is\\
-INDIVSAPT & indipendent propeorty versus apartement\\
+FLOOR & the property floor\\
+INDIVSAPT & indipendent property type versus apartement type\\
 LOCALI & specification of the type and number of rooms\\
 TPPROP & property type residential or not\\
 \addlinespace
 STATUS & the actual status of the house, ristrutturato, nuovo, abitabile\\
-HEATING & the heating system centralized or autonomous\\
-AC & air conditioning hot and cold\\
+HEATING & the heating system Cen\_Rad\_Gas (centralizzato a radiatori, alim a gas), Cen\_Rad\_Met,\\
+AC & air conditioning hot and cold, Autonomo, freddo/caldo, Centralizzato, freddo/caldo\\
 PUB\_DATE & the date of publication of the advertisement\\
-CATASTINFO & land registry infromation\\
+CATASTINFO & land registry information\\
 \addlinespace
 APTCHAR & apartement main characteristics\\
-PHOTOSNUM & number of photos displayes\\
-AGE & estate agency name\\
-LOWRDPRICE.originalPrice & If the price is lowered it indicates the starting price\\
-LOWRDPRICE.currentPrice & If the price is lowered it indicates the current price\\
+PHOTOSNUM & number of photos displayed in the advertisement\\
+AGE & real estate agency name\\
+LOWRDPRICE.originalPrice & If the price is lowered it flags the starting price\\
+LOWRDPRICE.currentPrice & If the price is lowered it flags the current price\\
 \addlinespace
-LOWRDPRICE.passedDays & If the price is lowered the days passed since the price has changed\\
-LOWRDPRICE.date & If the price is lowered the date passed since the price has changed\\
-ENCLASS & the energy class communicated to the\\
+LOWRDPRICE.passedDays & If the price is lowered indicates the days passed since the price has changed\\
+LOWRDPRICE.date & If the price is lowered indicates the date the price has changed\\
+ENCLASS & the energy class according to the land registers\\
 CONTR & the type of contract\\
-DISP & if it is still avaiable or not\\
+DISP & if it is still avaiable or already rented\\
 \addlinespace
-TOTPIANI & the total number of floors\\
+TOTPIANI & the total number of the building floors\\
 PAUTO & number of parking box or garages avaibable in the property\\
 REVIEW & estate agency review, long chr string\\
 HASMULTI & it if has multimedia option, such as 3D house vitualization home experience or videos\\
 PRICE & the monthly price <- response\\
+\addlinespace
+SQFEET & square meters footage\\
+NROOM & the number of rooms in the house, and their types\\
+TITLE & title of published advertisement\\
 \bottomrule
 \end{longtable}
-
-Geographic coordinates can be represented on a map in order to get a first perception of spatial autocorrelations clusters.
-Leaflet maps are created with leaflet(), the result of which is a leaflet map object which can be piped to other leaflet functions. This allows multiple map layers and control settings to be added interactivelyleaflet object takes as input data in latitude and longitude UTM coordinates so no transfomation is required. Otherwise a projection to the right zone would be required and the a sp transform
-
-\includegraphics[width=1\linewidth]{images/leaflet_prezzi}
 
 \hypertarget{data-preparation}{%
 \section{Data preparation}\label{data-preparation}}
 
-As already pointed out some data went missing since immobiliare provides data that in turn is filled by estate agencies or privates through pre compiled standard formats. Some of the missing observations can be reverse engineered by other information in the web pages e.g.~given the street address it is possible to trace back the lat and long coordinates, even though this is already handled by the API through scraping functions with the mechanism found in section \ref{ContentArchitecture}. Some of the information lacking in the summary table they might be desumed and then imputed by the estate agency review which is one of the covariates and where the most of the times missing information can be found. The approach followed in this part is to prune redundant information and ``over'' missing covariates trying to limit the dimensionality of the dataset.
+Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
 
-\hypertarget{na-removal-and-imputation}{%
-\subsection{NA Removal and Imputation}\label{na-removal-and-imputation}}
+\begin{itemize}
+\item
+  encoding from UTF-8 to Latin due to Italian characters incorrectly parsed.
+\item
+  \emph{FLOORS} covariate needs to be separated by its \emph{ASCENSORE} and \emph{ACCDISABILI} components, adding 2 more bivariate covariates.
+\item
+  \emph{LOCALI} needs to be separated too. 5 category levels drain out: \emph{TOTLOCALI}, \emph{CAMERELETTO}, \emph{ALTRO}, \emph{BAGNO}, \emph{CUCINA}. \emph{NROOM} is a duplicate for \emph{TOTLOCALI}, so it is discarded.
+\item
+  \emph{APTCHAR} is a list column so that each observation has different categories inside. The preprocess step includes unnesting the list by creating as many bivariate columns as elements in the list. Then new columns flag the existence of the characteristics in the apartment. A slice for the fist APTCHAR observation displays:
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    fibra ottica- - - videocitofono- - - impianto di allarme- - - porta blindata- - - reception- - - balcone- - - portiere intera giornata- - - impianto tv centralizzato- - - parzialmente arredato- - - esposizione doppia- -
+  \end{itemize}
+\end{itemize}
 
-The first problem to assess is why information are missing. As already pointed out in the introduction part and in section \ref{ContentArchitecture} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed. If in the end of the sequence the covariates values are still missing, the correspondent observation is not imputed and it is left out of the scraped dataset. The author choice to follow this approach relies on empirical observation that suggest when important inframtion is missing then the rest of the covariates also do, as a consequence the observation is not useful. Moreover when the spatial component can no be reverse engineered then it is also the case of left out observation while scraping. The model needs to have a spatial component in order to be evaluted. To this purpose The missing profile is crucial since it can also suggest problems in the scraping procedure. By identifying pattern in missing observation the maintainer can take advanatge of it and then debug the part that causes missingness. In order to identify the pattern a revision of missigness is introduced by \emph{Little and Rubin (2014) miss lit} .randomnes can be devided into 3 categories:
+\hypertarget{maps-and-geo-visualisations}{%
+\subsection{Maps and Geo-Visualisations}\label{maps-and-geo-visualisations}}
+
+Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var \emph{PRICE} indicates unsurprisingly that higher prices are nearer to the city center.
+The map in figure @ref(fig:leaflet\_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}\label{fig:LeafletVisuals}
+\end{figure}
+
+(other more tmap and ggplot)
+
+\hypertarget{counts-and-first-orientations}{%
+\section{Counts and First Orientations}\label{counts-and-first-orientations}}
+
+Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \ref{fig:fctCounts} offers the rearranged factor \emph{TOTLOCALI}.
+Bilocali are the most common option for rent, then trilocali comes after. The intuition behind suggests that Milan rental market is oriented to ``lighter'' accommodations in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are warmly welcomed.
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/fctCounts-1.pdf}
+\caption{\label{fig:fctCounts}Most common housedolds categories}
+\end{figure}
+
+Two of the most requested features for comfort and livability in rents are the heating/cooling systems installed. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients needs. In this sense accomodation coming with the newest and most techonological systems are naturally preferred with respect the contrary.
+x-axis in figure \ref{fig:PricePerAc} represents log\_10 price for both of the two plots. Logarithmic scale is needed to smooth distributions and the resulting price interpretation have to considered into relative percent changes. Furthermore factors are reordered with respect to decreasing price.\\
+y-axis are the different level for the categorical variables recoded from the original data due to simplify lables and to hold plot dimension. Moreover counts per level are expressed between brackets close to their respective factor.
+The top plot displays the most prevalent heating systems categories, among which the most prevalent is ``Cen\_Rad\_Met'' by far. This fact is extremely important since metano is a green energy source and if the adoption is wide spread and pipelines are well organized than it brings enormous benefit to the city. As a consequence one major concern regards that for many years policies have been oriented to reduce vehicles emission (euro1 euro2\ldots) instead of focusing on house emissions. This was also a consequence of the lack of house data especially in rural areas. According to data there are still a 15\% portion of houses powered by oil fired.
+Then in bottom plot Jittering is then applied to point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indedd in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/PricePerAc-1.pdf}
+\caption{\label{fig:PricePerAc}Log Monthly Price per Heating/Cooling system?}
+\end{figure}
+
+this visualization intersects allows to discover bimodality in the response variable. Log scales was needed since they are all veru skewd and log scale then is needed also in the model.
+
+(qui ci puoi mettere a confronto per variabile bianria, così vedi cosa includere nel modello esempio sotto dove commentato, )
+
+\includegraphics{07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+What it might be really relevant to research is how monthly prices change with respect to house squarefootage for each house configuration. The idea is to asses how much adding a further square meter affetcs the monthly price for each n-roomed flat.
+One implication is how the property should be developed in order to request a greater amount of money per month. As an example in a situation in which the household has to lot its property into different sub units he can be helped to decide the most proficient choice in economic terms by setting ex ante the squarefootage extensions for each of the properties.
+A further implication can regard economic choices to enlarge new property acquisitions under the expectation to broadened the squarefootage (contruction firms). Some of the choices have an economic sense, some of them have not.
+The plot \ref{fig:GlmPriceSq} has two contionous variables for x (price) and y (sqfeet) axis, the latter is log 10 scaled due to smoothness reasons. Coloration dicretizes points for the each \(j\) household rooms totlocali. A sort of overlapping piece-wise linear regression (log-linear due to transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the squarefootage surface (i.e.~\(\log_{10}(\mathbf{price_j}) \sim +\beta_{0,j}+\beta_{1,j}\mathbf{sqfeet_j}\)). Five different regression models are proposed in the top left. The interesting part regards the models slopes \(\hat\beta_{1,j}\). The highest corresponds to ``Monolocale'' for which the increment of a 10 square meter in surface enriches the apartment of a 1.1819524\% monthly price addition. Almost the same is witnessed in ``Bilocale'' for which a 10 square meter enlargement gains 1.1194379\%. One more major thing to notice is the ``ensamble'' regression line obtained as the interpolation of the plotted ones. The line suggests a clear descending pattern from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the \(\hat\beta_1\) predictor slopes coefficients.
+
+\includegraphics{07-exploratory_files/figure-latex/GlmPriceSq-1.pdf}
+
+In table (\ldots) resides the answer to the question ``which are the most profitable properties per month in terms of the price per square meter footage ratio''. The covariate floor together with the totpiani are not part of the model, indeed they can explain the importance and the height of the building justifying extraordinary prices. The first 4 observations are unsurprisingly ``Bilocale'', the spatial column location, not a regressor, can lend a hand to acknowledge that the street addresses point to very central and popular zones. The zones are, first City Life, second Brera and third Moscova, proving that in modeling real estate rents the spatial component is fundamental , even more in Milan.
+
+\begin{tabular}{llrrllr}
+\toprule
+location & totlocali & price & sqfeet & floor & totpiani & abs\_price\\
+\midrule
+viale cassiodoro 28 & Bilocale & 1750 & 30 & 9 piano & 10 piani & 58.33333\\
+via della spiga 23 & Bilocale & 2750 & 55 & 2 piano & 4 piani & 50.00000\\
+corso giuseppe garibaldi 95 & Bilocale & 2700 & 56 & 2 piano & 5 piani & 48.21429\\
+piazza san babila C.A. & Bilocale & 1833 & 42 & 4 piano & 4 piani & 43.64286\\
+ottimo stato piano terra, C.A. & Trilocale & 3000 & 80 & Piano terra & 3 piani & 37.50000\\
+\addlinespace
+via federico confalonieri 5 & Monolocale & 750 & 20 & 1 piano & 3 piani & 37.50000\\
+\bottomrule
+\end{tabular}
+
+Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs\_price and some other presumably important ones i.e.~floor. The model fitted is \texttt{log2(price)\ \textasciitilde{}\ log2(abs\_price)\ +\ floor}.
+The plot in figure \ref{fig:TieFighterPlot} tries to give the intuition on unusual effects across different floors. The interpretation starts by considering the house surface effect (i.e.~House Surface (doubling)) for each doubling of the square meter footage. Then what it can be seen is that both apartments and ultimo piano are unsually expensive with respect to their square meter footage. On the other hand the piano rialzato and piano terra are unusually inexpensive for their surface.\\
+In other words the plot has the analytical purpose to demonstrate how monthly price is affected by floor conditioned to their respective square meter footage. The term log2(abs\_price) has been converted to more familiar House Surface (doubling) to help with the interpretation.
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/TieFighterPlot-1.pdf}
+\caption{\label{fig:TieFighterPlot}Coefficient Tie fighter plot for the linear model: log2(price) \textasciitilde{} log2(abs\_price) + condom + other\_colors}
+\end{figure}
+
+(se vuoi dire qualcosa sul condominio)
+
+\hypertarget{missing-assessement-and-imputation}{%
+\section{Missing Assessement and Imputation}\label{missing-assessement-and-imputation}}
+
+As already pointed out some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g.~given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single webpages.
+The approach followed in this part is to prune redundant data and rare covariates trying to limit the dimensionality of the dataset.
+
+\hypertarget{missing-assessement}{%
+\subsection{Missing assessement}\label{missing-assessement}}
+
+The first problem to assess is why information are missing. As already pointed out in the introduction part and in section \ref{ContentArchitecture} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed. If in the end of the sequence the covariates are still missing, the correspondent observation is not considered and it is left out of the scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
+The missing profile is crucial since it can also raise suspicion on the scraping failures. By Taking advantage of the missing pattern in observations the maintainer can directly identify the problem and derivatives and immediately debug the error. In order to identify if the nature of the pattern a revision of missing and randomness is introduced by \citet{Little}.
+Missing can be devided into 3 categories:
 
 \begin{itemize}
 \tightlist
 \item
-  MCAR (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
+  \emph{MCAR} (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
 \item
-  MAR (missing at random) likelihood of missin is not equal.
+  \emph{MAR} (missing at random) likelihood of missing is not equal.
 \item
   \emph{NMAR} (not missing at random) data that is missing due to a specific cause, scarping can be the cause.
 \end{itemize}
 
-The last iphothesis MNAR is often the case of daily monitoring clinical studies, where patient might drop out the experiment because of death and so as a consequence all the data starting from the death time +1 is missing.
-To assess pattern A \emph{heat map} plot fits the need:
+MNAR is often the case of daily monitoring clinical studies \citep{Kuhn}, where patient might drop out the experiment because of death and so all the relating data starting from the death time +1 are lost.
+To identify the pattern a \emph{heat map} plot \ref{fig:Heatmap} clarifies the idea:
 
 \begin{figure}
 \centering
@@ -1850,8 +1954,9 @@ To assess pattern A \emph{heat map} plot fits the need:
 \caption{\label{fig:Heatmap}Missingness Heatmap plot}
 \end{figure}
 
-Looking at the left hand of the heat map plot \ref{fig:Heatmap} considering from \emph{TOTPIANI} to \emph{AC} there are no relevant patterns and missingness can be traced back to MAR, conditioned mean imputation is applied until \emph{CONDOM} included, the otherS are discarded. In the far right hand side \emph{ENCLASS} and \emph{DISP} data is completely missing, this can be addressed to a scraping fail. Further inspection of the API scraping process focused on those covariates is strongly advised. From \emph{LOWRDPRICE.} covariates class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking are the second co\_occurrence plot \ref{fig:cooccurrence} analysis. Co-occurrence analysis might suggest frequency of missing predictor combinations and \emph{LOWRDPRICE.} class covariates are missing all together in combination. \emph{PAUTO} is missing where lowered price class covariates are missing but this is not true for all the observations leading to the conclusion that \emph{PAUTO} should be treated as a low prevalence covariate, therefore PAUTO is discarded.
-After a further investigation \emph{LOWRDPRICE.} exists when the price covariates is effectively decreased, that leads to group the covariate's information and to encode it as a two levels categorical covariate. Further methods to feature engineer the lowrdprice covariates are profile data.
+Looking at the top of the heat map plot, right under the ``Predictor'' label, the first tree split divides predictors into two sub-groups. The left branch considers from \emph{TOTPIANI} to \emph{CATASTINFO} and there are no evident patterns. Then missingness can be traced back to MAR. Imputation needs to be applied up to \emph{CONDOM} included, the others are discarded due to rarity: i.e.~\emph{BUILDAGE}: 14\% missing, \emph{CATASTINFO}: 21\% and \emph{AC}: 24\%. Moreover \emph{CUCINA} and \emph{ALTRO} are generated as ``childred'' of the original \emph{LOCALI} variable, so it should not surprise that their missing behavior is similar ,whose prevalence is respectively 13\% and 14\%, for that reason are discarded.
+In the far right hand side \emph{ENCLASS} and \emph{DISP} data are completely missing and a pattern seems to be found. The most obvious reason is a scraping fail in capturing data. Further inspection of the API scraping functions focused on the two covariates is strongly advised. From \emph{LOWRDPRICE.} covariates gorup class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking at the co\_occurrence plot in figure \ref{fig:cooccurrence}. Co-occurrence analysis might suggest frequency of missing predictor in combination and \emph{LOWRDPRICE.} class covariates are displaying this type of behavior. \emph{PAUTO} is missing in the place where \emph{LOWRDPRICE.} class covariates are missing, but this is not happening for the opposite, leading to the conclusion that \emph{PAUTO} should be treated as a rare covariate MAR, therefore \emph{PAUTO} is dropped.
+After some further investigation on \emph{LOWRDPRICE.}, the group class flags when the \emph{PRICE} covariate is effectively decreased and this is unusual. That is solved by grouping the covariate's information and to encode it as a two levels categorical covariate if lowered or not. Further methods to feature engineer the \emph{LOWRDPRICE.} class covariates can be with techniques typical of profile data, further references are on \citet{Kuhn}.
 
 \begin{figure}
 \centering
@@ -1859,20 +1964,37 @@ After a further investigation \emph{LOWRDPRICE.} exists when the price covariate
 \caption{\label{fig:cooccurrence}Missingness co-occurrence plot}
 \end{figure}
 
-\hypertarget{spatial-autocorrelation-assessement}{%
-\section{Spatial Autocorrelation assessement}\label{spatial-autocorrelation-assessement}}
+\hypertarget{covariates-imputation}{%
+\subsection{Covariates Imputation}\label{covariates-imputation}}
 
-Spatial data come packed into point reference
+A relatively simple approach to front missingness is to build a regression model to explain the covariates that have some missing and plug-back-in the respective estimates (e.g.~posterior means) from their predictive distributions \citet{Little}. This approach is fast and easy to implement in most of the cases, but it ignores the uncertainty behind the imputed values \citep{Bayesian_INLA_Rubio}. However it has the benefit to be a more than a reasonable choice with respect to the number of computation required, especially with INLA and in a spatial setting. That makes it the first choice method to follow since imputation regards also a small portion of data and predictors. At first it is considered the predictor \emph{condominium} for which some observation are missing. Indices are:
 
-\begin{itemize}
-\tightlist
-\item
-  tmap
-\item
-  leaflet
-\item
-  gganimate
-\end{itemize}
+\begin{verbatim}
+##  [1]  19  74  77  90  99 113 116 120 179 249
+\end{verbatim}
+
+A model is fitted based on missing data for which the response var is condominium and predictors are other important explanatory ones, i.e.\texttt{condom\ \textasciitilde{}\ 1\ +\ sqfeet\ +\ totlocali\ +\ floor\ +\ heating\ +\ ascensore}. In addition to the formula in the inla function a further specification has to be provided with the command \texttt{compute\ =\ TRUE} in the argument control.predictor. The command \texttt{compute} estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posetior mean quantities are then imputeda are in table @red(tab:CondomImputation)
+
+\begin{tabular}{lrr}
+\toprule
+  & mean & sd\\
+\midrule
+fitted.Predictor.019 & 198.11095 & 19.67085\\
+fitted.Predictor.074 & 162.96544 & 13.29456\\
+fitted.Predictor.077 & 99.38197 & 32.34108\\
+fitted.Predictor.090 & 331.73519 & 33.05035\\
+fitted.Predictor.099 & 170.54068 & 12.30267\\
+\addlinespace
+fitted.Predictor.113 & 196.61593 & 15.86545\\
+fitted.Predictor.116 & 108.40482 & 20.79689\\
+fitted.Predictor.120 & 162.86977 & 25.61622\\
+fitted.Predictor.179 & 165.03632 & 20.53485\\
+fitted.Predictor.249 & 117.24234 & 30.80290\\
+\bottomrule
+\end{tabular}
+
+A further method for imputation has been designed by \emph{Gómez-Rubio, Cameletti, and Blangiardo 2019) miss lit} by adding a sub-model for the imputations to the final model through the inla function. This is directly handled inside the predictor formula adding a parameter in the latent field. However the approach makes the model more complex with a further layer of uncertainty to handle.
+At first the additive regression model with all the covariates is called including the covariates with missing values. The response variable \emph{PRICE} displays no missing values and the model fitted is:
 
 \hypertarget{model-specification}{%
 \section{Model Specification}\label{model-specification}}
@@ -1959,6 +2081,128 @@ if (models \textgreater{} 2)\{
 \chapter{Final Words}\label{final-words}}
 
 We have finished a nice book.
+
+\hypertarget{appendix}{%
+\chapter*{Appendix}\label{appendix}}
+\addcontentsline{toc}{chapter}{Appendix}
+
+\hypertarget{gp-basics}{%
+\section{GP basics}\label{gp-basics}}
+
+\href{https://www.youtube.com/watch?v=4vGiHC35j9s\&t=164s}{Nando de Freitas 1}
+
+\href{https://www.youtube.com/watch?v=MfHKW5z-OOA}{Nando de Freitas 2}
+
+lets say there are a cloud of points represented by two variables x1 and x2. the cloud of points describes a realization of this two variable i.e.~height and weight and then you just plot it , you might get measurement like that,
+
+\includegraphics{appendix_images/gp_base_1.jpg}
+or:
+
+each circle is a mesuduraments. now when we use multivariate gaussian we fit gaussian to data, the process of learning is to fit a gaussian to data, the ultimate goal is to describe the data, the smartest gaussian in the first image is to center the mean in the 0 and the draw a cricle containin all the other observation. Instaed for the second image it is still centering the mean in 0 but now it is an ellipse describing the variability, the size of the elipse descrube the variability of the data.
+the center is a vector \(\mu_{i}\) that it is beacuse we have two components \(x_1\) and \(x_2\) whhose mean is 0 for each of the other. This is true for all the observation which have two coordinates too \(x_1\) and \(x_2\). in vector notations we have for the mean:
+
+\[
+\boldsymbol{\mu}=\left[\begin{array}{ll}
+\mu_{x_1} \\
+\mu_{x_2}
+\end{array}\right]
+\]
+
+for each of the points, e.g.~for point 1:
+
+\[
+\mathbf{x_1}=\left[\begin{array}{ll}
+x_1 \\
+x_2
+\end{array}\right]
+\]
+
+the can be neagtive positive, the Real numbers, usually we have \(\mathbb{R}^{2}\) extending from - infinity to + infinity, to the power of two because we have 2 dimensions, a Real plane.
+
+any point is gaussian distributed when with mean .. an variance.
+how we explain covariance, thorugh \emph{correlation.}
+we do it by correlation with its noraml forms. the covariance is the term that goes insisde the matrices in the upper right of the matrxi we have the expectation of \(x_1\) times \(x_2\), like \(\mathbb{E}(x_1 \cdot x_2)\), where the extactation in the gaussian case is the mean which is 0, so the corresponding values is 0.
+the covariance essentially is the dot product \href{https://mathinsight.org/dot_product_matrix_notation}{ref dot product} of \(x_1\) and \(x_2\) variable, so what happens when you take the dot product of vectors,
+if for example you take a vector that looks like 1 and 0 and you take the dot product of one other vecto 1 and 0, so that:
+
+\[
+\left[\begin{array}{ll}
+1 \\
+0
+\end{array}\right]\left[\begin{array}{ll}
+1 & 0 \\
+\end{array}\right] = 1
+\]
+You will end up with 1, recall dot productm first element first vcetor times first element second vectro and second element first vector times second element secon vector. So identical vector will get a high dot product value leading to a high similarity measure. Dot product can be indeded as a similarity measure.
+\ldots{} But if you take two different vector as 1 0 and 0 1 then:
+
+\[
+\left[\begin{array}{ll}
+1 \\
+0
+\end{array}\right]\left[\begin{array}{ll}
+0 & 1 \\
+\end{array}\right] = 0
+\]
+
+This time the multiplication leads to 0 value, as a matter of fact they are different. They are no similar.
+IF two points are closed the dot product will be high in 2D. What the covariance should be? if variances are assumed to be 1 then in this case i qould expect to be 0, i.e.~covariance matrix is:
+
+\[
+\left[\begin{array}{ll}
+1 & 0 \\
+0 & 1
+\end{array}\right] = \mathbf{cov_{plot1}}(x_1,x_2)
+\]
+
+because I can picka poin tin two pointa in this cloud. Suppose i increase x1 then my chance of getting a x2 point that is positive or negative is the samee, knowing somthin about x1 give nothign about x2. no information is proivede. On the other hand i the second plot knowing a positive value of 1 can suggest with a certain probability that x2 will be positive (great proabibility. So some information is provided), e.g.
+
+\[
+\left[\begin{array}{ll}
+1   & 0.5 \\
+0.5 & 1
+\end{array}\right] = \mathbf{cov_{plot2}}(x_1,x_2)
+\]
+
+Some positive number idicates that i expect a positive inc rease iwhen boht of the two are increasing singularly. thsi is what the correlation, the basis to do linear regresssion and non linear- thei is a bivariate gaussian. If the entri3es are means that they are uncoorellated, if they are non-zero then they are correlated, theby can be both positive or negative (correlatiob)
+
+now lets generate a gassiian distrivution so x\_1 and x\_2 in 2D and then a third dimension hwere we express probability, this is said joint distribution. So i am going to cu this gaussian at certain point for x\_1 and cut a plain rigght thgouth this gauissan imagine to ahava cake and then taka kkniw and cut it.(see the image)
+
+form the man perspective you are goin to see a gaussian distribution, you will be lookong at x\_ and you will be seeing a gaussain plot in green. this is the probability of x\_1 gievn x\_1. also said ``conditioned'' probabolity. This gaussian has a mean like the one alreasdy seen and this is the center of the gaussian, we can rewrite the mena and variance of the multivariate gaussian describing the cloud of points. sigma are the covaraince martix sigma.
+
+\ldots{}
+sigma 1 and signa 2 if you have 1 d varibale the widjth has to be postive, for mulitvariate gaussian equl so here positive definitness: covariance mateix symetric.\\
+\ldots{}
+any artibitray variable transposed x time the covarince matrix nedds to be positive.
+what is the mean of this gaussian i might want to know what is the widht of this gaussian would it be great if there is a formula that guven the cloud of point and likelihood estimation. we coilf obtain the red bell in figure.
+Compute the green curve how it is done? this requires some work and it is said matrix \emph{invesrion lemma}, this is foudamental for machine learnign. let's assume it. The theorem says that the the mean fof the gaussian is the mean of x\_1 and then some other operation with sigma, see below from paci (miss ref)
+
+\includegraphics{appendix_images/inverse_lemma.jpg}
+the theorem says toi ocnsider a multivariate gaussian a vector 1 and a vector 2 each vecto compinent has a mena and a covarianc matrix, this by lemma gives us the expression and the math behind is no tremendous, but it is long. What it is important is to undestand fto go from a joont to a conditional distribution in our case. thats i the value od the theorem.
+
+One background further thing: assume that we have a gaussian variable distribution that we want to sample fromm, we had now ewe are going to do the opposite, before we had poitns and we tried to figure out the curve, now we have the curve and we are gointg to try to rpoduce data. I need to be able to draw sample froma gaussian distribution. i will assume that i have a meachnism that produces a uniform samples, so you have a random numebr generatior with equal probabolity from 0 to 1, I assume a also the cumulative aof a gaussian.
+
+the cumulative of a gaussian is what you get if you syrta summing the area under the curve of the gaussian as you move from the left. value after valure you can plot the cumulative ahead (see figure) the point where there is a flex point is the mean beacuse tha gassias is symmetric. The asymptot is 1 becuase the are under the curve sumes to 1.
+If i can draw a random number form Uniform and the project it to thre cumulative and then finally projct it back to the gaussian distribution. Inverse cumulative mapping. If oyu do this multiple times you are going to have many sample palced next to the mean and as sparse as the variance. in this process of sampling try to sample a point i froma gaussian that has mean 0 a variance 1, now letes try to draw a point from a gaussian with mean mu and variance sigma. \ldots{}
+
+In the multivariate case suppose that we have evctor with two variables how do i draw a vector from a multivariate gasussian with 0 means and plot 1 covarianc ematrix. the theormeem also says that the marginal distribution can be seen by civariance matrix , fist take the men\_1 and take upper left element from the covariance matrix obtaining the marginal rpobabiloty for x\_1, i.e.
+
+\[
+\pi(x_1) = \mathbf{N}(\mu_1, \Sigma_{11}) \\
+\pi(x_2) = \mathbf{N}(\mu_2, \Sigma_{22}) 
+\]
+then in our problem:
+
+\[
+\pi(x_1) = \mathbf{N}(0, 1) \\
+\pi(x_2) = \mathbf{N}(0, 1) 
+\]
+Then for simplicity we can simplyfy by groupign vector into:
+(vectore exoression multivariate)
+
+I need a wau to take square trotto of matrices, if x come sfroma MVG
+
+35:01--
 
   \bibliography{refs.bib,Rpackages.bib}
 
