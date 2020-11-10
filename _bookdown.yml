@@ -9,7 +9,7 @@ rmd_files:
     - "06-spde.Rmd"
     - "07-exploratory.Rmd"
     - "08-model_fitting.Rmd"
-    - "09-conclusions.Rmd"
+    - "09-application.Rmd"
     - "10-appendix.Rmd"
     - "99-references.Rmd"
 new_session: yes

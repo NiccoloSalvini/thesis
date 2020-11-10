@@ -18,7 +18,7 @@ invisible(library(knitr, warn.conflicts = F))
 
 ```
 
-INLA [@Rue2009] stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are _computationally_ convenient. The benefits are many, some among the other are:
+INLA [@Rue2009] stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate Bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are _computationally_ convenient. The benefits are many, some among the other are:
 
 - Low computational costs, even for large models.
 - It provides high accuracy.
@@ -112,7 +112,7 @@ $$
 
 where the notation $\psi_{-k}$ is a vector of hyper parameters $\psi$ without considering $k$th element $\psi_{k}$.
 
-The goal is to have approximated solution for latent parameter posterior distributions. To this purpose A *hierarchical procedure* is now imposed since the "lower" hyper parameter integral, whose approximation for the moment does not exist, is nested inside the "upper" parameter integral that takes hyper param as integrand. Hierarchical structures are welcomed very warmly since they are convenient later in order to fit a hierarchical bayesian model approached in the next chapter \@ref(hierreg)). While many approximation strategies are provided and many others are emerging for both the hyper param and for the latent field, the common ground remains to unnest the structure in two steps such that:
+The goal is to have approximated solution for latent parameter posterior distributions. To this purpose A *hierarchical procedure* is now imposed since the "lower" hyper parameter integral, whose approximation for the moment does not exist, is nested inside the "upper" parameter integral that takes hyper param as integrand. Hierarchical structures are welcomed very warmly since they are convenient later in order to fit a hierarchical bayesian model approached in the next chapter \@ref(hiermod). While many approximation strategies are provided and many others are emerging for both the hyper param and for the latent field, the common ground remains to unnest the structure in two steps such that:
 
 - step 1: compute the Laplace approximation $\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)$  for each hyper parameters marginal: $\tilde\pi\left(\psi_{k} \mid \boldsymbol{y}\right)$
 - step 2: compute Laplace approximation $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right)$ marginals for the parameters given the hyper parameter approximation in step 1: $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{y}\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) \underbrace{\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{y})}_{\text {Estim. in step 1 }} \mathrm{d} \psi$
@@ -130,8 +130,6 @@ $$
 $$
 
 where {$\boldsymbol{\psi}^{(j)}$} are a set of values of the hyper param $\psi$ grid used for numerical integration, each of which associated to a specific weight $\Delta_{j}$. The more the weight $\Delta_{j}$ is heavy the more the integration point is relevant. Details on how INLA finds those points is beyond the scope, but the strategy and grids seraches are offered in the appendix follwing both Rubio and Blangiardo.
-
-
 
 
 ### further approximations (prolly do not note include)
@@ -180,7 +178,7 @@ SPDEtoy dataset, that has a spatial component, is generated from a $y_{i}$ Gauss
 
 ![SPDEtoy plot, author's source](images/cotour_toy.png)
 
-The formula that describe the linear predictor has to be called directly inside the `inla()` function or it can be stored in the environment into a variable. The mean moment in the gaussian distribution $\mu_{i}$ is expressed as the _linear predictor_ $\eta_{i}$ (i.e. $E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}$ ). The function that maps the linear predictor into the parameter space is identity as in section \@ref(genregvec) i.e. $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
+The formula that describe the linear predictor has to be called directly inside the `inla()` function or it can be stored in the environment into a variable. The mean moment in the gaussian distribution $\mu_{i}$ is expressed as the _linear predictor_ $\eta_{i}$ (i.e. $E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}$ ). The function that maps the linear predictor into the parameter space is identity as in the initial part of section \@ref(LGM) i.e. $\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)$. 
 After including $s_{1}$ and $s_{2}$ spatial covariates the linear predictor takes the following form: $\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, where once again $\beta_{0}$ is the fixed effect i.e. intercept and the $\beta_{j}$ are the linear effect on covariates. INLA allows also to include non-linear effects with the `f()` method inside the formula. `f` are foundamental since they are used to incorporate the spatial component in the model through the Matérn covariance function, this will be shown in section (boh).
 Once the formula is decided then priors has to be picked up; for the intercept a customary choice is uniform. Prior for Gaussian latent parameters are vague and they have 0 mean and 0.001 precision, then the prior for $\tau$ is a Gamma with parameters 1 and 0.00005. Prior initial choice can be later adapted.
 
