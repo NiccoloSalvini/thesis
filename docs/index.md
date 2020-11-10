@@ -2,7 +2,7 @@
 title: "REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA."
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Last compiled on 09 novembre, 2020"
+date: "Last compiled on 10 novembre, 2020"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

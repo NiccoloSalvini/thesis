@@ -272,13 +272,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</h1>
 <p class="author"><em><a href="https://niccolosalvini.netlify.app/">Niccolò Salvini</a></em></p>
-<p class="date"><em>Last compiled on 09 novembre, 2020</em></p>
+<p class="date"><em>Last compiled on 10 novembre, 2020</em></p>
 </div>
 <div id="preliminary-content" class="section level1 unnumbered">
 <h1>Preliminary Content</h1>
 <div id="abstract" class="section level2 unnumbered">
 <h2>Abstract</h2>
-<p>This thesis has the aim to asses the problem of estimation and prediction for monthly rent prices in Milan Real Estate taking into consideration house characteristics. Data originates in immobiliare.it and is extracted by tailor made scraping techniques wrapped into a REST API, with Plumber, an R framework. The API infrastructure passes through the building of a custom docker image to being served in a AWS EC2 instance secured and load balanced with NGINX. Data coming from the API is Geospatial so special techniques are required. A hierarchical Bayesian modeling is followed since it can handle bias and nested parameter more comfortably. A regression setting is proposed on the basis on both economic literature suggestion and interpretability. Integrated Nested Laplace Approximation methodology reduces the spatial process to a GMRF representation of the surface through Stochastic Partial Differential Equation. The benefit is sparse matrix representation of the process for which can be used numerical methods. The model is evaluated and wrapped into a shiny app back end. Visualization are by ggplot2, leaflet and in some cases rayshader.</p>
+<p>This thesis has the aim to estimate and predict monthly price for rents in Milan Real Estate exploiting geostatistical data component. Data originates from immobiliare.it database and it is extracted through customized scraping techniques in parallel computing. Scraping functions are wrapped into a API. The starting building framework is R Plumber. Then the API infrastructure passes from containerization through docker to being served in a AWS EC2 instance secured and load balanced with NGINX. Furthermore a scheduler programs dailuy extraction and subsequently stores data in a MongoDB ATLAS database. The integration of these technologies makes the API infrastructure REST. The spatial component is treated as a GP and falls under the umbrella of point referenced data modeling, so dedicated techniques are required. A hierarchical Bayesian setting on a Hedonic price model is chosen since it can easily handle different parameter and hyper parameter levels and enables interpretability. Integrated Nested Laplace Approximation methodology reduces the GP spatial process to a GMRF representation of the surface through Stochastic Partial Differential Equation SPDE. The benefit is a sparse matrix representation of the process for which can be used numerical methods. Price are then kriged on a surface and are evaluated into a shiny app back end. Visualization are made with a combination of ggplot2 and leaflet following a Tidy approach.</p>
 </div>
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements</h2>
@@ -293,7 +293,7 @@ Our relationship has never been easy, we have both of us strong attitudes, never
 The most I have done since I remember is for her and for her satisfaction. I do not regret it. She is my inspiration, and I hope someday that I will live up to you mamma. she went “all in” sending me in Milan.
 She did right.
 Mum’s always right.</p>
-<p><em>keywords</em> : Bayesian Statistics, RESTFUL API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Job Scheduler.</p>
+<p><em>keywords</em> : Bayesian Statistics, REST API, Shiny, Docker, AWS EC2, INLA, Real Estate, Web Scraping, Parallel Computing, Cron Job Scheduler.</p>
 <!-- AUTO COMPILE packages.bib -->
 <!-- ```{r include=FALSE} -->
 <!-- # automatically create a bib database for R packages -->
