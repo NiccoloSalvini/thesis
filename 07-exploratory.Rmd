@@ -55,15 +55,15 @@ theme_nicco = function (base_size = 11, base_family = "") {
 }
 ```
 
-Data comes packed into the REST API end point `*/complete` in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the `city` in which it is aevaluated the real estate market, `npages` as the number of pages to be scraped, `type` as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section \@ref(APIdocs).  Since to the analysis purposes data should come from the same source (e.g. Milan rental real estate within "circonvallazione") a dedicated endpoint boolean option `.thesis` is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The `*` refers to the EC2 public DNS that is `ec2-18-224-40-67.us-east-2.compute.amazonaws.com`
+Data flows out the REST API end point `*/complete` in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \@ref(APIdocs), might regard the real estate `city` interested, `npages` as the number of pages to scrape, `type` as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g. Milan rental real estate within "circonvallazione" approximated geo-borders). As a consequence a dedicated endpoint `.thesis` parameter is passed in the argument body. By setting the option equal to to TRUE  the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone. 
+Parameters specified are also npages = 120, leading to to 3000 observations. The `*` refers to the EC2 public DNS.
 
 `http://*/complete/120/milano/affitto/.thesis=true`
 
-As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.
-Interactive  maps are done with Leaflet, the result of which is a leaflet map object which can be piped to other leaflet functions. This permits multiple map layers and many control options to be added interactively (LaTex output is statically generated)
+As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster. A summary table of the columns involved is presented with the goal to introduce the reader to API incoming data. Data needs some heavy preprocess steps to get modeled which is briefly covered in the data preparation part in section \@ref(prep). Data coming from the /complete enndpoint has a geo-statistical spatial component and consequently a spatial representation of the dataset is showed. One further plot points out that geographic coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the price response variable so dedicated techniques are required. Exploration starts with factor counts evidencing a "Bilocale" prevalence which is then compared to other cities. This suggest some critical Milan real estate market demand information and consequently reflections on the offer. Heating and cooling systems, two of the covariates extracted, are grouped and then arranged by descending order prevalence. They both do not display any significative price change but they bring to the surface an important environmental concern. The same is done by highlighting ridges distribution for other two newly engineered covariates. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each n-roomed accommodation sub-group whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which regards the most valuable properties per single square meter surface and a answer based on data is given. Then a further log linear regression  setting is proposed to evaluate the impact of some other presumably important covariate. A Tie Fighter plot displays for which coefficient, associated to each dummyied predictor, there are surprisingly high prices compared to the effect of the square meter footage expansion. A partial conclusion is that having 2 or 3 bathrooms truly pays an extra monthly gain, also caused by the number of tentants the accomodations could host. Then missing assessement and imputation takes place. At first is made a brief a revision of missing and randomnes by @Little, then theory is applied by visualizing missing in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple rarity in data appereance. Then for the observations that passed the test imputation is made through INLA posterior expectation. That is the case of data lost in predictors so the missing covariates ( _condominium_ ) are brought into a model as response variable whose this time predictors are explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
+Visualisations are done with ggplot2 in a Tidyverse approach. Maps are done with ggplot2 too and Leaflet, together with its extensions. 
 A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present. 
-
 
 
 ```{r data_loading}
@@ -127,7 +127,7 @@ tibble(
 ```
 
 
-## Data preparation 
+## Data preparation{#prep}
 
 ```{r data_prep, message=FALSE}
 datiprep = dati %>% 
@@ -213,7 +213,30 @@ if(knitr::is_latex_output()){
   }
 ```
 
-(other more tmap and ggplot)
+Predictors, in this case latitude and longitude appear to have nonlinear relationships with the outcome price. The relationship appears to be Gaussian whose mean points to the city center, red dashed line represent latitude and longitude coordinates for the Dome of Milan. Non linearities can be treated with regression splines
+
+```{r NonLinearSpatialRel,fig.cap="Non Linear Spatial Relationship disclosed"}
+dome = data.frame(coords = c(9.191383, 45.464211), latlong = c("lat","long"))
+domecoords = data.frame(coords = c(9.191383, 45.464211))
+bu = datiprep %>% 
+  rename_all(tolower) %>%
+  dplyr::select(price, lat, long) %>% 
+  tidyr::pivot_longer(cols = c(long, lat), 
+                      names_to = "predictor", values_to = "value")
+
+ggplot(bu,aes(x = value, price)) + 
+geom_point(alpha = .2) + 
+geom_smooth(se = FALSE) + 
+facet_wrap(~ predictor, scales = "free_x") +
+geom_vline(data = subset(bu, predictor == "lat"), aes(xintercept = 45.464211), color = "red", lty = 2) + 
+geom_vline(data = subset(bu, predictor == "long"), aes(xintercept = 9.191383),color = "red", lty = 2) + 
+scale_y_continuous(labels = dollar_format(suffix = "€", prefix = ""))+
+labs(x = "",
+     y = "Price (EUR)")+
+theme_nicco()
+#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
 
 ## Counts and First Orientations
 
@@ -363,9 +386,12 @@ datiprep_sq %>%
   kable(booktabs = T)
 ```
 
-Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs_price and some other presumably important ones  i.e. floor. The model fitted is `log2(price) ~ log2(abs_price) + floor`.
-The plot in figure \@ref(fig:TieFighterPlot) tries to give the intuition on unusual effects across different floors. The interpretation starts by considering the house surface effect (i.e. House Surface (doubling)) for each doubling of the square meter footage. Then what it can be seen is that both apartments and ultimo piano are unsually expensive with respect to their square meter footage. On the other hand the piano rialzato and piano terra are unusually inexpensive for their surface.  
-In other words the plot has the analytical purpose to demonstrate how monthly price is affected by floor conditioned to their respective square meter footage. The term log2(abs_price) has been converted to more familiar House Surface (doubling) to help with the interpretation.
+Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs_price and some other presumably important ones e.g. floor, bagno, totpiani. The model fitted is `log2(price) ~ log2(abs_price) + bagno + floor + totpiani`.
+The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how monthly price is affected by covariates conditioned to their respective square meter footage. The interpretation of the plot starts by fixing a focus point on 0, which is the null effect highlighted by the red dashed line. Then the second focus is on house surface effect (i.e. House Surface (doubling) in the plot, the term log2(abs_price) has been converted to more familiar House Surface (doubling)), which contributes to increase the price of an estimated coefficient of $\approx .6$ for each doubling of the square meter footage. Then what it can be noticed with respect to the two focus points are the unusual effects provoked by the other predictors t the right of the house surface effect and to the far left below 0. "2 and 3 bagni" are unusually expensive with respect to the square meter footage increment, on the other hand" al piano rialzato" and "al piano terra" are undervalued with respect to their surface.  The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. the number of bathrooms are a proxy to both house extension since normally for each sleeping room there also exist at least 1 bathroom as well as prestigious houses dispose of more than 1 toilette services. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house monthly returns,
+
+
+it can be noticed is that ultimo piano, otgether with 2 abagni ad 3 bagni are unusually expensive with respect to their proper square meter footage. On the other hand the piano rialzato and piano terra are unusually undervalued given their surface.  
+In other words the  to help with the interpretation. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house returns. The conclusion 
 
 ```{r TieFighterPlot, fig.cap="Coefficient Tie fighter plot for the linear model: log2(price) ~ log2(abs_price) + condom + other_colors"}
 
@@ -374,11 +400,12 @@ datiprep_sq %>%
          floor = fct_lump(floor,10)) %>% 
   filter(floor != "Other") %>%  
   filter(totpiani != "Other")  %>% 
-  lm(log2(price) ~ log2(abs_price) + floor + bagno,  data = .)  %>% 
+  lm(log2(price) ~ log2(abs_price) + bagno + floor + totpiani,  data = .)  %>% 
   tidy(conf.int = TRUE) %>%    
   filter(term != "(Intercept)") %>%
   mutate(term = ifelse(term == "log2(abs_price)", "House Surface (doubling)", term), 
          term = ifelse(str_detect(term,"totpiani"), glue("{term} totali"), term), 
+         term = str_remove(term, "^bagno"),
          term = str_remove(term, "^totpiani"),
          term = ifelse(str_detect(term,"floor"), glue("al {term}"), term), 
          term = str_remove(term, "floor")) %>% 
@@ -390,7 +417,7 @@ datiprep_sq %>%
   geom_vline(xintercept = 0, color = "red", lty = 2) +
   labs(x = "Coefficient",
        y = "",
-       title = "Unusually expensive houses for square meter footage") +
+       title = "Unusually expensive house chars wrt House Surface") +
   theme_nicco()
 ```
 
@@ -399,16 +426,16 @@ datiprep_sq %>%
 
 ## Missing Assessement and Imputation
 
-As already pointed out some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g. given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single webpages.
-The approach followed in this part is to prune redundant data and rare covariates trying to limit the dimensionality of the dataset.
+As already pointed out some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g. given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single web pages.
+The approach followed in this part is to prune redundant data and rare predictors trying to limit the dimensionality of the dataset.
 
 ### Missing assessement 
 
-The first problem to assess is why information are missing. As already pointed out in the preliminary part as well as in section \@ref(ContentArchitecture) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed.  If in the end of the sequence the covariates are still missing, the correspondent observation is not considered and it is left out of the scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
+The first problem to assess is why information are missing. As already pointed out in the preliminary part as well as in section \@ref(ContentArchitecture) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be lost. If at the end of the sequence covariates are still missing, the correspondent observation is not considered and it is left out of the resulting scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
 The missing profile is crucial since it can also raise suspicion on the scraping failures. By Taking advantage of the missing pattern in observations the maintainer can directly identify the problem and derivatives and immediately debug the error. In order to identify if the nature of the pattern a revision of missing and randomness is introduced by @Little.
 Missing can be devided into 3 categories:
 
-- *MCAR* (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
+- *MCAR* (missing completely at random) likelihood of missing is equal for all the information, in other words missing data are one idependetn for the other.
 - *MAR* (missing at random) likelihood of missing is not equal.
 - *NMAR* (not missing at random) data that is missing due to a specific cause, scarping can be the cause.
 

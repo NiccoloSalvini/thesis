@@ -14,13 +14,13 @@ The following chapter covers a gentle introduction and concepts of web scraping 
 Content in web pages is the most of the times well organized and accessible.
 This is made possible by the effort put into building both the _website structure_ and the _content architecture_. For website structure it is meant the way urls, pointing to different web pages, are arranged throughout the website.
 Website structure constitutes a _first dimension_ of hierarchy. A comparative example might regard the way files are arranged into folders, where in the example files are urls and folders are web pages.
-Some popular website structure examples are social-networks where posts can be scrolled down within a single url web page named the wall. The scrolling option might end due to the end of the feed, but the perception is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains.
+Some popular website structure examples are social-networks where posts can be scrolled down within a single url web page named the wall. The scrolling option might end due to the end of the feed, but the perception is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks at happens at many levels, photos, friends, places.
 Online newspapers display their articles in the front page of their websites and by accessing to one of them all the pertinent articles sometimes can be reached in the low bottom or in the side part. Suggested articles during website exploration can be seen twice, that is the more the website is covered the more is the likelihood of seeing the same article twice. Recursive websited structures are popular in newspaper-type websites since it is part of the expectation on website's user experience.
 Online Retailers as Amazon, based on search filters, groups inside a single web page (i.e. page n° 1) a fixed set of items, having their dedicated single urls attached to them. Furthermore many of the retailers, Amazon's too, allows the user to search into many pages i.e. page n° 2,3, looking for another fixed set of items. The experience ends when the last page associated to the last url is met.
-These are few examples of how websites can be built and infinitely many others are available. 
+These are few examples of how websites can be built and infinitely many others are available ranging from the easisest to the most confusing, see figure . 
 Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the building languages needed and the specific requirements of the that the website should met. For all the reason said, for each product, whether it is physical product, or service, or information there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites will display tailor made website structure and contents based on specific user personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information. 
 
-![general website structure](images/content-vs-html-title.png)
+![(#fig:html_tree)Linearity in Website Structure vs Audience Education](images/netstruc_vs_hierstruc.jpg)
 
 A _second dimension_ of hierarchy is brought by content architecture by means of the language used for content creation and organization i.e. HTML. HTML stands for Hyper Text Markup Language and is the standard _markup_ language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, as an example JavaScript [@html_2020].
 HTML inner language properties brings along the hierarchy that is then inherited from the website structure. According to this point of view the hierarchical website structure is a consequence of the language chosen for building content architecture.
@@ -101,9 +101,10 @@ scrape.all.info = function(url = "https://www.immobiliare.it/affitto-case...",
     start = as_hms(Sys.time()); cat('Starting the process...\n\n')
     message('\nThe process has started in',format(start,usetz = TRUE))  
   }
-  # open parallel multisession
-  cl = makeCluster(detectCores()-1) #using max cores - 1 for parallel processing
-  registerDoParallel(cl)
+  # open parallel multisession 
+  cores =detectCores(logical = FALSE)
+  cl = makeCluster(cores)
+  registerDoParallel(cl,cores)
   start = as_hms(Sys.time())
   
   if (silent) {
@@ -156,8 +157,9 @@ scrape.all.info = function(url = "https://www.immobiliare.it/affitto-case...",
                   ...
                   
                   
-                  return(combine) 
+                  return(combine)
                   }
+  stopImplicitCluster()                 
   stopCluster(cl)
   return(ALL)
 }
@@ -369,24 +371,51 @@ get_delay =  memoise::memoise(.get_delay) ## so that .get_delay results are cach
 ## [1] NA
 ```
 
-## Parallel Computing
+## Explicit Parallel Scraping
 
-Since are opened as many sessions as single links and since for each link are supposed to be called 34 functions run time computation can take a while. Run time is crucial when dealing with very active web pages and time to market in real estate is a major issue. From there originates the need to have always up-to-date data and consequently an API infrastructure. Run time optimization involves each level of the scraping process from the "lowest" i.e. inside each single function to the "highest" i.e. the agglomerative function. Inside single scraping functions as a general criteria for loops are avoided due to Rcpp reasons, vectorization is preferred. Within agglomerative function instead the approach was to test two different results. All the following runtime examinations are performed on the `scrape()` functions which is a lightweight version of the function included in the API. 
-The first attempt was using `furrr` package [@furrr] which enables mapping through a list with the `purrr`, along with a `future` parallel back end. The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
-
-
-
-
-
-
-![(#fig:furrr)computational complexity analysis with Furrr](images/run_timefurrr.png)
+Scraping run time is crucial when dealing with very active web pages, especially in real estate where rental time to market is a major competitive advantage.
+Since there as many sessions opened as single links scraped (refer to section \@ref(ContentArchitecture)), and since for each of those links are supposed to be called 34 different functions (refer to section \@ref(ContentArchitecture)), then scraping run time can take a bit longer. The time taken is caused by R executing code on a single processor sequentially one-by-one (i.e. single thread computing). To overcome this issue explicit parallel (sometimes improperly called [asynchronous](https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897)) scraping functions are structured so that computation do not employ vast cpu time (i.e. cpu-bound). In order to escape the problem modern processor architectures provide multiple cores on a single processor. As a result many computation can be split on various processors and multiple cores of each processor. 
+The _computing group_ is a software concept as stated in [@parallelr], meaning how many R worker processes we need to create. From a theoretic perspective the working group unities can be greater than the number of cores detected, but for computing reasons are initialized as many workers as physical cores. Specifying the computing group is a critical step in each parallel execution. It has to be called before the function execution and normally allows to tune the number of cores and the number of workers.
+For a complete deepening on Parallel theory and concepts both on hardware and software side @barney is strongly suggested. For a full reference focused on R parallel ecosystem, run time simulations and advanced algorithm strategies for parallel execution the authorities are [@parallelr]. If the interest is to directly develop R parallel functions then a precious resource is this [blog](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html) which covers also some common error and consequent debugging.
+`detectCores()` uncovers how many _Hyper-Threading_ cores are at the disposition, since they do not provide any computational advantage the option _logical_ is set false. Below the number of cores available on the following machine:
 
 
-On the x-axis in the figure \@ref(fig:furrr) the number of urls which are evaluated together, on y axis the run time taken measured in seconds. Iteration after iteration the urls considered are cumulated one at at a time. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time $\mathcal{O}(n)$, where n are the number of links considered.
+```
+## total n° of Hyper-Threading cores on the machine is 12
+## 
+## 
+## total n° of NOT Hyper-Threading cores 6
+```
 
-A second attempt tried to explore the `foreach` package [@foreach]. This quite recent package enables a new looping construct for executing R code in an iterative way. The core reason for using the `foreach` package is that it supports *parallel execution*, that is, it can execute repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction follows the r-base looping idea, below steps are summarized:
 
-- start clusters on processors cores
+![parallel Execution schema into the R ecosystem, @parallelr source](images/parallel_mapping.png)
+All the following runtime examinations are performed on `scrape()` which is a lightweight version of the function included in the API.
+Furthermore as a general criteria for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred. Through `scrape` the approach is to test two different parallel back ends performances.
+
+The first attempt was using `furrr` package [@furrr] which enables mapping (i.e. `map`) through a list from `purrr`, along with a `future` parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command `plan(multisession, workers = 2)`. Then the function operates as many other seen purrr variations:
+`furrr::future_map(scrape(), .progress = T)`. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
+
+
+
+
+
+
+![(#fig:furrr)computational complexity analysis with Furrr](images/furrr.png)
+
+
+On the x-axis in the figure \@ref(fig:furrr) the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time $\mathcal{O}(n)$, where n are the number of links considered.
+
+A second attempt tried to explore the `foreach` package [@foreach] originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating the environment. 
+
+
+One major concern regards that functions inside the %dopar% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the  %dopar%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
+
+
+The function  Flexibility comes at a cost of usability, as a matter of fact the loop constructor is much more complex with respect to furrr.
+The looping construction follows the r-base looping idea, below main steps are summarized:
+
+- Detect cores, initialize workers based on number of cores, register the parallel back end `registerDoParallel(cl,cores)`
 - define the iterator, i.e. "i"  equal to the number of elements that are going to be looped
 - `.packages`: Inherits the packages that are used in the tasks define below
 - `.combine`: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows).
@@ -395,17 +424,14 @@ A second attempt tried to explore the `foreach` package [@foreach]. This quite r
 - then the function within the elements are iterated
 - close clusters
 
-One major concern regards that functions inside the %dopar% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the  %dopar%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
 
 
 
 
 
-![(#fig:foreach)computational complexity analysis with Furrr](images/run_timeforeach.png)
+![(#fig:foreach)computational complexity analysis with Furrr](images/forerach.png)
 
-It can be grasped quite easily by figure \@ref(fig:foreach) that the curve now is flattened and a confident guess might be logarithmic time $\mathcal{O}(log(n))$. 
-
-A further performance improvement could be obtained using a new package called `doAzureParallel` which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud, but this comes at a substantial monetary cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster, even though actually the goal is to have something that separates different sessions. Unleashing Virtual Machines allows from one hand to further increase computational capabilties, so the number of potential requests, from the other it can partition requests among different proper machines (a pool of agents for each VM) extending even more the combination of IDs and as a consequence masquerading even better the scraping automation.
+It can be grasped quite easily by figure \@ref(fig:foreach) that initially foreach takes some times to set up parallel workers but then the curve is flattened and a confident guess might be .5 sloped linear time $\mathcal{O}(\frac{n}{2})$. 
 
 
 ## Open Challenges and Further Improvemements{#challenges}
@@ -414,6 +440,8 @@ The main challenge remains unsolved since each single element has been optimized
 As a partial solution a more robust scraping code can be obtained integrating the existing code with accurate content text mining techniques together with unit testing integration tools like `testthat` @testthat and `usethis` @usethis. The latter packages also bring improvements during software development and ex-post a *TDD* (i.e.Test-Driven Development @TDD_2004) approach would have cut API software development time. Furthermore a very popular tool to develop and automate test API is [Postman](https://www.postman.com/), which is very convenient when POST endpoints are available, since for the moment are not in existence it is not used and the default [Swagger](https://editor.swagger.io/) interface takes its place.
 It must be said also that @Rcrawler is designed to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other related website with no effort, for reasons pointed out in the initial part of section \@ref(webstructure).
 The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI. A better way to move toward would be integrating a CI/TD approach as said few lines ago.
+On the parallel computing side further performance improvement could be obtained using a new born package called `doAzureParallel` which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a substantial monetary cost adn it is definetely not the first choice. Nonetheless it would perfectly match the need given that parallel back ends shrinks run time by accelerating the number of requests sent among different processors/cores or cluster, even though actually the goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+
 Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found. 
 
 ## Legal Profiles (ancora non validato)

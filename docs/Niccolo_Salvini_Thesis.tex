@@ -167,7 +167,7 @@
 
 \title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 10 novembre, 2020}
+\date{Last compiled on 12 novembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -254,16 +254,16 @@ The following chapter covers a gentle introduction and concepts of web scraping 
 Content in web pages is the most of the times well organized and accessible.
 This is made possible by the effort put into building both the \emph{website structure} and the \emph{content architecture}. For website structure it is meant the way urls, pointing to different web pages, are arranged throughout the website.
 Website structure constitutes a \emph{first dimension} of hierarchy. A comparative example might regard the way files are arranged into folders, where in the example files are urls and folders are web pages.
-Some popular website structure examples are social-networks where posts can be scrolled down within a single url web page named the wall. The scrolling option might end due to the end of the feed, but the perception is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains.
+Some popular website structure examples are social-networks where posts can be scrolled down within a single url web page named the wall. The scrolling option might end due to the end of the feed, but the perception is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks at happens at many levels, photos, friends, places.
 Online newspapers display their articles in the front page of their websites and by accessing to one of them all the pertinent articles sometimes can be reached in the low bottom or in the side part. Suggested articles during website exploration can be seen twice, that is the more the website is covered the more is the likelihood of seeing the same article twice. Recursive websited structures are popular in newspaper-type websites since it is part of the expectation on website's user experience.
 Online Retailers as Amazon, based on search filters, groups inside a single web page (i.e.~page n° 1) a fixed set of items, having their dedicated single urls attached to them. Furthermore many of the retailers, Amazon's too, allows the user to search into many pages i.e.~page n° 2,3, looking for another fixed set of items. The experience ends when the last page associated to the last url is met.
-These are few examples of how websites can be built and infinitely many others are available.
+These are few examples of how websites can be built and infinitely many others are available ranging from the easisest to the most confusing, see figure .
 Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the building languages needed and the specific requirements of the that the website should met. For all the reason said, for each product, whether it is physical product, or service, or information there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites will display tailor made website structure and contents based on specific user personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information.
 
 \begin{figure}
 \centering
-\includegraphics{images/content-vs-html-title.png}
-\caption{general website structure}
+\includegraphics{images/netstruc_vs_hierstruc.jpg}
+\caption{(\#fig:html\_tree)Linearity in Website Structure vs Audience Education}
 \end{figure}
 
 A \emph{second dimension} of hierarchy is brought by content architecture by means of the language used for content creation and organization i.e.~HTML. HTML stands for Hyper Text Markup Language and is the standard \emph{markup} language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, as an example JavaScript \citep{html_2020}.
@@ -360,9 +360,10 @@ Once all the functions have been created they need to be called together and the
 \NormalTok{    start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{()); }\KeywordTok{cat}\NormalTok{(}\StringTok{'Starting the process...}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{'}\NormalTok{)}
     \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{The process has started in'}\NormalTok{,}\KeywordTok{format}\NormalTok{(start,}\DataTypeTok{usetz =} \OtherTok{TRUE}\NormalTok{))  }
 \NormalTok{  \}}
-  \CommentTok{# open parallel multisession}
-\NormalTok{  cl =}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\KeywordTok{detectCores}\NormalTok{()}\OperatorTok{-}\DecValTok{1}\NormalTok{) }\CommentTok{#using max cores - 1 for parallel processing}
-  \KeywordTok{registerDoParallel}\NormalTok{(cl)}
+  \CommentTok{# open parallel multisession }
+\NormalTok{  cores =}\KeywordTok{detectCores}\NormalTok{(}\DataTypeTok{logical =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{  cl =}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(cores)}
+  \KeywordTok{registerDoParallel}\NormalTok{(cl,cores)}
 \NormalTok{  start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{())}
   
   \ControlFlowTok{if}\NormalTok{ (silent) \{}
@@ -415,8 +416,9 @@ Once all the functions have been created they need to be called together and the
 \NormalTok{                  ...}
                   
                   
-                  \KeywordTok{return}\NormalTok{(combine) }
+                  \KeywordTok{return}\NormalTok{(combine)}
                   \ErrorTok{\}}
+  \KeywordTok{stopImplicitCluster}\NormalTok{()                 }
   \KeywordTok{stopCluster}\NormalTok{(cl)}
   \KeywordTok{return}\NormalTok{(ALL)}
 \ErrorTok{\}}
@@ -657,26 +659,49 @@ Below some of the main handlers implied:
 ## [1] NA
 \end{verbatim}
 
-\hypertarget{parallel-computing}{%
-\section{Parallel Computing}\label{parallel-computing}}
+\hypertarget{explicit-parallel-scraping}{%
+\section{Explicit Parallel Scraping}\label{explicit-parallel-scraping}}
 
-Since are opened as many sessions as single links and since for each link are supposed to be called 34 functions run time computation can take a while. Run time is crucial when dealing with very active web pages and time to market in real estate is a major issue. From there originates the need to have always up-to-date data and consequently an API infrastructure. Run time optimization involves each level of the scraping process from the ``lowest'' i.e.~inside each single function to the ``highest'' i.e.~the agglomerative function. Inside single scraping functions as a general criteria for loops are avoided due to Rcpp reasons, vectorization is preferred. Within agglomerative function instead the approach was to test two different results. All the following runtime examinations are performed on the \texttt{scrape()} functions which is a lightweight version of the function included in the API.
-The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping through a list with the \texttt{purrr}, along with a \texttt{future} parallel back end. The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
+Scraping run time is crucial when dealing with very active web pages, especially in real estate where rental time to market is a major competitive advantage.
+Since there as many sessions opened as single links scraped (refer to section \ref{ContentArchitecture}), and since for each of those links are supposed to be called 34 different functions (refer to section \ref{ContentArchitecture}), then scraping run time can take a bit longer. The time taken is caused by R executing code on a single processor sequentially one-by-one (i.e.~single thread computing). To overcome this issue explicit parallel (sometimes improperly called \href{https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897}{asynchronous}) scraping functions are structured so that computation do not employ vast cpu time (i.e.~cpu-bound). In order to escape the problem modern processor architectures provide multiple cores on a single processor. As a result many computation can be split on various processors and multiple cores of each processor.
+The \emph{computing group} is a software concept as stated in \citep{parallelr}, meaning how many R worker processes we need to create. From a theoretic perspective the working group unities can be greater than the number of cores detected, but for computing reasons are initialized as many workers as physical cores. Specifying the computing group is a critical step in each parallel execution. It has to be called before the function execution and normally allows to tune the number of cores and the number of workers.
+For a complete deepening on Parallel theory and concepts both on hardware and software side \citet{barney} is strongly suggested. For a full reference focused on R parallel ecosystem, run time simulations and advanced algorithm strategies for parallel execution the authorities are \citep{parallelr}. If the interest is to directly develop R parallel functions then a precious resource is this \href{https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html}{blog} which covers also some common error and consequent debugging.
+\texttt{detectCores()} uncovers how many \emph{Hyper-Threading} cores are at the disposition, since they do not provide any computational advantage the option \emph{logical} is set false. Below the number of cores available on the following machine:
+
+\begin{verbatim}
+## total n° of Hyper-Threading cores on the machine is 12
+## 
+## 
+## total n° of NOT Hyper-Threading cores 6
+\end{verbatim}
+
+\includegraphics{images/parallel_mapping.png}
+All the following runtime examinations are performed on \texttt{scrape()} which is a lightweight version of the function included in the API.
+Furthermore as a general criteria for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred. Through \texttt{scrape} the approach is to test two different parallel back ends performances.
+
+The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping (i.e.~\texttt{map}) through a list from \texttt{purrr}, along with a \texttt{future} parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command \texttt{plan(multisession,\ workers\ =\ 2)}. Then the function operates as many other seen purrr variations:
+\texttt{furrr::future\_map(scrape(),\ .progress\ =\ T)}. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
 
 \begin{figure}
 \centering
-\includegraphics{images/run_timefurrr.png}
+\includegraphics{images/furrr.png}
 \caption{\label{fig:furrr}computational complexity analysis with Furrr}
 \end{figure}
 
-On the x-axis in the figure \ref{fig:furrr} the number of urls which are evaluated together, on y axis the run time taken measured in seconds. Iteration after iteration the urls considered are cumulated one at at a time. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time \(\mathcal{O}(n)\), where n are the number of links considered.
+On the x-axis in the figure \ref{fig:furrr} the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time \(\mathcal{O}(n)\), where n are the number of links considered.
 
-A second attempt tried to explore the \texttt{foreach} package \citep{foreach}. This quite recent package enables a new looping construct for executing R code in an iterative way. The core reason for using the \texttt{foreach} package is that it supports \emph{parallel execution}, that is, it can execute repeated operations on multiple processors/cores on the computer, or on multiple nodes of a cluster. The construction follows the r-base looping idea, below steps are summarized:
+A second attempt tried to explore the \texttt{foreach} package \citep{foreach} originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating the environment.
+
+One major concern regards that functions inside the \%dopar\% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the \%dopar\%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
+
+The function Flexibility comes at a cost of usability, as a matter of fact the loop constructor is much more complex with respect to furrr.
+The looping construction follows the r-base looping idea, below main steps are summarized:
 
 \begin{itemize}
 \tightlist
 \item
-  start clusters on processors cores
+  Detect cores, initialize workers based on number of cores, register the parallel back end \texttt{registerDoParallel(cl,cores)}
 \item
   define the iterator, i.e.~``i'' equal to the number of elements that are going to be looped
 \item
@@ -693,17 +718,13 @@ A second attempt tried to explore the \texttt{foreach} package \citep{foreach}. 
   close clusters
 \end{itemize}
 
-One major concern regards that functions inside the \%dopar\% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the \%dopar\%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
-
 \begin{figure}
 \centering
-\includegraphics{images/run_timeforeach.png}
+\includegraphics{images/forerach.png}
 \caption{\label{fig:foreach}computational complexity analysis with Furrr}
 \end{figure}
 
-It can be grasped quite easily by figure \ref{fig:foreach} that the curve now is flattened and a confident guess might be logarithmic time \(\mathcal{O}(log(n))\).
-
-A further performance improvement could be obtained using a new package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud, but this comes at a substantial monetary cost. This would be a perfect match given that parallel methods seen before accelerates the number of requests sent among different processors or cluster, even though actually the goal is to have something that separates different sessions. Unleashing Virtual Machines allows from one hand to further increase computational capabilties, so the number of potential requests, from the other it can partition requests among different proper machines (a pool of agents for each VM) extending even more the combination of IDs and as a consequence masquerading even better the scraping automation.
+It can be grasped quite easily by figure \ref{fig:foreach} that initially foreach takes some times to set up parallel workers but then the curve is flattened and a confident guess might be .5 sloped linear time \(\mathcal{O}(\frac{n}{2})\).
 
 \hypertarget{challenges}{%
 \section{Open Challenges and Further Improvemements}\label{challenges}}
@@ -712,6 +733,8 @@ The main challenge remains unsolved since each single element has been optimized
 As a partial solution a more robust scraping code can be obtained integrating the existing code with accurate content text mining techniques together with unit testing integration tools like \texttt{testthat} \citet{testthat} and \texttt{usethis} \citet{usethis}. The latter packages also bring improvements during software development and ex-post a \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) approach would have cut API software development time. Furthermore a very popular tool to develop and automate test API is \href{https://www.postman.com/}{Postman}, which is very convenient when POST endpoints are available, since for the moment are not in existence it is not used and the default \href{https://editor.swagger.io/}{Swagger} interface takes its place.
 It must be said also that \citet{Rcrawler} is designed to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other related website with no effort, for reasons pointed out in the initial part of section \ref{webstructure}.
 The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI. A better way to move toward would be integrating a CI/TD approach as said few lines ago.
+On the parallel computing side further performance improvement could be obtained using a new born package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a substantial monetary cost adn it is definetely not the first choice. Nonetheless it would perfectly match the need given that parallel back ends shrinks run time by accelerating the number of requests sent among different processors/cores or cluster, even though actually the goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+
 Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the \href{https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar}{stackoverflow reproducible example}. As a consequence to that each time an error occurs the ``main'' functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.
 
 \hypertarget{legal-profiles-ancora-non-validato}{%
@@ -944,7 +967,7 @@ The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph
 \item
   */scrape performs a fast scraping of the website that leverages a rooted tree shortest path to get to data. This comes at the cost of the number of available covariates to scrape which are 5: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).
 \item
-  */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint.
+  */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.
 \item
   */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.
 \item
@@ -1137,7 +1160,12 @@ The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are al
 \caption{aws\_dashboard}
 \end{figure}
 
-At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with \href{https://www.putty.org/}{PuTTY}, which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available.
+At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with \href{https://www.putty.org/}{PuTTY}, which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.
+Once the CLI pops out some Linux libraries to check file structure (``tree'') and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.
+AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.
+the Public DNS has the following form:ì
+
+\texttt{ec2-18-224-40-67.us-east-2.compute.amazonaws.com}
 
 \hypertarget{further-integrations}{%
 \section{Further Integrations}\label{further-integrations}}
@@ -1799,13 +1827,14 @@ A regular 2D grid lattice is considered with infinite number of location points 
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
-Data comes packed into the REST API end point \texttt{*/complete} in .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options might regard the \texttt{city} in which it is aevaluated the real estate market, \texttt{npages} as the number of pages to be scraped, \texttt{type} as the choice between rental of selling. For further documentation on how to structure the API endpoint query refer to section \ref{APIdocs}. Since to the analysis purposes data should come from the same source (e.g.~Milan rental real estate within ``circonvallazione'') a dedicated endpoint boolean option \texttt{.thesis} is passed in the argument body. What the API option under the hood is doing is specifying a structured and already filtered URL to be passed to the scraping endppoint. By securing the same URL to the scraping functions data is forced to come from the same URL source. The idea behind this concept can be thought as refreshing everyday the same immobiliare.it URL. API endpoint by default also specifies 10 pages to be scraped, in this case 120 is provided leading to to 3000 data points. The \texttt{*} refers to the EC2 public DNS that is \texttt{ec2-18-224-40-67.us-east-2.compute.amazonaws.com}
+Data flows out the REST API end point \texttt{*/complete} in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \ref{APIdocs}, might regard the real estate \texttt{city} interested, \texttt{npages} as the number of pages to scrape, \texttt{type} as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g.~Milan rental real estate within ``circonvallazione'' approximated geo-borders). As a consequence a dedicated endpoint \texttt{.thesis} parameter is passed in the argument body. By setting the option equal to to TRUE the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone.
+Parameters specified are also npages = 120, leading to to 3000 observations. The \texttt{*} refers to the EC2 public DNS.
 
 \texttt{http://*/complete/120/milano/affitto/.thesis=true}
 
-As a further source data can also be accessed through the mondgoDB credentials with the cloud ATLAS database by picking up the latest .csv file generated. For run time reasons also related to the bookdown files continuous building the API endpoint is called the day before the presentation so that the latest .csv file is available. As a consequence code chunks outputs are all cached due to heavy computation.
-Interactive maps are done with Leaflet, the result of which is a leaflet map object which can be piped to other leaflet functions. This permits multiple map layers and many control options to be added interactively (LaTex output is statically generated)
+As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster. A summary table of the columns involved is presented with the goal to introduce the reader to API incoming data. Data needs some heavy preprocess steps to get modeled which is briefly covered in the data preparation part in section \ref{prep}. Data coming from the /complete enndpoint has a geo-statistical spatial component and consequently a spatial representation of the dataset is showed. One further plot points out that geographic coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the price response variable so dedicated techniques are required. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence which is then compared to other cities. This suggest some critical Milan real estate market demand information and consequently reflections on the offer. Heating and cooling systems, two of the covariates extracted, are grouped and then arranged by descending order prevalence. They both do not display any significative price change but they bring to the surface an important environmental concern. The same is done by highlighting ridges distribution for other two newly engineered covariates. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each n-roomed accommodation sub-group whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which regards the most valuable properties per single square meter surface and a answer based on data is given. Then a further log linear regression setting is proposed to evaluate the impact of some other presumably important covariate. A Tie Fighter plot displays for which coefficient, associated to each dummyied predictor, there are surprisingly high prices compared to the effect of the square meter footage expansion. A partial conclusion is that having 2 or 3 bathrooms truly pays an extra monthly gain, also caused by the number of tentants the accomodations could host. Then missing assessement and imputation takes place. At first is made a brief a revision of missing and randomnes by \citet{Little}, then theory is applied by visualizing missing in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple rarity in data appereance. Then for the observations that passed the test imputation is made through INLA posterior expectation. That is the case of data lost in predictors so the missing covariates ( \emph{condominium} ) are brought into a model as response variable whose this time predictors are explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
+Visualisations are done with ggplot2 in a Tidyverse approach. Maps are done with ggplot2 too and Leaflet, together with its extensions.
 A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
 
 \begin{longtable}{ll}
@@ -1854,8 +1883,8 @@ TITLE & title of published advertisement\\
 \bottomrule
 \end{longtable}
 
-\hypertarget{data-preparation}{%
-\section{Data preparation}\label{data-preparation}}
+\hypertarget{prep}{%
+\section{Data preparation}\label{prep}}
 
 Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
 
@@ -1886,7 +1915,13 @@ The map in figure @ref(fig:leaflet\_visuals) is a leaflet object, which can need
 \includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}\label{fig:LeafletVisuals}
 \end{figure}
 
-(other more tmap and ggplot)
+Predictors, in this case latitude and longitude appear to have nonlinear relationships with the outcome price. The relationship appears to be Gaussian whose mean points to the city center, red dashed line represent latitude and longitude coordinates for the Dome of Milan. Non linearities can be treated with regression splines
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf}
+\caption{\label{fig:NonLinearSpatialRel}Non Linear Spatial Relationship disclosed}
+\end{figure}
 
 \hypertarget{counts-and-first-orientations}{%
 \section{Counts and First Orientations}\label{counts-and-first-orientations}}
@@ -1945,9 +1980,11 @@ via federico confalonieri 5 & Monolocale & 750 & 20 & 1 piano & 3 piani & 37.500
 \bottomrule
 \end{tabular}
 
-Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs\_price and some other presumably important ones i.e.~floor. The model fitted is \texttt{log2(price)\ \textasciitilde{}\ log2(abs\_price)\ +\ floor}.
-The plot in figure \ref{fig:TieFighterPlot} tries to give the intuition on unusual effects across different floors. The interpretation starts by considering the house surface effect (i.e.~House Surface (doubling)) for each doubling of the square meter footage. Then what it can be seen is that both apartments and ultimo piano are unsually expensive with respect to their square meter footage. On the other hand the piano rialzato and piano terra are unusually inexpensive for their surface.\\
-In other words the plot has the analytical purpose to demonstrate how monthly price is affected by floor conditioned to their respective square meter footage. The term log2(abs\_price) has been converted to more familiar House Surface (doubling) to help with the interpretation.
+Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs\_price and some other presumably important ones e.g.~floor, bagno, totpiani. The model fitted is \texttt{log2(price)\ \textasciitilde{}\ log2(abs\_price)\ +\ bagno\ +\ floor\ +\ totpiani}.
+The plot in figure \ref{fig:TieFighterPlot} has the purpose to demonstrate how monthly price is affected by covariates conditioned to their respective square meter footage. The interpretation of the plot starts by fixing a focus point on 0, which is the null effect highlighted by the red dashed line. Then the second focus is on house surface effect (i.e.~House Surface (doubling) in the plot, the term log2(abs\_price) has been converted to more familiar House Surface (doubling)), which contributes to increase the price of an estimated coefficient of \(\approx .6\) for each doubling of the square meter footage. Then what it can be noticed with respect to the two focus points are the unusual effects provoked by the other predictors t the right of the house surface effect and to the far left below 0. ``2 and 3 bagni'' are unusually expensive with respect to the square meter footage increment, on the other hand" al piano rialzato" and ``al piano terra'' are undervalued with respect to their surface. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. the number of bathrooms are a proxy to both house extension since normally for each sleeping room there also exist at least 1 bathroom as well as prestigious houses dispose of more than 1 toilette services. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house monthly returns,
+
+it can be noticed is that ultimo piano, otgether with 2 abagni ad 3 bagni are unusually expensive with respect to their proper square meter footage. On the other hand the piano rialzato and piano terra are unusually undervalued given their surface.\\
+In other words the to help with the interpretation. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house returns. The conclusion
 
 \begin{figure}
 \centering
@@ -1960,20 +1997,20 @@ In other words the plot has the analytical purpose to demonstrate how monthly pr
 \hypertarget{missing-assessement-and-imputation}{%
 \section{Missing Assessement and Imputation}\label{missing-assessement-and-imputation}}
 
-As already pointed out some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g.~given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single webpages.
-The approach followed in this part is to prune redundant data and rare covariates trying to limit the dimensionality of the dataset.
+As already pointed out some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g.~given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single web pages.
+The approach followed in this part is to prune redundant data and rare predictors trying to limit the dimensionality of the dataset.
 
 \hypertarget{missing-assessement}{%
 \subsection{Missing assessement}\label{missing-assessement}}
 
-The first problem to assess is why information are missing. As already pointed out in the preliminary part as well as in section \ref{ContentArchitecture} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be missed. If in the end of the sequence the covariates are still missing, the correspondent observation is not considered and it is left out of the scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
+The first problem to assess is why information are missing. As already pointed out in the preliminary part as well as in section \ref{ContentArchitecture} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be lost. If at the end of the sequence covariates are still missing, the correspondent observation is not considered and it is left out of the resulting scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
 The missing profile is crucial since it can also raise suspicion on the scraping failures. By Taking advantage of the missing pattern in observations the maintainer can directly identify the problem and derivatives and immediately debug the error. In order to identify if the nature of the pattern a revision of missing and randomness is introduced by \citet{Little}.
 Missing can be devided into 3 categories:
 
 \begin{itemize}
 \tightlist
 \item
-  \emph{MCAR} (missing completely at random) likelihood of missing is equal for all the infromation, in other words missing data are one idependetn for the other.
+  \emph{MCAR} (missing completely at random) likelihood of missing is equal for all the information, in other words missing data are one idependetn for the other.
 \item
   \emph{MAR} (missing at random) likelihood of missing is not equal.
 \item

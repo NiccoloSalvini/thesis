@@ -170,7 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
 <li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatches"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatches</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#explicit-parallel-scraping"><i class="fa fa-check"></i><b>2.4</b> Explicit Parallel Scraping</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges and Further Improvemements</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="spde.html"><a href="spde.html#first-point-krainsky-rubio-too-technical"><i class="fa fa-check"></i><b>6.3</b> First Point Krainsky Rubio TOO TECHNICAL</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#maps-and-geo-visualisations"><i class="fa fa-check"></i><b>7.1.1</b> Maps and Geo-Visualisations</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#counts-and-first-orientations"><i class="fa fa-check"></i><b>7.2</b> Counts and First Orientations</a></li>
@@ -414,9 +414,9 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \tau &amp; \sim G a(1,0.00005)
 \end{aligned}
 \]</span></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="inla.html#cb16-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
-<span id="cb16-2"><a href="inla.html#cb16-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
-<span id="cb16-3"><a href="inla.html#cb16-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="inla.html#cb17-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
+<span id="cb17-2"><a href="inla.html#cb17-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
+<span id="cb17-3"><a href="inla.html#cb17-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="14%" />

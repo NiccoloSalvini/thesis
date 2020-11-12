@@ -151,9 +151,9 @@ The API service is composed by 4 endpoints */scrape* , */links*, */complete* and
 
 - */scrape performs a fast scraping of the website that leverages a rooted tree shortest path to get to data. This comes at the cost of the number of available covariates to scrape which are 5:  title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino). 
 
-- */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \@ref(webstructure). It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. 
+- */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \@ref(webstructure). It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.
 
-- */complete:  both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.
+- */complete:  both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links. 
 
 - */get_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS
 
@@ -300,7 +300,12 @@ The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are al
 
 ![aws_dashboard](images/aws.PNG)
 
-At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem  file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available. 
+At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem  file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible. 
+Once the CLI pops out some Linux libraries to check file structure ("tree") and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command. 
+AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call. 
+the Public DNS has the following form:ì
+
+`ec2-18-224-40-67.us-east-2.compute.amazonaws.com`
 
 
 ## Further Integrations

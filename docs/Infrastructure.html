@@ -170,7 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
 <li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatches"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatches</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#parallel-computing"><i class="fa fa-check"></i><b>2.4</b> Parallel Computing</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#explicit-parallel-scraping"><i class="fa fa-check"></i><b>2.4</b> Explicit Parallel Scraping</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges and Further Improvemements</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.6</b> Legal Profiles (ancora non validato)</a></li>
 </ul></li>
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="spde.html"><a href="spde.html#first-point-krainsky-rubio-too-technical"><i class="fa fa-check"></i><b>6.3</b> First Point Krainsky Rubio TOO TECHNICAL</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#data-preparation"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>7.1</b> Data preparation</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="exploratory.html"><a href="exploratory.html#maps-and-geo-visualisations"><i class="fa fa-check"></i><b>7.1.1</b> Maps and Geo-Visualisations</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#counts-and-first-orientations"><i class="fa fa-check"></i><b>7.2</b> Counts and First Orientations</a></li>
@@ -381,30 +381,30 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 <div id="plumberapi" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Plumber REST API</h3>
 <p>Plumber allows the user to create a REST API by adding decoration comments to the existing R code, in this case to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Infrastructure.html#cb12-1"></a><span class="co"># plumber.R</span></span>
-<span id="cb12-2"><a href="Infrastructure.html#cb12-2"></a></span>
-<span id="cb12-3"><a href="Infrastructure.html#cb12-3"></a><span class="co">#* Echo back the input</span></span>
-<span id="cb12-4"><a href="Infrastructure.html#cb12-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb12-5"><a href="Infrastructure.html#cb12-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb12-6"><a href="Infrastructure.html#cb12-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb12-7"><a href="Infrastructure.html#cb12-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb12-8"><a href="Infrastructure.html#cb12-8"></a>}</span>
-<span id="cb12-9"><a href="Infrastructure.html#cb12-9"></a></span>
-<span id="cb12-10"><a href="Infrastructure.html#cb12-10"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb12-11"><a href="Infrastructure.html#cb12-11"></a><span class="co">#* @serializer png</span></span>
-<span id="cb12-12"><a href="Infrastructure.html#cb12-12"></a><span class="co">#* @get /plot</span></span>
-<span id="cb12-13"><a href="Infrastructure.html#cb12-13"></a><span class="cf">function</span>() {</span>
-<span id="cb12-14"><a href="Infrastructure.html#cb12-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb12-15"><a href="Infrastructure.html#cb12-15"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb12-16"><a href="Infrastructure.html#cb12-16"></a>}</span>
-<span id="cb12-17"><a href="Infrastructure.html#cb12-17"></a></span>
-<span id="cb12-18"><a href="Infrastructure.html#cb12-18"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb12-19"><a href="Infrastructure.html#cb12-19"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb12-20"><a href="Infrastructure.html#cb12-20"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb12-21"><a href="Infrastructure.html#cb12-21"></a><span class="co">#* @post /sum</span></span>
-<span id="cb12-22"><a href="Infrastructure.html#cb12-22"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb12-23"><a href="Infrastructure.html#cb12-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb12-24"><a href="Infrastructure.html#cb12-24"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Infrastructure.html#cb13-1"></a><span class="co"># plumber.R</span></span>
+<span id="cb13-2"><a href="Infrastructure.html#cb13-2"></a></span>
+<span id="cb13-3"><a href="Infrastructure.html#cb13-3"></a><span class="co">#* Echo back the input</span></span>
+<span id="cb13-4"><a href="Infrastructure.html#cb13-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb13-5"><a href="Infrastructure.html#cb13-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb13-6"><a href="Infrastructure.html#cb13-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb13-7"><a href="Infrastructure.html#cb13-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb13-8"><a href="Infrastructure.html#cb13-8"></a>}</span>
+<span id="cb13-9"><a href="Infrastructure.html#cb13-9"></a></span>
+<span id="cb13-10"><a href="Infrastructure.html#cb13-10"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb13-11"><a href="Infrastructure.html#cb13-11"></a><span class="co">#* @serializer png</span></span>
+<span id="cb13-12"><a href="Infrastructure.html#cb13-12"></a><span class="co">#* @get /plot</span></span>
+<span id="cb13-13"><a href="Infrastructure.html#cb13-13"></a><span class="cf">function</span>() {</span>
+<span id="cb13-14"><a href="Infrastructure.html#cb13-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb13-15"><a href="Infrastructure.html#cb13-15"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb13-16"><a href="Infrastructure.html#cb13-16"></a>}</span>
+<span id="cb13-17"><a href="Infrastructure.html#cb13-17"></a></span>
+<span id="cb13-18"><a href="Infrastructure.html#cb13-18"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb13-19"><a href="Infrastructure.html#cb13-19"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb13-20"><a href="Infrastructure.html#cb13-20"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb13-21"><a href="Infrastructure.html#cb13-21"></a><span class="co">#* @post /sum</span></span>
+<span id="cb13-22"><a href="Infrastructure.html#cb13-22"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb13-23"><a href="Infrastructure.html#cb13-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb13-24"><a href="Infrastructure.html#cb13-24"></a>}</span></code></pre></div>
 <p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
 Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
@@ -419,7 +419,7 @@ Decorations are marked as this <code>#*</code> and they are followed by specific
 <p>The API service is composed by 4 endpoints <em>/scrape</em> , <em>/links</em>, <em>/complete</em> and <em>/get_data</em>:</p>
 <ul>
 <li><p>*/scrape performs a fast scraping of the website that leverages a rooted tree shortest path to get to data. This comes at the cost of the number of available covariates to scrape which are 5: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).</p></li>
-<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section <a href="scraping.html#webstructure">2.1.1</a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint.</p></li>
+<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section <a href="scraping.html#webstructure">2.1.1</a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.</p></li>
 <li><p>*/complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.</p></li>
 <li><p>*/get_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS</p></li>
 </ul>
@@ -551,7 +551,11 @@ AWS offers a wide range of services each of which for a wide range of budgets an
 <img src="images/aws.PNG" alt="" />
 <p class="caption">aws_dashboard</p>
 </div>
-<p>At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and .pem file is saved and securely stored. Key pairs are mandatory to access to the Ubuntu server via SSH. SSH connection in Windows OS can be handled with <a href="https://www.putty.org/">PuTTY</a>, which is a SSH and telnet client designed for Windows. At first PuTTYgen has to convert the key pair .pem file into a .ppk extension (otherwise Putty can not read it). Once converted .ppk is sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and an interaction with the server is made available.</p>
+<p>At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with <a href="https://www.putty.org/">PuTTY</a>, which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.
+Once the CLI pops out some Linux libraries to check file structure (“tree”) and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.
+AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.
+the Public DNS has the following form:ì</p>
+<p><code>ec2-18-224-40-67.us-east-2.compute.amazonaws.com</code></p>
 </div>
 </div>
 <div id="further-integrations" class="section level2">
