@@ -394,7 +394,7 @@ Furthermore as a general criteria for loops are avoided inside single scraping f
 
 The first attempt was using `furrr` package [@furrr] which enables mapping (i.e. `map`) through a list from `purrr`, along with a `future` parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command `plan(multisession, workers = 2)`. Then the function operates as many other seen purrr variations:
 `furrr::future_map(scrape(), .progress = T)`. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: (pensa se fare più simulazioni, prende tempo)
 
 
 

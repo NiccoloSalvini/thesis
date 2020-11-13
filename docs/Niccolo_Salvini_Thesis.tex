@@ -167,7 +167,7 @@
 
 \title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 12 novembre, 2020}
+\date{Last compiled on 13 novembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -681,7 +681,7 @@ Furthermore as a general criteria for loops are avoided inside single scraping f
 
 The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping (i.e.~\texttt{map}) through a list from \texttt{purrr}, along with a \texttt{future} parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command \texttt{plan(multisession,\ workers\ =\ 2)}. Then the function operates as many other seen purrr variations:
 \texttt{furrr::future\_map(scrape(),\ .progress\ =\ T)}. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made:
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: (pensa se fare più simulazioni, prende tempo)
 
 \begin{figure}
 \centering
@@ -857,7 +857,7 @@ The cron job needs to be ran on scraping fucntions at 11:30 PM every single day.
 
 30 11 * * * /home/oracle/scripts/get\_data.R
 
-To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally \emph{not feasible} in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact solution that manages all the processes without having to know how scraping under the hood is working.
+To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally \emph{not feasible} in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working.
 
 \hypertarget{rest-api}{%
 \section{REST API}\label{rest-api}}
@@ -958,18 +958,18 @@ Decorations are marked as this \texttt{\#*} and they are followed by specific ke
 
 Many more options are available to customize plumber API but are beyond the scope, a valuable resource for further insights can be found in the dedicated package website \citep{an_api_generator_for_r}
 
-\hypertarget{immobiliare.it-rest-api}{%
-\subsection{Immobiliare.it REST API}\label{immobiliare.it-rest-api}}
+\hypertarget{immobiliare.it-parallel-rest-api}{%
+\subsection{\texorpdfstring{Immobiliare.it \emph{Parallel} REST API}{Immobiliare.it Parallel REST API}}\label{immobiliare.it-parallel-rest-api}}
 
 The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph{/complete} and \emph{/get\_data}:
 
 \begin{itemize}
 \item
-  */scrape performs a fast scraping of the website that leverages a rooted tree shortest path to get to data. This comes at the cost of the number of available covariates to scrape which are 5: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).
+  */scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in \(\approx 10.91^{''}\)). This comes at the cost of the number of available covariates to scrape which are: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).
 \item
   */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.
 \item
-  */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate scraping on each of the links.
+  */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link.
 \item
   */get\_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS
 \end{itemize}
@@ -1992,7 +1992,17 @@ In other words the to help with the interpretation. The fact that 2 and 3 bathro
 \caption{\label{fig:TieFighterPlot}Coefficient Tie fighter plot for the linear model: log2(price) \textasciitilde{} log2(abs\_price) + condom + other\_colors}
 \end{figure}
 
-(se vuoi dire qualcosa sul condominio)
+\hypertarget{text-mining-in-estate-review}{%
+\section{Text Mining in estate Review}\label{text-mining-in-estate-review}}
+
+It is possibile to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups, each of which adresses a specific part of the same theme. In the
+Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro.
+
+\begin{figure}
+\centering
+\includegraphics{07-exploratory_files/figure-latex/WordNetworkgraph-1.pdf}
+\caption{\label{fig:WordNetworkgraph}Word Network Graph for 250 Estate Agencies Review}
+\end{figure}
 
 \hypertarget{missing-assessement-and-imputation}{%
 \section{Missing Assessement and Imputation}\label{missing-assessement-and-imputation}}

@@ -149,7 +149,18 @@ In other words the  to help with the interpretation. The fact that 2 and 3 bathr
 ![(\#fig:TieFighterPlot)Coefficient Tie fighter plot for the linear model: log2(price) ~ log2(abs_price) + condom + other_colors](07-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
 
 
-(se vuoi dire qualcosa sul condominio)
+## Text Mining in estate Review
+
+It is possibile to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups, each of which adresses a specific part of the same theme. In the
+Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro. 
+
+
+![(\#fig:WordNetworkgraph)Word Network Graph for 250 Estate Agencies Review](07-exploratory_files/figure-latex/WordNetworkgraph-1.pdf) 
+
+
+
+
+
 
 ## Missing Assessement and Imputation
 
