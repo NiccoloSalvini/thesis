@@ -61,6 +61,9 @@ theme_nicco = function (base_size = 11, base_family = "") {
 }
 ```
 
+
+( _metti flow in DRAKE_ )
+
 Data flows out the REST API end point `*/complete` in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \@ref(APIdocs), might regard the real estate `city` interested, `npages` as the number of pages to scrape, `type` as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g. Milan rental real estate within "circonvallazione" approximated geo-borders). As a consequence a dedicated endpoint `.thesis` parameter is passed in the argument body. By setting the option equal to to TRUE  the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone. 
 Parameters specified are also npages = 120, leading to to 3000 observations. The `*` refers to the EC2 public DNS.
 
@@ -75,7 +78,8 @@ A preliminary API data exploratory analysis evidences 34 covariates and 250 rows
 ```{r data_loading}
 
 dati = read_csv("data/data.csv", locale = readr::locale(encoding = "latin1")) %>%
-  dplyr::select(-X1) 
+  dplyr::select(-X1) %>%  
+  janitor::clean_names()
 ```
 
 ```{r covar_table, fig.cap="Covariate explanation table"}
@@ -120,7 +124,7 @@ ref =c(
 
 names = dati %>%  names
 tibble(
-  name = names,
+  name = toupper(names),
   ref  = ref 
 ) %>% 
   knitr::kable(booktabs = T, longtable = T)
@@ -137,61 +141,98 @@ tibble(
 
 ```{r data_prep, message=FALSE}
 datiprep = dati %>% 
-  select(-TPPROP) %>% 
-  ## FLOOR
-  mutate(FLOOR = str_remove_all(FLOOR, "°")) %>% 
-  separate(FLOOR, c("FLOOR", "ASCENSORE","ACCDISABILI"), sep = ", ", convert = T) %>%
-  replace_na(list(ASCENSORE = "no", ACCDISABILI = "no")) %>% 
-  mutate(ASCENSORE = recode(ASCENSORE,"con accesso disabili" = "no")) %>%  
-  mutate(FLOOR = recode(FLOOR, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
+  select(-tpprop) %>% 
+  ## floor
+  mutate(floor = str_remove_all(floor, "°")) %>% 
+  separate(floor, c("floor", "ascensore","accdisabili"), sep = ", ", convert = T) %>%
+  replace_na(list(ascensore = "no", accdisabili = "no")) %>% 
+  mutate(ascensore = recode(ascensore,"con accesso disabili" = "no")) %>%  
+  mutate(floor = recode(floor, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
   ## TOTPIANI
   # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
   ## LOCALI
-  mutate(LOCALI = if_else(substr(LOCALI,start = 1,stop = 1) == 1, "1", LOCALI)) %>% 
-  separate(LOCALI, c("TOTLOCALI", "REST"), sep = "\\s", extra = "merge") %>% 
-  separate(REST, c("CAMERELETTO","ALTRO","BAGNO", "CUCINA"), sep = ", ", convert = T, fill = "left")  %>% 
+  mutate(locali = if_else(substr(locali,start = 1,stop = 1) == 1, "1", locali)) %>% 
+  separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>% 
+  separate(other, c("camereletto","altro","bagno", "cucina"), sep = ", ", convert = T, fill = "left")  %>% 
   ## CAMERALETTO
-  mutate(CAMERELETTO = if_else(TOTLOCALI== 1, "(1 camera da letto", CAMERELETTO)) %>% 
-  mutate(CAMERELETTO = if_else(is.na(CAMERELETTO),ALTRO , CAMERELETTO)) %>% 
-  mutate(CAMERELETTO = if_else(CAMERELETTO== "locali",NA_character_ , CAMERELETTO)) %>%  
-  mutate(CAMERELETTO = if_else(CAMERELETTO== "camere da letto", paste0(TOTLOCALI," camere da letto"), CAMERELETTO)) %>% 
-  mutate(CAMERELETTO = str_remove(CAMERELETTO, "\\(")) %>% 
-  ## ALTRO
-  mutate(ALTRO = if_else(BAGNO== "1 altro)","1 altro)" , ALTRO)) %>% 
-  replace_with_na(replace = list(ALTRO = c("camere da letto", "locali"))) %>% 
-  mutate(ALTRO = str_remove(ALTRO, "\\)")) %>% 
-  ## BAGNO
-  mutate(BAGNO = if_else(CUCINA== "1 bagno", "1 bagno", BAGNO)) %>% 
-  replace_with_na(replace = list(BAGNO = "1 altro)")) %>% 
-  mutate(BAGNO = if_else(TOTLOCALI== "1", "1 bagno", BAGNO)) %>% 
-  ## CUCINA (ne ho perse qualcuna)
-  replace_with_na(replace = list(CUCINA = "1 bagno")) %>% 
-  mutate(TOTLOCALI = recode(TOTLOCALI, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) ## non proviene più di sei locali 
-  
-  ## APTCHAR (non implementato)
-  # aptchar = datiprep %>% 
-  #   select(APTCHAR) %>%
-  #   mutate(APTCHAR = str_remove_all(APTCHAR, "\\-")) %>% 
-  #   mutate(APTCHAR = str_trim(APTCHAR)) %>% 
-  #   separate(APTCHAR, into = LETTERS[1:15],"\\s{2,}")
-  #   
-  #   
+  mutate(camereletto = if_else(totlocali== 1, "(1 camera da letto", camereletto)) %>% 
+  mutate(camereletto = if_else(is.na(camereletto),altro , camereletto)) %>% 
+  mutate(camereletto = if_else(camereletto== "locali",NA_character_ , camereletto)) %>%  
+  mutate(camereletto = if_else(camereletto== "camere da letto", paste0(totlocali," camere da letto"), camereletto)) %>% 
+  mutate(camereletto = str_remove(camereletto, "\\(")) %>% 
+  ## altro
+  mutate(altro = if_else(bagno== "1 altro)","1 altro)" , altro)) %>% 
+  replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>% 
+  mutate(altro = str_remove(altro, "\\)")) %>% 
+  ## bagno
+  mutate(bagno = if_else(cucina== "1 bagno", "1 bagno", bagno)) %>% 
+  replace_with_na(replace = list(bagno = "1 altro)")) %>% 
+  mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
+  ## cucina (ne ho perse qualcuna)
+  replace_with_na(replace = list(cucina = "1 bagno")) %>% 
+  mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) %>% ## non proviene più di sei locali 
+  ## aptchar
+  mutate(aptchar = str_remove_all(aptchar,"-"),
+         aptchar = str_trim(aptchar)) %>%
+  mutate(fibra_ottica = if_else(stri_detect_fixed(aptchar,"fibra ottica"), "yes", "no"),
+         videocitofono = if_else(stri_detect_fixed(aptchar,"videocitofono"), "yes", "no"),
+         impianto_di_allarme = if_else(stri_detect_fixed(aptchar,"impianto di allarme"), "yes", "no"),
+         reception = if_else(stri_detect_fixed(aptchar,"reception"), "yes", "no"),
+         porta_blindata = if_else(stri_detect_fixed(aptchar,"porta blindata"), "yes", "no"),
+         esposizione_esterna = if_else(stri_detect_fixed(aptchar,"esposizione esterna"), "yes", "no"),
+         cancello_elettrico = if_else(stri_detect_fixed(aptchar,"cancello elettrico"), "yes", "no"),
+         portiere_intera_giornata = if_else(stri_detect_fixed(aptchar,"portiere intera giornata"), "yes", "no"),
+         balcone = if_else(stri_detect_fixed(aptchar,"balcone"), "yes", "no"),
+         arredato = if_else(stri_detect_fixed(aptchar,"arredato"), "yes", "no"),
+         impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar,"impianto tv centralizzato"), "yes", "no"),
+         armadio_a_muro = if_else(stri_detect_fixed(aptchar,"armadio a muro"), "yes", "no"),
+         portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar,"portiere mezza giornata"), "yes", "no"),
+         caminetto = if_else(stri_detect_fixed(aptchar,"caminetto"), "yes", "no"),
+         esposizione_interna = if_else(stri_detect_fixed(aptchar,"esposizione interna"), "yes", "no"),
+         mansarda = if_else(stri_detect_fixed(aptchar,"mansarda"), "yes", "no"),
+         parzialmente_arredato = if_else(stri_detect_fixed(aptchar,"parzialmente arredato"), "yes", "no"),
+         taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no"),
+         idromassaggio = if_else(stri_detect_fixed(aptchar,"idromassaggio"), "yes", "no"),
+         terrazza = if_else(stri_detect_fixed(aptchar,"terrazza"), "yes", "no"),
+         esposizione_doppia = if_else(stri_detect_fixed(aptchar,"esposizione doppia"), "yes", "no"),
+         giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
+         giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
+         taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
+         )
+
+
+
+
+dummied_ftc = dummied %>%
+  separate(aptchar, into = LETTERS[1:15],"\\s{2,}")  %>% 
+  replace(., is.na(.), "0") 
+
+
+all_aptchars = map(dummied_ftc, ~str_c(unique(.x),collapse = ",")) %>%
+  bind_rows() %>% 
+  gather(key = col_name, value = col_unique)  %>% 
+  mutate(col_unique  = strsplit(col_unique, "\\,")) %>%
+  pull(col_unique) %>% 
+  unlist() %>% 
+  unique()
+
+
 
 ```
 
 Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
 
 - encoding from UTF-8 to Latin due to Italian characters incorrectly parsed.
-- *FLOORS* covariate needs to be separated by its *ASCENSORE* and *ACCDISABILI* components, adding 2 more bivariate covariates.
-- *LOCALI* needs to be separated too. 5 category levels drain out: *TOTLOCALI*, *CAMERELETTO*, *ALTRO*, *BAGNO*, *CUCINA*. *NROOM* is a duplicate for *TOTLOCALI*, so it is discarded.
-- *APTCHAR* is a list column so that each observation has different categories inside. The preprocess step includes unnesting the list by creating as many bivariate columns as elements in the list. Then new columns flag the existence of the characteristics in the apartment. A slice for the fist APTCHAR observation displays:
+- *floors* covariate needs to be separated by its *ascensore* and *accdisabili* components, adding 2 more bivariate covariates.
+- *locali* needs to be separated too. 5 category levels drain out: *totlocali*, *camereletto*, *altro*, *bagno*, *cucina*. *nroom* is a duplicate for *totlocali*, so it is discarded.
+- *aptchar* is a character strign column that contains a various number of different features per house. The preprocess steps include cleaning the string from unnecessary characters, then finding the whole set of unique elements across the character column by splitting on a regex pattern, in the end recoding newly created bivariate columns "yes" or "no" accoeding to a matching pattern whether the feature appears in the string not. A slice from the API output APTCHAR is:
 
-`r datiprep %>%  select(APTCHAR) %>%  slice(sample(1))  %>% pull`
+`r datiprep %>%  select(aptchar) %>%  slice(sample(1))  %>% pull(1)`
 
 ### Maps and Geo-Visualisations
 
-Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *PRICE* indicates unsurprisingly that higher prices are nearer to the city center.
-The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *price* indicates unsurprisingly that higher prices are nearer to the city center.
+The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
 
 ```{r LeafletVisuals, out.width="100%", fig.cap="Leaflet Map"}
 
@@ -199,7 +240,7 @@ if(knitr::is_latex_output()){
     knitr::include_graphics("images/leaflet_prezzi.jpg")
 } else if(knitr::is_html_output()){  
   dati2 = dati %>%
-    dplyr::select(LAT, LONG, PRICE )
+    dplyr::select(price, long, price )
   pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
   
   leaflet(dati2) %>%
@@ -207,13 +248,13 @@ if(knitr::is_latex_output()){
     setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>%
     addMiniMap() %>% 
     addTiles() %>% 
-    addCircles(lng = ~LONG, 
-               lat = ~LAT, 
-               color = ~ pal(PRICE),
+    addCircles(lng = ~long, 
+               lat = ~lat, 
+               color = ~ pal(price),
                weight = 10,
-               radius = ~log(PRICE)) %>%
+               radius = ~log(price)) %>%
     addLegend("bottomright",
-      pal = pal, values = ~PRICE,
+      pal = pal, values = ~price,
       title = "Prices") %>%
     addScaleBar(position = c("bottomleft"))
   }
@@ -225,7 +266,6 @@ Predictors, in this case latitude and longitude appear to have nonlinear relatio
 dome = data.frame(coords = c(9.191383, 45.464211), latlong = c("lat","long"))
 domecoords = data.frame(coords = c(9.191383, 45.464211))
 bu = datiprep %>% 
-  rename_all(tolower) %>%
   dplyr::select(price, lat, long) %>% 
   tidyr::pivot_longer(cols = c(long, lat), 
                       names_to = "predictor", values_to = "value")
@@ -251,10 +291,10 @@ Bilocali are the most common option for rent, then trilocali comes after. The in
 
 ```{r fctCounts, fig.cap="Most common housedolds categories"} 
 datiprep %>%
-  mutate(TOTLOCALI = as_factor(TOTLOCALI)) %>% 
-  count(TOTLOCALI, sort = TRUE) %>% 
-  mutate(TOTLOCALI = fct_reorder(TOTLOCALI, n)) %>%
-  ggplot(aes(n, TOTLOCALI)) +
+  mutate(totlocali = as_factor(totlocali)) %>% 
+  count(totlocali, sort = TRUE) %>% 
+  mutate(totlocali = fct_reorder(totlocali, n)) %>%
+  ggplot(aes(n, totlocali)) +
   geom_col() +
   labs(x = "# of houses",
        y = "",
@@ -272,18 +312,18 @@ Then in bottom plot Jittering is then applied to point out the number of outlier
 ```{r PricePerAc, fig.cap="Log Monthly Price per Heating/Cooling system?"}
 
 pph =datiprep %>%
-  mutate(HEATING = fct_lump(HEATING, 4)) %>%
-  filter(HEATING != "Other") %>%
-  filter(HEATING != is.na(HEATING)) %>% 
-  mutate(HEATING = recode(HEATING,"Centralizzato, a radiatori" = "Cen_Rad",
+  mutate(heating = fct_lump(heating, 4)) %>%
+  filter(heating != "Other") %>%
+  filter(heating != is.na(heating)) %>% 
+  mutate(heating = recode(heating,"Centralizzato, a radiatori" = "Cen_Rad",
                           "Centralizzato, a radiatori, alimentato a gas" = "Cen_Rad_Gas",
                           "Centralizzato, a radiatori, alimentato a metano" = "Cen_Rad_Met",
                           "Autonomo, a radiatori, alimentato a metano" = "Aut_Rad_Met",
                           "Autonomo, a radiatori, alimentato a gas" = "Aut_Rad_Gas")) %>% 
-  add_count(HEATING, name = "HEATING_count") %>% 
-  mutate(HEATING = glue("{ HEATING } ({ HEATING_count })"),
-         HEATING  = fct_reorder(HEATING, PRICE)) %>%
-  ggplot(aes(PRICE, HEATING)) +
+  add_count(heating, name = "heating_count") %>% 
+  mutate(heating = glue("{ heating } ({ heating_count })"),
+         heating  = fct_reorder(heating, price)) %>%
+  ggplot(aes(price, heating)) +
   ggtitle("Log Monthly Price per Heating and AC systems?")+
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
@@ -293,13 +333,13 @@ pph =datiprep %>%
   theme_nicco()
 
 ppa =datiprep %>%
-  mutate(AC = fct_lump(AC, 4)) %>%
-  # filter(AC != "Other") %>%
-  filter(AC != is.na(AC)) %>% 
-  add_count(AC, name = "AC_count") %>% 
-  mutate(AC = glue("{ AC } ({ AC_count })"),
-         AC  = fct_reorder(AC, PRICE)) %>%
-  ggplot(aes(PRICE, AC)) +
+  mutate(ac = fct_lump(ac, 4)) %>%
+  # filter(ac != "Other") %>%
+  filter(ac != is.na(ac)) %>% 
+  add_count(ac, name = "ac_count") %>% 
+  mutate(ac = glue("{ ac } ({ ac_count })"),
+         ac  = fct_reorder(ac, price)) %>%
+  ggplot(aes(price, ac)) +
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
@@ -319,10 +359,10 @@ this visualization intersects allows to discover bimodality in the response vari
 ```{r}
 ## non filled
 non_fill = datiprep %>%
-  add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
-  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
-         TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
-  ggplot(aes(PRICE, TOTLOCALI, fill = ACCDISABILI)) + 
+  add_count(totlocali, name  = "totlocali_count") %>% 
+  mutate(totlocali = glue("{ totlocali } ({ totlocali_count })"),
+         totlocali = fct_reorder(totlocali, price)) %>% 
+  ggplot(aes(price, totlocali, fill = accdisabili)) + 
   geom_density_ridges(alpha = .5) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   labs(x = "Price (EUR)",
@@ -332,10 +372,10 @@ non_fill = datiprep %>%
 
 
 with_fill = datiprep %>%
-  add_count(TOTLOCALI, name  = "TOTLOCALI_count") %>% 
-  mutate(TOTLOCALI = glue("{ TOTLOCALI } ({ TOTLOCALI_count })"),
-         TOTLOCALI = fct_reorder(TOTLOCALI, PRICE)) %>% 
-  ggplot(aes(PRICE, TOTLOCALI,fill = ASCENSORE)) + ## qui fill con v avriabile bianria
+  add_count(totlocali, name  = "totlocali_count") %>% 
+  mutate(totlocali = glue("{ totlocali } ({ totlocali_count })"),
+         totlocali = fct_reorder(totlocali, price)) %>% 
+  ggplot(aes(price, totlocali,fill = ascensore)) + ## qui fill con v avriabile bianria
   geom_density_ridges(alpha = .5) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   labs(x = "Price (EUR)",
@@ -356,7 +396,6 @@ The plot  \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y
 my_formula = y ~ x
 
 datiprep_sq = datiprep %>%
-  rename_all(tolower)  %>% 
   filter(!is.na(sqfeet),
          sqfeet >= .001) %>%
   arrange(desc(sqfeet)) %>%
@@ -430,25 +469,24 @@ datiprep_sq %>%
 
 ## Text Mining in estate Review
 
-It is possibile to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups, each of which adresses a specific part of the same theme. In the
-Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro. 
+The word network in figure \ref(fig:WordNetworkgraph) tries to summarize relevant information from real estate agency review into each advertisement. avg_totprice expresses the sum of the price per month plus the condominium in order to fully integrate inner property characteristics together with building exclusivity. Tokenized words are then filtered with "stopwords-iso" italian dictionary. 
+Nodes associated with hotter colours are also associated to more expensive in and out-house characteristics. The size of nodes keeps track of the number of reviews in which the specific word appears. A table of the most common words can help highlight both the real estate jargon as well as words that brings up house values. 
 
+```{r MostUsed, fig.cap="Most valuable and used words in reviews"}
 
-```{r WordNetworkgraph, fig.cap="Word Network Graph for 250 Estate Agencies Review"}
 datiprep_review = datiprep %>% 
-  rename_all(tolower) %>% 
   select(review, id, price)
 
 datiprep  = datiprep %>%  
   rename_all(tolower)
 
 it_stopwd = tibble(word =  stopwords("it", source = "stopwords-iso"))
+
 review_tokenized = datiprep_review %>%
   unnest_tokens(word, review) %>% 
   anti_join(it_stopwd, by = "word") %>% 
   filter(str_detect(word, "[a-z]")) %>% 
   inner_join(datiprep, by = "id")
-
 
 review_words = review_tokenized %>%
   filter(!is.na(condom)) %>% 
@@ -457,18 +495,33 @@ review_words = review_tokenized %>%
   group_by(word) %>% 
   summarize(count = n(),
             reviews = n_distinct(id),
-            avg_totprice = mean(totprice)) %>%
+            avg_totprice = mean(totprice))%>%
   arrange(desc(reviews)) 
 
-review_words_filtered = review_words %>%
-  filter(reviews < 158, reviews >= 50)# , reviews >= 10
+review_words %>% 
+  head(10) %>% 
+  knitr::kable(booktabs = T)
+```
 
+
+```{r TF_IDF, eval=FALSE}
+review_tf_idf = review_tokenized %>%
+  bind_tf_idf(word, reviews, count) %>% 
+  arrange(desc(tf_idf))
+```
+
+
+Furthermore it is possible to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups of nodes, each of which addresses a specific part of the house comprehensive evaluation.
+In the far right side of the plot are considered the external appliances like neighbor stores, subway stations and services and are associated to mean prices. The correspondent number of reviews are not justifying by any type of price increasing effect. Whereas slightly moving the view to the left, the area centered in portineria evidences a sub-groups of nodes associated to relatively higher avg-totprice. Some of them are servizio signorile palazzo. The previous set of nodes indicates services that are proper to the building can lead to some sort of extra payment. Then still moving 
+Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro. 
+
+
+```{r WordNetworkgraph, fig.cap="Word Network Graph for 250 Estate Agencies Review"}
 
 word_cors = review_tokenized %>%
   semi_join(review_words_filtered, by = "word") %>%
   distinct(id, word) %>%
   pairwise_cor(word, id, sort = TRUE)
-
 
 set.seed(2020)
 
@@ -546,7 +599,6 @@ gg_miss_upset(data1, nsets = 7)
 ```{r ImputationData}
 ## conversion to dataframe
 data_miss = datiprep %>%  
-  rename_all(tolower) %>% 
   select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice.originalprice,-lowrdprice.currentprice, -lowrdprice.passeddays,-lowrdprice.date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
   as.data.frame()
 
@@ -678,11 +730,4 @@ semivar = variogram(PRICE~1,
 # krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)
 
 ```
-
-
-
-
-
-
-
 

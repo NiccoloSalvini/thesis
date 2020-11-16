@@ -392,7 +392,7 @@ For a complete deepening on Parallel theory and concepts both on hardware and so
 ```{r detectCore}
 cl_hyper = as.integer(detectCores())
 cl_not_hyper = as.integer(detectCores(logical = FALSE))
-print(glue("total n° of Hyper-Threading cores on the machine is {cl_hyper}\n\n
+print(glue("total n° of Hyper-Threading cores on the machine is {cl_hyper}\n
            total n° of NOT Hyper-Threading cores {cl_not_hyper}"))
 ```
 
@@ -403,7 +403,7 @@ Furthermore as a general criteria for loops are avoided inside single scraping f
 
 The first attempt was using `furrr` package [@furrr] which enables mapping (i.e. `map`) through a list from `purrr`, along with a `future` parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command `plan(multisession, workers = 2)`. Then the function operates as many other seen purrr variations:
 `furrr::future_map(scrape(), .progress = T)`. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: (pensa se fare più simulazioni, prende tempo)
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( _pensa se fare più simulazioni, prende tempo_ )
 
 ```{r furrrloop, eval = FALSE }
 
@@ -447,14 +447,11 @@ theme_nicco()
 
 On the x-axis in the figure \@ref(fig:furrr) the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time $\mathcal{O}(n)$, where n are the number of links considered.
 
-A second attempt tried to explore the `foreach` package [@foreach] originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating the environment. 
+A second attempt tried to explore the `foreach` package [@foreach] originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating containers. 
+That means all workers should be self containing enviroments including libraries function and exported objects.
 
-
-One major concern regards that functions inside the %dopar% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the  %dopar%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
-
-
-The function  Flexibility comes at a cost of usability, as a matter of fact the loop constructor is much more complex with respect to furrr.
-The looping construction follows the r-base looping idea, below main steps are summarized:
+Flexibility comes at a cost of usability, as a matter of fact the loop constructor paradigm is much more complex with respect to furrr.
+The looping construction abstractly follows the r-base looping idea, below main steps are summarized:
 
 - Detect cores, initialize workers based on number of cores, register the parallel back end `registerDoParallel(cl,cores)`
 - define the iterator, i.e. "i"  equal to the number of elements that are going to be looped
@@ -500,7 +497,7 @@ It can be grasped quite easily by figure \@ref(fig:foreach) that initially forea
 
 ## Open Challenges and Further Improvemements{#challenges}
 
-The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained.  As a matter of fact what unfortunately can not be a-priori optimized are the future changes that involves the first part of the scraping process i.e. decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed. This idea is developed in the package @Rcrawler, which crawls the entire website and searches for targeted keywords, even though end results are not always acceptable. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. html are known to be very lightweight so computation of this kind is not weighing down the run time. Once all files are stored the algorithm searched for the keywords within the html, then results are grabbed. For these reasons performances with algorithm of this species are very smooth but results, as anticipated, are under the expectations. Moreover the bigger the website the slower the algorithm.
+The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained.  As a matter of fact what unfortunately can not be a-priori optimized are the future changes that involves the first part of the scraping process i.e. decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed. This idea is developed in the package  Rcrawler @Rcrawler, which crawls the entire website and searches for targeted keywords, even though end results are not always acceptable. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. html are known to be very lightweight so computation of this kind is not weighing down the run time. Once all files are stored the algorithm searched for the keywords within the html, then results are grabbed. For these reasons performances with algorithm of this species are very smooth but results, as anticipated, are under the expectations. Moreover the bigger the website the slower the algorithm.
 As a partial solution a more robust scraping code can be obtained integrating the existing code with accurate content text mining techniques together with unit testing integration tools like `testthat` @testthat and `usethis` @usethis. The latter packages also bring improvements during software development and ex-post a *TDD* (i.e.Test-Driven Development @TDD_2004) approach would have cut API software development time. Furthermore a very popular tool to develop and automate test API is [Postman](https://www.postman.com/), which is very convenient when POST endpoints are available, since for the moment are not in existence it is not used and the default [Swagger](https://editor.swagger.io/) interface takes its place.
 It must be said also that @Rcrawler is designed to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other related website with no effort, for reasons pointed out in the initial part of section \@ref(webstructure).
 The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI. A better way to move toward would be integrating a CI/TD approach as said few lines ago.
