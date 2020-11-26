@@ -2,7 +2,7 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges regard not only scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
+In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
 API Service has to be executed $n$ given times during the day at $x-y-z$ hours and should be storing data on a cloud database, so that the evolution of the phenomenon can be monitored in time.
 API service has to be fast otherwise data become obsolete and so happen to the analysis that has relied on the data.
 API service has to be deployed so that it can be shared over a wider range of different background stakeholders, without having them to know what it takes.  From one hand service has to be responsive to immobiliare.it unpredictable changes, thus it needs to be continuously integrated and reviewed. On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. Moreover service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. In addition API inbound traffic has to be managed both in terms traffic and security by granting access only to the ones authorized.
@@ -15,8 +15,8 @@ Technologies involved are:
 - Scheduler cron job, section \@ref(scheduler)
 - Plumber REST API, section \@ref(plumberapi)
 - Docker containers, section \@ref(docker)
-- NGINX reverse proxy, section \@ref(nginx)
 - AWS (Amazon Web Services) EC2 \@ref(aws)
+- NGINX reverse proxy, section \@ref(nginx)
 - MongoDB Atlas
 - Shiny
 
@@ -151,7 +151,7 @@ The API service is composed by 4 endpoints */scrape* , */links*, */complete* and
 
 - */scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in $\approx 10.91^{''}$). This comes at the cost of the number of available covariates to scrape which are:  title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino). 
 
-- */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \@ref(webstructure). It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.
+- */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section \@ref(webstructure). It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.
 
 - */complete:  both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link. 
 
@@ -271,6 +271,32 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 
 In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters. 
 
+
+## AWS EC2 server{#aws}
+
+Executing REST API on a public server allows to make scraping data available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
+
+\BeginKnitrBlock{definition}\iffalse{-91-65-87-83-32-69-67-50-93-}\fi{}
+<span class="definition" id="def:aws"><strong>(\#def:aws)  \iffalse (AWS EC2) \fi{} </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+
+\EndKnitrBlock{definition}
+[few words still on EC2]
+
+### Launch an EC2 instance
+
+The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the "add storage" step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \@ref(dockerfile), has been exposed and needs to be linked to the security port opened. 
+
+![aws_dashboard](images/aws.PNG)
+
+At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem  file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible. 
+Once the CLI pops out some Linux libraries to check file structure ("tree") and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command. 
+AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call. 
+the Public DNS has the following form:
+
+`ec2-15-161-94-121.eu-south-1.compute.amazonaws.com`
+
+
 ## NGINX reverse proxy server{#nginx}
 
 For analysis purposes NGINX is open source software for reverse proxying and load balancing.
@@ -283,44 +309,10 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 .conf file and installation on Linux server. Security and Authentication. 
 
-## AWS EC2 server{#aws}
-
-Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
-AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
-
-\BeginKnitrBlock{definition}\iffalse{-91-65-87-83-32-69-67-50-93-}\fi{}
-<span class="definition" id="def:aws"><strong>(\#def:aws)  \iffalse (AWS EC2) \fi{} </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
-
-\EndKnitrBlock{definition}
-[few words still on EC2]
-
-### Launch an EC2 instance
-
-The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the "add storage" step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \@ref(dockerfile), has been exposed and needs to be linked to the security port opened. 
-
-![aws_dashboard](images/aws.PNG)
-
-At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem  file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible. 
-Once the CLI pops out some Linux libraries to check file structure ("tree") and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command. 
-AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call. 
-the Public DNS has the following form:ì
-
-`ec2-18-224-40-67.us-east-2.compute.amazonaws.com`
-
-
 ## Further Integrations
 
 Pins is an r packages [this link](https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9)
 software development framework and tools for testing [this work](https://github.com/isteves/plumbplumb)
-
-
-
-
-
-
-
-
-
 
 
 

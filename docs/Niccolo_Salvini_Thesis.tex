@@ -167,7 +167,7 @@
 
 \title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 13 novembre, 2020}
+\date{Last compiled on 23 novembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -242,7 +242,7 @@ As a general discussion technologies implied can be thought as the distance betw
 \hypertarget{scraping}{%
 \chapter{Scraping}\label{scraping}}
 
-The following chapter covers a gentle introduction and concepts of web scraping centered on immobiliare.it. It starts in general terms by ideally partitioning websites in two entities: website structure and content architecture, then the segmentation is applied to the specific immobiliare.it case. The abstract workflow will ease the identification of the first ``high level'' challenges to front, so that the following ``lower levels'' can be then accessed and solved. Website structure mainly accounts how urls are arranged throughout the website and how to reverse engineer the website url composition. Once the structure is unrolled in a way that each part can be singularly and directly accessed, then the flow passes to ``lower levels'' i.e.~scraping content architecture. At this point a rooted-tree graph representation is used to map scraping functions design into immobiliare content architecture. By means of \texttt{rvest} scraping is possible and the main function involved are presented. Then a specific function to scrape price (the response var) is shown and then also a second function, that takes care of grouping all the scraping functions into a single one. Scraping best practices are applied both on the web server side, kindly requesting permission and delayed sending rate; and from the web client side by granting continuous scraping, avoiding server blocks by User Agent rotation and trycatches / handlers for easy debugging. Then run time scraping performances are fronted presenting two different options for looping construction, \texttt{furrr} and \texttt{foreach}. The latter has displayed interesting results and further improvements are taken into consideration. Then an overview of the open challenges is offered so that this work might be extended and integrated with newer technologies or paradigms. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
+The following chapter covers a gentle introduction and some advanced topics for web scraping with a focus on immobiliare.it. The content starts in general terms by ideally partitioning websites in two entities: website structure and content architecture, then the segmentation is applied to the specific immobiliare.it case. The abstract workflow helps the identification of the first ``high level'' challenges to front, so that the following ``lower levels'' can be then accessed and fronted. Website structure mainly accounts the way urls are arranged throughout the website and a methodology to reverse engineer the website url composition. Once the structure is unrolled so that each part can be singularly and directly accessed, then scraping flows to ``lower levels'' i.e.~scraping content architecture. Content architecture in the scraping context is considered to be how data is stored within a webpage. At this point a rooted-tree graph representation of web site content architecture is used to map scraping functions design into immobiliare.it. By means of \texttt{rvest} \citet{rvest} either website structure and content architecture can be handled and the main function involved are presented. \texttt{scrapeprice()} outlines the strategy adopted to look for the content inside each web page. The skeleton of the function is then reused to shape all the other scraping functions needed. Moreover it is shown also a second function, that combines all the functions into a single scraping call obtaining the final dataset. Scraping best practices are applied from the web server point of view, kindly requesting permission and delayed sendingrate. Form the the web client point of view continuous scraping is granted by User Agent pool rotation and handlers to bypass missing to grab content. Then a run time parallel scraping benchmark is presented with two different options for parallel looping construction, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two have displayed encouraging results, nevertheless the former offers a much more compatible and Tidy environment for parallel computing. Furthermore an overview of open challenges is offered so that this work might be extended and integrated with newer technologies or paradigms. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
 
 \hypertarget{what-is-web-scraping}{%
 \section{What is Web Scraping}\label{what-is-web-scraping}}
@@ -283,11 +283,44 @@ The walk from node ``body'' to node ``h2'' in figure below is called path and it
 \end{figure}
 
 \hypertarget{webstructure}{%
-\subsection{Immobiliare.it Webscraping website structure}\label{webstructure}}
+\subsection{Immobiliare.it website structure}\label{webstructure}}
 
-The structure of immobiliare website can be assumed to be similar to the one of the largest online retailer Amazon. For that reason they both fall in the same website structure category. Sharing the same website structure category might imply that the transition from customized website structure scraping functions (i.e.~immobiliare) do not take too many sophistications to be extended to other comparables (i.e.~Amazon). Assuming that the scraper knows where are critical information (i.e.~payloads), what it takes to uncover the website structure is a way to decompose it. As a matter of fact each time the scraper script visits the website it should not to start back then from root node and down through the path straight to the bottom of the content. Indeed it should minimize the number of nodes encountered constrained to the respective weights. This is reached by engineering url composition.
-According to some filters selected in a section (e.g.~city, number of rooms 5, square footage less than 60 \(m^2\) etc), the url is shaped so that each further filter is appended at the end of the domain url \texttt{https://www.immobiliare.it/} root node. Filters are appended with a proper syntax, not all the composition syntax are equal, that is why scraping script needs sophostication to be transalted from immobilaire to other websites in the same category. Once filters are all applied to the root domain this constitutes the new url root domain node that might have this appearance by filtering for rents in Milan city when square footage is less than 60 \(m^2\): domain +\texttt{affitto-case/milano/?superficieMinima=60}. Since this is true only for page n°1 containing the first 25 advs (see figure \ref{fig:websitetree}) all the remaining siblings nodes corresponding to the subsequent pages have to be generated. Here the utility of Local reproducibility property introduced in the previous section. The remaining siblings, i.e.~the ones belonging to page 2 (with the attached 25 links),to page 3 etc. can be generated by adding a further filter \texttt{\&pag=n}, where n is the page number reference (from now on referred as \emph{pagination}). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational constraints imposed by inla methodology \ref{inla}.
-Up to this point pagination has generated a vector of siblings nodes whose children elements number is fixed (i.e.~25 links per page \ref{fig:websitetree} lower part). That makes those trees \emph{k-ary}, where k is 25 indicating the number of children leaves. K-ary trees are rooted trees in which each node has no more than k children, in this particular case final leaves. The well known binary rooted tree is actually a special case of k-ary when \(k = 2\). Filters reverse engineering process and 25-ary trees with equal content structure across siblings allow to design a single function to call that could be mapped for all the other siblings. In addition in order to further unroll the website a specific scraping function grabs the whole set of 25 links per page. As a result a single function call of \texttt{scrape\_href()} can grab the links corresponding to page 1. Then the function is mapped for all the generated siblings nodes (i.e.~up to 300) obtaining a collection of all links belonging to the set of pages. Ultimately the complete set of links corresponds to every single advertisement posted on immobiliare.it at a given time.
+The website structure of immobiliare can be assumed to be similar to the one of the largest online retailer Amazon. For that reason they both fall into the same website structure category. Sharing tthe same category might imply that the transition from customized website structure scraping functions (i.e.~immobiliare) do not take extraordinary sophistication to be extended to other comparable websites (i.e.~Amazon). Assuming that the scraper knows where data is stored (i.e.~payloads), the mandatory step is a way to compose and decompose url anathomy. As a matter of fact each time the scraper script visits the website it should not step back from domain root node and then down the longest path reaching the final content node. Instead it should try to shorten the path by minimizing the number of nodes encountered, conditioned to the respective nodes' weights. This is a first important conclusion since by separating the website strcuture from the content architecture scraping is massively faster and should not no more rely on the website forced root-to-node paths.
+immobiliare.it is a \href{https://en.wikipedia.org/wiki/Clean_URL}{clean url} \emph{miss lit} and it can be easily parsed and queried according to some parameters (i.e.~filters) selected in their dedicated section (e.g.~city, number of rooms 5, square footage less than 60 \(m^2\), macrozone ``fiera'' and ``centro''). The url is shaped so that each further parameters and its respcetive values are appended at the end of the domain url \texttt{https://www.immobiliare.it/}. Parameters and values are appended with a proper semantic, not all the sematics are equal, that is why scraping needs sophostication when applied to other websites. One major adavatge in this context is immobilaire being a \href{https://en.wikipedia.org/wiki/Clean_URL}{clean url}, whose sematic is oriented to usability and accessibility.
+Once parameters are applied to the root domain this constitutes a newer rooted tree whose url root node is the parametrized.It might have this appearance (params are city of Milan, square footage is less than 60 \(m^2\): domain + filters i.e.~\texttt{affitto-case/milano/?superficieMinima=60}. Since for the moment are generated only links related to page n°1 containing the first 25 advs links (see figure \ref{fig:websitetree}) all the remaining siblings nodes corresponding to the subsequent pages have to be initialized. In here resides the utility of Local reproducibility property introduced in the previous section. The remaining siblings, e.g.~the ones belonging to page 2 (with the attached 25 links), to page 3 etc. can be generated by adding a further parameter \texttt{\&pag=n}, where n is the page number reference (from now on referred as \emph{pagination}). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational requirements imposed by inla methodology \ref{inla}. The code chunk below has the aim to mimic the url syntax filters building, s given a set of information it can reproduce any related sibling. detaching website structure from content architecture.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{missing}\NormalTok{(}\StringTok{"macrozone"}\NormalTok{)) \{}
+\NormalTok{    macrozone =}\StringTok{ }\KeywordTok{tolower}\NormalTok{(macrozone) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{iconv}\NormalTok{(}\DataTypeTok{to =} \StringTok{"ASCII//TRANSLIT"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_trim}\NormalTok{()}
+\NormalTok{    idzone =}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{    zone =}\StringTok{ }\KeywordTok{fromJSON}\NormalTok{(here}\OperatorTok{::}\KeywordTok{here}\NormalTok{(}\StringTok{"ALLzone.json"}\NormalTok{))}
+    \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(macrozone)) \{}
+\NormalTok{        zone}\OperatorTok{$}\NormalTok{name =}\StringTok{ }\NormalTok{zone}\OperatorTok{$}\NormalTok{name }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+        \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{grepl}\NormalTok{(macrozone[i], zone)[}\DecValTok{2}\NormalTok{]) \{}
+\NormalTok{            pos =}\StringTok{ }\KeywordTok{grepl}\NormalTok{(macrozone[i], zone}\OperatorTok{$}\NormalTok{name, }\DataTypeTok{ignore.case =}\NormalTok{ T)}
+\NormalTok{            idzone[i] =}\StringTok{ }\NormalTok{zone[pos, ] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(id)}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
+            \KeywordTok{stop}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"zone:"}\NormalTok{, macrozone[i], }\StringTok{" is not recognized"}\NormalTok{))}
+\NormalTok{        \}}
+\NormalTok{    \}}
+\NormalTok{    idzone =}\StringTok{ }\NormalTok{idzone }\OperatorTok{%>%}\StringTok{ }\KeywordTok{unlist}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{unique}\NormalTok{()}
+\NormalTok{    mzones =}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue_collapse}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ idzone, }\StringTok{"&idMZona[]="}\NormalTok{)}
+    
+\NormalTok{    dom =}\StringTok{ "https://www.immobiliare.it/"}
+\NormalTok{    stringa =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(dom, tipo, }\StringTok{"-case/"}\NormalTok{, citta, }\StringTok{"/?"}\NormalTok{, mzones)}
+\NormalTok{    npages_vec =}\StringTok{ }\KeywordTok{str_c}\NormalTok{(stringa, }\StringTok{"&pag="}\NormalTok{, }\DecValTok{2}\OperatorTok{:}\NormalTok{npages) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{append}\NormalTok{(stringa, }\DataTypeTok{after =} \DecValTok{0}\NormalTok{)}
+    
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    dom =}\StringTok{ "https://www.immobiliare.it/"}
+\NormalTok{    stringa =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(dom, tipo, }\StringTok{"-case/"}\NormalTok{, citta, }\StringTok{"/"}\NormalTok{)  }\CommentTok{# mzones}
+\NormalTok{    npages_vec =}\StringTok{ }\KeywordTok{glue}\NormalTok{(}\StringTok{"\{stringa\}?pag=\{2:npages\}"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{append}\NormalTok{(stringa, }\DataTypeTok{after =} \DecValTok{0}\NormalTok{)}
+    
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Up to this point pagination has generated a vector of siblings nodes whose children elements number is fixed (i.e.~25 links per page \ref{fig:websitetree} lower part). That makes those trees \emph{k-ary}, where k is 25 indicating the number of children leaves. K-ary trees are rooted trees in which each node has no more than k children, in this particular case final leaves. The well known binary rooted tree is actually a special case of k-ary when \(k = 2\). parameters reverse engineering process and 25-ary trees with equal content structure across siblings allow to design a single function to call that could be mapped for all the other siblings. In addition in order to further unroll the website a specific scraping function grabs the whole set of 25 links per page. As a result a single function call of \texttt{scrape\_href()} can grab the links corresponding to page 1. Then the function is mapped for all the generated siblings nodes (i.e.~up to 300) obtaining a collection of all links belonging to the set of pages. Ultimately the complete set of links corresponds to every single advertisement posted on immobiliare.it at a given time.
 
 \begin{figure}
 \centering
@@ -295,8 +328,8 @@ Up to this point pagination has generated a vector of siblings nodes whose child
 \caption{\label{fig:websitetree}immobiliare.it website structure, author's source}
 \end{figure}
 
-\hypertarget{immobiliare.it-webscraping-content-architecture-with-rvest}{%
-\subsection{\texorpdfstring{Immobiliare.it Webscraping content architecture with \texttt{rvest}}{Immobiliare.it Webscraping content architecture with rvest}}\label{immobiliare.it-webscraping-content-architecture-with-rvest}}
+\hypertarget{immobiliare.it-content-architecture-with-rvest}{%
+\subsection{\texorpdfstring{Immobiliare.it content architecture with \texttt{rvest}}{Immobiliare.it content architecture with rvest}}\label{immobiliare.it-content-architecture-with-rvest}}
 
 To start a general scraping function the only requirements are a target url (i.e.~the filtered root node url) and a way to compose url (i.e.~pagination ). Then a session class object \texttt{html\_session} is opened by specifying the url and the request data that the user needs to send to the web server, see left part to dashed line in figure \ref{fig:workflow}. Information to be attached to the web server request will be further explored later, tough they are mainly three: User Agents, emails references and proxy servers. \texttt{html\_session} class objects contains a list number of useful data such as: the url, the response, cookies, session times etc. Once the connection is established (response request 200) all the following operations rely on the opened session, in other words for the time being in the session the user will be authorized with the already provided request data. The list object contains the xml/html content response of the webpage and that is where data needs to be parsed and class converted. The list can disclose as well other interesting meta information related to the session but in this context are not collected. The light blue wavy line follows the steps required to get the content parsed from the beginning to the end.
 
@@ -347,86 +380,48 @@ The code chunk below exemplifies a function that can scrape the price. The funct
 \end{Shaded}
 
 The function takes as a single argument a session object, then It reads the inner html content in the session storing the information into an obj called the \texttt{opensess}. Another obj is created, namely price, right after the pipe operator a CSS query into the html is called. The CSS query \texttt{.im-mainFeatures\_\_title} points to a precise group of data inside the web page, right below the main title. Expectation are that price is a one-element chr vector, containing the price and other unnecessary non-UTF characters. Then the algorithm enters into the first \texttt{if} statement. The handler checks if the object \texttt{price} is empty. If it doesn't the algorithm jumps to the end of the function and returns the quantity cleaned. But If it does it takes again the \texttt{opensess} and tries with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title} in a second data location where price might be also found. Please note that this is all done within the same session, so no more additional request information has to be sent. Since the latter CSS query points to data stored inside a list object, for the time being the newly created \texttt{price2} is a list containing various information. Then the algorithm flow enters into the second \texttt{if} statement that checks whether \texttt{"prezzo"} is matched the list or not, if it does it returns the +1 position index element with respect to the ``prezzo'' positioning. This happens because data in price2 list are stored by couples sequentially, e.g.~{[}title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese{]}. When it returns the element corresponding to +1 position index it applies also some data wrangling with \texttt{stringr} package to keep out overabundant characters. The function then escapes in the else statement by setting \texttt{price2\ =\ NA\_Character\_} once no CSS query could be finding the price information. the \emph{NA-character-string} type has to be imposed due to fact that later they can not be bind. In other words if the function is evaluated for a url and returns the price quantity, but then is evaluated for url2 and outputs NA (no character) then results can not be combined into dataframe due to different object types.
+The skeleton used for price scraping constitutes a standard format in the analysis and it is adopted for all the rest of scraping functions. By keeping equal the CSS query what it is required to change is the matching term, i.e.~``numero camere'' should be pasted in the place of ``prezzo'' to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence of that functions need also to be broken down by pieces by single .R files, whose names correspond to each important information.
 
-Once all the functions have been created they need to be called together and then data coming after them need to be combined. This is done by \texttt{get.data.catsing()} which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a \texttt{foreach} parallel loop called by \texttt{scrape.all.info()}
+Once all the functions have been designed they need to be called together and then data coming after them need to be combined into a single final dataframe. This is done by \texttt{fastscrape()} Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a \texttt{foreach} parallel loop called by \texttt{scrape.all.info()}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{scrape.all.info =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{url =} \StringTok{"https://www.immobiliare.it/affitto-case..."}\NormalTok{,}
-                           \DataTypeTok{vedi =} \OtherTok{FALSE}\NormalTok{, }
-                           \DataTypeTok{scrivi =} \OtherTok{FALSE}\NormalTok{, }
-                           \DataTypeTok{silent =} \OtherTok{FALSE}\NormalTok{)\{}
-  \ControlFlowTok{if}\NormalTok{ (silent) \{}
-\NormalTok{    start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{()); }\KeywordTok{cat}\NormalTok{(}\StringTok{'Starting the process...}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{'}\NormalTok{)}
-    \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{The process has started in'}\NormalTok{,}\KeywordTok{format}\NormalTok{(start,}\DataTypeTok{usetz =} \OtherTok{TRUE}\NormalTok{))  }
-\NormalTok{  \}}
-  \CommentTok{# open parallel multisession }
-\NormalTok{  cores =}\KeywordTok{detectCores}\NormalTok{(}\DataTypeTok{logical =} \OtherTok{FALSE}\NormalTok{)}
-\NormalTok{  cl =}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(cores)}
-  \KeywordTok{registerDoParallel}\NormalTok{(cl,cores)}
-\NormalTok{  start =}\StringTok{ }\KeywordTok{as_hms}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{())}
-  
-  \ControlFlowTok{if}\NormalTok{ (silent) \{}
-    \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{Start all the requests at time:'}\NormalTok{, }\KeywordTok{format}\NormalTok{(start,}\DataTypeTok{usetz =}\NormalTok{ T))  }
-\NormalTok{  \}}
-\NormalTok{  ALL =}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{i =} \KeywordTok{seq_along}\NormalTok{(links),}
-                \DataTypeTok{.packages =}\NormalTok{ lista.pacchetti,}
-                \DataTypeTok{.combine =} \StringTok{"bind_rows"}\NormalTok{,}
-                \DataTypeTok{.multicombine =} \OtherTok{FALSE}\NormalTok{,}
-                \DataTypeTok{.export =}\StringTok{"links"}\NormalTok{ ,}
-                \DataTypeTok{.verbose =} \OtherTok{TRUE}\NormalTok{,}
-                \DataTypeTok{.errorhandling=}\StringTok{'pass'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\NormalTok{\{}
-                  \KeywordTok{source}\NormalTok{(}\StringTok{"utils.R"}\NormalTok{)}
-                  \KeywordTok{sourceEntireFolder}\NormalTok{(}\StringTok{"functions_singolourl"}\NormalTok{)}
-\NormalTok{                  get.data.catsing =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(singolourl)\{}
-                    
-                    \CommentTok{# dormi()}
-                    \CommentTok{# }
-                    \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is_url}\NormalTok{(singolourl))\{}
-                      \KeywordTok{stop}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"The following url does not seem either to exist or it is invalid"}\NormalTok{, singolourl))}
-\NormalTok{                    \}}
-                    
-\NormalTok{                    session =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(singolourl, }\KeywordTok{user_agent}\NormalTok{(agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{class}\NormalTok{(session) }\OperatorTok{==}\StringTok{ "session"}\NormalTok{) \{}
-\NormalTok{                      session =}\StringTok{ }\NormalTok{session}\OperatorTok{$}\NormalTok{response  }
-\NormalTok{                    \}}
-                      
-\NormalTok{                    id         =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapehouse.ID}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapehouse.ID"}\NormalTok{) \})}
-\NormalTok{                    lat        =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapelat.imm}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapelat.imm"}\NormalTok{) \})}
-\NormalTok{                    long       =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapelong.imm}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapelong.imm"}\NormalTok{) \})}
-\NormalTok{                    location   =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{take.address}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in take.address"}\NormalTok{) \})}
-\NormalTok{                    condom     =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapecondom.imm}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapecondom.imm"}\NormalTok{) \})}
-\NormalTok{                    buildage   =}\StringTok{ }\KeywordTok{tryCatch}\NormalTok{(\{}\KeywordTok{scrapeagebuild.imm}\NormalTok{(session)\},}
-                                          \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{ }\KeywordTok{message}\NormalTok{(}\StringTok{"some problem occured in scrapeagebuild.imm"}\NormalTok{) \})}
-                    
-\NormalTok{                  ...}
-                  
-\NormalTok{                   combine =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{ID        =}\NormalTok{ id,}
-                                     \DataTypeTok{LAT       =}\NormalTok{ lat, }
-                                     \DataTypeTok{LONG      =}\NormalTok{ long,}
-                                     \DataTypeTok{LOCATION  =}\NormalTok{ location,}
-                                     \DataTypeTok{CONDOM    =}\NormalTok{ condom,}
-                                     \DataTypeTok{BUILDAGE  =}\NormalTok{ buildage,}
-                                    
-\NormalTok{                  ...}
-                  
-                  
-                  \KeywordTok{return}\NormalTok{(combine)}
-                  \ErrorTok{\}}
-  \KeywordTok{stopImplicitCluster}\NormalTok{()                 }
-  \KeywordTok{stopCluster}\NormalTok{(cl)}
-  \KeywordTok{return}\NormalTok{(ALL)}
-\ErrorTok{\}}
+\CommentTok{## [ fastscrape ] ----}
+\CommentTok{## first endpoint function }
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{future.rng.onMisuse=}\StringTok{"ignore"}\NormalTok{)}
+\NormalTok{fastscrape =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(npages_vec)\{}
+            \KeywordTok{tic}\NormalTok{()}
+            \KeywordTok{plan}\NormalTok{(multisession, }\DataTypeTok{workers =} \KeywordTok{availableCores}\NormalTok{())}
+\NormalTok{            result =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+                        \DataTypeTok{title =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
+\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                                    \KeywordTok{scrapetitle_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh)\},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
+                        
+                        \DataTypeTok{monthlyprice =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{(}\OperatorTok{~}\NormalTok{\{}
+\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                                    \KeywordTok{scrapeprice_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
+                        
+                        \DataTypeTok{nroom =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
+\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                                    \KeywordTok{scraperooms_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
+                        
+                        \DataTypeTok{sqmeter =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
+\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                                    \KeywordTok{scrapespace_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
+                        
+                        \DataTypeTok{href =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
+\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+                                    \KeywordTok{scrapehref_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{()}
+                        
+\NormalTok{            )}
+            
+            \KeywordTok{toc}\NormalTok{()}
+            \KeywordTok{return}\NormalTok{(result) }
+
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-The skeleton used for price constitutes a standard format adopted for many other scraping function in the analysis. Being equal the CSS query what it changes is the matching term, i.e.~``numero camere'' instead of ``prezzo'' to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. Those that are not they are a few and they do not need to be scraped.
-In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence of that functions need also to be broken down by pieces by single .R files, whose names correspond to each important information.
 Below it is printed the tree structure folder that composes the main elements of the scraping procedure. It can be noticed that the two folders, namely functions\_singolourl and functions\_url enclose all the single functions that allows to grab each information from the session. Folders with a customized function are then sourced within the two main functions, scrape.all and scrape.all.info so data can be extracted.
 
 \begin{verbatim}
@@ -502,33 +497,6 @@ Some interpretation problems:
   Redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.
 \end{itemize}
 
-For the thesis purposes it has been designed a dedicated function to assess whether the domain or the related paths require specific actions or they prevent some activity on the target. The following \texttt{checkpermission()} function has been integrated inside the scraping system and it is called once at the starting point.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dominio =}\StringTok{ "immobiliare.it"}
-
-\NormalTok{checkpermission =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dom) \{}
-    
-\NormalTok{    robot =}\StringTok{ }\KeywordTok{robotstxt}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dom)}
-\NormalTok{    vd =}\StringTok{ }\NormalTok{robot}\OperatorTok{$}\KeywordTok{check}\NormalTok{()[}\DecValTok{1}\NormalTok{]}
-    \ControlFlowTok{if}\NormalTok{ (vd) \{}
-        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt for"}\NormalTok{, dom, }\StringTok{"is okay with scraping!"}\NormalTok{)}
-\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
-        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt does not like what you're doing"}\NormalTok{)}
-        \KeywordTok{stop}\NormalTok{()}
-\NormalTok{    \}}
-\NormalTok{\}}
-\CommentTok{## metti path allowed check}
-\KeywordTok{checkpermission}\NormalTok{(dominio)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## robot.txt for immobiliare.it is okay with scraping!
-\end{verbatim}
-
 Further improvements in this direction might come with the \texttt{polite} package \citep{polite} which combines the power of the \texttt{robotstxt}, the \texttt{ratelimitr} \citep{ratelimitr} to limit sequential requests together with the \texttt{memoise} \citep{memoise} for response caching. This package is wrapped up around 3 simple but effective ideas:
 
 \begin{quote}
@@ -585,25 +553,42 @@ Below the user agents rotation pool:
 A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
 While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
 Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
-- Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
-- Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
-
-\hypertarget{handlers-and-trycatches}{%
-\subsection{Handlers and Trycatches}\label{handlers-and-trycatches}}
-
-During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring. Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to catch data. Handlers in the form of trycatch error workarounds are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when debugging handlers are not implied. \texttt{get.data.catsing()} triggers 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single urls to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
-The solution proposed tries to handle fails by implementing as many trycatches as scrapping functions inside the single \texttt{get.data.catsing()} call. Then also inside each single scrapping function are put the handlers. This set up allows to catch (and in some cases prevent) fails starting from the very end of the scraping process. As a consequence of this setting when a scrapping function is not able to gather data an error inside the function is thrown, then the error call is intercepted by the corresponding trycatch, which at the end flags where the error occurs.
-Below some of the main handlers implied:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{.get\_ua()} verifies that the User Agent in the session is not the default one.
+  Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
+\item
+  Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
+\end{itemize}
+
+\hypertarget{handlers}{%
+\subsection{Handlers}\label{handlers}}
+
+During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring, better outlined in section \ref{challenges}. Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to grab the content. Handlers are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when handlers are not implied. API endpoints evokes 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single links to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
+The solution proposed tries to deal with failure through implementing \texttt{purrr} adverb \texttt{possibly()}, which takes a function (a verb) and returns a modified version. In this case, the modified function will never throw an error. The approach is encouraged when functions need to be mapped over larger objects and when run time are long as pointed out in section 21.6 of \citet{Rdatascience}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{title =}\StringTok{ }\KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{(}\OperatorTok{~}\NormalTok{\{}
+\NormalTok{    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
+    \KeywordTok{scrapetitle_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh)}
+\NormalTok{\}, }\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{flatten_chr}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Then also inside each single scrapping function are bundled ``authorization'' handlers that protect the web server side from unpolite scraping practises. This set up allows to catch (and in some cases prevent) web sites poloicy misuses from the very beginning of the scraping process.
+Below some of the main authorization handlers implied:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{get\_ua()} verifies that the User Agent in the session is not the default one.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{.get_ua =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(sess) \{}
+\NormalTok{get_ua =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(sess) \{}
     \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is.session}\NormalTok{(sess))}
     \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is_url}\NormalTok{(sess}\OperatorTok{$}\NormalTok{url))}
 \NormalTok{    ua =}\StringTok{ }\NormalTok{sess}\OperatorTok{$}\NormalTok{response}\OperatorTok{$}\NormalTok{request}\OperatorTok{$}\NormalTok{options}\OperatorTok{$}\NormalTok{useragent}
@@ -615,12 +600,12 @@ Below some of the main handlers implied:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{.is\_url()} verifies that the url input needed has the canonic form. This is done by a REGEX query.
+  \texttt{is\_url()} verifies that the url input needed has the canonic form. This is done by a REGEX query.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{.is_url =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(url) \{}
+\NormalTok{is_url =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(url) \{}
 \NormalTok{    re =}\StringTok{ "^(?:(?:http(?:s)?|ftp)://)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S+(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])\{2,\})(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d)\{2,5\})?(?:/(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?$"}
     \KeywordTok{grepl}\NormalTok{(re, url)}
 \NormalTok{\}}
@@ -630,12 +615,13 @@ Below some of the main handlers implied:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{.get\_delay()} checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
+  \texttt{get\_delay()} checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{.get_delay =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(domain) \{}
+\NormalTok{dominio =}\StringTok{ "immobiliare.it"}
+\NormalTok{get_delay =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(domain) \{}
   
   \KeywordTok{message}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"Refreshing robots.txt data for %s..."}\NormalTok{, domain))}
   
@@ -650,8 +636,9 @@ Below some of the main handlers implied:
 \NormalTok{  \}}
   
 \NormalTok{\}}
-\NormalTok{get_delay =}\StringTok{  }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(.get_delay) }\CommentTok{## so that .get_delay results are cached}
-\KeywordTok{.get_delay}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dominio)}
+
+\NormalTok{get_delay =}\StringTok{  }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(get_delay) }\CommentTok{## so that .get_delay results are cached}
+\KeywordTok{get_delay}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dominio)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -659,18 +646,57 @@ Below some of the main handlers implied:
 ## [1] NA
 \end{verbatim}
 
+\begin{itemize}
+\tightlist
+\item
+  \texttt{checkpermission()} assess whether the domain or the related paths require specific actions or they prevent some activity on the target.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{checkpermission =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dom) \{}
+    
+\NormalTok{    robot =}\StringTok{ }\KeywordTok{robotstxt}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dom)}
+\NormalTok{    vd =}\StringTok{ }\NormalTok{robot}\OperatorTok{$}\KeywordTok{check}\NormalTok{()[}\DecValTok{1}\NormalTok{]}
+    \ControlFlowTok{if}\NormalTok{ (vd) \{}
+        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt for"}\NormalTok{, dom, }\StringTok{"is okay with scraping!"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt does not like what you're doing"}\NormalTok{)}
+        \KeywordTok{stop}\NormalTok{()}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\KeywordTok{checkpermission}\NormalTok{(}\DataTypeTok{dom =}\NormalTok{ dominio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## robot.txt for immobiliare.it is okay with scraping!
+\end{verbatim}
+
 \hypertarget{explicit-parallel-scraping}{%
 \section{Explicit Parallel Scraping}\label{explicit-parallel-scraping}}
 
-Scraping run time is crucial when dealing with very active web pages, especially in real estate where rental time to market is a major competitive advantage.
-Since there as many sessions opened as single links scraped (refer to section \ref{ContentArchitecture}), and since for each of those links are supposed to be called 34 different functions (refer to section \ref{ContentArchitecture}), then scraping run time can take a bit longer. The time taken is caused by R executing code on a single processor sequentially one-by-one (i.e.~single thread computing). To overcome this issue explicit parallel (sometimes improperly called \href{https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897}{asynchronous}) scraping functions are structured so that computation do not employ vast cpu time (i.e.~cpu-bound). In order to escape the problem modern processor architectures provide multiple cores on a single processor. As a result many computation can be split on various processors and multiple cores of each processor.
-The \emph{computing group} is a software concept as stated in \citep{parallelr}, meaning how many R worker processes we need to create. From a theoretic perspective the working group unities can be greater than the number of cores detected, but for computing reasons are initialized as many workers as physical cores. Specifying the computing group is a critical step in each parallel execution. It has to be called before the function execution and normally allows to tune the number of cores and the number of workers.
-For a complete deepening on Parallel theory and concepts both on hardware and software side \citet{barney} is strongly suggested. For a full reference focused on R parallel ecosystem, run time simulations and advanced algorithm strategies for parallel execution the authorities are \citep{parallelr}. If the interest is to directly develop R parallel functions then a precious resource is this \href{https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html}{blog} which covers also some common error and consequent debugging.
+Scraping run time is crucial when dealing with proactive web pages, especially in real estate where rental time to market is a major competitive advantage as well as monthly price within the day are flexible enough to respond to demand inputs. The issue is also posed to the API setting according to which if the API endpoint query does not respond within a fixed time neighbor, chances are that the call might be lost.
+Since the problem requires as many sessions opened as single links extracted (refer to section \ref{ContentArchitecture}). MOreover since for each of the links extracted are supposed to be called 34 different functions (refer to section \ref{ContentArchitecture}), as a consequence scraping run time without parallel execution might take some time.
+The extraordinary amount of time taken is caused by R executing tasks on a single processor sequentially one-by-one in queue (i.e.~single thread computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called \href{https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897}{asynchronous}) scraping functions are proposed, so that computation do not employ vast cpu time (i.e.~cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor. As a result many computation can be split over processors and then multiple cores for each processor. The explicit characteristic affects the way the parallel back end is built, outlining the computing group and the parallel execution strategy.
+The \emph{computing group} is a software concept as in \citep{parallelr}, that mainly points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected, but for optimization properties of computation, proper of each strategy proposed in here, are initialized as many workers as physical cores (default option for most of the backends, logical cores).
+Specifying the computing group is a critical step in each parallel execution that needs to be initialized right before the ``main'' function execution. Moreover a split computation strategy is accompained to computing groups by convenience, decisions mainly regards optimal memory space allocation.
+In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are \emph{doMC} along with the foreach loop constructor and \emph{Future} with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in \citet{bengtsson_2017}. Future
+
+A variety of backends exist and third-party contributions meeting the specifications, which ensure that the same code works on all backends, If I were re-writing my code now, I'd probably also use futures and purrr. The former adds some niceties to doparallel and foreach if you choose to use that syntax, like automatically exporting packages. And it's backend-agnostic,
+
+Two are the most important features of future back end: Tidy format together with the furrr (purrr looping contruction) package which enables tidy evaluation and the related convenient tidy sintx properties and packages. The other regars the\\
+The most flexible and strong Parallel libraries are Parallel, doParallel, doMC and Future, which offer different sintax but same construction. They all come with a specific looping constructor which is optmized with respect to
+
+For a quick but comprehensive perspective on Parallel theory both on hardware and software side \citet{barney} is strongly suggested. For a full reference focused on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies the authorities are \citep{parallelr}. If the interest is to cut short theory and directly put R into parallel then a valuable resource is this \href{https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html}{blog}, which inter alia covers the main debugging .
+
+doParallela among the other offers also
 \texttt{detectCores()} uncovers how many \emph{Hyper-Threading} cores are at the disposition, since they do not provide any computational advantage the option \emph{logical} is set false. Below the number of cores available on the following machine:
 
 \begin{verbatim}
 ## total n° of Hyper-Threading cores on the machine is 12
-## 
 ## 
 ## total n° of NOT Hyper-Threading cores 6
 \end{verbatim}
@@ -681,7 +707,7 @@ Furthermore as a general criteria for loops are avoided inside single scraping f
 
 The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping (i.e.~\texttt{map}) through a list from \texttt{purrr}, along with a \texttt{future} parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command \texttt{plan(multisession,\ workers\ =\ 2)}. Then the function operates as many other seen purrr variations:
 \texttt{furrr::future\_map(scrape(),\ .progress\ =\ T)}. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: (pensa se fare più simulazioni, prende tempo)
+The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( \emph{pensa se fare più simulazioni, prende tempo} )
 
 \begin{figure}
 \centering
@@ -691,12 +717,11 @@ The approach has shown decent performance, but its run time drastically increase
 
 On the x-axis in the figure \ref{fig:furrr} the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time \(\mathcal{O}(n)\), where n are the number of links considered.
 
-A second attempt tried to explore the \texttt{foreach} package \citep{foreach} originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating the environment.
+A second attempt tried to explore the \texttt{foreach} package \citep{foreach} originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating containers.
+That means all workers should be self containing enviroments including libraries function and exported objects.
 
-One major concern regards that functions inside the \%dopar\% should be standalone in order to be executed in parallel. For standalone it is meant that everything that is needed to be executed and to output results should be defined inside the \%dopar\%, as it would be opened a new empty environment for each iteration. Moreover as a further consequence packages imported into each clusters, the .packages methods takes care of that.
-
-The function Flexibility comes at a cost of usability, as a matter of fact the loop constructor is much more complex with respect to furrr.
-The looping construction follows the r-base looping idea, below main steps are summarized:
+Flexibility comes at a cost of usability, as a matter of fact the loop constructor paradigm is much more complex with respect to furrr.
+The looping construction abstractly follows the r-base looping idea, below main steps are summarized:
 
 \begin{itemize}
 \tightlist
@@ -729,11 +754,12 @@ It can be grasped quite easily by figure \ref{fig:foreach} that initially foreac
 \hypertarget{challenges}{%
 \section{Open Challenges and Further Improvemements}\label{challenges}}
 
-The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained. As a matter of fact what unfortunately can not be a-priori optimized are the future changes that involves the first part of the scraping process i.e.~decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed. This idea is developed in the package \citet{Rcrawler}, which crawls the entire website and searches for targeted keywords, even though end results are not always acceptable. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. html are known to be very lightweight so computation of this kind is not weighing down the run time. Once all files are stored the algorithm searched for the keywords within the html, then results are grabbed. For these reasons performances with algorithm of this species are very smooth but results, as anticipated, are under the expectations. Moreover the bigger the website the slower the algorithm.
-As a partial solution a more robust scraping code can be obtained integrating the existing code with accurate content text mining techniques together with unit testing integration tools like \texttt{testthat} \citet{testthat} and \texttt{usethis} \citet{usethis}. The latter packages also bring improvements during software development and ex-post a \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) approach would have cut API software development time. Furthermore a very popular tool to develop and automate test API is \href{https://www.postman.com/}{Postman}, which is very convenient when POST endpoints are available, since for the moment are not in existence it is not used and the default \href{https://editor.swagger.io/}{Swagger} interface takes its place.
-It must be said also that \citet{Rcrawler} is designed to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other related website with no effort, for reasons pointed out in the initial part of section \ref{webstructure}.
-The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI. A better way to move toward would be integrating a CI/TD approach as said few lines ago.
-On the parallel computing side further performance improvement could be obtained using a new born package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a substantial monetary cost adn it is definetely not the first choice. Nonetheless it would perfectly match the need given that parallel back ends shrinks run time by accelerating the number of requests sent among different processors/cores or cluster, even though actually the goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained. As a matter of fact what unfortunately can not be predcited are the future changes that involves the first part of the scraping process i.e.~decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed, and so both html/CSS. This idea is developed in the package Rcrawler \citet{Rcrawler}, which crawls the entire website and searches for targeted keywords, even though final results are not always acceptable. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. html are known to be very lightweight so computation of this kind is not weighing down the run time. Once all files are stored the algorithm searches for the keywords within the html files, then results are grabbed. For these reasons performances with algorithm of this kind are very smooth but results are not very effective since keywords are not always associated to the data needed. With that said a safer way to scrape exact content could be embedding complex regular expression (flagging data location) within the HTML files and then calling on the location a CSS query.
+It must be said that \citet{Rcrawler} is designed to be flexible to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with no effort \ref{webstructure}.
+From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \texttt{Golem} \citet{colin_fay_2020} into the existing code. According to the most recent literature APIs (as well as Shiny) should be treated as R packages ( a developmen version is \citet{plungr}) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) by \citet{usethis} and \citet{testthat} during package building can make software more portable, organized and productionable.
+In addition a very popular integration to API development and automate testing is \href{https://www.postman.com/}{Postman}, which is very handy when POST requests are sent, since for the moment they are not into existence it is not used and the default \href{https://editor.swagger.io/}{Swagger} UI takes its place.
+The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI.
+On the parallel computing side further performance improvement could be obtained using a new born package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a substantial monetary for this reason is not the first choice. Nonetheless it would perfectly fill the needs given that parallel back ends shrinks run time by accelerating the number of requests sent among different processors/cores or cluster, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
 
 Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the \href{https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar}{stackoverflow reproducible example}. As a consequence to that each time an error occurs the ``main'' functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.
 
@@ -741,7 +767,38 @@ Moreover error messages can not sometimes be printed out in console and be undes
 \section{Legal Profiles (ancora non validato)}\label{legal-profiles-ancora-non-validato}}
 
 ``Data that is online and public is always available for all'' is never a good answer to the question ``Can I use those web data to my scope''. Immobiliare.it is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
-A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their \href{https://www.immobiliare.it/terms/}{specialized section}. Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.
+A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their \href{https://www.immobiliare.it/terms/}{specialized section}. Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property. Below are checked the permissions to scrape the endpoints:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dom =}\StringTok{ "www.immobiliare.it"}
+\KeywordTok{robotstxt}\NormalTok{(dom)}\OperatorTok{$}\NormalTok{permissions }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{booktabs =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{lll}
+\toprule
+field & useragent & value\\
+\midrule
+Disallow & * & *idmacroarea=\\
+Disallow & * & /ricerca-mappa/\\
+Disallow & * & /ricerca.php\\
+Disallow & * & /ricerca\_agenzie.php\\
+Disallow & * & /track-events/\\
+\addlinespace
+Disallow & * & /nav-ads/\\
+Disallow & * & /mutui/calcolatore?prezzo=\\
+Disallow & * & /foto\_stampa\_beez.php\\
+Disallow & * & /dettaglio.php\\
+Disallow & * & /dettaglio\_progetto.php\\
+\addlinespace
+Disallow & * & *stampa=s\\
+Disallow & * & /news/newsletter/\\
+Disallow & * & /news/?s=\\
+Disallow & * & /valutazione-immobiliare/valuta-\\
+\bottomrule
+\end{tabular}
+
 What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \ref{best-practices}), and \emph{not} any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e.~is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
 
 \begin{itemize}
@@ -757,7 +814,7 @@ All of this leads to accept that entry barriers to scrape are for sure higher th
 \hypertarget{Infrastructure}{%
 \chapter{REST API Infrastructure}\label{Infrastructure}}
 
-In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \ref{challenges} are many and still some remains unsolved. Challenges regard not only scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
+In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \ref{challenges} are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
 API Service has to be executed \(n\) given times during the day at \(x-y-z\) hours and should be storing data on a cloud database, so that the evolution of the phenomenon can be monitored in time.
 API service has to be fast otherwise data become obsolete and so happen to the analysis that has relied on the data.
 API service has to be deployed so that it can be shared over a wider range of different background stakeholders, without having them to know what it takes. From one hand service has to be responsive to immobiliare.it unpredictable changes, thus it needs to be continuously integrated and reviewed. On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. Moreover service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. In addition API inbound traffic has to be managed both in terms traffic and security by granting access only to the ones authorized.
@@ -777,9 +834,9 @@ Technologies involved are:
 \item
   Docker containers, section \ref{docker}
 \item
-  NGINX reverse proxy, section \ref{nginx}
-\item
   AWS (Amazon Web Services) EC2 \ref{aws}
+\item
+  NGINX reverse proxy, section \ref{nginx}
 \item
   MongoDB Atlas
 \item
@@ -967,7 +1024,7 @@ The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph
 \item
   */scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in \(\approx 10.91^{''}\)). This comes at the cost of the number of available covariates to scrape which are: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).
 \item
-  */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.
+  */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.
 \item
   */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link.
 \item
@@ -1125,22 +1182,10 @@ where the instructions are:
 
 In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.
 
-\hypertarget{nginx}{%
-\section{NGINX reverse proxy server}\label{nginx}}
-
-For analysis purposes NGINX is open source software for reverse proxying and load balancing.
-Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
-{[}\ldots{]}
-
-When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
-{[}\ldots{]}
-
-.conf file and installation on Linux server. Security and Authentication.
-
 \hypertarget{aws}{%
 \section{AWS EC2 server}\label{aws}}
 
-Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+Executing REST API on a public server allows to make scraping data available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named \href{https://aws.amazon.com/en/aws-cost-management/}{amazon cost manager}.
 
 \begin{definition}[AWS EC2]
@@ -1152,7 +1197,7 @@ AWS offers a wide range of services each of which for a wide range of budgets an
 \hypertarget{launch-an-ec2-instance}{%
 \subsection{Launch an EC2 instance}\label{launch-an-ec2-instance}}
 
-The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a ``Free Tier Eligible'' server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the ``add storage'' step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \ref{dockerfile}, has been exposed and needs to be linked to the security port opened.
+The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a ``Free Tier Eligible'' Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the ``add storage'' step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \ref{dockerfile}, has been exposed and needs to be linked to the security port opened.
 
 \begin{figure}
 \centering
@@ -1163,9 +1208,21 @@ The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are al
 At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with \href{https://www.putty.org/}{PuTTY}, which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.
 Once the CLI pops out some Linux libraries to check file structure (``tree'') and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.
 AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.
-the Public DNS has the following form:ì
+the Public DNS has the following form:
 
-\texttt{ec2-18-224-40-67.us-east-2.compute.amazonaws.com}
+\texttt{ec2-15-161-94-121.eu-south-1.compute.amazonaws.com}
+
+\hypertarget{nginx}{%
+\section{NGINX reverse proxy server}\label{nginx}}
+
+For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
+{[}\ldots{]}
+
+When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
+{[}\ldots{]}
+
+.conf file and installation on Linux server. Security and Authentication.
 
 \hypertarget{further-integrations}{%
 \section{Further Integrations}\label{further-integrations}}
@@ -1827,6 +1884,8 @@ A regular 2D grid lattice is considered with infinite number of location points 
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
+( \emph{metti flow in DRAKE} )
+
 Data flows out the REST API end point \texttt{*/complete} in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \ref{APIdocs}, might regard the real estate \texttt{city} interested, \texttt{npages} as the number of pages to scrape, \texttt{type} as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g.~Milan rental real estate within ``circonvallazione'' approximated geo-borders). As a consequence a dedicated endpoint \texttt{.thesis} parameter is passed in the argument body. By setting the option equal to to TRUE the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone.
 Parameters specified are also npages = 120, leading to to 3000 observations. The \texttt{*} refers to the EC2 public DNS.
 
@@ -1862,11 +1921,11 @@ CATASTINFO & land registry information\\
 APTCHAR & apartement main characteristics\\
 PHOTOSNUM & number of photos displayed in the advertisement\\
 AGE & real estate agency name\\
-LOWRDPRICE.originalPrice & If the price is lowered it flags the starting price\\
-LOWRDPRICE.currentPrice & If the price is lowered it flags the current price\\
+LOWRDPRICE\_ORIGINAL\_PRICE & If the price is lowered it flags the starting price\\
+LOWRDPRICE\_CURRENT\_PRICE & If the price is lowered it flags the current price\\
 \addlinespace
-LOWRDPRICE.passedDays & If the price is lowered indicates the days passed since the price has changed\\
-LOWRDPRICE.date & If the price is lowered indicates the date the price has changed\\
+LOWRDPRICE\_PASSED\_DAYS & If the price is lowered indicates the days passed since the price has changed\\
+LOWRDPRICE\_DATE & If the price is lowered indicates the date the price has changed\\
 ENCLASS & the energy class according to the land registers\\
 CONTR & the type of contract\\
 DISP & if it is still avaiable or already rented\\
@@ -1889,27 +1948,24 @@ TITLE & title of published advertisement\\
 Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
 
 \begin{itemize}
+\tightlist
 \item
   encoding from UTF-8 to Latin due to Italian characters incorrectly parsed.
 \item
-  \emph{FLOORS} covariate needs to be separated by its \emph{ASCENSORE} and \emph{ACCDISABILI} components, adding 2 more bivariate covariates.
+  \emph{floors} covariate needs to be separated by its \emph{ascensore} and \emph{accdisabili} components, adding 2 more bivariate covariates.
 \item
-  \emph{LOCALI} needs to be separated too. 5 category levels drain out: \emph{TOTLOCALI}, \emph{CAMERELETTO}, \emph{ALTRO}, \emph{BAGNO}, \emph{CUCINA}. \emph{NROOM} is a duplicate for \emph{TOTLOCALI}, so it is discarded.
+  \emph{locali} needs to be separated too. 5 category levels drain out: \emph{totlocali}, \emph{camereletto}, \emph{altro}, \emph{bagno}, \emph{cucina}. \emph{nroom} is a duplicate for \emph{totlocali}, so it is discarded.
 \item
-  \emph{APTCHAR} is a list column so that each observation has different categories inside. The preprocess step includes unnesting the list by creating as many bivariate columns as elements in the list. Then new columns flag the existence of the characteristics in the apartment. A slice for the fist APTCHAR observation displays:
-\item
-  \begin{itemize}
-  \tightlist
-  \item
-    fibra ottica- - - videocitofono- - - impianto di allarme- - - porta blindata- - - reception- - - balcone- - - portiere intera giornata- - - impianto tv centralizzato- - - parzialmente arredato- - - esposizione doppia- -
-  \end{itemize}
+  \emph{aptchar} is a character strign column that contains a various number of different features per house. The preprocess steps include cleaning the string from unnecessary characters, then finding the whole set of unique elements across the character column by splitting on a regex pattern, in the end recoding newly created bivariate columns ``yes'' or ``no'' accoeding to a matching pattern whether the feature appears in the string not. A slice from the API output APTCHAR is:
 \end{itemize}
+
+fibra ottica videocitofono impianto di allarme porta blindata reception balcone portiere intera giornata impianto tv centralizzato parzialmente arredato esposizione doppia
 
 \hypertarget{maps-and-geo-visualisations}{%
 \subsection{Maps and Geo-Visualisations}\label{maps-and-geo-visualisations}}
 
-Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var \emph{PRICE} indicates unsurprisingly that higher prices are nearer to the city center.
-The map in figure @ref(fig:leaflet\_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var \emph{price} indicates unsurprisingly that higher prices are nearer to the city center.
+The map in figure @ref(fig:leaflet\_visuals) is a leaflet object, which needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}\label{fig:LeafletVisuals}
@@ -1995,7 +2051,29 @@ In other words the to help with the interpretation. The fact that 2 and 3 bathro
 \hypertarget{text-mining-in-estate-review}{%
 \section{Text Mining in estate Review}\label{text-mining-in-estate-review}}
 
-It is possibile to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups, each of which adresses a specific part of the same theme. In the
+The word network in figure \ref(fig:WordNetworkgraph) tries to summarize relevant information from real estate agency review into each advertisement. avg\_totprice expresses the sum of the price per month plus the condominium in order to fully integrate inner property characteristics together with building exclusivity. Tokenized words are then filtered with ``stopwords-iso'' italian dictionary.
+Nodes associated with hotter colours are also associated to more expensive in and out-house characteristics. The size of nodes keeps track of the number of reviews in which the specific word appears. A table of the most common words can help highlight both the real estate jargon as well as words that brings up house values.
+
+\begin{tabular}{lrrr}
+\toprule
+word & count & reviews & avg\_totprice\\
+\midrule
+bagno & 249 & 192 & 1888.622\\
+cucina & 247 & 190 & 2088.814\\
+ingresso & 194 & 173 & 1964.062\\
+soggiorno & 182 & 159 & 1872.500\\
+camera & 200 & 158 & 1936.945\\
+\addlinespace
+piano & 197 & 157 & 1982.234\\
+arredato & 184 & 152 & 1744.614\\
+composto & 158 & 146 & 1758.911\\
+riscaldamento & 171 & 144 & 1877.404\\
+zona & 282 & 139 & 1930.213\\
+\bottomrule
+\end{tabular}
+
+Furthermore it is possible to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups of nodes, each of which addresses a specific part of the house comprehensive evaluation.
+In the far right side of the plot are considered the external appliances like neighbor stores, subway stations and services and are associated to mean prices. The correspondent number of reviews are not justifying by any type of price increasing effect. Whereas slightly moving the view to the left, the area centered in portineria evidences a sub-groups of nodes associated to relatively higher avg-totprice. Some of them are servizio signorile palazzo. The previous set of nodes indicates services that are proper to the building can lead to some sort of extra payment. Then still moving
 Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro.
 
 \begin{figure}

@@ -162,13 +162,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#what-is-web-scraping"><i class="fa fa-check"></i><b>2.1</b> What is Web Scraping</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it Webscraping website structure</a></li>
-<li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-webscraping-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it Webscraping content architecture with <code id="ContentArchitecture">rvest</code></a></li>
+<li class="chapter" data-level="2.1.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.1.1</b> Immobiliare.it website structure</a></li>
+<li class="chapter" data-level="2.1.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.1.2</b> Immobiliare.it content architecture with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.2</b> Scraping Best Practices and Security provisions</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#security-provisions-user-agents-proxies-and-handlers"><i class="fa fa-check"></i><b>2.3</b> Security provisions: User Agents, Proxies and Handlers</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.3.1</b> User Agents Spoofing</a></li>
-<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers-and-trycatches"><i class="fa fa-check"></i><b>2.3.2</b> Handlers and Trycatches</a></li>
+<li class="chapter" data-level="2.3.2" data-path="scraping.html"><a href="scraping.html#handlers"><i class="fa fa-check"></i><b>2.3.2</b> Handlers</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#explicit-parallel-scraping"><i class="fa fa-check"></i><b>2.4</b> Explicit Parallel Scraping</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.5</b> Open Challenges and Further Improvemements</a></li>
@@ -187,10 +187,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.3.1</b> Why Docker</a></li>
 <li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.3.2</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server</a></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.5.1</b> Launch an EC2 instance</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 server</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.4.1</b> Launch an EC2 instance</a></li>
 </ul></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.5</b> NGINX reverse proxy server</a></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.6</b> Further Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
@@ -273,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="Infrastructure" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> REST API Infrastructure</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<p>In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.5</a> are many and still some remains unsolved. Challenges regard not only scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
+<p>In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.5</a> are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
 API Service has to be executed <span class="math inline">\(n\)</span> given times during the day at <span class="math inline">\(x-y-z\)</span> hours and should be storing data on a cloud database, so that the evolution of the phenomenon can be monitored in time.
 API service has to be fast otherwise data become obsolete and so happen to the analysis that has relied on the data.
 API service has to be deployed so that it can be shared over a wider range of different background stakeholders, without having them to know what it takes. From one hand service has to be responsive to immobiliare.it unpredictable changes, thus it needs to be continuously integrated and reviewed. On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. Moreover service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. In addition API inbound traffic has to be managed both in terms traffic and security by granting access only to the ones authorized.
@@ -285,8 +285,8 @@ Given the requirements recipe the idea is to provide a REST Plumber API with 4 e
 <li>Scheduler cron job, section <a href="Infrastructure.html#scheduler">3.1</a></li>
 <li>Plumber REST API, section <a href="Infrastructure.html#plumberapi">3.2.1</a></li>
 <li>Docker containers, section <a href="Infrastructure.html#docker">3.3</a></li>
-<li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.4</a></li>
-<li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.5</a></li>
+<li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.4</a></li>
+<li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.5</a></li>
 <li>MongoDB Atlas</li>
 <li>Shiny</li>
 </ul>
@@ -382,30 +382,30 @@ In order for an API to be considered RESTful, it has to conform to these criteri
 <div id="plumberapi" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Plumber REST API</h3>
 <p>Plumber allows the user to create a REST API by adding decoration comments to the existing R code, in this case to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="Infrastructure.html#cb13-1"></a><span class="co"># plumber.R</span></span>
-<span id="cb13-2"><a href="Infrastructure.html#cb13-2"></a></span>
-<span id="cb13-3"><a href="Infrastructure.html#cb13-3"></a><span class="co">#* Echo back the input</span></span>
-<span id="cb13-4"><a href="Infrastructure.html#cb13-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb13-5"><a href="Infrastructure.html#cb13-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb13-6"><a href="Infrastructure.html#cb13-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb13-7"><a href="Infrastructure.html#cb13-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb13-8"><a href="Infrastructure.html#cb13-8"></a>}</span>
-<span id="cb13-9"><a href="Infrastructure.html#cb13-9"></a></span>
-<span id="cb13-10"><a href="Infrastructure.html#cb13-10"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb13-11"><a href="Infrastructure.html#cb13-11"></a><span class="co">#* @serializer png</span></span>
-<span id="cb13-12"><a href="Infrastructure.html#cb13-12"></a><span class="co">#* @get /plot</span></span>
-<span id="cb13-13"><a href="Infrastructure.html#cb13-13"></a><span class="cf">function</span>() {</span>
-<span id="cb13-14"><a href="Infrastructure.html#cb13-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb13-15"><a href="Infrastructure.html#cb13-15"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb13-16"><a href="Infrastructure.html#cb13-16"></a>}</span>
-<span id="cb13-17"><a href="Infrastructure.html#cb13-17"></a></span>
-<span id="cb13-18"><a href="Infrastructure.html#cb13-18"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb13-19"><a href="Infrastructure.html#cb13-19"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb13-20"><a href="Infrastructure.html#cb13-20"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb13-21"><a href="Infrastructure.html#cb13-21"></a><span class="co">#* @post /sum</span></span>
-<span id="cb13-22"><a href="Infrastructure.html#cb13-22"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb13-23"><a href="Infrastructure.html#cb13-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb13-24"><a href="Infrastructure.html#cb13-24"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Infrastructure.html#cb16-1"></a><span class="co"># plumber.R</span></span>
+<span id="cb16-2"><a href="Infrastructure.html#cb16-2"></a></span>
+<span id="cb16-3"><a href="Infrastructure.html#cb16-3"></a><span class="co">#* Echo back the input</span></span>
+<span id="cb16-4"><a href="Infrastructure.html#cb16-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb16-5"><a href="Infrastructure.html#cb16-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb16-6"><a href="Infrastructure.html#cb16-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb16-7"><a href="Infrastructure.html#cb16-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb16-8"><a href="Infrastructure.html#cb16-8"></a>}</span>
+<span id="cb16-9"><a href="Infrastructure.html#cb16-9"></a></span>
+<span id="cb16-10"><a href="Infrastructure.html#cb16-10"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb16-11"><a href="Infrastructure.html#cb16-11"></a><span class="co">#* @serializer png</span></span>
+<span id="cb16-12"><a href="Infrastructure.html#cb16-12"></a><span class="co">#* @get /plot</span></span>
+<span id="cb16-13"><a href="Infrastructure.html#cb16-13"></a><span class="cf">function</span>() {</span>
+<span id="cb16-14"><a href="Infrastructure.html#cb16-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb16-15"><a href="Infrastructure.html#cb16-15"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb16-16"><a href="Infrastructure.html#cb16-16"></a>}</span>
+<span id="cb16-17"><a href="Infrastructure.html#cb16-17"></a></span>
+<span id="cb16-18"><a href="Infrastructure.html#cb16-18"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb16-19"><a href="Infrastructure.html#cb16-19"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb16-20"><a href="Infrastructure.html#cb16-20"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb16-21"><a href="Infrastructure.html#cb16-21"></a><span class="co">#* @post /sum</span></span>
+<span id="cb16-22"><a href="Infrastructure.html#cb16-22"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb16-23"><a href="Infrastructure.html#cb16-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb16-24"><a href="Infrastructure.html#cb16-24"></a>}</span></code></pre></div>
 <p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
 Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
 - the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
@@ -420,7 +420,7 @@ Decorations are marked as this <code>#*</code> and they are followed by specific
 <p>The API service is composed by 4 endpoints <em>/scrape</em> , <em>/links</em>, <em>/complete</em> and <em>/get_data</em>:</p>
 <ul>
 <li><p>*/scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in <span class="math inline">\(\approx 10.91^{&#39;&#39;}\)</span>). This comes at the cost of the number of available covariates to scrape which are: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).</p></li>
-<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, reacall section <a href="scraping.html#webstructure">2.1.1</a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endopoint.</p></li>
+<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section <a href="scraping.html#webstructure">2.1.1</a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.</p></li>
 <li><p>*/complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link.</p></li>
 <li><p>*/get_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS</p></li>
 </ul>
@@ -476,7 +476,7 @@ The approach followed proposes a dedicated lightweight software environment that
 <p class="caption">Figure 3.3: Docker containers versus Virtual Machines, <em>miss source</em></p>
 </div>
 <p>When containers are built <em>Docker container Images</em> are created and can be open sourced through Docker Hub.
-<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.5</a>.
+<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.4</a>.
 Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
 Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(Nolis <a href="#ref-nolis_2020" role="doc-biblioref">2020</a>)</span>.
 In addition to that an open source project <a href="https://www.rocker-project.org/images/">rocker</a> has narrowed the path for developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment”.</p>
@@ -526,18 +526,9 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 <p>In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.</p>
 </div>
 </div>
-<div id="nginx" class="section level2">
-<h2><span class="header-section-number">3.4</span> NGINX reverse proxy server</h2>
-<p>For analysis purposes NGINX is open source software for reverse proxying and load balancing.
-Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
-[…]</p>
-<p>When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
-[…]</p>
-<p>.conf file and installation on Linux server. Security and Authentication.</p>
-</div>
 <div id="aws" class="section level2">
-<h2><span class="header-section-number">3.5</span> AWS EC2 server</h2>
-<p>Executing REST API on a public server allows to share data with a various number of services thorugh multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+<h2><span class="header-section-number">3.4</span> AWS EC2 server</h2>
+<p>Executing REST API on a public server allows to make scraping data available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named <a href="https://aws.amazon.com/en/aws-cost-management/">amazon cost manager</a>.</p>
 
 <div class="definition">
@@ -546,8 +537,8 @@ AWS offers a wide range of services each of which for a wide range of budgets an
 
 <p>[few words still on EC2]</p>
 <div id="launch-an-ec2-instance" class="section level3">
-<h3><span class="header-section-number">3.5.1</span> Launch an EC2 instance</h3>
-<p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already-set-up machines with stadardized specification designed to speed up the process of choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” server is chosen. By checking the Free Tier box all the available free tiers are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.3.2</a>, has been exposed and needs to be linked to the security port opened.</p>
+<h3><span class="header-section-number">3.4.1</span> Launch an EC2 instance</h3>
+<p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.3.2</a>, has been exposed and needs to be linked to the security port opened.</p>
 <div class="figure">
 <img src="images/aws.PNG" alt="" />
 <p class="caption">aws_dashboard</p>
@@ -555,9 +546,18 @@ AWS offers a wide range of services each of which for a wide range of budgets an
 <p>At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with <a href="https://www.putty.org/">PuTTY</a>, which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.
 Once the CLI pops out some Linux libraries to check file structure (“tree”) and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.
 AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.
-the Public DNS has the following form:ì</p>
-<p><code>ec2-18-224-40-67.us-east-2.compute.amazonaws.com</code></p>
+the Public DNS has the following form:</p>
+<p><code>ec2-15-161-94-121.eu-south-1.compute.amazonaws.com</code></p>
 </div>
+</div>
+<div id="nginx" class="section level2">
+<h2><span class="header-section-number">3.5</span> NGINX reverse proxy server</h2>
+<p>For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
+[…]</p>
+<p>When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
+[…]</p>
+<p>.conf file and installation on Linux server. Security and Authentication.</p>
 </div>
 <div id="further-integrations" class="section level2">
 <h2><span class="header-section-number">3.6</span> Further Integrations</h2>

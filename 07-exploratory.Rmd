@@ -203,19 +203,19 @@ datiprep = dati %>%
 
 
 
-dummied_ftc = dummied %>%
-  separate(aptchar, into = LETTERS[1:15],"\\s{2,}")  %>% 
-  replace(., is.na(.), "0") 
-
-
-all_aptchars = map(dummied_ftc, ~str_c(unique(.x),collapse = ",")) %>%
-  bind_rows() %>% 
-  gather(key = col_name, value = col_unique)  %>% 
-  mutate(col_unique  = strsplit(col_unique, "\\,")) %>%
-  pull(col_unique) %>% 
-  unlist() %>% 
-  unique()
-
+# dummied_ftc = dummied %>%
+#   separate(aptchar, into = LETTERS[1:15],"\\s{2,}")  %>% 
+#   replace(., is.na(.), "0") 
+# 
+# 
+# all_aptchars = map(dummied_ftc, ~str_c(unique(.x),collapse = ",")) %>%
+#   bind_rows() %>% 
+#   gather(key = col_name, value = col_unique)  %>% 
+#   mutate(col_unique  = strsplit(col_unique, "\\,")) %>%
+#   pull(col_unique) %>% 
+#   unlist() %>% 
+#   unique()
+# 
 
 
 ```
@@ -240,7 +240,7 @@ if(knitr::is_latex_output()){
     knitr::include_graphics("images/leaflet_prezzi.jpg")
 } else if(knitr::is_html_output()){  
   dati2 = dati %>%
-    dplyr::select(price, long, price )
+    dplyr::select(price, long, lat )
   pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
   
   leaflet(dati2) %>%
@@ -519,7 +519,7 @@ Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno d
 ```{r WordNetworkgraph, fig.cap="Word Network Graph for 250 Estate Agencies Review"}
 
 word_cors = review_tokenized %>%
-  semi_join(review_words_filtered, by = "word") %>%
+  semi_join(review_words, by = "word") %>%
   distinct(id, word) %>%
   pairwise_cor(word, id, sort = TRUE)
 
@@ -599,7 +599,7 @@ gg_miss_upset(data1, nsets = 7)
 ```{r ImputationData}
 ## conversion to dataframe
 data_miss = datiprep %>%  
-  select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice.originalprice,-lowrdprice.currentprice, -lowrdprice.passeddays,-lowrdprice.date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
+  select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice_original_price,-lowrdprice_current_price, -lowrdprice_passed_days,-lowrdprice_date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
   as.data.frame()
 
 ```
@@ -721,7 +721,7 @@ The mesh builder has a number of options to define the mesh on the left side. Th
 ## Spatial Kriging (Prediction)
 
 QUI INCERTEZZE
-```{r variogram}
+```{r variogram, eval=FALSE}
 semivar = variogram(PRICE~1, 
                        locations= ~LONG+LAT,
                        data=dati)

@@ -4,6 +4,9 @@
 
 
 
+
+( _metti flow in DRAKE_ )
+
 Data flows out the REST API end point `*/complete` in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \@ref(APIdocs), might regard the real estate `city` interested, `npages` as the number of pages to scrape, `type` as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g. Milan rental real estate within "circonvallazione" approximated geo-borders). As a consequence a dedicated endpoint `.thesis` parameter is passed in the argument body. By setting the option equal to to TRUE  the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone. 
 Parameters specified are also npages = 120, leading to to 3000 observations. The `*` refers to the EC2 public DNS.
 
@@ -43,11 +46,11 @@ CATASTINFO & land registry information\\
 APTCHAR & apartement main characteristics\\
 PHOTOSNUM & number of photos displayed in the advertisement\\
 AGE & real estate agency name\\
-LOWRDPRICE.originalPrice & If the price is lowered it flags the starting price\\
-LOWRDPRICE.currentPrice & If the price is lowered it flags the current price\\
+LOWRDPRICE\_ORIGINAL\_PRICE & If the price is lowered it flags the starting price\\
+LOWRDPRICE\_CURRENT\_PRICE & If the price is lowered it flags the current price\\
 \addlinespace
-LOWRDPRICE.passedDays & If the price is lowered indicates the days passed since the price has changed\\
-LOWRDPRICE.date & If the price is lowered indicates the date the price has changed\\
+LOWRDPRICE\_PASSED\_DAYS & If the price is lowered indicates the days passed since the price has changed\\
+LOWRDPRICE\_DATE & If the price is lowered indicates the date the price has changed\\
 ENCLASS & the energy class according to the land registers\\
 CONTR & the type of contract\\
 DISP & if it is still avaiable or already rented\\
@@ -72,16 +75,16 @@ TITLE & title of published advertisement\\
 Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
 
 - encoding from UTF-8 to Latin due to Italian characters incorrectly parsed.
-- *FLOORS* covariate needs to be separated by its *ASCENSORE* and *ACCDISABILI* components, adding 2 more bivariate covariates.
-- *LOCALI* needs to be separated too. 5 category levels drain out: *TOTLOCALI*, *CAMERELETTO*, *ALTRO*, *BAGNO*, *CUCINA*. *NROOM* is a duplicate for *TOTLOCALI*, so it is discarded.
-- *APTCHAR* is a list column so that each observation has different categories inside. The preprocess step includes unnesting the list by creating as many bivariate columns as elements in the list. Then new columns flag the existence of the characteristics in the apartment. A slice for the fist APTCHAR observation displays:
+- *floors* covariate needs to be separated by its *ascensore* and *accdisabili* components, adding 2 more bivariate covariates.
+- *locali* needs to be separated too. 5 category levels drain out: *totlocali*, *camereletto*, *altro*, *bagno*, *cucina*. *nroom* is a duplicate for *totlocali*, so it is discarded.
+- *aptchar* is a character strign column that contains a various number of different features per house. The preprocess steps include cleaning the string from unnecessary characters, then finding the whole set of unique elements across the character column by splitting on a regex pattern, in the end recoding newly created bivariate columns "yes" or "no" accoeding to a matching pattern whether the feature appears in the string not. A slice from the API output APTCHAR is:
 
-- - fibra ottica- - - videocitofono- - - impianto di allarme- - - porta blindata- - - reception- - - balcone- - - portiere intera giornata- - - impianto tv centralizzato- - - parzialmente arredato- - - esposizione doppia- -
+fibra ottica   videocitofono   impianto di allarme   porta blindata   reception   balcone   portiere intera giornata   impianto tv centralizzato   parzialmente arredato   esposizione doppia
 
 ### Maps and Geo-Visualisations
 
-Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *PRICE* indicates unsurprisingly that higher prices are nearer to the city center.
-The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which can needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response var *price* indicates unsurprisingly that higher prices are nearer to the city center.
+The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}(\#fig:LeafletVisuals)
@@ -151,7 +154,34 @@ In other words the  to help with the interpretation. The fact that 2 and 3 bathr
 
 ## Text Mining in estate Review
 
-It is possibile to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups, each of which adresses a specific part of the same theme. In the
+The word network in figure \ref(fig:WordNetworkgraph) tries to summarize relevant information from real estate agency review into each advertisement. avg_totprice expresses the sum of the price per month plus the condominium in order to fully integrate inner property characteristics together with building exclusivity. Tokenized words are then filtered with "stopwords-iso" italian dictionary. 
+Nodes associated with hotter colours are also associated to more expensive in and out-house characteristics. The size of nodes keeps track of the number of reviews in which the specific word appears. A table of the most common words can help highlight both the real estate jargon as well as words that brings up house values. 
+
+
+\begin{tabular}{lrrr}
+\toprule
+word & count & reviews & avg\_totprice\\
+\midrule
+bagno & 249 & 192 & 1888.622\\
+cucina & 247 & 190 & 2088.814\\
+ingresso & 194 & 173 & 1964.062\\
+soggiorno & 182 & 159 & 1872.500\\
+camera & 200 & 158 & 1936.945\\
+\addlinespace
+piano & 197 & 157 & 1982.234\\
+arredato & 184 & 152 & 1744.614\\
+composto & 158 & 146 & 1758.911\\
+riscaldamento & 171 & 144 & 1877.404\\
+zona & 282 & 139 & 1930.213\\
+\bottomrule
+\end{tabular}
+
+
+
+
+
+Furthermore it is possible to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups of nodes, each of which addresses a specific part of the house comprehensive evaluation.
+In the far right side of the plot are considered the external appliances like neighbor stores, subway stations and services and are associated to mean prices. The correspondent number of reviews are not justifying by any type of price increasing effect. Whereas slightly moving the view to the left, the area centered in portineria evidences a sub-groups of nodes associated to relatively higher avg-totprice. Some of them are servizio signorile palazzo. The previous set of nodes indicates services that are proper to the building can lead to some sort of extra payment. Then still moving 
 Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro. 
 
 
@@ -311,12 +341,5 @@ The mesh builder has a number of options to define the mesh on the left side. Th
 ## Spatial Kriging (Prediction)
 
 QUI INCERTEZZE
-
-
-
-
-
-
-
 
 
