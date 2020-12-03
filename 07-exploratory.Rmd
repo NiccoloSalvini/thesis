@@ -284,6 +284,47 @@ theme_nicco()
 ```
 
 
+ggplot2 visualzitaion matt dancho inspiration::
+
+```{r}
+world_base <- world_tbl %>%
+    ggplot() +
+    geom_map(
+        aes(long, lat, map_id = region),
+        map = world_tbl,
+        color = "gray80", fill = "gray30", size = 0.3
+    )+
+  coord_map("ortho", orientation = c(39, -98, 0))
+
+# * Make Map (ggplot2) ----
+usa_voting_tbl %>%
+    ggplot(aes(long, lat, group = subregion)) +
+    geom_map(
+        aes(map_id = region),
+        map = usa_tbl,
+        color = "gray80", fill = "gray30", size = 0.3
+    ) +
+    coord_map("ortho", orientation = c(39, -98, 0)) +
+    geom_polygon(aes(group = group, fill = repub_prop), color = "black") +
+    scale_fill_gradient2(low = "blue", mid = "white", high = "red",
+                         midpoint = 0.5, labels = scales::percent) +
+    theme_minimal() +
+    labs(
+        title = "Voting Republican in 1976",
+        x = "", y = "", fill = ""
+    ) +
+    theme(
+        plot.title = element_text(size = 26, face = "bold", color = "red3"),
+        legend.position = "bottom"
+    )
+  
+
+```
+
+
+
+
+
 ## Counts and First Orientations
 
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:fctCounts) offers the rearranged factor *TOTLOCALI*. 
@@ -504,7 +545,7 @@ review_words %>%
 ```
 
 
-```{r TF_IDF, eval=FALSE}
+```{r TF_IDF,eval=FALSE, fig.cap="review tokenized words"}
 review_tf_idf = review_tokenized %>%
   bind_tf_idf(word, reviews, count) %>% 
   arrange(desc(tf_idf))

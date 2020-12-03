@@ -1,29 +1,73 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 # Scraping {#scraping}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(Scraping). Figure cross referencing follows this syntax: \@ref(fig:plot) when matched in the markdown figure insertion syntax ![(#fig:plot)a generic plot](images/a_generic_plot.png) -->
 
+```{r global.options, include=FALSE}
+knitr::opts_chunk$set(
+  tidy.opts=list(width.cutoff=80),
+  tidy=TRUE,
+  warning = FALSE,  
+  strip.white = TRUE,
+  message = FALSE,
+  cache = FALSE,
+  echo = FALSE
+)
+
+# libraries are in the libs.R file
+# source(here::here("libs.R"))
 
 
-The following chapter covers advanced topics for web scraping with a focus on immobiliare.it. A new simplifying scraping workflow is proposed that removes frictions related to complexities as well as offering a faster solution with respect to traditional package oriented scraping methods. The workflow introduces two superficial abstract partitions that composes each websites: website structure and content architecture. As a consequence of the partition issues related to web scraping are logically arranged so that at first are solved the ones related to crawling the links, then it comes the turn of the proper scraping part. The segmentation is then forced onto the specific immobiliare.it case.
-Website structure mainly accounts the way individual subpages are linked to one another through urls. The solution proposed is a "inverse crawling" methodology, where at first url anatomy is reverse engineered and secondly links are extracted from the composed urls. Once the structure is "explicit" so that each part can be singularly and directly targeted by scraping functions, then the focus shifts to the content architecture. For content architecture it is meant the way information is arranged within each single webpage. A rooted-tree graph representation of web site content architecture is conveniently used to map scraping functions design into immobiliare.it. By means of `rvest` @rvest either website structure and content architecture can be separately handled and the main function involved are presented. `scrapeprice()` outlines the strategy adopted to look for the price inside each of the web pages. The skeleton of the function is then reproduced for all the data needed. Moreover it is shown a main function where parallel execution takes place that combines all the functions into a single call. Scraping best practices are applied from the web server point of view, kindly requesting permission and delayed sending rate. Form the the web client point of view continuous scraping is granted by server blocks through User Agent pool rotation and dealing failure handlers to bypass empty content. Then a run time parallel scraping benchmark is presented for two different back ends `future` and `doMC` along with two parallel looping constructions, `furrr` @furrr and `foreach` @foreach. Both of the two have displayed similar results, nevertheless the former offers a Tidier and future oriented choice. Furthermore an overview of open challenges is offered so that this work might be extended and integrated with newer technologies or paradigms. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart study.
+library(furrr, warn.conflicts = F, verbose = F)
+library(robotstxt, warn.conflicts = F, verbose = F)
+library(magrittr, warn.conflicts = F, verbose = F)
+library(parallel, warn.conflicts = F, verbose = F)
+library(knitr, warn.conflicts = F, verbose = F)
+library(glue, warn.conflicts = F, verbose = F)
+```
 
-## Web Scraping and main Challenges
-\BeginKnitrBlock{definition}\iffalse{-91-83-99-114-97-112-105-110-103-93-}\fi{}<div class="definition"><span class="definition" id="def:scraping"><strong>(\#def:scraping)  \iffalse (Scraping) \fi{} </strong></span>Web Scraping is a technique aimed at extracting data from static or dynamic internet web pages. It can be applied simultaneously or automatically by a scheduler that plans execution at a given time.</div>\EndKnitrBlock{definition}
+The following chapter covers advanced topics on web scraping and related hard challenges with a focus on the immobiliare.it case. A new scraping workflow concept is proposed that integrates the crawling part inside the proper scraping and removes frictions related to inner complexities. The workflow offers a faster solution with respect to traditional library oriented scraping methods. The solution proposed takes advantage of the url clean structure and proposes an "inverse crawling" methodology. At first url sematic is reverse engineered so that the sitemap is explicit and url can be freely compose. Secondly links are crawled and collected in a list according to the url composed. By doing that each link can be directly targeted by scraping functions, with that said the focus can shift to the proper scraping part. An example of scraping function with `rvest` @rvest is presented outlining the strategy adopted to look for the exact content within immobiliare.it HTML/CSS. The search strategy skeleton of the function is then reproduced for all the data that shares the same CSS query location.
+Scraping common best practices are applied from the web server point of view, this is taken care by kindly asking for permission and sending delayed requests rate. As well as from the the web client point of view by securing continuous scraping through server blocks, User Agent pool rotation and fail dealer to bypass empty content. Then a run time scraping benchmark is presented for two different parallel back end options `future` @future and `doParallel` @doParallel, together with two parallel looping constructions, `furrr` @furrr and `foreach` @foreach. Both of the two have displayed similar results, nevertheless the former offers has a more {Tidiverse} orientation and offers a wider range of integrations. Furthermore an overview of still open challenges is given with the hope that the effort put might be extended or integrated with newer technologies and paradigms. In the end legal profiles are addressed comparing results and implications with a market counterpart study.
 
+## Web Scraping 
 
-Content in web pages is the most of the times well organized and accessible.
-This is made possible by the effort put into building both the _website structure_ and the _content architecture_. For website structure it is meant the way urls, pointing to different web pages, are arranged throughout the website oriented to the best user experience.
-Website structure constitutes a _first dimension_ of hierarchy. A practical example might regard the way files are arranged into folders, where files are urls and folders are web pages.
-Popular website structure examples are social-networks where posts can be scrolled down within a single url named "wall". The scrolling option might end due to the end of the feed, but the experience is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks that happens at many levels, photos, friends, places.
+```{definition, scraping, name="Scraping", echo = TRUE }
+Web Scraping is a technique aimed at extracting unstrctured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
+```
+Web scraping is a form of data mining. The basic and most important goal of the web scraping process is to mine information from different and unstructured websites and transform it into an comprehensible structure like spreadsheets. Web scraping can be performed with different degrees of precision in several ways via several tools. Popular options are APIs, proprietary softwares, browser integrations and open source libraries. Challenges in scraping mainly regards _security_, _run-time_ and _exception handling_. 
+Scraping can be mainly decomposed into 2 separable and collectively exhaustive tasks: _crawling_ and _proper scraping_ which they ultimately outline a forced sequential process. The forced aspects regards essentially the way websites are made and the language used for content creation and organization i.e. HTML. HTML stands for Hyper Text Markup Language and is the standard _markup_ language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, as an example JavaScript [@html_2020].
+CSS language stands for Cascading Style Sheets and is a style sheet language used for modifying the appearance of a document written in a _markup_ language[@css_2020]. The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different websites on the web.
+Some examples of websites might be social-networks where posts are scrolled down within a single url named "wall". The scrolling option might end due to the end of the feed, but the experience is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks that happens at many levels, photos, friends, places.
 As a different example online newspapers display their articles in the front page of their websites. and By accessing to one of them all the pertinent articles sometimes can be reached in the low bottom or in the side part of the webpage. Suggested articles during website exploration can be seen twice, that is the more the website is covered the more is the likelihood of seeing the same article twice. Recursive website structures are popular in newspaper-kind websites since it is part of the expectation on website's user experience.
 Online Retailers as Amazon, based on search filters, groups inside a single web page (i.e. page n° 1) a fixed set of items, having their dedicated single urls attached to them. Furthermore many of the retailers, Amazon's too, allows the user to search into many pages i.e. page n° 2,3, looking for another fixed set of items. The experience ends when the last page associated to the last url is met.
 These are few examples of how websites can be built and infinitely many others are available ranging from the easiest to the most complex, as in figure \@ref(fig:html_tree). 
 Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the programming languages chosen and the specific requirements that the website should met. For all the reason said, for each product, whether it is physical product, or service, or information there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites might display tailor made customization of contents and design based on specific personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information. 
+
+## Graph Representation of HTML
+Graph based data structures named as **Rooted Trees**. By analyzing the first dimension through the lenses of Rooted trees it is possible to compress the whole setting into tree graph jargon, as a further reference on notation and wordings can be found in @Graph_Diestel. Rooted trees must start with a root node which in this context is the domain of the web page. Each _Node_ is a url destination and _Edges_ are the connections to web pages. Jumps from one page to the others (i.e. connections) are possible in the website by nesting urls inside webpages so that within a single webpage the user can access to a limited number of other links. Each edge is associated to a _Weight_ whose interpretation is the run time cost to walk from one node to its connected others (i.e. from a url to the other). In addition the content inside each node takes the name of payload, which is ultimately the goal of the scraping processes. 
+The walk from node "body" to node "h2" in figure below is called path and it represented as an ordered list of nodes connected by edges. In this context each node can have both a fixed and variable outgoing sub-nodes that are called _Children_ . When root trees have a fixed set of children are called _k-ary_ rooted trees. A node is said to be _Parent_ to other nodes when it is connected to them by outgoing edges, in the figure below "headre" is the parent of nodes "h1" and "p". Nodes in the tree that shares the same parent node are said _Siblings_, "h1" and "p" are siblings in figure \@ref(fig:html_tree). Moreover _Subtrees_ are a set of nodes and edges comprised of a parent and its descendants e.g. node "main" with all of its descendants might constitute a subtree. The concept of subtree in both of the problem dimensions plays crucial role in cutting run time scraping processes as well as fake headers provision (see section \@ref(spoofing)). If the website strucuture is locally reproducible and the content architecture within webpages tends to be equal, then functions for a single subtree might be extended to the rest of others siblings subtrees. Local reproducibility is a property according to which starting from a single url all the related urls can be inferred from a pattern. Equal content architecture throughout different single links means to have a standard shared-within-webpages criteria according to which each single rental advertisement has to refer (e.g. each new advertisement replicates the structure of the existing ones). In addition two more metrics describe the tree: _level_ and _height_. The level of a node $\mathbf{L}$ counts the number of edges on the path from the root node to $\mathbf{L}$ , e.g. "head" and "body", are at the same level. The height is the maximum level for any node in the tree, from now on $\mathbf{H}$, in figure \@ref(fig:html_tree). What is worth to be anticipating is that functions are not going to be applied directly to siblings in the "upper" general rooted tree (i.e. from the domain). Instead the approach follwed is segmenting the highest tree into a sequence of single children unit that shares the same level ("nav", "main", "header", "title" and "footer") for reasons explained in section \@ref(spoofing).
+
+
+
+
+
+
+Some websites' components also might be tuned by a scripting language as Javascript. JavaScript enables interactive web pages and the vast majority of websites use it for all the operations that are performed by the client in a client-server relationship [@Javascript_2020].
+In the context of scraping Javascript adds a further layer of difficulty. As a matter of fact Javascript components are dynamic and scraping requires specialized libraries or remote web browser automation ([@RSelenium] R Bindings for Selenium 2.0 Remote WebDriver) to catch the website content.
+
+
+
+## Crawling 
+
+- general idea, definition (with latex def. component)
+- urllib 
+- clean url 
+- representation of crawling
+-
+
+
+## Proper Scraping 
+
+
 
 ![(#fig:html_tree)Linearity in Website Structure vs Audience Education](images/netstruc_vs_hierstruc.jpg)
 
@@ -34,8 +78,7 @@ CSS language stands for Cascading Style Sheets and is a style sheet language use
 The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different websites designs on the web. Some websites' components also might be tuned by a scripting language as Javascript. JavaScript enables interactive web pages and the vast majority of websites use it for all the operations that are performed by the client in a client-server relationship [@Javascript_2020].
 In the context of scraping Javascript adds a further layer of difficulty. As a matter of fact Javascript components are dynamic and scraping requires specialized libraries or remote web browser automation ([@RSelenium] R Bindings for Selenium 2.0 Remote WebDriver) to catch the website content.
 CSS instead allows the scraper to target a class of objects in the web page that shares same style (e.g. same CSS query) so that each element that belongs to the class (i.e. share the same style) can be gathered. This practice provides tremendous advantages since by a single CSS query a precise set of objects can be obtained within a unique function call. 
-First and Second dimension of the scraping problem imply hierarchy. One way to imagine hierarchy in both of the two dimensions are graph based data structures named as **Rooted Trees**. By analyzing the first dimension through the lenses of Rooted trees it is possible to compress the whole setting into tree graph jargon, as a further reference on notation and wordings can be found in @Graph_Diestel. Rooted trees must start with a root node which in this context is the domain of the web page. Each _Node_ is a url destination and _Edges_ are the connections to web pages. Jumps from one page to the others (i.e. connections) are possible in the website by nesting urls inside webpages so that within a single webpage the user can access to a limited number of other links. Each edge is associated to a _Weight_ whose interpretation is the run time cost to walk from one node to its connected others (i.e. from a url to the other). In addition the content inside each node takes the name of payload, which is ultimately the goal of the scraping processes. 
-The walk from node "body" to node "h2" in figure below is called path and it represented as an ordered list of nodes connected by edges. In this context each node can have both a fixed and variable outgoing sub-nodes that are called _Children_ . When root trees have a fixed set of children are called _k-ary_ rooted trees. A node is said to be _Parent_ to other nodes when it is connected to them by outgoing edges, in the figure below "headre" is the parent of nodes "h1" and "p". Nodes in the tree that shares the same parent node are said _Siblings_, "h1" and "p" are siblings in figure \@ref(fig:html_tree). Moreover _Subtrees_ are a set of nodes and edges comprised of a parent and its descendants e.g. node "main" with all of its descendants might constitute a subtree. The concept of subtree in both of the problem dimensions plays crucial role in cutting run time scraping processes as well as fake headers provision (see section \@ref(spoofing)). If the website strucuture is locally reproducible and the content architecture within webpages tends to be equal, then functions for a single subtree might be extended to the rest of others siblings subtrees. Local reproducibility is a property according to which starting from a single url all the related urls can be inferred from a pattern. Equal content architecture throughout different single links means to have a standard shared-within-webpages criteria according to which each single rental advertisement has to refer (e.g. each new advertisement replicates the structure of the existing ones). In addition two more metrics describe the tree: _level_ and _height_. The level of a node $\mathbf{L}$ counts the number of edges on the path from the root node to $\mathbf{L}$ , e.g. "head" and "body", are at the same level. The height is the maximum level for any node in the tree, from now on $\mathbf{H}$, in figure \@ref(fig:html_tree). What is worth to be anticipating is that functions are not going to be applied directly to siblings in the "upper" general rooted tree (i.e. from the domain). Instead the approach follwed is segmenting the highest tree into a sequence of single children unit that shares the same level ("nav", "main", "header", "title" and "footer") for reasons explained in section \@ref(spoofing).
+First and Second dimension of the scraping problem imply hierarchy. One way to imagine hierarchy in both of the two dimensions are 
 
 ![(#fig:html_tree) html tree structure of a general website, randomly generated online](images/html_general_representation.jpg)
 
@@ -45,61 +88,42 @@ The website structure of immobiliare can be assumed to be similar to the one of 
 immobiliare.it is a [clean url](https://en.wikipedia.org/wiki/Clean_URL) _miss lit_ and it can be easily parsed and queried according to some parameters (i.e. filters) selected in their dedicated section (e.g. city, number of rooms 5, square footage less than 60 $m^2$, macrozone "fiera" and "centro"). The url is shaped so that each further parameters and its respcetive values are appended at the end of the domain url `https://www.immobiliare.it/`. Parameters and values are appended with a proper semantic, not all the sematics are equal, that is why scraping needs sophostication when applied to other websites. One major adavatge in this context is immobilaire being a [clean url](https://en.wikipedia.org/wiki/Clean_URL), whose sematic is oriented to usability and accessibility.
 Once parameters are applied to the root domain this constitutes a newer rooted tree whose url root node is the parametrized.It might have this appearance (params are  city of Milan, square footage is less than 60 $m^2$: domain + filters i.e. `affitto-case/milano/?superficieMinima=60`. Since for the moment are generated only links related to page n°1 containing the first 25 advs links (see figure \@ref(fig:websitetree)) all the remaining siblings nodes corresponding to the subsequent pages have to be initialized. In here resides the utility of Local reproducibility property introduced in the previous section. The remaining siblings, e.g. the ones belonging to page 2 (with the attached 25 links), to page 3 etc. can be generated by adding a further parameter `&pag=n`, where n is the page number reference (from now on referred as _pagination_). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational requirements imposed by inla methodology \@ref(inla). The code chunk below has the aim to mimic the url syntax filters building, s given a set of information it can reproduce any related sibling. detaching website structure from content architecture.
 
-# Algorithm 1
-Just a sample algorithmn
-\begin{algorithm}[H]
-\DontPrintSemicolon
-\SetAlgoLined
-\KwResult{Write here the result}
-\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
-\Input{Write here the input}
-\Output{Write here the output}
-\BlankLine
-\While{While condition}{
-    instructions\;
-    \eIf{condition}{
-        instructions1\;
-        instructions2\;
-    }{
-        instructions3\;
-    }
-}
-\caption{While loop with If/Else condition}
-\end{algorithm} 
+
+```{r urlcompose, tidy=TRUE, linewidth = 70, echo=TRUE, eval=FALSE}
+
+if(!missing("macrozone")){
+                        macrozone = tolower(macrozone) %>% iconv(to='ASCII//TRANSLIT') %>%  str_trim()
+                        idzone = list()
+                        zone = fromJSON(here::here("ALLzone.json"))
+                        for(i in seq_along(macrozone)){
+                                    zone$name = zone$name %>%  tolower()
+                                    if(grepl(macrozone[i], zone)[2]){
+                                                pos = grepl(macrozone[i],zone$name, ignore.case = T)
+                                                idzone[i] = zone[pos,] %>%  select(id)
+                                    } else {
+                                                stop(paste0("zone:", macrozone[i], " is not recognized"))}
+                        }
+                        idzone = idzone %>%  unlist() %>%  unique()
+                        mzones =  glue::glue_collapse(x = idzone, "&idMZona[]=")
+                        
+                        dom = "https://www.immobiliare.it/"
+                        stringa = paste0(dom, tipo, "-case/", citta,"/?", mzones) 
+                        npages_vec = str_c(stringa, '&pag=', 2:npages) %>% 
+                                    append(stringa, after = 0) 
+                        
+            } else {
+                        dom = "https://www.immobiliare.it/"
+                        stringa = paste0(dom, tipo, "-case/", citta,"/") # mzones
+                        npages_vec = glue("{stringa}?pag={2:npages}") %>%
+                                    append(stringa, after = 0)  
+                        
+            }
 
 
-```r
-if (!missing("macrozone")) {
-    macrozone = tolower(macrozone) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
-    idzone = list()
-    zone = fromJSON(here::here("ALLzone.json"))
-    for (i in seq_along(macrozone)) {
-        zone$name = zone$name %>% tolower()
-        if (grepl(macrozone[i], zone)[2]) {
-            pos = grepl(macrozone[i], zone$name, ignore.case = T)
-            idzone[i] = zone[pos, ] %>% select(id)
-        } else {
-            stop(paste0("zone:", macrozone[i], " is not recognized"))
-        }
-    }
-    idzone = idzone %>% unlist() %>% unique()
-    mzones = glue::glue_collapse(x = idzone, "&idMZona[]=")
-    
-    dom = "https://www.immobiliare.it/"
-    stringa = paste0(dom, tipo, "-case/", citta, "/?", mzones)
-    npages_vec = str_c(stringa, "&pag=", 2:npages) %>% append(stringa, after = 0)
-    
-} else {
-    dom = "https://www.immobiliare.it/"
-    stringa = paste0(dom, tipo, "-case/", citta, "/")  # mzones
-    npages_vec = glue("{stringa}?pag={2:npages}") %>% append(stringa, after = 0)
-    
-}
 ```
 
 
 Up to this point pagination has generated a vector of siblings nodes whose children elements number is fixed (i.e. 25 links per page \@ref(fig:websitetree) lower part). That makes those trees _k-ary_, where k is 25 indicating the number of children leaves. K-ary trees are rooted trees in which each node has no more than k children, in this particular case final leaves. The well known binary rooted tree is actually a special case of k-ary when $k = 2$. parameters reverse engineering process and 25-ary trees with equal content structure across siblings allow to design a single function to call that could be mapped for all the other siblings. In addition in order to further unroll the website a specific scraping function grabs the whole set of 25 links per page. As a result a single function call of `scrape_href()` can grab the links corresponding to page 1. Then the function is mapped for all the generated siblings nodes (i.e. up to  300) obtaining a collection of all links belonging to the set of pages. Ultimately the complete set of links corresponds to every single advertisement posted on immobiliare.it at a given time. 
-
 
 
 ![(#fig:websitetree)immobiliare.it website structure, author's source](images/website_tree1.jpg)
@@ -119,43 +143,52 @@ Thirdly it converts the content (i.e. payload) into a human readable text with `
 
 The code chunk below exemplifies a function that can scrape the price. The function explicitly covers only the right part to the dashed line (figure \@ref(fig:workflow)) of the whole scraping process. The initial part (left dashed in same figure), where session is opened and response is converted is handles inside the second code chunk where `get.data.catsing()` is.
 
+## Proper Scarping
 
-```r
+Given the structure of the webpage it is imposed an algorithmic search strategy gravitating around 2 main criteria: shortest paths and obligation of result. The algorithm starts considering a single session object argument, then It reads the inner HTML content in the session storing the information into a reusable check up obj `opensess`. Immediately after another object `price` is created and a CSS query is called on direct HTML nodes. The CSS location `.im-mainFeatures__title` points to a precise group of data right below the main title. Expectation are that price is a single element character vector, containing price and other unnecessary non-UTF characters. Then the algorithm enters into the first `if` statement. The logical conditions checks whether the object `price` the first search went lost. If it does not the algorithm jumps directly to the end of the function and returns a preprocessed quantity. As opposite If it does it considers again the reusable `opensess` and hits with a second css query `.im-features__value , .im-features__title`, pointing to second data location. Note that the whole search is done within the same session (i.e. using the same session object), so no more additional request information has to be sent). Since the latter CSS query points to data sequentially stored inside a list object, the newly initialized `price2` is a list containing various information. Then the algorithm flows into a second `if` statement that checks whether `"prezzo"` is matched in the list, if it does it returns the +1 position index element with respect to the "prezzo" position. This happens because data in price2 list are stored by couples sequentially, e.g. [title, "Appartamento Sempione", energy class, "G", "prezzo", 1200/al mese]. Ultimately the algorithm escapes in the else statement by setting `price2 = NA_Character_` once no CSS query is able to find data. the _NA_Character_ string type has to be imposed due to row bindind contraints.
+The skeleton used for price scraping constitutes a standard format in the analysis and it is adopted for all the rest of scraping functions. By keeping equal the CSS query what it is required to change is the matching term, i.e. "numero camere" should be pasted in the place of "prezzo" to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence of that functions need also to be broken down by pieces by single .R files, whose names correspond to each important information.
+
+Mettici lo *pseudocode* 
+```{r genscraping, tidy=TRUE, linewidth = 70, echo=FALSE, eval=FALSE}
 scrapeprice.imm = function(session) {
+  
+  opensess = read_html(session)
+  price  = opensess %>% 
+    html_nodes(css =".im-mainFeatures__title") %>% 
+    html_text() %>%
+    str_trim() 
+  
+  if(is.null(price) || identical(price, character(0))) {
+    price2 = opensess %>%
+      html_nodes(css ='.im-features__value , .im-features__title') %>% 
+      html_text() %>%
+      str_trim()
     
-    opensess = read_html(session)
-    price = opensess %>% html_nodes(css = ".im-mainFeatures__title") %>% html_text() %>% 
-        str_trim()
-    
-    if (is.null(price) || identical(price, character(0))) {
-        price2 = opensess %>% html_nodes(css = ".im-features__value , .im-features__title") %>% 
-            html_text() %>% str_trim()
-        
-        if ("prezzo" %in% price2) {
-            pos = match("prezzo", price2)
-            return(price2[pos + 1]) %>% str_replace_all(c(`\200` = "", `\\.` = "")) %>% 
-                str_extract("\\-*\\d+\\.*\\d*") %>% str_replace_na() %>% str_replace("NA", 
-                "Prezzo Su Richiesta")
-        } else {
-            return(NA_character_)
-        }
+    if ("prezzo" %in% price2) {
+      pos = match("prezzo",price2)
+      return(price2[pos+1])  %>%
+        str_extract( "\\-*\\d+\\.*\\d*") %>%  
+        str_replace_na() %>% 
+        str_replace("NA", "Prezzo Su Richiesta")
     } else {
-        return(price) %>% str_replace_all(c(`\200` = "", `\\.` = "")) %>% str_extract("\\-*\\d+\\.*\\d*") %>% 
-            str_replace_na() %>% str_replace("NA", "Prezzo Su Richiesta")
-        
+      return(NA_character_)
     }
+  } else {
+    return(price) %>% 
+      str_extract( "\\-*\\d+\\.*\\d*") %>%  
+      str_replace_na() %>% 
+      str_replace("NA", "Prezzo Su Richiesta")
+      
+  }
 }
 ```
 
-The function takes as a single argument a session object, then It reads the inner html content in the session storing the information into an obj called the `opensess`. Another obj is created, namely price, right after the pipe operator a CSS query into the html is called. The CSS query `.im-mainFeatures__title` points to a precise group of data inside the web page, right below the main title. Expectation are that price is a one-element chr vector, containing the price and other unnecessary non-UTF characters. Then the algorithm enters into the first `if` statement. The handler checks if the object `price` is empty. If it doesn't the algorithm jumps to the end of the function and returns the quantity cleaned. But If it does it takes again the `opensess` and tries with a second css query `.im-features__value , .im-features__title` in a second data location where price might be also found. Please note that this is all done within the same session, so no more additional request information has to be sent. Since the latter CSS query points to data stored inside a list object, for the time being the newly created `price2` is a list containing various information. Then the algorithm flow enters into the second `if` statement that checks whether `"prezzo"` is matched the list or not, if it does it returns the +1 position index element with respect to the "prezzo" positioning. This happens because data in price2 list are stored by couples sequentially, e.g. [title, "Appartamento Sempione", energy class, "G", "prezzo", 1200/al mese]. When it returns the element corresponding to +1 position index it applies also some data wrangling with `stringr` package to keep out overabundant characters. The function then escapes in the else statement by setting `price2 = NA_Character_` once no CSS query could be finding the price information. the _NA-character-string_ type has to be imposed due to fact that later they can not be bind. In other words if the function is evaluated for a url and returns the price quantity, but then is evaluated for url2 and outputs NA (no character) then results can not be combined into dataframe due to different object types.
-The skeleton used for price scraping constitutes a standard format in the analysis and it is adopted for all the rest of scraping functions. By keeping equal the CSS query what it is required to change is the matching term, i.e. "numero camere" should be pasted in the place of "prezzo" to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence of that functions need also to be broken down by pieces by single .R files, whose names correspond to each important information.
 
 
-Once all the functions have been designed they need to be called together and then data coming after them need to be combined into a single final dataframe. This is done by `fastscrape()` Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a `foreach` parallel loop called by `scrape.all.info()` 
+Once all the functions have been designed they need to be griuped and called together. This is done by `fastscrape()` Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a `foreach` parallel loop called by `scrape.all.info()` 
 
 
-
-```r
+```{r scrapeallinfo, tidy = FALSE, linewidth = 70, eval = FALSE, echo = TRUE, size = "tiny"}
 ## [ fastscrape ] ----
 ## first endpoint function 
 options(future.rng.onMisuse="ignore")
@@ -192,71 +225,14 @@ fastscrape = function(npages_vec){
 ```
 
 
-Below it is printed the tree structure folder that composes the main elements of the scraping procedure. It can be noticed that the two folders, namely functions_singolourl and functions_url enclose all the single functions that allows to grab each information from the session. Folders with a customized function are then sourced within the two main functions, scrape.all and scrape.all.info so data can be extracted.
-
-```
- levelName
-1  immobiliare.it-WebScraping     
-2   ¦--functions_singolourl       
-3   ¦   ¦--0scrapesqfeetINS.R     
-4   ¦   ¦--0scrapenroomINS.R      
-5   ¦   ¦--0scrapepriceINS.R      
-6   ¦   ¦--0scrapetitleINS.R      
-7   ¦   ¦--ScrapeAdDate.R         
-8   ¦   ¦--ScrapeAge.R            
-9   ¦   ¦--ScrapeAgeBuilding.R    
-10  ¦   ¦--ScrapeAirConditioning.R
-11  ¦   ¦--ScrapeAptChar.R        
-12  ¦   ¦--ScrapeCatastInfo.R     
-13  ¦   ¦--ScrapeCompart.R        
-14  ¦   ¦--ScrapeCondom.R         
-15  ¦   ¦--ScrapeContr.R          
-16  ¦   ¦--ScrapeDisp.R           
-17  ¦   ¦--ScrapeEnClass.R        
-18  ¦   ¦--ScrapeFloor.R          
-19  ¦   ¦--ScrapeHasMulti.R       
-20  ¦   ¦--ScrapeHeating.R        
-21  ¦   ¦--ScrapeHouseID.R        
-22  ¦   ¦--ScrapeHouseTxtDes.R    
-23  ¦   ¦--ScrapeLAT.R            
-24  ¦   ¦--ScrapeLONG.R           
-25  ¦   ¦--ScrapeLoweredPrice.R   
-26  ¦   ¦--ScrapeMetrature.R      
-27  ¦   ¦--ScrapePhotosNum.R      
-28  ¦   ¦--ScrapePostAuto.R       
-29  ¦   ¦--ScrapePropType.R       
-30  ¦   ¦--ScrapeReaReview.R      
-31  ¦   ¦--ScrapeStatus.R         
-32  ¦   ¦--ScrapeTotPiani.R       
-33  ¦   ¦--ScrapeType.R           
-34  ¦   °--take_location.R        
-35  ¦--scrapeALL.R                
-36  ¦--scrapeALLINFO.R            
-37  ¦--functions_url              
-38  ¦   ¦--ScrapeHREF.R           
-39  ¦   ¦--ScrapePrice.R          
-40  ¦   ¦--ScrapePrimaryKey.R     
-41  ¦   ¦--ScrapeRooms.R          
-42  ¦   ¦--ScrapeSpace.R          
-43  ¦   °--ScrapeTitle.R          
-44  ¦--libs.R                     
-45  ¦--utils.R                    
-46  ¦--README.Rmd                 
-47  ¦--README.md                  
-48  °--simulations                
-49      ¦--rt_match_vs_forloop.R  
-50      °--runtime_simul.R
-```
-
-
-
 ## Scraping Best Practices and Security provisions{#best-practices}
 
-Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers to access or not access certain parts of a webpage. The de facto ‘standard’ never made it beyond a informal “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread (e.g. https://en.wikipedia.org/robots.txt, https://www.google.com/robots.txt) and bots from Google, Yahoo adhere to the rules defined in robots.txt files, although their _interpretation_ of those rules might differ.
+Web scraping have to naturally interact a vast number of times with both the client and server side as a result many precautions must be seriously taken. From the server side a scraper can forward as many requests as it could (as sessions) and as a consequence it might create a bottleneck of traffic impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents provisioning and consequently analytics reports might be off track. 
+Those are a portion of the reasons why most servers have their dedicated Robots.txt files. Robots.txt are _miss lit_ a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto ‘standard’ never made it beyond a _informal_ “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread due to the vast number of web scrawlers (e.g. https://en.wikipedia.org/robots.txt, https://www.google.com/robots.txt), and bots from Google, Yahoo adhere to the rules defined in robots.txt files, although their _interpretation_ might differ.
 
-Robots.txt files are plain text and always found at the root of a website's domain. The syntax of the files in essence follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. # serves to comment lines and parts of lines. Everything after # until the end of line is regarded a comment. Possible field names are: user-agent, disallow, allow, crawl-delay, sitemap, and host. For further references on robotstxt are recommended [@robotstxt, @google:robottxt].
+Robots.txt files [@robotstxt] essentially are plain text and always found at the root of a website's domain.  The syntax of the files in essence follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. Possible field names as pinpointed in [@google:robottxt] are: user-agent, disallow, allow, crawl-delay, sitemap, and host. 
 
-Some interpretation problems:
+Some standardized interpretation:
 
 - Finding no robots.txt file at the server (e.g. HTTP status code 404) implies that everything is permitted.
 - Subdomains should have there own robots.txt file if not it is assumed that everything is allowed.
@@ -278,30 +254,22 @@ This procedure is a daily issue to scraper that are trying to collect informatio
 
 ### User Agents Spoofing{#spoofing}
 
-\BeginKnitrBlock{definition}\iffalse{-91-85-115-101-114-32-65-103-101-110-116-115-93-}\fi{}<div class="definition"><span class="definition" id="def:useragents"><strong>(\#def:useragents)  \iffalse (User Agents) \fi{} </strong></span>A user agent [@whoishostingthis.com] is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices.</div>\EndKnitrBlock{definition}
+```{definition, useragents, name="User Agents", echo =  TRUE }
+A user agent [@whoishostingthis.com] is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices.
+```
 
 The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continuous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them 
 Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
 Below the user agents rotation pool:
 
-
-```r
+```{r agents, size = "tiny", echo=TRUE}
 set.seed(27)
-agents = c("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
-    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", 
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14", 
-    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36", 
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36", 
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36", 
-    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36", 
-    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36", 
-    "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0")
-agents[sample(1)]
-```
+url = "https://user-agents.net/"
+agents = read_html(url) %>%
+  html_nodes(css = ".agents_list li") %>% 
+  html_text()
 
-```
-## [1] "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+agents[sample(1)]
 ```
 
 A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
@@ -311,17 +279,16 @@ Many proxy servers are offered in a paid version, so in this case since security
 - Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
 - Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
 
-### Handlers
+### Dealing with failure in Parallel
 
 During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring, better outlined in section \@ref(challenges). Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to grab the content. Handlers are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when handlers are not implied. API endpoints evokes 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single links to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
 The solution proposed tries to deal with failure through implementing `purrr` adverb `possibly()`, which takes a function (a verb) and returns a modified version. In this case, the modified function will never throw an error. The approach is encouraged when functions need to be mapped over larger objects and when run time are long as pointed out in section 21.6 of @Rdatascience.
 
+```{r possibly, eval=FALSE, echo=TRUE}
+title =  future_map(npages_vec, possibly( ~{
+                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
+                                    scrapetitle_imm(session = sesh)},NA_character_, quiet = FALSE))%>%  flatten_chr()
 
-```r
-title = future_map(npages_vec, possibly(~{
-    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-    scrapetitle_imm(session = sesh)
-}, NA_character_, quiet = FALSE)) %>% flatten_chr()
 ```
 
 
@@ -330,32 +297,30 @@ Below some of the main authorization handlers implied:
 
 - `get_ua()` verifies that the User Agent in the session is not the default one.
 
-
-```r
+```{r GetUa, eval=FALSE, echo=TRUE}
 get_ua = function(sess) {
-    stopifnot(is.session(sess))
-    stopifnot(is_url(sess$url))
-    ua = sess$response$request$options$useragent
-    return(ua)
+  stopifnot(is.session(sess))
+  stopifnot(is_url(sess$url))
+  ua = sess$response$request$options$useragent
+  return(ua)
 }
 ```
 
 
 - `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
 
+```{r IsUrl, size="tiny", linewidth = 70, tidy=TRUE, echo=TRUE}
 
-```r
-is_url = function(url) {
-    re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
-    grepl(re, url)
+is_url = function(url){
+  re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
+  grepl(re, url)
 }
 ```
 
 
 - `get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
 
-
-```r
+```{r GetDelay, linewidth = 70, tidy=FALSE, echo=TRUE}
 dominio = "immobiliare.it"
 get_delay = function(domain) {
   
@@ -375,45 +340,41 @@ get_delay = function(domain) {
 
 get_delay =  memoise::memoise(get_delay) ## so that .get_delay results are cached
 get_delay(domain = dominio)
-```
 
-```
-## [1] NA
 ```
 
 
 - `checkpermission()` assess whether the domain or the related paths require specific actions or they prevent some activity on the target.
 
-
-```r
+```{r robotstxt, echo=TRUE}
 checkpermission = function(dom) {
-    
-    robot = robotstxt(domain = dom)
-    vd = robot$check()[1]
-    if (vd) {
-        cat("\nrobot.txt for", dom, "is okay with scraping!")
-    } else {
-        cat("\nrobot.txt does not like what you're doing")
-        stop()
-    }
+  
+  robot = robotstxt(domain = dom)
+  vd = robot$check()[1]
+  if (vd) {
+    cat("\nrobot.txt for",dom, "is okay with scraping!")
+  } else {cat("\nrobot.txt does not like what you're doing")
+    stop()
+  }
 }
 
-checkpermission(dom = dominio)
+checkpermission(dom =  dominio)
 ```
 
-```
-## 
-## robot.txt for immobiliare.it is okay with scraping!
-```
+## Implicit Parallel Scraping
 
-## Explicit Parallel Scraping
+Scraping run time is crucial when dealing with elastic markets and proactive web pages. This is also true in rental real estate where time to market is a major competitive advantage and monthly prices elasticity with respect to the time is high.
+Since the dimension of the run time problem requires as many session requests opened as single links crawled (refer to section \@ref(ContentArchitecture)). And since for each of the links are supposed to be called at least 34 different functions, refer to section \@ref(ContentArchitecture), then computation must be _parallelized_.
+The extraordinary amount of time taken in a non-parallel environment is caused by R executing tasks on a single processor sequentially link-by-link in a queue (i.e. single threaded computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called [asynchronous](https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897)) scraping functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor and a way to redistribute computation. As a result many tasks can be split over processors and then multiple cores for each processor. 
 
-Scraping run time is crucial when dealing with proactive web pages, especially in real estate where rental time to market is a major competitive advantage as well as monthly price within the day are flexible enough to respond to demand inputs. The issue is also posed to the API setting according to which if the API endpoint query does not respond within a fixed time neighbor, chances are that the call might be lost.
-Since the problem requires as many sessions opened as single links extracted (refer to section \@ref(ContentArchitecture)). MOreover since for each of the links extracted are supposed to be called 34 different functions (refer to section \@ref(ContentArchitecture)), as a consequence scraping run time without parallel execution might take some time. 
-The extraordinary amount of time taken is caused by R executing tasks on a single processor sequentially one-by-one in queue (i.e. single thread computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called [asynchronous](https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897)) scraping functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor. As a result many computation can be split over processors and then multiple cores for each processor. The explicit characteristic affects the way the parallel back end is built, outlining the computing group and the parallel execution strategy.
-The _computing group_ is a software concept as in [@parallelr], that mainly points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected, but for optimization properties of computation, proper of each strategy proposed in here, are initialized as many workers as physical cores (default option for most of the backends, logical cores). 
-Specifying the computing group is a critical step in each parallel execution that needs to be initialized right before the "main" function execution. Moreover a split computation strategy is accompained to computing groups by convenience, decisions mainly regards optimal memory space allocation.
-In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are _doMC_ along with the foreach loop constructor and _Future_ with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in @bengtsson_2017. Future 
+![single threaded computing vs parallel computing, @barney source](images/parallel_problem.jpg)
+
+The explicit/implicit property regards where parallel execution should happen in the code, allowing the developer to be flexible enough to decide which piece of code needs parallelization and which does not.
+Parallel back ends initialization depends both on the parallel library and the looping constructor even though tangible efforts have been recently put into interoperability through `doFuture` @doFuture. 
+As a general rule of thumb it must be specified the computing group and the parallel execution strategy. The _computing group_ is a software concept as in [@parallelr], that points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected. Although for inner libraries functioning are initialized as many workers as physical cores (default option for most of the back ends).
+This is also due to latent default load balancing strategies that are able to equally redistribute tasks over workers according to memory space allocation and dependencies. General settings 
+
+In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are _doParalle_ along with the foreach loop constructor and _Future_ with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in @bengtsson_2017. Future 
 
 A variety of backends exist and third-party contributions meeting the specifications, which ensure that the same code works on all backends, If I were re-writing my code now, I'd probably also use futures and purrr. The former adds some niceties to doparallel and foreach if you choose to use that syntax, like automatically exporting packages. And it's backend-agnostic, 
 
@@ -428,25 +389,58 @@ For a quick but comprehensive perspective on Parallel theory both on hardware an
 doParallela among the other offers also 
 `detectCores()` uncovers how many _Hyper-Threading_ cores are at the disposition, since they do not provide any computational advantage the option _logical_ is set false. Below the number of cores available on the following machine:
 
-
-```
-## total n° of Hyper-Threading cores on the machine is 12
-## 
-## total n° of NOT Hyper-Threading cores 6
+```{r detectCore, eval=FALSE}
+cl_hyper = as.integer(detectCores())
+cl_not_hyper = as.integer(detectCores(logical = FALSE))
+print(glue("total n° of Hyper-Threading cores on the machine is {cl_hyper}\n
+            total n° of NOT Hyper-Threading cores {cl_not_hyper}"))
 ```
 
 
 ![parallel Execution schema into the R ecosystem, @parallelr source](images/parallel_mapping.png)
-All the following runtime examinations are performed on `completescrape()` which is a lightweight version of the function included in the API.
-Furthermore as a general criteria for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred. Through `scrape` the approach is to test two different parallel back ends performances.
 
+
+The following run time simulations are performed on custom group of functions which is a lightweight version of the final API endpoint. Simulation are preformed on local machine therefore benchmarks can not really be representative to the problem. As a matter of fact the API is served on a Linux OS server with its proper hardware and parallel execution is handled differently in local machine (windows 10, ...).. As a partial solution agnostic language libraries are chosen so sub-optimal solutions are found.
+As a further general criteria base-R for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred.
 The first attempt was using `furrr` package [@furrr] which enables mapping (i.e. `map`) through a list from `purrr`, along with a `future` parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command `plan(multisession, workers = 2)`. Then the function operates as many other seen purrr variations:
 `furrr::future_map(scrape(), .progress = T)`. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
 The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( _pensa se fare più simulazioni, prende tempo_ )
 
+```{r furrrloop, eval = FALSE }
 
+vecelaps = c()
+start = c()
+end = c()
 
+plan(multisession, workers = 12)
+for (i in 1:len(vec_pages[1:20])) {
+  start[i] = Sys.time()
+  cat("\n\n run iteration",i,"over 20 total\n")
+  vec_pages[1:i] %>% 
+    furrr::future_map(get.data.caturl, .progress = T) %>% 
+    bind_rows()
+  end[i] = Sys.time()
+  vettoelaps[i] = end[i]-start[i]
+}
 
+```
+
+```{r, eval=FALSE, linewidth = 70, tidy=FALSE}
+furrrmethod = tibble(start,
+                      end,
+                      vettoelaps)
+
+# ggplot (themed) run time meausurament method 1
+ggplot(furrrmethod,aes(x=1:20, y=vettoelaps)) +
+geom_line( color="steelblue") + 
+geom_point() +
+ggtitle("Run-Time furrr multisession, 12 workers") +
+stat_smooth(method=lm) +
+labs(x = "# of compound urls called",
+     y = "run time (seconds)")+
+theme_nicco()
+
+```
 
 
 ![(#fig:furrr)computational complexity analysis with Furrr](images/furrr.png)
@@ -471,7 +465,30 @@ The looping construction abstractly follows the r-base looping idea, below main 
 
 
 
+```{r foreachloop, eval=FALSE}
+cores =detectCores(logical = F)
+cl = makeCluster(cores) 
+registerDoParallel(cl,cores = cores)
 
+vettoelaps1 = c()
+start1 = c()
+end1 = c()
+for (j in 1:len(l[1:20])) {
+  start1[j] = Sys.time()
+  cat("\n\n run iteration",j,"over 20 total\n")
+  foreach(i = seq_along(vec_pages[1:j]),
+          .packages = lista.pacchetti,
+          .combine = "bind_rows",
+          .errorhandling='pass') %dopar% {
+            x = get.data.caturl(vec_pages[i])
+            }
+  end1[j] = Sys.time()
+  vettoelaps1[j] = end1[j] -start1[j]
+}
+
+stopImplicitCluster()
+stopCluster(cl)
+```
 
 
 ![(#fig:foreach)computational complexity analysis with Furrr](images/forerach.png)
@@ -481,16 +498,11 @@ It can be grasped quite easily by figure \@ref(fig:foreach) that initially forea
 
 ## Open Challenges and Further Improvemements{#challenges}
 
-The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained updated. As a matter of fact what unfortunately can not be predicted are the future changes that involves the first part of the scraping process i.e. decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed, and so both html/CSS. This idea is developed in the package Rcrawler @Rcrawler, which crawls the entire website and searches for targeted keywords. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. HTML are known to be generally lightweight so the crawl part does not weigh down the run time. The time all files are stored the algorithm searches for the keywords within the html files, then results filtered by keywords are grabbed. Performances with algorithm of this kind are very efficient but results are not effective due to keywords not always associated to the data needed. With that said a safer way to scrape exact content could be embedding complex task specific regular expression (flagging data location) within the HTML files and then calling on the location a CSS query.
-As a disclaimer Rcrawler is designed to be flexible enough to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with no effort \@ref(webstructure).
-From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. According to the most recent literature APIs (as well as Shiny) should be treated as R packages (@plungr goes in that sense) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
-It can be missed to cite a popular API development integration  service and automate testing tool [Postman](https://www.postman.com/), which does the best when POST requests endpoints are served, since for the moment they are not required it is not used.
+Still one of the main challenges remains unsolved since each single element at each level has been optimized nevertheless scraping function must be continuously kept updated. As a matter of fact what unfortunately can not be predicted are the future changes that involves the first part of the scraping process i.e. crawling. Indeed scraping, with some further adjustments can take care of searching for precise information within the web page even if the design changes, and so happens for both HTML and CSS. This idea is massively applied in the package Rcrawler @Rcrawler, which crawls the entire website and searches for targeted keywords. The major benefit relies in crawling and subsequently saving in local the whole set of html/xml files that composes the website. HTML are agreed to be generally lightweight so the crawling part does not weigh down the run time. Once all files are dnwloaded the algorithm looks for the target keywords within the html files. Performances with algorithm of this kind are very efficient but results are not always effective due to the fact that keywords in the web page are not always associated to the data indeed required. Afterall a safer way to scrape content might be embedding complex customized regular expression on the HTML text which univoquely indetifies the CSS data location.
+As a disclaimer Rcrawler is designed to be flexible enough to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with a small effort \@ref(webstructure).
+On the parallel computing side some further performance boosts might come adding HPC (high-performance computing) clusters through `future.batchtools` @futurebatchtools sharing computation on separate nodes. The package implements a generic future wrapper for all batchtools backends like Torque, Slurm, Sge and many more.  
 
-<!-- and the default [Swagger](https://editor.swagger.io/) UI takes its place. -->
-
-
-puo parlare del HPC e la macchine da computing
-On the parallel computing side further run time performance boosts might be brought by integrating `doAzureParallel` _miss lit_ which is built on top of foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a further economic cost as a consequence it is not the first choice. Nonetheless it would perfectly shrinks run time by accelerating the number of requests sent among different processors/cores and cores, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+`doAzureParallel` _miss lit_ which is built on top of foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a further economic cost as a consequence it is not the first choice. Nonetheless it would perfectly shrinks run time by accelerating the number of requests sent among different processors/cores and cores, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
 
 Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found. 
 
@@ -499,30 +511,12 @@ Moreover error messages can not sometimes be printed out in console and be undes
 "Data that is online and public is always available for all" is never a good answer to the question "Can I use those web data to my scope". Immobiliare.it is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
 A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their [specialized section](https://www.immobiliare.it/terms/). Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property. Below are checked the permissions to scrape the endpoints:
 
-
-```r
-dom = "www.immobiliare.it"
-robotstxt(dom)$permissions %>% kable(booktabs = T)
+```{r disallow, echo=TRUE}
+## at the domain 
+dom ="www.immobiliare.it"
+robotstxt(dom)$permissions %>% 
+  kable(booktabs = T)
 ```
-
-
-
-|field    |useragent |value                            |
-|:--------|:---------|:--------------------------------|
-|Disallow |*         |*idmacroarea=                    |
-|Disallow |*         |/ricerca-mappa/                  |
-|Disallow |*         |/ricerca.php                     |
-|Disallow |*         |/ricerca_agenzie.php             |
-|Disallow |*         |/track-events/                   |
-|Disallow |*         |/nav-ads/                        |
-|Disallow |*         |/mutui/calcolatore?prezzo=       |
-|Disallow |*         |/foto_stampa_beez.php            |
-|Disallow |*         |/dettaglio.php                   |
-|Disallow |*         |/dettaglio_progetto.php          |
-|Disallow |*         |*stampa=s                        |
-|Disallow |*         |/news/newsletter/                |
-|Disallow |*         |/news/?s=                        |
-|Disallow |*         |/valutazione-immobiliare/valuta- |
 
 
 What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \@ref(best-practices)), and *not* any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e. is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.

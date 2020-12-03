@@ -316,6 +316,9 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 .conf file and installation on Linux server. Security and Authentication. 
 
 ## Further Integrations
+From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (@plungr aligns with that) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
+CI/CT
+It can be missed to cite a popular API development integration  service and automate testing tool [Postman](https://www.postman.com/), which does the best when POST requests endpoints are served, since for the moment they are not required it is not used.
 
 Pins is an r packages [this link](https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9)
 software development framework and tools for testing [this work](https://github.com/isteves/plumbplumb)
