@@ -1,10 +1,9 @@
-# API Technologies Stack {#Infrastructure}
+# API Technology Stack {#Infrastructure}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-
 <!-- Scraping function in the way they are designed are not portable and can only be executed locally. One way to scale up code is to make it available as API. -->
 
-In order to provide a fast and secure API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
+In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
 
 - The API has to be executed $n$ given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.
 - The API has to be very fast otherwise data can not be consumed.
@@ -17,7 +16,7 @@ In order to provide a fast and secure API service to the end user many technolog
 The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
 Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \@ref(scraping). On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure).
 
-Technologies involved are:
+Technology stack:
 
 - GitHub version control
 - Scheduler cron job, section \@ref(scheduler)
