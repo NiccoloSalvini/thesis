@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: css/style.css
+  highlight: tango
   table_css: false
   includes:
     in_header: google_analytics.html
@@ -9,7 +10,7 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: yes
       before: |
-        <li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
+        <li class="toc-logo"><a href="./"><img src="images/transspatial.PNG"></a></li>
       after: |
         <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
         <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>

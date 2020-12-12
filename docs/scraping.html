@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Scraping | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</title>
+  <title>Chapter 2 Web Scraping | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
   <meta name="description" content="Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Scraping | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta property="og:title" content="Chapter 2 Web Scraping | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/Thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Scraping | REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA." />
+  <meta name="twitter:title" content="Chapter 2 Web Scraping | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   
   <meta name="twitter:description" content="Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/spat-touch.png" />
@@ -51,6 +51,17 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -92,39 +103,38 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  background-color: #f8f8f8; }
 @media screen {
 code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -140,11 +150,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./"> REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a></li>
+<li class="toc-logo"><a href="./"><img src="images/transspatial.PNG"></a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Scraping</a><ul>
+<li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#web-scraping"><i class="fa fa-check"></i><b>2.1</b> Web Scraping</a></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#graph-representation-of-html"><i class="fa fa-check"></i><b>2.2</b> Graph Representation of HTML</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#crawling"><i class="fa fa-check"></i><b>2.3</b> Crawling</a></li>
@@ -152,34 +167,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.4.1</b> Immobiliare.it website structure</a></li>
 <li class="chapter" data-level="2.4.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.4.2</b> Immobiliare.it content architecture with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#proper-scarping"><i class="fa fa-check"></i><b>2.5</b> Proper Scarping</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.5</b> Proper Scarping</a></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.6</b> Scraping Best Practices and Security provisions</a></li>
 <li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#web-client-security-provisions-user-agents-proxies-and-fail-dealers"><i class="fa fa-check"></i><b>2.7</b> Web Client Security provisions: User Agents, Proxies and Fail Dealers</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.7.1</b> HTTP User Agent Spoofing</a></li>
-<li class="chapter" data-level="2.7.2" data-path="scraping.html"><a href="scraping.html#dealing-with-failure-in-parallel"><i class="fa fa-check"></i><b>2.7.2</b> Dealing with failure in Parallel</a></li>
+<li class="chapter" data-level="2.7.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.7.1</b> HTTP User Agent and Mail Spoofing</a></li>
+<li class="chapter" data-level="2.7.2" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.7.2</b> Dealing with failure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#implicit-parallel-scraping"><i class="fa fa-check"></i><b>2.8</b> Implicit Parallel Scraping</a></li>
+<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.8</b> Parallel Scraping</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.8.1</b> Parallel furrr+future</a></li>
+<li class="chapter" data-level="2.8.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.8.2</b> Parallel foreach+doFuture</a></li>
+</ul></li>
 <li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.9</b> Open Challenges and Further Improvemements</a></li>
-<li class="chapter" data-level="2.10" data-path="scraping.html"><a href="scraping.html#legal-profiles-ancora-non-validato"><i class="fa fa-check"></i><b>2.10</b> Legal Profiles (ancora non validato)</a></li>
+<li class="chapter" data-level="2.10" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.10</b> Legal Profiles</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> REST API Infrastructure</a><ul>
-<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#software-development-map"><i class="fa fa-check"></i><b>3.1</b> Software development map</a></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.2</b> Scheduler</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.2.1</b> Cron Jobs</a></li>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technologies Stack</a><ul>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.3</b> REST API</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.3.1</b> Plumber REST API</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.3.2</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
-<li class="chapter" data-level="3.3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.3.3</b> REST API documentation</a></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.2</b> REST API</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.2.1</b> Plumber REST API</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.2.2</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
+<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.2.3</b> REST API documentation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.4</b> Docker</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.4.1</b> Why Docker</a></li>
-<li class="chapter" data-level="3.4.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.4.2</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.3</b> Docker</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.3.1</b> Why Docker</a></li>
+<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.3.2</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 server</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.5.1</b> Launch an EC2 instance</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 instance</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.4.1</b> Launch an EC2 instance</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.6</b> NGINX reverse proxy server</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.5</b> NGINX reverse proxy server</a></li>
+<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#software-development-workflow"><i class="fa fa-check"></i><b>3.6</b> Software development Workflow</a></li>
 <li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.7</b> Further Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
@@ -236,6 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
 <li class="chapter" data-level="9.1" data-path="appendix.html"><a href="appendix.html#gp-basics"><i class="fa fa-check"></i><b>9.1</b> GP basics</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
 <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
@@ -250,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
           </h1>
         </div>
 
@@ -259,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="scraping" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Scraping</h1>
+<h1><span class="header-section-number">Chapter 2</span> Web Scraping</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(Scraping). Figure cross referencing follows this syntax: \@ref(fig:plot) when matched in the markdown figure insertion syntax ![a generic plot](images/a_generic_plot.png) -->
 <p>The following chapter covers advanced topics on web scraping and related hard challenges with a focus on the immobiliare.it case. A new scraping workflow concept is proposed that integrates the crawling part inside the proper scraping and removes frictions related to inner complexities. The workflow offers a faster solution with respect to traditional library oriented scraping methods. The solution proposed takes advantage of the url clean structure and proposes an “inverse crawling” methodology. At first url sematic is reverse engineered so that the sitemap is explicit and url can be freely compose. Secondly links are crawled and collected in a list according to the url composed. By doing that each link can be directly targeted by scraping functions, with that said the focus can shift to the proper scraping part. An example of scraping function with <code>rvest</code> <span class="citation">Wickham (<a href="#ref-rvest" role="doc-biblioref">2019</a>)</span> is presented outlining the strategy adopted to look for the exact content within immobiliare.it HTML/CSS. The search strategy skeleton of the function is then reproduced for all the data that shares the same CSS query location.
 Scraping common best practices are applied from the web server point of view, this is taken care by kindly asking for permission and sending delayed requests rate. As well as from the the web client point of view by securing continuous scraping through server blocks, User Agent pool rotation and fail dealer to bypass empty content. Then a run time scraping benchmark is presented for two different parallel back end options <code>future</code> <span class="citation">Bengtsson (<a href="#ref-future" role="doc-biblioref">2020</a><a href="#ref-future" role="doc-biblioref">b</a>)</span> and <code>doParallel</code> <span class="citation">Corporation and Weston (<a href="#ref-doParallel" role="doc-biblioref">2020</a>)</span>, together with two parallel looping constructions, <code>furrr</code> <span class="citation">Vaughan and Dancho (<a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> and <code>foreach</code> <span class="citation">Microsoft and Weston (<a href="#ref-foreach" role="doc-biblioref">2020</a>)</span>. Both of the two have displayed similar results, nevertheless the former offers has a more {Tidiverse} orientation and offers a wider range of integrations. Furthermore an overview of still open challenges is given with the hope that the effort put might be extended or integrated with newer technologies and paradigms. In the end legal profiles are addressed comparing results and implications with a market counterpart study.</p>
@@ -267,7 +286,7 @@ Scraping common best practices are applied from the web server point of view, th
 <h2><span class="header-section-number">2.1</span> Web Scraping</h2>
 
 <div class="definition">
-<span id="def:scraping" class="definition"><strong>Definition 2.1  (Scraping)  </strong></span>Web Scraping is a technique aimed at extracting unstrctured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
+<span id="def:scraping" class="definition"><strong>Definition 2.1  (Scraping)  </strong></span>Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
 </div>
 
 <p>Web scraping is a form of data mining. The basic and most important goal of the web scraping process is to mine information from different and unstructured websites and transform it into an comprehensible structure like spreadsheets. Web scraping can be performed with different degrees of precision in several ways via several tools. Popular options are APIs, proprietary softwares, browser integrations and open source libraries. Challenges in scraping mainly regards <em>security</em>, <em>run-time</em> and <em>exception handling</em>.
@@ -319,6 +338,7 @@ First and Second dimension of the scraping problem imply hierarchy. One way to i
 <p>The website structure of immobiliare can be assumed to be similar to the one of the largest online retailer Amazon. For that reason they both fall into the same website structure category. Sharing the same category might imply that the transition from customized website structure scraping functions (i.e. immobiliare) do not take extraordinary sophistication to be extended to other comparable websites (i.e. Amazon). Assuming that the scraper knows where data is stored (i.e. payloads), the mandatory step is a way to compose and decompose url anatomy. As a matter of fact each time the scraper script visits the website it should not step back from domain root node and then down the longest path reaching the final content node. Instead it should try to shorten the path by minimizing the number of nodes encountered, conditioned to the respective nodes’ weights. This is a first important conclusion since by separating the website strcuture from the content architecture scraping is massively faster and should not no more rely on the website forced root-to-node paths.
 immobiliare.it is a <a href="https://en.wikipedia.org/wiki/Clean_URL">clean url</a> <em>miss lit</em> and it can be easily parsed and queried according to some parameters (i.e. filters) selected in their dedicated section (e.g. city, number of rooms 5, square footage less than 60 <span class="math inline">\(m^2\)</span>, macrozone “fiera” and “centro”). The url is shaped so that each further parameters and its respcetive values are appended at the end of the domain url <code>https://www.immobiliare.it/</code>. Parameters and values are appended with a proper semantic, not all the sematics are equal, that is why scraping needs sophostication when applied to other websites. One major adavatge in this context is immobilaire being a <a href="https://en.wikipedia.org/wiki/Clean_URL">clean url</a>, whose sematic is oriented to usability and accessibility.
 Once parameters are applied to the root domain this constitutes a newer rooted tree whose url root node is the parametrized.It might have this appearance (params are city of Milan, square footage is less than 60 <span class="math inline">\(m^2\)</span>: domain + filters i.e. <code>affitto-case/milano/?superficieMinima=60</code>. Since for the moment are generated only links related to page n°1 containing the first 25 advs links (see figure <a href="scraping.html#fig:websitetree">2.2</a>) all the remaining siblings nodes corresponding to the subsequent pages have to be initialized. In here resides the utility of Local reproducibility property introduced in the previous section. The remaining siblings, e.g. the ones belonging to page 2 (with the attached 25 links), to page 3 etc. can be generated by adding a further parameter <code>&amp;pag=n</code>, where n is the page number reference (from now on referred as <em>pagination</em>). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational requirements imposed by inla methodology <a href="inla.html#inla">4</a>. The code chunk below has the aim to mimic the url syntax filters building, s given a set of information it can reproduce any related sibling. detaching website structure from content architecture.</p>
+<p><em>pseudo code get_link</em></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="scraping.html#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">missing</span>(<span class="st">&quot;macrozone&quot;</span>)) {</span>
 <span id="cb1-2"><a href="scraping.html#cb1-2"></a>    macrozone =<span class="st"> </span><span class="kw">tolower</span>(macrozone) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iconv</span>(<span class="dt">to =</span> <span class="st">&quot;ASCII//TRANSLIT&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_trim</span>()</span>
 <span id="cb1-3"><a href="scraping.html#cb1-3"></a>    idzone =<span class="st"> </span><span class="kw">list</span>()</span>
@@ -367,261 +387,220 @@ Thirdly it converts the content (i.e. payload) into a human readable text with 
 <p>The code chunk below exemplifies a function that can scrape the price. The function explicitly covers only the right part to the dashed line (figure <a href="scraping.html#fig:workflow">2.3</a>) of the whole scraping process. The initial part (left dashed in same figure), where session is opened and response is converted is handles inside the second code chunk where <code>get.data.catsing()</code> is.</p>
 </div>
 </div>
-<div id="proper-scarping" class="section level2">
+<div id="ProperScraping" class="section level2">
 <h2><span class="header-section-number">2.5</span> Proper Scarping</h2>
-<p>Given the structure of the webpage it is imposed a nest sequential search strategy gravitating around 2 main criteria: shortest paths and obligation of results. The algorithm starts considering a single session object argument, then It reads the inner HTML content in the session storing the information into a reusable check up obj <code>opensess</code>. Immediately after another object <code>price</code> is created and a CSS query is called on direct on a HTML nodes set. The CSS location <code>.im-mainFeatures__title</code> points to a precise group of data right below the main title. Expectation is that price is a single element character vector, containing price and other unnecessary non-UTF characters. Then the algorithm bumps into the first <code>if</code> statement. The logical conditions checks whether the object <code>price</code> first search went lost. If it does not the algorithm jumps directly to the end of the function and returns a preprocessed quantity. As opposite If it does it considers again the reusable <code>opensess</code> and hits with a second css query <code>.im-features__value , .im-features__title</code>, pointing to second data location. Note that the whole search is done within the same session (i.e. reusing the same session object), so no more additional request information has to be sent). Since the second CSS query points to data stored in sequeence in a list object, the newly initialized <code>price2</code> is a list containing various information. Then the algorithm flows into a second <code>if</code> statement that checks whether <code>"prezzo"</code> is matched in the list, if it does the algorithm returns the +1 position index element with respect to the “prezzo” position. This happens because data in the list is stored by couples sequentially, e.g. [title, “Appartamento Sempione”, energy class, “G”, “prezzo”, 1200/al mese]. Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. <code>price3</code> points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting <code>NA_Character_</code> resulting in no CSS query is able to find data. the <em>NA_Character</em> string type has to be imposed due to row bind contraints in tibbles.
-The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be executing only certain paths, e.g. price can be found under main title, indeed condizioatore is not.</p>
+<p>The present algorithm imposes a nest sequential search strategy gravitating around 2 main criterias: shortest paths and insistent search. At the starting point it is initialized, providing a url, a single session object <code>opensess</code>. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML content. Immediately after another object <code>price</code> parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location <code>.im-mainFeatures__title</code> addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first <code>if</code> statement. The logical condition checks whether the object <code>price</code> first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed singl quantity. Indeed if it does it considers again the check up <code>opensess</code> and hits with a second css query <code>.im-features__value , .im-features__title</code>, pointing to second data location. Note that the whole search is done within the same session (i.e. reusing the same session object), so no more additional request headers <a href="scraping.html#spoofing">2.7.1</a> has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized <code>price2</code> is a type list object containing various information. Then the algorithm flows through a second <code>if</code> statement that checks whether <code>"prezzo"</code> is matched in the list, if it does the algorithm returns the +1 position index element with respect to the “prezzo” position. This happens because data in the list is stored by couples sequentially (as a flattened list), e.g. list(title, “Appartamento Sempione”, energy class, “G”, “prezzo”, 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. <code>price3</code> points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting <code>NA_Character_</code>, ending with any CSS query is able to find price data.
+The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be following only certain paths, e.g. condizionatore can not be found under main title and so on.</p>
 <div class="figure"><span id="fig:pseudocode1"></span>
-<img src="images/pseudocode_latex/pseudocode_price.jpg" alt="" />
+<img src="images/pseudocode_latex/pseudocode_price.jpg" style="width:70.0%" alt="" />
 <p class="caption">Figure 2.5: pseudo code algorithm for price search, author’s source</p>
 </div>
-<p>Once all the functions have been designed they need to be grouped and called together. This is done by <code>fastscrape()</code> Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a <code>foreach</code> parallel loop called by <code>scrape.all.info()</code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="scraping.html#cb2-1"></a><span class="co">## [ fastscrape ] ----</span></span>
-<span id="cb2-2"><a href="scraping.html#cb2-2"></a><span class="co">## first endpoint function </span></span>
-<span id="cb2-3"><a href="scraping.html#cb2-3"></a><span class="kw">options</span>(<span class="dt">future.rng.onMisuse=</span><span class="st">&quot;ignore&quot;</span>)</span>
-<span id="cb2-4"><a href="scraping.html#cb2-4"></a>fastscrape =<span class="st"> </span><span class="cf">function</span>(npages_vec){</span>
-<span id="cb2-5"><a href="scraping.html#cb2-5"></a>            <span class="kw">tic</span>()</span>
-<span id="cb2-6"><a href="scraping.html#cb2-6"></a>            <span class="kw">plan</span>(multisession, <span class="dt">workers =</span> <span class="kw">availableCores</span>())</span>
-<span id="cb2-7"><a href="scraping.html#cb2-7"></a>            result =<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb2-8"><a href="scraping.html#cb2-8"></a>                        <span class="dt">title =</span>  <span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>( <span class="op">~</span>{</span>
-<span id="cb2-9"><a href="scraping.html#cb2-9"></a>                                    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb2-10"><a href="scraping.html#cb2-10"></a>                                    <span class="kw">scrapetitle_imm</span>(<span class="dt">session =</span> sesh)},<span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>))<span class="op">%&gt;%</span><span class="st">  </span><span class="kw">flatten_chr</span>(),</span>
-<span id="cb2-11"><a href="scraping.html#cb2-11"></a>                        </span>
-<span id="cb2-12"><a href="scraping.html#cb2-12"></a>                        <span class="dt">monthlyprice =</span>  <span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>(<span class="op">~</span>{</span>
-<span id="cb2-13"><a href="scraping.html#cb2-13"></a>                                    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb2-14"><a href="scraping.html#cb2-14"></a>                                    <span class="kw">scrapeprice_imm</span>(<span class="dt">session =</span> sesh) },<span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>))<span class="op">%&gt;%</span><span class="st">  </span><span class="kw">flatten_chr</span>(),</span>
-<span id="cb2-15"><a href="scraping.html#cb2-15"></a>                        </span>
-<span id="cb2-16"><a href="scraping.html#cb2-16"></a>                        <span class="dt">nroom =</span>  <span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>( <span class="op">~</span>{</span>
-<span id="cb2-17"><a href="scraping.html#cb2-17"></a>                                    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb2-18"><a href="scraping.html#cb2-18"></a>                                    <span class="kw">scraperooms_imm</span>(<span class="dt">session =</span> sesh) },<span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>))<span class="op">%&gt;%</span><span class="st">  </span><span class="kw">flatten_chr</span>(),</span>
-<span id="cb2-19"><a href="scraping.html#cb2-19"></a>                        </span>
-<span id="cb2-20"><a href="scraping.html#cb2-20"></a>                        <span class="dt">sqmeter =</span>  <span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>( <span class="op">~</span>{</span>
-<span id="cb2-21"><a href="scraping.html#cb2-21"></a>                                    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb2-22"><a href="scraping.html#cb2-22"></a>                                    <span class="kw">scrapespace_imm</span>(<span class="dt">session =</span> sesh) },<span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>))<span class="op">%&gt;%</span><span class="st">  </span><span class="kw">flatten_chr</span>(),</span>
-<span id="cb2-23"><a href="scraping.html#cb2-23"></a>                        </span>
-<span id="cb2-24"><a href="scraping.html#cb2-24"></a>                        <span class="dt">href =</span>  <span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>( <span class="op">~</span>{</span>
-<span id="cb2-25"><a href="scraping.html#cb2-25"></a>                                    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb2-26"><a href="scraping.html#cb2-26"></a>                                    <span class="kw">scrapehref_imm</span>(<span class="dt">session =</span> sesh) },<span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>))<span class="op">%&gt;%</span><span class="st">  </span><span class="kw">flatten_chr</span>()</span>
-<span id="cb2-27"><a href="scraping.html#cb2-27"></a>                        </span>
-<span id="cb2-28"><a href="scraping.html#cb2-28"></a>            )</span>
-<span id="cb2-29"><a href="scraping.html#cb2-29"></a>            </span>
-<span id="cb2-30"><a href="scraping.html#cb2-30"></a>            <span class="kw">toc</span>()</span>
-<span id="cb2-31"><a href="scraping.html#cb2-31"></a>            <span class="kw">return</span>(result) </span>
-<span id="cb2-32"><a href="scraping.html#cb2-32"></a></span>
-<span id="cb2-33"><a href="scraping.html#cb2-33"></a>}</span></code></pre></div>
+<p>Once all the functions have been designed and optmized with respect to their scraping target they need to be grouped into a single function. This is done into the API endpoint which also Which also checks the validity of the url, and registers the parallel back end.</p>
 </div>
 <div id="best-practices" class="section level2">
 <h2><span class="header-section-number">2.6</span> Scraping Best Practices and Security provisions</h2>
 <p>Web scraping have to naturally interact multiple times with both the <em>client</em> and <em>server side</em> and as a result many precautions must be seriously taken into consideration. From the server side a scraper can forward as many requests as it could (in the form of sessions opened) which might cause a traffic bottleneck (DOS attack <span class="citation">contributors (<a href="#ref-wiki:DOS" role="doc-biblioref">2020</a><a href="#ref-wiki:DOS" role="doc-biblioref">a</a>)</span>) impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents <a href="scraping.html#spoofing">2.7.1</a> and proxy servers, consequently analytics reports might be driven off track.
 Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt <span class="citation">Meissner (<a href="#ref-meissner_2020" role="doc-biblioref">2020</a>)</span> are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto “standard” never made it beyond a <em>informal</em> “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g. <a href="https://en.wikipedia.org/robots.txt">Wikipedia robot</a>, <a href="https://www.google.com/robots.txt">Google robot</a>). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their <em>interpretation</em> might differ.</p>
-<p>Robots.txt files <span class="citation">(Meissner and Ren <a href="#ref-robotstxt" role="doc-biblioref">2020</a>)</span> essentially are plain text and always found at the root of a website’s domain. The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. Possible field names as pinpointed in <span class="citation">(Google <a href="#ref-google:robottxt" role="doc-biblioref">2020</a>)</span> are: user-agent, disallow, allow, crawl-delay, sitemap and host. A standard set of shared interpretation is:</p>
+<p>Robots.txt files <span class="citation">(Meissner and Ren <a href="#ref-robotstxt" role="doc-biblioref">2020</a>)</span> essentially are plain text and always found at the root of a website’s domain. The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field, cleared later in <a href="scraping.html#spoofing">2.7.1</a>) is seen as referring to all bots. The whole set of possible field names are pinpointed in <span class="citation">Google (<a href="#ref-google:robottxt" role="doc-biblioref">2020</a>)</span>, some important are: user-agent, disallow, allow, crawl-delay, sitemap and host. A standard set of shared interpretation is:</p>
 <ul>
 <li>Finding no robots.txt file at the server (e.g. HTTP status code 404) implies full permission.</li>
 <li>Sub-domains should have their own robots.txt file, if not it is assumed full permission.</li>
 <li>Redirects from subdomain www to the domain is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.</li>
 </ul>
-<p>Further improvements in the R ecosystem in this direction is explored with the <code>polite</code> <span class="citation">Perepolkin (<a href="#ref-polite" role="doc-biblioref">2019</a>)</span> package which combines the effects of the <code>robotstxt</code>, the <code>ratelimitr</code> <span class="citation">Shah (<a href="#ref-ratelimitr" role="doc-biblioref">2018</a>)</span> to limit sequential session requests together with the <code>memoise</code> <span class="citation">Wickham et al. (<a href="#ref-memoise" role="doc-biblioref">2017</a>)</span> for robotstxt response caching. Even though the solution meets both of the two stakeholders requirements (server and client) ratelimitr is not designed to work in parallel <span class="citation">(<a href="#ref-ratelimitr" role="doc-biblioref">2018</a>)</span> , so it is not implied in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a “polite” session should be and finally are kept fixed during the scraping:</p>
+<p>A comprehensive apporach is explored in the <code>polite</code> <span class="citation">Perepolkin (<a href="#ref-polite" role="doc-biblioref">2019</a>)</span> package which combines the effects of <code>robotstxt</code>, <code>ratelimitr</code> <span class="citation">(<a href="#ref-ratelimitr" role="doc-biblioref">2018</a>)</span> to limit sequential session requests together with the <code>memoise</code> <span class="citation">Wickham et al. (<a href="#ref-memoise" role="doc-biblioref">2017</a>)</span> for robotstxt response caching. Even though the solution meets the requirements (from server and client side) ratelimitr is not designed to work in parallel as documented in <span class="citation">Shah (<a href="#ref-ratelimitr" role="doc-biblioref">2018</a>)</span>, so it is not involved in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a “polite” session should look like and by doing principles are kept fixed during the scraping:</p>
 <blockquote>
 <p>The three pillars of a polite session are seeking permission, taking slowly and never asking twice.</p>
 </blockquote>
-<p>The three pillars constitute the <em>Ethical</em> web scraping manifesto <span class="citation">(Densmore <a href="#ref-densmore_2019" role="doc-biblioref">2019</a>)</span> which are common shared practices that are aimed to self regularize scrapers. These have to be intended as best practices, not, in any case, as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in their daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
-with that said a custom function that permanetly checks the validity of the session request is called once prior any scraping function execution cached into a variable. In the result below the function returning a boolean is applied to the root domain of immobiliare.it as a proof of permission.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="scraping.html#cb3-1"></a>dom =<span class="st"> &quot;immobiliare.it&quot;</span></span>
-<span id="cb3-2"><a href="scraping.html#cb3-2"></a>polite_permission =<span class="st"> </span>memoise<span class="op">::</span><span class="kw">memoise</span>(<span class="kw">paths_allowed</span>(<span class="dt">domain =</span> dom))</span>
-<span id="cb3-3"><a href="scraping.html#cb3-3"></a>polite_permission</span></code></pre></div>
+<p>The three pillars constitute the <em>Ethical</em> web scraping manifesto <span class="citation">(Densmore <a href="#ref-densmore_2019" role="doc-biblioref">2019</a>)</span> which are common shared <em>best practices</em> that are aimed to self regularize scrapers. Still these have to be intended as practices and by no means as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
+With that said a custom function that permanently checks the validity of the session request is called once. It has to be invoked prior any scraping function execution and then immediately cached into a variable. In the result below the function applied to the domain of immobiliare.it returns a boolean approving or disallowing the permission.</p>
 <pre><code>## Memoised Function:
 ## [1] TRUE</code></pre>
-<p>Furthermore a custom function based on robotxtst cached results at first highlights the delay stated in the file, in this context no delays are stated. As a default author choice is to set it equal to 5. Then It manages delayed requests rate through the <code>purrr</code> stack. At first a <code>rate</code> object is created and then a <code>rate_sleep</code> delay is then inserted within the function as in <span class="citation">RStudio and RStudio (<a href="#ref-rate_delay" role="doc-biblioref">2020</a>)</span>.</p>
+<p>Furthermore a custom function based on robotxtst cached results initially checks if the bot can search the inputted address through <code>polite_permission</code>. Then It observes the suggested delay date, in this particular context no delays are kindly asked. As a polite author choice delay request rate is set equal to 5 seconds. Delayed requests rate are managed through the <code>purrr</code> stack. At first a <code>rate</code> object is initialized based on polite_permission, therefore a <code>rate_sleep</code> delay is called within scraping as in <span class="citation">Lionel Henry RStudio (<a href="#ref-rate_delay" role="doc-biblioref">2020</a><a href="#ref-rate_delay" role="doc-biblioref">b</a>)</span>.</p>
 <pre><code>## [1] &quot;immobiliare.it&quot;</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="scraping.html#cb6-1"></a>get_delay =<span class="st"> </span><span class="cf">function</span>(memoised_robot, domain) {</span>
-<span id="cb6-2"><a href="scraping.html#cb6-2"></a>    </span>
-<span id="cb6-3"><a href="scraping.html#cb6-3"></a>    <span class="kw">message</span>(<span class="kw">glue</span>(<span class="st">&quot;Refreshing robots.txt data for %s... {domain}&quot;</span>))</span>
-<span id="cb6-4"><a href="scraping.html#cb6-4"></a>    temp =<span class="st"> </span>memoised_robot<span class="op">$</span>crawl_delay</span>
-<span id="cb6-5"><a href="scraping.html#cb6-5"></a>    </span>
-<span id="cb6-6"><a href="scraping.html#cb6-6"></a>    <span class="cf">if</span> (<span class="kw">length</span>(temp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(temp[<span class="dv">1</span>, ]<span class="op">$</span>value)) {</span>
-<span id="cb6-7"><a href="scraping.html#cb6-7"></a>        star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(temp, useragent <span class="op">==</span><span class="st"> &quot;*&quot;</span>)</span>
-<span id="cb6-8"><a href="scraping.html#cb6-8"></a>        <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) </span>
-<span id="cb6-9"><a href="scraping.html#cb6-9"></a>            star =<span class="st"> </span>temp[<span class="dv">1</span>, ]</span>
-<span id="cb6-10"><a href="scraping.html#cb6-10"></a>        <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
-<span id="cb6-11"><a href="scraping.html#cb6-11"></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-12"><a href="scraping.html#cb6-12"></a>        5L</span>
-<span id="cb6-13"><a href="scraping.html#cb6-13"></a>    }</span>
-<span id="cb6-14"><a href="scraping.html#cb6-14"></a>    </span>
-<span id="cb6-15"><a href="scraping.html#cb6-15"></a>}</span>
-<span id="cb6-16"><a href="scraping.html#cb6-16"></a><span class="kw">get_delay</span>(rbtxt_memoised, <span class="dt">domain =</span> dom)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="scraping.html#cb4-1"></a>get_delay =<span class="st"> </span><span class="cf">function</span>(memoised_robot, domain) {</span>
+<span id="cb4-2"><a href="scraping.html#cb4-2"></a>    </span>
+<span id="cb4-3"><a href="scraping.html#cb4-3"></a>    <span class="kw">message</span>(<span class="kw">glue</span>(<span class="st">&quot;Refreshing robots.txt data for %s... {domain}&quot;</span>))</span>
+<span id="cb4-4"><a href="scraping.html#cb4-4"></a>    temp =<span class="st"> </span>memoised_robot<span class="op">$</span>crawl_delay</span>
+<span id="cb4-5"><a href="scraping.html#cb4-5"></a>    </span>
+<span id="cb4-6"><a href="scraping.html#cb4-6"></a>    <span class="cf">if</span> (<span class="kw">length</span>(temp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(temp[<span class="dv">1</span>, ]<span class="op">$</span>value)) {</span>
+<span id="cb4-7"><a href="scraping.html#cb4-7"></a>        star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(temp, useragent <span class="op">==</span><span class="st"> &quot;*&quot;</span>)</span>
+<span id="cb4-8"><a href="scraping.html#cb4-8"></a>        <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) </span>
+<span id="cb4-9"><a href="scraping.html#cb4-9"></a>            star =<span class="st"> </span>temp[<span class="dv">1</span>, ]</span>
+<span id="cb4-10"><a href="scraping.html#cb4-10"></a>        <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
+<span id="cb4-11"><a href="scraping.html#cb4-11"></a>    } <span class="cf">else</span> {</span>
+<span id="cb4-12"><a href="scraping.html#cb4-12"></a>        5L</span>
+<span id="cb4-13"><a href="scraping.html#cb4-13"></a>    }</span>
+<span id="cb4-14"><a href="scraping.html#cb4-14"></a>    </span>
+<span id="cb4-15"><a href="scraping.html#cb4-15"></a>}</span>
+<span id="cb4-16"><a href="scraping.html#cb4-16"></a><span class="kw">get_delay</span>(rbtxt_memoised, <span class="dt">domain =</span> dom)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
 <div id="web-client-security-provisions-user-agents-proxies-and-fail-dealers" class="section level2">
 <h2><span class="header-section-number">2.7</span> Web Client Security provisions: User Agents, Proxies and Fail Dealers</h2>
-<p>HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, url as well as e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out with an everyday real life world analogy. As a generic person A rings to the door’s bell of person B. Then A is coming to B door with its personal information, i.e. name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure <a href="scraping.html#fig:webworks">2.6</a>. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. The communication is encoded with numbers ranging from 100 to 511, each of which has its own specific significance. A popular case of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.</p>
+<p>HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door’s bell of person B. Then A is coming to B door with its personal information, i.e. name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure <a href="scraping.html#fig:webworks">2.6</a>. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.</p>
 <div class="figure"><span id="fig:webworks"></span>
 <img src="images/how_web_works.png" alt="" />
 <p class="caption">Figure 2.6: How the web interacts between broswer and server</p>
 </div>
 <div id="spoofing" class="section level3">
-<h3><span class="header-section-number">2.7.1</span> HTTP User Agent Spoofing</h3>
+<h3><span class="header-section-number">2.7.1</span> HTTP User Agent and Mail Spoofing</h3>
 
 <div class="definition">
 <span id="def:useragents" class="definition"><strong>Definition 2.2  (User Agents)  </strong></span>The user agent (from now refered as UA) “retrieves, renders and facilitates end-user interaction with Web content” <span class="citation">User:Jallan (<a href="#ref-UaDef" role="doc-biblioref">2011</a>)</span>.
 </div>
 
-<p>In HTTP, the UA string is often considered as <em>content negotiator</em> <span class="citation">(contributors <a href="#ref-wiki:UserAgent" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgent" role="doc-biblioref">c</a>)</span>, where the requested server selects the most appropriate content based on operating parameters for the response. On the basis of the User agent, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences <span class="citation">(WhoIsHostingThis.com <a href="#ref-whoishostingthis.com" role="doc-biblioref">2020</a>)</span>.
-The UA string is also one of the main responsible according to which Web crawlers and scrapers through robotstxt as in <a href="scraping.html#best-practices">2.6</a> may be ousted from accessing certain parts of a website.
-In the context of the web server to be able to identify critical information as the user operating system and the browser. One of the aim of User agnets are to keep track information and optimize rendering. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. However this common standard is recently sentenced to be superseded in favor of a newer (2020) Google technology called <em>Hints</em> <span class="citation">contributors (<a href="#ref-wiki:UserAgentHints" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgentHints" role="doc-biblioref">b</a>)</span>.
-The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continuous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them
-Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
-Below the user agents rotation pool:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="scraping.html#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
-<span id="cb8-2"><a href="scraping.html#cb8-2"></a>url =<span class="st"> &quot;https://user-agents.net/&quot;</span></span>
-<span id="cb8-3"><a href="scraping.html#cb8-3"></a>agents =<span class="st"> </span><span class="kw">read_html</span>(url) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="dt">css =</span> <span class="st">&quot;.agents_list li&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</span>
-<span id="cb8-4"><a href="scraping.html#cb8-4"></a></span>
-<span id="cb8-5"><a href="scraping.html#cb8-5"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 10; SM-G988B Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.198 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]&quot;</code></pre>
-<p>A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
-While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
-Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:</p>
+<p>In HTTP, the UA string is often considered as <em>content negotiator</em> <span class="citation">(contributors <a href="#ref-wiki:UserAgent" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgent" role="doc-biblioref">d</a>)</span>. The requested server in the form of code embedded into the hosted website selects the most appropriate content on the basis of operating parameters for the response. Therefore according to the UA, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences <span class="citation">(WhoIsHostingThis.com <a href="#ref-whoishostingthis.com" role="doc-biblioref">2020</a>)</span>.
+However UA fieldcname has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named <em>Hints</em> <span class="citation">contributors (<a href="#ref-wiki:UserAgentHints" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgentHints" role="doc-biblioref">c</a>)</span>.
+UA is a dense content string that includes many user details: the user application or software, the operating system (and versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit).
+A full components breakdown of UA example might be:</p>
+<p><code>Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36</code></p>
+<ul>
+<li>The user agent application is Mozilla version 5.0.</li>
+<li>The operating system is Windows NT 6.3; WOW64, running on Windows</li>
+<li>The client is Chrome version 45.0.2454.85.</li>
+<li>The client is based on Safari version 537.36.</li>
+<li>The engine responsible for displaying content on this device is AppleWebKit version 537.36 (and KHTML, an open-source layout engine, is present too).</li>
+</ul>
+<p>The UA string is also one of the main responsible according to which Web crawlers and scrapers through a dedicated name field in robotstxt <a href="scraping.html#best-practices">2.6</a> may be ousted from accessing certain parts of a website. Since many requests are sent the server may encounter insistently the same UA and as consequence it may block requests associated to the same UA. In order to avoid server block this scraping technique adopts a rotation of a pool of UAs. Each time requests are sent a different set of headers are drawn from the pool and then combined. The more the pool is populated the larger are the UA combinations. The solution proposed tries in addition to resample periodically the pool as soon as the website from which Agents ID are extracted updates newer UA strings.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="scraping.html#cb6-1"></a><span class="kw">set.seed</span>(<span class="dv">27</span>)</span>
+<span id="cb6-2"><a href="scraping.html#cb6-2"></a>url =<span class="st"> &quot;https://user-agents.net/&quot;</span></span>
+<span id="cb6-3"><a href="scraping.html#cb6-3"></a>agents =<span class="st"> </span><span class="kw">read_html</span>(url) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="dt">css =</span> <span class="st">&quot;.agents_list li&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</span>
+<span id="cb6-4"><a href="scraping.html#cb6-4"></a></span>
+<span id="cb6-5"><a href="scraping.html#cb6-5"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 10; M2007J20CG Build/QKQ1.200512.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]&quot;</code></pre>
+<p>The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering mini API calls to dedicated servers nested into a more general API.</p>
+<p>An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process. A proxy server acts as a gateway between the web user and the web server. While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final combination would give birth to a more complex linear combination, adding a further layer of masking.
+Many proxy servers are offered as paid version. In this particular case security barriers are not that high and this suggests to not apply them. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:</p>
 <ul>
 <li>Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.</li>
 <li>Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.</li>
 </ul>
 </div>
-<div id="dealing-with-failure-in-parallel" class="section level3">
-<h3><span class="header-section-number">2.7.2</span> Dealing with failure in Parallel</h3>
-<p>During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring, better outlined in section <a href="scraping.html#challenges">2.9</a>. Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to grab the content. Handlers are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when handlers are not implied. API endpoints evokes 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single links to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
-The solution proposed tries to deal with failure through implementing <code>purrr</code> adverb <code>possibly()</code>, which takes a function (a verb) and returns a modified version. In this case, the modified function will never throw an error. The approach is encouraged when functions need to be mapped over larger objects and when run time are long as pointed out in section 21.6 of <span class="citation">Hadley Wickham (<a href="#ref-Rdatascience" role="doc-biblioref">2017</a>)</span>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="scraping.html#cb10-1"></a>title =<span class="st"> </span><span class="kw">future_map</span>(npages_vec, <span class="kw">possibly</span>(<span class="op">~</span>{</span>
-<span id="cb10-2"><a href="scraping.html#cb10-2"></a>    sesh =<span class="st"> </span><span class="kw">html_session</span>(.x, <span class="kw">user_agent</span>(<span class="dt">agent =</span> agents[<span class="kw">sample</span>(<span class="dv">1</span>)]))</span>
-<span id="cb10-3"><a href="scraping.html#cb10-3"></a>    <span class="kw">scrapetitle_imm</span>(<span class="dt">session =</span> sesh)</span>
-<span id="cb10-4"><a href="scraping.html#cb10-4"></a>}, <span class="ot">NA_character_</span>, <span class="dt">quiet =</span> <span class="ot">FALSE</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">flatten_chr</span>()</span></code></pre></div>
-<p>Then also inside each single scrapping function are bundled “authorization” handlers that protect the web server side from unpolite scraping practises. This set up allows to catch (and in some cases prevent) web sites poloicy misuses from the very beginning of the scraping process.
-Below some of the main authorization handlers implied:</p>
-<ul>
-<li><code>get_ua()</code> verifies that the User Agent in the session is not the default one.</li>
-</ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="scraping.html#cb11-1"></a>get_ua =<span class="st"> </span><span class="cf">function</span>(sess) {</span>
-<span id="cb11-2"><a href="scraping.html#cb11-2"></a>    <span class="kw">stopifnot</span>(<span class="kw">is.session</span>(sess))</span>
-<span id="cb11-3"><a href="scraping.html#cb11-3"></a>    <span class="kw">stopifnot</span>(<span class="kw">is_url</span>(sess<span class="op">$</span>url))</span>
-<span id="cb11-4"><a href="scraping.html#cb11-4"></a>    ua =<span class="st"> </span>sess<span class="op">$</span>response<span class="op">$</span>request<span class="op">$</span>options<span class="op">$</span>useragent</span>
-<span id="cb11-5"><a href="scraping.html#cb11-5"></a>    <span class="kw">return</span>(ua)</span>
-<span id="cb11-6"><a href="scraping.html#cb11-6"></a>}</span></code></pre></div>
-<ul>
-<li><code>is_url()</code> verifies that the url input needed has the canonic form. This is done by a REGEX query.</li>
-</ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="scraping.html#cb12-1"></a>is_url =<span class="st"> </span><span class="cf">function</span>(url) {</span>
-<span id="cb12-2"><a href="scraping.html#cb12-2"></a>    re =<span class="st"> &quot;^(?:(?:http(?:s)?|ftp)://)(?:</span><span class="ch">\\</span><span class="st">S+(?::(?:</span><span class="ch">\\</span><span class="st">S)*)?@)?(?:(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;](?:-)*)*(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;])+)(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;](?:-)*)*(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;])+)*(?:</span><span class="ch">\\</span><span class="st">.(?:[a-z0-9¡-&lt;ef&gt;&lt;U+00BF&gt;&lt;U+00BF&gt;]){2,})(?::(?:</span><span class="ch">\\</span><span class="st">d){2,5})?(?:/(?:</span><span class="ch">\\</span><span class="st">S)*)?$&quot;</span></span>
-<span id="cb12-3"><a href="scraping.html#cb12-3"></a>    <span class="kw">grepl</span>(re, url)</span>
-<span id="cb12-4"><a href="scraping.html#cb12-4"></a>}</span></code></pre></div>
-<ul>
-<li><code>get_delay()</code> checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.</li>
-</ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="scraping.html#cb13-1"></a>dominio =<span class="st"> &quot;immobiliare.it&quot;</span></span>
-<span id="cb13-2"><a href="scraping.html#cb13-2"></a>get_delay =<span class="st"> </span><span class="cf">function</span>(domain) {</span>
-<span id="cb13-3"><a href="scraping.html#cb13-3"></a>  </span>
-<span id="cb13-4"><a href="scraping.html#cb13-4"></a>  <span class="kw">message</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Refreshing robots.txt data for %s...&quot;</span>, domain))</span>
-<span id="cb13-5"><a href="scraping.html#cb13-5"></a>  </span>
-<span id="cb13-6"><a href="scraping.html#cb13-6"></a>  cd_tmp =<span class="st"> </span>robotstxt<span class="op">::</span><span class="kw">robotstxt</span>(domain)<span class="op">$</span>crawl_delay</span>
-<span id="cb13-7"><a href="scraping.html#cb13-7"></a>  </span>
-<span id="cb13-8"><a href="scraping.html#cb13-8"></a>  <span class="cf">if</span> (<span class="kw">length</span>(cd_tmp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb13-9"><a href="scraping.html#cb13-9"></a>    star =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(cd_tmp, useragent<span class="op">==</span><span class="st">&quot;*&quot;</span>)</span>
-<span id="cb13-10"><a href="scraping.html#cb13-10"></a>    <span class="cf">if</span> (<span class="kw">nrow</span>(star) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) star =<span class="st"> </span>cd_tmp[<span class="dv">1</span>,]</span>
-<span id="cb13-11"><a href="scraping.html#cb13-11"></a>    <span class="kw">as.numeric</span>(star<span class="op">$</span>value[<span class="dv">1</span>])</span>
-<span id="cb13-12"><a href="scraping.html#cb13-12"></a>  } <span class="cf">else</span> {</span>
-<span id="cb13-13"><a href="scraping.html#cb13-13"></a>    10L</span>
-<span id="cb13-14"><a href="scraping.html#cb13-14"></a>  }</span>
-<span id="cb13-15"><a href="scraping.html#cb13-15"></a>  </span>
-<span id="cb13-16"><a href="scraping.html#cb13-16"></a>}</span>
-<span id="cb13-17"><a href="scraping.html#cb13-17"></a></span>
-<span id="cb13-18"><a href="scraping.html#cb13-18"></a>get_delay =<span class="st">  </span>memoise<span class="op">::</span><span class="kw">memoise</span>(get_delay) <span class="co">## so that .get_delay results are cached</span></span>
-<span id="cb13-19"><a href="scraping.html#cb13-19"></a><span class="kw">get_delay</span>(<span class="dt">domain =</span> dominio)</span></code></pre></div>
-<pre><code>## [1] NA</code></pre>
-<ul>
-<li><code>checkpermission()</code> assess whether the domain or the related paths require specific actions or they prevent some activity on the target.</li>
-</ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="scraping.html#cb15-1"></a>checkpermission =<span class="st"> </span><span class="cf">function</span>(dom) {</span>
-<span id="cb15-2"><a href="scraping.html#cb15-2"></a>    </span>
-<span id="cb15-3"><a href="scraping.html#cb15-3"></a>    robot =<span class="st"> </span><span class="kw">robotstxt</span>(<span class="dt">domain =</span> dom)</span>
-<span id="cb15-4"><a href="scraping.html#cb15-4"></a>    vd =<span class="st"> </span>robot<span class="op">$</span><span class="kw">check</span>()[<span class="dv">1</span>]</span>
-<span id="cb15-5"><a href="scraping.html#cb15-5"></a>    <span class="cf">if</span> (vd) {</span>
-<span id="cb15-6"><a href="scraping.html#cb15-6"></a>        <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt for&quot;</span>, dom, <span class="st">&quot;is okay with scraping!&quot;</span>)</span>
-<span id="cb15-7"><a href="scraping.html#cb15-7"></a>    } <span class="cf">else</span> {</span>
-<span id="cb15-8"><a href="scraping.html#cb15-8"></a>        <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">robot.txt does not like what you&#39;re doing&quot;</span>)</span>
-<span id="cb15-9"><a href="scraping.html#cb15-9"></a>        <span class="kw">stop</span>()</span>
-<span id="cb15-10"><a href="scraping.html#cb15-10"></a>    }</span>
-<span id="cb15-11"><a href="scraping.html#cb15-11"></a>}</span>
-<span id="cb15-12"><a href="scraping.html#cb15-12"></a></span>
-<span id="cb15-13"><a href="scraping.html#cb15-13"></a><span class="kw">checkpermission</span>(<span class="dt">dom =</span> dominio)</span></code></pre></div>
-<pre><code>## 
-## robot.txt for immobiliare.it is okay with scraping!</code></pre>
+<div id="possibly" class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Dealing with failure</h3>
+<p>During scraping many difficulties coming from different sources are met. Some of them may come from the website’s layout changes (<a href="scraping.html#ProperScraping">2.5</a>), some of them may regard internet connection, some other may have been caused by security breaches (section <a href="scraping.html#spoofing">2.7.1</a>).
+One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data previously acquired going lost. In this particular context is even more worrying since scraping “main” functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links (<a href="scraping.html#crawling">2.3</a>) leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
+For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of <code>purrr</code> vectorization function <code>map</code> (and its derivatives) and the adverb <code>possibly</code> <span class="citation">Lionel Henry RStudio (<a href="#ref-possibly" role="doc-biblioref">2020</a><a href="#ref-possibly" role="doc-biblioref">a</a>)</span>. <em>Possibly</em> takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in <span class="citation">Hadley Wickham (<a href="#ref-Rdatascience" role="doc-biblioref">2017</a>)</span> section 21.6. Moreover vecrotizaion is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.</p>
+<div class="figure"><span id="fig:pseudocode2"></span>
+<img src="images/pseudocode_latex/pseudocode_possibly.jpg" style="width:70.0%" alt="" />
+<p class="caption">Figure 2.7: pseudo code for a generic set of functions applied with possibly fail dealers , author’s source</p>
+</div>
+<!-- Furthermore inside each single scrapping function are bundled input checkers that may protect both the web server and the end user from what are called unpolite sessions. This set up allows to catch (and in some cases prevent) web sites policy misuses from the very beginning of the scraping process and be sured that high standard security requirements set up in between requests are respected. -->
+<!-- - `get_ua()` verifies that the User Agent in the session is not the default one. -->
+<!-- ```{r GetUa, eval=FALSE, echo=TRUE} -->
+<!-- get_ua = function(sess) { -->
+<!--   stopifnot(is.session(sess)) -->
+<!--   stopifnot(is_url(sess$url)) -->
+<!--   ua = sess$response$request$options$useragent -->
+<!--   return(ua) -->
+<!-- } -->
+<!-- ``` -->
+<!-- - `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query. -->
+<!-- ```{r IsUrl, tidy=FALSE, echo=TRUE, eval=FALSE} -->
+<!-- is_url = function(url){ -->
+<!--   re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@) -->
+<!--   ?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\u -->
+<!--   ffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0- -->
+<!--   9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,}) -->
+<!--   (?::(?:\\d){2,5})?(?:/(?:\\S)*)?$" -->
+<!--   grepl(re, url) -->
+<!-- } -->
+<!-- ``` -->
 </div>
 </div>
-<div id="implicit-parallel-scraping" class="section level2">
-<h2><span class="header-section-number">2.8</span> Implicit Parallel Scraping</h2>
-<p>Scraping run time is crucial when dealing with elastic markets and proactive web pages. This is also true in rental real estate where time to market is a major competitive advantage and monthly prices elasticity with respect to the time is high.
-Since the dimension of the run time problem requires as many session requests opened as single links crawled (refer to section <a href="scraping.html#ContentArchitecture"><strong>??</strong></a>). And since for each of the links are supposed to be called at least 34 different functions, refer to section <a href="scraping.html#ContentArchitecture"><strong>??</strong></a>, then computation must be <em>parallelized</em>.
-The extraordinary amount of time taken in a non-parallel environment is caused by R executing tasks on a single processor sequentially link-by-link in a queue (i.e. single threaded computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called <a href="https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897">asynchronous</a>) scraping functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor and a way to redistribute computation. As a result many tasks can be split over processors and then multiple cores for each processor.</p>
-<div class="figure">
+<div id="parallelscraping" class="section level2">
+<h2><span class="header-section-number">2.8</span> Parallel Scraping</h2>
+<p>Scraping run time is crucial when dealing with dynamic web pages. This assumption is stronger in Real Estate rental markets where time to market is a massive competitive advantage.
+From a run time perspective the dimension of the problem requires as many html session opened as single links crawled (refer to previous section <a href="scraping.html#possibly">2.7.2</a>). As a result computation needs to be <em>parallelized</em> in order to be feasible.
+The extraordinary amount of time taken in a non-parallel environment is caused by R executing scraping on a single processor <em>sequentially</em> url-by-url in a queue, left part of figure <a href="scraping.html#fig:singlethreaded">2.8</a> (i.e. single threaded computing).</p>
+
+<div class="definition">
+<span id="def:parallel" class="definition"><strong>Definition 2.3  (parallel)  </strong></span><em>Parallel execution</em> is characterized as multiple operations taking place over overlapping time periods. <span class="citation">(Eddelbuettel <a href="#ref-eddelbuettel2020parallel" role="doc-biblioref">2020</a>)</span>
+</div>
+
+<p>This requires multiple execution units and modern processors architecture provide multiple cores on a single processor and a way to redistribute computation (i.e. multi threaded computing). As a result tasks can be split into smaller chunks over processors and then multiple cores for each processor, right part of figure <a href="scraping.html#fig:singlethreaded">2.8</a>.
+Therefore Parallel scraping (sometimes improperly called <a href="https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897">asynchronous</a>) functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space.</p>
+<div class="figure"><span id="fig:singlethreaded"></span>
 <img src="images/parallel_problem.jpg" alt="" />
-<p class="caption">single threaded computing vs parallel computing, <span class="citation">Barney (<a href="#ref-barney" role="doc-biblioref">2020</a>)</span> source</p>
+<p class="caption">Figure 2.8: single threaded computing vs parallel computing, <span class="citation">Barney (<a href="#ref-barney" role="doc-biblioref">2020</a>)</span> source</p>
 </div>
-<p>The explicit/implicit property regards where parallel execution should happen in the code, allowing the developer to be flexible enough to decide which piece of code needs parallelization and which does not.
-Parallel back ends initialization depends both on the parallel library and the looping constructor even though tangible efforts have been recently put into interoperability through <code>doFuture</code> <span class="citation">Bengtsson (<a href="#ref-doFuture" role="doc-biblioref">2020</a><a href="#ref-doFuture" role="doc-biblioref">c</a>)</span>.
-As a general rule of thumb it must be specified the computing group and the parallel execution strategy. The <em>computing group</em> is a software concept as in <span class="citation">(“What Is Parallel Computing” <a href="#ref-parallelr" role="doc-biblioref">2020</a>)</span>, that points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected. Although for inner libraries functioning are initialized as many workers as physical cores (default option for most of the back ends).
-This is also due to latent default load balancing strategies that are able to equally redistribute tasks over workers according to memory space allocation and dependencies. General settings</p>
-<p>In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are <em>doParalle</em> along with the foreach loop constructor and <em>Future</em> with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in <span class="citation">Bengtsson (<a href="#ref-bengtsson_2017" role="doc-biblioref">2017</a>)</span>. Future</p>
-<p>A variety of backends exist and third-party contributions meeting the specifications, which ensure that the same code works on all backends, If I were re-writing my code now, I’d probably also use futures and purrr. The former adds some niceties to doparallel and foreach if you choose to use that syntax, like automatically exporting packages. And it’s backend-agnostic,</p>
-<p>Multisession futures are a special case of cluster futures.</p>
-<p>Two are the most important features of future back end: Tidy format together with the furrr (purrr looping contruction) package which enables tidy evaluation and the related convenient tidy sintx properties and packages. The other regars the<br />
-The most flexible and strong Parallel libraries are Parallel, doParallel, doMC and Future, which offer different sintax but same construction. They all come with a specific looping constructor which is optmized with respect to</p>
-<p>For a quick but comprehensive perspective on Parallel theory both on hardware and software side <span class="citation">Barney (<a href="#ref-barney" role="doc-biblioref">2020</a>)</span> is strongly suggested. For a full reference focused on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies the authorities are <span class="citation">(“What Is Parallel Computing” <a href="#ref-parallelr" role="doc-biblioref">2020</a>)</span>. If the interest is to cut short theory and directly put R into parallel then a valuable resource is this <a href="https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html">blog</a>, which inter alia covers the main debugging.</p>
-<p>doParallela among the other offers also
-<code>detectCores()</code> uncovers how many <em>Hyper-Threading</em> cores are at the disposition, since they do not provide any computational advantage the option <em>logical</em> is set false. Below the number of cores available on the following machine:</p>
-<div class="figure">
-<img src="images/parallel_mapping.png" alt="" />
-<p class="caption">parallel Execution schema into the R ecosystem, <span class="citation">(“What Is Parallel Computing” <a href="#ref-parallelr" role="doc-biblioref">2020</a>)</span> source</p>
+<p>Parallel execution heavily depends on hardware and software choice. Linux environments offers multi-core computation through <em>forking</em> <span class="citation">(contributors <a href="#ref-wiki:forking" role="doc-biblioref">2020</a><a href="#ref-wiki:forking" role="doc-biblioref">b</a>)</span> (only on Linux) so that global variables are directly inherited by child processes. As a matter of fact when computation are split over cores they need to import whatever it takes to be carried out, such as libraries, variables, functions. From a certain angle they need to be treated as a containerized stand-alone environments. This can not happen in Windows (local machine) since it does not support multicore.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="scraping.html#cb8-1"></a>future<span class="op">::</span><span class="kw">supportsMulticore</span>()</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p><em>Cluster processing</em> is an alternative to multi-core processing, where parallelization takes place through a collection of separate processes running in the background. The parent R session instructs the dependencies that needs to be sent to the children sessions.
+This is done by registering the parallel back end. Arguments to be supplied mainly regards the strategy (i.e. multi-core cluster, also said multisession) and the <em>working group</em>. The working group is a software concept <span class="citation">(“What Is Parallel Computing” <a href="#ref-parallelr" role="doc-biblioref">2020</a>)</span>, that points out the number of processes and their relative computing power/memory allocation according to which the task is going to be split. Moreover from a strictly theoretic perspective the <em>workers</em> (i.e. working group single units) can be greater than the number of physical cores detected. Although parallel libraries as a default choice (and choice for this analysis) initializes <em>as many workers as</em> physical HT (i.e. Hyper Threaded) <em>cores</em>.
+Parallel looping constructor libraries generally pops up as a direct cause of new parallel packages. The latest research activity by Bengtsson <span class="citation">Bengtsson (<a href="#ref-doFuture" role="doc-biblioref">2020</a><a href="#ref-doFuture" role="doc-biblioref">c</a>)</span> indeed tries to unify all the previous back ends under the same umbrella of <code>doFuture</code>. The latter library allows to register many back ends for the most popular parallel looping options solving both the dependency inheritance problem and the OS agnostic challenge.
+The two alternatives proposed for going parallel are <code>Future</code> <span class="citation">Bengtsson (<a href="#ref-future" role="doc-biblioref">2020</a><a href="#ref-future" role="doc-biblioref">b</a>)</span> with <code>furrr</code> <span class="citation">Vaughan and Dancho (<a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> and <code>doFuture</code> <span class="citation">(<a href="#ref-doFuture" role="doc-biblioref">2020</a><a href="#ref-doFuture" role="doc-biblioref">c</a>)</span> along with the <code>foreach</code> <span class="citation">Microsoft and Weston (<a href="#ref-foreach" role="doc-biblioref">2020</a>)</span> loop constructor. The former is a generic, low-level API for parallel processing as in <span class="citation">Bengtsson (<a href="#ref-bengtsson_2017" role="doc-biblioref">2020</a><a href="#ref-bengtsson_2017" role="doc-biblioref">d</a>)</span>. The latter takes inspiration by the previous work and it provides a back-end agnostic version of <code>doParallel</code> <span class="citation">Corporation and Weston (<a href="#ref-doParallel" role="doc-biblioref">2020</a>)</span>.
+<!-- depends both on the parallel library and the looping constructor. Although tangible efforts have been recently put into interoperability through `doFuture` @doFuture library, which allows to register many back ends for the most popular looping options. -->
+<!-- Generally parallel libraries require to specify at first both the _computing group_ and the parallel _strategy_.  -->
+<!-- One reason resides in default optimal load balancing strategies computation over workers proper of operating systems. As a matter of fact OSs are also responsible for enabling different strategies when they are forced to go parallel (forking @wiki:forking only on Linux). -->
+<!-- strategies on the other hand the way workers have to evaluate the tasks.  -->
+<!-- In the R ecosystem parallel libraries are a few and are mostly built on top of looping constructions. Two popular choices are `doFuture` -@doFuture along with the `foreach` @foreach loop constructor and `Future` @future with `furrr` @furrr (`purrr` and `future`). The former is a back-end agnostic version of `doParallel` @doParallel, which automatically identifies function, packages and variables to pass to the stand alone workers. The latter is a generic, low-level API for parallel processing as in @bengtsson_2017.  -->
+Further concepts on parallel computing are beyond the scope of the analysis. However they can be explored in <span class="citation">Barney (<a href="#ref-barney" role="doc-biblioref">2020</a>)</span>, which may offers a comprehensive perspective on Parallel theory both on hardware and software. Indeed for a full reference on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies, the authorities are <span class="citation">(“What Is Parallel Computing” <a href="#ref-parallelr" role="doc-biblioref">2020</a>)</span>. If the interest is to cut short theory and directly put existing R code into parallel, a valuable resource is covered in <a href="https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html">blog</a>, which also investigate the main debugging aspects.</p>
+<!-- **plot with this  https://github.com/HenrikBengtsson/future/issues/231** -->
+<!-- **more on this ** -->
+<!-- ![single threaded computing vs parallel computing, @barney source](images/simulations/prova_parallel_distri.png) -->
+<!-- ```{r detectCore, eval=FALSE} -->
+<!-- cl_hyper = as.integer(detectCores()) -->
+<!-- cl_not_hyper = as.integer(detectCores(logical = FALSE)) -->
+<!-- print(glue("total n° of Hyper-Threading cores on the machine is {cl_hyper}\n -->
+<!--             total n° of NOT Hyper-Threading cores {cl_not_hyper}")) -->
+<!-- ``` -->
+<!-- ![parallel Execution schema into the R ecosystem, @parallelr source](images/parallel_mapping.png) -->
+<div id="parallel-furrrfuture" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> Parallel furrr+future</h3>
+<p><strong>cerca di centrare di più su scraping</strong></p>
+<p>Simulations are conducted on a not-rate-delayed (section <a href="scraping.html#best-practices">2.6</a>) and restricted set of functions which may be considered as a “lightweight” version of the final API scraping endpoint.
+As a disclaimer run time simulations may not be really representative to the problem since they are performed on a windows 10, Intel(R) Core(TM) i7-8750H 12 cores RAM 16.0 GB local machine. Indeed the API is served on a Linux Ubuntu distro t3.micro 2 cores RAM 1.0 GB server which may adopt forking. Simulations for the reasons said can only offer a run time performance approximation for both of the parallel + looping constructor combinations.</p>
+<p>The first simulation considers <code>furrr</code> which enables mapping (i.e. vectorization with <code>map</code>) through a list of urls with <code>purrr</code> and parallelization with <code>Future</code>. Future gravitates around a programming concept called “future”, initially introduced in late 70’s by Baker <span class="citation">(Baker and Hewitt <a href="#ref-BakerFuture" role="doc-biblioref">1977</a>)</span>. Futures are abstractions for values that may be available at a certain time point later <span class="citation">(<a href="#ref-future" role="doc-biblioref">2020</a><a href="#ref-future" role="doc-biblioref">b</a>)</span>.
+These values are result of an evaluated expression, this allows to actually divide the assignment operation from the proper result computation. Futures have two stages <em>unresolved</em> or <em>resolved</em>. If the value is queried while the future is still unresolved, the current process is blocked until the stage is resolved. The time and the way futures are resolved massively relies on which strategy is used to evaluate them. For instance, a future can be resolved using a <em>sequential</em> strategy, which means it is resolved in the current R session. Other strategies registered with <code>plan()</code>, such as <em>multi-core</em> (on Linux) and <em>multisession</em>, may resolve futures in parallel, as already pointed out, by evaluating expressions on the current machine in forked processes or concurrently on a cluster of R background sessions.
+With parallel futures the current/main R process does not get “bottlenecked”, which means it is available for further processing while the futures are being resolved in separate processes running in the background. Therefore with a “multisession” plan are opened as many R background sessions as workers/cores on which chunks of futures (urls) are split and resolved in parallel. From an algorithmic point of view It can be compared to <em>a divide and conquer</em> strategy where the target urls are at first redistributed among workers/cores (unresolved) through background sessions and then are scraped in equally distributed chunks (resolved).
+Furthermore furrr has also a convenient tuning option which can interfere with the redistribution scheduling of urls’ chunks over workers. The argument scheduling can adjust the average number of chunks per worker. Setting it equal to 2 brings <em>dinamicity</em> <span class="citation">(<a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> to the scheduling so that if at some point a worker is busier then chunks are sent to the more free ones.</p>
+<p>(migliore rappresentazione)</p>
+<div class="figure"><span id="fig:divideconquer"></span>
+<img src="images/divideconquer.png" alt="" />
+<p class="caption">Figure 2.9: futures reimagined as divide and conquer, author’s source</p>
 </div>
-<p>The following run time simulations are performed on custom group of functions which is a lightweight version of the final API endpoint. Simulation are preformed on local machine therefore benchmarks can not really be representative to the problem. As a matter of fact the API is served on a Linux OS server with its proper hardware and parallel execution is handled differently in local machine (windows 10, …).. As a partial solution agnostic language libraries are chosen so sub-optimal solutions are found.
-As a further general criteria base-R for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred.
-The first attempt was using <code>furrr</code> package <span class="citation">(Vaughan and Dancho <a href="#ref-furrr" role="doc-biblioref">2018</a>)</span> which enables mapping (i.e. <code>map</code>) through a list from <code>purrr</code>, along with a <code>future</code> parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command <code>plan(multisession, workers = 2)</code>. Then the function operates as many other seen purrr variations:
-<code>furrr::future_map(scrape(), .progress = T)</code>. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( <em>pensa se fare più simulazioni, prende tempo</em> )</p>
-<div class="figure"><span id="fig:furrr"></span>
-<img src="images/furrr.png" alt="" />
-<p class="caption">Figure 2.7: computational complexity analysis with Furrr</p>
+<p>The upper plot in figure <a href="scraping.html#fig:furrrfuture">2.10</a> are 20 simulations of 100 url (2500 data points) performed by the lightweight scraping. On the x-axis are plotted the 20 simulations and on the y-axis are represented the respective elapsed times. One major point to breakdown is the first simulation run time measurement which is considerably higher with respect to the others i.e. 15 sec vs mean 7.72 sec. Empirical demonstrations traces this behavior back to the opening time for all the background sessions. As a result the more are the back ground sessions/workers, the more it would be the time occupied to pop up all the sessions. As opposite whence many sessions are opened the mean execution time for each simulation is slightly less.
+The lower plot in in figure <a href="scraping.html#fig:furrrfuture">2.10</a> tries to capture the run time slope behavior of the scraping function when urls (1 to 80) are cumulated one by one. The first iteration scrapes 1 single url, the second iteration 2, the third 3 etc. Three replications of the experiment has been made, evidenced by three colours. The former urls are more time consuming confirming the hypothesis casted before. Variability within the first 40 urls for the three repetitions does not show diversion. However It slightly increases when the 40 threshold is trespassed. Two outliers in the yellow line are visible in the nearby of 50 and 60. It can be assumed that workers in that urls neighbor may be overloaded but no evidences are witnessed on cores activity as in plot <a href="scraping.html#fig:cpumonitor">2.11</a>. The measured computational complexity of scraping when <span class="math inline">\(n\)</span> is number of urls seems to be much more less than linear <span class="math inline">\(\mathcal{O}(0.06n)\)</span>.</p>
+<div class="figure"><span id="fig:furrrfuture"></span>
+<img src="images/simulations/final_furrr_future.png" alt="" />
+<p class="caption">Figure 2.10: computational complexity analysis with Furrr</p>
 </div>
-<p>On the x-axis in the figure <a href="scraping.html#fig:furrr">2.7</a> the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time <span class="math inline">\(\mathcal{O}(n)\)</span>, where n are the number of links considered.</p>
-<p>A second attempt tried to explore the <code>foreach</code> package <span class="citation">(Microsoft and Weston <a href="#ref-foreach" role="doc-biblioref">2020</a>)</span> originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating containers.
-That means all workers should be self containing enviroments including libraries function and exported objects.</p>
-<p>Flexibility comes at a cost of usability, as a matter of fact the loop constructor paradigm is much more complex with respect to furrr.
-The looping construction abstractly follows the r-base looping idea, below main steps are summarized:</p>
-<ul>
-<li>Detect cores, initialize workers based on number of cores, register the parallel back end <code>registerDoParallel(cl,cores)</code></li>
-<li>define the iterator, i.e. “i” equal to the number of elements that are going to be looped</li>
-<li><code>.packages</code>: Inherits the packages that are used in the tasks define below</li>
-<li><code>.combine</code>: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows).</li>
-<li><code>.errorhandling</code>: specifies how a task evaluation error should be handle.</li>
-<li><code>%dopar%</code>: the dopar keyword suggests foreach with parallelization method</li>
-<li>then the function within the elements are iterated</li>
-<li>close clusters</li>
-</ul>
-<div class="figure"><span id="fig:foreach"></span>
-<img src="images/forerach.png" alt="" />
-<p class="caption">Figure 2.8: computational complexity analysis with Furrr</p>
+<div class="figure"><span id="fig:cpumonitor"></span>
+<img src="images/parallel_computing.jpg" alt="" />
+<p class="caption">Figure 2.11: local machine monitoring of cores during parallel scraping</p>
 </div>
-<p>It can be grasped quite easily by figure <a href="scraping.html#fig:foreach">2.8</a> that initially foreach takes some times to set up parallel workers but then the curve is flattened and a confident guess might be .5 sloped linear time <span class="math inline">\(\mathcal{O}(\frac{n}{2})\)</span>.</p>
+</div>
+<div id="parallel-foreachdofuture" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Parallel foreach+doFuture</h3>
+<p>A second attempt tries to encapsulate <code>foreach</code> <span class="citation">(Microsoft and Weston <a href="#ref-foreach" role="doc-biblioref">2020</a>)</span> originally developed by Microsoft R, being a very fast loop alternative, parallelized with <code>doFuture</code>. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments. From a certain extent the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. But since the doFuture implements auto dependency search this problem is considered overcome. Two major speed improvements may come from <code>.inorder</code> and <code>.multicombine</code> which are proper of the lopping constructor and take advantage of splitting disorder a subsequent recombination.</p>
+<p>The upper part in <a href="scraping.html#fig:foreachdofuture">2.12</a> displays lower initialization lag from R sessions opening and parallel execution that also lead to a lower mean execution time of 6.42 seconds. No other interesting behavior are detected.
+THe lower plot displays high similarities with the curves in <a href="scraping.html#fig:furrrfuture">2.10</a> highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable {Tidyverse} oriented framework and offers and easy debugging experience.</p>
+<div class="figure"><span id="fig:foreachdofuture"></span>
+<img src="images/simulations/final_foreach_dofuture_1&amp;2.png" alt="" />
+<p class="caption">Figure 2.12: computational complexity analysis with Furrr</p>
+</div>
+</div>
 </div>
 <div id="challenges" class="section level2">
 <h2><span class="header-section-number">2.9</span> Open Challenges and Further Improvemements</h2>
-<p>Still one of the main challenges remains unsolved since each single element at each level has been optimized nevertheless scraping function must be continuously kept updated. As a matter of fact what unfortunately can not be predicted are the future changes that involves the first part of the scraping process i.e. crawling. Indeed scraping, with some further adjustments can take care of searching for precise information within the web page even if the design changes, and so happens for both HTML and CSS. This idea is massively applied in the package Rcrawler <span class="citation">Khalil (<a href="#ref-Rcrawler" role="doc-biblioref">2018</a>)</span>, which crawls the entire website and searches for targeted keywords. The major benefit relies in crawling and subsequently saving in local the whole set of html/xml files that composes the website. HTML are agreed to be generally lightweight so the crawling part does not weigh down the run time. Once all files are dnwloaded the algorithm looks for the target keywords within the html files. Performances with algorithm of this kind are very efficient but results are not always effective due to the fact that keywords in the web page are not always associated to the data indeed required. Afterall a safer way to scrape content might be embedding complex customized regular expression on the HTML text which univoquely indetifies the CSS data location.
-As a disclaimer Rcrawler is designed to be flexible enough to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with a small effort <a href="scraping.html#webstructure">2.4.1</a>.
-On the parallel computing side some further performance boosts might come adding HPC (high-performance computing) clusters through <code>future.batchtools</code> <span class="citation">Bengtsson (<a href="#ref-futurebatchtools" role="doc-biblioref">2020</a><a href="#ref-futurebatchtools" role="doc-biblioref">a</a>)</span> sharing computation on separate nodes. The package implements a generic future wrapper for all batchtools backends like Torque, Slurm, Sge and many more.</p>
-<p><code>doAzureParallel</code> <em>miss lit</em> which is built on top of foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a further economic cost as a consequence it is not the first choice. Nonetheless it would perfectly shrinks run time by accelerating the number of requests sent among different processors/cores and cores, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.</p>
-<p>Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the <a href="https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar">stackoverflow reproducible example</a>. As a consequence to that each time an error occurs the “main” functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.</p>
+<p>Although results are quite encouraging still one of the main challenges remains unsolved. In fact optimization has involved each scraping layer but scraping function must be continuously kept up with the immobiliare.it changes, particularly the crawling part. Indeed the proper scraping part, with some further adjustments can take care of auto-search for exact information within the web page even if the design changes. This idea is massively applied in the package Rcrawler <span class="citation">Khalil (<a href="#ref-Rcrawler" role="doc-biblioref">2018</a>)</span>, which doesn’t apply segmentation in crawling, instead it downloads the entire website and then inspects targeted keywords. The major benefit relies in crawling HTML/XML that are agreed to be generally lightweight in this way the process does not weigh down the run time.
+Whence all files are saved locally the algorithm applies search methodologies within the HTML files. Run time performance with algorithm of this kind with respect to the amount of data gathered are very efficient, nevertheless results are not always effective due to keywords disambiguation.
+Afterall a way safer and time saving approach to general scraping may be including complex theme specific regular expressions on the HTML text which univocally identify CSS data location. With that said the idea would be an unsupervised algorithm that combines the traditional browser search + a selector gadget for CSS conversion.
+As a disclaimer Rcrawler is designed to be flexible to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended with a small effort to other category related website <a href="scraping.html#webstructure">2.4.1</a>.
+On the parallel computing side a further boosts might be added with parallel distributed processing through HPC (high-performance computing) clusters by <code>future.batchtools</code> <span class="citation">Bengtsson (<a href="#ref-futurebatchtools" role="doc-biblioref">2020</a><a href="#ref-futurebatchtools" role="doc-biblioref">a</a>)</span>. The package implements a generic future wrapper around batchtools with job scheduler like Torque, Slurm, Sge and many more. A higher level API built on top of the Future framework that exploits <a href="https://cloudyr.github.io/googleComputeEngineR/articles/massive-parallel.html">Google Cloud Engine Clusters</a> i.e.<code>cloudyR</code> allows to distribute computation on Google machines.
+<!-- Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.  --></p>
 </div>
-<div id="legal-profiles-ancora-non-validato" class="section level2">
-<h2><span class="header-section-number">2.10</span> Legal Profiles (ancora non validato)</h2>
-<p>“Data that is online and public is always available for all” is never a good answer to the question “Can I use those web data to my scope”. Immobiliare.it is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
-A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their <a href="https://www.immobiliare.it/terms/">specialized section</a>. Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property. Below are checked the permissions to scrape the endpoints:
-What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section <a href="scraping.html#best-practices">2.6</a>), and <em>not</em> any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e. is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.</p>
+<div id="legal-profiles" class="section level2">
+<h2><span class="header-section-number">2.10</span> Legal Profiles</h2>
+<p><strong>rivedere meglio</strong></p>
+<p>“Data that is online and public is always available for all” is never a good answer to the question “Can I use those web data to my scope?”. Immobiliare.it does not provide any open source data neither it disposes any paid API.
+A careful reading of immobiliare terms, reviewed with a intellectual property expert has been done to get the service running without any legal consequence, as a reference the full policy can be seen in their <a href="https://www.immobiliare.it/terms/">specialized section</a>. Nevertheless the golden standard for scraping was respected since the robotstxt is neat allowing any actions as demonstrated above in section <a href="scraping.html#best-practices">2.6</a>. So if it may be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.</p>
+<ul>
+<li>To the headers are also attached a direct user back tracking and a url pointing to a dedicated address</li>
+</ul>
+<p>What it was shockingly surprising were the low entry barriers to scrape information with respect to other counterpart online players. Best practices are in any case applied and kind requests (even though politeness was not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practices (see section <a href="scraping.html#best-practices">2.6</a>), and <em>not</em> any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budget constraints are set low, but in the long run it will cause lagging as soon as requests rate would increase. Totally different was the approach proposed bya coiounterpart market Idealista.com. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and proxies are necessary. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.</p>
 <ul>
 <li>Idealista content is composed by Javascript so and html parser can no get that.</li>
 <li>Idealista blocks also certain web browser that have a demonstrated “career” in scraping procedures.</li>
@@ -632,14 +611,14 @@ What it was shockingly surprising are the low barriers to obtain information wit
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-BakerFuture">
+<p>Baker, Henry C., and Carl Hewitt. 1977. “The Incremental Garbage Collection of Processes.” <em>SIGPLAN Not.</em> 12 (8): 55–59. <a href="https://doi.org/10.1145/872734.806932">https://doi.org/10.1145/872734.806932</a>.</p>
+</div>
 <div id="ref-barney">
 <p>Barney, Blaise. 2020. “Introduction to Parallel Computing.” <em>Introduction to Parallel Computing</em>. U.S. Department of Energy by Lawrence Livermore National Laborator. <a href="https://computing.llnl.gov/tutorials/parallel_comp/">https://computing.llnl.gov/tutorials/parallel_comp/</a>.</p>
 </div>
 <div id="ref-futurebatchtools">
 <p>Bengtsson, Henrik. 2020a. <em>Future.batchtools: A Future Api for Parallel and Distributed Processing Using ’Batchtools’</em>. <a href="https://CRAN.R-project.org/package=future.batchtools">https://CRAN.R-project.org/package=future.batchtools</a>.</p>
-</div>
-<div id="ref-bengtsson_2017">
-<p>Bengtsson, Henrik. 2017. “The Many-Faced Future.” <em>JottR</em>. <a href="https://www.jottr.org/2017/06/05/many-faced-future/">https://www.jottr.org/2017/06/05/many-faced-future/</a>.</p>
 </div>
 <div id="ref-future">
 <p>Bengtsson, Henrik. 2020b. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
@@ -647,14 +626,20 @@ What it was shockingly surprising are the low barriers to obtain information wit
 <div id="ref-doFuture">
 <p>Bengtsson, Henrik. 2020c. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
 </div>
+<div id="ref-bengtsson_2017">
+<p>Bengtsson, Henrik. 2020d. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
+</div>
 <div id="ref-wiki:DOS">
 <p>contributors, Wikipedia. 2020a. “Denial-of-Service Attack — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165">https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165</a>.</p>
 </div>
+<div id="ref-wiki:forking">
+<p>contributors, Wikipedia. 2020b. “Fork (System Call) — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307">https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307</a>.</p>
+</div>
 <div id="ref-wiki:UserAgentHints">
-<p>contributors, Wikipedia. 2020b. “HTTP Client Hints — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.</p>
+<p>contributors, Wikipedia. 2020c. “HTTP Client Hints — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.</p>
 </div>
 <div id="ref-wiki:UserAgent">
-<p>contributors, Wikipedia. 2020c. “User Agent — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.</p>
+<p>contributors, Wikipedia. 2020d. “User Agent — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.</p>
 </div>
 <div id="ref-doParallel">
 <p>Corporation, Microsoft, and Steve Weston. 2020. <em>DoParallel: Foreach Parallel Adaptor for the ’Parallel’ Package</em>. <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.</p>
@@ -667,6 +652,9 @@ What it was shockingly surprising are the low barriers to obtain information wit
 </div>
 <div id="ref-Graph_Diestel">
 <p>Diestel, Reinhard. 2006. <em>Graph Theory</em>. 3rd ed. Graduate Texts in Mathematics. Springer.</p>
+</div>
+<div id="ref-eddelbuettel2020parallel">
+<p>Eddelbuettel, Dirk. 2020. “Parallel Computing with R: A Brief Review.” <a href="http://arxiv.org/abs/1912.11144">http://arxiv.org/abs/1912.11144</a>.</p>
 </div>
 <div id="ref-google:robottxt">
 <p>Google. 2020. “Presentazione Dei File Robots.txt - Guida Di Search Console.” <em>Google</em>. Google. <a href="https://support.google.com/webmasters/answer/6062608?hl=it">https://support.google.com/webmasters/answer/6062608?hl=it</a>.</p>
@@ -686,6 +674,12 @@ What it was shockingly surprising are the low barriers to obtain information wit
 <div id="ref-Rcrawler">
 <p>Khalil, Salim. 2018. <em>Rcrawler: Web Crawler and Scraper</em>. <a href="https://CRAN.R-project.org/package=Rcrawler">https://CRAN.R-project.org/package=Rcrawler</a>.</p>
 </div>
+<div id="ref-possibly">
+<p>Lionel Henry RStudio, Hadley Wickham RStudio. 2020a. “Capture Side Effects. — Safely • Purrr.” <a href="https://purrr.tidyverse.org/reference/safely.html">https://purrr.tidyverse.org/reference/safely.html</a>.</p>
+</div>
+<div id="ref-rate_delay">
+<p>Lionel Henry RStudio, Hadley Wickham RStudio. 2020b. “Create Delaying Rate Settings - Rate-Helpers.” <em>Rate-Helpers, Purrr</em>. Lionel Henry, Hadley Wickham. <a href="https://purrr.tidyverse.org/refeence/rate-helpers.html">https://purrr.tidyverse.org/refeence/rate-helpers.html</a>.</p>
+</div>
 <div id="ref-meissner_2020">
 <p>Meissner, Peter. 2020. <em>Using Robotstxt</em>. <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html</a>.</p>
 </div>
@@ -697,9 +691,6 @@ What it was shockingly surprising are the low barriers to obtain information wit
 </div>
 <div id="ref-polite">
 <p>Perepolkin, Dmytro. 2019. <em>Polite: Be Nice on the Web</em>. <a href="https://CRAN.R-project.org/package=polite">https://CRAN.R-project.org/package=polite</a>.</p>
-</div>
-<div id="ref-rate_delay">
-<p>RStudio, Lionel Henry, and Hadley Wickham RStudio. 2020. “Create Delaying Rate Settings - Rate-Helpers.” <em>Rate-Helpers, Purrr</em>. Lionel Henry, Hadley Wickham. <a href="https://purrr.tidyverse.org/reference/rate-helpers.html">https://purrr.tidyverse.org/reference/rate-helpers.html</a>.</p>
 </div>
 <div id="ref-ratelimitr">
 <p>Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for R</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.</p>

@@ -4,9 +4,6 @@
 
 
 
-
-( _metti flow in DRAKE_ )
-
 Data flows out the REST API end point `*/complete` in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \@ref(APIdocs), might regard the real estate `city` interested, `npages` as the number of pages to scrape, `type` as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g. Milan rental real estate within "circonvallazione" approximated geo-borders). As a consequence a dedicated endpoint `.thesis` parameter is passed in the argument body. By setting the option equal to to TRUE  the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone. 
 Parameters specified are also npages = 120, leading to to 3000 observations. The `*` refers to the EC2 public DNS.
 
@@ -93,6 +90,14 @@ The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which needs to
 Predictors, in this case latitude and longitude appear to have nonlinear relationships with the outcome price. The relationship appears to be Gaussian whose mean points to the city center, red dashed line represent latitude and longitude coordinates for the Dome of Milan. Non linearities can be treated with regression splines
 
 ![(\#fig:NonLinearSpatialRel)Non Linear Spatial Relationship disclosed](07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf) 
+
+
+ggplot2 visualzitaion matt dancho inspiration::
+
+
+
+
+
 
 
 ## Counts and First Orientations

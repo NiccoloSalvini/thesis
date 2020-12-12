@@ -39,7 +39,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.},
+  pdftitle={REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA},
   pdfauthor={Niccolò Salvini},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -134,6 +134,7 @@
 \usepackage{float}
 \usepackage{colortbl}
 \usepackage{pdflscape}
+\usepackage{algorithm2e}
 \usepackage{tabu}
 \usepackage{threeparttable}
 \usepackage{threeparttablex}
@@ -165,9 +166,9 @@
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
-\title{REST API for Real Estate rental data, a spatial Bayesian modeling approach with INLA.}
+\title{REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 23 novembre, 2020}
+\date{Last compiled on 12 dicembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -240,25 +241,52 @@ Main themes:
 As a general discussion technologies implied can be thought as the distance between a service running locally on a laptop and something that it can actually be put into production, shared among company stakeholders, solving business related problems. When such technologies are applied data scientist and interlocutors gradually close the gap. Insights are better communicated, data is up-to-date and automation can save time. Nonetheless when the infrastructure is structured with vision then integrating or substituting existing technologies is not trivial. Anyway technologies can not be always embedded because they might be exclusively designed to work only on certain back ends, therefore some choices are not into discussion. With foresight RStudio by setting future-oriented guidelines has spent a lot of effort giving its users an easy, integrated and interconnected environment. By that it is meant that the RStudio community has tried to either integrate or open the possibility to a number of technologies that fill the blanks in their weaker parts. On top of many, an entire package has been dedicated to democratize REST APIs (Plumber \citep{plumber}). As a further example developers in RStudio have created an entire new paradigm i.e.~Shiny \citep{shiny}, a popular web app development package, that enforces the developer to have front-end and back-end technologies tied up in the same IDE. They also added performance monitoring and optimization packages that are fitted into shiny such as shinytest {[}metti tag{]} and shinyloadtest {[}metti tag{]} to simulate sessions and verify network traffic congestion.
 
 \hypertarget{scraping}{%
-\chapter{Scraping}\label{scraping}}
+\chapter{Web Scraping}\label{scraping}}
 
-The following chapter covers a gentle introduction and some advanced topics for web scraping with a focus on immobiliare.it. The content starts in general terms by ideally partitioning websites in two entities: website structure and content architecture, then the segmentation is applied to the specific immobiliare.it case. The abstract workflow helps the identification of the first ``high level'' challenges to front, so that the following ``lower levels'' can be then accessed and fronted. Website structure mainly accounts the way urls are arranged throughout the website and a methodology to reverse engineer the website url composition. Once the structure is unrolled so that each part can be singularly and directly accessed, then scraping flows to ``lower levels'' i.e.~scraping content architecture. Content architecture in the scraping context is considered to be how data is stored within a webpage. At this point a rooted-tree graph representation of web site content architecture is used to map scraping functions design into immobiliare.it. By means of \texttt{rvest} \citet{rvest} either website structure and content architecture can be handled and the main function involved are presented. \texttt{scrapeprice()} outlines the strategy adopted to look for the content inside each web page. The skeleton of the function is then reused to shape all the other scraping functions needed. Moreover it is shown also a second function, that combines all the functions into a single scraping call obtaining the final dataset. Scraping best practices are applied from the web server point of view, kindly requesting permission and delayed sendingrate. Form the the web client point of view continuous scraping is granted by User Agent pool rotation and handlers to bypass missing to grab content. Then a run time parallel scraping benchmark is presented with two different options for parallel looping construction, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two have displayed encouraging results, nevertheless the former offers a much more compatible and Tidy environment for parallel computing. Furthermore an overview of open challenges is offered so that this work might be extended and integrated with newer technologies or paradigms. In the end legal profiles are addressed comparing scraping results and difficulties with a counterpart case study.
+The following chapter covers advanced topics on web scraping and related hard challenges with a focus on the immobiliare.it case. A new scraping workflow concept is proposed that integrates the crawling part inside the proper scraping and removes frictions related to inner complexities. The workflow offers a faster solution with respect to traditional library oriented scraping methods. The solution proposed takes advantage of the url clean structure and proposes an ``inverse crawling'' methodology. At first url sematic is reverse engineered so that the sitemap is explicit and url can be freely compose. Secondly links are crawled and collected in a list according to the url composed. By doing that each link can be directly targeted by scraping functions, with that said the focus can shift to the proper scraping part. An example of scraping function with \texttt{rvest} \citet{rvest} is presented outlining the strategy adopted to look for the exact content within immobiliare.it HTML/CSS. The search strategy skeleton of the function is then reproduced for all the data that shares the same CSS query location.
+Scraping common best practices are applied from the web server point of view, this is taken care by kindly asking for permission and sending delayed requests rate. As well as from the the web client point of view by securing continuous scraping through server blocks, User Agent pool rotation and fail dealer to bypass empty content. Then a run time scraping benchmark is presented for two different parallel back end options \texttt{future} \citet{future} and \texttt{doParallel} \citet{doParallel}, together with two parallel looping constructions, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two have displayed similar results, nevertheless the former offers has a more \{Tidiverse\} orientation and offers a wider range of integrations. Furthermore an overview of still open challenges is given with the hope that the effort put might be extended or integrated with newer technologies and paradigms. In the end legal profiles are addressed comparing results and implications with a market counterpart study.
 
-\hypertarget{what-is-web-scraping}{%
-\section{What is Web Scraping}\label{what-is-web-scraping}}
+\hypertarget{web-scraping}{%
+\section{Web Scraping}\label{web-scraping}}
 
 \begin{definition}[Scraping]
-\protect\hypertarget{def:scraping}{}{\label{def:scraping} \iffalse (Scraping) \fi{} }Web Scraping is a technique aimed at extracting data from static or dynamic internet web pages. It can be applied simultaneously or automatically by a scheduler that plans execution at a given time.
+\protect\hypertarget{def:scraping}{}{\label{def:scraping} \iffalse (Scraping) \fi{} }Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
 \end{definition}
-
-Content in web pages is the most of the times well organized and accessible.
-This is made possible by the effort put into building both the \emph{website structure} and the \emph{content architecture}. For website structure it is meant the way urls, pointing to different web pages, are arranged throughout the website.
-Website structure constitutes a \emph{first dimension} of hierarchy. A comparative example might regard the way files are arranged into folders, where in the example files are urls and folders are web pages.
-Some popular website structure examples are social-networks where posts can be scrolled down within a single url web page named the wall. The scrolling option might end due to the end of the feed, but the perception is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks at happens at many levels, photos, friends, places.
-Online newspapers display their articles in the front page of their websites and by accessing to one of them all the pertinent articles sometimes can be reached in the low bottom or in the side part. Suggested articles during website exploration can be seen twice, that is the more the website is covered the more is the likelihood of seeing the same article twice. Recursive websited structures are popular in newspaper-type websites since it is part of the expectation on website's user experience.
+Web scraping is a form of data mining. The basic and most important goal of the web scraping process is to mine information from different and unstructured websites and transform it into an comprehensible structure like spreadsheets. Web scraping can be performed with different degrees of precision in several ways via several tools. Popular options are APIs, proprietary softwares, browser integrations and open source libraries. Challenges in scraping mainly regards \emph{security}, \emph{run-time} and \emph{exception handling}.
+Scraping can be mainly decomposed into 2 separable and collectively exhaustive tasks: \emph{crawling} and \emph{proper scraping} which they ultimately outline a forced sequential process. The forced aspects regards essentially the way websites are made and the language used for content creation and organization i.e.~HTML. HTML stands for Hyper Text Markup Language and is the standard \emph{markup} language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, as an example JavaScript \citep{html_2020}.
+CSS language stands for Cascading Style Sheets and is a style sheet language used for modifying the appearance of a document written in a \emph{markup} language\citep{css_2020}. The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different websites on the web.
+Some examples of websites might be social-networks where posts are scrolled down within a single url named ``wall''. The scrolling option might end due to the end of the feed, but the experience is a never-ending web page associated to a single url. Indeed personal profiles have dedicated unique url and personal photos or friends are allocated into specific personal profile sub-domains. Connection among webpages are complex networks that happens at many levels, photos, friends, places.
+As a different example online newspapers display their articles in the front page of their websites. and By accessing to one of them all the pertinent articles sometimes can be reached in the low bottom or in the side part of the webpage. Suggested articles during website exploration can be seen twice, that is the more the website is covered the more is the likelihood of seeing the same article twice. Recursive website structures are popular in newspaper-kind websites since it is part of the expectation on website's user experience.
 Online Retailers as Amazon, based on search filters, groups inside a single web page (i.e.~page n° 1) a fixed set of items, having their dedicated single urls attached to them. Furthermore many of the retailers, Amazon's too, allows the user to search into many pages i.e.~page n° 2,3, looking for another fixed set of items. The experience ends when the last page associated to the last url is met.
-These are few examples of how websites can be built and infinitely many others are available ranging from the easisest to the most confusing, see figure .
-Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the building languages needed and the specific requirements of the that the website should met. For all the reason said, for each product, whether it is physical product, or service, or information there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites will display tailor made website structure and contents based on specific user personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information.
+These are few examples of how websites can be built and infinitely many others are available ranging from the easiest to the most complex, as in figure @ref(fig:html\_tree).
+Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the programming languages chosen and the specific requirements that the website should met. For all the reason said, for each product, whether it is physical product, or service, or information there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites might display tailor made customization of contents and design based on specific personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information.
+
+\hypertarget{graph-representation-of-html}{%
+\section{Graph Representation of HTML}\label{graph-representation-of-html}}
+
+Graph based data structures named as \textbf{Rooted Trees}. By analyzing the first dimension through the lenses of Rooted trees it is possible to compress the whole setting into tree graph jargon, as a further reference on notation and wordings can be found in \citet{Graph_Diestel}. Rooted trees must start with a root node which in this context is the domain of the web page. Each \emph{Node} is a url destination and \emph{Edges} are the connections to web pages. Jumps from one page to the others (i.e.~connections) are possible in the website by nesting urls inside webpages so that within a single webpage the user can access to a limited number of other links. Each edge is associated to a \emph{Weight} whose interpretation is the run time cost to walk from one node to its connected others (i.e.~from a url to the other). In addition the content inside each node takes the name of payload, which is ultimately the goal of the scraping processes.
+The walk from node ``body'' to node ``h2'' in figure below is called path and it represented as an ordered list of nodes connected by edges. In this context each node can have both a fixed and variable outgoing sub-nodes that are called \emph{Children} . When root trees have a fixed set of children are called \emph{k-ary} rooted trees. A node is said to be \emph{Parent} to other nodes when it is connected to them by outgoing edges, in the figure below ``headre'' is the parent of nodes ``h1'' and ``p''. Nodes in the tree that shares the same parent node are said \emph{Siblings}, ``h1'' and ``p'' are siblings in figure @ref(fig:html\_tree). Moreover \emph{Subtrees} are a set of nodes and edges comprised of a parent and its descendants e.g.~node ``main'' with all of its descendants might constitute a subtree. The concept of subtree in both of the problem dimensions plays crucial role in cutting run time scraping processes as well as fake headers provision (see section \ref{spoofing}). If the website strucuture is locally reproducible and the content architecture within webpages tends to be equal, then functions for a single subtree might be extended to the rest of others siblings subtrees. Local reproducibility is a property according to which starting from a single url all the related urls can be inferred from a pattern. Equal content architecture throughout different single links means to have a standard shared-within-webpages criteria according to which each single rental advertisement has to refer (e.g.~each new advertisement replicates the structure of the existing ones). In addition two more metrics describe the tree: \emph{level} and \emph{height}. The level of a node \(\mathbf{L}\) counts the number of edges on the path from the root node to \(\mathbf{L}\) , e.g.~``head'' and ``body'', are at the same level. The height is the maximum level for any node in the tree, from now on \(\mathbf{H}\), in figure @ref(fig:html\_tree). What is worth to be anticipating is that functions are not going to be applied directly to siblings in the ``upper'' general rooted tree (i.e.~from the domain). Instead the approach follwed is segmenting the highest tree into a sequence of single children unit that shares the same level (``nav'', ``main'', ``header'', ``title'' and ``footer'') for reasons explained in section \ref{spoofing}.
+
+Some websites' components also might be tuned by a scripting language as Javascript. JavaScript enables interactive web pages and the vast majority of websites use it for all the operations that are performed by the client in a client-server relationship \citep{Javascript_2020}.
+In the context of scraping Javascript adds a further layer of difficulty. As a matter of fact Javascript components are dynamic and scraping requires specialized libraries or remote web browser automation (\citep{RSelenium} R Bindings for Selenium 2.0 Remote WebDriver) to catch the website content.
+
+\hypertarget{crawling}{%
+\section{Crawling}\label{crawling}}
+
+\begin{itemize}
+\item
+  general idea, definition (with latex def. component)
+\item
+  urllib
+\item
+  clean url
+\item
+  representation of crawling
+\item
+\end{itemize}
+
+\hypertarget{proper-scraping}{%
+\section{Proper Scraping}\label{proper-scraping}}
 
 \begin{figure}
 \centering
@@ -273,8 +301,7 @@ CSS language stands for Cascading Style Sheets and is a style sheet language use
 The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different websites designs on the web. Some websites' components also might be tuned by a scripting language as Javascript. JavaScript enables interactive web pages and the vast majority of websites use it for all the operations that are performed by the client in a client-server relationship \citep{Javascript_2020}.
 In the context of scraping Javascript adds a further layer of difficulty. As a matter of fact Javascript components are dynamic and scraping requires specialized libraries or remote web browser automation (\citep{RSelenium} R Bindings for Selenium 2.0 Remote WebDriver) to catch the website content.
 CSS instead allows the scraper to target a class of objects in the web page that shares same style (e.g.~same CSS query) so that each element that belongs to the class (i.e.~share the same style) can be gathered. This practice provides tremendous advantages since by a single CSS query a precise set of objects can be obtained within a unique function call.
-First and Second dimension of the scraping problem imply hierarchy. One way to imagine hierarchy in both of the two dimensions are graph based data structures named as \textbf{Rooted Trees}. By analyzing the first dimension through the lenses of Rooted trees it is possible to compress the whole setting into tree graph jargon, as a further reference on notation and wordings can be found in \citet{Graph_Diestel}. Rooted trees must start with a root node which in this context is the domain of the web page. Each \emph{Node} is a url destination and \emph{Edges} are the connections to web pages. Jumps from one page to the others (i.e.~connections) are possible in the website by nesting urls inside webpages so that within a single webpage the user can access to a limited number of other links. Each edge is associated to a \emph{Weight} whose interpretation is the run time cost to walk from one node to its connected others (i.e.~from a url to the other). In addition the content inside each node takes the name of payload, which is ultimately the goal of the scraping processes.
-The walk from node ``body'' to node ``h2'' in figure below is called path and it represented as an ordered list of nodes connected by edges. In this context each node can have both a fixed and variable outgoing sub-nodes that are called \emph{Children} . When root trees have a fixed set of children are called \emph{k-ary} rooted trees. A node is said to be \emph{Parent} to other nodes when it is connected to them by outgoing edges, in the figure below ``headre'' is the parent of nodes ``h1'' and ``p''. Nodes in the tree that shares the same parent node are said \emph{Siblings}, ``h1'' and ``p'' are siblings in figure @ref(fig:html\_tree). Moreover \emph{Subtrees} are a set of nodes and edges comprised of a parent and its descendants e.g.~node ``main'' with all of its descendants might constitute a subtree. The concept of subtree in both of the problem dimensions plays crucial role in cutting run time scraping processes as well as fake headers provision (see section \ref{spoofing}). If the website strucuture is locally reproducible and the content architecture within webpages tends to be equal, then functions for a single subtree might be extended to the rest of others siblings subtrees. Local reproducibility is a property according to which starting from a single url all the related urls can be inferred from a pattern. Equal content architecture throughout different single links means to have a standard shared-within-webpages criteria according to which each single rental advertisement has to refer (e.g.~each new advertisement replicates the structure of the existing ones). In addition two more metrics describe the tree: \emph{level} and \emph{height}. The level of a node \(\mathbf{L}\) counts the number of edges on the path from the root node to \(\mathbf{L}\) , e.g.~``head'' and ``body'', are at the same level. The height is the maximum level for any node in the tree, from now on \(\mathbf{H}\), in figure @ref(fig:html\_tree). What is worth to be anticipating is that functions are not going to be applied directly to siblings in the ``upper'' general rooted tree (i.e.~from the domain). Instead the approach follwed is segmenting the highest tree into a sequence of single children unit that shares the same level (``nav'', ``main'', ``header'', ``title'' and ``footer'') for reasons explained in section \ref{spoofing}.
+First and Second dimension of the scraping problem imply hierarchy. One way to imagine hierarchy in both of the two dimensions are
 
 \begin{figure}
 \centering
@@ -285,9 +312,11 @@ The walk from node ``body'' to node ``h2'' in figure below is called path and it
 \hypertarget{webstructure}{%
 \subsection{Immobiliare.it website structure}\label{webstructure}}
 
-The website structure of immobiliare can be assumed to be similar to the one of the largest online retailer Amazon. For that reason they both fall into the same website structure category. Sharing tthe same category might imply that the transition from customized website structure scraping functions (i.e.~immobiliare) do not take extraordinary sophistication to be extended to other comparable websites (i.e.~Amazon). Assuming that the scraper knows where data is stored (i.e.~payloads), the mandatory step is a way to compose and decompose url anathomy. As a matter of fact each time the scraper script visits the website it should not step back from domain root node and then down the longest path reaching the final content node. Instead it should try to shorten the path by minimizing the number of nodes encountered, conditioned to the respective nodes' weights. This is a first important conclusion since by separating the website strcuture from the content architecture scraping is massively faster and should not no more rely on the website forced root-to-node paths.
+The website structure of immobiliare can be assumed to be similar to the one of the largest online retailer Amazon. For that reason they both fall into the same website structure category. Sharing the same category might imply that the transition from customized website structure scraping functions (i.e.~immobiliare) do not take extraordinary sophistication to be extended to other comparable websites (i.e.~Amazon). Assuming that the scraper knows where data is stored (i.e.~payloads), the mandatory step is a way to compose and decompose url anatomy. As a matter of fact each time the scraper script visits the website it should not step back from domain root node and then down the longest path reaching the final content node. Instead it should try to shorten the path by minimizing the number of nodes encountered, conditioned to the respective nodes' weights. This is a first important conclusion since by separating the website strcuture from the content architecture scraping is massively faster and should not no more rely on the website forced root-to-node paths.
 immobiliare.it is a \href{https://en.wikipedia.org/wiki/Clean_URL}{clean url} \emph{miss lit} and it can be easily parsed and queried according to some parameters (i.e.~filters) selected in their dedicated section (e.g.~city, number of rooms 5, square footage less than 60 \(m^2\), macrozone ``fiera'' and ``centro''). The url is shaped so that each further parameters and its respcetive values are appended at the end of the domain url \texttt{https://www.immobiliare.it/}. Parameters and values are appended with a proper semantic, not all the sematics are equal, that is why scraping needs sophostication when applied to other websites. One major adavatge in this context is immobilaire being a \href{https://en.wikipedia.org/wiki/Clean_URL}{clean url}, whose sematic is oriented to usability and accessibility.
 Once parameters are applied to the root domain this constitutes a newer rooted tree whose url root node is the parametrized.It might have this appearance (params are city of Milan, square footage is less than 60 \(m^2\): domain + filters i.e.~\texttt{affitto-case/milano/?superficieMinima=60}. Since for the moment are generated only links related to page n°1 containing the first 25 advs links (see figure \ref{fig:websitetree}) all the remaining siblings nodes corresponding to the subsequent pages have to be initialized. In here resides the utility of Local reproducibility property introduced in the previous section. The remaining siblings, e.g.~the ones belonging to page 2 (with the attached 25 links), to page 3 etc. can be generated by adding a further parameter \texttt{\&pag=n}, where n is the page number reference (from now on referred as \emph{pagination}). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational requirements imposed by inla methodology \ref{inla}. The code chunk below has the aim to mimic the url syntax filters building, s given a set of information it can reproduce any related sibling. detaching website structure from content architecture.
+
+\emph{pseudo code get\_link}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -350,165 +379,87 @@ Thirdly it converts the content (i.e.~payload) into a human readable text with \
 
 The code chunk below exemplifies a function that can scrape the price. The function explicitly covers only the right part to the dashed line (figure \ref{fig:workflow}) of the whole scraping process. The initial part (left dashed in same figure), where session is opened and response is converted is handles inside the second code chunk where \texttt{get.data.catsing()} is.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{scrapeprice.imm =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(session) \{}
-    
-\NormalTok{    opensess =}\StringTok{ }\KeywordTok{read_html}\NormalTok{(session)}
-\NormalTok{    price =}\StringTok{ }\NormalTok{opensess }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_nodes}\NormalTok{(}\DataTypeTok{css =} \StringTok{".im-mainFeatures__title"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_text}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{        }\KeywordTok{str_trim}\NormalTok{()}
-    
-    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{is.null}\NormalTok{(price) }\OperatorTok{||}\StringTok{ }\KeywordTok{identical}\NormalTok{(price, }\KeywordTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{))) \{}
-\NormalTok{        price2 =}\StringTok{ }\NormalTok{opensess }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_nodes}\NormalTok{(}\DataTypeTok{css =} \StringTok{".im-features__value , .im-features__title"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{            }\KeywordTok{html_text}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_trim}\NormalTok{()}
-        
-        \ControlFlowTok{if}\NormalTok{ (}\StringTok{"prezzo"} \OperatorTok{%in%}\StringTok{ }\NormalTok{price2) \{}
-\NormalTok{            pos =}\StringTok{ }\KeywordTok{match}\NormalTok{(}\StringTok{"prezzo"}\NormalTok{, price2)}
-            \KeywordTok{return}\NormalTok{(price2[pos }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{`}\DataTypeTok{\textbackslash{}200}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{, }\StringTok{`}\CharTok{\textbackslash{}\textbackslash{}}\DataTypeTok{.}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{                }\KeywordTok{str_extract}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d*"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }
-                \StringTok{"Prezzo Su Richiesta"}\NormalTok{)}
-\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{ \{}
-            \KeywordTok{return}\NormalTok{(}\OtherTok{NA_character_}\NormalTok{)}
-\NormalTok{        \}}
-\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
-        \KeywordTok{return}\NormalTok{(price) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{`}\DataTypeTok{\textbackslash{}200}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{, }\StringTok{`}\CharTok{\textbackslash{}\textbackslash{}}\DataTypeTok{.}\StringTok{`}\NormalTok{ =}\StringTok{ ""}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_extract}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d*"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{            }\KeywordTok{str_replace_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace}\NormalTok{(}\StringTok{"NA"}\NormalTok{, }\StringTok{"Prezzo Su Richiesta"}\NormalTok{)}
-        
-\NormalTok{    \}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{ProperScraping}{%
+\section{Proper Scarping}\label{ProperScraping}}
 
-The function takes as a single argument a session object, then It reads the inner html content in the session storing the information into an obj called the \texttt{opensess}. Another obj is created, namely price, right after the pipe operator a CSS query into the html is called. The CSS query \texttt{.im-mainFeatures\_\_title} points to a precise group of data inside the web page, right below the main title. Expectation are that price is a one-element chr vector, containing the price and other unnecessary non-UTF characters. Then the algorithm enters into the first \texttt{if} statement. The handler checks if the object \texttt{price} is empty. If it doesn't the algorithm jumps to the end of the function and returns the quantity cleaned. But If it does it takes again the \texttt{opensess} and tries with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title} in a second data location where price might be also found. Please note that this is all done within the same session, so no more additional request information has to be sent. Since the latter CSS query points to data stored inside a list object, for the time being the newly created \texttt{price2} is a list containing various information. Then the algorithm flow enters into the second \texttt{if} statement that checks whether \texttt{"prezzo"} is matched the list or not, if it does it returns the +1 position index element with respect to the ``prezzo'' positioning. This happens because data in price2 list are stored by couples sequentially, e.g.~{[}title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese{]}. When it returns the element corresponding to +1 position index it applies also some data wrangling with \texttt{stringr} package to keep out overabundant characters. The function then escapes in the else statement by setting \texttt{price2\ =\ NA\_Character\_} once no CSS query could be finding the price information. the \emph{NA-character-string} type has to be imposed due to fact that later they can not be bind. In other words if the function is evaluated for a url and returns the price quantity, but then is evaluated for url2 and outputs NA (no character) then results can not be combined into dataframe due to different object types.
-The skeleton used for price scraping constitutes a standard format in the analysis and it is adopted for all the rest of scraping functions. By keeping equal the CSS query what it is required to change is the matching term, i.e.~``numero camere'' should be pasted in the place of ``prezzo'' to look for how many rooms there are in the house. This is true for all the information contained in the list accessed by the fixed css query. In addition some other functions outputs need to undergo to further heavy cleaning steps in order to be usable As a consequence of that functions need also to be broken down by pieces by single .R files, whose names correspond to each important information.
+The present algorithm imposes a nest sequential search strategy gravitating around 2 main criterias: shortest paths and insistent search. At the starting point it is initialized, providing a url, a single session object \texttt{opensess}. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML content. Immediately after another object \texttt{price} parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location \texttt{.im-mainFeatures\_\_title} addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first \texttt{if} statement. The logical condition checks whether the object \texttt{price} first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed singl quantity. Indeed if it does it considers again the check up \texttt{opensess} and hits with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title}, pointing to second data location. Note that the whole search is done within the same session (i.e.~reusing the same session object), so no more additional request headers \ref{spoofing} has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized \texttt{price2} is a type list object containing various information. Then the algorithm flows through a second \texttt{if} statement that checks whether \texttt{"prezzo"} is matched in the list, if it does the algorithm returns the +1 position index element with respect to the ``prezzo'' position. This happens because data in the list is stored by couples sequentially (as a flattened list), e.g.~list(title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. \texttt{price3} points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting \texttt{NA\_Character\_}, ending with any CSS query is able to find price data.
+The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be following only certain paths, e.g.~condizionatore can not be found under main title and so on.
 
-Once all the functions have been designed they need to be called together and then data coming after them need to be combined into a single final dataframe. This is done by \texttt{fastscrape()} Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a \texttt{foreach} parallel loop called by \texttt{scrape.all.info()}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/pseudocode_latex/pseudocode_price.jpg}
+\caption{\label{fig:pseudocode1}pseudo code algorithm for price search, author's source}
+\end{figure}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{## [ fastscrape ] ----}
-\CommentTok{## first endpoint function }
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{future.rng.onMisuse=}\StringTok{"ignore"}\NormalTok{)}
-\NormalTok{fastscrape =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(npages_vec)\{}
-            \KeywordTok{tic}\NormalTok{()}
-            \KeywordTok{plan}\NormalTok{(multisession, }\DataTypeTok{workers =} \KeywordTok{availableCores}\NormalTok{())}
-\NormalTok{            result =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-                        \DataTypeTok{title =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
-\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                                    \KeywordTok{scrapetitle_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh)\},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
-                        
-                        \DataTypeTok{monthlyprice =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{(}\OperatorTok{~}\NormalTok{\{}
-\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                                    \KeywordTok{scrapeprice_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
-                        
-                        \DataTypeTok{nroom =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
-\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                                    \KeywordTok{scraperooms_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
-                        
-                        \DataTypeTok{sqmeter =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
-\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                                    \KeywordTok{scrapespace_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{(),}
-                        
-                        \DataTypeTok{href =}  \KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{( }\OperatorTok{~}\NormalTok{\{}
-\NormalTok{                                    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-                                    \KeywordTok{scrapehref_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh) \},}\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{%>%}\StringTok{  }\KeywordTok{flatten_chr}\NormalTok{()}
-                        
-\NormalTok{            )}
-            
-            \KeywordTok{toc}\NormalTok{()}
-            \KeywordTok{return}\NormalTok{(result) }
-
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Below it is printed the tree structure folder that composes the main elements of the scraping procedure. It can be noticed that the two folders, namely functions\_singolourl and functions\_url enclose all the single functions that allows to grab each information from the session. Folders with a customized function are then sourced within the two main functions, scrape.all and scrape.all.info so data can be extracted.
-
-\begin{verbatim}
- levelName
-1  immobiliare.it-WebScraping     
-2   ¦--functions_singolourl       
-3   ¦   ¦--0scrapesqfeetINS.R     
-4   ¦   ¦--0scrapenroomINS.R      
-5   ¦   ¦--0scrapepriceINS.R      
-6   ¦   ¦--0scrapetitleINS.R      
-7   ¦   ¦--ScrapeAdDate.R         
-8   ¦   ¦--ScrapeAge.R            
-9   ¦   ¦--ScrapeAgeBuilding.R    
-10  ¦   ¦--ScrapeAirConditioning.R
-11  ¦   ¦--ScrapeAptChar.R        
-12  ¦   ¦--ScrapeCatastInfo.R     
-13  ¦   ¦--ScrapeCompart.R        
-14  ¦   ¦--ScrapeCondom.R         
-15  ¦   ¦--ScrapeContr.R          
-16  ¦   ¦--ScrapeDisp.R           
-17  ¦   ¦--ScrapeEnClass.R        
-18  ¦   ¦--ScrapeFloor.R          
-19  ¦   ¦--ScrapeHasMulti.R       
-20  ¦   ¦--ScrapeHeating.R        
-21  ¦   ¦--ScrapeHouseID.R        
-22  ¦   ¦--ScrapeHouseTxtDes.R    
-23  ¦   ¦--ScrapeLAT.R            
-24  ¦   ¦--ScrapeLONG.R           
-25  ¦   ¦--ScrapeLoweredPrice.R   
-26  ¦   ¦--ScrapeMetrature.R      
-27  ¦   ¦--ScrapePhotosNum.R      
-28  ¦   ¦--ScrapePostAuto.R       
-29  ¦   ¦--ScrapePropType.R       
-30  ¦   ¦--ScrapeReaReview.R      
-31  ¦   ¦--ScrapeStatus.R         
-32  ¦   ¦--ScrapeTotPiani.R       
-33  ¦   ¦--ScrapeType.R           
-34  ¦   °--take_location.R        
-35  ¦--scrapeALL.R                
-36  ¦--scrapeALLINFO.R            
-37  ¦--functions_url              
-38  ¦   ¦--ScrapeHREF.R           
-39  ¦   ¦--ScrapePrice.R          
-40  ¦   ¦--ScrapePrimaryKey.R     
-41  ¦   ¦--ScrapeRooms.R          
-42  ¦   ¦--ScrapeSpace.R          
-43  ¦   °--ScrapeTitle.R          
-44  ¦--libs.R                     
-45  ¦--utils.R                    
-46  ¦--README.Rmd                 
-47  ¦--README.md                  
-48  °--simulations                
-49      ¦--rt_match_vs_forloop.R  
-50      °--runtime_simul.R
-\end{verbatim}
+Once all the functions have been designed and optmized with respect to their scraping target they need to be grouped into a single function. This is done into the API endpoint which also Which also checks the validity of the url, and registers the parallel back end.
 
 \hypertarget{best-practices}{%
 \section{Scraping Best Practices and Security provisions}\label{best-practices}}
 
-Robots.txt files are (rivedi citation) a way to kindly ask webbots, spiders, crawlers, wanderers to access or not access certain parts of a webpage. The de facto `standard' never made it beyond a informal ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread (e.g.~\url{https://en.wikipedia.org/robots.txt}, \url{https://www.google.com/robots.txt}) and bots from Google, Yahoo adhere to the rules defined in robots.txt files, although their \emph{interpretation} of those rules might differ.
+Web scraping have to naturally interact multiple times with both the \emph{client} and \emph{server side} and as a result many precautions must be seriously taken into consideration. From the server side a scraper can forward as many requests as it could (in the form of sessions opened) which might cause a traffic bottleneck (DOS attack \citet{wiki:DOS}) impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents \ref{spoofing} and proxy servers, consequently analytics reports might be driven off track.
+Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt \citet{meissner_2020} are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto ``standard'' never made it beyond a \emph{informal} ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g.~\href{https://en.wikipedia.org/robots.txt}{Wikipedia robot}, \href{https://www.google.com/robots.txt}{Google robot}). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their \emph{interpretation} might differ.
 
-Robots.txt files are plain text and always found at the root of a website's domain. The syntax of the files in essence follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. \# serves to comment lines and parts of lines. Everything after \# until the end of line is regarded a comment. Possible field names are: user-agent, disallow, allow, crawl-delay, sitemap, and host. For further references on robotstxt are recommended \citep[\citet{google:robottxt}]{robotstxt}.
-
-Some interpretation problems:
+Robots.txt files \citep{robotstxt} essentially are plain text and always found at the root of a website's domain. The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field, cleared later in \ref{spoofing}) is seen as referring to all bots. The whole set of possible field names are pinpointed in \citet{google:robottxt}, some important are: user-agent, disallow, allow, crawl-delay, sitemap and host. A standard set of shared interpretation is:
 
 \begin{itemize}
 \tightlist
 \item
-  Finding no robots.txt file at the server (e.g.~HTTP status code 404) implies that everything is permitted.
+  Finding no robots.txt file at the server (e.g.~HTTP status code 404) implies full permission.
 \item
-  Subdomains should have there own robots.txt file if not it is assumed that everything is allowed.
+  Sub-domains should have their own robots.txt file, if not it is assumed full permission.
 \item
-  Redirects from subdomain www to the doamin is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.
+  Redirects from subdomain www to the domain is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.
 \end{itemize}
 
-Further improvements in this direction might come with the \texttt{polite} package \citep{polite} which combines the power of the \texttt{robotstxt}, the \texttt{ratelimitr} \citep{ratelimitr} to limit sequential requests together with the \texttt{memoise} \citep{memoise} for response caching. This package is wrapped up around 3 simple but effective ideas:
+A comprehensive apporach is explored in the \texttt{polite} \citet{polite} package which combines the effects of \texttt{robotstxt}, \texttt{ratelimitr} \citeyearpar{ratelimitr} to limit sequential session requests together with the \texttt{memoise} \citet{memoise} for robotstxt response caching. Even though the solution meets the requirements (from server and client side) ratelimitr is not designed to work in parallel as documented in \citet{ratelimitr}, so it is not involved in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a ``polite'' session should look like and by doing principles are kept fixed during the scraping:
 
 \begin{quote}
 The three pillars of a polite session are seeking permission, taking slowly and never asking twice.
 \end{quote}
 
-The three pillars constitute the \emph{Ethical} web scraping manifesto \citep{densmore_2019} which are common shared practises that are aimed to self regularize scrapers. These have to be intended as best practices, not in any case as law enforcements, however many scrapers themselves, as website administrators or analyst, have fought in their daily working tasks with bots. Crawling bots in intensive scraping processes might fake real client navigation logs and as a consequence might induce distorted analytics. Due to this fact comes the need to find a common operating ground and therefore politely asking for permission.
+The three pillars constitute the \emph{Ethical} web scraping manifesto \citep{densmore_2019} which are common shared \emph{best practices} that are aimed to self regularize scrapers. Still these have to be intended as practices and by no means as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
+With that said a custom function that permanently checks the validity of the session request is called once. It has to be invoked prior any scraping function execution and then immediately cached into a variable. In the result below the function applied to the domain of immobiliare.it returns a boolean approving or disallowing the permission.
 
-\hypertarget{security-provisions-user-agents-proxies-and-handlers}{%
-\section{Security provisions: User Agents, Proxies and Handlers}\label{security-provisions-user-agents-proxies-and-handlers}}
+\begin{verbatim}
+## Memoised Function:
+## [1] TRUE
+\end{verbatim}
 
-HTTP requests to the website server by web clients come with some mandatory information packed in it. The process according to which HTTP protocols allow to exchange information can be easily thought with an everyday real world analogy. As a generic person A rings the door's bell of person B's house. A comes to B door with its personal information, its name, surname, where he lives etc. At this point B may either answer to A requests by opening the door and let him enter given the set of information he has, or it may not since B is not sure of the real intentions of A. This typical everyday situation in nothing more what happens billions of times on the internet everyday, the user browser (in the example above A) is interacting with a server website (part B) sending packets of information, figure \ref{fig:webworks}. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user log to the website. The language the two parties exchanges are coded in numbers that ranges from 100 to 511, each of which has its own specific significance. A popular case of this type of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.
+Furthermore a custom function based on robotxtst cached results initially checks if the bot can search the inputted address through \texttt{polite\_permission}. Then It observes the suggested delay date, in this particular context no delays are kindly asked. As a polite author choice delay request rate is set equal to 5 seconds. Delayed requests rate are managed through the \texttt{purrr} stack. At first a \texttt{rate} object is initialized based on polite\_permission, therefore a \texttt{rate\_sleep} delay is called within scraping as in \citet{rate_delay}.
+
+\begin{verbatim}
+## [1] "immobiliare.it"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{get_delay =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(memoised_robot, domain) \{}
+    
+    \KeywordTok{message}\NormalTok{(}\KeywordTok{glue}\NormalTok{(}\StringTok{"Refreshing robots.txt data for %s... \{domain\}"}\NormalTok{))}
+\NormalTok{    temp =}\StringTok{ }\NormalTok{memoised_robot}\OperatorTok{$}\NormalTok{crawl_delay}
+    
+    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(temp) }\OperatorTok{>}\StringTok{ }\DecValTok{0} \OperatorTok{&&}\StringTok{ }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(temp[}\DecValTok{1}\NormalTok{, ]}\OperatorTok{$}\NormalTok{value)) \{}
+\NormalTok{        star =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(temp, useragent }\OperatorTok{==}\StringTok{ "*"}\NormalTok{)}
+        \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{nrow}\NormalTok{(star) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }
+\NormalTok{            star =}\StringTok{ }\NormalTok{temp[}\DecValTok{1}\NormalTok{, ]}
+        \KeywordTok{as.numeric}\NormalTok{(star}\OperatorTok{$}\NormalTok{value[}\DecValTok{1}\NormalTok{])}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        5L}
+\NormalTok{    \}}
+    
+\NormalTok{\}}
+\KeywordTok{get_delay}\NormalTok{(rbtxt_memoised, }\DataTypeTok{domain =}\NormalTok{ dom)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\hypertarget{web-client-security-provisions-user-agents-proxies-and-fail-dealers}{%
+\section{Web Client Security provisions: User Agents, Proxies and Fail Dealers}\label{web-client-security-provisions-user-agents-proxies-and-fail-dealers}}
+
+HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e.~name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \ref{fig:webworks}. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.
 
 \begin{figure}
 \centering
@@ -516,43 +467,54 @@ HTTP requests to the website server by web clients come with some mandatory info
 \caption{\label{fig:webworks}How the web interacts between broswer and server}
 \end{figure}
 
-This procedure is a daily issue to scraper that are trying to collect information from websites. Google performs it everyday with its spider crawlers, which are very sophisticated bots that scrapes over a enormous range of websites. This challenge can be addressed in multiple ways, there are some specific Python packages that overcome this issue. Precautions have not been taken lightly, and a simple but effective approach is proposed.
-
 \hypertarget{spoofing}{%
-\subsection{User Agents Spoofing}\label{spoofing}}
+\subsection{HTTP User Agent and Mail Spoofing}\label{spoofing}}
 
 \begin{definition}[User Agents]
-\protect\hypertarget{def:useragents}{}{\label{def:useragents} \iffalse (User Agents) \fi{} }A user agent \citep{whoishostingthis.com} is a string of characters in each web browser that serves as identification card. The user agent permits the web server to be able to identify the user operating system and the browser. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices.
+\protect\hypertarget{def:useragents}{}{\label{def:useragents} \iffalse (User Agents) \fi{} }The user agent (from now refered as UA) ``retrieves, renders and facilitates end-user interaction with Web content'' \citet{UaDef}.
 \end{definition}
 
-The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continuous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them
-Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
-Below the user agents rotation pool:
+In HTTP, the UA string is often considered as \emph{content negotiator} \citep{wiki:UserAgent}. The requested server in the form of code embedded into the hosted website selects the most appropriate content on the basis of operating parameters for the response. Therefore according to the UA, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences \citep{whoishostingthis.com}.
+However UA fieldcname has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named \emph{Hints} \citet{wiki:UserAgentHints}.
+UA is a dense content string that includes many user details: the user application or software, the operating system (and versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit).
+A full components breakdown of UA example might be:
+
+\texttt{Mozilla/5.0\ (Windows\ NT\ 6.3;\ WOW64)\ AppleWebKit/537.36\ (KHTML,\ like\ Gecko)\ Chrome/45.0.2454.85\ Safari/537.36}
+
+\begin{itemize}
+\tightlist
+\item
+  The user agent application is Mozilla version 5.0.
+\item
+  The operating system is Windows NT 6.3; WOW64, running on Windows
+\item
+  The client is Chrome version 45.0.2454.85.
+\item
+  The client is based on Safari version 537.36.
+\item
+  The engine responsible for displaying content on this device is AppleWebKit version 537.36 (and KHTML, an open-source layout engine, is present too).
+\end{itemize}
+
+The UA string is also one of the main responsible according to which Web crawlers and scrapers through a dedicated name field in robotstxt \ref{best-practices} may be ousted from accessing certain parts of a website. Since many requests are sent the server may encounter insistently the same UA and as consequence it may block requests associated to the same UA. In order to avoid server block this scraping technique adopts a rotation of a pool of UAs. Each time requests are sent a different set of headers are drawn from the pool and then combined. The more the pool is populated the larger are the UA combinations. The solution proposed tries in addition to resample periodically the pool as soon as the website from which Agents ID are extracted updates newer UA strings.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{27}\NormalTok{)}
-\NormalTok{agents =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36"}\NormalTok{, }
-    \StringTok{"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0"}\NormalTok{)}
+\NormalTok{url =}\StringTok{ "https://user-agents.net/"}
+\NormalTok{agents =}\StringTok{ }\KeywordTok{read_html}\NormalTok{(url) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_nodes}\NormalTok{(}\DataTypeTok{css =} \StringTok{".agents_list li"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{html_text}\NormalTok{()}
+
 \NormalTok{agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+## [1] "Mozilla/5.0 (Linux; Android 10; M2007J20CG Build/QKQ1.200512.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]"
 \end{verbatim}
 
-A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
-While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
-Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering mini API calls to dedicated servers nested into a more general API.
+
+An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process. A proxy server acts as a gateway between the web user and the web server. While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final combination would give birth to a more complex linear combination, adding a further layer of masking.
+Many proxy servers are offered as paid version. In this particular case security barriers are not that high and this suggests to not apply them. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
 
 \begin{itemize}
 \tightlist
@@ -562,244 +524,131 @@ Many proxy servers are offered in a paid version, so in this case since security
   Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
 \end{itemize}
 
-\hypertarget{handlers}{%
-\subsection{Handlers}\label{handlers}}
+\hypertarget{possibly}{%
+\subsection{Dealing with failure}\label{possibly}}
 
-During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring, better outlined in section \ref{challenges}. Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to grab the content. Handlers are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when handlers are not implied. API endpoints evokes 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single links to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
-The solution proposed tries to deal with failure through implementing \texttt{purrr} adverb \texttt{possibly()}, which takes a function (a verb) and returns a modified version. In this case, the modified function will never throw an error. The approach is encouraged when functions need to be mapped over larger objects and when run time are long as pointed out in section 21.6 of \citet{Rdatascience}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{title =}\StringTok{ }\KeywordTok{future_map}\NormalTok{(npages_vec, }\KeywordTok{possibly}\NormalTok{(}\OperatorTok{~}\NormalTok{\{}
-\NormalTok{    sesh =}\StringTok{ }\KeywordTok{html_session}\NormalTok{(.x, }\KeywordTok{user_agent}\NormalTok{(}\DataTypeTok{agent =}\NormalTok{ agents[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{)]))}
-    \KeywordTok{scrapetitle_imm}\NormalTok{(}\DataTypeTok{session =}\NormalTok{ sesh)}
-\NormalTok{\}, }\OtherTok{NA_character_}\NormalTok{, }\DataTypeTok{quiet =} \OtherTok{FALSE}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{flatten_chr}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-Then also inside each single scrapping function are bundled ``authorization'' handlers that protect the web server side from unpolite scraping practises. This set up allows to catch (and in some cases prevent) web sites poloicy misuses from the very beginning of the scraping process.
-Below some of the main authorization handlers implied:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{get\_ua()} verifies that the User Agent in the session is not the default one.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{get_ua =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(sess) \{}
-    \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is.session}\NormalTok{(sess))}
-    \KeywordTok{stopifnot}\NormalTok{(}\KeywordTok{is_url}\NormalTok{(sess}\OperatorTok{$}\NormalTok{url))}
-\NormalTok{    ua =}\StringTok{ }\NormalTok{sess}\OperatorTok{$}\NormalTok{response}\OperatorTok{$}\NormalTok{request}\OperatorTok{$}\NormalTok{options}\OperatorTok{$}\NormalTok{useragent}
-    \KeywordTok{return}\NormalTok{(ua)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{is\_url()} verifies that the url input needed has the canonic form. This is done by a REGEX query.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{is_url =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(url) \{}
-\NormalTok{    re =}\StringTok{ "^(?:(?:http(?:s)?|ftp)://)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S+(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])\{2,\})(?::(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d)\{2,5\})?(?:/(?:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S)*)?$"}
-    \KeywordTok{grepl}\NormalTok{(re, url)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{get\_delay()} checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dominio =}\StringTok{ "immobiliare.it"}
-\NormalTok{get_delay =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(domain) \{}
-  
-  \KeywordTok{message}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"Refreshing robots.txt data for %s..."}\NormalTok{, domain))}
-  
-\NormalTok{  cd_tmp =}\StringTok{ }\NormalTok{robotstxt}\OperatorTok{::}\KeywordTok{robotstxt}\NormalTok{(domain)}\OperatorTok{$}\NormalTok{crawl_delay}
-  
-  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{length}\NormalTok{(cd_tmp) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
-\NormalTok{    star =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(cd_tmp, useragent}\OperatorTok{==}\StringTok{"*"}\NormalTok{)}
-    \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{nrow}\NormalTok{(star) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) star =}\StringTok{ }\NormalTok{cd_tmp[}\DecValTok{1}\NormalTok{,]}
-    \KeywordTok{as.numeric}\NormalTok{(star}\OperatorTok{$}\NormalTok{value[}\DecValTok{1}\NormalTok{])}
-\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{    10L}
-\NormalTok{  \}}
-  
-\NormalTok{\}}
-
-\NormalTok{get_delay =}\StringTok{  }\NormalTok{memoise}\OperatorTok{::}\KeywordTok{memoise}\NormalTok{(get_delay) }\CommentTok{## so that .get_delay results are cached}
-\KeywordTok{get_delay}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dominio)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] NA
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{checkpermission()} assess whether the domain or the related paths require specific actions or they prevent some activity on the target.
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{checkpermission =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(dom) \{}
-    
-\NormalTok{    robot =}\StringTok{ }\KeywordTok{robotstxt}\NormalTok{(}\DataTypeTok{domain =}\NormalTok{ dom)}
-\NormalTok{    vd =}\StringTok{ }\NormalTok{robot}\OperatorTok{$}\KeywordTok{check}\NormalTok{()[}\DecValTok{1}\NormalTok{]}
-    \ControlFlowTok{if}\NormalTok{ (vd) \{}
-        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt for"}\NormalTok{, dom, }\StringTok{"is okay with scraping!"}\NormalTok{)}
-\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
-        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{robot.txt does not like what you're doing"}\NormalTok{)}
-        \KeywordTok{stop}\NormalTok{()}
-\NormalTok{    \}}
-\NormalTok{\}}
-
-\KeywordTok{checkpermission}\NormalTok{(}\DataTypeTok{dom =}\NormalTok{ dominio)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## robot.txt for immobiliare.it is okay with scraping!
-\end{verbatim}
-
-\hypertarget{explicit-parallel-scraping}{%
-\section{Explicit Parallel Scraping}\label{explicit-parallel-scraping}}
-
-Scraping run time is crucial when dealing with proactive web pages, especially in real estate where rental time to market is a major competitive advantage as well as monthly price within the day are flexible enough to respond to demand inputs. The issue is also posed to the API setting according to which if the API endpoint query does not respond within a fixed time neighbor, chances are that the call might be lost.
-Since the problem requires as many sessions opened as single links extracted (refer to section \ref{ContentArchitecture}). MOreover since for each of the links extracted are supposed to be called 34 different functions (refer to section \ref{ContentArchitecture}), as a consequence scraping run time without parallel execution might take some time.
-The extraordinary amount of time taken is caused by R executing tasks on a single processor sequentially one-by-one in queue (i.e.~single thread computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called \href{https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897}{asynchronous}) scraping functions are proposed, so that computation do not employ vast cpu time (i.e.~cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor. As a result many computation can be split over processors and then multiple cores for each processor. The explicit characteristic affects the way the parallel back end is built, outlining the computing group and the parallel execution strategy.
-The \emph{computing group} is a software concept as in \citep{parallelr}, that mainly points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected, but for optimization properties of computation, proper of each strategy proposed in here, are initialized as many workers as physical cores (default option for most of the backends, logical cores).
-Specifying the computing group is a critical step in each parallel execution that needs to be initialized right before the ``main'' function execution. Moreover a split computation strategy is accompained to computing groups by convenience, decisions mainly regards optimal memory space allocation.
-In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are \emph{doMC} along with the foreach loop constructor and \emph{Future} with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in \citet{bengtsson_2017}. Future
-
-A variety of backends exist and third-party contributions meeting the specifications, which ensure that the same code works on all backends, If I were re-writing my code now, I'd probably also use futures and purrr. The former adds some niceties to doparallel and foreach if you choose to use that syntax, like automatically exporting packages. And it's backend-agnostic,
-
-Two are the most important features of future back end: Tidy format together with the furrr (purrr looping contruction) package which enables tidy evaluation and the related convenient tidy sintx properties and packages. The other regars the\\
-The most flexible and strong Parallel libraries are Parallel, doParallel, doMC and Future, which offer different sintax but same construction. They all come with a specific looping constructor which is optmized with respect to
-
-For a quick but comprehensive perspective on Parallel theory both on hardware and software side \citet{barney} is strongly suggested. For a full reference focused on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies the authorities are \citep{parallelr}. If the interest is to cut short theory and directly put R into parallel then a valuable resource is this \href{https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html}{blog}, which inter alia covers the main debugging .
-
-doParallela among the other offers also
-\texttt{detectCores()} uncovers how many \emph{Hyper-Threading} cores are at the disposition, since they do not provide any computational advantage the option \emph{logical} is set false. Below the number of cores available on the following machine:
-
-\begin{verbatim}
-## total n° of Hyper-Threading cores on the machine is 12
-## 
-## total n° of NOT Hyper-Threading cores 6
-\end{verbatim}
-
-\includegraphics{images/parallel_mapping.png}
-All the following runtime examinations are performed on \texttt{scrape()} which is a lightweight version of the function included in the API.
-Furthermore as a general criteria for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred. Through \texttt{scrape} the approach is to test two different parallel back ends performances.
-
-The first attempt was using \texttt{furrr} package \citep{furrr} which enables mapping (i.e.~\texttt{map}) through a list from \texttt{purrr}, along with a \texttt{future} parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command \texttt{plan(multisession,\ workers\ =\ 2)}. Then the function operates as many other seen purrr variations:
-\texttt{furrr::future\_map(scrape(),\ .progress\ =\ T)}. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( \emph{pensa se fare più simulazioni, prende tempo} )
+During scraping many difficulties coming from different sources are met. Some of them may come from the website's layout changes (\ref{ProperScraping}), some of them may regard internet connection, some other may have been caused by security breaches (section \ref{spoofing}).
+One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data previously acquired going lost. In this particular context is even more worrying since scraping ``main'' functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links (\ref{crawling}) leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
+For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of \texttt{purrr} vectorization function \texttt{map} (and its derivatives) and the adverb \texttt{possibly} \citet{possibly}. \emph{Possibly} takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in \citet{Rdatascience} section 21.6. Moreover vecrotizaion is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.
 
 \begin{figure}
 \centering
-\includegraphics{images/furrr.png}
-\caption{\label{fig:furrr}computational complexity analysis with Furrr}
+\includegraphics[width=0.7\textwidth,height=\textheight]{images/pseudocode_latex/pseudocode_possibly.jpg}
+\caption{\label{fig:pseudocode2}pseudo code for a generic set of functions applied with possibly fail dealers , author's source}
 \end{figure}
 
-On the x-axis in the figure \ref{fig:furrr} the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time \(\mathcal{O}(n)\), where n are the number of links considered.
+\hypertarget{parallelscraping}{%
+\section{Parallel Scraping}\label{parallelscraping}}
 
-A second attempt tried to explore the \texttt{foreach} package \citep{foreach} originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating containers.
-That means all workers should be self containing enviroments including libraries function and exported objects.
+Scraping run time is crucial when dealing with dynamic web pages. This assumption is stronger in Real Estate rental markets where time to market is a massive competitive advantage.
+From a run time perspective the dimension of the problem requires as many html session opened as single links crawled (refer to previous section \ref{possibly}). As a result computation needs to be \emph{parallelized} in order to be feasible.
+The extraordinary amount of time taken in a non-parallel environment is caused by R executing scraping on a single processor \emph{sequentially} url-by-url in a queue, left part of figure \ref{fig:singlethreaded} (i.e.~single threaded computing).
 
-Flexibility comes at a cost of usability, as a matter of fact the loop constructor paradigm is much more complex with respect to furrr.
-The looping construction abstractly follows the r-base looping idea, below main steps are summarized:
+\begin{definition}[parallel]
+\protect\hypertarget{def:parallel}{}{\label{def:parallel} \iffalse (parallel) \fi{} }\emph{Parallel execution} is characterized as multiple operations taking place over overlapping time periods. \citep{eddelbuettel2020parallel}
+\end{definition}
 
-\begin{itemize}
-\tightlist
-\item
-  Detect cores, initialize workers based on number of cores, register the parallel back end \texttt{registerDoParallel(cl,cores)}
-\item
-  define the iterator, i.e.~``i'' equal to the number of elements that are going to be looped
-\item
-  \texttt{.packages}: Inherits the packages that are used in the tasks define below
-\item
-  \texttt{.combine}: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind\_rows).
-\item
-  \texttt{.errorhandling}: specifies how a task evaluation error should be handle.
-\item
-  \texttt{\%dopar\%}: the dopar keyword suggests foreach with parallelization method
-\item
-  then the function within the elements are iterated
-\item
-  close clusters
-\end{itemize}
+This requires multiple execution units and modern processors architecture provide multiple cores on a single processor and a way to redistribute computation (i.e.~multi threaded computing). As a result tasks can be split into smaller chunks over processors and then multiple cores for each processor, right part of figure \ref{fig:singlethreaded}.
+Therefore Parallel scraping (sometimes improperly called \href{https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897}{asynchronous}) functions are proposed, so that computation do not employ vast cpu time (i.e.~cpu-bound) and space.
 
 \begin{figure}
 \centering
-\includegraphics{images/forerach.png}
-\caption{\label{fig:foreach}computational complexity analysis with Furrr}
+\includegraphics{images/parallel_problem.jpg}
+\caption{\label{fig:singlethreaded}single threaded computing vs parallel computing, \citet{barney} source}
 \end{figure}
 
-It can be grasped quite easily by figure \ref{fig:foreach} that initially foreach takes some times to set up parallel workers but then the curve is flattened and a confident guess might be .5 sloped linear time \(\mathcal{O}(\frac{n}{2})\).
+Parallel execution heavily depends on hardware and software choice. Linux environments offers multi-core computation through \emph{forking} \citep{wiki:forking} (only on Linux) so that global variables are directly inherited by child processes. As a matter of fact when computation are split over cores they need to import whatever it takes to be carried out, such as libraries, variables, functions. From a certain angle they need to be treated as a containerized stand-alone environments. This can not happen in Windows (local machine) since it does not support multicore.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{future}\OperatorTok{::}\KeywordTok{supportsMulticore}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\emph{Cluster processing} is an alternative to multi-core processing, where parallelization takes place through a collection of separate processes running in the background. The parent R session instructs the dependencies that needs to be sent to the children sessions.
+This is done by registering the parallel back end. Arguments to be supplied mainly regards the strategy (i.e.~multi-core cluster, also said multisession) and the \emph{working group}. The working group is a software concept \citep{parallelr}, that points out the number of processes and their relative computing power/memory allocation according to which the task is going to be split. Moreover from a strictly theoretic perspective the \emph{workers} (i.e.~working group single units) can be greater than the number of physical cores detected. Although parallel libraries as a default choice (and choice for this analysis) initializes \emph{as many workers as} physical HT (i.e.~Hyper Threaded) \emph{cores}.
+Parallel looping constructor libraries generally pops up as a direct cause of new parallel packages. The latest research activity by Bengtsson \citet{doFuture} indeed tries to unify all the previous back ends under the same umbrella of \texttt{doFuture}. The latter library allows to register many back ends for the most popular parallel looping options solving both the dependency inheritance problem and the OS agnostic challenge.
+The two alternatives proposed for going parallel are \texttt{Future} \citet{future} with \texttt{furrr} \citet{furrr} and \texttt{doFuture} \citeyearpar{doFuture} along with the \texttt{foreach} \citet{foreach} loop constructor. The former is a generic, low-level API for parallel processing as in \citet{bengtsson_2017}. The latter takes inspiration by the previous work and it provides a back-end agnostic version of \texttt{doParallel} \citet{doParallel}.
+Further concepts on parallel computing are beyond the scope of the analysis. However they can be explored in \citet{barney}, which may offers a comprehensive perspective on Parallel theory both on hardware and software. Indeed for a full reference on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies, the authorities are \citet{parallelr}. If the interest is to cut short theory and directly put existing R code into parallel, a valuable resource is covered in \href{https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html}{blog}, which also investigate the main debugging aspects.
+
+\hypertarget{parallel-furrrfuture}{%
+\subsection{Parallel furrr+future}\label{parallel-furrrfuture}}
+
+\textbf{cerca di centrare di più su scraping}
+
+Simulations are conducted on a not-rate-delayed (section \ref{best-practices}) and restricted set of functions which may be considered as a ``lightweight'' version of the final API scraping endpoint.
+As a disclaimer run time simulations may not be really representative to the problem since they are performed on a windows 10, Intel(R) Core(TM) i7-8750H 12 cores RAM 16.0 GB local machine. Indeed the API is served on a Linux Ubuntu distro t3.micro 2 cores RAM 1.0 GB server which may adopt forking. Simulations for the reasons said can only offer a run time performance approximation for both of the parallel + looping constructor combinations.
+
+The first simulation considers \texttt{furrr} which enables mapping (i.e.~vectorization with \texttt{map}) through a list of urls with \texttt{purrr} and parallelization with \texttt{Future}. Future gravitates around a programming concept called ``future'', initially introduced in late 70's by Baker \citep{BakerFuture}. Futures are abstractions for values that may be available at a certain time point later \citeyearpar{future}.
+These values are result of an evaluated expression, this allows to actually divide the assignment operation from the proper result computation. Futures have two stages \emph{unresolved} or \emph{resolved}. If the value is queried while the future is still unresolved, the current process is blocked until the stage is resolved. The time and the way futures are resolved massively relies on which strategy is used to evaluate them. For instance, a future can be resolved using a \emph{sequential} strategy, which means it is resolved in the current R session. Other strategies registered with \texttt{plan()}, such as \emph{multi-core} (on Linux) and \emph{multisession}, may resolve futures in parallel, as already pointed out, by evaluating expressions on the current machine in forked processes or concurrently on a cluster of R background sessions.
+With parallel futures the current/main R process does not get ``bottlenecked'', which means it is available for further processing while the futures are being resolved in separate processes running in the background. Therefore with a ``multisession'' plan are opened as many R background sessions as workers/cores on which chunks of futures (urls) are split and resolved in parallel. From an algorithmic point of view It can be compared to \emph{a divide and conquer} strategy where the target urls are at first redistributed among workers/cores (unresolved) through background sessions and then are scraped in equally distributed chunks (resolved).
+Furthermore furrr has also a convenient tuning option which can interfere with the redistribution scheduling of urls' chunks over workers. The argument scheduling can adjust the average number of chunks per worker. Setting it equal to 2 brings \emph{dinamicity} \citeyearpar{furrr} to the scheduling so that if at some point a worker is busier then chunks are sent to the more free ones.
+
+(migliore rappresentazione)
+
+\begin{figure}
+\centering
+\includegraphics{images/divideconquer.png}
+\caption{\label{fig:divideconquer}futures reimagined as divide and conquer, author's source}
+\end{figure}
+
+The upper plot in figure \ref{fig:furrrfuture} are 20 simulations of 100 url (2500 data points) performed by the lightweight scraping. On the x-axis are plotted the 20 simulations and on the y-axis are represented the respective elapsed times. One major point to breakdown is the first simulation run time measurement which is considerably higher with respect to the others i.e.~15 sec vs mean 7.72 sec.~Empirical demonstrations traces this behavior back to the opening time for all the background sessions. As a result the more are the back ground sessions/workers, the more it would be the time occupied to pop up all the sessions. As opposite whence many sessions are opened the mean execution time for each simulation is slightly less.
+The lower plot in in figure \ref{fig:furrrfuture} tries to capture the run time slope behavior of the scraping function when urls (1 to 80) are cumulated one by one. The first iteration scrapes 1 single url, the second iteration 2, the third 3 etc. Three replications of the experiment has been made, evidenced by three colours. The former urls are more time consuming confirming the hypothesis casted before. Variability within the first 40 urls for the three repetitions does not show diversion. However It slightly increases when the 40 threshold is trespassed. Two outliers in the yellow line are visible in the nearby of 50 and 60. It can be assumed that workers in that urls neighbor may be overloaded but no evidences are witnessed on cores activity as in plot \ref{fig:cpumonitor}. The measured computational complexity of scraping when \(n\) is number of urls seems to be much more less than linear \(\mathcal{O}(0.06n)\).
+
+\begin{figure}
+\centering
+\includegraphics{images/simulations/final_furrr_future.png}
+\caption{\label{fig:furrrfuture}computational complexity analysis with Furrr}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/parallel_computing.jpg}
+\caption{\label{fig:cpumonitor}local machine monitoring of cores during parallel scraping}
+\end{figure}
+
+\hypertarget{parallel-foreachdofuture}{%
+\subsection{Parallel foreach+doFuture}\label{parallel-foreachdofuture}}
+
+A second attempt tries to encapsulate \texttt{foreach} \citep{foreach} originally developed by Microsoft R, being a very fast loop alternative, parallelized with \texttt{doFuture}. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments. From a certain extent the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. But since the doFuture implements auto dependency search this problem is considered overcome. Two major speed improvements may come from \texttt{.inorder} and \texttt{.multicombine} which are proper of the lopping constructor and take advantage of splitting disorder a subsequent recombination.
+
+The upper part in \ref{fig:foreachdofuture} displays lower initialization lag from R sessions opening and parallel execution that also lead to a lower mean execution time of 6.42 seconds. No other interesting behavior are detected.
+THe lower plot displays high similarities with the curves in \ref{fig:furrrfuture} highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable \{Tidyverse\} oriented framework and offers and easy debugging experience.
+
+\begin{figure}
+\centering
+\includegraphics{images/simulations/final_foreach_dofuture_1\&2.png}
+\caption{\label{fig:foreachdofuture}computational complexity analysis with Furrr}
+\end{figure}
 
 \hypertarget{challenges}{%
 \section{Open Challenges and Further Improvemements}\label{challenges}}
 
-The main challenge remains unsolved since each single element has been optimized but scraping function and, as a consequence, REST API must be continuously maintained. As a matter of fact what unfortunately can not be predcited are the future changes that involves the first part of the scraping process i.e.~decomposing the website structure. Indeed Content architecture, with some further improvements can take care of finding exact information within the web page even if the design is changed, and so both html/CSS. This idea is developed in the package Rcrawler \citet{Rcrawler}, which crawls the entire website and searches for targeted keywords, even though final results are not always acceptable. The major enhancement of this approach is that it neatly separates the website structure from the content architecture by locally saving all the html/xml files that compose the website. html are known to be very lightweight so computation of this kind is not weighing down the run time. Once all files are stored the algorithm searches for the keywords within the html files, then results are grabbed. For these reasons performances with algorithm of this kind are very smooth but results are not very effective since keywords are not always associated to the data needed. With that said a safer way to scrape exact content could be embedding complex regular expression (flagging data location) within the HTML files and then calling on the location a CSS query.
-It must be said that \citet{Rcrawler} is designed to be flexible to scrape a vast number of websites, as opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with no effort \ref{webstructure}.
-From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \texttt{Golem} \citet{colin_fay_2020} into the existing code. According to the most recent literature APIs (as well as Shiny) should be treated as R packages ( a developmen version is \citet{plungr}) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) by \citet{usethis} and \citet{testthat} during package building can make software more portable, organized and productionable.
-In addition a very popular integration to API development and automate testing is \href{https://www.postman.com/}{Postman}, which is very handy when POST requests are sent, since for the moment they are not into existence it is not used and the default \href{https://editor.swagger.io/}{Swagger} UI takes its place.
-The way this scraping functions handle errors really facilitates responsive and fast debugging but this can not be by any means neither automatized nor notified to the maintainer. The API frequently needs to be tested and to resort to CI.
-On the parallel computing side further performance improvement could be obtained using a new born package called \texttt{doAzureParallel} which is built on top of the foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a substantial monetary for this reason is not the first choice. Nonetheless it would perfectly fill the needs given that parallel back ends shrinks run time by accelerating the number of requests sent among different processors/cores or cluster, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+Although results are quite encouraging still one of the main challenges remains unsolved. In fact optimization has involved each scraping layer but scraping function must be continuously kept up with the immobiliare.it changes, particularly the crawling part. Indeed the proper scraping part, with some further adjustments can take care of auto-search for exact information within the web page even if the design changes. This idea is massively applied in the package Rcrawler \citet{Rcrawler}, which doesn't apply segmentation in crawling, instead it downloads the entire website and then inspects targeted keywords. The major benefit relies in crawling HTML/XML that are agreed to be generally lightweight in this way the process does not weigh down the run time.
+Whence all files are saved locally the algorithm applies search methodologies within the HTML files. Run time performance with algorithm of this kind with respect to the amount of data gathered are very efficient, nevertheless results are not always effective due to keywords disambiguation.
+Afterall a way safer and time saving approach to general scraping may be including complex theme specific regular expressions on the HTML text which univocally identify CSS data location. With that said the idea would be an unsupervised algorithm that combines the traditional browser search + a selector gadget for CSS conversion.
+As a disclaimer Rcrawler is designed to be flexible to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended with a small effort to other category related website \ref{webstructure}.
+On the parallel computing side a further boosts might be added with parallel distributed processing through HPC (high-performance computing) clusters by \texttt{future.batchtools} \citet{futurebatchtools}. The package implements a generic future wrapper around batchtools with job scheduler like Torque, Slurm, Sge and many more. A higher level API built on top of the Future framework that exploits \href{https://cloudyr.github.io/googleComputeEngineR/articles/massive-parallel.html}{Google Cloud Engine Clusters} i.e.\texttt{cloudyR} allows to distribute computation on Google machines.
 
-Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the \href{https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar}{stackoverflow reproducible example}. As a consequence to that each time an error occurs the ``main'' functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.
+\hypertarget{legal-profiles}{%
+\section{Legal Profiles}\label{legal-profiles}}
 
-\hypertarget{legal-profiles-ancora-non-validato}{%
-\section{Legal Profiles (ancora non validato)}\label{legal-profiles-ancora-non-validato}}
+\textbf{rivedere meglio}
 
-``Data that is online and public is always available for all'' is never a good answer to the question ``Can I use those web data to my scope''. Immobiliare.it is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
-A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their \href{https://www.immobiliare.it/terms/}{specialized section}. Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property. Below are checked the permissions to scrape the endpoints:
+``Data that is online and public is always available for all'' is never a good answer to the question ``Can I use those web data to my scope?''. Immobiliare.it does not provide any open source data neither it disposes any paid API.
+A careful reading of immobiliare terms, reviewed with a intellectual property expert has been done to get the service running without any legal consequence, as a reference the full policy can be seen in their \href{https://www.immobiliare.it/terms/}{specialized section}. Nevertheless the golden standard for scraping was respected since the robotstxt is neat allowing any actions as demonstrated above in section \ref{best-practices}. So if it may be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dom =}\StringTok{ "www.immobiliare.it"}
-\KeywordTok{robotstxt}\NormalTok{(dom)}\OperatorTok{$}\NormalTok{permissions }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{booktabs =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\tightlist
+\item
+  To the headers are also attached a direct user back tracking and a url pointing to a dedicated address
+\end{itemize}
 
-\begin{tabular}{lll}
-\toprule
-field & useragent & value\\
-\midrule
-Disallow & * & *idmacroarea=\\
-Disallow & * & /ricerca-mappa/\\
-Disallow & * & /ricerca.php\\
-Disallow & * & /ricerca\_agenzie.php\\
-Disallow & * & /track-events/\\
-\addlinespace
-Disallow & * & /nav-ads/\\
-Disallow & * & /mutui/calcolatore?prezzo=\\
-Disallow & * & /foto\_stampa\_beez.php\\
-Disallow & * & /dettaglio.php\\
-Disallow & * & /dettaglio\_progetto.php\\
-\addlinespace
-Disallow & * & *stampa=s\\
-Disallow & * & /news/newsletter/\\
-Disallow & * & /news/?s=\\
-Disallow & * & /valutazione-immobiliare/valuta-\\
-\bottomrule
-\end{tabular}
-
-What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \ref{best-practices}), and \emph{not} any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e.~is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
+What it was shockingly surprising were the low entry barriers to scrape information with respect to other counterpart online players. Best practices are in any case applied and kind requests (even though politeness was not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practices (see section \ref{best-practices}), and \emph{not} any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budget constraints are set low, but in the long run it will cause lagging as soon as requests rate would increase. Totally different was the approach proposed bya coiounterpart market Idealista.com. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and proxies are necessary. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
 
 \begin{itemize}
 \tightlist
@@ -812,14 +661,30 @@ What it was shockingly surprising are the low barriers to obtain information wit
 All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estate country as Spain and France. So the hidden intention was to raise awareness on scraping procedure that in a certain remote way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.
 
 \hypertarget{Infrastructure}{%
-\chapter{REST API Infrastructure}\label{Infrastructure}}
+\chapter{API Technologies Stack}\label{Infrastructure}}
 
-In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \ref{challenges} are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
-API Service has to be executed \(n\) given times during the day at \(x-y-z\) hours and should be storing data on a cloud database, so that the evolution of the phenomenon can be monitored in time.
-API service has to be fast otherwise data become obsolete and so happen to the analysis that has relied on the data.
-API service has to be deployed so that it can be shared over a wider range of different background stakeholders, without having them to know what it takes. From one hand service has to be responsive to immobiliare.it unpredictable changes, thus it needs to be continuously integrated and reviewed. On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. Moreover service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. In addition API inbound traffic has to be managed both in terms traffic and security by granting access only to the ones authorized.
-Open source solutions for each of the requirements are available for back-end and front-end integration. Moreover documentations related to those technologies are able to offer flexible solutions to be embedded into the R ecosystem.
-Given the requirements recipe the idea is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \ref{scraping}. On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \ref{fig:CompleteStructure}.
+In order to provide a fast and secure API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \ref{challenges} are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
+
+\begin{itemize}
+\tightlist
+\item
+  The API has to be executed \(n\) given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.
+\item
+  The API has to be very fast otherwise data can not be consumed.
+\item
+  The API has to be deployed so that it can be shared over different stakeholders, without having them to know what it takes.
+\item
+  The API maintainer needs to take action be to due to sudden unpredictable immobiliare.it changes, thus it needs to be continuously maintained and updated.
+\item
+  On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.
+\item
+  service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
+\item
+  In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.
+\end{itemize}
+
+The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
+Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \ref{scraping}. On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \ref{fig:CompleteStructure}.
 
 Technologies involved are:
 
@@ -920,15 +785,15 @@ To a certain extent what it has been already presented since now might fit for p
 \section{REST API}\label{rest-api}}
 
 \begin{definition}[API]
-\protect\hypertarget{def:api}{}{\label{def:api} \iffalse (API) \fi{} }API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they're implemented.
+\protect\hypertarget{def:api}{}{\label{def:api} \iffalse (API) \fi{} }API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they're implemented.
 \end{definition}
-This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
-There are many types of API that exploit different media and architectures to communicate with apps or services.
+APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 \begin{definition}[REST]
-\protect\hypertarget{def:rest}{}{\label{def:rest} \iffalse (REST) \fi{} }The specification REST stands for REpresentational State Transfer and is a set of architectural principles.
+\protect\hypertarget{def:rest}{}{\label{def:rest} \iffalse (REST) \fi{} }The specification REST stands for \textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer and is a set of \emph{architectural principles}.
 \end{definition}
-When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as more comfortable to be read and parsed.
-In order for an API to be considered RESTful, it has to conform to these criteria:
+When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as it is more comfortable to be read and parsed.
+In order for an API to be considered REST, it has to conform to these criteria:
 
 \begin{itemize}
 \tightlist
@@ -1018,6 +883,8 @@ Many more options are available to customize plumber API but are beyond the scop
 \hypertarget{immobiliare.it-parallel-rest-api}{%
 \subsection{\texorpdfstring{Immobiliare.it \emph{Parallel} REST API}{Immobiliare.it Parallel REST API}}\label{immobiliare.it-parallel-rest-api}}
 
+(Sanitization, antidossing, logs tracking)
+
 The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph{/complete} and \emph{/get\_data}:
 
 \begin{itemize}
@@ -1092,18 +959,13 @@ The approach followed proposes a dedicated lightweight software environment that
 \section{Docker}\label{docker}}
 
 \begin{definition}[Docker]
-\protect\hypertarget{def:docker}{}{\label{def:docker} \iffalse (Docker) \fi{} }\emph{Docker} is a software tool to create and deploy applications using containers.
-\emph{Docker containers} are a standard unit of software (i.e.~software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+\protect\hypertarget{def:docker}{}{\label{def:docker} \iffalse (Docker) \fi{} }\emph{Docker} \citep{docker} is a software tool to create and deploy applications using containers.
+\emph{Docker containers} are a standard unit of software (i.e.~software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 \end{definition}
-Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in @ref(fig:\label{fig:dockervsvm}).
 
-\begin{figure}
-\centering
-\includegraphics{images/dockerVSvirtualmachines.PNG}
-\caption{\label{fig:dockervsvm}Docker containers versus Virtual Machines, \emph{miss source}}
-\end{figure}
+Containers can be thought as an abstraction that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS with their specific dependencies. Each container can run its own isolated process in the user space, so that each task/application is complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation.
 
-When containers are built \emph{Docker container Images} are created and can be open sourced through Docker Hub.
+When images are built \emph{Docker container} are created and can be open sourced through Docker Hub.
 \emph{Docker Hub} is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \ref{aws}.
 Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
 Rstudio \href{https://packagemanager.rstudio.com/client/\#/}{package manager} includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation \citep{nolis_2020}.
@@ -1183,9 +1045,9 @@ where the instructions are:
 In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.
 
 \hypertarget{aws}{%
-\section{AWS EC2 server}\label{aws}}
+\section{AWS EC2 instance}\label{aws}}
 
-Executing REST API on a public server allows to make scraping data available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named \href{https://aws.amazon.com/en/aws-cost-management/}{amazon cost manager}.
 
 \begin{definition}[AWS EC2]
@@ -1224,8 +1086,21 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 .conf file and installation on Linux server. Security and Authentication.
 
+\hypertarget{software-development-workflow}{%
+\section{Software development Workflow}\label{software-development-workflow}}
+
+\begin{figure}
+\centering
+\includegraphics{images/SoftwareDevWF.jpg}
+\caption{\label{fig:sfmap}Sofwtare development workflow, author's source}
+\end{figure}
+
 \hypertarget{further-integrations}{%
 \section{Further Integrations}\label{further-integrations}}
+
+From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \texttt{Golem} \citet{colin_fay_2020} into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (\citet{plungr} aligns with that) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) through the tools of \citet{usethis} and \citet{testthat} during package building can make software more robust, organized and production graded. Loadtest \citet{loadtest} can help figure out
+CI/CT
+It can be missed to cite a popular API development integration service and automate testing tool \href{https://www.postman.com/}{Postman}, which does the best when POST requests endpoints are served, since for the moment they are not required it is not used.
 
 Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9}{this link}
 software development framework and tools for testing \href{https://github.com/isteves/plumbplumb}{this work}
@@ -1884,8 +1759,6 @@ A regular 2D grid lattice is considered with infinite number of location points 
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
-( \emph{metti flow in DRAKE} )
-
 Data flows out the REST API end point \texttt{*/complete} in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \ref{APIdocs}, might regard the real estate \texttt{city} interested, \texttt{npages} as the number of pages to scrape, \texttt{type} as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g.~Milan rental real estate within ``circonvallazione'' approximated geo-borders). As a consequence a dedicated endpoint \texttt{.thesis} parameter is passed in the argument body. By setting the option equal to to TRUE the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone.
 Parameters specified are also npages = 120, leading to to 3000 observations. The \texttt{*} refers to the EC2 public DNS.
 
@@ -1978,6 +1851,8 @@ Predictors, in this case latitude and longitude appear to have nonlinear relatio
 \includegraphics{07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf}
 \caption{\label{fig:NonLinearSpatialRel}Non Linear Spatial Relationship disclosed}
 \end{figure}
+
+ggplot2 visualzitaion matt dancho inspiration::
 
 \hypertarget{counts-and-first-orientations}{%
 \section{Counts and First Orientations}\label{counts-and-first-orientations}}

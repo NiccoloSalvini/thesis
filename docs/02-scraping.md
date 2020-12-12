@@ -1,4 +1,4 @@
-# Scraping {#scraping}
+# Web Scraping {#scraping}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(Scraping). Figure cross referencing follows this syntax: \@ref(fig:plot) when matched in the markdown figure insertion syntax ![(#fig:plot)a generic plot](images/a_generic_plot.png) -->
 
@@ -9,7 +9,9 @@ Scraping common best practices are applied from the web server point of view, th
 
 ## Web Scraping 
 
-\BeginKnitrBlock{definition}\iffalse{-91-83-99-114-97-112-105-110-103-93-}\fi{}<div class="definition"><span class="definition" id="def:scraping"><strong>(\#def:scraping)  \iffalse (Scraping) \fi{} </strong></span>Web Scraping is a technique aimed at extracting unstrctured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-83-99-114-97-112-105-110-103-93-}\fi{}
+<span class="definition" id="def:scraping"><strong>(\#def:scraping)  \iffalse (Scraping) \fi{} </strong></span>Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
+\EndKnitrBlock{definition}
 Web scraping is a form of data mining. The basic and most important goal of the web scraping process is to mine information from different and unstructured websites and transform it into an comprehensible structure like spreadsheets. Web scraping can be performed with different degrees of precision in several ways via several tools. Popular options are APIs, proprietary softwares, browser integrations and open source libraries. Challenges in scraping mainly regards _security_, _run-time_ and _exception handling_. 
 Scraping can be mainly decomposed into 2 separable and collectively exhaustive tasks: _crawling_ and _proper scraping_ which they ultimately outline a forced sequential process. The forced aspects regards essentially the way websites are made and the language used for content creation and organization i.e. HTML. HTML stands for Hyper Text Markup Language and is the standard _markup_ language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, as an example JavaScript [@html_2020].
 CSS language stands for Cascading Style Sheets and is a style sheet language used for modifying the appearance of a document written in a _markup_ language[@css_2020]. The combination of HTML and CSS offers a wide flexibility in building web sites, once again expressed by the vast amount of different websites on the web.
@@ -27,7 +29,7 @@ The walk from node "body" to node "h2" in figure below is called path and it rep
 Some websites' components also might be tuned by a scripting language as Javascript. JavaScript enables interactive web pages and the vast majority of websites use it for all the operations that are performed by the client in a client-server relationship [@Javascript_2020].
 In the context of scraping Javascript adds a further layer of difficulty. As a matter of fact Javascript components are dynamic and scraping requires specialized libraries or remote web browser automation ([@RSelenium] R Bindings for Selenium 2.0 Remote WebDriver) to catch the website content.
 
-## Crawling 
+## Crawling{#crawling}
 
 - general idea, definition (with latex def. component)
 - urllib 
@@ -59,6 +61,7 @@ The website structure of immobiliare can be assumed to be similar to the one of 
 immobiliare.it is a [clean url](https://en.wikipedia.org/wiki/Clean_URL) _miss lit_ and it can be easily parsed and queried according to some parameters (i.e. filters) selected in their dedicated section (e.g. city, number of rooms 5, square footage less than 60 $m^2$, macrozone "fiera" and "centro"). The url is shaped so that each further parameters and its respcetive values are appended at the end of the domain url `https://www.immobiliare.it/`. Parameters and values are appended with a proper semantic, not all the sematics are equal, that is why scraping needs sophostication when applied to other websites. One major adavatge in this context is immobilaire being a [clean url](https://en.wikipedia.org/wiki/Clean_URL), whose sematic is oriented to usability and accessibility.
 Once parameters are applied to the root domain this constitutes a newer rooted tree whose url root node is the parametrized.It might have this appearance (params are  city of Milan, square footage is less than 60 $m^2$: domain + filters i.e. `affitto-case/milano/?superficieMinima=60`. Since for the moment are generated only links related to page n°1 containing the first 25 advs links (see figure \@ref(fig:websitetree)) all the remaining siblings nodes corresponding to the subsequent pages have to be initialized. In here resides the utility of Local reproducibility property introduced in the previous section. The remaining siblings, e.g. the ones belonging to page 2 (with the attached 25 links), to page 3 etc. can be generated by adding a further parameter `&pag=n`, where n is the page number reference (from now on referred as _pagination_). Author customary choice is to stop pagination up to 300 pages since spatial data can not be to too large due to computational requirements imposed by inla methodology \@ref(inla). The code chunk below has the aim to mimic the url syntax filters building, s given a set of information it can reproduce any related sibling. detaching website structure from content architecture.
 
+*pseudo code get_link*
 
 
 ```r
@@ -111,55 +114,20 @@ Thirdly it converts the content (i.e. payload) into a human readable text with `
 
 The code chunk below exemplifies a function that can scrape the price. The function explicitly covers only the right part to the dashed line (figure \@ref(fig:workflow)) of the whole scraping process. The initial part (left dashed in same figure), where session is opened and response is converted is handles inside the second code chunk where `get.data.catsing()` is.
 
-## Proper Scarping
+## Proper Scarping{#ProperScraping}
 
-Given the structure of the webpage it is imposed a nest sequential search strategy gravitating around 2 main criteria: shortest paths and obligation of results. The algorithm starts considering a single session object argument, then It reads the inner HTML content in the session storing the information into a reusable check up obj `opensess`. Immediately after another object `price` is created and a CSS query is called on direct on a HTML nodes set. The CSS location `.im-mainFeatures__title` points to a precise group of data right below the main title. Expectation is that price is a single element character vector, containing price and other unnecessary non-UTF characters. Then the algorithm bumps into the first `if` statement. The logical conditions checks whether the object `price` first search went lost. If it does not the algorithm jumps directly to the end of the function and returns a preprocessed quantity. As opposite If it does it considers again the reusable `opensess` and hits with a second css query `.im-features__value , .im-features__title`, pointing to second data location. Note that the whole search is done within the same session (i.e. reusing the same session object), so no more additional request information has to be sent). Since the second CSS query points to data stored in sequeence in a list object, the newly initialized `price2` is a list containing various information. Then the algorithm flows into a second `if` statement that checks whether `"prezzo"` is matched in the list, if it does the algorithm returns the +1 position index element with respect to the "prezzo" position. This happens because data in the list is stored by couples sequentially, e.g. [title, "Appartamento Sempione", energy class, "G", "prezzo", 1200/al mese]. Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. `price3` points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting `NA_Character_` resulting in no CSS query is able to find data. the _NA_Character_ string type has to be imposed due to row bind contraints in tibbles.
-The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be executing only certain paths, e.g. price can be found under main title, indeed condizioatore is not.
+The present algorithm imposes a nest sequential search strategy gravitating around 2 main criterias: shortest paths and insistent search. At the starting point it is initialized, providing a url, a single session object `opensess`. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML content. Immediately after another object `price` parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location `.im-mainFeatures__title` addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first `if` statement. The logical condition checks whether the object `price` first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed singl quantity. Indeed if it does it considers again the check up `opensess` and hits with a second css query `.im-features__value , .im-features__title`, pointing to second data location. Note that the whole search is done within the same session (i.e. reusing the same session object), so no more additional request headers \@ref(spoofing) has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized `price2` is a type list object containing various information. Then the algorithm flows through a second `if` statement that checks whether `"prezzo"` is matched in the list, if it does the algorithm returns the +1 position index element with respect to the "prezzo" position. This happens because data in the list is stored by couples sequentially (as a flattened list), e.g. list(title, "Appartamento Sempione", energy class, "G", "prezzo", 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. `price3` points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting `NA_Character_`, ending with any CSS query is able to find price data.
+The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be following only certain paths, e.g. condizionatore can not be found under main title and so on.
 
-![(#fig:pseudocode1)pseudo code algorithm for price search, author's source](images/pseudocode_latex/pseudocode_price.jpg)
-
-
-
-
-Once all the functions have been designed they need to be grouped and called together. This is done by `fastscrape()` Which at first checks the validity of the url, then takes the same url as input and filters it as a session object. Then simultaneously all the functions are called and then combined. All this happens inside a `foreach` parallel loop called by `scrape.all.info()` 
+![(#fig:pseudocode1)pseudo code algorithm for price search, author's source](images/pseudocode_latex/pseudocode_price.jpg){width=70%}
 
 
 
-```r
-## [ fastscrape ] ----
-## first endpoint function 
-options(future.rng.onMisuse="ignore")
-fastscrape = function(npages_vec){
-            tic()
-            plan(multisession, workers = availableCores())
-            result = tibble(
-                        title =  future_map(npages_vec, possibly( ~{
-                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-                                    scrapetitle_imm(session = sesh)},NA_character_, quiet = FALSE))%>%  flatten_chr(),
-                        
-                        monthlyprice =  future_map(npages_vec, possibly(~{
-                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-                                    scrapeprice_imm(session = sesh) },NA_character_, quiet = FALSE))%>%  flatten_chr(),
-                        
-                        nroom =  future_map(npages_vec, possibly( ~{
-                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-                                    scraperooms_imm(session = sesh) },NA_character_, quiet = FALSE))%>%  flatten_chr(),
-                        
-                        sqmeter =  future_map(npages_vec, possibly( ~{
-                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-                                    scrapespace_imm(session = sesh) },NA_character_, quiet = FALSE))%>%  flatten_chr(),
-                        
-                        href =  future_map(npages_vec, possibly( ~{
-                                    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-                                    scrapehref_imm(session = sesh) },NA_character_, quiet = FALSE))%>%  flatten_chr()
-                        
-            )
-            
-            toc()
-            return(result) 
 
-}
-```
+Once all the functions have been designed and optmized with respect to their scraping target they need to be grouped into a single function. This is done into the API endpoint which also Which also checks the validity of the url, and registers the parallel back end. 
+
+
+
 
 
 ## Scraping Best Practices and Security provisions{#best-practices}
@@ -167,34 +135,28 @@ fastscrape = function(npages_vec){
 Web scraping have to naturally interact multiple times with both the _client_ and _server side_ and as a result many precautions must be seriously taken into consideration. From the server side a scraper can forward as many requests as it could (in the form of sessions opened) which might cause a traffic bottleneck (DOS attack @wiki:DOS) impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents \@ref(spoofing) and proxy servers, consequently analytics reports might be driven off track. 
 Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt @meissner_2020 are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto "standard" never made it beyond a _informal_ “Network Working Group INTERNET DRAFT”. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g. [Wikipedia robot](https://en.wikipedia.org/robots.txt), [Google robot](https://www.google.com/robots.txt)). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their _interpretation_ might differ.
 
-Robots.txt files [@robotstxt] essentially are plain text and always found at the root of a website's domain.  The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field) is seen as referring to all bots. Possible field names as pinpointed in [@google:robottxt] are: user-agent, disallow, allow, crawl-delay, sitemap and host. A standard set of shared interpretation is:
+Robots.txt files [@robotstxt] essentially are plain text and always found at the root of a website's domain.  The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field, cleared later in \@ref(spoofing)) is seen as referring to all bots. The whole set of possible field names are pinpointed in @google:robottxt, some important are: user-agent, disallow, allow, crawl-delay, sitemap and host. A standard set of shared interpretation is:
 
 - Finding no robots.txt file at the server (e.g. HTTP status code 404) implies full permission.
 - Sub-domains should have their own robots.txt file, if not it is assumed full permission.
 - Redirects from subdomain www to the domain is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.
 
-Further improvements in the R ecosystem in this direction is explored with the `polite` @polite package  which combines the effects of the `robotstxt`, the `ratelimitr` @ratelimitr to limit sequential session requests together with the `memoise` @memoise for robotstxt response caching. Even though the solution meets both of the two stakeholders requirements (server and client) ratelimitr is not designed to work in parallel -@ratelimitr , so it is not implied in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a "polite" session should be and finally are kept fixed during the scraping:
+A comprehensive apporach is explored in the `polite` @polite package which combines the effects of `robotstxt`, `ratelimitr` -@ratelimitr to limit sequential session requests together with the `memoise` @memoise for robotstxt response caching. Even though the solution meets the requirements (from server and client side) ratelimitr is not designed to work in parallel as documented in @ratelimitr, so it is not involved in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a "polite" session should look like and by doing principles are kept fixed during the scraping:
 
 > The three pillars of a polite session are seeking permission, taking slowly and never asking twice.
 
-The three pillars constitute the _Ethical_ web scraping manifesto [@densmore_2019] which are common shared practices that are aimed to self regularize scrapers. These have to be intended as best practices, not, in any case, as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in their daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
-with that said a custom function that permanetly checks the validity of the session request is called once prior any scraping function execution cached into a variable. In the result below the function returning a boolean is applied to the root domain of immobiliare.it as a proof of permission.
+The three pillars constitute the _Ethical_ web scraping manifesto [@densmore_2019] which are common shared _best practices_ that are aimed to self regularize scrapers. Still these have to be intended as practices and by no means as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
+With that said a custom function that permanently checks the validity of the session request is called once. It has to be invoked prior any scraping function execution and then immediately cached into a variable. In the result below the function applied to the domain of immobiliare.it returns a boolean approving or disallowing the permission.
 
 
 
-
-```r
-dom = "immobiliare.it"
-polite_permission = memoise::memoise(paths_allowed(domain = dom))
-polite_permission
-```
 
 ```
 ## Memoised Function:
 ## [1] TRUE
 ```
 
-Furthermore a custom function based on robotxtst cached results at first highlights the delay stated in the file, in this context no delays are stated. As a default author choice is to set it equal to 5. Then It manages delayed requests rate through the `purrr` stack. At first a `rate` object is created and then a `rate_sleep` delay is then inserted within the function as in @rate_delay. 
+Furthermore a custom function based on robotxtst cached results initially checks if the bot can search the inputted address through `polite_permission`. Then It observes the suggested delay date, in this particular context no delays are kindly asked. As a polite author choice delay request rate is set equal to 5 seconds. Delayed requests rate are managed through the `purrr` stack. At first a `rate` object is initialized based on polite_permission, therefore a `rate_sleep` delay is called within scraping as in @rate_delay. 
 
 
 ```
@@ -231,20 +193,30 @@ get_delay(rbtxt_memoised, domain = dom)
 
 ## Web Client Security provisions: User Agents, Proxies and Fail Dealers  
 
-HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, url as well as e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out with an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e. name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \@ref(fig:webworks). If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. The communication is encoded with numbers ranging from 100 to 511, each of which has its own specific significance. A popular case of interaction occurs when users are not connected to internet so the server responds 404, page not found. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal practices.
+HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e. name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \@ref(fig:webworks). If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.
 
 ![(#fig:webworks)How the web interacts between broswer and server](images/how_web_works.png)
 
-### HTTP User Agent Spoofing{#spoofing}
+### HTTP User Agent and Mail Spoofing{#spoofing}
 
-\BeginKnitrBlock{definition}\iffalse{-91-85-115-101-114-32-65-103-101-110-116-115-93-}\fi{}<div class="definition"><span class="definition" id="def:useragents"><strong>(\#def:useragents)  \iffalse (User Agents) \fi{} </strong></span>The user agent (from now refered as UA) "retrieves, renders and facilitates end-user interaction with Web content" @UaDef.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-85-115-101-114-32-65-103-101-110-116-115-93-}\fi{}
+<span class="definition" id="def:useragents"><strong>(\#def:useragents)  \iffalse (User Agents) \fi{} </strong></span>The user agent (from now refered as UA) "retrieves, renders and facilitates end-user interaction with Web content" @UaDef.
+\EndKnitrBlock{definition}
 
-In HTTP, the UA string is often considered as _content negotiator_ [@wiki:UserAgent], where the requested server selects the most appropriate content based on operating parameters for the response. On the basis of the User agent, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences [@whoishostingthis.com].
-The UA string is also one of the main responsible according to which Web crawlers and scrapers through robotstxt as in \@ref(best-practices) may be ousted from accessing certain parts of a website. 
-In the context of the web server to be able to identify critical information as the user operating system and the browser. One of the aim of User agnets are to keep track information and optimize rendering. Then, the web server uses the exchanged information to determine what content should be presented to particular operating systems and web browsers on a series of devices. However this common standard is recently sentenced to be superseded in favor of a newer (2020) Google technology called _Hints_ @wiki:UserAgentHints.
-The user agent string includes the user application or software, the operating system (and their versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit). The user agent string is sent in the form of a HTTP request header. Since User Agents acts as middle man between the client request and the server response, then from a continuous scraping point of view it would be better rotating them, so that each time the middle man looks different. The solution adopted builds a vector of user agent strings identified by different specifications, different web client, different operating system and so on, then samples 1 of them 
-Then whenever a request from a web browser is sent to a web server, 1 random sample string is drawn from the user agents pool. So each time the user is sending the request it appears to be a different User Agent.
-Below the user agents rotation pool:
+In HTTP, the UA string is often considered as _content negotiator_ [@wiki:UserAgent]. The requested server in the form of code embedded into the hosted website selects the most appropriate content on the basis of operating parameters for the response. Therefore according to the UA, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences [@whoishostingthis.com]. 
+However UA fieldcname has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named _Hints_ @wiki:UserAgentHints.
+UA is a dense content string that includes many user details: the user application or software, the operating system (and versions), the web client, the web client’s version, as well as the web engine responsible for the content display (such as AppleWebKit). 
+A full components breakdown of UA example might be:
+
+`Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36`
+
+- The user agent application is Mozilla version 5.0.
+- The operating system is Windows NT 6.3; WOW64, running on Windows
+- The client is Chrome version 45.0.2454.85.
+- The client is based on Safari version 537.36.
+- The engine responsible for displaying content on this device is AppleWebKit version 537.36 (and KHTML, an open-source layout engine, is present too).
+
+The UA string is also one of the main responsible according to which Web crawlers and scrapers through a dedicated name field in robotstxt \@ref(best-practices) may be ousted from accessing certain parts of a website. Since many requests are sent the server may encounter insistently the same UA and as consequence it may block requests associated to the same UA. In order to avoid server block this scraping technique adopts a rotation of a pool of UAs. Each time requests are sent a different set of headers are drawn from the pool and then combined. The more the pool is populated the larger are the UA combinations. The solution proposed tries in addition to resample periodically the pool as soon as the website from which Agents ID are extracted updates newer UA strings.
 
 
 ```r
@@ -256,201 +228,170 @@ agents[sample(1)]
 ```
 
 ```
-## [1] "Mozilla/5.0 (Linux; Android 10; SM-G988B Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.198 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]"
+## [1] "Mozilla/5.0 (Linux; Android 10; M2007J20CG Build/QKQ1.200512.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]"
 ```
 
-A more secure approach might be a further rotation of proxies between the back and forth sending-receving process. A proxy server acts as a gateway between the web user and the web server.
-While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final result will be linear combination of User Agents ID and Proxy server for each sending requests, grating a high security level.
-Many proxy servers are offered in a paid version, so in this case since security barriers are not that high they  will not be implemented. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering mini API calls to dedicated servers nested into a more general API.
+
+An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process. A proxy server acts as a gateway between the web user and the web server. While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final combination would give birth to a more complex linear combination, adding a further layer of masking.
+Many proxy servers are offered as paid version. In this particular case security barriers are not that high and this suggests to not apply them. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
 
 - Free plan Proxies are shared among a number of different clients, so as long as someone has used them in the past for illegal purposes the client is indirectly inheriting their legal infringements.
 - Very cheap proxies, for sure all of the ones free, have the activity redirected on their servers monitored, profiling in some cases a user privacy violation issue.
 
-### Dealing with failure in Parallel
+### Dealing with failure{#possibly}
 
-During scraping many difficulties are met. Some of them might come from website structure issues, so that rooted-tree hierarchies are changed as a consequence of a restructuring, better outlined in section \@ref(challenges). Some others might interest content architecture where data is reallocated to some other places in the webpage, as a consequence CSS query are no more able to grab the content. Handlers are explicitly built in this sense. The continuous building and testing of the scraping functioning has required the maintainer to have a precise and fast debugging experience. The following consideration might give a sense of the time consumed when handlers are not implied. API endpoints evokes 34 different scrapping functions that are supposed to point to 34 different data pieces. Within a single function call by default pagination generates 10 pages each of which contains at least 25 different single links to be scrapped. That leads to a number of 8500 single data information. The probability given 8500 associated to something going lost or unparsed is undoubtedly high.
-The solution proposed tries to deal with failure through implementing `purrr` adverb `possibly()`, which takes a function (a verb) and returns a modified version. In this case, the modified function will never throw an error. The approach is encouraged when functions need to be mapped over larger objects and when run time are long as pointed out in section 21.6 of @Rdatascience.
-
-
-```r
-title = future_map(npages_vec, possibly(~{
-    sesh = html_session(.x, user_agent(agent = agents[sample(1)]))
-    scrapetitle_imm(session = sesh)
-}, NA_character_, quiet = FALSE)) %>% flatten_chr()
-```
+During scraping many difficulties coming from different sources are met. Some of them may come from the website's layout changes (\@ref(ProperScraping)), some of them may regard internet connection, some other may have been caused by security breaches (section \@ref(spoofing)).
+One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data previously acquired going lost. In this particular context is even more worrying since scraping "main" functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links (\@ref(crawling)) leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
+For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of `purrr` vectorization function `map` (and its derivatives) and the adverb `possibly` @possibly. _Possibly_ takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in @Rdatascience section 21.6. Moreover vecrotizaion is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.
 
 
-Then also inside each single scrapping function are bundled "authorization" handlers that protect the web server side from unpolite scraping practises. This set up allows to catch (and in some cases prevent) web sites poloicy misuses from the very beginning of the scraping process. 
-Below some of the main authorization handlers implied:
-
-- `get_ua()` verifies that the User Agent in the session is not the default one.
+![(#fig:pseudocode2)pseudo code for a generic set of functions applied with possibly fail dealers , author's source](images/pseudocode_latex/pseudocode_possibly.jpg){width=70%}
 
 
-```r
-get_ua = function(sess) {
-    stopifnot(is.session(sess))
-    stopifnot(is_url(sess$url))
-    ua = sess$response$request$options$useragent
-    return(ua)
-}
-```
 
 
-- `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query.
+<!-- Furthermore inside each single scrapping function are bundled input checkers that may protect both the web server and the end user from what are called unpolite sessions. This set up allows to catch (and in some cases prevent) web sites policy misuses from the very beginning of the scraping process and be sured that high standard security requirements set up in between requests are respected. -->
 
 
-```r
-is_url = function(url) {
-    re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>](?:-)*)*(?:[a-z0-9¡-<ef><U+00BF><U+00BF>])+)*(?:\\.(?:[a-z0-9¡-<ef><U+00BF><U+00BF>]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
-    grepl(re, url)
-}
-```
+<!-- - `get_ua()` verifies that the User Agent in the session is not the default one. -->
+
+<!-- ```{r GetUa, eval=FALSE, echo=TRUE} -->
+<!-- get_ua = function(sess) { -->
+<!--   stopifnot(is.session(sess)) -->
+<!--   stopifnot(is_url(sess$url)) -->
+<!--   ua = sess$response$request$options$useragent -->
+<!--   return(ua) -->
+<!-- } -->
+<!-- ``` -->
 
 
-- `get_delay()` checks through the robotxt file if a delay between each request is kindly welcomed. When response is NA delay is not required.
+<!-- - `is_url()` verifies that the url input needed has the canonic form. This is done by a REGEX query. -->
+
+<!-- ```{r IsUrl, tidy=FALSE, echo=TRUE, eval=FALSE} -->
+
+<!-- is_url = function(url){ -->
+<!--   re = "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@) -->
+<!--   ?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\u -->
+<!--   ffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0- -->
+<!--   9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,}) -->
+<!--   (?::(?:\\d){2,5})?(?:/(?:\\S)*)?$" -->
+<!--   grepl(re, url) -->
+<!-- } -->
+<!-- ``` -->
 
 
-```r
-dominio = "immobiliare.it"
-get_delay = function(domain) {
-  
-  message(sprintf("Refreshing robots.txt data for %s...", domain))
-  
-  cd_tmp = robotstxt::robotstxt(domain)$crawl_delay
-  
-  if (length(cd_tmp) > 0) {
-    star = dplyr::filter(cd_tmp, useragent=="*")
-    if (nrow(star) == 0) star = cd_tmp[1,]
-    as.numeric(star$value[1])
-  } else {
-    10L
-  }
-  
-}
+## Parallel Scraping{#parallelscraping}
 
-get_delay =  memoise::memoise(get_delay) ## so that .get_delay results are cached
-get_delay(domain = dominio)
-```
+Scraping run time is crucial when dealing with dynamic web pages. This assumption is stronger in Real Estate rental markets where time to market is a massive competitive advantage.
+From a run time perspective the dimension of the problem requires as many html session opened as single links crawled (refer to previous section \@ref(possibly)). As a result computation needs to be _parallelized_ in order to be feasible.
+The extraordinary amount of time taken in a non-parallel environment is caused by R executing scraping on a single processor _sequentially_ url-by-url in a queue, left part of figure \@ref(fig:singlethreaded) (i.e. single threaded computing).
 
-```
-## [1] NA
-```
+\BeginKnitrBlock{definition}\iffalse{-91-112-97-114-97-108-108-101-108-93-}\fi{}
+<span class="definition" id="def:parallel"><strong>(\#def:parallel)  \iffalse (parallel) \fi{} </strong></span>_Parallel execution_ is characterized as multiple operations taking place over overlapping time periods. [@eddelbuettel2020parallel]
+\EndKnitrBlock{definition}
 
+This requires multiple execution units and modern processors architecture provide multiple cores on a single processor and a way to redistribute computation (i.e. multi threaded computing). As a result tasks can be split into smaller chunks over processors and then multiple cores for each processor, right part of figure \@ref(fig:singlethreaded). 
+Therefore Parallel scraping (sometimes improperly called [asynchronous](https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897)) functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space. 
 
-- `checkpermission()` assess whether the domain or the related paths require specific actions or they prevent some activity on the target.
+![(#fig:singlethreaded)single threaded computing vs parallel computing, @barney source](images/parallel_problem.jpg)
+
+Parallel execution heavily depends on hardware and software choice. Linux environments offers multi-core computation through _forking_ [@wiki:forking] (only on Linux) so that global variables are directly inherited by child processes. As a matter of fact when computation are split over cores they need to import whatever it takes to be carried out, such as libraries, variables, functions. From a certain angle they need to be treated as a containerized stand-alone environments. This can not happen in Windows (local machine) since it does not support multicore.
 
 
 ```r
-checkpermission = function(dom) {
-    
-    robot = robotstxt(domain = dom)
-    vd = robot$check()[1]
-    if (vd) {
-        cat("\nrobot.txt for", dom, "is okay with scraping!")
-    } else {
-        cat("\nrobot.txt does not like what you're doing")
-        stop()
-    }
-}
-
-checkpermission(dom = dominio)
+future::supportsMulticore()
 ```
 
 ```
-## 
-## robot.txt for immobiliare.it is okay with scraping!
+## [1] FALSE
 ```
 
-## Implicit Parallel Scraping
-
-Scraping run time is crucial when dealing with elastic markets and proactive web pages. This is also true in rental real estate where time to market is a major competitive advantage and monthly prices elasticity with respect to the time is high.
-Since the dimension of the run time problem requires as many session requests opened as single links crawled (refer to section \@ref(ContentArchitecture)). And since for each of the links are supposed to be called at least 34 different functions, refer to section \@ref(ContentArchitecture), then computation must be _parallelized_.
-The extraordinary amount of time taken in a non-parallel environment is caused by R executing tasks on a single processor sequentially link-by-link in a queue (i.e. single threaded computing). In order to overcome this inefficiency explicit parallel (sometimes improperly called [asynchronous](https://medium.com/@cummingsi1993/the-difference-between-asynchronous-and-parallel-6400729fa897)) scraping functions are proposed, so that computation do not employ vast cpu time (i.e. cpu-bound) and space. Modern processor architectures provide multiple cores on a single processor and a way to redistribute computation. As a result many tasks can be split over processors and then multiple cores for each processor. 
-
-![single threaded computing vs parallel computing, @barney source](images/parallel_problem.jpg)
-
-The explicit/implicit property regards where parallel execution should happen in the code, allowing the developer to be flexible enough to decide which piece of code needs parallelization and which does not.
-Parallel back ends initialization depends both on the parallel library and the looping constructor even though tangible efforts have been recently put into interoperability through `doFuture` @doFuture. 
-As a general rule of thumb it must be specified the computing group and the parallel execution strategy. The _computing group_ is a software concept as in [@parallelr], that points out the number of R processes and their relative computing power/memory allocation according to which the task is going to be split. From a strictly theoretic perspective the working groups can be greater than the number of cores detected. Although for inner libraries functioning are initialized as many workers as physical cores (default option for most of the back ends).
-This is also due to latent default load balancing strategies that are able to equally redistribute tasks over workers according to memory space allocation and dependencies. General settings 
-
-In the R ecosystem parallel libraries are a few and are mostly designed on looping constructions. The two choices are _doParalle_ along with the foreach loop constructor and _Future_ with furrr (purrr and future). The latter is a generic, low-level API for parallel processing as in @bengtsson_2017. Future 
-
-A variety of backends exist and third-party contributions meeting the specifications, which ensure that the same code works on all backends, If I were re-writing my code now, I'd probably also use futures and purrr. The former adds some niceties to doparallel and foreach if you choose to use that syntax, like automatically exporting packages. And it's backend-agnostic, 
-
-Multisession futures are a special case of cluster futures. 
-
-Two are the most important features of future back end: Tidy format together with the furrr (purrr looping contruction) package which enables tidy evaluation and the related convenient tidy sintx properties and packages. The other regars the   
-The most flexible and strong Parallel libraries are Parallel, doParallel, doMC and Future, which offer different sintax but same construction. They all come with a specific looping constructor which is optmized with respect to
-
-
-For a quick but comprehensive perspective on Parallel theory both on hardware and software side @barney is strongly suggested. For a full reference focused on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies the authorities are [@parallelr]. If the interest is to cut short theory and directly put R into parallel then a valuable resource is this [blog](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html), which inter alia covers the main debugging.
-
-doParallela among the other offers also 
-`detectCores()` uncovers how many _Hyper-Threading_ cores are at the disposition, since they do not provide any computational advantage the option _logical_ is set false. Below the number of cores available on the following machine:
+_Cluster processing_ is an alternative to multi-core processing, where parallelization takes place through a collection of separate processes running in the background. The parent R session instructs the dependencies that needs to be sent to the children sessions.
+This is done by registering the parallel back end. Arguments to be supplied mainly regards the strategy (i.e. multi-core cluster, also said multisession) and the _working group_. The working group is a software concept [@parallelr], that points out the number of processes and their relative computing power/memory allocation according to which the task is going to be split. Moreover from a strictly theoretic perspective the _workers_ (i.e. working group single units) can be greater than the number of physical cores detected. Although parallel libraries as a default choice (and choice for this analysis) initializes _as many workers as_ physical HT (i.e. Hyper Threaded) _cores_.
+Parallel looping constructor libraries generally pops up as a direct cause of new parallel packages. The latest research activity by Bengtsson @doFuture indeed tries to unify all the previous back ends under the same umbrella of `doFuture`. The latter library allows to register many back ends for the most popular parallel looping options solving both the dependency inheritance problem and the OS agnostic challenge.
+The two alternatives proposed for going parallel are `Future` @future with `furrr` @furrr and `doFuture` -@doFuture along with the `foreach` @foreach loop constructor. The former is a generic, low-level API for parallel processing as in @bengtsson_2017. The latter takes inspiration by the previous work and it provides a back-end agnostic version of `doParallel` @doParallel. 
+<!-- depends both on the parallel library and the looping constructor. Although tangible efforts have been recently put into interoperability through `doFuture` @doFuture library, which allows to register many back ends for the most popular looping options. -->
+<!-- Generally parallel libraries require to specify at first both the _computing group_ and the parallel _strategy_.  -->
+<!-- One reason resides in default optimal load balancing strategies computation over workers proper of operating systems. As a matter of fact OSs are also responsible for enabling different strategies when they are forced to go parallel (forking @wiki:forking only on Linux). -->
+<!-- strategies on the other hand the way workers have to evaluate the tasks.  -->
+<!-- In the R ecosystem parallel libraries are a few and are mostly built on top of looping constructions. Two popular choices are `doFuture` -@doFuture along with the `foreach` @foreach loop constructor and `Future` @future with `furrr` @furrr (`purrr` and `future`). The former is a back-end agnostic version of `doParallel` @doParallel, which automatically identifies function, packages and variables to pass to the stand alone workers. The latter is a generic, low-level API for parallel processing as in @bengtsson_2017.  -->
+Further concepts on parallel computing are beyond the scope of the analysis.  However they can be explored in @barney, which may offers a comprehensive perspective on Parallel theory both on hardware and software. Indeed for a full reference on the R parallel ecosystem, run time simulations and advanced algorithm back end design strategies, the authorities are @parallelr. If the interest is to cut short theory and directly put existing R code into parallel, a valuable resource is covered in [blog](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html), which also investigate the main debugging aspects.
 
 
 
+<!-- **plot with this  https://github.com/HenrikBengtsson/future/issues/231** -->
 
-![parallel Execution schema into the R ecosystem, @parallelr source](images/parallel_mapping.png)
-
-
-The following run time simulations are performed on custom group of functions which is a lightweight version of the final API endpoint. Simulation are preformed on local machine therefore benchmarks can not really be representative to the problem. As a matter of fact the API is served on a Linux OS server with its proper hardware and parallel execution is handled differently in local machine (windows 10, ...).. As a partial solution agnostic language libraries are chosen so sub-optimal solutions are found.
-As a further general criteria base-R for loops are avoided inside single scraping functions due to Rcpp reasons, vectorization is preferred.
-The first attempt was using `furrr` package [@furrr] which enables mapping (i.e. `map`) through a list from `purrr`, along with a `future` parallel back end. furrr gets along with the Tidyverse paradigm so it is expected to grow and maintained. Workers are specified though a plan with the command `plan(multisession, workers = 2)`. Then the function operates as many other seen purrr variations:
-`furrr::future_map(scrape(), .progress = T)`. Future is intuitive and easy to use, offers progress bar notifications and a dedicated website that covers also remote EC2 connections.Furthermore recently it has widened the flexibility of workers strategies by chunking strategy allowing to tweak batches of workers.
-The approach has shown decent performance, but its run time drastically increases when more requests are sent. This leads to a preventive conclusion about the computational complexity: it has to be at least linear with steep slope. Empirical demonstrations have been made: ( _pensa se fare più simulazioni, prende tempo_ )
+<!-- **more on this ** -->
 
 
+<!-- ![(#fig:singlethreaded)single threaded computing vs parallel computing, @barney source](images/simulations/prova_parallel_distri.png) -->
+<!-- ```{r detectCore, eval=FALSE} -->
+<!-- cl_hyper = as.integer(detectCores()) -->
+<!-- cl_not_hyper = as.integer(detectCores(logical = FALSE)) -->
+<!-- print(glue("total n° of Hyper-Threading cores on the machine is {cl_hyper}\n -->
+<!--             total n° of NOT Hyper-Threading cores {cl_not_hyper}")) -->
+<!-- ``` -->
 
 
+<!-- ![parallel Execution schema into the R ecosystem, @parallelr source](images/parallel_mapping.png) -->
 
+### Parallel furrr+future 
 
-![(#fig:furrr)computational complexity analysis with Furrr](images/furrr.png)
+**cerca di centrare di più su scraping**
 
+Simulations are conducted on a not-rate-delayed (section \@ref(best-practices)) and restricted set of functions which may be considered as a "lightweight" version of the final API scraping endpoint.
+As a disclaimer run time simulations may not be really representative to the problem since they are performed on a windows 10, Intel(R) Core(TM) i7-8750H 12 cores RAM 16.0 GB local machine. Indeed the API is served on a Linux Ubuntu distro t3.micro 2 cores RAM 1.0 GB server which may adopt forking. Simulations for the reasons said can only offer a run time performance approximation for both of the parallel + looping constructor combinations.
 
-On the x-axis in the figure \@ref(fig:furrr) the number of compounded urls evaluated, on y-axis the run time taken measured in seconds. Iteration after iteration the function provides to the workers 1 further link to scrape untill all the set is inputted. Looking at the blue smoothing curve in between confidence lines the big-O guess might be linear time $\mathcal{O}(n)$, where n are the number of links considered.
+The first simulation considers `furrr` which enables mapping (i.e. vectorization with `map`) through a list of urls with `purrr` and parallelization with `Future`. Future gravitates around a programming concept called "future", initially introduced in late 70's by Baker [@BakerFuture]. Futures are abstractions for values that may be available at a certain time point later -@future.
+These values are result of an evaluated expression, this allows to actually divide the assignment operation from the proper result computation. Futures have two stages _unresolved_ or _resolved_. If the value is queried while the future is still unresolved, the current process is blocked until the stage is resolved. The time and the way futures are resolved massively relies on which strategy is used to evaluate them. For instance, a future can be resolved using a _sequential_ strategy, which means it is resolved in the current R session. Other strategies registered with `plan()`, such as  _multi-core_ (on Linux) and _multisession_, may resolve futures in parallel, as already pointed out, by evaluating expressions on the current machine in forked processes or concurrently on a cluster of R background sessions. 
+With parallel futures the current/main R process does not get "bottlenecked", which means it is available for further processing while the futures are being resolved in separate processes running in the background. Therefore with a "multisession" plan are opened as many R background sessions as workers/cores on which chunks of futures (urls) are split and resolved in parallel. From an algorithmic point of view It can be compared to _a divide and conquer_ strategy where the target urls are at first redistributed among workers/cores (unresolved) through background sessions and then are scraped in equally distributed chunks (resolved).
+Furthermore furrr has also a convenient tuning option which can interfere with the redistribution scheduling of urls' chunks over workers. The argument scheduling can adjust the average number of chunks per worker. Setting it equal to 2 brings _dinamicity_ [-@furrr] to the scheduling so that if at some point a worker is busier then chunks are sent to the more free ones.
 
-A second attempt tried to explore the `foreach` package [@foreach] originally developed by Microsoft R. The package enables a looping construct to explicitly distribute the computations to multiple R workers. foreach does offer a vast flexibility in terms of expressing the working group and clusters of workers. foreach minimizes also operations executed by isolating containers. 
-That means all workers should be self containing enviroments including libraries function and exported objects.
+(migliore rappresentazione)
 
-Flexibility comes at a cost of usability, as a matter of fact the loop constructor paradigm is much more complex with respect to furrr.
-The looping construction abstractly follows the r-base looping idea, below main steps are summarized:
+![(#fig:divideconquer)futures reimagined as divide and conquer, author's source](images/divideconquer.png)
 
-- Detect cores, initialize workers based on number of cores, register the parallel back end `registerDoParallel(cl,cores)`
-- define the iterator, i.e. "i"  equal to the number of elements that are going to be looped
-- `.packages`: Inherits the packages that are used in the tasks define below
-- `.combine`: Define the combining function that bind results at the end (say cbind, rbind or tidyverse::bind_rows).
-- `.errorhandling`: specifies how a task evaluation error should be handle.
-- `%dopar%`: the dopar keyword suggests foreach with parallelization method
-- then the function within the elements are iterated
-- close clusters
-
-
+The upper plot in figure \@ref(fig:furrrfuture) are 20 simulations of 100 url (2500 data points) performed by the lightweight scraping. On the x-axis are plotted the 20 simulations and on the y-axis are represented the respective elapsed times. One major point to breakdown is the first simulation run time measurement which is considerably higher with respect to the others i.e. 15 sec vs mean 7.72 sec. Empirical demonstrations traces this behavior back to the opening time for all the background sessions. As a result the more are the back ground sessions/workers, the more it would be the time occupied to pop up all the sessions. As opposite whence many sessions are opened the mean execution time for each simulation is slightly less. 
+The lower plot in in figure \@ref(fig:furrrfuture) tries to capture the run time slope behavior of the scraping function when urls (1 to 80) are cumulated one by one. The first iteration scrapes 1 single url, the second iteration 2, the third 3 etc. Three replications of the experiment has been made, evidenced by three colours. The former urls are more time consuming confirming the hypothesis casted before.  Variability within the first 40 urls for the three repetitions does not show diversion. However It slightly increases when the 40 threshold is trespassed. Two outliers in the yellow line are visible in the nearby of 50 and 60. It can be assumed that workers in that urls neighbor may be overloaded but no evidences are witnessed on cores activity as in plot \@ref(fig:cpumonitor). The measured computational complexity of scraping when $n$ is number of urls seems to be much more less than linear $\mathcal{O}(0.06n)$. 
 
 
 
+![(#fig:furrrfuture)computational complexity analysis with Furrr](images/simulations/final_furrr_future.png)
 
-![(#fig:foreach)computational complexity analysis with Furrr](images/forerach.png)
+![(#fig:cpumonitor)local machine monitoring of cores during parallel scraping](images/parallel_computing.jpg)
 
-It can be grasped quite easily by figure \@ref(fig:foreach) that initially foreach takes some times to set up parallel workers but then the curve is flattened and a confident guess might be .5 sloped linear time $\mathcal{O}(\frac{n}{2})$. 
+
+### Parallel foreach+doFuture
+
+A second attempt tries to encapsulate `foreach` [@foreach] originally developed by Microsoft R, being a very fast loop alternative, parallelized with `doFuture`. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments. From a certain extent the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. But since the doFuture implements auto dependency search this problem is considered overcome. Two major speed improvements may come from `.inorder` and `.multicombine` which are proper of the lopping constructor and take advantage of splitting disorder a subsequent recombination.
+
+The upper part in \@ref(fig:foreachdofuture) displays lower initialization lag from R sessions opening and parallel execution that also lead to a lower mean execution time of 6.42 seconds. No other interesting behavior are detected. 
+THe lower plot displays high similarities with the curves in \@ref(fig:furrrfuture) highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable {Tidyverse} oriented framework and offers and easy debugging experience.
+
+![(#fig:foreachdofuture)computational complexity analysis with Furrr](images/simulations/final_foreach_dofuture_1&2.png)
 
 
 ## Open Challenges and Further Improvemements{#challenges}
 
-Still one of the main challenges remains unsolved since each single element at each level has been optimized nevertheless scraping function must be continuously kept updated. As a matter of fact what unfortunately can not be predicted are the future changes that involves the first part of the scraping process i.e. crawling. Indeed scraping, with some further adjustments can take care of searching for precise information within the web page even if the design changes, and so happens for both HTML and CSS. This idea is massively applied in the package Rcrawler @Rcrawler, which crawls the entire website and searches for targeted keywords. The major benefit relies in crawling and subsequently saving in local the whole set of html/xml files that composes the website. HTML are agreed to be generally lightweight so the crawling part does not weigh down the run time. Once all files are dnwloaded the algorithm looks for the target keywords within the html files. Performances with algorithm of this kind are very efficient but results are not always effective due to the fact that keywords in the web page are not always associated to the data indeed required. Afterall a safer way to scrape content might be embedding complex customized regular expression on the HTML text which univoquely indetifies the CSS data location.
-As a disclaimer Rcrawler is designed to be flexible enough to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended to other category related website with a small effort \@ref(webstructure).
-On the parallel computing side some further performance boosts might come adding HPC (high-performance computing) clusters through `future.batchtools` @futurebatchtools sharing computation on separate nodes. The package implements a generic future wrapper for all batchtools backends like Torque, Slurm, Sge and many more.  
+Although results are quite encouraging still one of the main challenges remains unsolved. In fact optimization has involved each scraping layer but scraping function must be continuously kept up with the immobiliare.it changes, particularly the crawling part. Indeed the proper scraping part, with some further adjustments can take care of auto-search for exact information within the web page even if the design changes. This idea is massively applied in the package Rcrawler @Rcrawler, which doesn't apply segmentation in crawling, instead it downloads the entire website and then inspects targeted keywords. The major benefit relies in crawling HTML/XML that are agreed to be generally lightweight in this way the process does not weigh down the run time. 
+Whence all files are saved locally the algorithm applies search methodologies within the HTML files. Run time performance with algorithm of this kind with respect to the amount of data gathered are very efficient, nevertheless results are not always effective due to keywords disambiguation. 
+Afterall a way safer and time saving approach to general scraping may be including complex theme specific regular expressions on the HTML text which univocally identify CSS data location. With that said the idea would be an unsupervised algorithm that combines the traditional browser search + a selector gadget for CSS conversion.
+As a disclaimer Rcrawler is designed to be flexible to scrape a vast number of websites. As opposite the scraping functions here presented are exclusively built on top of immobiliare.it, even though they can be extended with a small effort to other category related website  \@ref(webstructure).
+On the parallel computing side a further boosts might be added with parallel distributed processing through HPC (high-performance computing) clusters by `future.batchtools` @futurebatchtools. The package implements a generic future wrapper around batchtools with job scheduler like Torque, Slurm, Sge and many more. A higher level API built on top of the Future framework that exploits [Google Cloud Engine Clusters](https://cloudyr.github.io/googleComputeEngineR/articles/massive-parallel.html) i.e.`cloudyR` allows to distribute computation on Google machines.
+<!-- Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.  -->
 
-`doAzureParallel` _miss lit_ which is built on top of foreach. doAzureParallel enables different Virtual Machines operating parallel computing throughout Microsoft Azure cloud. This comes at a further economic cost as a consequence it is not the first choice. Nonetheless it would perfectly shrinks run time by accelerating the number of requests sent among different processors/cores and cores, even though actually the end goal is to differentiate sessions. Cloud Virtual Machines allow from one hand to further add computational capabilties (more processore more cores), from the other they can internalize requests among different machines (a pool of agents for each VM), extending even more the linear combination of IDs.
+## Legal Profiles
 
-Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found. 
 
-## Legal Profiles (ancora non validato)
+**rivedere meglio**
 
-"Data that is online and public is always available for all" is never a good answer to the question "Can I use those web data to my scope". Immobiliare.it is not providing any open source data from its own database neither the perception is that it is planning to do so in the future. Immobiliare has not even provided a paid API through which data might be accessed.
-A careful reading of their terms, reviewed with a intellectual property expert, has been done to get this service running without any legal consequence, as a reference the full policy can be seen in their [specialized section](https://www.immobiliare.it/terms/). Nevertheless the golden standard for scraping was respected since the robottxt is neat allowing any actions as demonstrated above. So if it might be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property. Below are checked the permissions to scrape the endpoints:
-What it was shockingly surprising are the low barriers to obtain information with respect to other counterpart online players. Best practices are applied and delayed requests (even though not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practises (see section \@ref(best-practices)), and *not* any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budjet constraints are set low, but in the long run it will cause lagging as soon as budjet or subjects will increase. Totally different was the approach proposed by Idealista.com, which is a comparable to immobiliare.it. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and as soon as a request does not fall within the pool of user agents (i.e. is labled as web bot) it is immediately blocked and 404 response is sent back. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
+"Data that is online and public is always available for all" is never a good answer to the question "Can I use those web data to my scope?". Immobiliare.it does not provide any open source data neither it disposes any paid API. 
+A careful reading of immobiliare terms, reviewed with a intellectual property expert has been done to get the service running without any legal consequence, as a reference the full policy can be seen in their [specialized section](https://www.immobiliare.it/terms/). Nevertheless the golden standard for scraping was respected since the robotstxt is neat allowing any actions as demonstrated above in section \@ref(best-practices). So if it may be the case of misinterpretation of their policy, it will be also the case of lack of communication between servers response and immobiliare.it intent to preserve their own intellectual property.
+
+- To the headers are also attached a direct user back tracking and a url pointing to a dedicated address 
+
+What it was shockingly surprising were the low entry barriers to scrape information with respect to other counterpart online players. Best practices are in any case applied and kind requests (even though politeness was not asked) have been sent to normalize traffic congestion. But scraping criteria followed are once again fully based on common shared best practices (see section \@ref(best-practices)), and *not* any sort of general agreements between parties. As a result a plausible approach could be applying scraping procedures without any prevention. It would not surely cause any sort of disservice for the website since budget constraints are set low, but in the long run it will cause lagging as soon as requests rate would increase. Totally different was the approach proposed bya coiounterpart market Idealista.com. Idealista does block requests if they are not in compliance with their servers inner rules. User agents in this case must be rotated quite frequently and proxies are necessary. Delay is kindly asked and it must be specified, consequnetly this slows down scraping function per se.
 
 - Idealista content is composed by Javascript so and html parser can no get that.
 - Idealista blocks also certain web browser that have a demonstrated "career" in scraping procedures.

@@ -14,35 +14,37 @@ knitr::opts_chunk$set(
 # libraries are in libs.R
 # source(here::here("libs.R"))
 
-library(readr)
-library(kableExtra)
-library(tidyverse)
-library(broom)
-library(viridis)
-library(leaflet)
-library(sp)
-library(glue)
-library(ggpmisc)
-library(gstat)
-library(stringi)
-library(scales)
-library(plotly)
-library(INLA)
-## review text mining
-library(tidytext)
-library(stopwords)
-library(widyr)
-library(igraph)
-library(ggraph)
-## missing profile
-library(caret)
-library(tidyverse)
-library(naniar)
-library(forcats)
-library(visdat)
-library(ComplexHeatmap)
-library(patchwork)
-library(ggridges)
+library(drake, quietly = F)
+library(readr, quietly = F)
+library(kableExtra, quietly = F)
+library(tidyverse, quietly = F)
+library(broom, quietly = F)
+library(future, quietly = F)
+library(viridis, quietly = F)
+library(leaflet, quietly = F)
+library(sp, quietly = F)
+library(glue, quietly = F)
+library(ggpmisc, quietly = F)
+library(gstat, quietly = F)
+library(stringi, quietly = F)
+library(scales, quietly = F)
+library(plotly, quietly = F)
+library(INLA, quietly = F)
+## review text, mining
+library(tidytext, quietly = F)
+library(stopwords, quietly = F)
+library(widyr, quietly = F)
+library(igraph, quietly = F)
+library(ggraph, quietly = F)
+## missing, profile
+library(caret, quietly = F)
+library(tidyverse, quietly = F)
+library(naniar, quietly = F)
+library(forcats, quietly = F)
+library(visdat, quietly = F)
+library(ComplexHeatmap, quietly = F)
+library(patchwork, quietly = F)
+library(ggridges, quietly = F)
 
 
 ## Personal ggplot theme 
@@ -61,9 +63,6 @@ theme_nicco = function (base_size = 11, base_family = "") {
 }
 ```
 
-
-( _metti flow in DRAKE_ )
-
 Data flows out the REST API end point `*/complete` in a .json format. Data can be filtered out On the basis of the options set in the API endpoint argument body. Some of the options supplied to the API, as in section \@ref(APIdocs), might regard the real estate `city` interested, `npages` as the number of pages to scrape, `type` as the choice between rental of selling market. Since to the analysis extent data should come from the same geographic area API, city and filter parameters are kept permanent (e.g. Milan rental real estate within "circonvallazione" approximated geo-borders). As a consequence a dedicated endpoint `.thesis` parameter is passed in the argument body. By setting the option equal to to TRUE  the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone. 
 Parameters specified are also npages = 120, leading to to 3000 observations. The `*` refers to the EC2 public DNS.
 
@@ -75,11 +74,85 @@ Visualisations are done with ggplot2 in a Tidyverse approach. Maps are done with
 A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present. 
 
 
-```{r data_loading}
+```{r drake_plan}
 
-dati = read_csv("data/data.csv", locale = readr::locale(encoding = "latin1")) %>%
-  dplyr::select(-X1) %>%  
-  janitor::clean_names()
+tasks = drake::drake_plan(
+  ## load data
+  dati = read_csv("data/data.csv", locale = readr::locale(encoding = "latin1")) %>%
+    dplyr::select(-X1) %>%  
+    janitor::clean_names(),
+  
+  ## prep data
+  datiprep = dati %>% 
+    select(-tpprop) %>% 
+    ## floor
+    mutate(floor = str_remove_all(floor, "°")) %>% 
+    separate(floor, c("floor", "ascensore","accdisabili"), sep = ", ", convert = T) %>%
+    replace_na(list(ascensore = "no", accdisabili = "no")) %>% 
+    mutate(ascensore = recode(ascensore,"con accesso disabili" = "no")) %>%  
+    mutate(floor = recode(floor, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
+    ## TOTPIANI
+    # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
+    ## LOCALI
+    mutate(locali = if_else(substr(locali,start = 1,stop = 1) == 1, "1", locali)) %>% 
+    separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>% 
+    separate(other, c("camereletto","altro","bagno", "cucina"), sep = ", ", convert = T, fill = "left")  %>% 
+    ## CAMERALETTO
+    mutate(camereletto = if_else(totlocali== 1, "(1 camera da letto", camereletto)) %>% 
+    mutate(camereletto = if_else(is.na(camereletto),altro , camereletto)) %>% 
+    mutate(camereletto = if_else(camereletto== "locali",NA_character_ , camereletto)) %>%  
+    mutate(camereletto = if_else(camereletto== "camere da letto", paste0(totlocali," camere da letto"), camereletto)) %>% 
+    mutate(camereletto = str_remove(camereletto, "\\(")) %>% 
+    ## altro
+    mutate(altro = if_else(bagno== "1 altro)","1 altro)" , altro)) %>% 
+    replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>% 
+    mutate(altro = str_remove(altro, "\\)")) %>% 
+    ## bagno
+    mutate(bagno = if_else(cucina== "1 bagno", "1 bagno", bagno)) %>% 
+    replace_with_na(replace = list(bagno = "1 altro)")) %>% 
+    mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
+    ## cucina (ne ho perse qualcuna)
+    replace_with_na(replace = list(cucina = "1 bagno")) %>% 
+    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) %>% ## non proviene più di sei locali 
+    ## aptchar
+    mutate(aptchar = str_remove_all(aptchar,"-"),
+           aptchar = str_trim(aptchar)) %>%
+    mutate(fibra_ottica = if_else(stri_detect_fixed(aptchar,"fibra ottica"), "yes", "no"),
+           videocitofono = if_else(stri_detect_fixed(aptchar,"videocitofono"), "yes", "no"),
+           impianto_di_allarme = if_else(stri_detect_fixed(aptchar,"impianto di allarme"), "yes", "no"),
+           reception = if_else(stri_detect_fixed(aptchar,"reception"), "yes", "no"),
+           porta_blindata = if_else(stri_detect_fixed(aptchar,"porta blindata"), "yes", "no"),
+           esposizione_esterna = if_else(stri_detect_fixed(aptchar,"esposizione esterna"), "yes", "no"),
+           cancello_elettrico = if_else(stri_detect_fixed(aptchar,"cancello elettrico"), "yes", "no"),
+           portiere_intera_giornata = if_else(stri_detect_fixed(aptchar,"portiere intera giornata"), "yes", "no"),
+           balcone = if_else(stri_detect_fixed(aptchar,"balcone"), "yes", "no"),
+           arredato = if_else(stri_detect_fixed(aptchar,"arredato"), "yes", "no"),
+           impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar,"impianto tv centralizzato"), "yes", "no"),
+           armadio_a_muro = if_else(stri_detect_fixed(aptchar,"armadio a muro"), "yes", "no"),
+           portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar,"portiere mezza giornata"), "yes", "no"),
+           caminetto = if_else(stri_detect_fixed(aptchar,"caminetto"), "yes", "no"),
+           esposizione_interna = if_else(stri_detect_fixed(aptchar,"esposizione interna"), "yes", "no"),
+           mansarda = if_else(stri_detect_fixed(aptchar,"mansarda"), "yes", "no"),
+           parzialmente_arredato = if_else(stri_detect_fixed(aptchar,"parzialmente arredato"), "yes", "no"),
+           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no"),
+           idromassaggio = if_else(stri_detect_fixed(aptchar,"idromassaggio"), "yes", "no"),
+           terrazza = if_else(stri_detect_fixed(aptchar,"terrazza"), "yes", "no"),
+           esposizione_doppia = if_else(stri_detect_fixed(aptchar,"esposizione doppia"), "yes", "no"),
+           giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
+           giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
+           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
+           )
+
+)
+
+## aggiungi tasks, anche quelle di text mining
+## suddividi di più il worflow
+## 
+
+make(tasks, parallelism = "future", jobs = round(0.5 * availableCores()), verbose = 2)
+dati = readd(dati)
+datiprep = readd(datiprep)
+
 ```
 
 ```{r covar_table, fig.cap="Covariate explanation table"}
@@ -139,68 +212,7 @@ tibble(
 
 ## Data preparation{#prep}
 
-```{r data_prep, message=FALSE}
-datiprep = dati %>% 
-  select(-tpprop) %>% 
-  ## floor
-  mutate(floor = str_remove_all(floor, "°")) %>% 
-  separate(floor, c("floor", "ascensore","accdisabili"), sep = ", ", convert = T) %>%
-  replace_na(list(ascensore = "no", accdisabili = "no")) %>% 
-  mutate(ascensore = recode(ascensore,"con accesso disabili" = "no")) %>%  
-  mutate(floor = recode(floor, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
-  ## TOTPIANI
-  # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
-  ## LOCALI
-  mutate(locali = if_else(substr(locali,start = 1,stop = 1) == 1, "1", locali)) %>% 
-  separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>% 
-  separate(other, c("camereletto","altro","bagno", "cucina"), sep = ", ", convert = T, fill = "left")  %>% 
-  ## CAMERALETTO
-  mutate(camereletto = if_else(totlocali== 1, "(1 camera da letto", camereletto)) %>% 
-  mutate(camereletto = if_else(is.na(camereletto),altro , camereletto)) %>% 
-  mutate(camereletto = if_else(camereletto== "locali",NA_character_ , camereletto)) %>%  
-  mutate(camereletto = if_else(camereletto== "camere da letto", paste0(totlocali," camere da letto"), camereletto)) %>% 
-  mutate(camereletto = str_remove(camereletto, "\\(")) %>% 
-  ## altro
-  mutate(altro = if_else(bagno== "1 altro)","1 altro)" , altro)) %>% 
-  replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>% 
-  mutate(altro = str_remove(altro, "\\)")) %>% 
-  ## bagno
-  mutate(bagno = if_else(cucina== "1 bagno", "1 bagno", bagno)) %>% 
-  replace_with_na(replace = list(bagno = "1 altro)")) %>% 
-  mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
-  ## cucina (ne ho perse qualcuna)
-  replace_with_na(replace = list(cucina = "1 bagno")) %>% 
-  mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) %>% ## non proviene più di sei locali 
-  ## aptchar
-  mutate(aptchar = str_remove_all(aptchar,"-"),
-         aptchar = str_trim(aptchar)) %>%
-  mutate(fibra_ottica = if_else(stri_detect_fixed(aptchar,"fibra ottica"), "yes", "no"),
-         videocitofono = if_else(stri_detect_fixed(aptchar,"videocitofono"), "yes", "no"),
-         impianto_di_allarme = if_else(stri_detect_fixed(aptchar,"impianto di allarme"), "yes", "no"),
-         reception = if_else(stri_detect_fixed(aptchar,"reception"), "yes", "no"),
-         porta_blindata = if_else(stri_detect_fixed(aptchar,"porta blindata"), "yes", "no"),
-         esposizione_esterna = if_else(stri_detect_fixed(aptchar,"esposizione esterna"), "yes", "no"),
-         cancello_elettrico = if_else(stri_detect_fixed(aptchar,"cancello elettrico"), "yes", "no"),
-         portiere_intera_giornata = if_else(stri_detect_fixed(aptchar,"portiere intera giornata"), "yes", "no"),
-         balcone = if_else(stri_detect_fixed(aptchar,"balcone"), "yes", "no"),
-         arredato = if_else(stri_detect_fixed(aptchar,"arredato"), "yes", "no"),
-         impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar,"impianto tv centralizzato"), "yes", "no"),
-         armadio_a_muro = if_else(stri_detect_fixed(aptchar,"armadio a muro"), "yes", "no"),
-         portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar,"portiere mezza giornata"), "yes", "no"),
-         caminetto = if_else(stri_detect_fixed(aptchar,"caminetto"), "yes", "no"),
-         esposizione_interna = if_else(stri_detect_fixed(aptchar,"esposizione interna"), "yes", "no"),
-         mansarda = if_else(stri_detect_fixed(aptchar,"mansarda"), "yes", "no"),
-         parzialmente_arredato = if_else(stri_detect_fixed(aptchar,"parzialmente arredato"), "yes", "no"),
-         taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no"),
-         idromassaggio = if_else(stri_detect_fixed(aptchar,"idromassaggio"), "yes", "no"),
-         terrazza = if_else(stri_detect_fixed(aptchar,"terrazza"), "yes", "no"),
-         esposizione_doppia = if_else(stri_detect_fixed(aptchar,"esposizione doppia"), "yes", "no"),
-         giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
-         giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
-         taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
-         )
-
-
+```{r data_prep, message=FALSE, eval=FALSE}
 
 
 # dummied_ftc = dummied %>%
@@ -286,7 +298,7 @@ theme_nicco()
 
 ggplot2 visualzitaion matt dancho inspiration::
 
-```{r}
+```{r map_visual, eval=FALSE, echo=FALSE}
 world_base <- world_tbl %>%
     ggplot() +
     geom_map(

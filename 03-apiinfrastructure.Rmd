@@ -1,13 +1,21 @@
-# REST API Infrastructure {#Infrastructure}
+# API Technologies Stack {#Infrastructure}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-In order to provide a fast and easy to use API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way the service has to interact with users. Interactions and subjects are many and so are obstabcles to tackle. Some of the main are:
-API Service has to be executed $n$ given times during the day at $x-y-z$ hours and should be storing data on a cloud database, so that the evolution of the phenomenon can be monitored in time.
-API service has to be fast otherwise data become obsolete and so happen to the analysis that has relied on the data.
-API service has to be deployed so that it can be shared over a wider range of different background stakeholders, without having them to know what it takes.  From one hand service has to be responsive to immobiliare.it unpredictable changes, thus it needs to be continuously integrated and reviewed. On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. Moreover service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. In addition API inbound traffic has to be managed both in terms traffic and security by granting access only to the ones authorized.
-Open source solutions for each of the requirements are available for back-end and front-end integration. Moreover documentations related to those technologies are able to offer flexible solutions to be embedded into the R ecosystem.
-Given the requirements recipe the idea is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \@ref(scraping). On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure).
+<!-- Scraping function in the way they are designed are not portable and can only be executed locally. One way to scale up code is to make it available as API. -->
+
+In order to provide a fast and secure API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
+
+- The API has to be executed $n$ given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.
+- The API has to be very fast otherwise data can not be consumed.
+- The API has to be deployed so that it can be shared over different stakeholders, without having them to know what it takes. 
+- The API maintainer needs to take action be to due to sudden unpredictable immobiliare.it  changes, thus it needs to be continuously maintained and updated.
+- On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. 
+-  service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
+- In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.
+
+The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
+Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \@ref(scraping). On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure).
 
 Technologies involved are:
 
@@ -27,13 +35,6 @@ As a side note each single part of this thesis has been made according to some o
 Files are then pushed to a [Github repository](https://github.com/NiccoloSalvini/thesis). By a simple trick with GH pages, .html files are dispalyed into a Github subdomain hosted at [link](https://niccolosalvini.github.io/thesis/).  The resulting  deployed gitbook can also produce a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template which formatting rules are contained in a further .yml file. The pdf version of the thesis can be obtained by clicking the download button, then choosing pdf output version in the upper banner. For further references on the topic @bookdown2
 
 Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasons the rest needs to be skipped.
-
-
-
-## Software development map 
-
-
-![(#fig:sfmap)Sofwtare development map, author's source](images/SoftwareDevWF.jpg)
 
 
 ## Scheduler{#scheduler}
@@ -79,15 +80,15 @@ To a certain extent what it has been already presented since now might fit for p
 ## REST API 
 
 ```{definition, api, name ="API"}
-API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
+API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
 ```
-This can simplify app development, saving time and impacting positively on the budget due to resource savings. APIs are thought of as contracts, with documentation that represents an general agreement between parties.
-There are many types of API that exploit different media and architectures to communicate with apps or services.
+APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 ```{definition, rest,name = "REST"}
-The specification REST stands for REpresentational State Transfer and is a set of architectural principles. 
+The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. 
 ```
-When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as more comfortable to be read and parsed.
-In order for an API to be considered RESTful, it has to conform to these criteria:
+When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as it is more comfortable to be read and parsed.
+In order for an API to be considered REST, it has to conform to these criteria:
 
 - A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
 - Stateless client-server communication, meaning no client information is stored between requests and each request is separate and unconnected.
@@ -151,7 +152,9 @@ Decorations are marked as this `#*` and they are followed by specific keywords d
 
 Many more options are available to customize plumber API but are beyond the scope, a valuable resource for further insights can be found in the dedicated package website [@an_api_generator_for_r]
 
-### Immobiliare.it _Parallel_ REST API  
+### Immobiliare.it _Parallel_ REST API
+
+(Sanitization, antidossing, logs tracking)
 
 The API service is composed by 4 endpoints */scrape* , */links*, */complete* and */get_data*:
 
@@ -206,15 +209,18 @@ The approach followed proposes a dedicated lightweight software environment that
 ## Docker{#docker}
 
 ```{definition,docker,name = "Docker"}
-_Docker_ is a software tool to create and deploy applications using containers.
-_Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Furthermore they are also portable, in the sense that they can be taken from one computing environment to the following. Docker containers by default run on kernel Linux OS.
+_Docker_ [@docker] is a software tool to create and deploy applications using containers.
+_Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 ```
-Containers can be thought as an abstraction at the app layers that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS. Each container can run its own isolated process in the user space, so that each task is complementary to the other. Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in \@ref(fig:(#fig:dockervsvm)).
+
+Containers can be thought as an abstraction that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS with their specific dependencies. Each container can run its own isolated process in the user space, so that each task/application is complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation. 
+
+<!-- Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in \@ref(fig:(#fig:dockervsvm)). -->
 
 
-![(#fig:dockervsvm)Docker containers versus Virtual Machines, _miss source_](images/dockerVSvirtualmachines.PNG)
+<!-- ![(#fig:dockervsvm)Docker containers versus Virtual Machines, ](images/dockerVSvirtualmachines.PNG) -->
 
-When containers are built _Docker container Images_ are created and can be open sourced through Docker Hub.
+When images are built _Docker container_ are created and can be open sourced through Docker Hub.
 _Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established  changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \@ref(aws).
 Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container. 
 Rstudio [package manager](https://packagemanager.rstudio.com/client/#/) includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation [@nolis_2020].
@@ -278,9 +284,9 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters. 
 
 
-## AWS EC2 server{#aws}
+## AWS EC2 instance{#aws}
 
-Executing REST API on a public server allows to make scraping data available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
+Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
 
 ```{definition,aws, name = "AWS EC2"}
@@ -314,6 +320,12 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 
 .conf file and installation on Linux server. Security and Authentication. 
+
+
+## Software development Workflow 
+
+
+![(#fig:sfmap)Sofwtare development workflow, author's source](images/SoftwareDevWF.jpg)
 
 ## Further Integrations
 From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (@plungr aligns with that) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
