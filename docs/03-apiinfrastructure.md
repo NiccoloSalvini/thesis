@@ -1,10 +1,9 @@
-# API Technologies Stack {#Infrastructure}
+# API Technology Stack {#Infrastructure}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-
 <!-- Scraping function in the way they are designed are not portable and can only be executed locally. One way to scale up code is to make it available as API. -->
 
-In order to provide a fast and secure API service to the end user many technologies have been involved. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
+In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
 
 - The API has to be executed $n$ given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.
 - The API has to be very fast otherwise data can not be consumed.
@@ -17,7 +16,7 @@ In order to provide a fast and secure API service to the end user many technolog
 The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
 Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \@ref(scraping). On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure).
 
-Technologies involved are:
+Technology stack:
 
 - GitHub version control
 - Scheduler cron job, section \@ref(scheduler)
@@ -39,7 +38,9 @@ Some of the main technologies implied will be viewed singularly, nonetheless for
 
 ## Scheduler{#scheduler}
 
-\BeginKnitrBlock{definition}\iffalse{-91-83-99-104-101-100-117-108-101-114-93-}\fi{}<div class="definition"><span class="definition" id="def:scheduler"><strong>(\#def:scheduler)  \iffalse (Scheduler) \fi{} </strong></span>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-83-99-104-101-100-117-108-101-114-93-}\fi{}
+<span class="definition" id="def:scheduler"><strong>(\#def:scheduler)  \iffalse (Scheduler) \fi{} </strong></span>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.
+\EndKnitrBlock{definition}
 
 As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
 
@@ -55,7 +56,9 @@ The ST scheduler selects the process and It gains control of the CPU by the disp
 for some other useful but beyond the scope references, such as the scheduling algorithm the reader can refer to [@wiki:scheduler].
 
 ### Cron Jobs
-\BeginKnitrBlock{definition}\iffalse{-91-67-114-111-110-106-111-98-93-}\fi{}<div class="definition"><span class="definition" id="def:cronjob"><strong>(\#def:cronjob)  \iffalse (Cronjob) \fi{} </strong></span>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-67-114-111-110-106-111-98-93-}\fi{}
+<span class="definition" id="def:cronjob"><strong>(\#def:cronjob)  \iffalse (Cronjob) \fi{} </strong></span>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
+\EndKnitrBlock{definition}
 The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
 Each line of a crontab file represents a job, and the composition follows the syntax in figure \@ref(fig:crontab)
 
@@ -75,10 +78,14 @@ To a certain extent what it has been already presented since now might fit for p
 
 ## REST API 
 
-\BeginKnitrBlock{definition}\iffalse{-91-65-80-73-93-}\fi{}<div class="definition"><span class="definition" id="def:api"><strong>(\#def:api)  \iffalse (API) \fi{} </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-65-80-73-93-}\fi{}
+<span class="definition" id="def:api"><strong>(\#def:api)  \iffalse (API) \fi{} </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
+\EndKnitrBlock{definition}
 APIs are thought of as contracts, with documentation that represents an general agreement between parties.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
-\BeginKnitrBlock{definition}\iffalse{-91-82-69-83-84-93-}\fi{}<div class="definition"><span class="definition" id="def:rest"><strong>(\#def:rest)  \iffalse (REST) \fi{} </strong></span>The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. </div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-82-69-83-84-93-}\fi{}
+<span class="definition" id="def:rest"><strong>(\#def:rest)  \iffalse (REST) \fi{} </strong></span>The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. 
+\EndKnitrBlock{definition}
 When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as it is more comfortable to be read and parsed.
 In order for an API to be considered REST, it has to conform to these criteria:
 
@@ -201,8 +208,10 @@ The approach followed proposes a dedicated lightweight software environment that
 
 ## Docker{#docker}
 
-\BeginKnitrBlock{definition}\iffalse{-91-68-111-99-107-101-114-93-}\fi{}<div class="definition"><span class="definition" id="def:docker"><strong>(\#def:docker)  \iffalse (Docker) \fi{} </strong></span>_Docker_ [@docker] is a software tool to create and deploy applications using containers.
-_Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-68-111-99-107-101-114-93-}\fi{}
+<span class="definition" id="def:docker"><strong>(\#def:docker)  \iffalse (Docker) \fi{} </strong></span>_Docker_ [@docker] is a software tool to create and deploy applications using containers.
+_Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
+\EndKnitrBlock{definition}
 
 Containers can be thought as an abstraction that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS with their specific dependencies. Each container can run its own isolated process in the user space, so that each task/application is complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation. 
 
@@ -280,8 +289,10 @@ In order to make the system stand-alone and make the service available to a wide
 Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
 
-\BeginKnitrBlock{definition}\iffalse{-91-65-87-83-32-69-67-50-93-}\fi{}<div class="definition"><span class="definition" id="def:aws"><strong>(\#def:aws)  \iffalse (AWS EC2) \fi{} </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
-</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-65-87-83-32-69-67-50-93-}\fi{}
+<span class="definition" id="def:aws"><strong>(\#def:aws)  \iffalse (AWS EC2) \fi{} </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
+
+\EndKnitrBlock{definition}
 [few words still on EC2]
 
 ### Launch an EC2 instance

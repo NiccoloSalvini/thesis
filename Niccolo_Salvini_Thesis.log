@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.12.12)  12 DEC 2020 13:23
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.12.12)  13 DEC 2020 08:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1215,60 +1215,59 @@ Chapter 1.
 Chapter 2.
 [9
 
-] [10] [11] [12] [13]
+] [10] [11] [12]
 File: images/netstruc_vs_hierstruc.jpg Graphic file (type bmp)
 <images/netstruc_vs_hierstruc.jpg>
-[14]
+[13] [14]
 File: images/html_general_representation.jpg Graphic file (type bmp)
 <images/html_general_representation.jpg>
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 316.
+(Font)              scaled to size 5.0pt on input line 314.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 316.
+(Font)              scaled to size 5.00046pt on input line 314.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 316.
+(Font)              scaled to size 4.99947pt on input line 314.
 [15] [16]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 323.
-[17] [18]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 321.
+[17]
 File: images/website_tree1.jpg Graphic file (type bmp)
 <images/website_tree1.jpg>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 361.
-[19]
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 359.
+[18]
 File: images/workflow.png Graphic file (type bmp)
 <images/workflow.png>
 File: images/content_structure.jpg Graphic file (type bmp)
 <images/content_structure.jpg>
-[20] [21]
+[19] [20] [21]
 File: images/pseudocode_latex/pseudocode_price.jpg Graphic file (type bmp)
 <images/pseudocode_latex/pseudocode_price.jpg>
-[22] [23] [24] [25]
-Underfull \hbox (badness 1383) in paragraph at lines 460--460
+[22] [23] [24]
+Underfull \hbox (badness 1383) in paragraph at lines 458--458
 []\TU/lmr/bx/n/17.28 Web Client Security provisions: User
  []
 
-[26]
+[25]
 File: images/how_web_works.png Graphic file (type bmp)
 <images/how_web_works.png>
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 482--483
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 480--481
 []\TU/lmtt/m/n/12 Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML
 ,
  []
 
-[28]
-Overfull \hbox (874.68134pt too wide) in paragraph at lines 512--512
-[]\TU/lmtt/m/n/12 ## [1] "Mozilla/5.0 (Linux; Android 10; M2007J20CG Build/QKQ1
-.200512.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0
-.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/298.0.0.46.116;]"[] 
+[27]
+Overfull \hbox (120.76935pt too wide) in paragraph at lines 510--510
+[]\TU/lmtt/m/n/12 ## [1] "AppleCoreMedia/1.0.0.16F203 (iPhone; U; CPU OS 12_3_1
+ like Mac OS X; nl_be)"[] 
  []
 
-[29]
+[28] [29]
 File: images/pseudocode_latex/pseudocode_possibly.jpg Graphic file (type bmp)
 <images/pseudocode_latex/pseudocode_possibly.jpg>
 [30]
-Underfull \hbox (badness 10000) in paragraph at lines 552--552
+Underfull \hbox (badness 10000) in paragraph at lines 550--550
 [][][][]$[][][][][] [] [] [] [][][][][][] [] [][][] [] [][][][][][][][][][][][]
 [][] [] [][][] [][] [][][][][][][][][][] [][] [][][][][][][] [][] [][][][][][][
 ][][][][][] [][] [][][] [][]
@@ -1276,179 +1275,179 @@ Underfull \hbox (badness 10000) in paragraph at lines 552--552
 
 File: images/parallel_problem.jpg Graphic file (type bmp)
 <images/parallel_problem.jpg>
-[31]
-Underfull \hbox (badness 10000) in paragraph at lines 576--576
+
+Underfull \hbox (badness 10000) in paragraph at lines 574--574
 [][][][]$[][][][][] [] [] [] [][][][][] [] [][][][][][] [] [][] [] [][][] [][] 
 [][][][][][][] [] [][][][][][][][] [][] [][][][][][][][][] [][] [][] [][] [] []
  [][][][][][][][] [][] [][][][][][][][][] [][] [][] [][]
  []
 
-[32] [33]
+[31] [32] [33]
 File: images/divideconquer.png Graphic file (type bmp)
 <images/divideconquer.png>
-[34] [35]
+[34]
 File: images/simulations/final_furrr_future.png Graphic file (type bmp)
 <images/simulations/final_furrr_future.png>
 File: images/parallel_computing.jpg Graphic file (type bmp)
 <images/parallel_computing.jpg>
-[36] [37]
+[35] [36]
 File: images/simulations/final_foreach_dofuture_1&2.png Graphic file (type bmp)
 
 <images/simulations/final_foreach_dofuture_1&2.png>
-[38] [39] [40] [41]
+[37] [38] [39] [40]
 Chapter 3.
-[42
+[41
 
 ]
 File: images/tot_infra.jpg Graphic file (type bmp)
 <images/tot_infra.jpg>
-[43] [44] [45]
+[42] [43] [44]
 File: images/crontab.PNG Graphic file (type bmp)
 <images/crontab.PNG>
-[46] [47]
-Underfull \hbox (badness 10000) in paragraph at lines 824--824
+[45] [46]
+Underfull \hbox (badness 10000) in paragraph at lines 822--822
 [][][][]$[][][][][] [] [] [] [][][][] [] [][][] [] [][][][][][] [] [][][] [] []
 [] [] [][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][][][][][][
 ][] [] [][][][] [][] [][][] [][] [][] [][]
  []
 
-[48]
+[47]
 File: images/Rest-API.png Graphic file (type bmp)
 <images/Rest-API.png>
-[49] [50]
+[48] [49]
 
-Package natbib Warning: Citation `an_api_generator_for_r' on page 51 undefined 
-on input line 881.
+Package natbib Warning: Citation `an_api_generator_for_r' on page 50 undefined 
+on input line 879.
 
-[51]
+[50]
 File: images/swagger.PNG Graphic file (type bmp)
 <images/swagger.PNG>
-[52]
-Overfull \hbox (374.16121pt too wide) in paragraph at lines 923--923
+[51]
+Overfull \hbox (374.16121pt too wide) in paragraph at lines 921--921
 []      \TU/lmtt/m/n/12 @param city [chr string] the city you are interested in
  (e.g. "roma", "milano", "firenze"--> lowercase, without accent)[] 
  []
 
 
-Overfull \hbox (213.4812pt too wide) in paragraph at lines 923--923
+Overfull \hbox (213.4812pt too wide) in paragraph at lines 921--921
 []      \TU/lmtt/m/n/12 @param npages [positive integer] number of pages to scr
 ape, default = 10, min  = 2, max = 300[] 
  []
 
 
-Overfull \hbox (15.72125pt too wide) in paragraph at lines 923--923
+Overfull \hbox (15.72125pt too wide) in paragraph at lines 921--921
 []      \TU/lmtt/m/n/12 @param type [chr string] "affitto" = rents, "vendita"  
 = sell[] 
  []
 
 
-Overfull \hbox (343.26122pt too wide) in paragraph at lines 923--923
+Overfull \hbox (343.26122pt too wide) in paragraph at lines 921--921
 []      \TU/lmtt/m/n/12 @param macrozone [chr string] avail: Roma, Firenze, Mil
 ano, Torino; e.g. "fiera", "centro", "bellariva", "parioli"[] 
  []
 
 
-Overfull \hbox (225.84128pt too wide) in paragraph at lines 938--938
+Overfull \hbox (225.84128pt too wide) in paragraph at lines 936--936
 []      \TU/lmtt/m/n/12 @param city [chr string] the city you are interested to
  extract data (lowercase without accent)[] 
  []
 
 
-Overfull \hbox (207.30121pt too wide) in paragraph at lines 938--938
+Overfull \hbox (207.30121pt too wide) in paragraph at lines 936--936
 []      \TU/lmtt/m/n/12 @param npages [positive integer] number of pages to scr
 ape default = 10, min  = 2, max = 300[] 
  []
 
 
-Overfull \hbox (15.72125pt too wide) in paragraph at lines 938--938
+Overfull \hbox (15.72125pt too wide) in paragraph at lines 936--936
 []      \TU/lmtt/m/n/12 @param type [chr string] "affitto" = rents, "vendita"  
 = sell[] 
  []
 
 
-Overfull \hbox (225.84128pt too wide) in paragraph at lines 953--953
+Overfull \hbox (225.84128pt too wide) in paragraph at lines 951--951
 []      \TU/lmtt/m/n/12 @param city [chr string] the city you are interested to
  extract data (lowercase without accent)[] 
  []
 
 
-Overfull \hbox (207.30121pt too wide) in paragraph at lines 953--953
+Overfull \hbox (207.30121pt too wide) in paragraph at lines 951--951
 []      \TU/lmtt/m/n/12 @param npages [positive integer] number of pages to scr
 ape default = 10, min  = 2, max = 300[] 
  []
 
 
-Overfull \hbox (15.72125pt too wide) in paragraph at lines 953--953
+Overfull \hbox (15.72125pt too wide) in paragraph at lines 951--951
 []      \TU/lmtt/m/n/12 @param type [chr string] "affitto" = rents, "vendita"  
 = sell[] 
  []
 
-[53] [54]
+[52] [53]
 File: images/Inkedindeed_jobs_LI.jpg Graphic file (type bmp)
 <images/Inkedindeed_jobs_LI.jpg>
-[55] [56] [57]
+[54] [55] [56]
 File: images/dockerfile.PNG Graphic file (type bmp)
 <images/dockerfile.PNG>
 
-Underfull \hbox (badness 10000) in paragraph at lines 1027--1029
+Underfull \hbox (badness 10000) in paragraph at lines 1025--1027
 []\TU/lmtt/m/n/12 MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com" \TU/
 lmr/m/n/12 :
  []
 
-[58]
-Underfull \hbox (badness 10000) in paragraph at lines 1029--1031
+[57]
+Underfull \hbox (badness 10000) in paragraph at lines 1027--1029
 []\TU/lmtt/m/n/12 RUN apt-get update && apt-get install -y \ libxml2-dev \
  []
 
 
-Overfull \hbox (76.62134pt too wide) in paragraph at lines 1031--1033
+Overfull \hbox (76.62134pt too wide) in paragraph at lines 1029--1031
 []\TU/lmtt/m/n/12 RUN R -e "install.packages(c([]plumber[],[]tibble[],[]...[],d
 ependencies=TRUE)
  []
 
 
-Overfull \hbox (58.08139pt too wide) in paragraph at lines 1033--1038
+Overfull \hbox (58.08139pt too wide) in paragraph at lines 1031--1036
 []\TU/lmtt/m/n/12 RUN R -e "install.packages([]https://cran.r-project.org/.../i
 terators,
  []
 
 
-Overfull \hbox (141.02936pt too wide) in paragraph at lines 1033--1038
+Overfull \hbox (141.02936pt too wide) in paragraph at lines 1031--1036
 \TU/lmtt/m/n/12 type=[]source[]) RUN R -e "install.packages([]https://cran.r-pr
 oject.org/.../foreach/,
  []
 
 
-Overfull \hbox (153.38936pt too wide) in paragraph at lines 1033--1038
+Overfull \hbox (153.38936pt too wide) in paragraph at lines 1031--1036
 \TU/lmtt/m/n/12 type=[]source[]) RUN R -e "install.packages([]https://cran.r-pr
 oject.org/.../doParallel,
  []
 
-[59] [60]
+[58] [59]
 File: images/aws.PNG Graphic file (type bmp)
 <images/aws.PNG>
-[61]
+[60]
 File: images/SoftwareDevWF.jpg Graphic file (type bmp)
 <images/SoftwareDevWF.jpg>
 
-Package natbib Warning: Citation `loadtest' on page 62 undefined on input line 
-1101.
+Package natbib Warning: Citation `loadtest' on page 61 undefined on input line 
+1099.
 
-[62] [63]
-Underfull \hbox (badness 10000) in paragraph at lines 1105--1105
+[61] [62]
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1103
 [][][][]$[][][][][] [] [] [] [][][][][][][] [] [][][] [] [][][][][][][][][] [] 
 [][][][][][][][][][][] [][] [][][][] [] [][][][][][][][][] [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1105--1105
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1103
 [][][] [][] [][] [][] [][][] [][] [][][][] [][] [][][][][][][] [][] [][][][] []
 [] [][][][][] [][] [][][][][][][] [][] [][][] [][] [][][][] [] [][][][] [] [][]
 [] []
  []
 
 
-Overfull \hbox (927.64137pt too wide) in paragraph at lines 1105--1105
+Overfull \hbox (927.64137pt too wide) in paragraph at lines 1103--1103
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
@@ -1457,251 +1456,251 @@ Overfull \hbox (927.64137pt too wide) in paragraph at lines 1105--1105
 ][][][][][][][][][][][][][][][][][][]$[]| 
  []
 
-[64]
+[63]
 Chapter 4.
-[65
+[64
 
-] [66]
+] [65]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1144.
+(Font)              scaled to size 12.0pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1144.
+(Font)              scaled to size 8.4pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1144.
+(Font)              scaled to size 6.0pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1144.
+(Font)              scaled to size 12.0011pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1144.
+(Font)              scaled to size 8.40076pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1144.
+(Font)              scaled to size 6.00055pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1144.
+(Font)              scaled to size 11.99872pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1144.
+(Font)              scaled to size 8.3991pt on input line 1142.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1144.
-[67] [68]
-Overfull \hbox (2.8808pt too wide) detected at line 1185
+(Font)              scaled to size 5.99936pt on input line 1142.
+[66] [67]
+Overfull \hbox (2.8808pt too wide) detected at line 1183
 [][]
  []
 
-[69]
+[68]
 Missing character: There is no 𝜓 in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no ∀ in font [lmroman12-regular]:mapping=tex-text;!
 Missing character: There is no ∈ in font [lmroman12-regular]:mapping=tex-text;!
-[70]
+[69]
 File: images/CCDapplied.PNG Graphic file (type bmp)
 <images/CCDapplied.PNG>
-[71] [72] [73]
+[70] [71] [72]
 File: images/summarytable.PNG Graphic file (type bmp)
 <images/summarytable.PNG>
 File: images/cotour_toy.png Graphic file (type bmp)
 <images/cotour_toy.png>
-[74] [75]
-Overfull \hbox (111.13344pt too wide) in paragraph at lines 1327--1336
+[73] [74]
+Overfull \hbox (111.13344pt too wide) in paragraph at lines 1325--1334
 [][] 
  []
 
 File: images/marginal_distr.png Graphic file (type bmp)
 <images/marginal_distr.png>
-[76] [77]
+[75] [76]
 Chapter 5.
-[78
+[77
 
 ]
 File: images/map.png Graphic file (type bmp)
 <images/map.png>
-[79]
-Overfull \hbox (13.92044pt too wide) in paragraph at lines 1403--1407
+[78]
+Overfull \hbox (13.92044pt too wide) in paragraph at lines 1401--1405
 \TU/lmr/m/n/12 For simplicity lets consider $[]$ point of interest observations
  $[] [] [] [] [] [] [] [] [] []$
  []
 
-[80]
+[79]
 File: images/prdprocess.png Graphic file (type bmp)
 <images/prdprocess.png>
-[81] [82]
+[80] [81]
 File: images/variogram.png Graphic file (type bmp)
 <images/variogram.png>
-[83]
+[82]
 File: images/isotropyVSanisotropy.png Graphic file (type bmp)
 <images/isotropyVSanisotropy.png>
-[84] [85]
+[83] [84]
 File: images/matern.png Graphic file (type bmp)
 <images/matern.png>
-[86] [87] [88] [89] [90]
-Underfull \hbox (badness 6236) in paragraph at lines 1583--1584
+[85] [86] [87] [88] [89]
+Underfull \hbox (badness 6236) in paragraph at lines 1581--1582
 []\TU/lmr/m/n/12 then by the following relationship $[] [] []
  []
 
-[91] [92]
+[90] [91]
 File: images/simple.PNG Graphic file (type bmp)
 <images/simple.PNG>
-[93]
+[92]
 File: images/thetas.PNG Graphic file (type bmp)
 <images/thetas.PNG>
 File: images/chis.PNG Graphic file (type bmp)
 <images/chis.PNG>
-[94] [95] [96]
+[93] [94] [95]
 File: images/spatial_prediction.jpg Graphic file (type bmp)
 <images/spatial_prediction.jpg>
 
-Underfull \hbox (badness 4505) in paragraph at lines 1680--1680
+Underfull \hbox (badness 4505) in paragraph at lines 1678--1678
 []\TU/lmr/m/n/12 Figure 5.7: []Spatial prediction representation through DAG, s
 ource
  []
 
-[97]
-Underfull \hbox (badness 1314) in paragraph at lines 1701--1702
+[96]
+Underfull \hbox (badness 1314) in paragraph at lines 1699--1700
 \TU/lmtt/m/n/12 inla(control.compute = list()) \TU/lmr/m/n/12 list object by se
 tting them equal o
  []
 
-[98] [99]
+[97] [98]
 Chapter 6.
-[100
+[99
 
-] [101]
+] [100]
 File: images/lattice.png Graphic file (type bmp)
 <images/lattice.png>
-[102] [103]
+[101] [102]
 Chapter 7.
-[104
+[103
 
-] [105]
-Overfull \hbox (289.42946pt too wide) in alignment at lines 1772--1798
+] [104]
+Overfull \hbox (289.42946pt too wide) in alignment at lines 1770--1796
  [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1798
+Underfull \vbox (badness 10000) detected at line 1796
  []
 
 
-Overfull \hbox (289.42946pt too wide) in alignment at lines 1798--1816
+Overfull \hbox (289.42946pt too wide) in alignment at lines 1796--1814
  [] [] 
  []
 
-[106] [107]
+[105] [106]
 File: images/leaflet_prezzi.jpg Graphic file (type bmp)
 <images/leaflet_prezzi.jpg>
-[108]
+[107]
 File: 07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf Graphic file 
 (type pdf)
 <use 07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf>
 File: 07-exploratory_files/figure-latex/fctCounts-1.pdf Graphic file (type pdf)
 
 <use 07-exploratory_files/figure-latex/fctCounts-1.pdf>
-[109] [110]
+[108] [109]
 File: 07-exploratory_files/figure-latex/PricePerAc-1.pdf Graphic file (type pdf
 )
 <use 07-exploratory_files/figure-latex/PricePerAc-1.pdf>
-[111]
+[110]
 File: 07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (typ
 e pdf)
 <use 07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf>
-[112]
+[111]
 File: 07-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
 )
 <use 07-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
-[113]
-Overfull \hbox (103.18945pt too wide) in paragraph at lines 1900--1913
+[112]
+Overfull \hbox (103.18945pt too wide) in paragraph at lines 1898--1911
 [][] 
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1914--1916
+Underfull \hbox (badness 1221) in paragraph at lines 1912--1914
 \TU/lmr/m/n/12 The model fitted is \TU/lmtt/m/n/12 log2(price) ~ log2(abs_price
 ) + bagno + floor
  []
 
-[114]
+[113]
 File: 07-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
  pdf)
 <use 07-exploratory_files/figure-latex/TieFighterPlot-1.pdf>
 
-LaTeX Warning: Reference `(' on page 115 undefined on input line 1929.
+LaTeX Warning: Reference `(' on page 114 undefined on input line 1927.
 
-[115] [116]
+[114] [115]
 
-LaTeX Warning: Reference `(' on page 117 undefined on input line 1950.
+LaTeX Warning: Reference `(' on page 116 undefined on input line 1948.
 
 
-Overfull \hbox (35.63744pt too wide) in paragraph at lines 1950--1953
+Overfull \hbox (35.63744pt too wide) in paragraph at lines 1948--1951
 []\TU/lmr/m/n/12 Furthermore it is possible to grossly divide the plot in figur
 e []fig:WordNetworkgraph)
  []
 
-[117]
+[116]
 File: 07-exploratory_files/figure-latex/WordNetworkgraph-1.pdf Graphic file (ty
 pe pdf)
 <use 07-exploratory_files/figure-latex/WordNetworkgraph-1.pdf>
+[117]
+
+LaTeX Warning: Reference `ContentArchitecture' on page 118 undefined on input l
+ine 1967.
+
 [118]
-
-LaTeX Warning: Reference `ContentArchitecture' on page 119 undefined on input l
-ine 1969.
-
-[119]
 File: 07-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
 <use 07-exploratory_files/figure-latex/Heatmap-1.pdf>
-[120]
+[119]
 File: 07-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
 df)
 <use 07-exploratory_files/figure-latex/cooccurrence-1.pdf>
-[121] [122]
-Underfull \hbox (badness 1147) in paragraph at lines 2031--2033
+[120] [121]
+Underfull \hbox (badness 1147) in paragraph at lines 2029--2031
 []\TU/lmr/m/n/12 A further method for imputation has been designed by \TU/lmr/m
 /it/12 Gómez-Rubio,
  []
 
-[123]
+[122]
 File: images/triangle.jpg Graphic file (type bmp)
 <images/triangle.jpg>
-[124] [125]
+[123] [124]
 Chapter 8.
 
-Overfull \hbox (985.9812pt too wide) in paragraph at lines 2111--2111
+Overfull \hbox (985.9812pt too wide) in paragraph at lines 2109--2109
 []  \TU/lmtt/m/n/12 IDEA: proporre due modelli uno più interepretabile con dist
 ribuzione normale, e un ò'altro con sempre exponential family ma con Gamma dist
 ribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicaz
 ione.[] 
  []
 
-[126
+[125
 
 ]
 Chapter 9.
-[127
+[126
 
 ]
 File: appendix_images/gp_base_1.jpg Graphic file (type bmp)
 <appendix_images/gp_base_1.jpg>
-[128
+[127
 
-] [129] [130]
+] [128] [129]
 File: appendix_images/inverse_lemma.jpg Graphic file (type bmp)
 <appendix_images/inverse_lemma.jpg>
-[131] [132] (./Niccolo_Salvini_Thesis.bbl [133] [134
+[130] [131] (./Niccolo_Salvini_Thesis.bbl [132] [133
 
-] [135] [136] [137] [138] [139])
+] [134] [135] [136] [137] [138])
 
 Package natbib Warning: There were undefined citations.
 
-[140] (./Niccolo_Salvini_Thesis.aux)
+[139] (./Niccolo_Salvini_Thesis.aux)
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: 18CF3721C7AF8A3C557892F985D3069E;13599.
+(rerunfilecheck)             Checksum: E0C6EC0FF8A3D9B2E8A38A868104116F;13713.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  21420 strings out of 479291
- 373125 string characters out of 5875379
- 859038 words of memory out of 5000000
+ 373148 string characters out of 5875379
+ 859172 words of memory out of 5000000
  40476 multiletter control sequences out of 15000+600000
  414450 words of font info for 123 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  94i,18n,118p,3530b,584s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (142 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (141 pages).

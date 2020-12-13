@@ -2,7 +2,7 @@
 title: "REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA"
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Last compiled on 12 dicembre, 2020"
+date: "Last compiled on 13 dicembre, 2020"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

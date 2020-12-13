@@ -160,7 +160,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
-<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#web-scraping"><i class="fa fa-check"></i><b>2.1</b> Web Scraping</a></li>
+<li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#gentle-introduction-on-web-scraping"><i class="fa fa-check"></i><b>2.1</b> Gentle Introduction on Web Scraping</a></li>
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#graph-representation-of-html"><i class="fa fa-check"></i><b>2.2</b> Graph Representation of HTML</a></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#crawling"><i class="fa fa-check"></i><b>2.3</b> Crawling</a></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#proper-scraping"><i class="fa fa-check"></i><b>2.4</b> Proper Scraping</a><ul>
@@ -180,7 +180,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.9</b> Open Challenges and Further Improvemements</a></li>
 <li class="chapter" data-level="2.10" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.10</b> Legal Profiles</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technologies Stack</a><ul>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
 </ul></li>
@@ -306,8 +306,8 @@ questa immagine sotto è troppo grande, occupa tutta una pagina del PDF
 <img src="images/map.png" alt="" />
 <p class="caption">point referenced data example, Milan Rental Real Estate, Author’s Source</p>
 </div>
-<p>REST API seen in chapter <a href="Infrastructure.html#Infrastructure">3</a> extracts point referenced data, so modeling methodologies described in this analysis will exclusively take into account point referenced oriented techniques.
-In order to extend the notion from discrete measurements (i.e. point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained according to convenient properties. GP are then evaluated with a specific covariance function, i.e. Matèrn. The reason why Matérn is selected as candidate for covariance function will be much more clear in the next chapter <a href="spde.html#spde">6</a>.
+<p>REST API designed in chapter <a href="Infrastructure.html#Infrastructure">3</a> extracts point referenced data, so modeling methodologies described in this analysis will exclusively take into account point referenced techniques.
+In order to extend the notion from discrete measurements (i.e. point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained to Stationarity and Isotropy. GP are then evaluated with a specific covariance function, i.e. Matèrn. The reason why Matérn is selected as candidate for covariance function will be much more clear in the next chapter <a href="spde.html#spde">6</a>.
 Hedonic Price Models are at first introduced and then a brief literature review is offered. Hedonic Prices brings to this work the theoretical basis but they do not suggest estimation methods, which are essentially the major issue in geostatistics. For this reason Hedonic Models are exploited into a spatial bayesian regression framework with the aim to apply INLA (seen in chpater <a href="inla.html#inla">4</a>) methodology.
 At first standard Bayesian regression is presented as introduction, then the spatial component in the form of a GP is added to the model. Many parameters are considered so far, as a consequence a hierarchy structure is imposed. To this extent an entire section is dedicated to hierarchy which simplifies model building and methodology understanding as well as allowing to bring in many different parameters that come from different levels through the exchangeability property.
 As a matter of fact parameters originate from the Gaussian latent field, but also from Matérn covariance function tuning hyper parameters.
