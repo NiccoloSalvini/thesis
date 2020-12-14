@@ -3,12 +3,12 @@ Thesis
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
 
-<img src="images/logo.png" align="right" height="80" />
+<img src="images/logo/logo.png" align="right" height="80" />
 
 # REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA
 
 *author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 08 dicembre, 2020
+*date*: 14 dicembre, 2020
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
 <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">
@@ -20,7 +20,7 @@ badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.
 
 <div class="figure">
 
-<img src="images/spatial.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
+<img src="images/logo/spatial_logo.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
 
 <p class="caption">
 

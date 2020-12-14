@@ -168,7 +168,7 @@
 
 \title{REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Last compiled on 13 dicembre, 2020}
+\date{Lastest build: 14 dicembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -243,21 +243,80 @@ As a general discussion technologies implied can be thought as the distance betw
 \hypertarget{scraping}{%
 \chapter{Web Scraping}\label{scraping}}
 
-The following chapter covers advanced topics on web scraping and related hard challenges with a focus on the immobiliare.it case. A new scraping workflow concept is proposed that integrates the crawling part inside the proper scraping and removes frictions related to inner complexities. The workflow offers a faster solution with respect to traditional library oriented scraping methods. The solution proposed takes advantage of the url clean structure and proposes an ``inverse crawling'' methodology. At first url sematic is reverse engineered so that the sitemap is explicit and url can be freely composed. Secondly links are crawled and collected in a list according to the url composed. By doing that each link can be directly targeted by scraping functions, with that said the focus can shift to the proper scraping part. An example of scraping function with \texttt{rvest} \citet{rvest} is presented outlining the strategy adopted to search for the content within immobiliare.it HTML/CSS. The skeleton of the function is then reproduced for all the other functions that shares the same CSS query location.
-Scraping common best practices are applied from the web server point of view, this is taken care by kindly asking for permission and sending delayed requests rate. As well as from the the web client point of view by securing continuous scraping caused by server blocks through User Agent pool rotation and fail dealers. Parallel execution in this context is strinctly required since data becomes obsolete very fast, and so happens to the analysis that relied on those data. A run time Parallel scraping benchmark is presented for two different back end options \texttt{future} \citet{future} and \texttt{doParallel} \citet{doParallel}, together with two parallel looping constructors, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two have displayed similar results, nevertheless the former offers has a more \{Tidiverse\} orientation and a better debugging experience. Furthermore an overview of the still open challenges and improvements is given with the hope that the effort put into this project might be extended or integrated with newer technologies and paradigms. In the end legal profiles are addressed comparing results and implications with a market counterpart study.
+The following chapter covers advanced techniques for web scraping in R and related main challenges with a focus on the immobiliare.it case. A quicker and less sophisticated \emph{scraping workflow} is proposed that integrates url reverse engineering inside the proper scraping part, this removes frictions related to inner scraping complexities.
+That means instead of crawling the entire website and then searching for keywords, it retrieves a cluster of urls in the sitemaps given some parameter arguments and then applies custom made proper scraping on this closed set. By doing that the scraper takes advantage of the url clean structure and adopts an ``inverse url composition'' methodology. At first url sematic is reverse engineered so that the sitemap is made explicit and urls can be freely manipulated at will. Secondly links that are children of the manipualted urlss are gathered and collected into a list. Up to this point each single link belonging to the list can be directly targeted by a number of scraping functions, with that said the focus can shift to the proper scraping part. An example of scraping function with \texttt{rvest} \citet{rvest} is presented outlining the algorithm adopted to search for the content within immobiliare.it HTML/CSS. The skeleton of the algorithm is then reproduced for all the other functions that shares the same CSS query location. For all the functions that necessitate other CSS query as input nodes the search strategy is exclusively built on top of them.
+Scraping common shared best practices are applied from the \emph{web server} point of view, this is taken care by kindly asking for permission and sending delayed requests rate. As well as from the the \emph{web client} point of view by preventing scraping discontinuity caused by server blocks through \emph{User Agent} pool \emph{rotation} and \emph{fail dealers}.
+\emph{Parallel} execution is carried out since data becomes obsolete very fast, and so happens to the analysis that relied on those data. A run time Parallel scraping benchmark is presented for two different back end options \texttt{future} \citet{future} and \texttt{doParallel} \citet{doParallel}, along with their respective two parallel looping constructors, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two combination have showed similar results, nevertheless the former offers has a more \{Tidiverse\} orientation and a more comfortable debugging experience. Furthermore an overview of the still open challenges and improvements is given with the hope that the effort put into this project might be extended or integrated. In the end legal profiles are addressed comparing results and popular legal case studies.
 
-\hypertarget{gentle-introduction-on-web-scraping}{%
-\section{Gentle Introduction on Web Scraping}\label{gentle-introduction-on-web-scraping}}
+\hypertarget{a-gentle-introduction-on-web-scraping}{%
+\section{A Gentle Introduction on Web Scraping}\label{a-gentle-introduction-on-web-scraping}}
 
 \begin{definition}[Scraping]
-\protect\hypertarget{def:scraping}{}{\label{def:scraping} \iffalse (Scraping) \fi{} }Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it in a structured way. It can be applied simultaneously or automatically by a scheduler that plans the execution at a given time.
+\protect\hypertarget{def:scraping}{}{\label{def:scraping} \iffalse (Scraping) \fi{} }Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it in a structured way.
+Automated data collection, web extraction, web crawling, or web data mining are often used as synonyms to web scraping.
 \end{definition}
-Web scraping is a form of data mining. The basic and most important goal of the web scraping process is to mine information from different and unstructured websites and transform it into a comprehensible structure like spreadsheets or JSON format. Web scraping can be performed with different degrees of precision in several ways via several tools. Popular options are APIs, proprietary softwares, browser integrations and open source libraries. Challenges in scraping mainly regards \emph{security}, \emph{exception handling} and \emph{run-time}, therefore those will be the points touched during the dissertation.
-Scraping for convenience can be mainly decomposed into 2 separable and collectively exhaustive tasks: \emph{crawling} and \emph{Proper Scraping} which they ultimately outline a forced chronological order. The forced aspects regards essentially the way websites are made and the language used for content creation and organization. HTML stands for Hyper Text Markup Language and is the standard \emph{markup} language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, such as JavaScript \citep{html_2020}.
-CSS is a style sheet language used for modifying the appearance of a document written in a \emph{markup} language\citep{css_2020}.
-Generally speaking website try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the programming languages chosen which defines the capability to shapen the websiteand the specific requirements that the website should met. For all the reason said, for each product to sell, whether it is physical product, or a service there exists a multitude of website designs. For each designs there exists many fron -end languages which are ultimately designated to satisfy multiple end users. A projection in a very near future may depict a scenario where websites will be displaying custom made appereances based on previously registered personal preferences (cookies).
 
-Generally speaking website structures try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the programming languages chosen and the specific requirements that the website should met. For all the reason said, for each product to sell, whether it is physical product, or a service there exists a multitude of website structure. For each website structure there exists multiple content architecture. For each content architecture there exists many front end languages which are ultimately designated to satisfy multiple end users. In the future chances are that websites might display tailor made customization of contents and design based on specific personal preferences. As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information.
+The World Wide Web (WWW or just the web") data accessible today is calculated in zettabytes (Cisco Systems, 2017 \emph{miss lit}) (1 zettabyte = \(10^{21}\) bytes). This huge volume of data provides a wealth of resources for researchers and practitioners to obtain new insights in real time regarding individuals, organizations, or even macro-level socio-technical phenomena \href{https://www.researchgate.net/publication/328513839_Tutorial_Web_Scraping_in_the_R_Language}{miss lit}. Unsurprisingly, researchers of Information Systems are increasingly turning to the internet for data that can address their research questions.
+Taking advantage of the immense web data also requires a programmatic approach \href{https://www.researchgate.net/publication/328513839_Tutorial_Web_Scraping_in_the_R_Language}{miss lit} and a strong foundation in different web technologies.
+Besides the large amount of web access and data to be analyzed, there are three rather common problems related to big web data: variety, velocity, and veracity (Goes,z 2014; Krotov \& Silva, 2018 \emph{miss lit}), each of which exposes a singular aspect of scraping and constitutes some of the challenges fronted in later chapters.
+\emph{Variety} mainly accounts the most commonly used mark-up languages on the web used for content creation and organization such as such as HTML \citep{html_2020}, CSS \citep{css_2020}, and XML \emph{miss lit}. Sometimes Javascript \emph{miss lit} components are also embedded into websites, dedicated parsers are required in these contexts. Starting from that scraping requires at least to know the ropes of these technologies which are also assumed in this analysis.
+\emph{Velocity}: web data are in continuous flow status: it is created in real time, modified and changed continuously. This massively impacts the analysis that relies on those data which, as times passes, becomes obsolete. However it also suggests the speed and pace at which data should be collected. From one hand data should be gathered as quicker as possible so that analysis or softwares are up-to-date, section \ref{parallelscraping}. From the other this should happen in any case by constraining speed to common shared scraping best practices, which require occasional rests in requesting information. The latter issue is faced later in section \ref{best-practices}.
+\emph{Veracity}: Internet data quality and usability are still surrounded by confusion. A researcher can never entirely be sure if the data he wants are available on the internet and if the data are sufficiently accurate to be used in analysis. While for the former point data can be, from a theoretical perspective, accurately selected it can not be by any means predicted to exist. This is a crucial aspects of scraping, it should take care of dealing with the possibility to fail, in other words to be lost. The latter point that points to data quality is also crucial and it is assessed by a thoughtful market analysis that mostly assures the importance of immobiliare.it as a top player in italian real estate. As a consequence data coming from reliable source is also assumed to be reliable.
+Furthermore web scraping can be mainly applied in two common forms as in \href{https://www.tandfonline.com/doi/full/10.1080/10691898.2020.1787116}{miss lit}: the first is browser scraping, where extractions takes place through HTML/XML parser with regular expression matching from the website's source code. The second uses programming interfaces for applications, usually referred to APIs. The main goal of this chapter is to combine the two by shaping a HTML parser and make the code portable into an RESTful API whose software structure is found at \ref{infrastructure}.
+Regardless of how difficult it is the process of scraping, the circle introduced in \citet{automateddata} and here revised, is almost always the same. Most scraping activities include the following tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  Identification of data
+\item
+  Algorithm search Strategy selection
+\item
+  Data collection
+\item
+  Data preprocess
+\item
+  Data conversion
+\item
+  Debugging and maintenance
+\item
+  Portability
+\end{itemize}
+
+Scraping essentially is a clever combination and iteration of the previous tasks which should be heavily shaped on the target website or websites.
+
+\hypertarget{inverse-url-compostion}{%
+\section{Inverse url compostion}\label{inverse-url-compostion}}
+
+\begin{itemize}
+\item
+  A website contains a collection of standardized HTTP requests that return JSON or XML files. . Popular options are scraping APIs, proprietary crawling softwares, browser integration, in the end open source libraries. Challenges in scraping mainly regards \emph{security}, \emph{exception handling} and \emph{run-time}, therefore those will be the points touched during the dissertation.
+\item
+  RSelenium library:Docker. Open Docker Terminal and run docker pull- selenium/standalone-chrome. Replace chrome with firefox if you're a Firefox user. Then docker run -d -p 4445:4444 selenium/standalone-chrome.If above two codes are successful, run docker-machine ip and note the IP address to be used in the R code (nrowse automation) \href{https://www.pluralsight.com/guides/advanced-web-scraping-with-r}{miss lit}
+\item
+  To access content on the Web, we are used to typing URLs into our browser or to simply
+  clicking on links to get from one place to another, to check our mails, to read news, or
+  to download files. Behind this program layer that is designed for user interaction there are
+  several more layers---techniques, standards, and protocols---that make the whole thing work.
+  Together they are called the Internet Protocol Suite (IPS). Two of the most prominent players
+  of this Protocol Suite are TCP (Transmission Control Protocol) and IP (Internet Protocol).
+  They represent the Internet layer (IP) and the transportation layer (TCP). The inner workings
+  of these techniques are beyond the scope of this book, but fortunately there is no need to
+  manually manipulate contents of either of these protocols to conduct successful web scraping.
+  What is worth mentioning, however, is that TCP and IP take care of reliable data transfer
+  between computers in the network
+\end{itemize}
+
+Scraping for convenience can be mainly decomposed into 2 separable collectively exhaustive tasks: and \emph{Proper Scraping} which they need to happen in the order they are presented. As a matter of fact nearby all the scraper are also crawler since at first they neex to collect urls from sitemaps. Then they dive into the proper scraping where data is extracted beased on those urls.
+The previous approach in the analysis context would be time consuming and inappropriate since data should be
+
+As a matter of fact given the nature of scraping libraries and the programming languages used for website content creation as a first step urls need to be collected based on search parameters. Then on those urls proper scraping needs to be pplied to actually extracts data. What is commonly done among open source libraries
+
+The forced aspects regards essentially the way websites are made and the language used for content creation and organization. HTML stands for Hyper Text Markup Language and is the standard \emph{markup} language for documents designed to be showed into a web browser. It can be supported by technologies such as Cascading Style Sheets (CSS) and other scripting languages, such as JavaScript \citep{html_2020}.
+CSS is a style sheet language used for modifying the appearance of a document written in a \emph{markup} language\citep{css_2020}.
+Generally speaking website try to reflect both the user expectations on the product and the creative design expression of the web developer. This is also constrained to the programming languages chosen which defines the capability to shape the website based on the specific requirements. For all the reason said, for each product to sell online, whether it is physical product or a service, there exists a multitude of website designs. For each design there exists many front-end languages which may ultimately satisfy multiple end users. A projection in a very near future may depict a scenario where websites will be displaying tailor made appearances based on personal preferences, device options etc.
+
+As a further addition web design in scraping plays an important role since the more are implied sophisticated graphical technologies, the harder will be scraping information.
 
 \hypertarget{graph-representation-of-html}{%
 \section{Graph Representation of HTML}\label{graph-representation-of-html}}
@@ -394,6 +453,12 @@ Once all the functions have been designed and optmized with respect to their scr
 \hypertarget{best-practices}{%
 \section{Scraping Best Practices and Security provisions}\label{best-practices}}
 
+\begin{itemize}
+\tightlist
+\item
+  http introduction presa dal libro sezione 5
+\end{itemize}
+
 Web scraping have to naturally interact multiple times with both the \emph{client} and \emph{server side} and as a result many precautions must be seriously taken into consideration. From the server side a scraper can forward as many requests as it could (in the form of sessions opened) which might cause a traffic bottleneck (DOS attack \citet{wiki:DOS}) impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents \ref{spoofing} and proxy servers, consequently analytics reports might be driven off track.
 Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt \citet{meissner_2020} are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto ``standard'' never made it beyond a \emph{informal} ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g.~\href{https://en.wikipedia.org/robots.txt}{Wikipedia robot}, \href{https://www.google.com/robots.txt}{Google robot}). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their \emph{interpretation} might differ.
 
@@ -409,10 +474,12 @@ Robots.txt files \citep{robotstxt} essentially are plain text and always found a
   Redirects from subdomain www to the domain is considered no domain change - so whatever is found at the end of the redirect is considered to be the robots.txt file for the subdomain originally requested.
 \end{itemize}
 
-A comprehensive apporach is explored in the \texttt{polite} \citet{polite} package which combines the effects of \texttt{robotstxt}, \texttt{ratelimitr} \citeyearpar{ratelimitr} to limit sequential session requests together with the \texttt{memoise} \citet{memoise} for robotstxt response caching. Even though the solution meets the requirements (from server and client side) ratelimitr is not designed to work in parallel as documented in \citet{ratelimitr}, so it is not involved in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a ``polite'' session should look like and by doing principles are kept fixed during the scraping:
+A scraping is explored in the \texttt{polite} \citet{polite} package which combines the effects of \texttt{robotstxt}, \texttt{ratelimitr} \citeyearpar{ratelimitr} to limit sequential session requests together with the \texttt{memoise} \citet{memoise} for robotstxt response caching. Even though the solution meets the requirements (from server and client side) ratelimitr is not designed to run in parallel as documented in the vignette \citet{ratelimitr}, so it is not involved in the final outcome. However the 3 simple and effective ideas wrapped up in the package describes what a ``polite'' session should look like and by doing principles are kept fixed during the scraping:
 
 \begin{quote}
 The three pillars of a polite session are seeking permission, taking slowly and never asking twice.
+
+\hfill --- Polite
 \end{quote}
 
 The three pillars constitute the \emph{Ethical} web scraping manifesto \citep{densmore_2019} which are common shared \emph{best practices} that are aimed to self regularize scrapers. Still these have to be intended as practices and by no means as law enforcements. However many scrapers themselves, as website administrators or analyst, have fought in daily working tasks with bots and product derivatives. Intensive Crawling might fake out real client navigation log messages and digital footprint and as a consequence might induce distorted analytics.
@@ -506,7 +573,7 @@ The UA string is also one of the main responsible according to which Web crawler
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "AppleCoreMedia/1.0.0.16F203 (iPhone; U; CPU OS 12_3_1 like Mac OS X; nl_be)"
+## [1] "Mozilla/5.0 (Linux; Android 10; BLA-L29; HMSCore 5.0.5.300; GMSCore 20.47.13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.3.304 Mobile Safari/537.36"
 \end{verbatim}
 
 The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -612,7 +679,7 @@ The lower plot in in figure \ref{fig:furrrfuture} tries to capture the run time 
 \hypertarget{parallel-foreachdofuture}{%
 \subsection{Parallel foreach+doFuture}\label{parallel-foreachdofuture}}
 
-A second attempt tries to encapsulate \texttt{foreach} \citep{foreach} originally developed by Microsoft R, being a very fast loop alternative, parallelized with \texttt{doFuture}. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments. From a certain extent the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. But since the doFuture implements auto dependency search this problem is considered overcome. Two major speed improvements may come from \texttt{.inorder} and \texttt{.multicombine} which are proper of the lopping constructor and take advantage of splitting disorder a subsequent recombination.
+A second attempt tries to encapsulate \texttt{foreach} \citep{foreach} originally developed by Microsoft R, being a very fast loop alternative, parallelized with \texttt{doFuture}. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments \texttt{.export}. From a certain angle the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. Indeed since doFuture implements optimized auto dependency search this problem may be considered solved as in \citet{doFuture}. Two major looping related speed improvements may come from \texttt{.inorder} and \texttt{.multicombine} arguments which both take advantage of parallel split disorder a subsequent recombination of results. In the context where data collection order matters this is extremely wrong, but since in this case order is defined through url composition based on criteria expressed inside nodes contents this can be totally applied. A drawback of enabling .multicombine is a worst debugging experience since errors are thrown at the end when results are reunited and no traceback of the error is given.
 
 The upper part in \ref{fig:foreachdofuture} displays lower initialization lag from R sessions opening and parallel execution that also lead to a lower mean execution time of 6.42 seconds. No other interesting behavior are detected.
 THe lower plot displays high similarities with the curves in \ref{fig:furrrfuture} highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable \{Tidyverse\} oriented framework and offers and easy debugging experience.
@@ -657,6 +724,7 @@ What it was shockingly surprising were the low entry barriers to scrape informat
 \end{itemize}
 
 All of this leads to accept that entry barriers to scrape are for sure higher than the one faced for Immobiliare. The reticence to share data could be a reflex on how big idealista is; as a matter of fact it has a heavy market presence in some of the Europe real estate country as Spain and France. So the hidden intention was to raise awareness on scraping procedure that in a certain remote way can hurt their business. This has been validated by the fact that prior filtering houses on their website a checkbox has to be signed. The checkbox make the user sign an agreement on their platform according to which data can not be misused and it belongs their intellectual property.
+\href{https://blawgsearch.justia.com/}{prova qui a vedere}
 
 \hypertarget{Infrastructure}{%
 \chapter{API Technology Stack}\label{Infrastructure}}

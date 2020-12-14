@@ -2,7 +2,7 @@
 title: "REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA"
 author: "[Niccolò Salvini](https://niccolosalvini.netlify.app/)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+date: "Lastest build: `r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -10,11 +10,11 @@ classoption: oneside
 bibliography: [refs.bib, Rpackages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: NiccoloSalvini/Thesis
-favicon: "images/favicon.ico" 
-cover-image: "images/spat-touch.png"
-description: " Niccolò Salvini master's thesis project"
-apple-touch-icon: "images/spatial.png"
+github-repo: NiccoloSalvini/thesis
+favicon: "images/logo/spatial_logo.ico" 
+cover-image: "images/logo/spatial_logo.png"
+description: "This is Niccolò Salvini master's thesis project"
+apple-touch-icon: "images/logo/spatial_logo.png"
 apple-touch-icon-size: 120
 papersize: a4
 geometry: "left=4cm, right=3cm, top=3cm, bottom=3cm"  

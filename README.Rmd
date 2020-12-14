@@ -34,7 +34,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 ```
 
 
-<img src="images/logo.png" align="right" height="80" />
+<img src="images/logo/logo.png" align="right" height="80" />
  
 # REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA
 
@@ -48,7 +48,7 @@ _date_: `r format(Sys.Date(), "%d %B, %Y")`
 
 
 ```{r img1, echo=FALSE, fig.cap = "Spatial Data Analysis", fig.retina=1, fig.align='default', fig.show='hold', out.width="50%"}
-knitr::include_graphics("images/spatial.png") 
+knitr::include_graphics("images/logo/spatial_logo.png") 
 knitr::include_graphics("images/spatial_visualization.gif") 
 ```
 
