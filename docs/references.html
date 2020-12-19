@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
+  <title>References | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
   <meta name="description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta property="og:title" content="References | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta name="twitter:title" content="References | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -161,43 +161,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#a-gentle-introduction-on-web-scraping"><i class="fa fa-check"></i><b>2.1</b> A Gentle Introduction on Web Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#inverse-url-compostion"><i class="fa fa-check"></i><b>2.2</b> Inverse url compostion</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#graph-representation-of-html"><i class="fa fa-check"></i><b>2.3</b> Graph Representation of HTML</a></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#crawling"><i class="fa fa-check"></i><b>2.4</b> Crawling</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#proper-scraping"><i class="fa fa-check"></i><b>2.5</b> Proper Scraping</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.5.1</b> Immobiliare.it website structure</a></li>
-<li class="chapter" data-level="2.5.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.5.2</b> Immobiliare.it content architecture with <code id="ContentArchitecture">rvest</code></a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#anatomy-of-a-url-and-reverse-engineering"><i class="fa fa-check"></i><b>2.2</b> Anatomy of a url and reverse engineering</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.2.1</b> Scraping with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.6</b> Proper Scarping</a></li>
-<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.7</b> Scraping Best Practices and Security provisions</a></li>
-<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#web-client-security-provisions-user-agents-proxies-and-fail-dealers"><i class="fa fa-check"></i><b>2.8</b> Web Client Security provisions: User Agents, Proxies and Fail Dealers</a><ul>
-<li class="chapter" data-level="2.8.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.8.1</b> HTTP User Agent and Mail Spoofing</a></li>
-<li class="chapter" data-level="2.8.2" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.8.2</b> Dealing with failure</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.3</b> Searching Technique for Scarping</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.4</b> Scraping Best Practices and Security provisions</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#web-client-security-provisions-user-agents-proxies-and-fail-dealers"><i class="fa fa-check"></i><b>2.5</b> Web Client Security provisions: User Agents, Proxies and Fail Dealers</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.5.1</b> HTTP User Agent and Mail Spoofing</a></li>
+<li class="chapter" data-level="2.5.2" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.5.2</b> Dealing with failure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.9</b> Parallel Scraping</a><ul>
-<li class="chapter" data-level="2.9.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.9.1</b> Parallel furrr+future</a></li>
-<li class="chapter" data-level="2.9.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.9.2</b> Parallel foreach+doFuture</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.6</b> Parallel Scraping</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.6.1</b> Parallel furrr+future</a></li>
+<li class="chapter" data-level="2.6.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.6.2</b> Parallel foreach+doFuture</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.10</b> Open Challenges and Further Improvemements</a></li>
-<li class="chapter" data-level="2.11" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.11</b> Legal Profiles</a></li>
+<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.7</b> Open Challenges and Further Improvemements</a></li>
+<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.8</b> Legal Profiles</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
-<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.1</b> REST API</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.1.1</b> Plumber http API</a></li>
+<li class="chapter" data-level="3.1.2" data-path="Infrastructure.html"><a href="Infrastructure.html#sanitization"><i class="fa fa-check"></i><b>3.1.2</b> Sanitization</a></li>
+<li class="chapter" data-level="3.1.3" data-path="Infrastructure.html"><a href="Infrastructure.html#denial-of-service-dos"><i class="fa fa-check"></i><b>3.1.3</b> Denial Of Service (DoS)</a></li>
+<li class="chapter" data-level="3.1.4" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.1.4</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
+<li class="chapter" data-level="3.1.5" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.1.5</b> REST API documentation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.2</b> REST API</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.2.1</b> Plumber REST API</a></li>
-<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.2.2</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
-<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.2.3</b> REST API documentation</a></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.1</b> Why Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.2</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.3</b> Docker</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.3.1</b> Why Docker</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.3.2</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.3</b> AWS EC2 instance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.3.1</b> Launch an EC2 instance</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 instance</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.4.1</b> Launch an EC2 instance</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.5</b> NGINX reverse proxy server</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server and Ayuth</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#SSL"><i class="fa fa-check"></i><b>3.5</b> SSL certificates and Subdomain registration</a></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#software-development-workflow"><i class="fa fa-check"></i><b>3.6</b> Software development Workflow</a></li>
 <li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.7</b> Further Integrations</a></li>
 </ul></li>
@@ -270,7 +266,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
           </h1>
         </div>
 
@@ -328,16 +324,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Colin Fay, Sébastien Rochette. 2020. <em>Engineering Production-Grade Shiny Apps</em>. <a href="https://engineering-shiny.org/">https://engineering-shiny.org/</a>.</p>
 </div>
 <div>
-<p>contributors, Wikipedia. 2020a. “Denial-of-Service Attack — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165">https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165</a>.</p>
+<p>contributors, Wikipedia. 2020a. “Clean Url — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878">https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878</a>.</p>
 </div>
 <div>
-<p>———. 2020b. “Fork (System Call) — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307">https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307</a>.</p>
+<p>———. 2020b. “Denial-of-Service Attack — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165">https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165</a>.</p>
 </div>
 <div>
-<p>———. 2020c. “HTTP Client Hints — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.</p>
+<p>———. 2020c. “Fork (System Call) — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307">https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307</a>.</p>
 </div>
 <div>
-<p>———. 2020d. “User Agent — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.</p>
+<p>———. 2020d. “HTTP Client Hints — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.</p>
+</div>
+<div>
+<p>———. 2020e. “URL — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641">https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641</a>.</p>
+</div>
+<div>
+<p>———. 2020f. “User Agent — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.</p>
 </div>
 <div>
 <p>Corporation, Microsoft, and Steve Weston. 2020. <em>DoParallel: Foreach Parallel Adaptor for the ’Parallel’ Package</em>. <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.</p>
@@ -350,9 +352,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Densmore, James. 2019. “Ethics in Web Scraping.” <em>Medium</em>. Towards Data Science. <a href="https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01">https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01</a>.</p>
-</div>
-<div>
-<p>Diestel, Reinhard. 2006. <em>Graph Theory</em>. 3rd ed. Graduate Texts in Mathematics. Springer.</p>
 </div>
 <div>
 <p>Eddelbuettel, Dirk. 2020. “Parallel Computing with R: A Brief Review.” <a href="http://arxiv.org/abs/1912.11144">http://arxiv.org/abs/1912.11144</a>.</p>
@@ -370,9 +369,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Hadley Wickham, Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. 1st ed. O’Reilly Media.</p>
 </div>
 <div>
-<p>Harrison, John. 2020. <em>RSelenium: R Bindings for ’Selenium Webdriver’</em>. <a href="https://CRAN.R-project.org/package=RSelenium">https://CRAN.R-project.org/package=RSelenium</a>.</p>
-</div>
-<div>
 <p>Herath, Shanaka, and Gunther Maier. 2011. “Hedonic House Prices in the Presence of Spatial and Temporal Dynamics.” <em>Territorio Italia - Land Administration Cadastre, Real Estate</em> 1 (January): 39–49.</p>
 </div>
 <div>
@@ -383,9 +379,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Inc., Red Hat. 2020. “7.2. Advantages of Using Docker Red Hat Enterprise Linux 7.” <em>Red Hat Customer Portal</em>. <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.0_release_notes/sect-red_hat_enterprise_linux-7.0_release_notes-linux_containers_with_docker_format-advantages_of_using_docker</a>.</p>
-</div>
-<div>
-<p>“JavaScript.” 2020. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/JavaScript">https://en.wikipedia.org/wiki/JavaScript</a>.</p>
 </div>
 <div>
 <p>Khalil, Salim. 2018. <em>Rcrawler: Web Crawler and Scraper</em>. <a href="https://CRAN.R-project.org/package=Rcrawler">https://CRAN.R-project.org/package=Rcrawler</a>.</p>
@@ -469,6 +462,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Santiago, Joao. 2020. <em>Plungr: Opinionated Framework for Developing Plumber Apis</em>. <a href="https://github.com/ozean12/plungr">https://github.com/ozean12/plungr</a>.</p>
 </div>
 <div>
+<p>“Scraping the Web.” 2014. In <em>Automated Data Collection with R</em>, 219–94. John Wiley &amp; Sons Ltd. <a href="https://doi.org/https://doi.org/10.1002/9781118834732.ch9">https://doi.org/https://doi.org/10.1002/9781118834732.ch9</a>.</p>
+</div>
+<div>
 <p>Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for R</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.</p>
 </div>
 <div>
@@ -502,13 +498,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://CRAN.R-project.org/package=memoise">https://CRAN.R-project.org/package=memoise</a>.</p>
 </div>
 <div>
-<p>Wikipedia contributors. 2020. “Cron — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592">https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592</a>.</p>
-</div>
-<div>
-<p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
-</div>
-<div>
 <p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+</div>
+<div>
+<p>Zamora, Amber. 2019. “Making Room for Big Data: Web Scraping and an Affirmative Right to Access Publicly Available Information Online.” <em>J. Bus. Entrepreneurship &amp; L.</em> 12: 203.</p>
 </div>
 <div>
 <p>2018. <em>What Is a REST API?</em> Red Hat. <a href="https://www.redhat.com/en/topics/api/what-is-a-rest-api">https://www.redhat.com/en/topics/api/what-is-a-rest-api</a>.</p>

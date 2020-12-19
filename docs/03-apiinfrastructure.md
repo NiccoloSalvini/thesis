@@ -1,16 +1,19 @@
 # API Technology Stack {#Infrastructure}
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<!-- Scraping function in the way they are designed are not portable and can only be executed locally. One way to scale up code is to make it available as API. -->
 
-In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:
+The previous chapter has encapsulated the main concepts behind the design of scrapers with R in a consistent, secure, and fast course of action. The fact that function are compressed into scripts does not imply that are shareable and portable. As a matter of fact in order to be executed they need to be at first understood and then also sourced into a current R environment. From a restricted usage perspective this can be feasible, but in a large-scale orientation this can not be entitled to be a service. Moreover The fact that scraped data is a result of a R file (containing function) execution prevents any further usage from not only users, but also applications, websites and other services. 
+As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they’re implemented.
 
-- The API has to be executed $n$ given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.
-- The API has to be very fast otherwise data can not be consumed.
-- The API has to be deployed so that it can be shared over different stakeholders, without having them to know what it takes. 
-- The API maintainer needs to take action be to due to sudden unpredictable immobiliare.it  changes, thus it needs to be continuously maintained and updated.
-- On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. 
--  service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
+
+In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken:
+
+- The API has to be naturally deployed so that it the service can be really used by different stakeholders
+- 
+- The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated.
+- Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. 
+- The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
+- The service should be load balanced and authozied so that 
 - In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.
 
 The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
@@ -19,100 +22,103 @@ Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints ea
 Technology stack:
 
 - GitHub version control
-- Scheduler cron job, section \@ref(scheduler)
+<!-- - Scheduler cron job, section \@ref(scheduler) -->
 - Plumber REST API, section \@ref(plumberapi)
 - Docker containers, section \@ref(docker)
 - AWS (Amazon Web Services) EC2 \@ref(aws)
 - NGINX reverse proxy, section \@ref(nginx)
+- SSL certificates \@ref(SSL)
 - MongoDB Atlas
 - Shiny
 
 
 ![(#fig:CompleteStructure)complete infrastructure, author's source](images/tot_infra.jpg)
 
-As a side note each single part of this thesis has been made according to some of the API inspiring criteria of sharing and self containerization. RMarkdown [@rmarkdown1] documents (book's chapters) are compiled and then converted into .html files. Through Bookdown [@bookdown2] the resulting documents are put together according to general .yml instruction file and are readble as gitbook.
-Files are then pushed to a [Github repository](https://github.com/NiccoloSalvini/thesis). By a simple trick with GH pages, .html files are dispalyed into a Github subdomain hosted at [link](https://niccolosalvini.github.io/thesis/).  The resulting  deployed gitbook can also produce a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template which formatting rules are contained in a further .yml file. The pdf version of the thesis can be obtained by clicking the download button, then choosing pdf output version in the upper banner. For further references on the topic @bookdown2
+As a side note each single part of this thesis is comprised according to some of the API inspiring criteria of portability and self containerization. RMarkdown [@rmarkdown1] documents (book's chapters) are knitted and then rendered as .html files extension. Through Bookdown [@bookdown2] the html documents are made up following guidelines from a .yml instruction file and are rendered as Gitbook. Gitbooks are interactive online documentation that are employed to build books, business manuals, research papers as well as API documentation.    
+Files are ultimately pushed into a [Github repository](https://github.com/NiccoloSalvini/thesis), that makes changes version controlled. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at [link](https://niccolosalvini.github.io/thesis/). Gitbook are able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template whose formatting rules are contained into a further .yml file. 
 
 Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasons the rest needs to be skipped.
 
 
-## Scheduler{#scheduler}
+<!-- ## Scheduler{#scheduler} -->
 
-\BeginKnitrBlock{definition}\iffalse{-91-83-99-104-101-100-117-108-101-114-93-}\fi{}
-<span class="definition" id="def:scheduler"><strong>(\#def:scheduler)  \iffalse (Scheduler) \fi{} </strong></span>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.
-\EndKnitrBlock{definition}
+<!-- ```{definition, scheduler, name = "Scheduler"} -->
+<!-- A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. -->
+<!-- ``` -->
 
-As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.
+<!-- As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor. -->
 
-- Short term scheduler: it can trigger and queue the "ready to go" tasks
-  - with pre-emption 
-  - without pre-emption
+<!-- - Short term scheduler: it can trigger and queue the "ready to go" tasks -->
+<!--   - with pre-emption  -->
+<!--   - without pre-emption -->
 
-The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one. 
+<!-- The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one.  -->
 
-- Medium term scheduler 
-- Long term scheduler
+<!-- - Medium term scheduler  -->
+<!-- - Long term scheduler -->
 
-for some other useful but beyond the scope references, such as the scheduling algorithm the reader can refer to [@wiki:scheduler].
+<!-- for some other useful but beyond the scope references, such as the scheduling algorithm the reader can refer to [@wiki:scheduler]. -->
 
-### Cron Jobs
-\BeginKnitrBlock{definition}\iffalse{-91-67-114-111-110-106-111-98-93-}\fi{}
-<span class="definition" id="def:cronjob"><strong>(\#def:cronjob)  \iffalse (Cronjob) \fi{} </strong></span>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
-\EndKnitrBlock{definition}
-The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
-Each line of a crontab file represents a job, and the composition follows the syntax in figure \@ref(fig:crontab)
+<!-- ### Cron Jobs -->
+<!-- ```{definition, cronjob, name ="Cronjob"} -->
+<!-- Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users. -->
+<!-- ``` -->
+<!-- The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. -->
+<!-- Each line of a crontab file represents a job, and the composition follows the syntax in figure \@ref(fig:crontab) -->
 
-![(#fig:crontab)Crontab Scheduling Syntax](images/crontab.PNG)
+<!-- ![(#fig:crontab)Crontab Scheduling Syntax](images/crontab.PNG) -->
 
-Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.
+<!-- Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines. -->
 
-45 23 * * 6 /home/oracle/scripts/scheduler.sh
+<!-- 45 23 * * 6 /home/oracle/scripts/scheduler.sh -->
 
-Some rather unusual scheduling definitions for crontabs can be found in this reference [@wiki:cronjob]. Crontab's syntax completion can be made easier through [this](https://crontab.guru/) GUI.  
+<!-- Some rather unusual scheduling definitions for crontabs can be found in this reference [@wiki:cronjob]. Crontab's syntax completion can be made easier through [this](https://crontab.guru/) GUI.   -->
 
-The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL *mongoDB* database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance:
+<!-- The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL *mongoDB* database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance: -->
 
-30 11 * * * /home/oracle/scripts/get_data.R
+<!-- 30 11 * * * /home/oracle/scripts/get_data.R -->
 
-To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally _not feasible_ in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working. 
+<!-- To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally _not feasible_ in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working.  -->
 
 ## REST API 
 
 \BeginKnitrBlock{definition}\iffalse{-91-65-80-73-93-}\fi{}
 <span class="definition" id="def:api"><strong>(\#def:api)  \iffalse (API) \fi{} </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
 \EndKnitrBlock{definition}
-APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+APIs may be thought of as contracts, with documentation that represents an general agreement between parties.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 \BeginKnitrBlock{definition}\iffalse{-91-82-69-83-84-93-}\fi{}
 <span class="definition" id="def:rest"><strong>(\#def:rest)  \iffalse (REST) \fi{} </strong></span>The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. 
 \EndKnitrBlock{definition}
-When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as it is more comfortable to be read and parsed.
-In order for an API to be considered REST, it has to conform to these criteria:
+When a request is made through a REST API, figure \@ref(fig:apigenstru) it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as it is more comfortable to be read and parsed. When an API adhere to REST architecture is said RESTful.
+An API is considered REST when it conforms to the following criteria:
 
 - A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
-- Stateless client-server communication, meaning no client information is stored between requests and each request is separate and unconnected.
+- Stateless client-server communication, meaning no client information is stored between requests and each request is separate and disconnected.
 - Cacheable data that streamlines client-server interactions.
 - A uniform interface between components so that information is transferred in a standard form. This requires that:
-  - resources requested are identifiable and separate from the representations sent to the client.
-  - resources can be manipulated by the client via the representation they receive because the representation contains enough information to do so.
-  - self-descriptive messages returned to the client have enough information to describe how the client should process it.
-  - hypermedia, meaning that after accessing a resource the client should be able to use hyperlinks to find all other currently available actions they can take.
+    - resources requested are identifiable and separate from the representations sent to the client.
+    - resources can be manipulated by the client via the representation they receive because the representation contains enough information to do so.
+    - self-descriptive messages returned to the client have enough information to describe how the client should process it.
 - A layered system that organizes each type of server (those responsible for security, load-balancing, etc.) involved the retrieval of requested information into hierarchies, invisible to the client.
 
-REST API accepts http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this [reference](https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html).
-
-open REST API examples: 
+RESTful APIs accept http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this [reference](https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html).
+Open and popular RESTful API examples are: 
 - BigQuery API: A data platform for customers to create, manage, share and query data.
 - YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
-- Cloud Natural Language API: Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations, to developers.
 - Skyscanner Flight Search API: The Skyscanner API lets you search for flights & get flight prices from Skyscanner's database of prices, as well as get live quotes directly from ticketing agencies.
 - Openweathermap API: current weather data for any location on Earth including over 200,000 cities.
 
-![API general functioning functioning](images/Rest-API.png)
+![(#fig:apigenstru)API general functioning](images/Rest-API.png)
 
-### Plumber REST API{#plumberapi}
+### Plumber http API{#plumberapi}
 
-Plumber allows the user to create a REST API by adding decoration comments to the existing R code, in this case to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:
+- sanitize input 
+- antidossing strategies
+- open parallel and close on exit
+
+
+Plumber is a R framework [@an_api_generator_for_r], allowing users to construct APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications starts. Below is reported a simple API with 3 endpoints example from the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks which are the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method GET or POST followed by the endpoints invocation verb (third).
 
 
 ```r
@@ -142,15 +148,25 @@ function(a, b) {
 }
 ```
 
-three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
-Decorations are marked as this `#*` and they are followed by specific keywords denoted with `@`.
-- the `@params` keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
-- `#* @serializer` specifies the extension of the output file when needed.
-- `#* @get`  specifies the method of HTTP request sent.
-- `/echo` is the end point name.
-- `@filter` decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.
+Once http api calls are sent to machines belonging to a network of servers, whether it is public or private they converge through endpoints. Edpoints execute functions involving the parameters specified through the call and  by default response is JSON type . The first endpoint invocation simply echoes back the text that it was sent. The second endpoints generates a histogram plot based on 100 observation sampled from a Normal distribution, no parameters are required, but the output of the plot is forced to be a .png image. The third endpoint when invoked calculates the sum of a couple of number attached to the call.
+Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
+When exposing APIs on a private network or on a public server security is a major issue, concerns and thought process must adapt accordingly. There are several variables and attacks it should considered in creating Plumber APIs, but the focus will differ depending on the API audience. For example If APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
 
-Many more options are available to customize plumber API but are beyond the scope, a valuable resource for further insights can be found in the dedicated package website [@an_api_generator_for_r]
+- Sanitization
+- Denial Of Service (DoS)
+- HTTPS
+
+### Sanitization 
+
+Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new inputs are defined so that they take the user generated input and give back a sanitized version internally to the function. In the code chunk below are shown a couple of examples of sanitization of inputs:
+
+
+
+
+### Denial Of Service (DoS)
+
+Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context hosting services may induce to astronomic fees charged. A simple but effective approach tries to 
+
 
 ### Immobiliare.it _Parallel_ REST API
 
@@ -309,8 +325,12 @@ the Public DNS has the following form:
 `ec2-15-161-94-121.eu-south-1.compute.amazonaws.com`
 
 
-## NGINX reverse proxy server{#nginx}
+## NGINX reverse proxy server and Ayuth{#nginx}
+FUNZIONA
 
+two reasons for authentication 
+- you want to deploy your API at your company but do not want to give everyone access to every endpoint.
+- you want to make your API publicly available on the Internet but you still want users to authenticate before they can use your API (e.g. to prohibit abuse of your API).
 For analysis purposes NGINX is open source software for reverse proxying and load balancing.
 Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
 [...]
@@ -320,6 +340,24 @@ When NGINX proxies a request, it sends the request to a specified proxied server
 
 
 .conf file and installation on Linux server. Security and Authentication. 
+
+
+
+## SSL certificates and Subdomain registration{#SSL}
+
+QUESTO ANCORA NON SO SE FUNZIONA 
+
+[resource](https://qunis.de/how-to-make-a-dockerized-plumber-api-secure-with-ssl-and-basic-authentication/)
+[resource2](https://www.rinproduction.com/it/posts/003-web-r-platform-with-https/)
+[resource3](https://business-science.github.io/shiny-production-with-aws-book/domain-setup-ssl-certificates.html)
+Here we have created two servers:
+
+The first listens on port 80 and redirects all traffic to https://… on port 443
+The second listens on the SSL port 443 and points to the key and certificate files we have created in the Dockerfile.
+
+This is because we signed the certificate ourselves and not issued an official certificate from a certificate authority. But the connection is encrypted eitherway and we can skip this warning, since we can trust ourselves.
+
+
 
 
 ## Software development Workflow 

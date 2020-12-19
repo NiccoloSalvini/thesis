@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 API Technology Stack | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
+  <title>Chapter 3 API Technology Stack | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
   <meta name="description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 API Technology Stack | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta property="og:title" content="Chapter 3 API Technology Stack | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 API Technology Stack | REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta name="twitter:title" content="Chapter 3 API Technology Stack | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -161,43 +161,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#a-gentle-introduction-on-web-scraping"><i class="fa fa-check"></i><b>2.1</b> A Gentle Introduction on Web Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#inverse-url-compostion"><i class="fa fa-check"></i><b>2.2</b> Inverse url compostion</a></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#graph-representation-of-html"><i class="fa fa-check"></i><b>2.3</b> Graph Representation of HTML</a></li>
-<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#crawling"><i class="fa fa-check"></i><b>2.4</b> Crawling</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#proper-scraping"><i class="fa fa-check"></i><b>2.5</b> Proper Scraping</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#webstructure"><i class="fa fa-check"></i><b>2.5.1</b> Immobiliare.it website structure</a></li>
-<li class="chapter" data-level="2.5.2" data-path="scraping.html"><a href="scraping.html#immobiliare.it-content-architecture-with-rvest"><i class="fa fa-check"></i><b>2.5.2</b> Immobiliare.it content architecture with <code id="ContentArchitecture">rvest</code></a></li>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#anatomy-of-a-url-and-reverse-engineering"><i class="fa fa-check"></i><b>2.2</b> Anatomy of a url and reverse engineering</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.2.1</b> Scraping with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.6</b> Proper Scarping</a></li>
-<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.7</b> Scraping Best Practices and Security provisions</a></li>
-<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#web-client-security-provisions-user-agents-proxies-and-fail-dealers"><i class="fa fa-check"></i><b>2.8</b> Web Client Security provisions: User Agents, Proxies and Fail Dealers</a><ul>
-<li class="chapter" data-level="2.8.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.8.1</b> HTTP User Agent and Mail Spoofing</a></li>
-<li class="chapter" data-level="2.8.2" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.8.2</b> Dealing with failure</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.3</b> Searching Technique for Scarping</a></li>
+<li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.4</b> Scraping Best Practices and Security provisions</a></li>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#web-client-security-provisions-user-agents-proxies-and-fail-dealers"><i class="fa fa-check"></i><b>2.5</b> Web Client Security provisions: User Agents, Proxies and Fail Dealers</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.5.1</b> HTTP User Agent and Mail Spoofing</a></li>
+<li class="chapter" data-level="2.5.2" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.5.2</b> Dealing with failure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.9</b> Parallel Scraping</a><ul>
-<li class="chapter" data-level="2.9.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.9.1</b> Parallel furrr+future</a></li>
-<li class="chapter" data-level="2.9.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.9.2</b> Parallel foreach+doFuture</a></li>
+<li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.6</b> Parallel Scraping</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.6.1</b> Parallel furrr+future</a></li>
+<li class="chapter" data-level="2.6.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.6.2</b> Parallel foreach+doFuture</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.10</b> Open Challenges and Further Improvemements</a></li>
-<li class="chapter" data-level="2.11" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.11</b> Legal Profiles</a></li>
+<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.7</b> Open Challenges and Further Improvemements</a></li>
+<li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.8</b> Legal Profiles</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
-<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#scheduler"><i class="fa fa-check"></i><b>3.1</b> Scheduler</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#cron-jobs"><i class="fa fa-check"></i><b>3.1.1</b> Cron Jobs</a></li>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.1</b> REST API</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.1.1</b> Plumber http API</a></li>
+<li class="chapter" data-level="3.1.2" data-path="Infrastructure.html"><a href="Infrastructure.html#sanitization"><i class="fa fa-check"></i><b>3.1.2</b> Sanitization</a></li>
+<li class="chapter" data-level="3.1.3" data-path="Infrastructure.html"><a href="Infrastructure.html#denial-of-service-dos"><i class="fa fa-check"></i><b>3.1.3</b> Denial Of Service (DoS)</a></li>
+<li class="chapter" data-level="3.1.4" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.1.4</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
+<li class="chapter" data-level="3.1.5" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.1.5</b> REST API documentation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#rest-api"><i class="fa fa-check"></i><b>3.2</b> REST API</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.2.1</b> Plumber REST API</a></li>
-<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#immobiliare.it-parallel-rest-api"><i class="fa fa-check"></i><b>3.2.2</b> Immobiliare.it <em>Parallel</em> REST API</a></li>
-<li class="chapter" data-level="3.2.3" data-path="Infrastructure.html"><a href="Infrastructure.html#APIdocs"><i class="fa fa-check"></i><b>3.2.3</b> REST API documentation</a></li>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.2.1</b> Why Docker</a></li>
+<li class="chapter" data-level="3.2.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.2</b> Dockerfile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.3</b> Docker</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#why-docker"><i class="fa fa-check"></i><b>3.3.1</b> Why Docker</a></li>
-<li class="chapter" data-level="3.3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.3.2</b> Dockerfile</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.3</b> AWS EC2 instance</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.3.1</b> Launch an EC2 instance</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.4</b> AWS EC2 instance</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="Infrastructure.html"><a href="Infrastructure.html#launch-an-ec2-instance"><i class="fa fa-check"></i><b>3.4.1</b> Launch an EC2 instance</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.5</b> NGINX reverse proxy server</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.4</b> NGINX reverse proxy server and Ayuth</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#SSL"><i class="fa fa-check"></i><b>3.5</b> SSL certificates and Subdomain registration</a></li>
 <li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#software-development-workflow"><i class="fa fa-check"></i><b>3.6</b> Software development Workflow</a></li>
 <li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.7</b> Further Integrations</a></li>
 </ul></li>
@@ -270,7 +266,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
           </h1>
         </div>
 
@@ -281,27 +277,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="Infrastructure" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> API Technology Stack</h1>
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
-<!-- Scraping function in the way they are designed are not portable and can only be executed locally. One way to scale up code is to make it available as API. -->
-<p>In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.10</a> are many and still some unfortunately remains unsolved. Challenges not only regard scraping per se, but also the way and how many times the service has to interact with users. Some of the main obstacle to tackle in dealing with users are:</p>
+<p>The previous chapter has encapsulated the main concepts behind the design of scrapers with R in a consistent, secure, and fast course of action. The fact that function are compressed into scripts does not imply that are shareable and portable. As a matter of fact in order to be executed they need to be at first understood and then also sourced into a current R environment. From a restricted usage perspective this can be feasible, but in a large-scale orientation this can not be entitled to be a service. Moreover The fact that scraped data is a result of a R file (containing function) execution prevents any further usage from not only users, but also applications, websites and other services.
+As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they’re implemented.</p>
+<p>In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section <a href="scraping.html#challenges">2.7</a> are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken:</p>
 <ul>
-<li>The API has to be executed <span class="math inline">\(n\)</span> given times at fixed date-time daily and it has to store resulting data on a cloud database. This is done with the explicit goal of tracking the evolution of the phenomenon in time.</li>
-<li>The API has to be very fast otherwise data can not be consumed.</li>
-<li>The API has to be deployed so that it can be shared over different stakeholders, without having them to know what it takes.</li>
-<li>The API maintainer needs to take action be to due to sudden unpredictable immobiliare.it changes, thus it needs to be continuously maintained and updated.</li>
-<li>On the other code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.</li>
-<li>service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.</li>
+<li>The API has to be naturally deployed so that it the service can be really used by different stakeholders</li>
+<li></li>
+<li>The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated.</li>
+<li>Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.</li>
+<li>The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.</li>
+<li>The service should be load balanced and authozied so that</li>
 <li>In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.</li>
 </ul>
 <p>The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
 Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section <a href="scraping.html#scraping">2</a>. On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure <a href="Infrastructure.html#fig:CompleteStructure">3.1</a>.</p>
 <p>Technology stack:</p>
 <ul>
-<li>GitHub version control</li>
-<li>Scheduler cron job, section <a href="Infrastructure.html#scheduler">3.1</a></li>
-<li>Plumber REST API, section <a href="Infrastructure.html#plumberapi">3.2.1</a></li>
-<li>Docker containers, section <a href="Infrastructure.html#docker">3.3</a></li>
-<li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.4</a></li>
-<li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.5</a></li>
+<li>GitHub version control
+<!-- - Scheduler cron job, section \@ref(scheduler) --></li>
+<li>Plumber REST API, section <a href="Infrastructure.html#plumberapi">3.1.1</a></li>
+<li>Docker containers, section <a href="Infrastructure.html#docker">3.2</a></li>
+<li>AWS (Amazon Web Services) EC2 <a href="Infrastructure.html#aws">3.3</a></li>
+<li>NGINX reverse proxy, section <a href="Infrastructure.html#nginx">3.4</a></li>
+<li>SSL certificates <a href="Infrastructure.html#SSL">3.5</a></li>
 <li>MongoDB Atlas</li>
 <li>Shiny</li>
 </ul>
@@ -309,134 +307,128 @@ Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints ea
 <img src="images/tot_infra.jpg" alt="" />
 <p class="caption">Figure 3.1: complete infrastructure, author’s source</p>
 </div>
-<p>As a side note each single part of this thesis has been made according to some of the API inspiring criteria of sharing and self containerization. RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span> documents (book’s chapters) are compiled and then converted into .html files. Through Bookdown <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> the resulting documents are put together according to general .yml instruction file and are readble as gitbook.
-Files are then pushed to a <a href="https://github.com/NiccoloSalvini/thesis">Github repository</a>. By a simple trick with GH pages, .html files are dispalyed into a Github subdomain hosted at <a href="https://niccolosalvini.github.io/thesis/">link</a>. The resulting deployed gitbook can also produce a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template which formatting rules are contained in a further .yml file. The pdf version of the thesis can be obtained by clicking the download button, then choosing pdf output version in the upper banner. For further references on the topic <span class="citation">Xie (<a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span></p>
+<p>As a side note each single part of this thesis is comprised according to some of the API inspiring criteria of portability and self containerization. RMarkdown <span class="citation">(Allaire et al. <a href="#ref-rmarkdown1" role="doc-biblioref">2020</a>)</span> documents (book’s chapters) are knitted and then rendered as .html files extension. Through Bookdown <span class="citation">(Xie <a href="#ref-bookdown2" role="doc-biblioref">2016</a>)</span> the html documents are made up following guidelines from a .yml instruction file and are rendered as Gitbook. Gitbooks are interactive online documentation that are employed to build books, business manuals, research papers as well as API documentation.<br />
+Files are ultimately pushed into a <a href="https://github.com/NiccoloSalvini/thesis">Github repository</a>, that makes changes version controlled. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at <a href="https://niccolosalvini.github.io/thesis/">link</a>. Gitbook are able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template whose formatting rules are contained into a further .yml file.</p>
 <p>Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasons the rest needs to be skipped.</p>
-<div id="scheduler" class="section level2">
-<h2><span class="header-section-number">3.1</span> Scheduler</h2>
-
-<div class="definition">
-<span id="def:scheduler" class="definition"><strong>Definition 3.1  (Scheduler)  </strong></span>A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible.
-</div>
-
-<p>As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor.</p>
-<ul>
-<li>Short term scheduler: it can trigger and queue the “ready to go” tasks
-<ul>
-<li>with pre-emption</li>
-<li>without pre-emption</li>
-</ul></li>
-</ul>
-<p>The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one.</p>
-<ul>
-<li>Medium term scheduler</li>
-<li>Long term scheduler</li>
-</ul>
-<p>for some other useful but beyond the scope references, such as the scheduling algorithm the reader can refer to <span class="citation">(Wikiversità <a href="#ref-wiki:scheduler" role="doc-biblioref">2020</a>)</span>.</p>
-<div id="cron-jobs" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Cron Jobs</h3>
-
-<div class="definition">
-<span id="def:cronjob" class="definition"><strong>Definition 3.2  (Cronjob)  </strong></span>Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users.
-</div>
-
-<p>The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept.
-Each line of a crontab file represents a job, and the composition follows the syntax in figure <a href="Infrastructure.html#fig:crontab">3.2</a></p>
-<div class="figure"><span id="fig:crontab"></span>
-<img src="images/crontab.PNG" alt="" />
-<p class="caption">Figure 3.2: Crontab Scheduling Syntax</p>
-</div>
-<p>Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines.</p>
-<p>45 23 * * 6 /home/oracle/scripts/scheduler.sh</p>
-<p>Some rather unusual scheduling definitions for crontabs can be found in this reference <span class="citation">(Wikipedia contributors <a href="#ref-wiki:cronjob" role="doc-biblioref">2020</a>)</span>. Crontab’s syntax completion can be made easier through <a href="https://crontab.guru/">this</a> GUI.</p>
-<p>The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL <em>mongoDB</em> database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance:</p>
-<p>30 11 * * * /home/oracle/scripts/get_data.R</p>
-<p>To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally <em>not feasible</em> in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working.</p>
-</div>
-</div>
+<!-- ## Scheduler{#scheduler} -->
+<!-- ```{definition, scheduler, name = "Scheduler"} -->
+<!-- A Scheduler in a process is a component on a OS that allows the computer to decide which activity is going to be executed. In the context of multi-programming it is thought as a tool to keep CPU occupied as much as possible. -->
+<!-- ``` -->
+<!-- As an example it can trigger a process while some other is still waiting to finish. There are many type of scheduler and they are based on the frequency of times they are executed considering a certain closed time neighbor. -->
+<!-- - Short term scheduler: it can trigger and queue the "ready to go" tasks -->
+<!--   - with pre-emption  -->
+<!--   - without pre-emption -->
+<!-- The ST scheduler selects the process and It gains control of the CPU by the dispatcher. In this context we can define latency as the time needed to stop a process and to start a new one.  -->
+<!-- - Medium term scheduler  -->
+<!-- - Long term scheduler -->
+<!-- for some other useful but beyond the scope references, such as the scheduling algorithm the reader can refer to [@wiki:scheduler]. -->
+<!-- ### Cron Jobs -->
+<!-- ```{definition, cronjob, name ="Cronjob"} -->
+<!-- Cron job is a software utility which acts as a time-based job scheduler in Unix-like OS. Linux users that set up and maintain software environments exploit cron to schedule their day-to-day routines to run periodically at fixed times, dates, or intervals. It typically automates system maintenance but its usage is very flexible to whichever needed. It is lightweight and it is widely used since it is a common option for Linux users. -->
+<!-- ``` -->
+<!-- The tasks by cron are driven by a crontab file, which is a configuration file that specifies a set of commands to run periodically on a given schedule. The crontab files are stored where the lists of jobs and other instructions to the cron daemon are kept. -->
+<!-- Each line of a crontab file represents a job, and the composition follows the syntax in figure \@ref(fig:crontab) -->
+<!-- ![Crontab Scheduling Syntax](images/crontab.PNG) -->
+<!-- Each line of a crontab file represents a job. This example runs a shell named scheduler.sh at 23:45 (11:45 PM) every Saturday. .sh commands can update mails and other minor routines. -->
+<!-- 45 23 * * 6 /home/oracle/scripts/scheduler.sh -->
+<!-- Some rather unusual scheduling definitions for crontabs can be found in this reference [@wiki:cronjob]. Crontab's syntax completion can be made easier through [this](https://crontab.guru/) GUI.   -->
+<!-- The cron job needs to be ran on scraping fucntions at 11:30 PM every single day. The get_data.R script first sources an endpoint function, then it applies the function with fixed parameters. Parameters describe the url specification, so that each time the scheduler runs the get_data.R collects data from the same source. Day after day .json files are generated and then stored into a NOSQL *mongoDB* database whose credentials are public. Data are collected on a daily basis with the explicit aim to track day-by-day changes both in the new entries an goners in rental market, and to investigate the evolution of price differentials over time. Spatio-Temporal modeling is still quite unexplored, data is saved for future used. Crontab configuration for daily 11:30 PM schedules has this appearance: -->
+<!-- 30 11 * * * /home/oracle/scripts/get_data.R -->
+<!-- To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally _not feasible_ in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working.  -->
 <div id="rest-api" class="section level2">
-<h2><span class="header-section-number">3.2</span> REST API</h2>
+<h2><span class="header-section-number">3.1</span> REST API</h2>
 
 <div class="definition">
-<span id="def:api" class="definition"><strong>Definition 3.3  (API)  </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
+<span id="def:api" class="definition"><strong>Definition 3.1  (API)  </strong></span>API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
 </div>
 
-APIs are thought of as contracts, with documentation that represents an general agreement between parties.
+APIs may be thought of as contracts, with documentation that represents an general agreement between parties.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 
 <div class="definition">
-<span id="def:rest" class="definition"><strong>Definition 3.4  (REST)  </strong></span>The specification REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and is a set of <em>architectural principles</em>.
+<span id="def:rest" class="definition"><strong>Definition 3.2  (REST)  </strong></span>The specification REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and is a set of <em>architectural principles</em>.
 </div>
 
-<p>When a request is made through a REST API it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic <span class="citation">(<a href="#ref-what_is_a_rest_api" role="doc-biblioref">2018</a>)</span>, as well as it is more comfortable to be read and parsed.
-In order for an API to be considered REST, it has to conform to these criteria:</p>
+<p>When a request is made through a REST API, figure <a href="Infrastructure.html#fig:apigenstru">3.3</a> it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic <span class="citation">(<a href="#ref-what_is_a_rest_api" role="doc-biblioref">2018</a>)</span>, as well as it is more comfortable to be read and parsed. When an API adhere to REST architecture is said RESTful.
+An API is considered REST when it conforms to the following criteria:</p>
 <ul>
 <li>A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.</li>
-<li>Stateless client-server communication, meaning no client information is stored between requests and each request is separate and unconnected.</li>
+<li>Stateless client-server communication, meaning no client information is stored between requests and each request is separate and disconnected.</li>
 <li>Cacheable data that streamlines client-server interactions.</li>
 <li>A uniform interface between components so that information is transferred in a standard form. This requires that:
 <ul>
 <li>resources requested are identifiable and separate from the representations sent to the client.</li>
 <li>resources can be manipulated by the client via the representation they receive because the representation contains enough information to do so.</li>
 <li>self-descriptive messages returned to the client have enough information to describe how the client should process it.</li>
-<li>hypermedia, meaning that after accessing a resource the client should be able to use hyperlinks to find all other currently available actions they can take.</li>
 </ul></li>
 <li>A layered system that organizes each type of server (those responsible for security, load-balancing, etc.) involved the retrieval of requested information into hierarchies, invisible to the client.</li>
 </ul>
-<p>REST API accepts http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this <a href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html">reference</a>.</p>
-<p>open REST API examples:
+<p>RESTful APIs accept http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this <a href="https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html">reference</a>.
+Open and popular RESTful API examples are:
 - BigQuery API: A data platform for customers to create, manage, share and query data.
 - YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
-- Cloud Natural Language API: Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations, to developers.
 - Skyscanner Flight Search API: The Skyscanner API lets you search for flights &amp; get flight prices from Skyscanner’s database of prices, as well as get live quotes directly from ticketing agencies.
 - Openweathermap API: current weather data for any location on Earth including over 200,000 cities.</p>
-<div class="figure">
+<div class="figure"><span id="fig:apigenstru"></span>
 <img src="images/Rest-API.png" alt="" />
-<p class="caption">API general functioning functioning</p>
+<p class="caption">Figure 3.3: API general functioning</p>
 </div>
 <div id="plumberapi" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Plumber REST API</h3>
-<p>Plumber allows the user to create a REST API by adding decoration comments to the existing R code, in this case to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications parts are. Below a simple example extracted by the documentation:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="Infrastructure.html#cb10-1"></a><span class="co"># plumber.R</span></span>
-<span id="cb10-2"><a href="Infrastructure.html#cb10-2"></a></span>
-<span id="cb10-3"><a href="Infrastructure.html#cb10-3"></a><span class="co">#* Echo back the input</span></span>
-<span id="cb10-4"><a href="Infrastructure.html#cb10-4"></a><span class="co">#* @param msg The message to echo</span></span>
-<span id="cb10-5"><a href="Infrastructure.html#cb10-5"></a><span class="co">#* @get /echo</span></span>
-<span id="cb10-6"><a href="Infrastructure.html#cb10-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
-<span id="cb10-7"><a href="Infrastructure.html#cb10-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
-<span id="cb10-8"><a href="Infrastructure.html#cb10-8"></a>}</span>
-<span id="cb10-9"><a href="Infrastructure.html#cb10-9"></a></span>
-<span id="cb10-10"><a href="Infrastructure.html#cb10-10"></a><span class="co">#* Plot a histogram</span></span>
-<span id="cb10-11"><a href="Infrastructure.html#cb10-11"></a><span class="co">#* @serializer png</span></span>
-<span id="cb10-12"><a href="Infrastructure.html#cb10-12"></a><span class="co">#* @get /plot</span></span>
-<span id="cb10-13"><a href="Infrastructure.html#cb10-13"></a><span class="cf">function</span>() {</span>
-<span id="cb10-14"><a href="Infrastructure.html#cb10-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb10-15"><a href="Infrastructure.html#cb10-15"></a>  <span class="kw">hist</span>(rand)</span>
-<span id="cb10-16"><a href="Infrastructure.html#cb10-16"></a>}</span>
-<span id="cb10-17"><a href="Infrastructure.html#cb10-17"></a></span>
-<span id="cb10-18"><a href="Infrastructure.html#cb10-18"></a><span class="co">#* Return the sum of two numbers</span></span>
-<span id="cb10-19"><a href="Infrastructure.html#cb10-19"></a><span class="co">#* @param a The first number to add</span></span>
-<span id="cb10-20"><a href="Infrastructure.html#cb10-20"></a><span class="co">#* @param b The second number to add</span></span>
-<span id="cb10-21"><a href="Infrastructure.html#cb10-21"></a><span class="co">#* @post /sum</span></span>
-<span id="cb10-22"><a href="Infrastructure.html#cb10-22"></a><span class="cf">function</span>(a, b) {</span>
-<span id="cb10-23"><a href="Infrastructure.html#cb10-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
-<span id="cb10-24"><a href="Infrastructure.html#cb10-24"></a>}</span></code></pre></div>
-<p>three endpoints associated to 2 /GET and 1 /POST requests are made available. Functions are made clear without names so that whenever the endpoint is called functions are directly executed.
-Decorations are marked as this <code>#*</code> and they are followed by specific keywords denoted with <code>@</code>.
-- the <code>@params</code> keyword refers to parameter that specifies the corpus of the HTTP request, i.e. the inputs with respect to the expected output. If default parameters are inputted then the API response is the elaboration of the functions with default parameters. As opposite endpoint function elaborates the provided parameters and returns a response.
-- <code>#* @serializer</code> specifies the extension of the output file when needed.
-- <code>#* @get</code> specifies the method of HTTP request sent.
-- <code>/echo</code> is the end point name.
-- <code>@filter</code> decorations activates a filter layer which are used to track logs and to parse request before passing the argbody to the end points.</p>
-<p>Many more options are available to customize plumber API but are beyond the scope, a valuable resource for further insights can be found in the dedicated package website <span class="citation">(<span class="citeproc-not-found" data-reference-id="an_api_generator_for_r"><strong>???</strong></span>)</span></p>
+<h3><span class="header-section-number">3.1.1</span> Plumber http API</h3>
+<ul>
+<li>sanitize input</li>
+<li>antidossing strategies</li>
+<li>open parallel and close on exit</li>
+</ul>
+<p>Plumber is a R framework <span class="citation">(<span class="citeproc-not-found" data-reference-id="an_api_generator_for_r"><strong>???</strong></span>)</span>, allowing users to construct APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications starts. Below is reported a simple API with 3 endpoints example from the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks which are the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method GET or POST followed by the endpoints invocation verb (third).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="Infrastructure.html#cb8-1"></a><span class="co"># plumber.R</span></span>
+<span id="cb8-2"><a href="Infrastructure.html#cb8-2"></a></span>
+<span id="cb8-3"><a href="Infrastructure.html#cb8-3"></a><span class="co">#* Echo back the input</span></span>
+<span id="cb8-4"><a href="Infrastructure.html#cb8-4"></a><span class="co">#* @param msg The message to echo</span></span>
+<span id="cb8-5"><a href="Infrastructure.html#cb8-5"></a><span class="co">#* @get /echo</span></span>
+<span id="cb8-6"><a href="Infrastructure.html#cb8-6"></a><span class="cf">function</span>(<span class="dt">msg=</span><span class="st">&quot;&quot;</span>) {</span>
+<span id="cb8-7"><a href="Infrastructure.html#cb8-7"></a>  <span class="kw">list</span>(<span class="dt">msg =</span> <span class="kw">paste0</span>(<span class="st">&quot;The message is: &#39;&quot;</span>, msg, <span class="st">&quot;&#39;&quot;</span>))</span>
+<span id="cb8-8"><a href="Infrastructure.html#cb8-8"></a>}</span>
+<span id="cb8-9"><a href="Infrastructure.html#cb8-9"></a></span>
+<span id="cb8-10"><a href="Infrastructure.html#cb8-10"></a><span class="co">#* Plot a histogram</span></span>
+<span id="cb8-11"><a href="Infrastructure.html#cb8-11"></a><span class="co">#* @serializer png</span></span>
+<span id="cb8-12"><a href="Infrastructure.html#cb8-12"></a><span class="co">#* @get /plot</span></span>
+<span id="cb8-13"><a href="Infrastructure.html#cb8-13"></a><span class="cf">function</span>() {</span>
+<span id="cb8-14"><a href="Infrastructure.html#cb8-14"></a>  rand =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb8-15"><a href="Infrastructure.html#cb8-15"></a>  <span class="kw">hist</span>(rand)</span>
+<span id="cb8-16"><a href="Infrastructure.html#cb8-16"></a>}</span>
+<span id="cb8-17"><a href="Infrastructure.html#cb8-17"></a></span>
+<span id="cb8-18"><a href="Infrastructure.html#cb8-18"></a><span class="co">#* Return the sum of two numbers</span></span>
+<span id="cb8-19"><a href="Infrastructure.html#cb8-19"></a><span class="co">#* @param a The first number to add</span></span>
+<span id="cb8-20"><a href="Infrastructure.html#cb8-20"></a><span class="co">#* @param b The second number to add</span></span>
+<span id="cb8-21"><a href="Infrastructure.html#cb8-21"></a><span class="co">#* @post /sum</span></span>
+<span id="cb8-22"><a href="Infrastructure.html#cb8-22"></a><span class="cf">function</span>(a, b) {</span>
+<span id="cb8-23"><a href="Infrastructure.html#cb8-23"></a>  <span class="kw">as.numeric</span>(a) <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(b)</span>
+<span id="cb8-24"><a href="Infrastructure.html#cb8-24"></a>}</span></code></pre></div>
+<p>Once http api calls are sent to machines belonging to a network of servers, whether it is public or private they converge through endpoints. Edpoints execute functions involving the parameters specified through the call and by default response is JSON type . The first endpoint invocation simply echoes back the text that it was sent. The second endpoints generates a histogram plot based on 100 observation sampled from a Normal distribution, no parameters are required, but the output of the plot is forced to be a .png image. The third endpoint when invoked calculates the sum of a couple of number attached to the call.
+Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
+When exposing APIs on a private network or on a public server security is a major issue, concerns and thought process must adapt accordingly. There are several variables and attacks it should considered in creating Plumber APIs, but the focus will differ depending on the API audience. For example If APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:</p>
+<ul>
+<li>Sanitization</li>
+<li>Denial Of Service (DoS)</li>
+<li>HTTPS</li>
+</ul>
+</div>
+<div id="sanitization" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Sanitization</h3>
+<p>Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new inputs are defined so that they take the user generated input and give back a sanitized version internally to the function. In the code chunk below are shown a couple of examples of sanitization of inputs:</p>
+</div>
+<div id="denial-of-service-dos" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Denial Of Service (DoS)</h3>
+<p>Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context hosting services may induce to astronomic fees charged. A simple but effective approach tries to</p>
 </div>
 <div id="immobiliare.it-parallel-rest-api" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Immobiliare.it <em>Parallel</em> REST API</h3>
+<h3><span class="header-section-number">3.1.4</span> Immobiliare.it <em>Parallel</em> REST API</h3>
 <p>(Sanitization, antidossing, logs tracking)</p>
 <p>The API service is composed by 4 endpoints <em>/scrape</em> , <em>/links</em>, <em>/complete</em> and <em>/get_data</em>:</p>
 <ul>
 <li><p>*/scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in <span class="math inline">\(\approx 10.91^{&#39;&#39;}\)</span>). This comes at the cost of the number of available covariates to scrape which are: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).</p></li>
-<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section <a href="scraping.html#webstructure">2.5.1</a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.</p></li>
+<li><p>*/links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section <a href="#webstructure"><strong>??</strong></a>. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.</p></li>
 <li><p>*/complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link.</p></li>
 <li><p>*/get_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS</p></li>
 </ul>
@@ -446,7 +438,7 @@ Decorations are marked as this <code>#*</code> and they are followed by specific
 </div>
 </div>
 <div id="APIdocs" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> REST API documentation</h3>
+<h3><span class="header-section-number">3.1.5</span> REST API documentation</h3>
 <ul>
 <li>Get FAST data, it covers 5 covariates:</li>
 </ul>
@@ -479,10 +471,10 @@ The approach followed proposes a dedicated lightweight software environment that
 </div>
 </div>
 <div id="docker" class="section level2">
-<h2><span class="header-section-number">3.3</span> Docker</h2>
+<h2><span class="header-section-number">3.2</span> Docker</h2>
 
 <div class="definition">
-<span id="def:docker" class="definition"><strong>Definition 3.5  (Docker)  </strong></span><em>Docker</em> <span class="citation">(Merkel <a href="#ref-docker" role="doc-biblioref">2014</a>)</span> is a software tool to create and deploy applications using containers.
+<span id="def:docker" class="definition"><strong>Definition 3.3  (Docker)  </strong></span><em>Docker</em> <span class="citation">(Merkel <a href="#ref-docker" role="doc-biblioref">2014</a>)</span> is a software tool to create and deploy applications using containers.
 <em>Docker containers</em> are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 </div>
 
@@ -490,19 +482,19 @@ The approach followed proposes a dedicated lightweight software environment that
 <!-- Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in \@ref(fig:). -->
 <!-- ![Docker containers versus Virtual Machines, ](images/dockerVSvirtualmachines.PNG) -->
 <p>When images are built <em>Docker container</em> are created and can be open sourced through Docker Hub.
-<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.4</a>.
+<em>Docker Hub</em> is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section <a href="Infrastructure.html#aws">3.3</a>.
 Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
 Rstudio <a href="https://packagemanager.rstudio.com/client/#/">package manager</a> includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation <span class="citation">(Nolis <a href="#ref-nolis_2020" role="doc-biblioref">2020</a>)</span>.
 In addition to that an open source project <a href="https://www.rocker-project.org/images/">rocker</a> has narrowed the path for developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: “The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment”.</p>
 <div id="why-docker" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Why Docker</h3>
-<p><a href="https://it.indeed.com/">Indeed</a>, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure <a href="Infrastructure.html#fig:indeedstats">3.4</a>. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: <em>containers</em> and <em>cloud computing</em>.
+<h3><span class="header-section-number">3.2.1</span> Why Docker</h3>
+<p><a href="https://it.indeed.com/">Indeed</a>, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure <a href="Infrastructure.html#fig:indeedstats">3.5</a>. Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: <em>containers</em> and <em>cloud computing</em>.
 The landscape of Data Science is changing from reporting to application building:
 In 2015 - Businesses reports drive better decisions.
 In 2020 - Businesses need apps to empower better decision making at all levels.</p>
 <div class="figure"><span id="fig:indeedstats"></span>
 <img src="images/Inkedindeed_jobs_LI.jpg" alt="" />
-<p class="caption">Figure 3.4: Indeed top skills for 2019 in percent changes, <span class="citation">Flowers (<a href="#ref-top_tech_skills" role="doc-biblioref">2020</a>)</span> source</p>
+<p class="caption">Figure 3.5: Indeed top skills for 2019 in percent changes, <span class="citation">Flowers (<a href="#ref-top_tech_skills" role="doc-biblioref">2020</a>)</span> source</p>
 </div>
 <p>For all the things said what docker is bringing to business are <span class="citation">(R. H. Inc. <a href="#ref-red_hat_customer_portal" role="doc-biblioref">2020</a>)</span>:</p>
 <ul>
@@ -516,12 +508,12 @@ In 2020 - Businesses need apps to empower better decision making at all levels.<
 <p>The way to tell docker which system requirements are needed in the newly born software is a <em>Dockerfile</em>.</p>
 </div>
 <div id="dockerfile" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Dockerfile</h3>
+<h3><span class="header-section-number">3.2.2</span> Dockerfile</h3>
 <p>Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command <code>docker build</code> from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a Dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is “Dockerfile”. When It is matched then it triggers the building of the image.</p>
-<p>The Dockerfile used to trigger the building of the docker container has the following sequential set of instructions in figure <a href="Infrastructure.html#fig:dockerfile">3.5</a>) :</p>
+<p>The Dockerfile used to trigger the building of the docker container has the following sequential set of instructions in figure <a href="Infrastructure.html#fig:dockerfile">3.6</a>) :</p>
 <div class="figure"><span id="fig:dockerfile"></span>
 <img src="images/dockerfile.PNG" alt="" />
-<p class="caption">Figure 3.5: Example of a Dockerfile from Docker Hub, author’s source</p>
+<p class="caption">Figure 3.6: Example of a Dockerfile from Docker Hub, author’s source</p>
 </div>
 <p>where the instructions are:</p>
 <ul>
@@ -541,18 +533,18 @@ DoParallel was not available in package manager for R version later than 4.0.0. 
 </div>
 </div>
 <div id="aws" class="section level2">
-<h2><span class="header-section-number">3.4</span> AWS EC2 instance</h2>
+<h2><span class="header-section-number">3.3</span> AWS EC2 instance</h2>
 <p>Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
 AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named <a href="https://aws.amazon.com/en/aws-cost-management/">amazon cost manager</a>.</p>
 
 <div class="definition">
-<p><span id="def:aws" class="definition"><strong>Definition 3.6  (AWS EC2)  </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.</p>
+<p><span id="def:aws" class="definition"><strong>Definition 3.4  (AWS EC2)  </strong></span>Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.</p>
 </div>
 
 <p>[few words still on EC2]</p>
 <div id="launch-an-ec2-instance" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> Launch an EC2 instance</h3>
-<p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.3.2</a>, has been exposed and needs to be linked to the security port opened.</p>
+<h3><span class="header-section-number">3.3.1</span> Launch an EC2 instance</h3>
+<p>The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the “add storage” step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section <a href="Infrastructure.html#dockerfile">3.2.2</a>, has been exposed and needs to be linked to the security port opened.</p>
 <div class="figure">
 <img src="images/aws.PNG" alt="" />
 <p class="caption">aws_dashboard</p>
@@ -565,19 +557,34 @@ the Public DNS has the following form:</p>
 </div>
 </div>
 <div id="nginx" class="section level2">
-<h2><span class="header-section-number">3.5</span> NGINX reverse proxy server</h2>
-<p>For analysis purposes NGINX is open source software for reverse proxying and load balancing.
+<h2><span class="header-section-number">3.4</span> NGINX reverse proxy server and Ayuth</h2>
+<p>FUNZIONA</p>
+<p>two reasons for authentication
+- you want to deploy your API at your company but do not want to give everyone access to every endpoint.
+- you want to make your API publicly available on the Internet but you still want users to authenticate before they can use your API (e.g. to prohibit abuse of your API).
+For analysis purposes NGINX is open source software for reverse proxying and load balancing.
 Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
 […]</p>
 <p>When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
 […]</p>
 <p>.conf file and installation on Linux server. Security and Authentication.</p>
 </div>
+<div id="SSL" class="section level2">
+<h2><span class="header-section-number">3.5</span> SSL certificates and Subdomain registration</h2>
+<p>QUESTO ANCORA NON SO SE FUNZIONA</p>
+<p><a href="https://qunis.de/how-to-make-a-dockerized-plumber-api-secure-with-ssl-and-basic-authentication/">resource</a>
+<a href="https://www.rinproduction.com/it/posts/003-web-r-platform-with-https/">resource2</a>
+<a href="https://business-science.github.io/shiny-production-with-aws-book/domain-setup-ssl-certificates.html">resource3</a>
+Here we have created two servers:</p>
+<p>The first listens on port 80 and redirects all traffic to <a href="https://" class="uri">https://</a>… on port 443
+The second listens on the SSL port 443 and points to the key and certificate files we have created in the Dockerfile.</p>
+<p>This is because we signed the certificate ourselves and not issued an official certificate from a certificate authority. But the connection is encrypted eitherway and we can skip this warning, since we can trust ourselves.</p>
+</div>
 <div id="software-development-workflow" class="section level2">
 <h2><span class="header-section-number">3.6</span> Software development Workflow</h2>
 <div class="figure"><span id="fig:sfmap"></span>
 <img src="images/SoftwareDevWF.jpg" alt="" />
-<p class="caption">Figure 3.6: Sofwtare development workflow, author’s source</p>
+<p class="caption">Figure 3.7: Sofwtare development workflow, author’s source</p>
 </div>
 </div>
 <div id="further-integrations" class="section level2">
@@ -624,12 +631,6 @@ software development framework and tools for testing <a href="https://github.com
 </div>
 <div id="ref-usethis">
 <p>Wickham, Hadley, and Jennifer Bryan. 2020. <em>Usethis: Automate Package and Project Setup</em>. <a href="https://CRAN.R-project.org/package=usethis">https://CRAN.R-project.org/package=usethis</a>.</p>
-</div>
-<div id="ref-wiki:cronjob">
-<p>Wikipedia contributors. 2020. “Cron — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592">https://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=978051592</a>.</p>
-</div>
-<div id="ref-wiki:scheduler">
-<p>Wikiversità. 2020. “Scheduling — Wikiversità,” <a href="https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572">https://it.wikiversity.org/w/index.php?title=Scheduling&amp;oldid=214572</a>.</p>
 </div>
 <div id="ref-bookdown2">
 <p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
