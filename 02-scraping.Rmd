@@ -372,6 +372,16 @@ HTTP should be borne in mind two essential facts.
 HTTP messages, whether client requests or server response messages, consist of three parts: start line, headers, and body. The server response start line begins with a statement on the highest HTTP version
 he header section below the start line provides client and server with meta information about the other sides’ preferences or the content. The body of an HTTP message contains the data. Most importatnlt in the context of the analyisis are headers which extensively are the fiels where lays the definition of the actions to take upon receiving a request or response. 
 
+
+
+
+
+
+
+
+
+
+
 - parlare di **https**
 
 HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e. name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \@ref(fig:webworks). If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.

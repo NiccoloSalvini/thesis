@@ -168,7 +168,7 @@
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 19 dicembre, 2020}
+\date{Lastest build: 20 dicembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -249,8 +249,8 @@ Then it is presented the scraping workflow with \texttt{rvest} \citet{rvest} whi
 Scraping standard common shared best practices are applied both from the \emph{web server} point of view, this is taken care by kindly asking for permission and sending delayed requests rate. And from the the \emph{web client} point of view by preventing scraping discontinuity caused by server blocks thanks to \emph{User Agent} pool \emph{rotation} and \emph{fail dealers}.
 \emph{Parallel} execution is carried out since data becomes obsolete very fast, and so happens to the analysis that relied on these data. Parallel computing as a concepts is introduced and then is centered on the R ecosystem. Then a run time Parallel benchmark is presented for two different back end options \texttt{future} \citet{future} and \texttt{doParallel} \citet{doParallel}, along with their respective two parallel looping constructors, \texttt{furrr} \citet{furrr} and \texttt{foreach} \citet{foreach}. Both of the two combination have showed similar results, nevertheless the former offers a more \{Tidiverse\} coherence and a more comfortable debugging experience. Furthermore an overview of the still unlocked challenges is provided on the open source project and possible improvements, with the sincere hope that the effort put into this might be extended or integrated. In the end legal profiles are addressed comparing results and popular legal case studies.
 
-\hypertarget{a-gentle-introduction-on-web-scraping}{%
-\section{A Gentle Introduction on Web Scraping}\label{a-gentle-introduction-on-web-scraping}}
+\hypertarget{reverse}{%
+\section{A Gentle Introduction on Web Scraping}\label{reverse}}
 
 \begin{definition}[Scraping]
 \protect\hypertarget{def:scraping}{}{\label{def:scraping} \iffalse (Scraping) \fi{} }Web Scraping is a technique aimed at extracting unstructured data from static or dynamic internet web pages and collecting it in a structured way.
@@ -378,13 +378,13 @@ Reverse engineered urls are then feeded to the scraper which arranges the proces
 \caption{\label{fig:rvestflowchart}rvest general flow chart, author's source}
 \end{figure}
 
-Indeed at the right of dashed line in \ref{fig:rvestflowchart} are represented the last two steps configured into two \texttt{rvest}\citep{rvest} functions that locate the data within the HTML nodes and convert it into a human readble text, i.e.~from HTML/XML to text. The most of the times can be crafty to find the exact HTML node or nodes set that contains the data wanted, expecially when HTML trees are deep nested and dense. html\_node function provides and argument that grants to specify a simple CSS/XPATH selector which may group a set of HTML/XML nodes or a single node. Help comes from an open source library and browser extension technology named SelectorGadget. SelectorGadget \citep{Selectorgadgetwhich} is a JavaScript bookmark that allows to interactively explore which CSS selector is needed to gather desired components from a webpage. Data can be repeated many times into webpages so the same information can be found at multiple CSS queries. This fact highlights one of the priciples embodied in the follwing section \ref{ProperScraping} accroding to which searching methods gravitates. Once the CSS query points address to the desired content then data finally needs to be converted into text. This is what explicitly achieve hmlt\_text.
+Indeed at the right of dashed line in \ref{fig:rvestflowchart} are represented the last two steps configured into two \texttt{rvest}\citep{rvest} functions that locate the data within the HTML nodes and convert it into a human readble text, i.e.~from HTML/XML to text. The most of the times can be crafty to find the exact HTML node or nodes set that contains the data wanted, expecially when HTML trees are deep nested and dense. html\_node function provides and argument that grants to specify a simple CSS/XPATH selector which may group a set of HTML/XML nodes or a single node. Help comes from an open source library and browser extension technology named SelectorGadget. SelectorGadget \citep{Selectorgadget} which is a JavaScript bookmark that allows to interactively explore which CSS selector is needed to gather desired components from a webpage. Data can be repeated many times into webpages so the same information can be found at multiple CSS queries. This fact highlights one of the priciples embodied in the follwing section \ref{ProperScraping} accroding to which searching methods gravitates. Once the CSS query points address to the desired content then data finally needs to be converted into text. This is what explicitly achieve hmlt\_text.
 
 \hypertarget{ProperScraping}{%
 \section{Searching Technique for Scarping}\label{ProperScraping}}
 
 The present algorithm in figure \ref{fig:pseudocode1} imposes a nested sequential search strategy and gravitates around the fact that data within the same webpage is repeated many times, so multiple CSS queries are avaialble for the same information. Furthermore since data is repeated has also less probability to be missed. CSS sequential searches are calibrated from the highest probability of appearance in that CSS selector location to the lowest so that most visited locations are also the the most likely to grab data.
-A session object \texttt{opensess}, the one seen in \ref{fig:rvestworkflow}), is initialized sending urls built in \ref{fig:pseudocode3}. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML/XML content. Immediately after another object \texttt{price} parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location \texttt{.im-mainFeatures\_\_title} addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first \texttt{if} statement. The logical condition checks whether the object \texttt{price} first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed single quantity. Indeed if it does it considers again the check point \texttt{opensess} and hits with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title}, pointing to a second data location. Note that the whole search is done within the same session (i.e.~reusing the same session object), so no more additional request headers \ref{spoofing} has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized \texttt{price2} is a type list object containing various information. Then the algorithm flows through a second \texttt{if} statement that checks whether \texttt{"prezzo"} is matched in the list, if it does the algorithm returns the +1 position index element with respect to the ``prezzo'' position. This happens because data in the list are stored by couples sequentially (as a flattened list), e.g.~list(title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. \texttt{price3} points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting \texttt{NA\_Character\_}, ending with any CSS query is able to find price data.
+A session object \texttt{opensess}, the one seen in \ref{fig:rvestflowchart}), is initialized sending urls built in \ref{fig:pseudocode3}. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML/XML content. Immediately after another object \texttt{price} parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location \texttt{.im-mainFeatures\_\_title} addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first \texttt{if} statement. The logical condition checks whether the object \texttt{price} first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed single quantity. Indeed if it does it considers again the check point \texttt{opensess} and hits with a second css query \texttt{.im-features\_\_value\ ,\ .im-features\_\_title}, pointing to a second data location. Note that the whole search is done within the same session (i.e.~reusing the same session object), so no more additional request headers \ref{spoofing} has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized \texttt{price2} is a type list object containing various information. Then the algorithm flows through a second \texttt{if} statement that checks whether \texttt{"prezzo"} is matched in the list, if it does the algorithm returns the +1 position index element with respect to the ``prezzo'' position. This happens because data in the list are stored by couples sequentially (as a flattened list), e.g.~list(title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. \texttt{price3} points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting \texttt{NA\_Character\_}, ending with any CSS query is able to find price data.
 The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be rooted to only certain paths, e.g.~``condizionatore'' can not be found under main title and so on.
 
 \begin{figure}
@@ -458,13 +458,35 @@ With that said a custom function caches the results of robotstxt into a variable
 ## [1] 2.5
 \end{verbatim}
 
-\hypertarget{web-client-security-provisions-user-agents-proxies-and-fail-dealers}{%
-\section{Web Client Security provisions: User Agents, Proxies and Fail Dealers}\label{web-client-security-provisions-user-agents-proxies-and-fail-dealers}}
+\hypertarget{security-provisions-and-http}{%
+\section{Security Provisions and HTTP}\label{security-provisions-and-http}}
+
+URLs in browsers as in \ref{reverse} are a way to access to web content whether this accounts for getting from one location to the following, or checking mails, reading news or downloading files. However Internet communication is a stratification of layers Conceived to make the whole system working. In this context URL is the layer responsible for user interaction. The rest of the layers which involve techniques, standards and protocols, are called in ensemble Internet Protocols Suite (IPS) \citeyearpar{automateddatacollection}. The TCP (Transmission Control Protocol) and IP (Internet Protocol) are two of the most important actors on the IP Suite and their role is to represent the Internet layer (IP) and the transportation layer (TCP) and guarantee trusted transmission of data. Inner properties and mechanism are beyond the scope of the analysis, luckily they are not required in this context. Besides the transportation standard are included specialized message exchange protocols such as the HTTP (Hyper Text Transfer Protocol), FTP (File Transfer Protocol). In addition, there are also e-mail exchange protocols for transmission, which are Post Office Protocol (POP) for Email Recovery and IMAP (Internet Message Acccess Protocol) for storage and retrieval. The aforementioned protocols describe default vocabulary and procedures to address particular tasks for both clients and servers and they can be ascribed to the transportation layer. HTTP is the most widespread, versatile enough to ask for almost any resource from a server and can also be used to transfer data to the server rather than to recover. In figure \ref{fig:httpschema} is painted a schematized version of a User-Server communication. If a website e.g.~\href{https://www.immobiliare.it/}{immobiliare.it} is browsed from a web browser e.g.~Chrome (the HTTP client) then the client is interrogating a Domain Name System (DNS) which IP address is associated with the domain part of the URL. When the browser has obtained the IP address as response from the DNS server then connection is established with HTTP server via TCP/IP. From a content perspective data is gathered piece-by-piece, if the content is not exclusively HTML then the the browser client renders the content as soon as it receives data.
+
+\begin{figure}
+\centering
+\includegraphics{images/http_schema.jpg}
+\caption{\label{fig:httpschema} User-Server communication scheme via HTTP, source \citet{automateddatacollection}}
+\end{figure}
+
+HTTP should be borne in mind two essential facts.
 
 \begin{itemize}
 \tightlist
 \item
-  http introduction presa dal libro sezione 5
+  HTTP is not only a hypertext protocol, but it is used for all sorts of services (i.e.~APIs)
+\item
+  HTTP is a stateless protocol, which means that response and request and the the resulting interaction between client and server is managed by default as it were the first time they connected.
+\end{itemize}
+
+\textbf{da quillbottare}
+HTTP messages, whether client requests or server response messages, consist of three parts: start line, headers, and body. The server response start line begins with a statement on the highest HTTP version
+he header section below the start line provides client and server with meta information about the other sides' preferences or the content. The body of an HTTP message contains the data. Most importatnlt in the context of the analyisis are headers which extensively are the fiels where lays the definition of the actions to take upon receiving a request or response.
+
+\begin{itemize}
+\tightlist
+\item
+  parlare di \textbf{https}
 \end{itemize}
 
 HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e.~name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \ref{fig:webworks}. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.
@@ -476,7 +498,7 @@ HTTP headers are sent via HTTP protocol transactions and allow the client and th
 \end{figure}
 
 \hypertarget{spoofing}{%
-\subsection{HTTP User Agent and Mail Spoofing}\label{spoofing}}
+\subsection{HTTP identification, User Agent and Mail Spoofing}\label{spoofing}}
 
 \begin{definition}[User Agents]
 \protect\hypertarget{def:useragents}{}{\label{def:useragents} \iffalse (User Agents) \fi{} }The user agent (from now refered as UA) ``retrieves, renders and facilitates end-user interaction with Web content'' \citet{UaDef}.
@@ -516,7 +538,7 @@ The UA string is also one of the main responsible according to which Web crawler
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "Mozilla/5.0 (Linux; U; Android 10; it-it; Redmi Note 9 Pro Build/QKQ1.191215.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser/12.5.2-go"
+## [1] "Mozilla/5.0 (Linux; Android 6.0; LG-H440n) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36"
 \end{verbatim}
 
 The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering low level API calls to dedicated servers nested into a more general higher level API.
