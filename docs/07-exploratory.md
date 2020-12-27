@@ -331,8 +331,7 @@ A convex hull is a polygon of triangles out of the domain area, in other words t
 
 ### Shinyapp for mesh assessment
 
-INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively
-
+INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively 
 
 
 

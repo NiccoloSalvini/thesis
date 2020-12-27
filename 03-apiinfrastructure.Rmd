@@ -2,43 +2,46 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-The previous chapter has encapsulated the main concepts behind the design of scrapers with R in a consistent, secure, and fast course of action. The fact that function are compressed into scripts does not imply that are shareable and portable. As a matter of fact in order to be executed they need to be at first understood and then also sourced into a current R environment. From a restricted usage perspective this can be feasible, but in a large-scale orientation this can not be entitled to be a service. Moreover The fact that scraped data is a result of a R file (containing function) execution prevents any further usage from not only users, but also applications, websites and other services. 
-As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they’re implemented.
+The previous chapter has encapsulated the main concepts behind the design of consistent, secure, and fast scraping functions with R. In truth challenges not only regard scraping per se, but also the way and how many times the service has to interact with different clients. Indeed the fact that functions are compressed into scripts does not imply that are shareable and portable. As a consequence when they are executed they also need to be at first understood and secondly loaded into a dedicated R environment (higher and lower dependecies). Moreover results are actually computed, whether in parallel or not, with local machines resources that are limited in many sense. In the end exposing the service traffic to the public or internally to a network of servers requires authentication and precautions from both malicious attack and privacy dangers. Actually from a restricted personal usage perspective what has been done since now is totally feasible. But in a large-scale orientation where different stakeholders should gather massive amount of data, then a unsuitable service may cause an enormous waste of time.
+The following chapter tries to capture the essence and its specific context usage of each technology involved that address each aforementioned issues raised. In parallel it highlights the _fil rouge_ that ties together the chronological order according to which the stack has been developed.
 
+<!-- Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. -->
 
-In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken:
+<!-- Moreover The fact that scraped data is a result of a R file (containing function) execution prevents other software users (Python, Scala etc. ) to benefit from that. -->
+<!-- As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they’re implemented. -->
 
-- The API has to be naturally deployed so that it the service can be really used by different stakeholders
-- 
-- The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated.
-- Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures. 
-- The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
-- The service should be load balanced and authozied so that 
-- In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.
+<!-- In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken: -->
 
-The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
-Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \@ref(scraping). On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure).
+<!-- - The API has to be naturally deployed so that it the service can be really used by different stakeholders -->
+<!-- -  -->
+<!-- - The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated. -->
+<!-- - Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.  -->
+<!-- - The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. -->
+<!-- - The service should be load balanced and authozied so that  -->
+<!-- - In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized. -->
+
+<!-- The long list of requirements is met by many open source technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed. -->
+The recipe proposed dispenses a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \@ref(scraping). Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and _composed_ with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. A AWS free tier EC2 server hosts containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to repository. 
+
+<!-- happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure). -->
 
 Technology stack:
 
-- GitHub version control
+- GitHub version control and CI
 <!-- - Scheduler cron job, section \@ref(scheduler) -->
 - Plumber REST API, section \@ref(plumberapi)
-- Docker containers, section \@ref(docker)
-- AWS (Amazon Web Services) EC2 \@ref(aws)
+- Docker containers and compose, section \@ref(docker)
+- AWS EC2 \@ref(aws)
 - NGINX reverse proxy, section \@ref(nginx)
-- SSL certificates \@ref(SSL)
-- MongoDB Atlas
-- Shiny
+- HTTPS and SSL certificates \@ref(HTTPS)
+
+**immagine infrastruttura da rivedere**
+
+![(#fig:CompleteStructure)complete infrastructure, author's source](images/software_arch.jpg.png)
 
 
-![(#fig:CompleteStructure)complete infrastructure, author's source](images/tot_infra.jpg)
-
-As a side note each single part of this thesis is comprised according to some of the API inspiring criteria of portability and self containerization. RMarkdown [@rmarkdown1] documents (book's chapters) are knitted and then rendered as .html files extension. Through Bookdown [@bookdown2] the html documents are made up following guidelines from a .yml instruction file and are rendered as Gitbook. Gitbooks are interactive online documentation that are employed to build books, business manuals, research papers as well as API documentation.    
-Files are ultimately pushed into a [Github repository](https://github.com/NiccoloSalvini/thesis), that makes changes version controlled. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at [link](https://niccolosalvini.github.io/thesis/). Gitbook are able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template whose formatting rules are contained into a further .yml file. 
-
-Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasons the rest needs to be skipped.
-
+As a further note each single part of this thesis is comprised according to the service inspiring criteria of portability and self containerization. RMarkdown [@rmarkdown1] documents (book's chapters) are knitted and then rendered as .html files extension through Bookdown [@bookdown2]. The resulting .html documents are instructed by a .yml file and then are rendered as Gitbook format. Gitbooks are interactive online documentation that are employed to build books, technical documentation as well as research papers. That makes thesis' graphs and codes interactive. Moreover Gitbooks enables custom buttons to directly create a push request on documents from source, which may be convenient for continous review. It is able to directly share documents on social media, as well as to change the the documents' style, such as fonts and background color.  
+Files are ultimately pushed into a [Github repository](https://github.com/NiccoloSalvini/thesis), that enables thesis version controlling. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at [link](https://niccolosalvini.github.io/thesis/), as a consequence thesis is also linked online. Moreover the Gitbook is able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to formatting rules contained in both a .tex template and a further .ylm and produces the final .pdf paper output. 
 
 <!-- ## Scheduler{#scheduler} -->
 
@@ -80,20 +83,25 @@ Some of the main technologies implied will be viewed singularly, nonetheless for
 
 <!-- To a certain extent what it has been already presented since now might fit for personal use. A scheduler can daily execute the scraping script and can generate a .csv file. Later the same .csv file can be parsed into an application and analysis can be locally reported. The solution proposed is totally _not feasible_ in a production environment, since in order to be executed a vast number files has to be sourced and a number of functions should be routinely called. For these reasons the present architecture can not be shared. The solution adopted tries to minimize the analyst/scientist involvement into scraping procedures by offering a compact and fast (due to Parallel execution) service that manages all the processes without having to know how scraping under the hood is working.  -->
 
-## REST API 
+## RESTful API 
 
 ```{definition, api, name ="API"}
 API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
 ```
-APIs may be thought of as contracts, with documentation that represents an general agreement between parties.
+API may be considered as a mediator between users or clients sending a request, left part figure \@ref(fig:apigenstru) and the web resource or services they want (returning back a response) middle part figure \@ref(fig:apigenstru). It also acts as means of exchanging resources and knowledge with an entity, as databases left part figure \@ref(fig:apigenstru) preserving protection, control and authentication, such as who gets access to what.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 ```{definition, rest,name = "REST"}
 The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. 
 ```
-When a request is made through a REST API, figure \@ref(fig:apigenstru) it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic [@what_is_a_rest_api], as well as it is more comfortable to be read and parsed. When an API adhere to REST architecture is said RESTful.
-An API is considered REST when it conforms to the following criteria:
 
-- A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
+If a client request is made using a REST API, a representation of the resource state is passed to a requestor or _endpoint_ [@what_is_a_rest_api]. This information is returned in one of the formats of multiple formats using _HTTP_: JSON, HTML, XLT, Python, PHP or simple text. JSON is the most common programming language to use because it is language agnostic [-@what_is_a_rest_api] and easy to interpretable both for people and machines.
+REST architecture depends upon HTTP, as a matter of fact REST API inherits from HTTP the stateless property, second pillar in \@ref(HTTPmethod). Calling a REST API (producing a request) demands composing a well defined URL lower part in figure \@ref(fig:apigenstru), whose semantic is able to uniquely identify the resource or a group of resources (sending back a response) along with the most common HTTP methods, as GET, PUT, POST, DELETE.
+
+![(#fig:apigenstru)API general functioning, unknown source](images/api_stru.png)
+
+When an API adheres to REST \@ref(def:rest) principles is said RESTful. Principles are:
+
+- A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP method.
 - Stateless client-server communication, meaning no client information is stored between requests and each request is separate and disconnected.
 - Cacheable data that streamlines client-server interactions.
 - A uniform interface between components so that information is transferred in a standard form. This requires that:
@@ -102,25 +110,20 @@ An API is considered REST when it conforms to the following criteria:
     - self-descriptive messages returned to the client have enough information to describe how the client should process it.
 - A layered system that organizes each type of server (those responsible for security, load-balancing, etc.) involved the retrieval of requested information into hierarchies, invisible to the client.
 
-RESTful APIs accept http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g. /GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this [reference](https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html).
+RESTful APIs receives HTTP request inputs and elaborates them through endpoints. Endpoints are the final step in the process of submitting an API request and they can interpreted as the responsibles for generating a response [-@plumber]. Further documentation and differences between HTTP and REST API can be found to this [reference](https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html).
 Open and popular RESTful API examples are: 
+
 - BigQuery API: A data platform for customers to create, manage, share and query data.
 - YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
 - Skyscanner Flight Search API: The Skyscanner API lets you search for flights & get flight prices from Skyscanner's database of prices, as well as get live quotes directly from ticketing agencies.
 - Openweathermap API: current weather data for any location on Earth including over 200,000 cities.
 
-![(#fig:apigenstru)API general functioning](images/Rest-API.png)
 
-### Plumber http API{#plumberapi}
+### Plumber HTTP API{#plumberapi}
 
-- sanitize input 
-- antidossing strategies
-- open parallel and close on exit
+Plumber is a R framework [@an_api_generator_for_r], allowing users to construct HTTP APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications start. Below is reported a toy API with 3 endpoints inspired by the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks, separated by the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method i.e. GET, POST followed by the endpoints invokation verb e.g. echo, plot, sum (third).
 
-
-Plumber is a R framework [@an_api_generator_for_r], allowing users to construct APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications starts. Below is reported a simple API with 3 endpoints example from the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks which are the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method GET or POST followed by the endpoints invocation verb (third).
-
-```{r, eval=FALSE}
+```{r plumber, eval=FALSE}
 # plumber.R
 
 #* Echo back the input
@@ -131,10 +134,11 @@ function(msg="") {
 }
 
 #* Plot a histogram
+#* @param n the number of samples
 #* @serializer png
 #* @get /plot
-function() {
-  rand = rnorm(100)
+function(n = 10) {
+  rand = rnorm(n = n)
   hist(rand)
 }
 
@@ -147,231 +151,223 @@ function(a, b) {
 }
 ```
 
-Once http api calls are sent to machines belonging to a network of servers, whether it is public or private they converge through endpoints. Edpoints execute functions involving the parameters specified through the call and  by default response is JSON type . The first endpoint invocation simply echoes back the text that it was sent. The second endpoints generates a histogram plot based on 100 observation sampled from a Normal distribution, no parameters are required, but the output of the plot is forced to be a .png image. The third endpoint when invoked calculates the sum of a couple of number attached to the call.
-Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
-When exposing APIs on a private network or on a public server security is a major issue, concerns and thought process must adapt accordingly. There are several variables and attacks it should considered in creating Plumber APIs, but the focus will differ depending on the API audience. For example If APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
+Once HTTP api calls are sent to machines belonging to a single server or a network of servers, whether it is public or private they converge through endpoints. Endpoints execute functions involving the parameters specified through the call and by default response is JSON type. The first endpoint "echo" invocation simply _echoes_ back the text that it was sent. The second endpoints generates a histogram _plot_ i.e. .png file based on a Normally distributed sample whose observation number are "n". The third endpoint calculates the _sum_ of a couple of number attached to the call. Scraping function are then implemented within the API framework and arguments becomes parameters for an incoming request. Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
+Exposing APIs on a private network or on a public server security is a major issue. Concerns and thought process therefore must adapt accordingly. There are several variables and consequent attacks that should be considered while creating Plumber APIs, but the focus will differ depending on the API audience. For example if APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
 
 - Sanitization
 - Denial Of Service (DoS)
-- HTTPS
+- Logging
 
-### Sanitization 
+### Sanitization{#sanitize}
 
-Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new inputs are defined so that they take the user generated input and give back a sanitized version internally to the function. In the code chunk below are shown a couple of examples of sanitization of inputs:
+Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new functional inputs are defined so that they take the user generated input and give back a sanitized version inside the function. In the code chunk below are shown a couple of examples of sanitization of inputs:
 
-```{r sanitization, echo=FALSE, eval=FALSE}
+```{r sanitization, echo=TRUE, eval=FALSE}
 tipo = tolower(type) %>% str_trim()
 citta = tolower(city) %>% iconv(to='ASCII//TRANSLIT') %>%  str_trim()
 macroozone = tolower(macrozone) %>% iconv(to='ASCII//TRANSLIT') %>%  str_trim()
 ```
 
+Inputs make their entrance into functions through arguments "type", "city" and "macrozone" and are immediately preprocessed. They are in sequence converted to lower cases, then extra spaces are trimmed, in the end accents are flattened. 
 
-### Denial Of Service (DoS)
+### Denial Of Service (DoS){#DoS}
 
-Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context hosting services may induce to astronomic fees charged. A simple but effective approach tries to 
+Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. A simple but effective approach tries to limit and stop the number of request sent:
 
-
-### Immobiliare.it _Parallel_ REST API
-
-(Sanitization, antidossing, logs tracking)
-
-The API service is composed by 4 endpoints */scrape* , */links*, */complete* and */get_data*:
-
-- */scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in $\approx 10.91^{''}$). This comes at the cost of the number of available covariates to scrape which are:  title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino). 
-
-- */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section \@ref(webstructure). It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.
-
-- */complete:  both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link. 
-
-- */get_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS
-
-
-![Swagger UI screenshot, author's source](images/swagger.PNG)
-
-### REST API documentation{#APIdocs}
-
-
-- Get FAST data, it covers 5 covariates:
-```
-      GET */scrape
-      @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze"--> lowercase, without accent)
-      @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" 
-      content-type: application/json 
-```
-- Get all the links 
-
-```
-      GET */link
-      @param city [chr string] the city you are interested to extract data (lowercase without accent)
-      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param .thesis [logical] data used for master thesis
-      content-type: application/json 
-```   
-      
--  Get the complete set of covariates (52) from each single links, takes a while
-
-```
-      GET */complete
-      @param city [chr string] the city you are interested to extract data (lowercase without accent)
-      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param .thesis [logical] data used for master thesis
-      content-type: application/json
+```{r dossing, echo=TRUE,  eval=FALSE}
+ if (npages > 300 & npages > 0){
+                        msg = "npages should lay inbetween 1 and 300"
+                        res$status = 500 # code status: Bad request
+                        stop(list(error=jsonlite::unbox(msg)))     
+            }
 ```
 
-Up to this point the API can smoothly run in local and potentially can be deployed to share results without requesting scraping process knowledge. However the API software for now is not portable and is very heavy. In addition it can also run into failures for many reasons, one among the others is package versione incompatibility due to updates. In the end it also fully relies on the laptop computational power that can be heavily stressed when a number of API calls are executed, especially for single threaded programming languages as R.
-The approach followed proposes a dedicated lightweight software environment that minimizes dependencies both improving performances and enabling the _cloud computing_ coverage. A fast growing techonlogy is what fits the need.
+The code chunk above intercepts DoS attacks by limiting to 300 the number of pages to be server to the API. Furthermore it converts outputs error messages printed on console into JSON format and then pass them as output. This simplify distinguishing malicious attacks from a type errors. DDoS attacks are secured by SSL certificates and Authentication covered later in the chapter.
+
+### Logging{#logging}
+
+Plumber uses "filters" that can be used to describe a "pipeline" for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the _filters_. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e. `forward()` the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e. the act of keeping a log [@wiki:logging], is recording events in an operating system or running software from other users of communication software, or messages among different subjects. Logging is .
+
+```{r logging, echo=TRUE, eval=FALSE}
+#* Log information
+#* @filter logging
+function(req){
+            cat(as.character(Sys.time()), "-",
+                req$HTTP_USER_AGENT, "@", 
+                req$REMOTE_ADDR, "\n",
+                req$QUERY_STRING, "\n")
+            plumber::forward()
+}
+```
+
+The above filter parses the request through the default request argument `req`, then it prints out messages about the incoming User Agent (i.e. `HTTP_USER_AGENT`) (section \@ref(spoofing)), the `REMOTE_ADDR` which is the IP address of the client making the request [-@plumber] and the `QUERY_STRING` that records the parameters directly sent the endpoint. This helps to traceback clients activity on the API as well as detecting misuse.
+
+
+### RESTful API documentation{#docs} 
+
+The service disposes of 2 endpoints */fastscrape* , */completescrape*. Parameters are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \@ref(fig:pseudocode3),  in section \@ref(reverse). Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic [@swaggerUI]. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints...). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
+
+![(#fig:swagger)Swagger UI in localhost on port 8000, author's source](images/swagger.PNG)
+
+<!-- - Get FAST data, it covers 5 covariates: -->
+<!-- ``` -->
+<!--       GET */fastscrape -->
+      <!-- @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
+<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
+<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
+<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
+<!--       @param fixed_url [chr string] supply the target scraping url NOT REQUIRED -->
+<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
+<!--       content-type: application/json  -->
+<!-- ``` -->
+<!-- -  Get the complete set of covariates (52) from each single url. -->
+
+<!-- ``` -->
+<!--       GET */completescrape -->
+<!--       @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
+<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
+<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
+<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
+<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
+<!--       content-type: application/json  -->
+<!-- ``` -->
 
 ## Docker{#docker}
 
-```{definition,docker,name = "Docker"}
-_Docker_ [@docker] is a software tool to create and deploy applications using containers.
+The API up to this point needs a dedicated lightweight software environment that minimizes dependencies both improving performances and enabling _cloud computing_ coverage. A fast growing technology known as _Docker_ might extend these capabilities.
+```{definition,docker,name = "Docker and Containers"}
+_Docker_ [@docker] is a software technology to create and deploy applications using containers.
 _Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 ```
-
-Containers can be thought as an abstraction that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS with their specific dependencies. Each container can run its own isolated process in the user space, so that each task/application is complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation. 
+Containers can be thought as a software abstraction that groups code and dependencies together. One critical advantage of containers is that multiple containers can run on the same machine with the same OS along with their specific dependencies (docker compose). Each container can run its own isolated process in the user space, so that each task/application is exhaustively and complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation. 
 
 <!-- Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in \@ref(fig:(#fig:dockervsvm)). -->
 
 
 <!-- ![(#fig:dockervsvm)Docker containers versus Virtual Machines, ](images/dockerVSvirtualmachines.PNG) -->
 
-When images are built _Docker container_ are created and can be open sourced through Docker Hub.
-_Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established  changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \@ref(aws).
-Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container. 
-Rstudio [package manager](https://packagemanager.rstudio.com/client/#/) includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation [@nolis_2020].
-In addition to that an open source project [rocker](https://www.rocker-project.org/images/) has narrowed the path for developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: "The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment". 
+Actually _Docker containers_ are the build stage of _Docker Images_. Docker images therefore are the starting point to containerize a software environment. They are built up from a series of software layers each of which represents an instruction in the image’s _Dockerfile_ [-@docker_documentation_2020] . In addition images can be open sourced and reused through Docker Hub.
+_Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can authorize third party applications as GitHub entailing an collaborative image version control, this would be critical for software development as disguised in section (\@ref(sdwf)).
 
-### Why Docker
 
-[Indeed](https://it.indeed.com/), an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure \@ref(fig:indeedstats). Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: _containers_ and _cloud computing_.
-The landscape of Data Science is changing from reporting to application building:
-In 2015 - Businesses reports drive better decisions.
-In 2020 - Businesses need apps to empower better decision making at all levels.
+<!-- ### Docker Compose  -->
 
-![(#fig:indeedstats)Indeed top skills for 2019 in percent changes, @top_tech_skills source](images/Inkedindeed_jobs_LI.jpg)
+<!-- Compose is a multi-container Docker framework to define and run complex application and services, that means isolated containers can communicate one to each other. The orchestration of containers is managed through a YAML file docker-compose.yml that configures the whole set of facilities prescribed for the services. Services are then build with a single docker `docker-compose up` command on the yaml. As can be seen from original compose documentation [@docker_documentation_2020] the main advatges for composition regards: -->
 
-For all the things said what docker is bringing to business are [@red_hat_customer_portal]:
+<!-- - A central host in multiple isolated environments. -->
+<!-- - Preserve data volumes (which are the preferred Docker mechanism to consume data generated and used by containers) when building containers. -->
+<!-- - Only recreate containers that have changed. -->
+<!-- - Variables and moving a composition between environments. -->
 
-- _Speed application deployment_ : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.
-- _Portability across machines_ : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transferred to another machine that runs Docker, and executed there without compatibility issues.
-- _Version control and component reuse_ : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion
-- _Sharing_ : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.
-- _Lightweight footprint and minimal overhead_ : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.
-- _Fault isolation_ :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates.
+<!-- The configuration file and the composition of services will be showed later in a dedicated section when an open source reverse proxy technology i.e. NGINX will be presented. -->
 
-The way to tell docker which system requirements are needed in the newly born software is a _Dockerfile_.
+<!-- ### Why Docker{#econdocker} -->
 
-### Dockerfile{#dockerfile}
+<!-- [Indeed](https://it.indeed.com/), an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure \@ref(fig:indeedstats). Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: _containers_ and _cloud computing_. -->
+<!-- The landscape of Data Science is changing from reporting to application building: -->
+<!-- In 2015 - Businesses reports drive better decisions. -->
+<!-- In 2020 - Businesses need apps to empower better decision making at all levels. -->
 
-Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a Dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is "Dockerfile". When It is matched then it triggers the building of the image.
+<!-- ![(#fig:indeedstats)Indeed top skills for 2019 in percent changes, @top_tech_skills source](images/Inkedindeed_jobs_LI.jpg) -->
 
-The Dockerfile used to trigger the building of the docker container has the following sequential set of instructions in figure \@ref(fig:dockerfile)) :
+<!-- For all the things said what docker is bringing to business are [@red_hat_customer_portal]: -->
 
-![(#fig:dockerfile)Example of a Dockerfile from Docker Hub, author's source](images/dockerfile.PNG)
+<!-- - _Speed application deployment_ : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly. -->
+<!-- - _Portability across machines_ : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transferred to another machine that runs Docker, and executed there without compatibility issues. -->
+<!-- - _Version control and component reuse_ : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion -->
+<!-- - _Sharing_ : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub. -->
+<!-- - _Lightweight footprint and minimal overhead_ : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers. -->
+<!-- - _Fault isolation_ :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates. -->
 
-where the instructions are:
+<!-- The way to tell docker which system requirements are needed in the newly born software is a _Dockerfile_. -->
 
-- `FROM rocker/tidyverse:latest` : The command imports a pre-built image by the rocker team that contains the latest (tag latest) version of base-R along with the tidyverse packages.
+### REST-API container{#dockerfile}
 
+Docker can build containers from images by reading instructions from a Dockerfile. A Dockerfile is a text document that contains the commands/rules a generic user could call on the CLI to assemble an image. Executing the command `docker build` from working directory the user can trigger the build. Building consists of executing sequentially several command-line instructions that specifies the software environment. As a matter of fact the concept of containers takes inspiration by the fact that many single software layers are stacked up over at the following. An open source project named [rocker](https://www.rocker-project.org/images/) already disposes of a group of pre-set task-specific image configurations from which further custom dockerfile can be built on top of. 
+Therefore images are overwritten with higher level dependencies i.e. package libraries, since lower levels Linux dependencies are already partially handled. Indeed as in \@ref(sdwf) an automatic development workflow is proposed that triggers the building of the image when changes are pushed to github.
+
+The custom Dockerfile in figure \@ref(fig:dockerfile)) is able to build the rest-api container:
+
+<!-- ![(#fig:dockerfile)Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile.PNG) -->
+
+![(#fig:dockerfile)Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile.jpg)
+
+Each line from the Dockerfile has its own specific role:
+
+- `FROM rocker/tidyverse:latest` : The command imports from rocker project a pre set config guration containing the latest version of base-R along with the tidyverse [@tidyverse] R packages collection.
 
 - `MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"` : The command tags the maintainer and its e-mail contact information.
 
+- `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` : The command update and install remaining "lower" Linux dependencies required to run Plumber and rvest.
 
-- `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` :The command update and install Linux dependencies needed for running R packages. `rvest` requires libxml2-dev and `magrittr` needs libudunits2-dev. If they are not installed then associated libraries can not be loaded. Linux dependencies needed have been found by trial and error while building containers. Building  logs messages print errors and suggest which dependency is mandatory.
-
-
-- `RUN R -e "install.packages(c('plumber','tibble','...',dependencies=TRUE)` : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their direct R dependencies the option `dependencies=TRUE` is needed. 
-
+- `RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)` : The command install all the further libraries required to execute the files. Since some packages have related dependencies the option `dependencies=TRUE` is needed. 
 
 - `RUN R -e "install.packages('https://cran.r-project.org/.../iterators, type='source')`
 `RUN R -e "install.packages('https://cran.r-project.org/.../foreach/, type='source')`
 `RUN R -e "install.packages('https://cran.r-project.org/.../doParallel, type='source')`
-DoParallel was not available in package manager for R version later than 4.0.0. For this reason the choice was to install a previous source version by the online repository, as well as its dependencies.
+DoParallel backend is not available for R version later than 4.0.0. Therefore the three instructions install from CRAN previous frozen versions.
+
+- `COPY \\` : The command tells Docker engine to copy all the files in the container as is.
+
+- `EXPOSE 8000` :  The commands instructs Docker engine that the container listens on the specified network ports 8000 at runtime. Default _transportation_ layer is TCP. 
+
+- `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker engine to execute the file main.R where are contained the Plumber router options (i.e. host and port specifications).
 
 
-- `COPY \\` The command tells Docker copies all the files in the container.
+## NGINX reverse Proxy Server and Authorization{#nginx}
 
+Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (\@ref(spoofing)). Reverse Proxy server are a special type of gateway \@ref(def:proxy) that is usually located behind a private network firewall to route client requests to the corresponding backend server [@nginxDocs]. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:
 
-- `EXPOSE 8000` :  the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is recommended [@docker_documentation_2020] )
+- _Load balancing_: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers.
 
-- `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker to execute the file main.R within the container that triggers the API start. In main.R it are pecified both the port and the host where API expects to be exposed (in this case port 8000). 
+- _Web acceleration_: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.
 
-In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters. 
+- _Security and anonymity_: A reverse proxy server protects identities and serves as an additional protection against security threats seen in sub-sections (\@ref(sanitize), \@ref(Dos))  by intercepting requests before they reach end server.
 
+When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \@ref(fig:nginxfun). Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard that monitors traffic and API exposure.
+
+![(#fig:nginxfun)NGINX gateway redirecting an incoming request, source @azureNGINX](images/nginx_gateway.png)
+
+Then without any further software installation, the developer can simply make use of the latest NGINX open sourced image to build the NGINX proxy server within the same image. A further configuration file should manage NGINX inner settings that links volumes, ports and IPs, but details are beyond the scope of the analysis.
+
+## HTTPS(ecure) and SSL certificates{#HTTPS}
+
+Communication even though properly secured and distributed with NGINX is still not encrypted so sensitive data are still being exposed. HTTP Secured (HTTPS) is a product of HTTP combined with SSL/TLS (Secure Sockets Layer/Transportation Security Layer) protocol rather than a protocol itself. HTTPS is strictly appropriate when transmitting sensitive data such as banking or on-line buying. Its importance is highlighted by the fact that nowadays is rather more common to find HTTPS than HTTP. The Secured method encrypts all contacts between the client and the server, figure \@ref(fig:httpsmeth). The HTTPS scheme in actual is "HTTPS" and its default port is 443 (that should be exposed too in the dockerfile). SSL runs as a sublayer of the _application_ layer (a further internet layer, refer to section \@ref(HTTPmethod)), this ensures that HTTP messages are encrypted prior being transmitted to the server (SSL Offloading box in figure \@ref(fig:nginxfun)) whether it is a proxy server or directly a web server.
+
+![(#fig:httpsmeth)HTTPS encryption with SSL certificates, source @automateddatacollection](images/https_method.jpg)
+
+<!-- [resource1](https://qunis.de/how-to-make-a-dockerized-plumber-api-secure-with-ssl-and-basic-authentication/) -->
+<!-- [resource2](https://www.rinproduction.com/it/posts/003-web-r-platform-with-https/) -->
+From a port communication point of view at first NGINX container listens to on port 80 and that it is where all requests should relay to IP_macchine_address:8000. As a result the RESTful API is published on Port 80 instead of 8000. Secondly it listens on the SSL port 443 and points to the key and certificate files that have been created in the Dockerfile. 
 
 ## AWS EC2 instance{#aws}
 
-Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
-AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named [amazon cost manager](https://aws.amazon.com/en/aws-cost-management/).
-
+From henceforth the software container environment can be reproduced regardless of the mounted OS. Scalability and accessibility is worked out by exporting orchestrated containers on a web server. There are many hosting services options that varies primary on the budget and consequently on the API audience. A flexible cloud provider combined with NGINX load balancing _ceteris paribus_ may offer a stable and reliable service for a reasonable price, even considering a bad-case scenario where requests are many and insistent.
 ```{definition,aws, name = "AWS EC2"}
 Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
 
 ```
-[few words still on EC2]
+AWS EC2 represents a popular hosting option, most importantly this path is already narrowed by many open source contributors. The selected target is a AWS free tier t3.micro whose specifications are: 2 vCPU (Virtual CPU), 1 GB memory and a mounted Ubuntu distribution OS. Moreover T3 instances are known to provide device, memory, and network resource balance and have been developed for applications that experience transient spikes in use with modest CPU use. They are designed especially to serve low-latency interactive applications, small and medium databases, virtual desktops, development environments, code repositories, and business-critical applications, therefore they suit the needs.
+Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Tags are not required. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e. open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\@ref(dockerfile)), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH (Putty or Bash depending on the OS) behind authentication. 
 
-### Launch an EC2 instance
+<!-- ![aws dashboard](images/aws.PNG) -->
 
-The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a “Free Tier Eligible” Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the "add storage" step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \@ref(dockerfile), has been exposed and needs to be linked to the security port opened. 
+<!-- At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem  file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.  -->
+<!-- Once the CLI pops out some Linux libraries to check file structure ("tree") and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.  -->
+<!-- AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.  -->
 
-![aws_dashboard](images/aws.PNG)
+## Software development Workflow{#sdwf}
 
-At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with [PuTTY](https://www.putty.org/), which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem  file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible. 
-Once the CLI pops out some Linux libraries to check file structure ("tree") and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command. 
-AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call. 
-the Public DNS has the following form:
-
-`ec2-15-161-94-121.eu-south-1.compute.amazonaws.com`
-
-
-## NGINX reverse proxy server and Ayuth{#nginx}
-FUNZIONA
-
-two reasons for authentication 
-- you want to deploy your API at your company but do not want to give everyone access to every endpoint.
-- you want to make your API publicly available on the Internet but you still want users to authenticate before they can use your API (e.g. to prohibit abuse of your API).
-For analysis purposes NGINX is open source software for reverse proxying and load balancing.
-Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
-[...]
-
-When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
-[...]
-
-
-.conf file and installation on Linux server. Security and Authentication. 
-
-
-
-## SSL certificates and Subdomain registration{#SSL}
-
-QUESTO ANCORA NON SO SE FUNZIONA 
-
-[resource](https://qunis.de/how-to-make-a-dockerized-plumber-api-secure-with-ssl-and-basic-authentication/)
-[resource2](https://www.rinproduction.com/it/posts/003-web-r-platform-with-https/)
-[resource3](https://business-science.github.io/shiny-production-with-aws-book/domain-setup-ssl-certificates.html)
-Here we have created two servers:
-
-The first listens on port 80 and redirects all traffic to https://… on port 443
-The second listens on the SSL port 443 and points to the key and certificate files we have created in the Dockerfile.
-
-This is because we signed the certificate ourselves and not issued an official certificate from a certificate authority. But the connection is encrypted eitherway and we can skip this warning, since we can trust ourselves.
-
-
-
-
-## Software development Workflow 
+Software changes can happen quite often due to the responsive nature of the RESTful API task. This requires a modern stack of cloud technologies to keep track, revert and quickly update software versions, even adapt software architecture. As a result minor changes are made locally to the project and then are directly pushed with GIT into a GitHub repository, upper left quadrant \@ref(fig:sfmap). The above mentioned repository communicates with a DockerHub repository that triggers the rebuilt of docker images whenever changes are pushed, upper right quadrant \@ref(fig:sfmap). Images are built along with tags so that versions are controlled and if that may be the the case of error, reverted. Debugging passes through logs auto generated by the docker engine. The build stage in R since 2019 required long time due to package compiling, but since the appearance of Rstudio [package manager](https://packagemanager.rstudio.com/client/#/) which includes beta support for pre-compiled R packages they can be installed 3 times faster [@nolispmanager].
+When newer images are available they can be pulled from the EC2 server and rerun in detached mode. Massive software changes are managed through GitHub branches, even though it must be kept in mind to swith lautomatic building brench. The Ec2 server is associated to an Elastic IPs address allowing to reuse the address for external databases connections and DNS services as Cloudflare (for SSL certificates). Moreover elastic IPs are effective when the EC2 server stands in need of upgrading or downgrading or when the server may fail, thus restoring and apply the IP address for a new server. 
 
 
 ![(#fig:sfmap)Sofwtare development workflow, author's source](images/SoftwareDevWF.jpg)
 
 ## Further Integrations
-From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (@plungr aligns with that) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
+From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (@plungr aligns with the idea) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
 CI/CT
-It can be missed to cite a popular API development integration  service and automate testing tool [Postman](https://www.postman.com/), which does the best when POST requests endpoints are served, since for the moment they are not required it is not used.
+It can be missed to cite a popular API development integration service and automate testing tool [Postman](https://www.postman.com/), which does its best when POST requests endpoints are served, since for the moment they are not required it is not used.
 
 Pins is an r packages [this link](https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9)
 software development framework and tools for testing [this work](https://github.com/isteves/plumbplumb)

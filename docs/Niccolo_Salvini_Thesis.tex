@@ -168,7 +168,7 @@
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 20 dicembre, 2020}
+\date{Lastest build: 27 dicembre, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -393,7 +393,15 @@ The search skeleton used for price scraping constitutes a standard reusable sear
 \caption{\label{fig:pseudocode1}pseudo code algorithm for price search, author's source}
 \end{figure}
 
-Once all the functions have been designed and optimized with respect to their scraping target they need to be grouped into a single ``main'' function. This is done into the API endpoint which also Which also applies some sanitization on users inputs covered in the following chapter.
+Once all the functions have been designed and optimized with respect to their scraping target they need to be grouped into a single ``main'' \emph{fastscrape} function, figure \ref{fig:pseudocode4}. This is accomplished into the API function endpoint addressed in section \ref{plumberapi}, which also applies some sanitization, next chapter section \ref{sanitize}, on users inputs and administers also some security API measures, as in \ref{DoS} outside the main function. Moreover as it will be clear in section \ref{parallelscraping} the parallel back end will be registered outside the scraping function for unexplained inner functioning reasons.
+
+\begin{figure}
+\centering
+\includegraphics{images/pseudocode_latex/pseudocode_mainjpg.jpg}
+\caption{\label{fig:pseudocode4}pseudo code algorithm structure for fatstscrape, author's source}
+\end{figure}
+
+\textbf{pseudo code}
 
 \hypertarget{best-practices}{%
 \section{Scraping Best Practices and Security provisions}\label{best-practices}}
@@ -458,10 +466,10 @@ With that said a custom function caches the results of robotstxt into a variable
 ## [1] 2.5
 \end{verbatim}
 
-\hypertarget{security-provisions-and-http}{%
-\section{Security Provisions and HTTP}\label{security-provisions-and-http}}
+\hypertarget{HTTPmethod}{%
+\section{HTTP overview}\label{HTTPmethod}}
 
-URLs in browsers as in \ref{reverse} are a way to access to web content whether this accounts for getting from one location to the following, or checking mails, reading news or downloading files. However Internet communication is a stratification of layers Conceived to make the whole system working. In this context URL is the layer responsible for user interaction. The rest of the layers which involve techniques, standards and protocols, are called in ensemble Internet Protocols Suite (IPS) \citeyearpar{automateddatacollection}. The TCP (Transmission Control Protocol) and IP (Internet Protocol) are two of the most important actors on the IP Suite and their role is to represent the Internet layer (IP) and the transportation layer (TCP) and guarantee trusted transmission of data. Inner properties and mechanism are beyond the scope of the analysis, luckily they are not required in this context. Besides the transportation standard are included specialized message exchange protocols such as the HTTP (Hyper Text Transfer Protocol), FTP (File Transfer Protocol). In addition, there are also e-mail exchange protocols for transmission, which are Post Office Protocol (POP) for Email Recovery and IMAP (Internet Message Acccess Protocol) for storage and retrieval. The aforementioned protocols describe default vocabulary and procedures to address particular tasks for both clients and servers and they can be ascribed to the transportation layer. HTTP is the most widespread, versatile enough to ask for almost any resource from a server and can also be used to transfer data to the server rather than to recover. In figure \ref{fig:httpschema} is painted a schematized version of a User-Server communication. If a website e.g.~\href{https://www.immobiliare.it/}{immobiliare.it} is browsed from a web browser e.g.~Chrome (the HTTP client) then the client is interrogating a Domain Name System (DNS) which IP address is associated with the domain part of the URL. When the browser has obtained the IP address as response from the DNS server then connection is established with HTTP server via TCP/IP. From a content perspective data is gathered piece-by-piece, if the content is not exclusively HTML then the the browser client renders the content as soon as it receives data.
+URLs in browsers as in \ref{reverse} are a way to access to web content whether this accounts for getting from one location to the following, or checking mails, listening to musics or downloading files. However Internet communication is a stratification of layers conceived to make the whole complex system working. In this context URLs are the layer responsible for \emph{user interaction}. The rest of the layers which involve techniques, standards and protocols, are called in ensemble Internet Protocols Suite ( \emph{IPS} ) \citeyearpar{automateddatacollection}. The TCP (Transmission Control Protocol) and IP (Internet Protocol) are two of the most important actors on the IP Suite and their role is to represent the \emph{Internet layer} (IP) and the \emph{transportation layer} (TCP). In addition they also guarantee trusted transmission of data. Inner properties and mechanism are beyond the scope of the analysis, luckily they are not required in this context. Resting on the transportation layer there are specialized message exchange protocols such as the HTTP (Hyper Text Transfer Protocol), FTP (File Transfer Protocol). In addition, there may be also e-mail exchange protocols for transmission, such as Post Office Protocol (POP) for Email Recovery and for storage and retrieval, IMAP (Internet Message Acccess Protocol). The aforementioned protocols describe default vocabulary and procedures to address particular tasks for both clients and servers and they can be ascribed to the transportation layer. HTTP is the most widespread, versatile enough to ask for almost any resource from a server and can also be used to transfer data to the server rather than to recover. In figure \ref{fig:httpschema} is painted a schematized version of a User-Server general HTTP communication/session. If a website e.g.~\href{https://www.immobiliare.it/}{immobiliare.it} is browsed from a web browser e.g.~Chrome (the HTTP client) then the client is interrogating a Domain Name System (DNS) which IP address is associated with the domain part of the URL. When the browser has obtained the IP address as response from the DNS server then connection/session is established with HTTP server via TCP/IP. From a content perspective data is gathered piece-by-piece, if the content is not exclusively HTML then the the browser client renders the content as soon as it receives data.
 
 \begin{figure}
 \centering
@@ -469,63 +477,64 @@ URLs in browsers as in \ref{reverse} are a way to access to web content whether 
 \caption{\label{fig:httpschema} User-Server communication scheme via HTTP, source \citet{automateddatacollection}}
 \end{figure}
 
-HTTP should be borne in mind two essential facts.
+Furthermore HTTP should be borne in mind two essential facts.
 
 \begin{itemize}
 \tightlist
 \item
   HTTP is not only a hypertext protocol, but it is used for all sorts of services (i.e.~APIs)
 \item
-  HTTP is a stateless protocol, which means that response and request and the the resulting interaction between client and server is managed by default as it were the first time they connected.
+  HTTP is a \emph{stateless} protocol, which means that response and request and the the resulting interaction between client and server is managed by default as it were the first time they connected.
 \end{itemize}
 
-\textbf{da quillbottare}
-HTTP messages, whether client requests or server response messages, consist of three parts: start line, headers, and body. The server response start line begins with a statement on the highest HTTP version
-he header section below the start line provides client and server with meta information about the other sides' preferences or the content. The body of an HTTP message contains the data. Most importatnlt in the context of the analyisis are headers which extensively are the fiels where lays the definition of the actions to take upon receiving a request or response.
+\emph{HTTP messages} consist of three sections -- start line, \emph{headers} and body -- whether client requests or server response messages. The start line of the server response begins with a declaration on the highest HTTP version. The header underneath the start line contains client and server meta data on the preferences for content displaying. Headers are arranged in a collection of name-value pairs.
+The body of an HTTP message contains the content of the response and can be either binary or plain text. Predominantly in the context of the analysis are headers which are the fields where lay the definition of the actions to take upon receiving a request or response. For what concerns the analysis the focus is on \emph{identification headers} (both in request and response) whose role is to describe user preferences when sessions are opened i.e.~default language, optimization of content display throughout devices. The exploited ones are:
+
+(metti anche altra roba da altre fonti)
 
 \begin{itemize}
 \tightlist
 \item
-  parlare di \textbf{https}
+  \emph{Authorization} (request): authentication field allows to insert personal credentials to access to dedicated content (log in to the immobiliare.it account). Credentials in requests are not really encrypted, rather they are encoded with Base64. Therefore they can be easily exposed to security breaches, which it does not happen when using HTTP (HTTP Security) that applies encryption to basic authentication, extensively presented in \ref{HTTPS}.
+\item
+  \emph{Set-Cookie} (response): Cookies allow the server to keep user identity. They are a method to transform \emph{stateless HTTP} communication (second point in previous ) into a secure discussion in which potential answers rely on past talks.
+\item
+  \emph{User-Agent} (request), faced in next section \ref{spoofing}.
 \end{itemize}
 
-HTTP headers are sent via HTTP protocol transactions and allow the client and the server to pass additional information with the request or the response. Some of most important request header fields are User agent, proxies, urls and e-mails addresses. From a very general point of view the process according to which HTTP protocols allow to exchange information can be easily figured out by an everyday real life world analogy. As a generic person A rings to the door's bell of person B. Then A is coming to B door with its personal information, i.e.~name, surname, where he lives etc. Since now B may either positively answer to A requests by opening the door given the set of information he has, or it may not since B is not sure of the real intentions of A. The situation can be transposed on the internet where the user browser (in the example above A) is interacting with a website server (part B) sending packets of information, figure \ref{fig:webworks}. If a server does not trust the information provided by the user, if the requests are too many, if the requests seems to be scheduled due to fixed sleeping time, a server can block requests. In certain cases it can even forbid the user to open a session to the website. Servers are built with a immune-system like software that raises barriers and block users to prevent dossing or other illegal acts.
-
-\begin{figure}
-\centering
-\includegraphics{images/how_web_works.png}
-\caption{\label{fig:webworks}How the web interacts between broswer and server}
-\end{figure}
-
 \hypertarget{spoofing}{%
-\subsection{HTTP identification, User Agent and Mail Spoofing}\label{spoofing}}
+\subsection{User Agent and further Identification Headers Spoofing}\label{spoofing}}
 
 \begin{definition}[User Agents]
-\protect\hypertarget{def:useragents}{}{\label{def:useragents} \iffalse (User Agents) \fi{} }The user agent (from now refered as UA) ``retrieves, renders and facilitates end-user interaction with Web content'' \citet{UaDef}.
+\protect\hypertarget{def:useragents}{}{\label{def:useragents} \iffalse (User Agents) \fi{} }The user Agent (from now on refered as UA) ``retrieves, renders and facilitates end-user interaction with Web content'' \citep{UaDef}.
 \end{definition}
 
-In HTTP, the UA string is often considered as \emph{content negotiator} \citep{wiki:UserAgent}. The requested server in the form of code embedded into the hosted website selects the most appropriate content on the basis of operating parameters for the response. Therefore according to the UA, the web server can load different CSS based on the outcome, deliver custom JavaScript, automatically send the correct translation due to UA language preferences \citep{whoishostingthis.com}.
-However UA fieldcname has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named \emph{Hints} \citet{wiki:UserAgentHints}.
-UA is a dense content string that includes many user details: the user application or software, the operating system (and versions), the web client, the web client's version, as well as the web engine responsible for the content display (such as AppleWebKit).
-A full components breakdown of UA example might be:
+In the HTTP identification headers the UA string is often considered as \emph{content negotiator} \citep{wiki:UserAgent}. One the basis of the UA, the web server can negotiate different CSS loadings, custom JavaScript delivery or it can automatically translate content on UA language preferences \citep{whoishostingthis.com}.
+UA is a dense content string that includes many User details: the user application or software, the operating system (and versions), the web client, the web client's version, as well as the web engine responsible for content displaying (e.g.~AppleWebKit). When the request is sent from an application software as R (no web browser), the default UA is set as:
+
+\begin{verbatim}
+## [1] "libcurl/7.64.1 r-curl/4.3 httr/1.4.2"
+\end{verbatim}
+
+Indeed when a request comes from a web browser a full UA example and further components breakdown is (current machine):
 
 \texttt{Mozilla/5.0\ (Windows\ NT\ 6.3;\ WOW64)\ AppleWebKit/537.36\ (KHTML,\ like\ Gecko)\ Chrome/45.0.2454.85\ Safari/537.36}
 
 \begin{itemize}
 \tightlist
 \item
-  The user agent application is Mozilla version 5.0.
+  The browser application is Mozilla build version 5.0 (i.e.~`Mozilla-compatible').
 \item
-  The operating system is Windows NT 6.3; WOW64, running on Windows
+  The Operating System is Windows NT 6.3; WOW64, running on Windows.
 \item
-  The client is Chrome version 45.0.2454.85.
+  The Web Kit provides a set of core classes to display web content in windows \citep{UserAgen23}, build version 537.36.
 \item
-  The client is based on Safari version 537.36.
+  The Web Browser is Chrome version 45.0.2454.85.
 \item
-  The engine responsible for displaying content on this device is AppleWebKit version 537.36 (and KHTML, an open-source layout engine, is present too).
+  The client is based on Safari, build 537.36.
 \end{itemize}
 
-The UA string is also one of the main responsible according to which Web crawlers and scrapers through a dedicated name field in robotstxt \ref{best-practices} may be ousted from accessing certain parts of a website. Since many requests are sent the server may encounter insistently the same UA and as consequence it may block requests associated to the same UA. In order to avoid server block this scraping technique adopts a rotation of a pool of UAs. Each time requests are sent a different set of headers are drawn from the pool and then combined. The more the pool is populated the larger are the UA combinations. The solution proposed tries in addition to resample periodically the pool as soon as the website from which Agents ID are extracted updates newer UA strings.
+The UA string is also one of the main responsible according to which Web crawlers and scrapers through a dedicated name field in robotstxt \ref{best-practices} may be ousted from accessing certain parts of a website. Since many requests are sent the web server may encounter insistently the same UA (since the device from which they are sent is the same) and as consequence it may block requests associated to the own UA. In order to avoid server block the scraping technique adopted in this analysis rotates a pool of UAs. That means each time requests are sent a different set of headers are drawn from the pool and then combined. The more the pool is populated the larger are the UA combinations. The solution proposed tries in addition to automatically and periodically resample the pool as soon as the website from which U agents ID are extracted updates newer UA strings.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -538,13 +547,34 @@ The UA string is also one of the main responsible according to which Web crawler
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "Mozilla/5.0 (Linux; Android 6.0; LG-H440n) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36"
+## [1] "Dalvik/2.1.0 (Linux; U; Android 8.1.0; MI 8 Lite MIUI/V10.0.4.0.ODTTIMFH)"
 \end{verbatim}
 
-The same procedure has been applied to mails attached to the request headers. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. The A further way to see what it has been done for both UA and mails is considering low level API calls to dedicated servers nested into a more general higher level API.
+The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
+However UA field name technology has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named \emph{Hints} \citet{wiki:UserAgentHints}.
 
-An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process. A proxy server acts as a gateway between the web user and the web server. While the user is exploiting a proxy server, internet traffic flows through the proxy server on its way to the server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client. The final combination would give birth to a more complex linear combination, adding a further layer of masking.
-Many proxy servers are offered as paid version. In this particular case security barriers are not that high and this suggests to not apply them. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process.
+\begin{definition}[Proxy Server]
+\protect\hypertarget{def:proxy}{}{\label{def:proxy} \iffalse (Proxy Server) \fi{} }A proxy server is a gateway between the web user and the web server.
+\end{definition}
+While the user is exploiting a proxy server, internet traffic in the form of HTTP request, figure \ref{fig:proxycommunication} flows through the proxy server on its way to the HTTP server requested. The request then comes back through that same proxy server and then the proxy server forwards the data received from the website back to the client.
+Form a user perspective benefits regards:
+
+\begin{itemize}
+\tightlist
+\item
+  anonymity on the Web
+\item
+  overcome restriction access to IPs imposed to requests coming from certain locations
+\end{itemize}
+
+Many proxy servers are offered as paid version. In this particular case security barrijers are not that high and this suggests to not apply them. As a further disclaimer many online services are providing free proxies server access, but this comes at a personal security cost due to a couple of reasons:
+
+\begin{figure}
+\centering
+\includegraphics{images/proxy_schema.jpg}
+\caption{\label{fig:proxycommunication} proxy middle man,, source \citet{automateddatacollection}}
+\end{figure}
 
 \begin{itemize}
 \tightlist
@@ -555,10 +585,10 @@ Many proxy servers are offered as paid version. In this particular case security
 \end{itemize}
 
 \hypertarget{possibly}{%
-\subsection{Dealing with failure}\label{possibly}}
+\section{Dealing with failure}\label{possibly}}
 
-During scraping many difficulties coming from different sources are met. Some of them may come from the website's layout changes (\ref{ProperScraping}), some of them may regard internet connection, some other may have been caused by security breaches (section \ref{spoofing}).
-One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data previously acquired going lost. In this particular context is even more worrying since scraping ``main'' functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links (\ref{crawling}) leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
+During scraping many difficulties coming from different source of problems are met. Some of them may come from the website's layout changes (\ref{ProperScraping}), some of them may regard internet connection, some other may have been caused by security breaches (section \ref{spoofing}).
+One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data acquired and future coming going lost. In this particular context is even more worrying since scraping ``main'' functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links (\ref{crawling}) leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
 For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of \texttt{purrr} vectorization function \texttt{map} (and its derivatives) and the adverb \texttt{possibly} \citet{possibly}. \emph{Possibly} takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in \citet{Rdatascience} section 21.6. Moreover vecrotizaion is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.
 
 \begin{figure}
@@ -702,81 +732,67 @@ All of this leads to accept that entry barriers to scrape are for sure higher th
 \hypertarget{Infrastructure}{%
 \chapter{API Technology Stack}\label{Infrastructure}}
 
-The previous chapter has encapsulated the main concepts behind the design of scrapers with R in a consistent, secure, and fast course of action. The fact that function are compressed into scripts does not imply that are shareable and portable. As a matter of fact in order to be executed they need to be at first understood and then also sourced into a current R environment. From a restricted usage perspective this can be feasible, but in a large-scale orientation this can not be entitled to be a service. Moreover The fact that scraped data is a result of a R file (containing function) execution prevents any further usage from not only users, but also applications, websites and other services.
-As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they're implemented.
+The previous chapter has encapsulated the main concepts behind the design of consistent, secure, and fast scraping functions with R. In truth challenges not only regard scraping per se, but also the way and how many times the service has to interact with different clients. Indeed the fact that functions are compressed into scripts does not imply that are shareable and portable. As a consequence when they are executed they also need to be at first understood and secondly loaded into a dedicated R environment (higher and lower dependecies). Moreover results are actually computed, whether in parallel or not, with local machines resources that are limited in many sense. In the end exposing the service traffic to the public or internally to a network of servers requires authentication and precautions from both malicious attack and privacy dangers. Actually from a restricted personal usage perspective what has been done since now is totally feasible. But in a large-scale orientation where different stakeholders should gather massive amount of data, then a unsuitable service may cause an enormous waste of time.
+The following chapter tries to capture the essence and its specific context usage of each technology involved that address each aforementioned issues raised. In parallel it highlights the \emph{fil rouge} that ties together the chronological order according to which the stack has been developed.
 
-In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \ref{challenges} are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken:
-
-\begin{itemize}
-\item
-  The API has to be naturally deployed so that it the service can be really used by different stakeholders
-\item
-\item
-  The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated.
-\item
-  Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.
-\item
-  The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease.
-\item
-  The service should be load balanced and authozied so that
-\item
-  In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized.
-\end{itemize}
-
-The long list of requirements is met by many DevOps technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed.
-Fo these reasons the recipe is to provide a REST Plumber API with 4 endpoints each of which calls scraping functions in Parallel built in section \ref{scraping}. On top of that a daily Cron Job scheduler exposes one precise API endpoint, which produces and later stores a .csv file in a NOSQL mongoDB Atlas could database. Containerization happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \ref{fig:CompleteStructure}.
+The recipe proposed dispenses a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \ref{scraping}. Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and \emph{composed} with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. A AWS free tier EC2 server hosts containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to repository.
 
 Technology stack:
 
 \begin{itemize}
 \tightlist
 \item
-  GitHub version control
+  GitHub version control and CI
 \item
   Plumber REST API, section \ref{plumberapi}
 \item
-  Docker containers, section \ref{docker}
+  Docker containers and compose, section \ref{docker}
 \item
-  AWS (Amazon Web Services) EC2 \ref{aws}
+  AWS EC2 \ref{aws}
 \item
   NGINX reverse proxy, section \ref{nginx}
 \item
-  SSL certificates \ref{SSL}
-\item
-  MongoDB Atlas
-\item
-  Shiny
+  HTTPS and SSL certificates \ref{HTTPS}
 \end{itemize}
+
+\textbf{immagine infrastruttura da rivedere}
 
 \begin{figure}
 \centering
-\includegraphics{images/tot_infra.jpg}
+\includegraphics{images/software_arch.jpg.png}
 \caption{\label{fig:CompleteStructure}complete infrastructure, author's source}
 \end{figure}
 
-As a side note each single part of this thesis is comprised according to some of the API inspiring criteria of portability and self containerization. RMarkdown \citep{rmarkdown1} documents (book's chapters) are knitted and then rendered as .html files extension. Through Bookdown \citep{bookdown2} the html documents are made up following guidelines from a .yml instruction file and are rendered as Gitbook. Gitbooks are interactive online documentation that are employed to build books, business manuals, research papers as well as API documentation.\\
-Files are ultimately pushed into a \href{https://github.com/NiccoloSalvini/thesis}{Github repository}, that makes changes version controlled. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at \href{https://niccolosalvini.github.io/thesis/}{link}. Gitbook are able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to a .tex template whose formatting rules are contained into a further .yml file.
+As a further note each single part of this thesis is comprised according to the service inspiring criteria of portability and self containerization. RMarkdown \citep{rmarkdown1} documents (book's chapters) are knitted and then rendered as .html files extension through Bookdown \citep{bookdown2}. The resulting .html documents are instructed by a .yml file and then are rendered as Gitbook format. Gitbooks are interactive online documentation that are employed to build books, technical documentation as well as research papers. That makes thesis' graphs and codes interactive. Moreover Gitbooks enables custom buttons to directly create a push request on documents from source, which may be convenient for continous review. It is able to directly share documents on social media, as well as to change the the documents' style, such as fonts and background color.\\
+Files are ultimately pushed into a \href{https://github.com/NiccoloSalvini/thesis}{Github repository}, that enables thesis version controlling. By a simple trick with GH pages a new branch is opened. .html files are displayed into a sub domain repository hosted at \href{https://niccolosalvini.github.io/thesis/}{link}, as a consequence thesis is also linked online. Moreover the Gitbook is able to produce also a .pdf version output through a Xelatex engine. Xelatex compiles .Rmd documents according to formatting rules contained in both a .tex template and a further .ylm and produces the final .pdf paper output.
 
-Some of the main technologies implied will be viewed singularly, nonetheless for brevity reasons the rest needs to be skipped.
-
-\hypertarget{rest-api}{%
-\section{REST API}\label{rest-api}}
+\hypertarget{restful-api}{%
+\section{RESTful API}\label{restful-api}}
 
 \begin{definition}[API]
 \protect\hypertarget{def:api}{}{\label{def:api} \iffalse (API) \fi{} }API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they're implemented.
 \end{definition}
-APIs may be thought of as contracts, with documentation that represents an general agreement between parties.
+API may be considered as a mediator between users or clients sending a request, left part figure \ref{fig:apigenstru} and the web resource or services they want (returning back a response) middle part figure \ref{fig:apigenstru}. It also acts as means of exchanging resources and knowledge with an entity, as databases left part figure \ref{fig:apigenstru} preserving protection, control and authentication, such as who gets access to what.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
 \begin{definition}[REST]
 \protect\hypertarget{def:rest}{}{\label{def:rest} \iffalse (REST) \fi{} }The specification REST stands for \textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer and is a set of \emph{architectural principles}.
 \end{definition}
-When a request is made through a REST API, figure \ref{fig:apigenstru} it transfers a representation of the state to the requester. This representation, is submitted in one out of the many available formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, TXT. JSON is the most popular because it is language agnostic \citep{what_is_a_rest_api}, as well as it is more comfortable to be read and parsed. When an API adhere to REST architecture is said RESTful.
-An API is considered REST when it conforms to the following criteria:
+
+If a client request is made using a REST API, a representation of the resource state is passed to a requestor or \emph{endpoint} \citep{what_is_a_rest_api}. This information is returned in one of the formats of multiple formats using \emph{HTTP}: JSON, HTML, XLT, Python, PHP or simple text. JSON is the most common programming language to use because it is language agnostic \citeyearpar{what_is_a_rest_api} and easy to interpretable both for people and machines.
+REST architecture depends upon HTTP, as a matter of fact REST API inherits from HTTP the stateless property, second pillar in \ref{HTTPmethod}. Calling a REST API (producing a request) demands composing a well defined URL lower part in figure \ref{fig:apigenstru}, whose semantic is able to uniquely identify the resource or a group of resources (sending back a response) along with the most common HTTP methods, as GET, PUT, POST, DELETE.
+
+\begin{figure}
+\centering
+\includegraphics{images/api_stru.png}
+\caption{\label{fig:apigenstru}API general functioning, unknown source}
+\end{figure}
+
+When an API adheres to REST \ref{def:rest} principles is said RESTful. Principles are:
 
 \begin{itemize}
 \tightlist
 \item
-  A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP.
+  A client-server architecture made up of clients, servers, and resources, with requests managed through HTTP method.
 \item
   Stateless client-server communication, meaning no client information is stored between requests and each request is separate and disconnected.
 \item
@@ -797,33 +813,25 @@ An API is considered REST when it conforms to the following criteria:
   A layered system that organizes each type of server (those responsible for security, load-balancing, etc.) involved the retrieval of requested information into hierarchies, invisible to the client.
 \end{itemize}
 
-RESTful APIs accept http requests as input and elaborates them through end points. An end point identifies the operation through traditional http methods (e.g.~/GET /POST) that the API caller wants to perform. Further documentation and differences between HTTP and REST API can be found to this \href{https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html}{reference}.
+RESTful APIs receives HTTP request inputs and elaborates them through endpoints. Endpoints are the final step in the process of submitting an API request and they can interpreted as the responsibles for generating a response \citeyearpar{plumber}. Further documentation and differences between HTTP and REST API can be found to this \href{https://docs.aws.amazon.com/it_it/apigateway/latest/developerguide/http-api-vs-rest.html}{reference}.
 Open and popular RESTful API examples are:
-- BigQuery API: A data platform for customers to create, manage, share and query data.
-- YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
-- Skyscanner Flight Search API: The Skyscanner API lets you search for flights \& get flight prices from Skyscanner's database of prices, as well as get live quotes directly from ticketing agencies.
-- Openweathermap API: current weather data for any location on Earth including over 200,000 cities.
-
-\begin{figure}
-\centering
-\includegraphics{images/Rest-API.png}
-\caption{\label{fig:apigenstru}API general functioning}
-\end{figure}
-
-\hypertarget{plumberapi}{%
-\subsection{Plumber http API}\label{plumberapi}}
 
 \begin{itemize}
 \tightlist
 \item
-  sanitize input
+  BigQuery API: A data platform for customers to create, manage, share and query data.
 \item
-  antidossing strategies
+  YouTube Data API v3: The YouTube Data API v3 is an API that provides access to YouTube data, such as videos, playlists, and channels.
 \item
-  open parallel and close on exit
+  Skyscanner Flight Search API: The Skyscanner API lets you search for flights \& get flight prices from Skyscanner's database of prices, as well as get live quotes directly from ticketing agencies.
+\item
+  Openweathermap API: current weather data for any location on Earth including over 200,000 cities.
 \end{itemize}
 
-Plumber is a R framework \citep{an_api_generator_for_r}, allowing users to construct APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications starts. Below is reported a simple API with 3 endpoints example from the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks which are the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method GET or POST followed by the endpoints invocation verb (third).
+\hypertarget{plumberapi}{%
+\subsection{Plumber HTTP API}\label{plumberapi}}
+
+Plumber is a R framework \citep{an_api_generator_for_r}, allowing users to construct HTTP APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications start. Below is reported a toy API with 3 endpoints inspired by the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks, separated by the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method i.e.~GET, POST followed by the endpoints invokation verb e.g.~echo, plot, sum (third).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -837,10 +845,11 @@ Plumber is a R framework \citep{an_api_generator_for_r}, allowing users to const
 \NormalTok{\}}
 
 \CommentTok{#* Plot a histogram}
+\CommentTok{#* @param n the number of samples}
 \CommentTok{#* @serializer png}
 \CommentTok{#* @get /plot}
-\ControlFlowTok{function}\NormalTok{() \{}
-\NormalTok{  rand =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{) \{}
+\NormalTok{  rand =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n)}
   \KeywordTok{hist}\NormalTok{(rand)}
 \NormalTok{\}}
 
@@ -854,9 +863,8 @@ Plumber is a R framework \citep{an_api_generator_for_r}, allowing users to const
 \end{Highlighting}
 \end{Shaded}
 
-Once http api calls are sent to machines belonging to a network of servers, whether it is public or private they converge through endpoints. Edpoints execute functions involving the parameters specified through the call and by default response is JSON type . The first endpoint invocation simply echoes back the text that it was sent. The second endpoints generates a histogram plot based on 100 observation sampled from a Normal distribution, no parameters are required, but the output of the plot is forced to be a .png image. The third endpoint when invoked calculates the sum of a couple of number attached to the call.
-Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
-When exposing APIs on a private network or on a public server security is a major issue, concerns and thought process must adapt accordingly. There are several variables and attacks it should considered in creating Plumber APIs, but the focus will differ depending on the API audience. For example If APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
+Once HTTP api calls are sent to machines belonging to a single server or a network of servers, whether it is public or private they converge through endpoints. Endpoints execute functions involving the parameters specified through the call and by default response is JSON type. The first endpoint ``echo'' invocation simply \emph{echoes} back the text that it was sent. The second endpoints generates a histogram \emph{plot} i.e.~.png file based on a Normally distributed sample whose observation number are ``n''. The third endpoint calculates the \emph{sum} of a couple of number attached to the call. Scraping function are then implemented within the API framework and arguments becomes parameters for an incoming request. Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
+Exposing APIs on a private network or on a public server security is a major issue. Concerns and thought process therefore must adapt accordingly. There are several variables and consequent attacks that should be considered while creating Plumber APIs, but the focus will differ depending on the API audience. For example if APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
 
 \begin{itemize}
 \tightlist
@@ -865,247 +873,181 @@ When exposing APIs on a private network or on a public server security is a majo
 \item
   Denial Of Service (DoS)
 \item
-  HTTPS
+  Logging
 \end{itemize}
 
-\hypertarget{sanitization}{%
-\subsection{Sanitization}\label{sanitization}}
+\hypertarget{sanitize}{%
+\subsection{Sanitization}\label{sanitize}}
 
-Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new inputs are defined so that they take the user generated input and give back a sanitized version internally to the function. In the code chunk below are shown a couple of examples of sanitization of inputs:
+Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new functional inputs are defined so that they take the user generated input and give back a sanitized version inside the function. In the code chunk below are shown a couple of examples of sanitization of inputs:
 
-\hypertarget{denial-of-service-dos}{%
-\subsection{Denial Of Service (DoS)}\label{denial-of-service-dos}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tipo =}\StringTok{ }\KeywordTok{tolower}\NormalTok{(type) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_trim}\NormalTok{()}
+\NormalTok{citta =}\StringTok{ }\KeywordTok{tolower}\NormalTok{(city) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{iconv}\NormalTok{(}\DataTypeTok{to=}\StringTok{'ASCII//TRANSLIT'}\NormalTok{) }\OperatorTok{%>%}\StringTok{  }\KeywordTok{str_trim}\NormalTok{()}
+\NormalTok{macroozone =}\StringTok{ }\KeywordTok{tolower}\NormalTok{(macrozone) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{iconv}\NormalTok{(}\DataTypeTok{to=}\StringTok{'ASCII//TRANSLIT'}\NormalTok{) }\OperatorTok{%>%}\StringTok{  }\KeywordTok{str_trim}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context hosting services may induce to astronomic fees charged. A simple but effective approach tries to
+Inputs make their entrance into functions through arguments ``type'', ``city'' and ``macrozone'' and are immediately preprocessed. They are in sequence converted to lower cases, then extra spaces are trimmed, in the end accents are flattened.
 
-\hypertarget{immobiliare.it-parallel-rest-api}{%
-\subsection{\texorpdfstring{Immobiliare.it \emph{Parallel} REST API}{Immobiliare.it Parallel REST API}}\label{immobiliare.it-parallel-rest-api}}
+\hypertarget{DoS}{%
+\subsection{Denial Of Service (DoS)}\label{DoS}}
 
-(Sanitization, antidossing, logs tracking)
+Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. A simple but effective approach tries to limit and stop the number of request sent:
 
-The API service is composed by 4 endpoints \emph{/scrape} , \emph{/links}, \emph{/complete} and \emph{/get\_data}:
+\begin{Shaded}
+\begin{Highlighting}[]
+ \ControlFlowTok{if}\NormalTok{ (npages }\OperatorTok{>}\StringTok{ }\DecValTok{300} \OperatorTok{&}\StringTok{ }\NormalTok{npages }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
+\NormalTok{                        msg =}\StringTok{ "npages should lay inbetween 1 and 300"}
+\NormalTok{                        res}\OperatorTok{$}\NormalTok{status =}\StringTok{ }\DecValTok{500} \CommentTok{# code status: Bad request}
+                        \KeywordTok{stop}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{error=}\NormalTok{jsonlite}\OperatorTok{::}\KeywordTok{unbox}\NormalTok{(msg)))     }
+\NormalTok{            \}}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{itemize}
-\item
-  */scrape performs a fast Parallel scraping of the website that leverages a rooted tree shortest path to get to data (250 X 5 predictors in \(\approx 10.91^{''}\)). This comes at the cost of the number of available covariates to scrape which are: title, price, number of rooms, sqmeter, primarykey. By default the end point scrape data from Milan real estate rents. It is a superficial and does not contain geospatial, however it might fit for some basic regression settings. The macrozone parameter allows to specify the NIL (Nucleo Identità Locale), targeting very detailed zones in some of the cities for which is available (Roma, Firenze, Milano, Torino).
-\item
-  */links: extracts the list of each single advertisement link belonging to each of the npages parameter specified, recall section \ref{webstructure}. It displays sufficient performances in terms of run time. It is strictly needed to apply the following endpoint. .thesis options secures a pre combined url with the data wanted for thesis analysis. The option takes care to decompose the website structure of the url supplied with the aim to apply scraping function in the /complete endpoint.
-\item
-  */complete: both the function all.links and complete are sourced. The former with the aim to grab each single links and store it into an object. The latter to actually iterate Parallel scraping on each of the extracted link.
-\item
-  */get\_data: it triggers the data extraction by sourcing the /complete endpoint and then storing .json file into the NOSQL mongoDB ATLAS
-\end{itemize}
+The code chunk above intercepts DoS attacks by limiting to 300 the number of pages to be server to the API. Furthermore it converts outputs error messages printed on console into JSON format and then pass them as output. This simplify distinguishing malicious attacks from a type errors. DDoS attacks are secured by SSL certificates and Authentication covered later in the chapter.
+
+\hypertarget{logging}{%
+\subsection{Logging}\label{logging}}
+
+Plumber uses ``filters'' that can be used to describe a ``pipeline'' for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the \emph{filters}. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e.~\texttt{forward()} the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e.~the act of keeping a log \citep{wiki:logging}, is recording events in an operating system or running software from other users of communication software, or messages among different subjects. Logging is .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#* Log information}
+\CommentTok{#* @filter logging}
+\ControlFlowTok{function}\NormalTok{(req)\{}
+            \KeywordTok{cat}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{()), }\StringTok{"-"}\NormalTok{,}
+\NormalTok{                req}\OperatorTok{$}\NormalTok{HTTP_USER_AGENT, }\StringTok{"@"}\NormalTok{, }
+\NormalTok{                req}\OperatorTok{$}\NormalTok{REMOTE_ADDR, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,}
+\NormalTok{                req}\OperatorTok{$}\NormalTok{QUERY_STRING, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{            plumber}\OperatorTok{::}\KeywordTok{forward}\NormalTok{()}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The above filter parses the request through the default request argument \texttt{req}, then it prints out messages about the incoming User Agent (i.e.~\texttt{HTTP\_USER\_AGENT}) (section \ref{spoofing}), the \texttt{REMOTE\_ADDR} which is the IP address of the client making the request \citeyearpar{plumber} and the \texttt{QUERY\_STRING} that records the parameters directly sent the endpoint. This helps to traceback clients activity on the API as well as detecting misuse.
+
+\hypertarget{docs}{%
+\subsection{RESTful API documentation}\label{docs}}
+
+The service disposes of 2 endpoints \emph{/fastscrape} , \emph{/completescrape}. Parameters are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \ref{fig:pseudocode3}, in section \ref{reverse}. Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic \citep{swaggerUI}. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints\ldots). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
 
 \begin{figure}
 \centering
 \includegraphics{images/swagger.PNG}
-\caption{Swagger UI screenshot, author's source}
+\caption{\label{fig:swagger}Swagger UI in localhost on port 8000, author's source}
 \end{figure}
 
-\hypertarget{APIdocs}{%
-\subsection{REST API documentation}\label{APIdocs}}
-
-\begin{itemize}
-\tightlist
-\item
-  Get FAST data, it covers 5 covariates:
-\end{itemize}
-
 \begin{verbatim}
-      GET */scrape
-      @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze"--> lowercase, without accent)
-      @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" 
-      content-type: application/json 
+  <!-- @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
 \end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Get all the links
-\end{itemize}
-
-\begin{verbatim}
-      GET */link
-      @param city [chr string] the city you are interested to extract data (lowercase without accent)
-      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param .thesis [logical] data used for master thesis
-      content-type: application/json 
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Get the complete set of covariates (52) from each single links, takes a while
-\end{itemize}
-
-\begin{verbatim}
-      GET */complete
-      @param city [chr string] the city you are interested to extract data (lowercase without accent)
-      @param npages [positive integer] number of pages to scrape default = 10, min  = 2, max = 300
-      @param type [chr string] "affitto" = rents, "vendita"  = sell 
-      @param .thesis [logical] data used for master thesis
-      content-type: application/json
-\end{verbatim}
-
-Up to this point the API can smoothly run in local and potentially can be deployed to share results without requesting scraping process knowledge. However the API software for now is not portable and is very heavy. In addition it can also run into failures for many reasons, one among the others is package versione incompatibility due to updates. In the end it also fully relies on the laptop computational power that can be heavily stressed when a number of API calls are executed, especially for single threaded programming languages as R.
-The approach followed proposes a dedicated lightweight software environment that minimizes dependencies both improving performances and enabling the \emph{cloud computing} coverage. A fast growing techonlogy is what fits the need.
 
 \hypertarget{docker}{%
 \section{Docker}\label{docker}}
 
-\begin{definition}[Docker]
-\protect\hypertarget{def:docker}{}{\label{def:docker} \iffalse (Docker) \fi{} }\emph{Docker} \citep{docker} is a software tool to create and deploy applications using containers.
+The API up to this point needs a dedicated lightweight software environment that minimizes dependencies both improving performances and enabling \emph{cloud computing} coverage. A fast growing technology known as \emph{Docker} might extend these capabilities.
+\begin{definition}[Docker and Containers]
+\protect\hypertarget{def:docker}{}{\label{def:docker} \iffalse (Docker and Containers) \fi{} }\emph{Docker} \citep{docker} is a software technology to create and deploy applications using containers.
 \emph{Docker containers} are a standard unit of software (i.e.~software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 \end{definition}
+Containers can be thought as a software abstraction that groups code and dependencies together. One critical advantage of containers is that multiple containers can run on the same machine with the same OS along with their specific dependencies (docker compose). Each container can run its own isolated process in the user space, so that each task/application is exhaustively and complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation.
 
-Containers can be thought as an abstraction that groups code and dependencies together. One major advantage of containers is that multiple containers can run on the same machine with the same OS with their specific dependencies. Each container can run its own isolated process in the user space, so that each task/application is complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation.
-
-When images are built \emph{Docker container} are created and can be open sourced through Docker Hub.
-\emph{Docker Hub} is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can connect with GitHub behind authorization entailing an image version control tool. Once the connection is established changes that are pushed with git to the GitHub repository are passed to Docker Hub. The push command automatically triggers the image building. Then docker image can be tagged (salvini/api-immobiliare:latest)so that on one hand it is recognizable and on the other can be reused in the future. Once the building stage is completed the DH repository can be pulled and then run locally on machine or cloud, see section \ref{aws}.
-Docker building and testing images can be very time consuming. R packages can take a long time to install because code has to be compiled, especially if using R on a Linux server or in a Docker container.
-Rstudio \href{https://packagemanager.rstudio.com/client/\#/}{package manager} includes beta support for pre-compiled R packages that can be installed faster. This dramatically reduces packages time installation \citep{nolis_2020}.
-In addition to that an open source project \href{https://www.rocker-project.org/images/}{rocker} has narrowed the path for developers by building custom R docker images for a wide range of usages. What can be read from their own website about the project is: ``The rocker project provides a collection of containers suited for different needs. find a base image to extend or images with popular software and optimized libraries pre-installed. Get the latest version or a reproducible fixed environment''.
-
-\hypertarget{why-docker}{%
-\subsection{Why Docker}\label{why-docker}}
-
-\href{https://it.indeed.com/}{Indeed}, an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure \ref{fig:indeedstats}. Many changes are relevant in key technologies. Two among the others technologies (i.e.~docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: \emph{containers} and \emph{cloud computing}.
-The landscape of Data Science is changing from reporting to application building:
-In 2015 - Businesses reports drive better decisions.
-In 2020 - Businesses need apps to empower better decision making at all levels.
-
-\begin{figure}
-\centering
-\includegraphics{images/Inkedindeed_jobs_LI.jpg}
-\caption{\label{fig:indeedstats}Indeed top skills for 2019 in percent changes, \citet{top_tech_skills} source}
-\end{figure}
-
-For all the things said what docker is bringing to business are \citep{red_hat_customer_portal}:
-
-\begin{itemize}
-\tightlist
-\item
-  \emph{Speed application deployment} : containers include the minimal run time requirements of the application, reducing their size and allowing them to be deployed quickly.
-\item
-  \emph{Portability across machines} : an application and all its dependencies can be bundled into a single container that is independent from the host version of Linux kernel, platform distribution, or deployment model. This container can be transferred to another machine that runs Docker, and executed there without compatibility issues.
-\item
-  \emph{Version control and component reuse} : you can track successive versions of a container, inspect differences, or roll-back to previous versions. Containers reuse components from the preceding layers, which makes them noticeably lightweight. In addition due to Docker Hub it is possible to establish a connection between Git and DockerHub. Vesion
-\item
-  \emph{Sharing} : you can use a remote repository to share your container with others. It is also possible to configure a private repository hosted on Docker Hub.
-\item
-  \emph{Lightweight footprint and minimal overhead} : Docker images are typically very small, which facilitates rapid delivery and reduces the time to deploy new application containers.
-\item
-  \emph{Fault isolation} :Docker reduces effort and risk of problems with application dependencies. Docker also freezes the environment to the preferred packages version so that it guarantees continuity in deployment and isolate the container from system fails coming from package version updates.
-\end{itemize}
-
-The way to tell docker which system requirements are needed in the newly born software is a \emph{Dockerfile}.
+Actually \emph{Docker containers} are the build stage of \emph{Docker Images}. Docker images therefore are the starting point to containerize a software environment. They are built up from a series of software layers each of which represents an instruction in the image's \emph{Dockerfile} \citeyearpar{docker_documentation_2020} . In addition images can be open sourced and reused through Docker Hub.
+\emph{Docker Hub} is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can authorize third party applications as GitHub entailing an collaborative image version control, this would be critical for software development as disguised in section (\ref{sdwf}).
 
 \hypertarget{dockerfile}{%
-\subsection{Dockerfile}\label{dockerfile}}
+\subsection{REST-API container}\label{dockerfile}}
 
-Docker can build images automatically by reading instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands/rules a generic user could call on the CLI to assemble an image. Executing the command \texttt{docker\ build} from shell the user can trigger the image building. That executes sequentially several command-line instructions. For thesis purposes a Dockerfile is written with the specific instructions and then the file is pushed to GitHub repository. Once pushed DockerHub automatically parses the repository looking for a plain text file whose name is ``Dockerfile''. When It is matched then it triggers the building of the image.
+Docker can build containers from images by reading instructions from a Dockerfile. A Dockerfile is a text document that contains the commands/rules a generic user could call on the CLI to assemble an image. Executing the command \texttt{docker\ build} from working directory the user can trigger the build. Building consists of executing sequentially several command-line instructions that specifies the software environment. As a matter of fact the concept of containers takes inspiration by the fact that many single software layers are stacked up over at the following. An open source project named \href{https://www.rocker-project.org/images/}{rocker} already disposes of a group of pre-set task-specific image configurations from which further custom dockerfile can be built on top of.
+Therefore images are overwritten with higher level dependencies i.e.~package libraries, since lower levels Linux dependencies are already partially handled. Indeed as in \ref{sdwf} an automatic development workflow is proposed that triggers the building of the image when changes are pushed to github.
 
-The Dockerfile used to trigger the building of the docker container has the following sequential set of instructions in figure \ref{fig:dockerfile}) :
+The custom Dockerfile in figure \ref{fig:dockerfile}) is able to build the rest-api container:
 
 \begin{figure}
 \centering
-\includegraphics{images/dockerfile.PNG}
-\caption{\label{fig:dockerfile}Example of a Dockerfile from Docker Hub, author's source}
+\includegraphics{images/dockerfile.jpg}
+\caption{\label{fig:dockerfile}Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source}
 \end{figure}
 
-where the instructions are:
+Each line from the Dockerfile has its own specific role:
 
 \begin{itemize}
 \item
-  \texttt{FROM\ rocker/tidyverse:latest} : The command imports a pre-built image by the rocker team that contains the latest (tag latest) version of base-R along with the tidyverse packages.
+  \texttt{FROM\ rocker/tidyverse:latest} : The command imports from rocker project a pre set config guration containing the latest version of base-R along with the tidyverse \citep{tidyverse} R packages collection.
 \item
   \texttt{MAINTAINER\ Niccolo\ Salvini\ "niccolo.salvini27@gmail.com"} : The command tags the maintainer and its e-mail contact information.
 \item
-  \texttt{RUN\ apt-get\ update\ \&\&\ apt-get\ install\ -y\ \textbackslash{}\ libxml2-dev\ \textbackslash{}\ libudunits2-dev} :The command update and install Linux dependencies needed for running R packages. \texttt{rvest} requires libxml2-dev and \texttt{magrittr} needs libudunits2-dev. If they are not installed then associated libraries can not be loaded. Linux dependencies needed have been found by trial and error while building containers. Building logs messages print errors and suggest which dependency is mandatory.
+  \texttt{RUN\ apt-get\ update\ \&\&\ apt-get\ install\ -y\ \textbackslash{}\ libxml2-dev\ \textbackslash{}\ libudunits2-dev} : The command update and install remaining ``lower'' Linux dependencies required to run Plumber and rvest.
 \item
-  \texttt{RUN\ R\ -e\ "install.packages(c(\textquotesingle{}plumber\textquotesingle{},\textquotesingle{}tibble\textquotesingle{},\textquotesingle{}...\textquotesingle{},dependencies=TRUE)} : the command install all the packages required to execute the files (R files) containerized for the scraping. Since all the packages have their direct R dependencies the option \texttt{dependencies=TRUE} is needed.
+  \texttt{RUN\ R\ -e\ "install.packages(c(\textquotesingle{}tictoc\textquotesingle{},\textquotesingle{}here\textquotesingle{},\textquotesingle{}...\textquotesingle{},dependencies=TRUE)} : The command install all the further libraries required to execute the files. Since some packages have related dependencies the option \texttt{dependencies=TRUE} is needed.
 \item
   \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../iterators,\ type=\textquotesingle{}source\textquotesingle{})}
   \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../foreach/,\ type=\textquotesingle{}source\textquotesingle{})}
   \texttt{RUN\ R\ -e\ "install.packages(\textquotesingle{}https://cran.r-project.org/.../doParallel,\ type=\textquotesingle{}source\textquotesingle{})}
-  DoParallel was not available in package manager for R version later than 4.0.0. For this reason the choice was to install a previous source version by the online repository, as well as its dependencies.
+  DoParallel backend is not available for R version later than 4.0.0. Therefore the three instructions install from CRAN previous frozen versions.
 \item
-  \texttt{COPY\ \textbackslash{}\textbackslash{}} The command tells Docker copies all the files in the container.
+  \texttt{COPY\ \textbackslash{}\textbackslash{}} : The command tells Docker engine to copy all the files in the container as is.
 \item
-  \texttt{EXPOSE\ 8000} : the commands instructs Docker that the container listens on the specified network ports 8000 at runtime. It is possible to specify whether the port exposed listens on UDP or TCP, the default is TCP (this part needs a previous set up previous installing, for further online documentation It is recommended \citep{docker_documentation_2020} )
+  \texttt{EXPOSE\ 8000} : The commands instructs Docker engine that the container listens on the specified network ports 8000 at runtime. Default \emph{transportation} layer is TCP.
 \item
-  \texttt{ENTRYPOINT\ {[}"Rscript",\ "main.R"{]}} : the command tells docker to execute the file main.R within the container that triggers the API start. In main.R it are pecified both the port and the host where API expects to be exposed (in this case port 8000).
+  \texttt{ENTRYPOINT\ {[}"Rscript",\ "main.R"{]}} : the command tells docker engine to execute the file main.R where are contained the Plumber router options (i.e.~host and port specifications).
 \end{itemize}
 
-In order to make the system stand-alone and make the service available to a wider range of subjects a choice has to be made. The service has to have both the characteristics to be run on demand and to specify query parameters.
+\hypertarget{nginx}{%
+\section{NGINX reverse Proxy Server and Authorization}\label{nginx}}
+
+Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (\ref{spoofing}). Reverse Proxy server are a special type of gateway \ref{def:proxy} that is usually located behind a private network firewall to route client requests to the corresponding backend server \citep{nginxDocs}. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:
+
+\begin{itemize}
+\item
+  \emph{Load balancing}: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers.
+\item
+  \emph{Web acceleration}: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.
+\item
+  \emph{Security and anonymity}: A reverse proxy server protects identities and serves as an additional protection against security threats seen in sub-sections (\ref{sanitize}, \ref{Dos}) by intercepting requests before they reach end server.
+\end{itemize}
+
+When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \ref{fig:nginxfun}. Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard that monitors traffic and API exposure.
+
+\begin{figure}
+\centering
+\includegraphics{images/nginx_gateway.png}
+\caption{\label{fig:nginxfun}NGINX gateway redirecting an incoming request, source \citet{azureNGINX}}
+\end{figure}
+
+Then without any further software installation, the developer can simply make use of the latest NGINX open sourced image to build the NGINX proxy server within the same image. A further configuration file should manage NGINX inner settings that links volumes, ports and IPs, but details are beyond the scope of the analysis.
+
+\hypertarget{HTTPS}{%
+\section{HTTPS(ecure) and SSL certificates}\label{HTTPS}}
+
+Communication even though properly secured and distributed with NGINX is still not encrypted so sensitive data are still being exposed. HTTP Secured (HTTPS) is a product of HTTP combined with SSL/TLS (Secure Sockets Layer/Transportation Security Layer) protocol rather than a protocol itself. HTTPS is strictly appropriate when transmitting sensitive data such as banking or on-line buying. Its importance is highlighted by the fact that nowadays is rather more common to find HTTPS than HTTP. The Secured method encrypts all contacts between the client and the server, figure \ref{fig:httpsmeth}. The HTTPS scheme in actual is ``HTTPS'' and its default port is 443 (that should be exposed too in the dockerfile). SSL runs as a sublayer of the \emph{application} layer (a further internet layer, refer to section \ref{HTTPmethod}), this ensures that HTTP messages are encrypted prior being transmitted to the server (SSL Offloading box in figure \ref{fig:nginxfun}) whether it is a proxy server or directly a web server.
+
+\begin{figure}
+\centering
+\includegraphics{images/https_method.jpg}
+\caption{\label{fig:httpsmeth}HTTPS encryption with SSL certificates, source \citet{automateddatacollection}}
+\end{figure}
+
+From a port communication point of view at first NGINX container listens to on port 80 and that it is where all requests should relay to IP\_macchine\_address:8000. As a result the RESTful API is published on Port 80 instead of 8000. Secondly it listens on the SSL port 443 and points to the key and certificate files that have been created in the Dockerfile.
 
 \hypertarget{aws}{%
 \section{AWS EC2 instance}\label{aws}}
 
-Exporting the API on a server allows to make scraping available to a various number of services thorough multitude of subjects. Since it can not be specified a-priori how many times and users are going to enjoy the service a scalable solutio might fill the needs. Scalable infrastructure through a flexible cloud provider combined with nginx load balancing can offer a stable and reliable infrastructure for a relatively cheap price.
-AWS offers a wide range of services each of which for a wide range of budgets and integration. Free tier servers can be rent up to a certain amount of storage and computation that nearly 0s the total bill. The cloud provider also has a dedicated webpage to configure the service needed with respect to the usage named \href{https://aws.amazon.com/en/aws-cost-management/}{amazon cost manager}.
-
+From henceforth the software container environment can be reproduced regardless of the mounted OS. Scalability and accessibility is worked out by exporting orchestrated containers on a web server. There are many hosting services options that varies primary on the budget and consequently on the API audience. A flexible cloud provider combined with NGINX load balancing \emph{ceteris paribus} may offer a stable and reliable service for a reasonable price, even considering a bad-case scenario where requests are many and insistent.
 \begin{definition}[AWS EC2]
 \protect\hypertarget{def:aws}{}{\label{def:aws} \iffalse (AWS EC2) \fi{} }Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
 \end{definition}
 
-{[}few words still on EC2{]}
+AWS EC2 represents a popular hosting option, most importantly this path is already narrowed by many open source contributors. The selected target is a AWS free tier t3.micro whose specifications are: 2 vCPU (Virtual CPU), 1 GB memory and a mounted Ubuntu distribution OS. Moreover T3 instances are known to provide device, memory, and network resource balance and have been developed for applications that experience transient spikes in use with modest CPU use. They are designed especially to serve low-latency interactive applications, small and medium databases, virtual desktops, development environments, code repositories, and business-critical applications, therefore they suit the needs.
+Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Tags are not required. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e.~open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\ref{dockerfile}), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH (Putty or Bash depending on the OS) behind authentication.
 
-\hypertarget{launch-an-ec2-instance}{%
-\subsection{Launch an EC2 instance}\label{launch-an-ec2-instance}}
+\hypertarget{sdwf}{%
+\section{Software development Workflow}\label{sdwf}}
 
-The preliminary step is to pick up an AMI (Amazon Machine Image). AWS AMI are already pre set-up machines with standardized specifications built with the purpose to speed up choosing the a customed machine. Since the project is planned to be nearly 0-cost a ``Free Tier Eligible'' Linux server is chosen. By checking the Free Tier box all the available free tiers machines are displayed. The machine selected has this specification: t2.micro with 1 CPU and 1GB RAM and runs on a Ubuntu distribution OS. First set up settings needs to be left as-is, networking and VPC can always be updated when needed. In the ``add storage'' step 30 GB storage are selected, moreover 30 represent the upper limit since the server can be considered free tier. Tags windows are beyond the scope. Secondly configuration needs to account security and a new entry below SSH connection (port 22) has to be set in. New security configuration has to have TCP specification and should be associated to port 8000. Port 8000, as in dockerfile section \ref{dockerfile}, has been exposed and needs to be linked to the security port opened.
-
-\begin{figure}
-\centering
-\includegraphics{images/aws.PNG}
-\caption{aws\_dashboard}
-\end{figure}
-
-At this point instance is prepared to run and in a few minutes is deployed. Key pairs, if never done before, are generated and a .pem file is saved and securely stored. Key pairs are a mandatory step to log into the Ubuntu server via SSH. SSH connection in Windows OS can be handled with \href{https://www.putty.org/}{PuTTY}, which is a SSH and telnet client designed for Windows. At first PuTTYgen, a PuTTY extensions, has to convert the key pair .pem file into a .ppk extension (otherwise PuTTY can not read it). Once .ppk is converted is immediately sourced in the authorization panel. If everything works and authentication is verified then the Ubuntu server CLI appears and interaction with the server is made possible.
-Once the CLI pops out some Linux libraries to check file structure (``tree'') and Docker are installed. Then a connection with Docker hub is established providing user login credentials. From the Hub repository the container image is pulled on the machine and is then executed with the docker RUN command.
-AWS automatically assign to the server a unique Public DNS address which is going to be the REST API url to call.
-the Public DNS has the following form:
-
-\texttt{ec2-15-161-94-121.eu-south-1.compute.amazonaws.com}
-
-\hypertarget{nginx}{%
-\section{NGINX reverse proxy server and Ayuth}\label{nginx}}
-
-FUNZIONA
-
-two reasons for authentication
-- you want to deploy your API at your company but do not want to give everyone access to every endpoint.
-- you want to make your API publicly available on the Internet but you still want users to authenticate before they can use your API (e.g.~to prohibit abuse of your API).
-For analysis purposes NGINX is open source software for reverse proxying and load balancing.
-Proxying is typically used to distribute the load among several servers, seamlessly show content from different websites, or pass requests for processing to application servers over protocols other than HTTP.
-{[}\ldots{]}
-
-When NGINX proxies a request, it sends the request to a specified proxied server, fetches the response, and sends it back to the client. It is possible to proxy requests to an HTTP server (another NGINX server or any other server) or a non-HTTP server (which can run an application developed with a specific framework, such as PHP or Python) using a specified protocol. Supported protocols include FastCGI, uwsgi, SCGI, and memcached.
-{[}\ldots{]}
-
-.conf file and installation on Linux server. Security and Authentication.
-
-\hypertarget{SSL}{%
-\section{SSL certificates and Subdomain registration}\label{SSL}}
-
-QUESTO ANCORA NON SO SE FUNZIONA
-
-\href{https://qunis.de/how-to-make-a-dockerized-plumber-api-secure-with-ssl-and-basic-authentication/}{resource}
-\href{https://www.rinproduction.com/it/posts/003-web-r-platform-with-https/}{resource2}
-\href{https://business-science.github.io/shiny-production-with-aws-book/domain-setup-ssl-certificates.html}{resource3}
-Here we have created two servers:
-
-The first listens on port 80 and redirects all traffic to \url{https://}\ldots{} on port 443
-The second listens on the SSL port 443 and points to the key and certificate files we have created in the Dockerfile.
-
-This is because we signed the certificate ourselves and not issued an official certificate from a certificate authority. But the connection is encrypted eitherway and we can skip this warning, since we can trust ourselves.
-
-\hypertarget{software-development-workflow}{%
-\section{Software development Workflow}\label{software-development-workflow}}
+Software changes can happen quite often due to the responsive nature of the RESTful API task. This requires a modern stack of cloud technologies to keep track, revert and quickly update software versions, even adapt software architecture. As a result minor changes are made locally to the project and then are directly pushed with GIT into a GitHub repository, upper left quadrant \ref{fig:sfmap}. The above mentioned repository communicates with a DockerHub repository that triggers the rebuilt of docker images whenever changes are pushed, upper right quadrant \ref{fig:sfmap}. Images are built along with tags so that versions are controlled and if that may be the the case of error, reverted. Debugging passes through logs auto generated by the docker engine. The build stage in R since 2019 required long time due to package compiling, but since the appearance of Rstudio \href{https://packagemanager.rstudio.com/client/\#/}{package manager} which includes beta support for pre-compiled R packages they can be installed 3 times faster \citep{nolispmanager}.
+When newer images are available they can be pulled from the EC2 server and rerun in detached mode. Massive software changes are managed through GitHub branches, even though it must be kept in mind to swith lautomatic building brench. The Ec2 server is associated to an Elastic IPs address allowing to reuse the address for external databases connections and DNS services as Cloudflare (for SSL certificates). Moreover elastic IPs are effective when the EC2 server stands in need of upgrading or downgrading or when the server may fail, thus restoring and apply the IP address for a new server.
 
 \begin{figure}
 \centering
@@ -1116,9 +1058,9 @@ This is because we signed the certificate ourselves and not issued an official c
 \hypertarget{further-integrations}{%
 \section{Further Integrations}\label{further-integrations}}
 
-From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \texttt{Golem} \citet{colin_fay_2020} into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (\citet{plungr} aligns with that) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) through the tools of \citet{usethis} and \citet{testthat} during package building can make software more robust, organized and production graded. Loadtest \citet{loadtest} can help figure out
+From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \texttt{Golem} \citet{colin_fay_2020} into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (\citet{plungr} aligns with the idea) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) through the tools of \citet{usethis} and \citet{testthat} during package building can make software more robust, organized and production graded. Loadtest \citet{loadtest} can help figure out
 CI/CT
-It can be missed to cite a popular API development integration service and automate testing tool \href{https://www.postman.com/}{Postman}, which does the best when POST requests endpoints are served, since for the moment they are not required it is not used.
+It can be missed to cite a popular API development integration service and automate testing tool \href{https://www.postman.com/}{Postman}, which does its best when POST requests endpoints are served, since for the moment they are not required it is not used.
 
 Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9}{this link}
 software development framework and tools for testing \href{https://github.com/isteves/plumbplumb}{this work}

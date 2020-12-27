@@ -11,9 +11,6 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 
-# libraries are in libs.R
-# source(here::here("libs.R"))
-
 library(drake, quietly = F)
 library(readr, quietly = F)
 library(kableExtra, quietly = F)
@@ -757,8 +754,7 @@ bound = inla.nonconvex.hull(coords)
 
 ### Shinyapp for mesh assessment
 
-INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively
-
+INLA includes a Shiny (Chang et al., 2018) application that can be used to tune the mesh params interactively 
 ```{r meshbuilder, eval = FALSE}
 INLA::meshbuilder()
 ```
