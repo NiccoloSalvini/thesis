@@ -49,9 +49,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -273,7 +271,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="inla" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> INLA computation</h1>
-<p>INLA <span class="citation">(Rue, Martino, and Chopin <a href="#ref-Rue2009" role="doc-biblioref">2009</a>)</span> stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate Bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are <em>computationally</em> convenient. The benefits are many, some among the other are:</p>
+<p>INLA <span class="citation">(Rue, Martino, and Chopin <a href="#ref-Rue2009" role="doc-biblioref">2009</a>)</span> stands for Integrated Nested Laplace approximation and constitutes a computational alternative to traditional MCMC methods. INLA does approximate Bayesian inference on special type of models called LGM (Latent Gaussian Models) due to the fact that they are <em>computationally</em> convenient. Benefits are many, some of them are capitalized by Rue in <span class="citation">(Rencontres Mathématiques <a href="#ref-YT:Rue" role="doc-biblioref">2018</a>)</span>:</p>
 <ul>
 <li>Low computational costs, even for large models.</li>
 <li>It provides high accuracy.</li>
@@ -282,13 +280,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Very good support for spatial models.</li>
 <li>Implementation of spatio-temporal model enabled.</li>
 </ul>
-<p>INLA uses a combination of analytics approximations and numerical integration to obtain an approximated posterior distribution of the parameters in a shorter time period.
-The chronological steps in the presentation follows the course sailed by <span class="citation">Moraga (<a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>, with the author choice to skip details. As a matter of fact the aim of the chapter is to provide a comprehensive intuition oriented to the immediate application of the methodology, without stepping too long on mathematical details. By the way details e.g model assessment and control options are handled under the hood by the package and can be tuned within the main function, most of them are covered by <span class="citation">Gómez Rubio (<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. Notation is imported from <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> and <span class="citation">Gómez Rubio (<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>, and quite differ from the one presented in the original paper by Rue, Chopin and Martino <span class="citation">(<a href="#ref-Rue2009" role="doc-biblioref">2009</a>)</span>. As further notation remarks: bold symbols are considered as vectors, so each time they occur they have to be considered like the <em>ensamble</em> of their values. In addition <span class="math inline">\(\tilde\pi\)</span> in section <a href="inla.html#approx">4.2</a> are the Laplace approximation of the underlying integrals. Moreover the inner functioning of Laplace approximation and its special usage within the INLA setting is far from the scope, but an easy shortcut oriented to INLA is in <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>.</p>
+<p>INLA in few words uses a combination of analytics approximations and numerical integration to obtain an approximated posterior distribution of the parameters in a shorter time period.
+The chronological steps in the explanation follows the route sailed by Moraga in <span class="citation">Moraga (<a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>, with the author choice to skip details. As a matter of fact the aim of the chapter is to provide a comprehensive intuition oriented to the immediate application of the methodology, without stepping too long on mathematical details. By the way details e.g model assessment and control options are handled under the hood by the package and can be tuned within the main function, most of them are covered by <span class="citation">Gómez Rubio (<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. Notation is imported from <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>, and quite differ from the one presented in the original paper by Rue, Chopin and Martino <span class="citation">(<a href="#ref-Rue2009" role="doc-biblioref">2009</a>)</span>. As notation remarks, bold symbols are considered as vectors, so each time they occur they have to be considered like the <em>ensamble</em> of their values. In addition <span class="math inline">\(\tilde\pi\)</span> in section <a href="inla.html#approx">4.2</a> are the Laplace approximation of the underlying integrals. Moreover the inner functioning of Laplace approximation and its special usage within the INLA setting is far from the scope, but an easy shortcut oriented to INLA is in <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>.</p>
 <p>INLA can fit only Latent Gaussian type of models and the following work tries to encapsulate its properties. As a consequence a problem can be reshaped into the LGM framework with the explicit purpose to explore its benefits. When models are reduced to LGMs then joint posterior distribution can be rewritten and then approximated with INLA. A hierarchical bayesian structure on the model will help to integrate many parameter and hyperparameter levels and simplify interpretation.
 Generic Information on the project and the R-INLA package are contained in the initial part to last section <a href="inla.html#inla">4</a>. In the end a brief application on a toy spatial dataset is proposed with the aim to familiarize with the methodology and to come to grip with INLA results.</p>
 <div id="LGM" class="section level2">
 <h2><span class="header-section-number">4.1</span> Latent Gaussian Models LGM</h2>
-<p>Given some observations <span class="math inline">\(y_{i \ldots n}\)</span> in order to define a Latent Gaussain Model within the bayesian framework it is convenient to specify at first an <em>exponential family</em> (Gaussian, Poisson, Exponential…) distribution function characterized by some parameters <span class="math inline">\(\phi_{i}\)</span> (usually expressed by the mean <span class="math inline">\(\left.E\left(y_{i}\right)\right)\)</span>) and some other hyper-parameters <span class="math inline">\(\psi_{k} ,\forall k \in \ 1\ldots K\)</span>. The parameter <span class="math inline">\(\phi_{i}\)</span> can be defined as an additive <em>latent linear predictor</em> <span class="math inline">\(\eta_{i}\)</span>, as pointed out by Krainski and Rubio (<span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>) through a link function <span class="math inline">\(g(\cdot)\)</span>, i.e. <span class="math inline">\(g\left(\phi_{i}\right)=\eta_{i}\)</span>. A comprehensive expression of the linear predictor takes into account all the possible effects on covariates</p>
+<p>Given some observations <span class="math inline">\(y_{i \ldots n}\)</span> in order to define a Latent Gaussain Model within the bayesian framework it is convenient to specify at first an <em>exponential family</em> (Gaussian, Poisson, Exponential…) distribution function characterized by some parameters <span class="math inline">\(\phi_{i}\)</span> (usually expressed by the mean <span class="math inline">\(\left.E\left(y_{i}\right)\right)\)</span>) and some other hyper-parameters <span class="math inline">\(\psi_{k} ,\forall k \in \ 1\ldots K\)</span>. The parameter <span class="math inline">\(\phi_{i}\)</span> can be defined as an additive <em>latent linear predictor</em> <span class="math inline">\(\eta_{i}\)</span>, as pointed out by Krainski and Rubio (<span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>) through a link function <span class="math inline">\(g(\cdot)\)</span>, i.e. <span class="math inline">\(g\left(\phi_{i}\right)=\eta_{i}\)</span>. A comprehensive expression of the linear predictor takes into account all the possible effects on covariates:</p>
 <p><span class="math display">\[
 \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
 \]</span></p>
@@ -416,9 +414,9 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \tau &amp; \sim G a(1,0.00005)
 \end{aligned}
 \]</span></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="inla.html#cb14-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
-<span id="cb14-2"><a href="inla.html#cb14-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
-<span id="cb14-3"><a href="inla.html#cb14-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="inla.html#cb13-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
+<span id="cb13-2"><a href="inla.html#cb13-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
+<span id="cb13-3"><a href="inla.html#cb13-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="14%" />
@@ -515,6 +513,9 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 </div>
 <div id="ref-Moraga2019">
 <p>Moraga, Paula. 2019. <em>Geospatial Health Data</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429341823">https://doi.org/10.1201/9780429341823</a>.</p>
+</div>
+<div id="ref-YT:Rue">
+<p>Rencontres Mathématiques, Centre International de. 2018. “Håvard Rue: Bayesian Computation with Inla.” Youtube. <a href="https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s">https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s</a>.</p>
 </div>
 <div id="ref-GMRFRue">
 <p>Rue, Havard, and Leonhard Held. 2005. <em>Gaussian Markov Random Fields</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780203492024">https://doi.org/10.1201/9780203492024</a>.</p>

@@ -49,9 +49,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -413,23 +411,25 @@ Exposing APIs on a private network or on a public server security is a major iss
 <h3><span class="header-section-number">3.1.2</span> Sanitization</h3>
 <p>Whenever APIs accept input from a random user this is directly injected into functions through endpoints, therefore the worst case scenario should be prepared. In the context of the analysis users are required to specify to the endpoints arguments such as cities, zones, number of pages and many others. Chances are that users might either misspell inputs or use different encoding (accents) or rather use capital letters when functions are capital sensitive. Endpoints should take account of the behavior by sanitizing whatever it comes into the function. The process at first requires an intense and creative investigation on what it can be misused and how. Then Secondly new functional inputs are defined so that they take the user generated input and give back a sanitized version inside the function. In the code chunk below are shown a couple of examples of sanitization of inputs:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="Infrastructure.html#cb10-1"></a>tipo =<span class="st"> </span><span class="kw">tolower</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_trim</span>()</span>
-<span id="cb10-2"><a href="Infrastructure.html#cb10-2"></a>citta =<span class="st"> </span><span class="kw">tolower</span>(city) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iconv</span>(<span class="dt">to=</span><span class="st">&#39;ASCII//TRANSLIT&#39;</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">str_trim</span>()</span>
-<span id="cb10-3"><a href="Infrastructure.html#cb10-3"></a>macroozone =<span class="st"> </span><span class="kw">tolower</span>(macrozone) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iconv</span>(<span class="dt">to=</span><span class="st">&#39;ASCII//TRANSLIT&#39;</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">str_trim</span>()</span></code></pre></div>
+<span id="cb10-2"><a href="Infrastructure.html#cb10-2"></a>citta =<span class="st"> </span><span class="kw">tolower</span>(city) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iconv</span>(<span class="dt">to =</span> <span class="st">&quot;ASCII//TRANSLIT&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_trim</span>()</span>
+<span id="cb10-3"><a href="Infrastructure.html#cb10-3"></a>macroozone =<span class="st"> </span><span class="kw">tolower</span>(macrozone) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">iconv</span>(<span class="dt">to =</span> <span class="st">&quot;ASCII//TRANSLIT&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str_trim</span>()</span></code></pre></div>
 <p>Inputs make their entrance into functions through arguments “type”, “city” and “macrozone” and are immediately preprocessed. They are in sequence converted to lower cases, then extra spaces are trimmed, in the end accents are flattened.</p>
 </div>
 <div id="DoS" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> Denial Of Service (DoS)</h3>
-<p>Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. A simple but effective approach tries to limit and stop the number of request sent:</p>
+<p>Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. Dos attack as a conseuquence may also induce distorted website/API logs analytics, leading to distorted reports.
+A simple but effective approach tries to limit and stop the number of request sent:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="Infrastructure.html#cb11-1"></a> <span class="cf">if</span> (npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span> <span class="op">&amp;</span><span class="st"> </span>npages <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>){</span>
-<span id="cb11-2"><a href="Infrastructure.html#cb11-2"></a>                        msg =<span class="st"> &quot;npages should lay inbetween 1 and 300&quot;</span></span>
-<span id="cb11-3"><a href="Infrastructure.html#cb11-3"></a>                        res<span class="op">$</span>status =<span class="st"> </span><span class="dv">500</span> <span class="co"># code status: Bad request</span></span>
+<span id="cb11-2"><a href="Infrastructure.html#cb11-2"></a>                        msg =<span class="st"> &quot;Don&#39;t DoS me!&quot;</span></span>
+<span id="cb11-3"><a href="Infrastructure.html#cb11-3"></a>                        res<span class="op">$</span>status =<span class="st"> </span><span class="dv">500</span> <span class="co"># code num: Bad request</span></span>
 <span id="cb11-4"><a href="Infrastructure.html#cb11-4"></a>                        <span class="kw">stop</span>(<span class="kw">list</span>(<span class="dt">error=</span>jsonlite<span class="op">::</span><span class="kw">unbox</span>(msg)))     </span>
 <span id="cb11-5"><a href="Infrastructure.html#cb11-5"></a>            }</span></code></pre></div>
 <p>The code chunk above intercepts DoS attacks by limiting to 300 the number of pages to be server to the API. Furthermore it converts outputs error messages printed on console into JSON format and then pass them as output. This simplify distinguishing malicious attacks from a type errors. DDoS attacks are secured by SSL certificates and Authentication covered later in the chapter.</p>
 </div>
 <div id="logging" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Logging</h3>
-<p>Plumber uses “filters” that can be used to describe a “pipeline” for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the <em>filters</em>. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e. <code>forward()</code> the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e. the act of keeping a log <span class="citation">(<span class="citeproc-not-found" data-reference-id="wiki:logging"><strong>???</strong></span>)</span>, is recording events in an operating system or running software from other users of communication software, or messages among different subjects. Logging is .</p>
+<p>Plumber uses “filters” that can be resorted to describe a “pipeline” for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the <em>filters</em>. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e. <code>forward()</code> the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer also a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e. the act of keeping a log <span class="citation">(<span class="citeproc-not-found" data-reference-id="wiki:logging"><strong>???</strong></span>)</span>, is recording events in an operating system or running software from other users of communication software, or messages among different subjects.
+A request log filter might have this appearance:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Infrastructure.html#cb12-1"></a><span class="co">#* Log information</span></span>
 <span id="cb12-2"><a href="Infrastructure.html#cb12-2"></a><span class="co">#* @filter logging</span></span>
 <span id="cb12-3"><a href="Infrastructure.html#cb12-3"></a><span class="cf">function</span>(req){</span>
@@ -448,27 +448,6 @@ Exposing APIs on a private network or on a public server security is a major iss
 <img src="images/swagger.PNG" alt="" />
 <p class="caption">Figure 3.4: Swagger UI in localhost on port 8000, author’s source</p>
 </div>
-<!-- - Get FAST data, it covers 5 covariates: -->
-<!-- ``` -->
-<!--       GET */fastscrape -->
-<pre><code>  &lt;!-- @param city [chr string] the city you are interested in (e.g. &quot;roma&quot;, &quot;milano&quot;, &quot;firenze&quot; lowercase, without accent) REQUIRED --&gt;</code></pre>
-<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
-<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
-<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
-<!--       @param fixed_url [chr string] supply the target scraping url NOT REQUIRED -->
-<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
-<!--       content-type: application/json  -->
-<!-- ``` -->
-<!-- -  Get the complete set of covariates (52) from each single url. -->
-<!-- ``` -->
-<!--       GET */completescrape -->
-<!--       @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
-<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
-<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
-<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
-<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
-<!--       content-type: application/json  -->
-<!-- ``` -->
 </div>
 </div>
 <div id="docker" class="section level2">
@@ -513,7 +492,7 @@ Therefore images are overwritten with higher level dependencies i.e. package li
 <p>The custom Dockerfile in figure <a href="Infrastructure.html#fig:dockerfile">3.7</a>) is able to build the rest-api container:</p>
 <!-- ![Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile.PNG) -->
 <div class="figure"><span id="fig:dockerfile"></span>
-<img src="images/dockerfile.jpg" alt="" />
+<img src="images/dockerfile2.PNG.jpg" alt="" />
 <p class="caption">Figure 3.7: Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author’s source</p>
 </div>
 <p>Each line from the Dockerfile has its own specific role:</p>
@@ -521,12 +500,9 @@ Therefore images are overwritten with higher level dependencies i.e. package li
 <li><p><code>FROM rocker/tidyverse:latest</code> : The command imports from rocker project a pre set config guration containing the latest version of base-R along with the tidyverse <span class="citation">(Wickham et al. <a href="#ref-tidyverse" role="doc-biblioref">2019</a>)</span> R packages collection.</p></li>
 <li><p><code>MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"</code> : The command tags the maintainer and its e-mail contact information.</p></li>
 <li><p><code>RUN apt-get update &amp;&amp; apt-get install -y \ libxml2-dev \ libudunits2-dev</code> : The command update and install remaining “lower” Linux dependencies required to run Plumber and rvest.</p></li>
-<li><p><code>RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)</code> : The command install all the further libraries required to execute the files. Since some packages have related dependencies the option <code>dependencies=TRUE</code> is needed.</p></li>
-<li><p><code>RUN R -e "install.packages('https://cran.r-project.org/.../iterators, type='source')</code>
-<code>RUN R -e "install.packages('https://cran.r-project.org/.../foreach/, type='source')</code>
-<code>RUN R -e "install.packages('https://cran.r-project.org/.../doParallel, type='source')</code>
-DoParallel backend is not available for R version later than 4.0.0. Therefore the three instructions install from CRAN previous frozen versions.</p></li>
-<li><p><code>COPY \\</code> : The command tells Docker engine to copy all the files in the container as is.</p></li>
+<li><p><code>RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)</code> : The command install all the further lower level libraries required to execute the files. Since some packages have inner dependencies the option <code>dependencies=TRUE</code> is necessary.</p></li>
+<li><p><code>COPY /scraping</code> : The command tells Docker to copy into the container files in /scraping folder (where API specs are)</p></li>
+<li><p><code>WORKDIR /scraping</code> : The command tells Docker to set /scraping as working directory</p></li>
 <li><p><code>EXPOSE 8000</code> : The commands instructs Docker engine that the container listens on the specified network ports 8000 at runtime. Default <em>transportation</em> layer is TCP.</p></li>
 <li><p><code>ENTRYPOINT ["Rscript", "main.R"]</code> : the command tells docker engine to execute the file main.R where are contained the Plumber router options (i.e. host and port specifications).</p></li>
 </ul>
@@ -536,7 +512,7 @@ DoParallel backend is not available for R version later than 4.0.0. Therefore th
 <h2><span class="header-section-number">3.3</span> NGINX reverse Proxy Server and Authorization</h2>
 <p>Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (<a href="scraping.html#spoofing">2.5.1</a>). Reverse Proxy server are a special type of gateway <a href="scraping.html#def:proxy">2.3</a> that is usually located behind a private network firewall to route client requests to the corresponding backend server <span class="citation">(NGINX <a href="#ref-nginxDocs" role="doc-biblioref">2014</a>)</span>. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:</p>
 <ul>
-<li><p><em>Load balancing</em>: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers.</p></li>
+<li><p><em>Load balancing</em>: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).</p></li>
 <li><p><em>Web acceleration</em>: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.</p></li>
 <li><p><em>Security and anonymity</em>: A reverse proxy server protects identities and serves as an additional protection against security threats seen in sub-sections (<a href="Infrastructure.html#sanitize">3.1.2</a>, <a href="#Dos"><strong>??</strong></a>) by intercepting requests before they reach end server.</p></li>
 </ul>

@@ -26,6 +26,9 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\lstset{
+  breaklines=true
+}
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
@@ -34,4 +37,5 @@
 \makeatother
 \let\oldmaketitle\maketitle
 \AtBeginDocument{\let\maketitle\relax}
+
 

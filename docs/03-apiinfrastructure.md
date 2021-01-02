@@ -166,21 +166,22 @@ Whenever APIs accept input from a random user this is directly injected into fun
 
 ```r
 tipo = tolower(type) %>% str_trim()
-citta = tolower(city) %>% iconv(to='ASCII//TRANSLIT') %>%  str_trim()
-macroozone = tolower(macrozone) %>% iconv(to='ASCII//TRANSLIT') %>%  str_trim()
+citta = tolower(city) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
+macroozone = tolower(macrozone) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
 ```
 
 Inputs make their entrance into functions through arguments "type", "city" and "macrozone" and are immediately preprocessed. They are in sequence converted to lower cases, then extra spaces are trimmed, in the end accents are flattened. 
 
 ### Denial Of Service (DoS){#DoS}
 
-Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. A simple but effective approach tries to limit and stop the number of request sent:
+Denial-of-service attacks (DoS) are used to temporarily shut down a server or service through traffic congestion. A DoS scenario could be triggered accidentally by a malicious user requesting the server for an infinite looping task. Other scenarios might depict a malicious hacker who uses a large number of machines to repeatedly make time consuming requests to occupy the server, this is the case of DDoS (Distributed Denial of Service). DoS or DDoS attacks may also induce anomalies and deprives system resources, which in the context of hosting services may result in astronomical fees charged. Dos attack as a conseuquence may also induce distorted website/API logs analytics, leading to distorted reports.
+A simple but effective approach tries to limit and stop the number of request sent:
 
 
 ```r
  if (npages > 300 & npages > 0){
-                        msg = "npages should lay inbetween 1 and 300"
-                        res$status = 500 # code status: Bad request
+                        msg = "Don't DoS me!"
+                        res$status = 500 # code num: Bad request
                         stop(list(error=jsonlite::unbox(msg)))     
             }
 ```
@@ -189,7 +190,8 @@ The code chunk above intercepts DoS attacks by limiting to 300 the number of pag
 
 ### Logging{#logging}
 
-Plumber uses "filters" that can be used to describe a "pipeline" for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the _filters_. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e. `forward()` the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e. the act of keeping a log [@wiki:logging], is recording events in an operating system or running software from other users of communication software, or messages among different subjects. Logging is .
+Plumber uses "filters" that can be resorted to describe a "pipeline" for processing incoming request. This enables API maintainers to separate complex logic into discrete, comprehensible steps. Usually, before trying to find an endpoint that satisfies a request, Plumber passes the request through the _filters_. When APIs are called, requests pass through filters one at a time and Plumber forwards i.e. `forward()` the request to the next filter untill the endpoints. Filters applications ranges from excluding client request based on request parameters or may offer also a thin layer of authentication. Filters might also be used as a logging for requests where logging, i.e. the act of keeping a log [@wiki:logging], is recording events in an operating system or running software from other users of communication software, or messages among different subjects. 
+A request log filter might have this appearance:
 
 
 ```r
@@ -212,29 +214,6 @@ The above filter parses the request through the default request argument `req`, 
 The service disposes of 2 endpoints */fastscrape* , */completescrape*. Parameters are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \@ref(fig:pseudocode3),  in section \@ref(reverse). Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic [@swaggerUI]. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints...). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
 
 ![(#fig:swagger)Swagger UI in localhost on port 8000, author's source](images/swagger.PNG)
-
-<!-- - Get FAST data, it covers 5 covariates: -->
-<!-- ``` -->
-<!--       GET */fastscrape -->
-      <!-- @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
-<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
-<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
-<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
-<!--       @param fixed_url [chr string] supply the target scraping url NOT REQUIRED -->
-<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
-<!--       content-type: application/json  -->
-<!-- ``` -->
-<!-- -  Get the complete set of covariates (52) from each single url. -->
-
-<!-- ``` -->
-<!--       GET */completescrape -->
-<!--       @param city [chr string] the city you are interested in (e.g. "roma", "milano", "firenze" lowercase, without accent) REQUIRED -->
-<!--       @param npages [positive integer] number of pages to scrape, default = 10, min  = 2, max = 300 REQUIRED -->
-<!--       @param type [chr string] "affitto" = rents, "vendita"  = sell REQUIRED -->
-<!--       @param thesis [boolean] TRUE for data used to perform thesis analysis REQUIRED -->
-<!--       @param macrozone [chr string] avail: Roma, Firenze, Milano, Torino; e.g. "fiera", "centro", "bellariva", "parioli" NOT REQUIRED -->
-<!--       content-type: application/json  -->
-<!-- ``` -->
 
 ## Docker{#docker}
 
@@ -294,7 +273,7 @@ The custom Dockerfile in figure \@ref(fig:dockerfile)) is able to build the rest
 
 <!-- ![(#fig:dockerfile)Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile.PNG) -->
 
-![(#fig:dockerfile)Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile.jpg)
+![(#fig:dockerfile)Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source](images/dockerfile2.PNG.jpg)
 
 Each line from the Dockerfile has its own specific role:
 
@@ -304,14 +283,11 @@ Each line from the Dockerfile has its own specific role:
 
 - `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` : The command update and install remaining "lower" Linux dependencies required to run Plumber and rvest.
 
-- `RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)` : The command install all the further libraries required to execute the files. Since some packages have related dependencies the option `dependencies=TRUE` is needed. 
+- `RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)` : The command install all the further lower level libraries required to execute the files. Since some packages have inner dependencies the option `dependencies=TRUE` is necessary. 
 
-- `RUN R -e "install.packages('https://cran.r-project.org/.../iterators, type='source')`
-`RUN R -e "install.packages('https://cran.r-project.org/.../foreach/, type='source')`
-`RUN R -e "install.packages('https://cran.r-project.org/.../doParallel, type='source')`
-DoParallel backend is not available for R version later than 4.0.0. Therefore the three instructions install from CRAN previous frozen versions.
+- `COPY /scraping` : The command tells Docker to copy into the container files in /scraping folder (where API specs are)
 
-- `COPY \\` : The command tells Docker engine to copy all the files in the container as is.
+- `WORKDIR /scraping` : The command tells Docker to set /scraping as working directory
 
 - `EXPOSE 8000` :  The commands instructs Docker engine that the container listens on the specified network ports 8000 at runtime. Default _transportation_ layer is TCP. 
 
@@ -322,7 +298,7 @@ DoParallel backend is not available for R version later than 4.0.0. Therefore th
 
 Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (\@ref(spoofing)). Reverse Proxy server are a special type of gateway \@ref(def:proxy) that is usually located behind a private network firewall to route client requests to the corresponding backend server [@nginxDocs]. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:
 
-- _Load balancing_: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers.
+- _Load balancing_: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).
 
 - _Web acceleration_: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.
 

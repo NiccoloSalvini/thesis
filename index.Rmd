@@ -29,7 +29,7 @@ lot: true
 lof: true
 ---
 
-<!-- VALUTARE SE METTERE NEL DOCUEMTNO FINALE -->
+<!-- VALUTARE SE METTERE NEL DOCUMENTO FINALE -->
 
 ```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")}
 ```
