@@ -21,7 +21,7 @@ The following chapter tries to capture the essence and its specific context usag
 <!-- - In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized. -->
 
 <!-- The long list of requirements is met by many open source technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed. -->
-The recipe proposed dispenses a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \@ref(scraping). Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and _composed_ with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. A AWS free tier EC2 server hosts containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to repository. 
+The recipe proposed serves a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \@ref(scraping). Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and _Composed_ with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. An AWS free tier EC2 server hosts the orchestation of containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to cloud repository.
 
 <!-- happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure). -->
 
@@ -31,9 +31,10 @@ Technology stack:
 <!-- - Scheduler cron job, section \@ref(scheduler) -->
 - Plumber REST API, section \@ref(plumberapi)
 - Docker containers and compose, section \@ref(docker)
-- AWS EC2 \@ref(aws)
 - NGINX reverse proxy, section \@ref(nginx)
 - HTTPS and SSL certificates \@ref(HTTPS)
+- AWS EC2 \@ref(aws)
+
 
 **immagine infrastruttura da rivedere**
 
@@ -232,18 +233,6 @@ Containers can be thought as a software abstraction that groups code and depende
 Actually _Docker containers_ are the build stage of _Docker Images_. Docker images therefore are the starting point to containerize a software environment. They are built up from a series of software layers each of which represents an instruction in the image’s _Dockerfile_ [-@docker_documentation_2020] . In addition images can be open sourced and reused through Docker Hub.
 _Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can authorize third party applications as GitHub entailing an collaborative image version control, this would be critical for software development as disguised in section (\@ref(sdwf)).
 
-
-<!-- ### Docker Compose  -->
-
-<!-- Compose is a multi-container Docker framework to define and run complex application and services, that means isolated containers can communicate one to each other. The orchestration of containers is managed through a YAML file docker-compose.yml that configures the whole set of facilities prescribed for the services. Services are then build with a single docker `docker-compose up` command on the yaml. As can be seen from original compose documentation [@docker_documentation_2020] the main advatges for composition regards: -->
-
-<!-- - A central host in multiple isolated environments. -->
-<!-- - Preserve data volumes (which are the preferred Docker mechanism to consume data generated and used by containers) when building containers. -->
-<!-- - Only recreate containers that have changed. -->
-<!-- - Variables and moving a composition between environments. -->
-
-<!-- The configuration file and the composition of services will be showed later in a dedicated section when an open source reverse proxy technology i.e. NGINX will be presented. -->
-
 <!-- ### Why Docker{#econdocker} -->
 
 <!-- [Indeed](https://it.indeed.com/), an employment-related search engine, released an article on 2019 displaying changing trends from 2015 to 2019 in Technology Job market, a summary of those changes is in figure \@ref(fig:indeedstats). Many changes are relevant in key technologies. Two among the others technologies (i.e. docker and Azure, arrow pointed) have experienced a huge growth and both refer to the certain demand input: _containers_ and _cloud computing_. -->
@@ -293,7 +282,6 @@ Each line from the Dockerfile has its own specific role:
 
 - `ENTRYPOINT ["Rscript", "main.R"]` : the command tells docker engine to execute the file main.R where are contained the Plumber router options (i.e. host and port specifications).
 
-
 ## NGINX reverse Proxy Server and Authorization{#nginx}
 
 Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (\@ref(spoofing)). Reverse Proxy server are a special type of gateway \@ref(def:proxy) that is usually located behind a private network firewall to route client requests to the corresponding backend server [@nginxDocs]. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:
@@ -304,11 +292,26 @@ Proxy server in this context offers the opposite angle for the exact same securi
 
 - _Security and anonymity_: A reverse proxy server protects identities and serves as an additional protection against security threats seen in sub-sections (\@ref(sanitize), \@ref(Dos))  by intercepting requests before they reach end server.
 
-When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \@ref(fig:nginxfun). Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard that monitors traffic and API exposure.
+When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \@ref(fig:nginxfun). Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard monitoring traffic and API exposure.
 
 ![(#fig:nginxfun)NGINX gateway redirecting an incoming request, source @azureNGINX](images/nginx_gateway.png)
 
 Then without any further software installation, the developer can simply make use of the latest NGINX open sourced image to build the NGINX proxy server within the same image. A further configuration file should manage NGINX inner settings that links volumes, ports and IPs, but details are beyond the scope of the analysis.
+
+### Docker-Compose
+
+Compose is a multi-container Docker framework to define and run complex application and services, that means isolated stand alone containers can communicate one to each other. The orchestration of containers is managed through a .yaml file docker-compose.yml that configures the whole set of facilities designed for the services. Services are then build with a single docker command `docker-compose up` on the basis of the instruction yaml file. Compose also enables _Volumes_, which are used in Docker for **data persistence** [@dockervolumes]. VOlumes allows to keep data secured from docker stop or delete containers. Docker Volumes ina nutshell works as the linkage between a physical file system path (folders, directories) plugged/**mounted** into the virtual container file system path. 
+The main properties for Composition as in documentation [@docker_documentation_2020] regards:
+
+- _A central host in multiple isolated environments_: Compose provides a label for a project to distinguish environments. The default project name is the directory path.
+- _Preserve data volumes (which are the preferred Docker mechanism to consume data generated and used by containers) when building containers_: Compose maintains all of the services' Volumes. When Docker-compose is running, it transfers the Volumes from the old container into the new container when it detects containers from previous runs. This method guarantees that no Volume data produced is lost.
+- _Only recreate containers that have changed_: Compose caches the configuration and re-use the same containers when it reboot a service which hasn't changed. Re-use containers means it provides really fast improvements to the environment when developing complex services.
+- _Variables and moving a composition between environments_: Compose supports file variables which might be used to adjust any composition to various environments or users.
+
+![(#fig:Compose)Docker Compose YAML file orchestration for NGINX container and RESTful API, author's source](images/docker-compose.jpg)
+
+The first line defines the versions according to which Compose orchestrates containers. Services are two, the rest-api and NGINX. The former whose name is restful-api builds the container starting from the Dockerfile contained into the rest_api path specified as in \@ref(dockerfile). The first service also mounts Volumes from shared_data to itself in the virtual container file path. Port 8000 opened (\@ref(dockerfile)) is linked to the 7000 one. Restarting set to "always" secures the latest container version. 
+The latter service is NGINX \@ref(nginx) which proxies traffic from 80 and 443 based on .conf file whose specifications are beyond the scope of the analysis. Volumes makes sure that specifications are arranged in the default path choice. The option depends_on defines the chrono-logical condition accroding to which containers should be run and then composed.
 
 ## HTTPS(ecure) and SSL certificates{#HTTPS}
 
@@ -348,7 +351,6 @@ When newer images are available they can be pulled from the EC2 server and rerun
 From a software point of view a more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (@plungr aligns with the idea) as argued in section 4.2 @colin_fay_2020 and in the [comment](https://deanattali.com/2015/04/21/r-package-shiny-app/) by Dean Attali. As a consequence of that *TDD* (i.e.Test-Driven Development @TDD_2004) through the tools of @usethis and @testthat during package building can make software more robust, organized and production graded. Loadtest @loadtest can help figure out 
 CI/CT
 It can be missed to cite a popular API development integration service and automate testing tool [Postman](https://www.postman.com/), which does its best when POST requests endpoints are served, since for the moment they are not required it is not used.
-
 Pins is an r packages [this link](https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9)
 software development framework and tools for testing [this work](https://github.com/isteves/plumbplumb)
 

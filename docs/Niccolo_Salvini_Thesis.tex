@@ -135,7 +135,7 @@
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 02 gennaio, 2021}
+\date{Lastest build: 03 gennaio, 2021}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -530,7 +530,7 @@ agents[sample(1)]
 \end{lstlisting}
 
 \begin{lstlisting}
-## [1] "Mozilla/5.0 (Linux; Android 9; ZTE Blade A5 2020 Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/300.2.0.58.129;]"
+## [1] "Mozilla/5.0 (Linux; Android 7.0; SM-G928F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/300.2.0.58.129;]"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -703,7 +703,7 @@ Immobiliare.it expressed similarly to linkedin in their terms \citep{immobiliare
 The previous chapter has encapsulated the main concepts behind the design of consistent, secure, and fast scraping functions with R. In truth challenges not only regard scraping per se, but also the way and how many times the service has to interact with different clients. Indeed the fact that functions are compressed into scripts does not imply that are shareable and portable. As a consequence when they are executed they also need to be at first understood and secondly loaded into a dedicated R environment (higher and lower dependecies). Moreover results are actually computed, whether in parallel or not, with local machines resources that are limited in many sense. In the end exposing the service traffic to the public or internally to a network of servers requires authentication and precautions from both malicious attack and privacy dangers. Actually from a restricted personal usage perspective what has been done since now is totally feasible. But in a large-scale orientation where different stakeholders should gather massive amount of data, then a unsuitable service may cause an enormous waste of time.
 The following chapter tries to capture the essence and its specific context usage of each technology involved that address each aforementioned issues raised. In parallel it highlights the \emph{fil rouge} that ties together the chronological order according to which the stack has been developed.
 
-The recipe proposed dispenses a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \ref{scraping}. Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and \emph{composed} with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. A AWS free tier EC2 server hosts containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to repository.
+The recipe proposed serves a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \ref{scraping}. Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and \emph{Composed} with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. An AWS free tier EC2 server hosts the orchestation of containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to cloud repository.
 
 Technology stack:
 
@@ -716,11 +716,11 @@ Technology stack:
 \item
   Docker containers and compose, section \ref{docker}
 \item
-  AWS EC2 \ref{aws}
-\item
   NGINX reverse proxy, section \ref{nginx}
 \item
   HTTPS and SSL certificates \ref{HTTPS}
+\item
+  AWS EC2 \ref{aws}
 \end{itemize}
 
 \textbf{immagine infrastruttura da rivedere}
@@ -964,7 +964,7 @@ Proxy server in this context offers the opposite angle for the exact same securi
   \emph{Security and anonymity}: A reverse proxy server protects identities and serves as an additional protection against security threats seen in sub-sections (\ref{sanitize}, \ref{Dos}) by intercepting requests before they reach end server.
 \end{itemize}
 
-When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \ref{fig:nginxfun}. Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard that monitors traffic and API exposure.
+When a user calls the API, NGINX acts as a gateway asking for credentials and registering log data (HTTP identification headers). If the request has already been asked then cached response is returned. If it does not then the request is routed to the endpoint, service A and B in figure \ref{fig:nginxfun}. Endpoints elaborate the request into the response, which flows back at first to the gateway and then finally to the client. Logging data can be feeded to a dashboard monitoring traffic and API exposure.
 
 \begin{figure}
 \centering
@@ -973,6 +973,33 @@ When a user calls the API, NGINX acts as a gateway asking for credentials and re
 \end{figure}
 
 Then without any further software installation, the developer can simply make use of the latest NGINX open sourced image to build the NGINX proxy server within the same image. A further configuration file should manage NGINX inner settings that links volumes, ports and IPs, but details are beyond the scope of the analysis.
+
+\hypertarget{docker-compose}{%
+\subsection{Docker-Compose}\label{docker-compose}}
+
+Compose is a multi-container Docker framework to define and run complex application and services, that means isolated stand alone containers can communicate one to each other. The orchestration of containers is managed through a .yaml file docker-compose.yml that configures the whole set of facilities designed for the services. Services are then build with a single docker command \passthrough{\lstinline!docker-compose up!} on the basis of the instruction yaml file. Compose also enables \emph{Volumes}, which are used in Docker for \textbf{data persistence} \citep{dockervolumes}. VOlumes allows to keep data secured from docker stop or delete containers. Docker Volumes ina nutshell works as the linkage between a physical file system path (folders, directories) plugged/\textbf{mounted} into the virtual container file system path.
+The main properties for Composition as in documentation \citep{docker_documentation_2020} regards:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{A central host in multiple isolated environments}: Compose provides a label for a project to distinguish environments. The default project name is the directory path.
+\item
+  \emph{Preserve data volumes (which are the preferred Docker mechanism to consume data generated and used by containers) when building containers}: Compose maintains all of the services' Volumes. When Docker-compose is running, it transfers the Volumes from the old container into the new container when it detects containers from previous runs. This method guarantees that no Volume data produced is lost.
+\item
+  \emph{Only recreate containers that have changed}: Compose caches the configuration and re-use the same containers when it reboot a service which hasn't changed. Re-use containers means it provides really fast improvements to the environment when developing complex services.
+\item
+  \emph{Variables and moving a composition between environments}: Compose supports file variables which might be used to adjust any composition to various environments or users.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/docker-compose.jpg}
+\caption{\label{fig:Compose}Docker Compose YAML file orchestration for NGINX container and RESTful API, author's source}
+\end{figure}
+
+The first line defines the versions according to which Compose orchestrates containers. Services are two, the rest-api and NGINX. The former whose name is restful-api builds the container starting from the Dockerfile contained into the rest\_api path specified as in \ref{dockerfile}. The first service also mounts Volumes from shared\_data to itself in the virtual container file path. Port 8000 opened (\ref{dockerfile}) is linked to the 7000 one. Restarting set to ``always'' secures the latest container version.
+The latter service is NGINX \ref{nginx} which proxies traffic from 80 and 443 based on .conf file whose specifications are beyond the scope of the analysis. Volumes makes sure that specifications are arranged in the default path choice. The option depends\_on defines the chrono-logical condition accroding to which containers should be run and then composed.
 
 \hypertarget{HTTPS}{%
 \section{HTTPS(ecure) and SSL certificates}\label{HTTPS}}
@@ -1016,7 +1043,6 @@ When newer images are available they can be pulled from the EC2 server and rerun
 From a software point of view a more robust code can be obtained embedding recent R software development frameworks as \passthrough{\lstinline!Golem!} \citet{colin_fay_2020} into the existing code. The framework stimulates the usage of modules According to the latest literature APIs (as well as Shiny) should be treated as R packages (\citet{plungr} aligns with the idea) as argued in section 4.2 \citet{colin_fay_2020} and in the \href{https://deanattali.com/2015/04/21/r-package-shiny-app/}{comment} by Dean Attali. As a consequence of that \emph{TDD} (i.e.Test-Driven Development \citet{TDD_2004}) through the tools of \citet{usethis} and \citet{testthat} during package building can make software more robust, organized and production graded. Loadtest \citet{loadtest} can help figure out
 CI/CT
 It can be missed to cite a popular API development integration service and automate testing tool \href{https://www.postman.com/}{Postman}, which does its best when POST requests endpoints are served, since for the moment they are not required it is not used.
-
 Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deploying-end-to-end-data-science-with-shiny-plumber-and-pins/?mkt_tok=eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2JzZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9}{this link}
 software development framework and tools for testing \href{https://github.com/isteves/plumbplumb}{this work}
 
