@@ -49,6 +49,17 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -140,6 +151,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="images/logo/spatial_logo.png"></a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#reverse"><i class="fa fa-check"></i><b>2.1</b> A Gentle Introduction on Web Scraping</a></li>
@@ -170,30 +186,27 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.1</b> REST-API container</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.3</b> NGINX reverse Proxy Server and Authorization</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#docker-compose"><i class="fa fa-check"></i><b>3.3.1</b> Docker-Compose</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#HTTPS"><i class="fa fa-check"></i><b>3.4</b> HTTPS(ecure) and SSL certificates</a></li>
-<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.5</b> AWS EC2 instance</a></li>
-<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#sdwf"><i class="fa fa-check"></i><b>3.6</b> Software development Workflow</a></li>
-<li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#further-integrations"><i class="fa fa-check"></i><b>3.7</b> Further Integrations</a></li>
+<li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.3</b> NGINX reverse Proxy Server and Authorization</a></li>
+<li class="chapter" data-level="3.4" data-path="Infrastructure.html"><a href="Infrastructure.html#docker-compose"><i class="fa fa-check"></i><b>3.4</b> Docker-Compose</a></li>
+<li class="chapter" data-level="3.5" data-path="Infrastructure.html"><a href="Infrastructure.html#HTTPS"><i class="fa fa-check"></i><b>3.5</b> HTTPS(ecure) and SSL certificates</a></li>
+<li class="chapter" data-level="3.6" data-path="Infrastructure.html"><a href="Infrastructure.html#aws"><i class="fa fa-check"></i><b>3.6</b> AWS EC2 instance</a></li>
+<li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#sdwf"><i class="fa fa-check"></i><b>3.7</b> Software CI/CD Workflow</a></li>
+<li class="chapter" data-level="3.8" data-path="Infrastructure.html"><a href="Infrastructure.html#further-sf-integrations"><i class="fa fa-check"></i><b>3.8</b> Further SF Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA computation</a><ul>
-<li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#the-class-of-latent-gaussian-models-lgm"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models LGM{# }</a></li>
+<li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models LGM</a></li>
 <li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Approximate Inference setting</a></li>
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#inlahier"><i class="fa fa-check"></i><b>4.3</b> INLA as a Hierarchical Model</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package in Bayesian Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
-<li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spatial-covariance-function"><i class="fa fa-check"></i><b>5.2</b> Spatial Covariance Function</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="prdm.html"><a href="prdm.html#Matern"><i class="fa fa-check"></i><b>5.2.1</b> Matérn Covariance Function</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-models-literature-review-and-spatial-hedonic-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic models Literature Review and Spatial Hedonic Price Models</a></li>
+<li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
+<li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
 <li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>5.4</b> Point Referenced Regression for univariate spatial data</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>5.4.1</b> Parameter estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging (prediction)</a></li>
 <li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-checking"><i class="fa fa-check"></i><b>5.6</b> Model Checking</a></li>
 <li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#prior-specification"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
 </ul></li>
@@ -208,7 +221,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="exploratory.html"><a href="exploratory.html#counts-and-first-orientations"><i class="fa fa-check"></i><b>7.2</b> Counts and First Orientations</a></li>
 <li class="chapter" data-level="7.3" data-path="exploratory.html"><a href="exploratory.html#text-mining-in-estate-review"><i class="fa fa-check"></i><b>7.3</b> Text Mining in estate Review</a></li>
-<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#missing-assessement-and-imputation"><i class="fa fa-check"></i><b>7.4</b> Missing Assessement and Imputation</a><ul>
+<li class="chapter" data-level="7.4" data-path="exploratory.html"><a href="exploratory.html#missassimp"><i class="fa fa-check"></i><b>7.4</b> Missing Assessement and Imputation</a><ul>
 <li class="chapter" data-level="7.4.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>7.4.1</b> Missing assessement</a></li>
 <li class="chapter" data-level="7.4.2" data-path="exploratory.html"><a href="exploratory.html#covariates-imputation"><i class="fa fa-check"></i><b>7.4.2</b> Covariates Imputation</a></li>
 </ul></li>
@@ -217,17 +230,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.6.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>7.6.1</b> Shinyapp for mesh assessment</a></li>
 <li class="chapter" data-level="7.6.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>7.6.2</b> BUilding SPDE model on mesh</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="exploratory.html"><a href="exploratory.html#spatial-kriging-prediction"><i class="fa fa-check"></i><b>7.7</b> Spatial Kriging (Prediction)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>8</b> Model Selection &amp; Fitting</a><ul>
-<li class="chapter" data-level="8.1" data-path="modelspec.html"><a href="modelspec.html#model-criticism"><i class="fa fa-check"></i><b>8.1</b> Model Criticism</a></li>
-<li class="chapter" data-level="8.2" data-path="modelspec.html"><a href="modelspec.html#spatial-kriging"><i class="fa fa-check"></i><b>8.2</b> Spatial Kriging</a></li>
-<li class="chapter" data-level="8.3" data-path="modelspec.html"><a href="modelspec.html#model-checking-1"><i class="fa fa-check"></i><b>8.3</b> Model Checking</a></li>
+<li class="chapter" data-level="8" data-path="fit-vgm-fit-variogramsemivar-vgmsph.html"><a href="fit-vgm-fit-variogramsemivar-vgmsph.html"><i class="fa fa-check"></i><b>8</b> fit.vgm = fit.variogram(semivar, vgm(“Sph”))</a></li>
+<li class="chapter" data-level="9" data-path="krg-krigelogprice-1-data-model-fit-vgm.html"><a href="krg-krigelogprice-1-data-model-fit-vgm.html"><i class="fa fa-check"></i><b>9</b> krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)</a></li>
+<li class="chapter" data-level="10" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>10</b> Model Selection &amp; Fitting</a><ul>
+<li class="chapter" data-level="10.1" data-path="modelspec.html"><a href="modelspec.html#model-criticism"><i class="fa fa-check"></i><b>10.1</b> Model Criticism</a></li>
+<li class="chapter" data-level="10.2" data-path="modelspec.html"><a href="modelspec.html#spatial-kriging"><i class="fa fa-check"></i><b>10.2</b> Spatial Kriging</a></li>
+<li class="chapter" data-level="10.3" data-path="modelspec.html"><a href="modelspec.html#model-checking-1"><i class="fa fa-check"></i><b>10.3</b> Model Checking</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>9</b> Shiny Application</a></li>
+<li class="chapter" data-level="11" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>11</b> Shiny Application</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li class="chapter" data-level="9.1" data-path="appendix.html"><a href="appendix.html#gp-basics"><i class="fa fa-check"></i><b>9.1</b> GP basics</a></li>
+<li class="chapter" data-level="11.1" data-path="appendix.html"><a href="appendix.html#gpbasics"><i class="fa fa-check"></i><b>11.1</b> Gaussian Process</a></li>
+<li class="chapter" data-level="11.2" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>11.2</b> SPDE and Triangularization (YT speech: <span class="citation">Moraga (<span>2020</span>)</span>)</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
 <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
@@ -266,8 +282,8 @@ Other benefits of using INLA algorithm are capitalized by Rue in <span class="ci
 <!-- As a consequence a problem can be reshaped into the LGM framework with the explicit purpose to explore its benefits. When models are reduced to LGMs then joint posterior distribution can be rewritten and then approximated with INLA. -->
 <p>In the end it is presented the R-INLA project and the package which are found in last section focusing on the core functions and main arguments.
 Notation is inherited by <span class="citation">Marta Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span> because it is more straightforward, neverthelesss it differs from the original paper by Rue, Chopin and Martino <span class="citation">(<a href="#ref-Rue2009" role="doc-biblioref">2009</a>)</span>. As further remarks, bold symbols are intended as vectors, so each time they occur they have to be considered like the <em>ensamble</em> of their values. The notation <span class="math inline">\(\pi(\cdot)\)</span> is a generic notation for the density of its arguments.</p>
-<div id="the-class-of-latent-gaussian-models-lgm" class="section level2">
-<h2><span class="header-section-number">4.1</span> The class of Latent Gaussian Models LGM{# }</h2>
+<div id="LGM" class="section level2">
+<h2><span class="header-section-number">4.1</span> The class of Latent Gaussian Models LGM</h2>
 <p>Given some observations <span class="math inline">\(y_{i \ldots n}\)</span>, the goal is to set up a Latent Gaussian Model LGM. As a first step it is convenient (even though not strictly necessary as in <span class="citation">(<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>) to specify an <em>exponential family</em> distribution function characterized by some parameters <span class="math inline">\(\phi_{i}\)</span> (usually expressed by the mean <span class="math inline">\(\left.E\left(y_{i}\right)\right)\)</span>) and other hyper-parameters <span class="math inline">\(\psi_{k} ,\forall k \in \ 1\ldots K\)</span>. . Furthermore, these observations will have an associated likelihood <span class="citation">(<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>. The parameter <span class="math inline">\(\phi_{i}\)</span> can be defined as an additive <em>latent linear predictor</em> <span class="math inline">\(\eta_{i}\)</span>, as in Krainski and Rubio (<span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span>), through a <em>link function</em> <span class="math inline">\(g(\cdot)\)</span>, i.e. <span class="math inline">\(g\left(\phi_{i}\right)=\eta_{i}\)</span>. A comprehensive expression of the linear predictor takes into account all the possible effects on covariates:</p>
 <p><span class="math display">\[
 \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
@@ -279,7 +295,7 @@ Then the probability distribution function conditioned to both parameters and hy
 y_{i} \mid \boldsymbol{\theta}, \boldsymbol{\psi} \sim \pi\left(y_{i} \mid \boldsymbol{\theta},\boldsymbol{\psi}\right)
 \]</span></p>
 <p>Since data <span class="math inline">\(\left(y_{1}, \ldots, y_{n}\right)\)</span> is drawn by the same distribution family but it is also conditioned to parameters which are said <em>conditional independent</em> <span class="citation">(Rue and Held <a href="#ref-GMRFRue" role="doc-biblioref">2005</a>)</span> (i.e. <span class="math inline">\(\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)\)</span>) , then the joint distribution is given by the product of all the independent parameters i.e. the likelihood. Note that the product index <span class="math inline">\(i\)</span> ranges from 1 to <span class="math inline">\(n\)</span>, i.e. <span class="math inline">\(\mathbf{I} = \left\{1 \ldots n \right\}\)</span>.
-In the case when an observation is missing, i.e. <span class="math inline">\(i \notin \mathbf{I}\)</span>, INLA automatically discards missing values from the model estimation <span class="citation">(<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>, this would be critical during missing values imputation <a href="#missassimp"><strong>??</strong></a>.
+In the case when an observation is missing, i.e. <span class="math inline">\(i \notin \mathbf{I}\)</span>, INLA automatically discards missing values from the model estimation <span class="citation">(<a href="#ref-Bayesian_INLA_Rubio" role="doc-biblioref">2020</a>)</span>, this would be critical during missing values imputation <a href="exploratory.html#missassimp">7.4</a>.
 The likelihood expression is, where <span class="math inline">\(\boldsymbol\theta^{\prime}\)</span> is the transposed version of <span class="math inline">\(\boldsymbol\theta\)</span> and the <span class="math inline">\(|\cdot|\)</span> is the determinant:</p>
 <p><span class="math display" id="eq:likelihood">\[\begin{equation}
 \pi(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i \in \mathbb{I}} \pi\left(y_{i} \mid \theta^{\prime}_{i}, \boldsymbol{\psi}\right)
@@ -380,8 +396,8 @@ where <span class="math inline">\(\Delta_{j}\)</span> are the weights associated
 </div>
 <div id="inlahier" class="section level2">
 <h2><span class="header-section-number">4.3</span> INLA as a Hierarchical Model</h2>
-<p>INLA setting presented in section <a href="inla.html#approx">4.2</a> can be reorganized following a <em>Hierarchical structure</em> which allows to handle different level parameters.
-Since each of the element of the latent field <span class="math inline">\(\boldsymbol{\theta}\)</span> defined in section <a href="#LGM"><strong>??</strong></a>, which groups all the latent components, is assumed to be similar to each of the other. And since each element comes from a distribution <span class="math inline">\(\pi\left(\theta_{j} \mid \psi\right)\)</span> sampled with the same hyper parameters, <span class="math inline">\(\boldsymbol \psi\)</span>. Then there are at least two different levels of the analysis. One lower that regards the <span class="math inline">\(\theta_j\)</span> depending on the one higher the <span class="math inline">\(\boldsymbol\psi\)</span>.
+<p>INLA setting presented in section <a href="inla.html#approx">4.2</a> can be reorganized following a <em>Hierarchical structure</em> which allows to handle different level parameters in a more compact and coherent way.
+Since each of the element of the latent field <span class="math inline">\(\boldsymbol{\theta}\)</span> defined in section <a href="inla.html#LGM">4.1</a>, which groups all the latent components, is assumed to be similar to each of the other. And since each element comes from a distribution <span class="math inline">\(\pi\left(\theta_{j} \mid \psi\right)\)</span> sampled with the same hyper parameters, <span class="math inline">\(\boldsymbol \psi\)</span>. Then there are at least two different levels of the analysis. One lower that regards the <span class="math inline">\(\theta_j\)</span> depending on the one higher the <span class="math inline">\(\boldsymbol\psi\)</span>.
 The fact that <span class="math inline">\(\theta_j\)</span> are generated by the same distribution authorizes each <span class="math inline">\(\theta_j\)</span> and <span class="math inline">\(\theta_i\)</span> (<span class="math inline">\(i \neq j\)</span>) to <em>exchange</em> information, which it is totally different from model settings seen before since they were totally independent. As an example under the frequentist assumption of iid samples the joint prior distribution for <span class="math inline">\(\boldsymbol\theta\)</span> can be rewritten in terms of the product of the each marginal distributions, i.e <em>likelihood</em>:</p>
 <p><span class="math display">\[
 \pi\left(\theta_{1}, \ldots, \theta_{J}\right)=\prod_{j=1}^{J} \pi\left(\theta_{j}\right)=\pi(\theta)^{J}
@@ -391,8 +407,8 @@ Indeed when a hierarchical structure is imposed on the parameters <span class="m
   \pi\left(\theta_{1}, \ldots, \theta_{J} \mid \psi\right)=\int \prod_{j=1}^{J} \pi\left(\theta_{j} \mid \psi\right) \pi(\psi) \mathrm{d} \psi
 \tag{4.6}
 \end{equation}\]</span></p>
-<p>One of the major benefits of expressing hierarchy through integral in <a href="inla.html#eq:exchange">(4.6)</a> is the fact that levels can be extended to more than, say 3 (spatio-temporal models <span class="citation">(<span class="citeproc-not-found" data-reference-id="PACI2017149"><strong>???</strong></span>)</span>).
-Then when a Hierarchical structure is imposed on INLA at first, following <a href="#LGM"><strong>??</strong></a>, it is required to specify a probability distribution for <span class="math inline">\(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\)</span>. A Gaussian distribution for simplicity is chosen.</p>
+<p>One of the major benefits of expressing hierarchy through integral in <a href="inla.html#eq:exchange">(4.6)</a> is the fact that levels can be extended to more than, say 3 (spatio-temporal models <span class="citation">(Paci et al. <a href="#ref-PACI2017149" role="doc-biblioref">2017</a>)</span>).
+Then when a Hierarchical structure is imposed on INLA at first, following <a href="inla.html#LGM">4.1</a>, it is required to specify a probability distribution for <span class="math inline">\(\boldsymbol{y} = \left(y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right)=\left(y_{1}, \ldots, y_{n}\right)\)</span>. A Gaussian distribution for simplicity is chosen.</p>
 <p>As a <em>first level</em> parameters are picked up an <strong>exponential family</strong> sampling distribution (i.e. Normally distributed, Gamma one other choice), which is <em>exchangeable</em> with respect to the <span class="math inline">\(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\)</span> <em>latent field</em> and hyper parameters <span class="math inline">\(\boldsymbol{\psi_{1}}\)</span>, which includes also the ones coming from the latent Matérn GP process <span class="math inline">\(w_{i}\)</span>. The Spatial Guassian Process is centered in 0 and with Matérn covariance function as <span class="math inline">\(\tau^2\)</span>. <span class="math inline">\(w_{i}\)</span> addresses the spatial autocorrelation between observation through a Matérn covariance function <span class="math inline">\(\mathcal{C}(\cdot | \boldsymbol\psi_{1})\)</span> which in turn is tuned by hyper param included in <span class="math inline">\(\boldsymbol{\psi_1}\)</span>. Moreover the <span class="math inline">\(w_{i}\)</span> surface has to be passed in the formula method definition <a href="#example"><strong>??</strong></a> via the <code>f()</code> function, so that INLA takes into cosideration the spatial component.</p>
 <p><span class="math display">\[
 \boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}_{1} \sim \mathrm{N}\left(\beta_{0}+ (\mathbf{X}_{i})^{\prime}\boldsymbol{\beta} + w_{i} ,  \tau^2 I_{n}\right)=\prod_{i=1}^{n} \mathrm{N}\left(y_{i} \mid \theta_{i}, \psi_{1}\right)
@@ -410,15 +426,18 @@ The core function of the package is <code>inla()</code>and it works as many othe
 <code>control.fixed</code> as said regulates prior specification through a plain list when there only a single fixed effect, instead it does it with nested lists when fixed effects are greater than 2, a guided example might better display the behaviour:
 <code>control.fixed = list(mean = list(a = 1, b = 2, default = 0))</code>
 In the chuck above it is assigned prior mean equal to 1 for fixed effect “a” and equal 2 for “b”; the rest of the prior means are set equal to 0.
-Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Objects contained in the <code>inla()</code> output function are summarized in <a href="#fig:summartable">4.2</a>. Following Krainski &amp; Rubio <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span> data <span class="math inline">\(y(s_{1}), \ldots, y(s_{n})\)</span> a taken from a generated toydataset and a hierarchical bayesian linear regression is fitted.</p>
-<p><img src="images/" alt="summary table list object, source: Krainski (2019)" />summarytable.PNG</p>
+Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Objects contained in the <code>inla()</code> output function are summarized in <a href="inla.html#fig:summartable">4.2</a>. Following Krainski &amp; Rubio <span class="citation">(<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span> data <span class="math inline">\(y(s_{1}), \ldots, y(s_{n})\)</span> a taken from a generated toydataset and a hierarchical bayesian linear regression is fitted.</p>
+<div class="figure"><span id="fig:summartable"></span>
+<img src="images/summarytable.PNG" alt="" />
+<p class="caption">Figure 4.2: summary table list object, source: <span class="citation">Krainski (<a href="#ref-Krainski-Rubio" role="doc-biblioref">2019</a>)</span></p>
+</div>
 <p>SPDEtoy dataset, that has a spatial component, and is generated from a <span class="math inline">\(y_{i}\)</span> Gaussian variable; its moments are <span class="math inline">\(\mu_{i}\)</span> and precision <span class="math inline">\(\tau\)</span>.</p>
 <div class="figure"><span id="fig:SPDEplot"></span>
 <img src="images/cotour_toy.png" alt="" />
 <p class="caption">Figure 4.3: SPDEtoy plot, author’s source</p>
 </div>
 <p>The mean moment in the Gaussian distribution <span class="math inline">\(\mu_{i}\)</span> is expressed as the <em>linear predictor</em> <span class="math inline">\(\eta_{i}\)</span> (i.e. <span class="math inline">\(E\left(y_{i} \mid \beta_{0}, \ldots, \beta_{M}, x_{i 1}, \ldots, x_{i M}\right) = \eta_{i}\)</span> ). The function that maps the linear predictor into the parameter space is identity i.e. <span class="math inline">\(\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)\)</span>.
-After including in the model formula <span class="math inline">\(s_{1}\)</span> and <span class="math inline">\(s_{2}\)</span> spatial coordintates the linear predictor takes the following form: <span class="math inline">\(\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\)</span>, where once again <span class="math inline">\(\beta_{0}\)</span> is the fixed effect i.e. intercept and the <span class="math inline">\(\beta_{j}\)</span> are the linear effect on covariates. INLA allows also to include non-linear effects with the <code>f()</code> method inside the formula. <code>f</code> are pivotal in the follwing chpater <a href="prdm.html#prdm">5</a> since it incorporates the spatial component in the model through the Matérn covariance function,<a href="prdm.html#Matern">5.2.1</a>
+After including in the model formula <span class="math inline">\(s_{1}\)</span> and <span class="math inline">\(s_{2}\)</span> spatial coordintates the linear predictor takes the following form: <span class="math inline">\(\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\)</span>, where once again <span class="math inline">\(\beta_{0}\)</span> is the fixed effect i.e. intercept and the <span class="math inline">\(\beta_{j}\)</span> are the linear effect on covariates. INLA allows also to include non-linear effects with the <code>f()</code> method inside the formula. <code>f</code> are pivotal in the follwing chpater <a href="prdm.html#prdm">5</a> since it incorporates the spatial component in the model through the Matérn covariance function,<a href="#Matern"><strong>??</strong></a>
 As the last step prior distributions has to be chosen. The intercept prior is a uniform. Indeed Priors for Gaussian latent parameters are chosen to be vagues and they are set as 0 mean and 0.001 precision. In the end prior for the precision <span class="math inline">\(\tau\)</span> is Gamma with parameters 1 and 0.00005. Models are sensitive to prior choices, as a consequence they are later revised at need.</p>
 <p>The summary of the model specifications are:</p>
 <p><span class="math display">\[
@@ -430,11 +449,10 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \tau &amp; \sim G a(1,0.00005)
 \end{aligned}
 \]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="inla.html#cb1-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
-<span id="cb1-2"><a href="inla.html#cb1-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
-<span id="cb1-3"><a href="inla.html#cb1-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="inla.html#cb13-1"></a><span class="kw">data</span>(<span class="st">&quot;SPDEtoy&quot;</span>)</span>
+<span id="cb13-2"><a href="inla.html#cb13-2"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
+<span id="cb13-3"><a href="inla.html#cb13-3"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy)</span></code></pre></div>
 <table>
-<caption>(#tab:table_INLA)Output summary statistics for the model m0</caption>
 <colgroup>
 <col width="14%" />
 <col width="13%" />
@@ -495,9 +513,8 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 <img src="images/marginal_distr.png" alt="" />
 <p class="caption">Figure 4.4: Linear predictor marginals, plot recoded in <code>ggplot2</code>, author’s source</p>
 </div>
-<p>R-INLA enables also r-base style function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One option which, packed into a dedicated function, computes the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> with .1 Confidence Level, whose result is in table @ref(tab:higer_posterior_density_interval).</p>
+<p>R-INLA enables also r-base style function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One option which, packed into a dedicated function, computes the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> with .1 Confidence Level, whose result is in table @ref(tab:higer_posterior).</p>
 <table>
-<caption>(#tab:higer_posterior_density_interval)Higer Posterior Density Interval with .1 Confidence Level probability</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -536,6 +553,9 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 </div>
 <div id="ref-Blangiardo-Cameletti">
 <p>Marta Blangiardo, Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with R-Inla</em>. Wiley.</p>
+</div>
+<div id="ref-PACI2017149">
+<p>Paci, Lucia, María Asunción Beamonte, Alan E. Gelfand, Pilar Gargallo, and Manuel Salvador. 2017. “Analysis of Residential Property Sales Using Space–Time Point Patterns.” <em>Spatial Statistics</em> 21: 149–65. <a href="https://doi.org/https://doi.org/10.1016/j.spasta.2017.06.007">https://doi.org/https://doi.org/10.1016/j.spasta.2017.06.007</a>.</p>
 </div>
 <div id="ref-YT:Rue">
 <p>Rencontres Mathématiques, Centre International de. 2018. “Håvard Rue: Bayesian Computation with Inla.” Youtube. <a href="https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s">https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s</a>.</p>

@@ -18,7 +18,7 @@ The chronological steps followed in the arguments presentation retraces the one 
 In the end it is presented the R-INLA project and the package which are found in last section focusing on the core functions and main arguments.
 Notation is inherited by @Blangiardo-Cameletti because it is more straightforward, neverthelesss it differs from the original paper by Rue, Chopin and Martino -@Rue2009. As further remarks, bold symbols are intended as vectors, so each time they occur they have to be considered like the _ensamble_ of their values. The notation $\pi(\cdot)$ is a generic notation for the density of its arguments. 
 
-## The class of Latent Gaussian Models LGM{#    }
+## The class of Latent Gaussian Models LGM{#LGM}
 
 Given some observations $y_{i \ldots n}$, the goal is to set up a Latent Gaussian Model LGM. As a first step it is convenient (even though not strictly necessary as in [-@Bayesian_INLA_Rubio]) to specify an _exponential family_  distribution function characterized by some parameters $\phi_{i}$ (usually expressed by the mean $\left.E\left(y_{i}\right)\right)$) and other hyper-parameters $\psi_{k} ,\forall k \in \ 1\ldots K$. . Furthermore, these observations will have an associated likelihood [-@Bayesian_INLA_Rubio]. The parameter $\phi_{i}$ can be defined as an additive _latent linear predictor_ $\eta_{i}$, as in Krainski and Rubio (-@Krainski-Rubio), through a _link function_ $g(\cdot)$, i.e. $g\left(\phi_{i}\right)=\eta_{i}$. A comprehensive expression of the linear predictor takes into account all the possible effects on covariates:
 
@@ -102,11 +102,11 @@ As well as the marginal posterior distribution for each hyper-parameter $\psi_{k
 
 Both of the integrals in \@ref(eq:hyperparam) and \@ref(eq:latentparam) are integrated over the $\boldsymbol\psi$, as a result am approximation of the joint posterior distribution is desired [@Krainski2018]. Following the notation by Rue [-@Rue2009] the integral approximations for hyper-parameters are $\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)$ and are plugged in \@ref(eq:latentparam) to obtain the approximation for the posterior marginal of the latent parameter. 
 
-
 $$
 \tilde{\pi}\left(\theta_{i} \mid y\right) \approx \sum_{j} \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}^{(j)}, y\right) \tilde{\pi}\left(\boldsymbol{\psi}^{(j)} \mid y\right) \Delta_{j}
 $$
 where $\Delta_{j}$ are the weights associated with a set of $\psi_{k}$ in a grid [@Krainski2018]. The estimate of $\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)$ can be determined in various ways. In order to minimize numerical error @Rue2009 also addresses how this approximation should be.
+
 
 <!-- - step 1: compute the Laplace approximation $\tilde\pi\left(\boldsymbol{\psi} \mid \boldsymbol{y}\right)$  for each hyper parameters marginal: $\tilde\pi\left(\psi_{k} \mid \boldsymbol{y}\right)$ -->
 <!-- - step 2: compute Laplace approximation $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right)$ marginals for the parameters given the hyper parameter approximation in step 1: $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol{y}\right) \approx \int \tilde{\pi}\left(\theta_{i} \mid \boldsymbol{\psi}, \boldsymbol{y}\right) \underbrace{\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{y})}_{\text {Estim. in step 1 }} \mathrm{d} \psi$ -->
@@ -177,10 +177,9 @@ where $\Delta_{j}$ are the weights associated with a set of $\psi_{k}$ in a grid
 
 <!-- $\boldsymbol{\psi}_{l}$ identifies the hyper pram for the $l_{th}$ level of hierarchy. Each further parameter level $\psi$ is conditioned to its previous in hierarchy level $l-1$ so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The *Exchangeability* property enables to have higher $H$ nested DAG (i.e. add further $L$ levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many $L$ levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off. -->
 
-
 ## INLA as a Hierarchical Model{#inlahier}
 
-INLA setting presented in section \@ref(approx) can be reorganized following a _Hierarchical structure_ which allows to handle different level parameters.
+INLA setting presented in section \@ref(approx) can be reorganized following a _Hierarchical structure_ which allows to handle different level parameters in a more compact and coherent way.
 Since each of the element of the latent field $\boldsymbol{\theta}$ defined in section \@ref(LGM), which groups all the latent components, is assumed to be similar to each of the other. And since each element comes from a distribution $\pi\left(\theta_{j} \mid \psi\right)$ sampled with the same hyper parameters, $\boldsymbol \psi$. Then there are at least two different levels of the analysis. One lower that regards the $\theta_j$  depending on the one higher the $\boldsymbol\psi$.
 The fact that $\theta_j$ are generated by the same distribution authorizes each $\theta_j$ and $\theta_i$ ($i \neq j$) to _exchange_ information, which it is totally different from model settings seen before since they were totally independent. As an example under the frequentist assumption of iid samples the joint prior distribution for $\boldsymbol\theta$ can be rewritten in terms of the product of the each marginal distributions, i.e _likelihood_:
 
@@ -223,7 +222,7 @@ The core function of the package is `inla()`and it works as many other regressio
 In the chuck above it is assigned prior mean equal to 1 for fixed effect "a" and equal 2 for "b"; the rest of the prior means are set equal to 0.
 Inla objects are inla.dataframe summary-type lists containing the results from model fitting. Objects contained in the `inla()` output function are summarized in \@ref(fig:summartable). Following Krainski & Rubio -@Krainski-Rubio data $y(s_{1}), \ldots, y(s_{n})$ a taken from a generated toydataset and a hierarchical bayesian linear regression is fitted. 
 
-![(#fig:summartable)summary table list object, source: @Krainski-Rubio](images/)summarytable.PNG
+![(#fig:summartable)summary table list object, source: @Krainski-Rubio](images/summarytable.PNG)
 
 SPDEtoy dataset, that has a spatial component, and is generated from a $y_{i}$ Gaussian variable; its moments are $\mu_{i}$ and precision $\tau$.
 
@@ -255,27 +254,31 @@ m0 = inla(formula, data = SPDEtoy)
 
 
 
-Table: (\#tab:table_INLA)Output summary statistics for the model m0
-
-|            |       mean|        sd| 0.025quant|   0.5quant| 0.975quant|       mode|   kld|
-|:-----------|----------:|---------:|----------:|----------:|----------:|----------:|-----:|
-|(Intercept) | 10.1321487| 0.2422118|  9.6561033| 10.1321422| 10.6077866| 10.1321497| 7e-07|
-|s1          |  0.7624296| 0.4293757| -0.0814701|  0.7624179|  1.6056053|  0.7624315| 7e-07|
-|s2          | -1.5836768| 0.4293757| -2.4275704| -1.5836906| -0.7404955| -1.5836811| 7e-07|
+\begin{tabular}{lrrrrrrr}
+\toprule
+  & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
+\midrule
+(Intercept) & 10.1321487 & 0.2422118 & 9.6561033 & 10.1321422 & 10.6077866 & 10.1321497 & 7e-07\\
+s1 & 0.7624296 & 0.4293757 & -0.0814701 & 0.7624179 & 1.6056053 & 0.7624315 & 7e-07\\
+s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 & 7e-07\\
+\bottomrule
+\end{tabular}
 
 
 The table in \@ref(tab:table_INLA) offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for s2 is negative, so the more is the value of the y-coordinate, the more the response decreases. That is factual looking at the SPDEtoy cotour plot in figure\@ref(fig:SPDEplot).
 
 ![(#fig:marginalsplot)Linear predictor marginals, plot recoded in `ggplot2`, author's source](images/marginal_distr.png)
 
-R-INLA enables also r-base style function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which, packed into a dedicated function, computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ with .1 Confidence Level, whose result is in table \@ref(tab:higer_posterior_density_interval).
+R-INLA enables also r-base style function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which, packed into a dedicated function, computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ with .1 Confidence Level, whose result is in table \@ref(tab:higer_posterior).
 
 
-Table: (\#tab:higer_posterior_density_interval)Higer Posterior Density Interval with .1 Confidence Level probability
-
-|          |       low|      high|
-|:---------|---------:|---------:|
-|level:0.9 | -2.291268| -0.879445|
+\begin{tabular}{lrr}
+\toprule
+  & low & high\\
+\midrule
+level:0.9 & -2.291268 & -0.879445\\
+\bottomrule
+\end{tabular}
 
 Note that the interpretation is different from the traditional frequentist approach: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.
 

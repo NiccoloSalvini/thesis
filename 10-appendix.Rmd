@@ -1,21 +1,13 @@
 # Appendix {-}
 
-## GP basics 
-[Nando de Freitas 1](https://www.youtube.com/watch?v=4vGiHC35j9s&t=164s)
+## Gaussian Process{#gpbasics}
 
-[Nando de Freitas 2](https://www.youtube.com/watch?v=MfHKW5z-OOA)
+Let assume ti have cloud of points represented by two variables $X_1$ and $X_2$, figure \@ref(fig:gpcloud). The cloud of points are observation taken from a realization of two variables e.g. height and weight, What it might be observed is:
 
+![(#fig:gpclouds)Left panel: GP cloud of points fitted with a _circle_, Right panel: GP cloud of points fitted with a _ellipse_, source @YT:freitas1](appendix_images/gp_base_1.jpg)
 
-lets say there are a cloud of points represented by two variables x1 and x2. the cloud of points describes a realization of this two variable i.e. height and weight and then you just plot it , you might get measurement like that,
-
-![gp cloud of points](appendix_images/gp_base_1.jpg)
-or: 
-
-
-
-
-each circle is a mesuduraments. now when we use multivariate gaussian we fit gaussian to data, the process of learning is to fit a gaussian to data, the ultimate goal is to describe the data, the smartest gaussian in the first image is to center the mean in the 0 and the draw a cricle containin all the other observation. Instaed for the second image it is still centering the mean in 0 but now it is an ellipse describing the variability, the size of the elipse descrube the variability of the data.
-the center is a vector $\mu_{i}$ that it is beacuse we have two components $x_1$ and $x_2$ whhose mean is 0 for each of the other. This is true for all the observation which have two coordinates too $x_1$ and $x_2$. in vector notations we have for the mean:
+Each circle in both panels figure \@ref(fig:gpclouds) represents a measurements of the observed phenomenon. Let assume to fit a multivariate gaussian distribution to the left panel data. The process of learning is to fit a Gaussian to data, the ultimate goal is to describe the data, the most perfectly evident Gaussian is the one interpolating the points and centering in $\left(0,0\right)$, a circle might be a good guess. Instead for the right one in \@ref(fig:gpclouds), a smart guess could be still centering the mean in, indeed now it is an ellipse describing the variability.
+At this point it might be interesting to vectorized what is has been measured, the centers are then compressed into a vector $\mu_{i}$, i.e. it has two components $X_1$ and $X_2$ whose corresponding mean is 0.
 
 $$
 \boldsymbol{\mu}=\left[\begin{array}{ll}
@@ -24,7 +16,7 @@ $$
 \end{array}\right]
 $$
 
-for each of the points, e.g. for point 1:
+This is true for all the observations which have two coordinates too $x_1$ and $x_2$. for each of the points, e.g. for point 1:
 
 $$
 \mathbf{x_1}=\left[\begin{array}{ll}
@@ -34,7 +26,6 @@ x_2
 $$
 
 the can be neagtive positive, the Real numbers, usually we have $\mathbb{R}^{2}$ extending from - infinity to + infinity, to the power of two because we have 2 dimensions, a Real plane.
-
 any point is gaussian distributed when with mean .. an variance. 
 how we explain covariance, thorugh _correlation._
 we do it by correlation with its noraml forms. the covariance is the term that goes insisde the matrices in the upper right of the matrxi we have the expectation of $x_1$ times $x_2$, like $\mathbb{E}(x_1 \cdot x_2)$, where the extactation in the gaussian case is the mean which is 0, so the corresponding values is 0.
@@ -107,24 +98,22 @@ If i can draw a random number form Uniform and the project it to thre cumulative
 
 In the multivariate case suppose that we have  evctor with two variables how do i draw a vector from a multivariate gasussian with 0 means and plot 1 covarianc ematrix. the theormeem also says that the marginal distribution can be seen by civariance matrix , fist take the men_1 and take upper left element from the covariance matrix obtaining the marginal rpobabiloty for x_1, i.e.
 
-$$
-\pi(x_1) = \mathbf{N}(\mu_1, \Sigma_{11}) \\
-\pi(x_2) = \mathbf{N}(\mu_2, \Sigma_{22}) 
-$$
-then in our problem:
+<!-- $$ -->
+<!-- \pi(x_1) = \mathbf{N}(\mu_1, \Sigma_{11}) \\ -->
+<!-- \pi(x_2) = \mathbf{N}(\mu_2, \Sigma_{22})  -->
+<!-- $$ -->
+<!-- then in our problem: -->
 
-$$
-\pi(x_1) = \mathbf{N}(0, 1) \\
-\pi(x_2) = \mathbf{N}(0, 1) 
-$$
+<!-- $$ -->
+<!-- \pi(x_1) = \mathbf{N}(0, 1) \\ -->
+<!-- \pi(x_2) = \mathbf{N}(0, 1)  -->
+<!-- $$ -->
 Then for simplicity we can simplyfy by groupign vector into:
 (vectore exoression multivariate)
 
 I need a wau to take square trotto of matrices, if x come sfroma  MVG 
 
 35:01--
-
-
 
 
 ## SPDE and Triangularization (YT speech: @YT:paumoraga){#triangular}
@@ -135,6 +124,6 @@ Suppose that is it given have a continuous Gaussian random process (a general co
 ![(#fig:triang)Triangulariation weights and associated process value, @YT:paumoraga source](appendix_images/appendix_triangularization.jpg)
 
 Imagine to have a point a location X laying inside a triangle whose vertices are $S_1, S_2 and S_3$. SPDE operates by setting the values of the process at location x equal to the value of the process at their vertices with some weights, and the weights are given by the _Baricentric coordinates (BC)_. BC are proportional to the area at the point and the vertices. Let assume to have a piece of triangularization $\boldsymbol{A}$ and let assume that the goal is to compute the value at location X. X, as in formula above $\boldsymbol{A}$, would be equal to $S_1$, multiplied by the area $A_1$ dived by the whole triangle area ($\boldsymbol{A}$) + $S_2$ multiplied by the area $A_2$ divided by $\boldsymbol{A}$ + $S_3$, multiplied by the area $A_3$ dived by ($\boldsymbol{A}$. This would be the value of the process at location X given the triangulations (numeber of vertices). SPDE is actually apprximatring the value of hte process using a weighted average of the value of the process at the triangle vertices which ir proportional to the area of the below triangle. 
-In order to do this within INLA \@ref(inla) it is needed also a _Projection Matrix_ , figure \@ref(fig:projmat). The Projection matrix maps the continuous GRMF (when it is assumed a GP) from the observation to the triangulation. It essentially assigns the hieght of the triangle for each vertex of the triangularization to the process. Matrix $\mathcal{A}$, whose dimensions are $\mathcal{A_{ng}}$. It has $n$ rows a $g$ columns, where $n$ is the number of observations and $g$ is the number of vertices of the triangulation. Each row has possibly three non-0 values, right matrix in figure \@ref(fig:projmat), and the columns represent the vertices of the triangles that contains the point. Assume to have an observation that coincides with a vertex $S_1$ of the triangle in \@ref(fig:triang), since the point is on top of the vertex (not inside), there are no weights ($A_1 = \mathcal{A}$) and 1 would be the value at $A_{(1,1)}$ and 0 would be the rest f the values in the row. Now let assume to have an observation coinciding with $S_3$ (vertex in position 3), then the result for $A_{(2,3)}$ would be 1 and the rest 0. Indeed when tha value is X that lies within one of the triangles all the elements of the rows will be 0, but three elements in the row corresponding of the position of the vertices $1 = .2, 2 = .2 and g = .6$, as a result X will be weighted down for the areas.
+In order to do this within INLA \@ref(inla) it is needed also a _Projection Matrix_ , figure \@ref(fig:projmat). The Projection matrix maps the continuous GRMF (when it is assumed a GP) from the observation to the triangulation. It essentially assigns the hieght of the triangle for each vertex of the triangularization to the process. Matrix $\mathcal{A}$, whose dimensions are $\mathcal{A_{ng}}$. It has $n$ rows a $g$ columns, where $n$ is the number of observations and $g$ is the number of vertices of the triangulation. Each row has possibly three non-0 values, right matrix in figure \@ref(fig:projmat), and the columns represent the vertices of the triangles that contains the point. Assume to have an observation that coincides with a vertex $S_1$ of the triangle in \@ref(fig:triang), since the point is on top of the vertex (not inside), there are no weights ($A_1 = \mathcal{A}$) and 1 would be the value at $A_{(1,1)}$ and 0 would be the rest f the values in the row. Now let assume to have an observation coinciding with $S_3$ (vertex in position 3), then the result for $A_{(2,3)}$ would be 1 and the rest 0. Indeed when tha value is X that lies within one of the triangles all the elements of the rows will be 0, but three elements in the row corresponding of the p osition of the vertices $1 = .2, 2 = .2 and g = .6$, as a result X will be weighted down for the areas.
 
 ![(#fig:projmat)Projection Matrix to map valjes from tringulation back to the GP, @YT:paumoraga surce](appendix_images/appendix_proj.jpg)
