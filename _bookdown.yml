@@ -6,11 +6,10 @@ rmd_files:
     - "03-apiinfrastructure.Rmd"
     - "04-inla.Rmd"
     - "05-prd_modelling.Rmd"
-    - "06-spde.Rmd"
-    - "07-exploratory.Rmd"
-    - "08-model_fitting.Rmd"
-    - "09-application.Rmd"
-    - "10-appendix.Rmd"
+    - "06-exploratory.Rmd"
+    - "07-model_fitting.Rmd"
+    - "08-conclusions.Rmd"
+    - "98-appendix.Rmd"
     - "99-references.Rmd"
 new_session: yes
 language:

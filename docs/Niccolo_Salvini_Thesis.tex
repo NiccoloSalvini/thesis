@@ -135,7 +135,7 @@
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 13 gennaio, 2021}
+\date{Lastest build: 14 gennaio, 2021}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -530,7 +530,7 @@ agents[sample(1)]
 \end{lstlisting}
 
 \begin{lstlisting}
-## [1] "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko/DCPMSY23-57"
+## [1] "Mozilla/5.0 (Linux; Android 7.1.1; ASUS_Z01KS Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/300.2.0.58.129;]"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -892,9 +892,10 @@ function(req){
 The above filter parses the request through the default request argument \passthrough{\lstinline!req!}, then it prints out messages about the incoming User Agent (i.e.~\passthrough{\lstinline!HTTP\_USER\_AGENT!}) (section \ref{spoofing}), the \passthrough{\lstinline!REMOTE\_ADDR!} which is the IP address of the client making the request \citeyearpar{plumber} and the \passthrough{\lstinline!QUERY\_STRING!} that records the parameters directly sent the endpoint. This helps to traceback clients activity on the API as well as detecting misuse.
 
 \hypertarget{docs}{%
-\subsection{RESTful API documentation}\label{docs}}
+\subsection{RESTful API docs}\label{docs}}
 
-The service disposes of 2 endpoints \emph{/fastscrape} , \emph{/completescrape}. Parameters are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \ref{fig:pseudocode3}, in section \ref{reverse}. Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic \citep{swaggerUI}. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints\ldots). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
+The service disposes of 2 endpoints \emph{/fastscrape} , \emph{/completescrape}. Parameters, aligned next to the endpoint name in figure \ref{fig:swagger}, are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \ref{fig:pseudocode3}, exaplined in section \ref{reverse}. Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic \citep{swaggerUI}. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints\ldots). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
+Rest API documentation can be reached to the API address in the \passthrough{\lstinline!/\_\_docs\_\_/!} path, in the upper navigation bar of figure \ref{fig:swagger}. A further parameter argument, namely \passthrough{\lstinline!thesis!} into both of the endpoint has been added in order to make the API calls reproducible by providing to the scarping function a pre-compiled url to scrape.
 
 \begin{figure}
 \centering
@@ -1034,7 +1035,7 @@ When newer images are available they can be pulled from the EC2 server and rerun
 \begin{figure}
 \centering
 \includegraphics{images/SoftwareDevWF.jpg}
-\caption{\label{fig:sfmap}Sofwtare development workflow, author's source}
+\caption{\label{fig:sfmap}Software development CI/CD workflow, author's source}
 \end{figure}
 
 \hypertarget{further-sf-integrations}{%
@@ -1047,34 +1048,42 @@ Pins is an r packages \href{https://rstudio.com/resources/rstudioconf-2020/deplo
 software development framework and tools for testing \href{https://github.com/isteves/plumbplumb}{this work}
 
 \hypertarget{inla}{%
-\chapter{INLA computation}\label{inla}}
+\chapter{INLA}\label{inla}}
 
-Due to convergence issues and heavy calculations, Bayesian Inference - by MCMC \citep{mcmc} and MC techniques - may be a challenge in terms of computational burdens, this is also more critical for spatial and spatio-temporal model settings \citep{Cameletti2012}. The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices which are common into the aforementioned settings.
-INLA \citep{Rue2009} stands for Integrated Nested Laplace Approximation and constitutes a computational alternative to traditional Baeysian Inference estimation methods focused on a special type of gaussian spatial processes Gaussian Markov Random Field (GMRF) \citep{GMRFRue}. INLA zoom in models that can be expressed as Latent GMRF which are special types of spatial processes shaping spatial data dependence observed on areal units as regular grid, lattice or geospatial data.
-This turns out to cause a computational gain reducing time of model fitting \citep{Bayesian_INLA_Rubio} since matrices in this context are very sparse. Furthermore, INLA approximates the posterior marginal distributions of the model parameters with Laplace approximation which results in a considerably high accuracy.
-Other benefits of using INLA algorithm are capitalized by Rue in \citep{YT:Rue}:
+Bayesian estimation methods - by MCMC \citep{mcmc} and MC simulation techniques - are usually much harder than Frequentist calculations \citep{wang2018bayesian}. This unfortunately is also more critical for spatial and spatio-temporal model settings \citep{Cameletti2012} where matrices dimensions and densities (in the sense of prevalence of values throughout the matrix) start becoming unfeasible.
+The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices which are common into the aforementioned settings.
+INLA \citep{Rue2009} stands for Integrated Nested Laplace Approximation and constitutes a faster and accurate deterministic algorithm, which is alternative \citep{YT:Rue} to traditional Bayesian Inference methods focused on Latent Gaussian Models (LGMs)\citeyearpar{wang2018bayesian}. LGMs are a rich class which includes many regressions models, as well as spatial or spatio-temporal models.
+INLA turns out to shorten model fitting time for essentially a clever combination of timesaving properties of the LGM model settings, such as: Gaussian Markov random field (GMRF) for sparce matrices and Laplace approximation to approximate posterior integrals instead of sampling from them.
+In the end of the chapter it is presented the R-INLA project and the package focusing on the essential aspects.
 
-\begin{itemize}
-\tightlist
-\item
-  Can define very complex/nested parameters models within that framework.
-\item
-  Most important statistical models are actually LGM.
-\item
-  Very good support for spatial models.
-\item
-  Extension to spatio-temporal model
-\end{itemize}
-
-The chronological steps followed in the arguments presentation retraces the one from Blangiardo and Cameletti \citep{Blangiardo-Cameletti} and Rubio \citep{Bayesian_INLA_Rubio}, which is also the default option for all the main authorities in the field. The choice is also to overlook mathematical dense details and directly jump on the statistical intuition and the practical application of the algorithm.
-
-In the end it is presented the R-INLA project and the package which are found in last section focusing on the core functions and main arguments.
-Notation is inherited by \citet{Blangiardo-Cameletti} because it is more straightforward, neverthelesss it differs from the original paper by Rue, Chopin and Martino \citeyearpar{Rue2009}. As further remarks, bold symbols are intended as vectors, so each time they occur they have to be considered like the \emph{ensamble} of their values. The notation \(\pi(\cdot)\) is a generic notation for the density of its arguments.
+The chronological steps followed in the arguments presentation retraces the canonical one by the original \citep{Rue2009}, which seems to be also the default choice for all the related literature. The approach is more suitable and remains quite unchanged since it is top-down, which naturally fits the hierarchical framework imposed in the model.
+Notation is imported by \citet{Blangiardo-Cameletti} and integrated with \citet{Bayesian_INLA_Rubio}, whereas examples are drawn from \citet{wang2018bayesian}. Bold symbols are intended as vectors, so each time they occur they have to be considered like the \emph{ensamble} of their values. \(\pi(\cdot)\) is a generic notation for the density of its arguments and \(\tilde\pi(\cdot)\) has to be intended as its Laplace approximation. Furthermore mathematical details, e.g.~Laplace Approximations derivations and optimal strategy for integration, are overlooked with the aim to jump on the statistical intuition oriented to the practical application of the algorithm.
 
 \hypertarget{LGM}{%
 \section{The class of Latent Gaussian Models LGM}\label{LGM}}
 
-Given some observations \(y_{i \ldots n}\), the goal is to set up a Latent Gaussian Model LGM. As a first step it is convenient (even though not strictly necessary as in \citeyearpar{Bayesian_INLA_Rubio}) to specify an \emph{exponential family} distribution function characterized by some parameters \(\phi_{i}\) (usually expressed by the mean \(\left.E\left(y_{i}\right)\right)\)) and other hyper-parameters \(\psi_{k} ,\forall k \in \ 1\ldots K\). . Furthermore, these observations will have an associated likelihood \citeyearpar{Bayesian_INLA_Rubio}. The parameter \(\phi_{i}\) can be defined as an additive \emph{latent linear predictor} \(\eta_{i}\), as in Krainski and Rubio (\citeyearpar{Krainski-Rubio}), through a \emph{link function} \(g(\cdot)\), i.e.~\(g\left(\phi_{i}\right)=\eta_{i}\). A comprehensive expression of the linear predictor takes into account all the possible effects on covariates:
+Bayesian theory is straightforward, but it is not always simple to measure posterior and other interest quantities \citep{wang2018bayesian}. There are three ways to obtain a posterior estimate: by \emph{Exact} estimation, i.e.~operating on conjugate priors, but there are relatively few conjugate priors which are also employed in simple models. By \emph{Sampling} through generating samples from the posterior distributions with MCMC methods \citep{hastings, metropolis} and applied in Bayesian statistics by \citet{gelfand1990sampling}. MCMCs have improved over time due to inner algoritm optimization as well as both hardware and software progresses, nevertheless for certain model combinations and data they either fail or take an unacceptable amount of time \citeyearpar{wang2018bayesian}. By \emph{Approximation} through numerical integration and INLA can count on a strategy leveraging on three elements: \emph{LGMs}, \emph{Gaussian Markov Random Fields} (GMRF) and \emph{Laplace Approximations}. LGMs despite their very scarce anonymity are very flexible and they can host a wide range of models as regression, dynamic, spatial, spatio-temporal \citep{Cameletti2012}. LGMs necessitate three interconnected elements: Likelihood, Latent field and Hyperpriors.
+To start it can be specified a generalization of a linear predictor \(\eta_{i}\) which takes into account both linear and non-linear effects on covariates:
+
+(rendila latex ccosì la referenzi e dici che LGM può offrire tanti modelli)
+
+\[
+\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
+\]
+where \(\beta_{0}\) is the intercept, \(\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}\) are the coefficients that quantifies the linear effects of covariates \(\boldsymbol{x}=\left({x}_{1}, \ldots, {x}_{M}\right)\) and \(f_{l}(\cdot), \forall l \in 1 \ldots L\) are a set of random effects defined in terms of a \(\boldsymbol{z}\) set of covariates \(\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)\) (e.g.~rw, ar1) \citep{Blangiardo-Cameletti} such models are termed ad General Additive Models GAM \citep{wang2018bayesian}.
+For the response \(\mathbf{y}=\left(y_{1}, \ldots, y_{n}\right)\) it is specified an \emph{exponential family} distribution function whose mean \(\mu_i\) (computed as its expectation \(\left.E\left(\mathbf{y}\right)\right)\)) is linked via a \emph{link function} \(g(\cdot)\) to \(\eta_{i}\), i.e.~\(g\left(\mu_i\right)=\eta_{i}\). At this point is possible to group all the latent (in the sense of unobserved) inference components into a variable denoted as \(\boldsymbol{\theta}\) such that: \(\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}\). The latent parameters \(\boldsymbol{\theta}\) actually depend on some Hyper-parameters \(\boldsymbol{\psi} = \left\{\psi_{1}, \ldots, \psi_{K}\right\}\). Then the probability distribution function conditioned to both parameters and hyper-parameters, assuming \emph{conditional independence}, is expressed by the likelihood:
+
+\[
+\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)
+\]
+
+The conditional independence assumption \citep{GMRFRue} (i.e.~\(\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)\)), states that the joint conditional distribution is given by the product of all the independent parameters i.e.~the likelihood.
+At this point, as required by LGM, are needed to be imposed Gaussian priors on each linear effect and each model covariate that have either a univariate or multivaried normal density in order to make the additive \(\eta_i\) additive Gaussian \citeyearpar{wang2018bayesian}.
+For example If it is assumed to have a Normally distributed response and the goal is to specify a Bayesian generalized linear model (GLM), then the linear predictor can have this appearance \(\eta_{i}=\beta_{0}+\beta_{1} x_{i 1}, \quad i=1, \ldots, n\), where \(\beta_{0}\) is the intercept and \(\beta_{1}\) is the slope for a general covariate \(x\). While applying LGM are need to be specified Gaussian priors on \(\beta_{0}\) and \(\beta_{1}\), such that: \(\beta_{0} \sim N\left(\mu_{0}, \sigma_{0}^{2}\right)\) and \(\beta_{1} \sim N\left(\mu_{1}, \sigma_{1}^{2}\right)\), for which the latent linear predictor \(\eta_i\) is \(\eta_{i} \sim N\left(\mu_{0}+\mu_{1} x_{i 1}, \sigma_{0}^{2}+\sigma_{1}^{2} x_{i 1}^{2}\right)\). It can be illustrated by some linear algebra \citeyearpar{wang2018bayesian} that \(\boldsymbol{\eta}=\left(\eta_{1}, \ldots, \eta_{n}\right)^{\prime}\) is a Gaussian Process with mean structure \(\mu\) and covariance matrix \(\boldsymbol{Q^{-1}}\). The hyperparameters \(\sigma_{0}^{2}\) and \(\sigma_{1}^{2}\) are to be either fixed or estimated by taking hyperpriors on them.
+
+To start, for some observations \(\mathbf{y}=\left(y_{1}, \ldots, y_{n}\right)\), it is convenient to specify an \emph{exponential family} distribution function which is characterized by some parameters \(\phi_{i}\) (usually expressed by the mean \(\left.E\left(y_{i}\right)\right)\)) and other hyper-parameters \(\psi_{k} ,\forall k \in \ 1\ldots K\) \citeyearpar{Blangiarod-Cameletti}. The parameters \(\phi_{i}\) can be defined as an additive \emph{latent linear predictor} \(\eta_{i}\) \citep{Krainski-Rubio}, through a \emph{link function} \(g(\cdot)\), i.e.~\(g\left(\phi_{i}\right)=\eta_{i}\). A generalization of the linear predictor takes into account both linear and non-linear effects on covariates:
+
+Then it has to be specified an associated likelihood and many options are available {[}\citet{Bayesian_INLA_Rubio}; wang2018bayesian{]}, the default choice is \emph{Gaussian model}.
 
 \[
 \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
@@ -1332,8 +1341,9 @@ In the case of geostatistical data, the model parameters \(\boldsymbol\theta\), 
 \protect\hypertarget{def:GP}{}{\label{def:GP} \iffalse (GP definition) \fi{} }A collection of \(n\) random variables, such as \(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\) that are \emph{valid} and \emph{finite} stochastic processes are said to be a \textbf{GP} if for any set of spatial index \(n\) and for each set of corresponding locations \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) follows a \emph{multivariate Gaussian} distribution with mean \(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\) and covariance matrix \(\mathbf{Q}^{-1}_{i,j}, \forall i \neq j\) defined then by a covariance function \(\mathscr{\cdot, \cdot}\)
 \end{definition}
 
-The latent GP are in function of some hyper-parameters \(\boldsymbol\psi\) and their respective prior \(\pi(\boldsymbol\psi)\). Moreover a GP is completely characterized by a mean \(\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}\) and a spatially structured covariance matrix \(\boldsymbol{Q^{-1}}\) as multivariate Normal distribution, whose generic element is \(\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{C}} \mathscr{C}(\Delta_{i j})\), where \(\sigma_{\mathscr{C}}^{2}\) is the variance component and for \(i, j = 1, \ldots, n\). \(\mathscr{C}\left( \cdot, \cdot \right)\) function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the \emph{validity} and \emph{positive definitness} characteristics from the GP. Given the nature of spatial process, the covariance function has to satisfy the property of \textbf{Isotropy}.
-A process is said to be \textbf{Isotropic} if the covariance function depends only on the between-points distance \(\Delta_{i j}=\left\|s_{i}-s_{j}\right\|\) (in this context \emph{Euclidean}), so it is invariant under \emph{rotation} \citeyearpar{Krainski-Rubio}. A further way of seeing this property is that Isotropy implies concentric decaying contours \citep{LecturePaci}, green in \ref{fig:isoovsanis}, that implies the vanishing of spatial dependence \citep{Blangiardo-Cameletti}, and so for covariance values.
+The latent GP are in function of some hyper-parameters \(\boldsymbol\psi\) and their respective prior \(\pi(\boldsymbol\psi)\). Moreover a GP is completely characterized by a mean \(\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}\) and a spatially structured covariance matrix \(\boldsymbol{Q^{-1}}\) as multivariate Normal distribution, whose generic element is \(\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{C}} \mathscr{C}(\Delta_{i j})\), where \(\sigma_{\mathscr{C}}^{2}\) is the variance component and for \(i, j = 1, \ldots, n\). \(\mathscr{C}\left( \cdot, \cdot \right)\) function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the \emph{validity} and \emph{positive definitness} characteristics from the GP. The spatial stochastic process has also to satisfy two important properties \textbf{stationary}, \textbf{Isotropy} (both of the two relaxable at certain computational and modeling cost.
+A process is said \textbf{stationary} i.e.~weak stationary, if process values at any two locations can be summarized by a covariance function \(\mathscr{C(\Delta_{i j})}\) depending only on the distance. In other words it is invariant under \emph{translation} \citep{Krainski-Rubio}.
+A process is said \textbf{Isotropic} if the covariance function depends only on the between-points distance \(\Delta_{i j}=\left\|s_{i}-s_{j}\right\|\) (in this context \emph{Euclidean}), so it is invariant under \emph{rotation} \citeyearpar{Krainski-Rubio}. A further way of seeing this property is that Isotropy implies concentric decaying contours \citep{LecturePaci}, green in \ref{fig:isoovsanis}, that implies the vanishing of spatial dependence \citep{Blangiardo-Cameletti}, and so for covariance values.
 
 \begin{figure}
 \centering
@@ -1360,12 +1370,12 @@ In spatial statistics the assumption of isotropy is very frequent despite being 
 \end{aligned}
 \]
 
-In particular the focus is on the \emph{Matérn} -- as it is required by the SPDE approach in Section \ref{spdeapproach} -- and this should not be intended as a restriction. In fact, as described in Guttorp and Gneiting (2006) \emph{miss lit}, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one \(\kappa>0\), usually set equal to the range \(\sigma_{\mathscr{C}}^{2}\) i.e.~the distance at which the spatial dependece becomes negligible, by the relation \(\sigma_{\mathscr{C}}^{2}=\frac{\sqrt{8 \lambda}}{\kappa}\)), and a smoothing one \(\nu>0\). A \emph{isotropic} Matérn covariance expression is obtained by isoltating the \(\sigma_{\mathscr{C}}^{2}\), the variance component \citep{Cressie_2015}:
+In particular the focus is on the \emph{Matérn} -- as it is required by the SPDE approach in Section \ref{spdeapproach} -- and this should not be intended as a restriction. In fact, as described in Guttorp and Gneiting (2006) \emph{miss lit}, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one \(\kappa>0\), usually set equal to the range \(\sigma_{\mathscr{C}}^{2}\) i.e.~the distance at which the spatial dependece becomes negligible, by the relation \(\sigma_{\mathscr{C}}^{2}=\frac{\sqrt{8 \lambda}}{\kappa}\)), and a smoothing one \(\nu>0\). A \emph{isotropic} Matérn covariance expression is obtained by isolating the \(\sigma_{\mathscr{C}}^{2}\), the variance component \citep{Cressie_2015}:
 
 \[
 \mathscr{C}\left(\Delta_{i j}\right)=\frac{1}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa \Delta_{i j}\right)^{\lambda} K_{\lambda}\left(\kappa \Delta_{i j}\right)
 \]
-\(\Gamma(\nu)\) is a Gamma function depending on \(\nu\) values, \(K_{\nu}(\cdot)\) is a modified Bessel function of second kind. The smoothness parameter \(\nu\) in figure \ref{fig:matern} takes 4 different values showing the flexibility of Matérn to relate distances acording to varyinn parameters. When \(\nu = 1\) \ldots{} When \(\nu = 1/2\) it becomes the exponential covariance function, When \(\nu = 3/2\) it uncovers a convenient closed form \citep{LecturePaci}, when \(\nu \approx \infty\), e.g.~for graphical constraints \(\nu = 80\), it becomes Gaussian covariance function. In the the case shown in section \ref{spdeapproach} \(\sigma_{\mathscr{C}}^{2}\) range is set equal to the distance at which dependence vanishes below .1, for any \(\lambda\).
+\(\Gamma(\nu)\) is a Gamma function depending on \(\nu\) values, \(K_{\nu}(\cdot)\) is a modified Bessel function of second kind. The smoothness parameter \(\nu\) in figure \ref{fig:matern} takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When \(\nu = 1\) \ldots{} When \(\nu = 1/2\) it becomes the exponential covariance function, When \(\nu = 3/2\) it uncovers a convenient closed form \citep{LecturePaci}, when \(\nu \approx \infty\), e.g.~for graphical constraints \(\nu = 80\), it becomes Gaussian covariance function. In the the case shown in section \ref{spdeapproach} \(\sigma_{\mathscr{C}}^{2}\) range is set equal to the distance at which dependence vanishes below .1, for any \(\lambda\).
 
 \begin{figure}
 \centering
@@ -1393,7 +1403,7 @@ To illustrate the concept of triangulation \citet{Cameletti2012} provide a simpl
 \caption{\label{fig:piepm10}Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. \citet{Cameletti2012} source}
 \end{figure}
 
-Any triangle height (the size of the spatial field at each vertix triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \ref{spdesurf} shows a continously indexed random spatial field (left side of figure \ref{spdesurf}) with the corresponding SPDE on the basis of a triangulation (right panel \ref{spdesurf}).
+Any triangle height (the size of the spatial field at each vertix triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \ref{fig:spdesurf} shows a continously indexed random spatial field (left side of figure \ref{fig:spdesurf}) with the corresponding SPDE on the basis of a triangulation (right panel \ref{fig:spdesurf}).
 
 \begin{figure}
 \centering
@@ -1577,53 +1587,12 @@ R-INLA has already antiticipated in chapter 4 section\ref{example} have designed
 \hypertarget{prior-specification}{%
 \section{Prior Specification}\label{prior-specification}}
 
-\hypertarget{spde}{%
-\chapter{SPDE approach}\label{spde}}
-
-Observations in the spatial problem setting are considered as realizations of a stationary, isotropic unobserved GP \(w(s)\) that we aim to estimate (\ref{GP}). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood. Matrices in this settings were very dense and they were scaling with the order of \(O\left(n^{3}\right)\), leading to obvious big-n problem.
-The breakthrough, came with \citet{Lindgren2011} that proves that a stationary, isotropic GP with Matérn covariance can be represented as a GMRF using SPDE solutions by finite element method \citep{Krainski-Rubio}. In other words given a GP whose covariance matrix is \(\boldsymbol{Q}\), SPDE can provide a method to approximate \(\boldsymbol{Q}\) without computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies.
-Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix \(\boldsymbol{Q}^-1\) . Sparse matrices enable convenient inner computation properties of GMRF that can be exploited with INLA. Bayesian inference on GMRF can take advantage of lower computational cost because of these properties stated before leading to a more feasible big-O \(O\left(n^{3 / 2}\right)\). The following chapter will provide a intuition on SPDE oriented to practitioners. The chapeter once again will follow the track of Krainski \& Rubio \citeyearpar{Krainski-Rubio} and Blangiardo and Cameletti \citeyearpar{Blangiardo-Cameletti} works, together with the street-opener paper from \citet{Miller2019} as compendium. SPDE might be complex for those who are not used to applied mathematics and physics making it difficult not only to grab the concept, but also to find its applications. One more obstacle regards SPDE software implementation, since without deep technical expertise it might be difficult to customize code with the aim to extend the methodology to different models. For a gentle introduction on what a SPDE is from a mathemathical perspective a valuable reference is \citet{Miller2019} in secction 2.1, then also its application to Matérn in 2.3.
-
-\hypertarget{set-spde-problem}{%
-\section{Set SPDE Problem}\label{set-spde-problem}}
-
-Given the statistical model already encountered in chapter \ref{univariateregr}:
-
-\[
-y\left(\mathbf{s}_{i}\right)=\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime} \beta_{j}+w(\mathbf{s})+\varepsilon\left(\mathbf{s}_{i}\right)
-\]
-
-where \(\eta(\mathbf{s}_{i}) = g (\mathbf{x}\left(\mathbf{s}_{i}\right)^{\prime}\beta_{j})\) is the linear predictor, whose link function \(g( \cdot )\) is identity (can be also extended to GLM), where \(w(\mathbf{s})\) is a Gaussian Process with mean structure 0 and \(C(\cdot)\) covariance structure ( where \(\boldsymbol{Q}\) is the covariance matrix and \(Q^{-1}\) precision matrix). Then \(w(s) \sim MV\mathcal{N}(0, \boldsymbol{Q}_{i,j}^{-1})\) and where \(\varepsilon(\mathbf{s}_{i})\) is white noise error such that \(\varepsilon(\mathbf{s}_{i}) \sim \mathcal{N}\left(0, \tau^{2}\right)\).
-Comprehending \(w\) in the model brings two major issues, specify a covariance function for observations as well as how to fit the model. Among all the possible reachable solutions including the SPDE, the common goal is to define covariance function between locations by approximating the precision matrix \(\boldsymbol{Q}^{-1}\), since they are an effective tool to represent covariance function as in section \ref{LGM}.
-For those reasons SPDE approach implies finding an SPDE whose solution have the precision matrix, that is desired for \(w\). \citet{Lindgren2011} proves that an approximate solution to SPDE equations is to represent \(w\) as a sum of basis function multiplied by coefficients \citeyearpar{Miller2019}. Moreover the basis function coefficients are in reality a GMRF (for which fast method comptations already exists).
-
-\hypertarget{spde-within-r-inla}{%
-\section{SPDE within R-INLA}\label{spde-within-r-inla}}
-
-First point addresses the assumption that a GP with Matérn covariance function and \(\nu >0\) is a solution to \emph{SPDE} equations.
-Second point addressed the issues of solving SPDE when grids are irregular, as opposite with the one seen in first point (regular grid for irregular distribution. In here comes FEM used in mathematics and engineering application with the purpose to solve differential equations. Notation is kept coherent with the one for the previous chapter.
-
-\hypertarget{first-point-krainsky-rubio-too-technical}{%
-\section{First Point Krainsky Rubio TOO TECHNICAL}\label{first-point-krainsky-rubio-too-technical}}
-
-A regular 2D grid lattice is considered with infinite number of location points as vertices.
-
-\begin{figure}
-\centering
-\includegraphics{images/lattice.png}
-\caption{lattice 2D regular grid}
-\end{figure}
-
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
-Data emerging from the RESTful API body response is not in its tidiest form regardless of the query arguments sent. Yet data undergoes to a series of pre-processing step during scraping, which still requires to clear up some unnecessary character and to separate columns containing more than one covariate. To the analysis extent data should be reproducible in the sense that it should come from the same geographic area otherwise the analysis would be not comparable. As a result API parameters are kept permanent (e.g.~Milan rental real estate within ``circonvallazione'' approximated geo-borders) by passing to the API arugments \passthrough{\lstinline!.thesis!} parameter . As a consequence a dedicated endpoint is passed in the argument body. By setting the option equal to to TRUE the API caller requests thesis data. In other words the latter option under the hood secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to precise zones imposed while searching for advertisemnts on Immobiliare.it. To help figure out the idea behind the operation it can be thought as refreshing everyday the same immobiliare.it url on their website looking for accomodations within a specified zone.
-Parameters specified are also npages = 120, leading to to 3000 observations. The \passthrough{\lstinline!*!} refers to the EC2 public DNS.
+Data emerging from the RESTful API body response is not in its tidiest form regardless of the query arguments sent. Yet data undergoes to a series of pre-processing step during scraping, which still requires to clear up some unnecessary character and to separate columns containing more than one covariate. To the analysis extent data should be reproducible in the sense that it should be constrained to the same geographic area otherwise the analysis would be not comparable and reproducible. As a result REST API parameters calls are kept permanent (e.g.~Milan rental real estate within ``circonvallazione'' approximated geo-borders) by passing to the \passthrough{\lstinline!.thesis!} parameter, section \ref{docs}. In other words the argument (required) option secures to specify to the API an already composed query url to be passed to the scraping endppoint, which corresponds to the zones imposed while searching for advertisemnts on Immobiliare.it, in this context the \emph{Municipality of Milan}. From a more practical point o view the operation is the equivalent to refresh each time the same immobiliare.it url for which query parameters have already been specified. A further parameter specified is npages = 120, leading to to 3000 data points. {[}discaimer sul fatto che i dati sono chiamati una volta e poi messi in un file{]}
 
-As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster. A summary table of the columns involved is presented with the goal to introduce the reader to API incoming data. Data needs some heavy preprocess steps to get modeled which is briefly covered in the data preparation part in section \ref{prep}. Data coming from the /complete enndpoint has a geo-statistical spatial component and consequently a spatial representation of the dataset is showed. One further plot points out that geographic coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the price response variable so dedicated techniques are required. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence which is then compared to other cities. This suggest some critical Milan real estate market demand information and consequently reflections on the offer. Heating and cooling systems, two of the covariates extracted, are grouped and then arranged by descending order prevalence. They both do not display any significative price change but they bring to the surface an important environmental concern. The same is done by highlighting ridges distribution for other two newly engineered covariates. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each n-roomed accommodation sub-group whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which regards the most valuable properties per single square meter surface and a answer based on data is given. Then a further log linear regression setting is proposed to evaluate the impact of some other presumably important covariate. A Tie Fighter plot displays for which coefficient, associated to each dummyied predictor, there are surprisingly high prices compared to the effect of the square meter footage expansion. A partial conclusion is that having 2 or 3 bathrooms truly pays an extra monthly gain, also caused by the number of tentants the accomodations could host. Then missing assessement and imputation takes place. At first is made a brief a revision of missing and randomnes by \citet{Little}, then theory is applied by visualizing missing in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple rarity in data appereance. Then for the observations that passed the test imputation is made through INLA posterior expectation. That is the case of data lost in predictors so the missing covariates ( \emph{condominium} ) are brought into a model as response variable whose this time predictors are explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
-
-Visualisations are done with ggplot2 in a Tidyverse approach. Maps are done with ggplot2 too and Leaflet, together with its extensions.
-A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.
+A summary table of the columns involved in the analysis is presented with the goal to familiarize with incoming covariates. Data already comes semi-preprocessed but due to API fluency it still needs some processing, treated in\ref{prep}, to be ready to be modeled. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at that time is given. A further plot points out that geographic coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable so dedicated techniques are required. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence which is then compared to other cities. This suggest some critical Milan real estate market demand information and consequently reflections on the offer. Heating and cooling systems, two of the covariates extracted, are grouped and then arranged by descending order prevalence. They both do not display any significative price's spin but they bring to the surface an important environmental concern. The same is done by highlighting ridges distribution for other two newly engineered covariates. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each n-roomed accommodation sub-group whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which adderesses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummyied predictor, data suggests surprisingly high monthly prices compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3 bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate operator reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API or for other reasons. Theory is applied by visualizing missing in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple rarity in data appereance. Then for the observations that passed the test imputation is made through INLA posterior expectation. That is the case of data lost in predictors so the missing covariates ( \emph{condominium} ) are brought into a model as response variable whose this time predictors are explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 \begin{longtable}{ll}
 \toprule
@@ -1674,7 +1643,7 @@ TITLE & title of published advertisement\\
 \hypertarget{prep}{%
 \section{Data preparation}\label{prep}}
 
-Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format, which is not prepared to be modeled. Cleaning steps mainly regards:
+Data needs to undergo to many previous cleaning preprocess steps, this is a forced stage since API data comes in human readable format JSON, which is not prepared to be modeled. Cleaning steps mainly regards:
 
 \begin{itemize}
 \tightlist
@@ -1685,7 +1654,7 @@ Data needs to undergo to many previous cleaning preprocess steps, this is a forc
 \item
   \emph{locali} needs to be separated too. 5 category levels drain out: \emph{totlocali}, \emph{camereletto}, \emph{altro}, \emph{bagno}, \emph{cucina}. \emph{nroom} is a duplicate for \emph{totlocali}, so it is discarded.
 \item
-  \emph{aptchar} is a character strign column that contains a various number of different features per house. The preprocess steps include cleaning the string from unnecessary characters, then finding the whole set of unique elements across the character column by splitting on a regex pattern, in the end recoding newly created bivariate columns ``yes'' or ``no'' accoeding to a matching pattern whether the feature appears in the string not. A slice from the API output APTCHAR is:
+  \emph{aptchar} is a character string column that contains a various number of different features per house. The preprocess steps include cleaning the string from unnecessary characters, then finding the whole set of unique elements across the character column by splitting on a regex pattern, in the end recoding newly created bivariate columns ``yes'' or ``no'' accoeding to a matching pattern whether the feature appears in the string not. A slice from the API output APTCHAR is:
 \end{itemize}
 
 fibra ottica videocitofono impianto di allarme porta blindata reception balcone portiere intera giornata impianto tv centralizzato parzialmente arredato esposizione doppia
@@ -1704,7 +1673,7 @@ Predictors, in this case latitude and longitude appear to have nonlinear relatio
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf}
 \caption{\label{fig:NonLinearSpatialRel}Non Linear Spatial Relationship disclosed}
 \end{figure}
 
@@ -1718,7 +1687,7 @@ Bilocali are the most common option for rent, then trilocali comes after. The in
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/fctCounts-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/fctCounts-1.pdf}
 \caption{\label{fig:fctCounts}Most common housedolds categories}
 \end{figure}
 
@@ -1730,7 +1699,7 @@ Then in bottom plot Jittering is then applied to point out the number of outlier
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/PricePerAc-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/PricePerAc-1.pdf}
 \caption{\label{fig:PricePerAc}Log Monthly Price per Heating/Cooling system?}
 \end{figure}
 
@@ -1738,7 +1707,7 @@ this visualization intersects allows to discover bimodality in the response vari
 
 (qui ci puoi mettere a confronto per variabile bianria, così vedi cosa includere nel modello esempio sotto dove commentato, )
 
-\includegraphics{07-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 What it might be really relevant to research is how monthly prices change with respect to house square footage for each house configuration. The idea is to asses how much adding a further square meter affetcs the monthly price for each n-roomed flat.
 One implication is how the property should be developed in order to request a greater amount of money per month. As an example in a situation in which the household has to lot its property into different sub units he can be helped to decide the most proficient choice in economic terms by setting ex ante the square footage extensions for each of the sub-properties.
@@ -1747,7 +1716,7 @@ The plot \ref{fig:GlmPriceSq} has two continuous variables for x (price) and y (
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/GlmPriceSq-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/GlmPriceSq-1.pdf}
 \caption{\label{fig:GlmPriceSq}Monthly Prices change wrt square meters footage in different n-roomed apt}
 \end{figure}
 
@@ -1775,7 +1744,7 @@ In other words the to help with the interpretation. The fact that 2 and 3 bathro
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/TieFighterPlot-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/TieFighterPlot-1.pdf}
 \caption{\label{fig:TieFighterPlot}Coefficient Tie fighter plot for the linear model: log2(price) \textasciitilde{} log2(abs\_price) + condom + other\_colors}
 \end{figure}
 
@@ -1809,7 +1778,7 @@ Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno d
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/WordNetworkgraph-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/WordNetworkgraph-1.pdf}
 \caption{\label{fig:WordNetworkgraph}Word Network Graph for 250 Estate Agencies Review}
 \end{figure}
 
@@ -1841,7 +1810,7 @@ To identify the pattern a \emph{heat map} plot \ref{fig:Heatmap} clarifies the i
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/Heatmap-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/Heatmap-1.pdf}
 \caption{\label{fig:Heatmap}Missingness Heatmap plot}
 \end{figure}
 
@@ -1851,7 +1820,7 @@ After some further investigation on \emph{LOWRDPRICE.}, the group class flags wh
 
 \begin{figure}
 \centering
-\includegraphics{07-exploratory_files/figure-latex/cooccurrence-1.pdf}
+\includegraphics{06-exploratory_files/figure-latex/cooccurrence-1.pdf}
 \caption{\label{fig:cooccurrence}Missingness co-occurrence plot}
 \end{figure}
 
@@ -1947,40 +1916,8 @@ The mesh builder has a number of options to define the mesh on the left side. Th
 \hypertarget{modelspec}{%
 \chapter{Model Selection \& Fitting}\label{modelspec}}
 
-\hypertarget{model-criticism}{%
-\section{Model Criticism}\label{model-criticism}}
-
-evaluation of the variables to include in the mode,, assumptions of the model i.e.~exchangeablity and independence prior distribution to assign to parameters and hyper parameters.
-
-\hypertarget{spatial-kriging}{%
-\section{Spatial Kriging}\label{spatial-kriging}}
-
-\hypertarget{model-checking-1}{%
-\section{Model Checking}\label{model-checking-1}}
-
-if (models \textgreater{} 2)\{
-
-\begin{lstlisting}
-## Model Selection
-
-
-
-
-  IDEA: proporre due modelli uno più interepretabile con distribuzione normale, e un ò'altro con sempre exponential family ma con Gamma distribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicazione.
-\end{lstlisting}
-
-\}
-
 \hypertarget{application}{%
-\chapter{Shiny Application}\label{application}}
-
-with UI build with free tool for front end design ion shiny \href{https://fomantic-ui.com/}{fomantic-ui}. prendi shiny app e rifai interface. in questo blog vedi Hacaton tirato e vincitori \href{https://blog.rstudio.com/2020/11/10/the-appsilon-shiny-semantic-pocontest/}{blog}.
-
-Senno app paula moraga che ha già simil modello dentro,
-
-senno flexdashboard paula moraga.
-
-\href{https://demo.appsilon.ai/apps/polluter/}{this inspiration}
+\chapter{Conclusions}\label{application}}
 
 \hypertarget{appendix}{%
 \chapter*{Appendix}\label{appendix}}

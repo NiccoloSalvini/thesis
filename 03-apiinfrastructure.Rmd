@@ -206,9 +206,10 @@ function(req){
 The above filter parses the request through the default request argument `req`, then it prints out messages about the incoming User Agent (i.e. `HTTP_USER_AGENT`) (section \@ref(spoofing)), the `REMOTE_ADDR` which is the IP address of the client making the request [-@plumber] and the `QUERY_STRING` that records the parameters directly sent the endpoint. This helps to traceback clients activity on the API as well as detecting misuse.
 
 
-### RESTful API documentation{#docs} 
+### RESTful API docs{#docs} 
 
-The service disposes of 2 endpoints */fastscrape* , */completescrape*. Parameters are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \@ref(fig:pseudocode3),  in section \@ref(reverse). Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic [@swaggerUI]. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints...). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
+The service disposes of 2 endpoints */fastscrape* , */completescrape*. Parameters, aligned next to the endpoint name in figure \@ref(fig:swagger), are the same for both of the endpoints since they rely on the same reverse engineering url algorithm \@ref(fig:pseudocode3), exaplined in section \@ref(reverse). Moreover Plumber APIs are natively wrapped up around Swagger UI helping development team or end users to imagine and communicate with the resources of the API without any discharge logic [@swaggerUI]. The OpenAPI (formerly referred to as Swagger), with the visual documentation facilitates backend implementation and client side consumption, as well as being automatically created by the APIs specification (parameters, endpoints...). Some of the major assets in Swagger UI are: The user interface works in any environment, whether locally or web and it is suited for all main browsers.
+Rest API documentation can be reached to the API address in the `/__docs__/` path, in the upper navigation bar of figure \@ref(fig:swagger). A further parameter argument, namely `thesis` into both of the endpoint has been added in order to make the API calls reproducible by providing to the scarping function a pre-compiled url to scrape.
 
 ![(#fig:swagger)Swagger UI in localhost on port 8000, author's source](images/swagger.PNG)
 
@@ -341,7 +342,7 @@ Software changes can happen quite often due to the dynamic nature of the RESTful
 When newer images are available they can be pulled from the EC2 server and rerun in detached mode. Massive software changes are managed through GitHub branches, even though it must be kept in mind to swith lautomatic building brench. The Ec2 server is associated to an Elastic IPs address allowing to reuse the address for external databases connections and DNS services as Cloudflare (for SSL certificates). Moreover elastic IPs are effective when the EC2 server stands in need of upgrading or downgrading or when the server may fail, thus restoring and apply the IP address for a new server. 
 
 
-![(#fig:sfmap)Sofwtare development workflow, author's source](images/SoftwareDevWF.jpg)
+![(#fig:sfmap)Software development CI/CD workflow, author's source](images/SoftwareDevWF.jpg)
 
 ## Further SF Integrations
 

@@ -1,4 +1,4 @@
-# INLA computation {#inla}
+# INLA {#inla}
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(
@@ -18,89 +18,201 @@ library(knitr, warn.conflicts = F, quietly = T)
 
 ```
 
-Due to convergence issues and heavy calculations, Bayesian Inference - by MCMC [@mcmc] and MC techniques - may be a challenge in terms of computational burdens, this is also more critical for spatial and spatio-temporal model settings [@Cameletti2012]. The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices which are common into the aforementioned settings.
-INLA [@Rue2009] stands for Integrated Nested Laplace Approximation and constitutes a computational alternative to traditional Baeysian Inference estimation methods focused on a special type of gaussian spatial processes Gaussian Markov Random Field (GMRF) [@GMRFRue]. INLA zoom in models that can be expressed as Latent GMRF which are special types of spatial processes shaping spatial data dependence observed on areal units as regular grid, lattice or geospatial data.
-This turns out to cause a computational gain reducing time of model fitting [@Bayesian_INLA_Rubio] since matrices in this context are very sparse. Furthermore, INLA approximates the posterior marginal distributions of the model parameters with Laplace approximation which results in a considerably high accuracy.
-Other benefits of using INLA algorithm are capitalized by Rue in [@YT:Rue]:
+Bayesian estimation methods - by MCMC [@mcmc] and MC simulation techniques - are usually much harder than Frequentist calculations [@wang2018bayesian]. This unfortunately is also more critical for spatial and spatio-temporal model settings [@Cameletti2012] where matrices dimensions and densities (in the sense of prevalence of values throughout the matrix) start becoming unfeasible. 
+The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices that in aforementioned settings scale to the order $\mathcal{O}(n^3)$.
+INLA [@Rue2009] stands for Integrated Nested Laplace Approximation and constitutes a faster and accurate deterministic algorithm whose performance in time indeed scale to the order $\mathcal{O}(n)$. INLA is alternative and by no mean substitute [@YT:Rue] to traditional Bayesian Inference methods. INLA focuses on Latent Gaussian Models (LGMs)[-@wang2018bayesian], which are a rich class which including many regressions models, as well as spatial or spatio-temporal models.
+INLA turns out to shorten model fitting time for essentially two reasons related to clever LGM model settings, such as: Gaussian Markov random field (GMRF) offering sparse matrices representation and Laplace approximation to approximate posterior integrals instead of sampling from them.
+In the end of the chapter it is presented the R-INLA project and the package focusing on the essential aspects.
+<!-- Other benefits of using INLA algorithm are capitalized by Rue in [@YT:Rue]: -->
 
-- Can define very complex/nested parameters models within that framework.
-- Most important statistical models are actually LGM.
-- Very good support for spatial models.
-- Extension to spatio-temporal model
-
-The chronological steps followed in the arguments presentation retraces the one from Blangiardo and Cameletti [@Blangiardo-Cameletti] and Rubio [@Bayesian_INLA_Rubio], which is also the default option for all the main authorities in the field. The choice is also to overlook mathematical dense details and directly jump on the statistical intuition and the practical application of the algorithm. 
-
-<!-- As a consequence a problem can be reshaped into the LGM framework with the explicit purpose to explore its benefits. When models are reduced to LGMs then joint posterior distribution can be rewritten and then approximated with INLA. -->
-In the end it is presented the R-INLA project and the package which are found in last section focusing on the core functions and main arguments.
-Notation is inherited by @Blangiardo-Cameletti because it is more straightforward, neverthelesss it differs from the original paper by Rue, Chopin and Martino -@Rue2009. As further remarks, bold symbols are intended as vectors, so each time they occur they have to be considered like the _ensamble_ of their values. The notation $\pi(\cdot)$ is a generic notation for the density of its arguments. 
+<!-- - Can define very complex/nested parameters models within that framework. -->
+<!-- - Most important statistical models are actually LGM. -->
+<!-- - Very good support for spatial models. -->
+<!-- - Extension to spatio-temporal model -->
+The chronological steps followed in the methodology presentation retraces the canonical one by the original paper by @Rue2009, which seems to be also the default choice for all the related literature. The approach is more suitable and remains quite unchanged since it is top-down, which naturally fits the hierarchical framework imposed in the model. The GMRF introductory part heavily relies on @GMRFRue.    
+Notation is imported by @Blangiardo-Cameletti and integrated with @Bayesian_INLA_Rubio, whereas examples are drawn from @wang2018bayesian. Vectors and matrices are typeset in bold, so each time they occur they have to be considered such as $\boldsymbol{\beta}$ the _ensamble_ of their values, whereas the notation $\beta_{-i}$ denotes all elements in $\boldsymbol{\beta}$ but $\beta_{-i}$. $\pi(\cdot)$ is a generic notation for the density of its arguments and $\tilde\pi(\cdot)$ has to be intended as its Laplace approximation. Furthermore mathematical details, e.g. Laplace Approximations derivations and optimal strategy for integration, are overlooked with the aim to jump on the statistical intuition oriented to the practical application of the algorithm.
 
 ## The class of Latent Gaussian Models LGM{#LGM}
 
-Given some observations $y_{i \ldots n}$, the goal is to set up a Latent Gaussian Model LGM. As a first step it is convenient (even though not strictly necessary as in [-@Bayesian_INLA_Rubio]) to specify an _exponential family_  distribution function characterized by some parameters $\phi_{i}$ (usually expressed by the mean $\left.E\left(y_{i}\right)\right)$) and other hyper-parameters $\psi_{k} ,\forall k \in \ 1\ldots K$. . Furthermore, these observations will have an associated likelihood [-@Bayesian_INLA_Rubio]. The parameter $\phi_{i}$ can be defined as an additive _latent linear predictor_ $\eta_{i}$, as in Krainski and Rubio (-@Krainski-Rubio), through a _link function_ $g(\cdot)$, i.e. $g\left(\phi_{i}\right)=\eta_{i}$. A comprehensive expression of the linear predictor takes into account all the possible effects on covariates:
-
-$$
-\eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
-$$
-
-where $\beta_{0}$ is the intercept, $\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}$ are the coefficients that quantifies the linear effects of covariates $\boldsymbol{x}=\left({x}_{1}, \ldots, {x}_{M}\right)$ and $f_{l}(\cdot), \forall l \in 1 \ldots L$ are a set of random effects defined in terms of a $\boldsymbol{z}$ set of covariates $\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)$ (e.g. rw, ar1) [@Blangiardo-Cameletti]. As a consequence of the extended possibilities of combining mixed effects into LGMs, they contain a wide range of models e.g. GLM, GAM, GLMM, linear models and spatio-temporal models. This constitutes one of the main advantages of INLA algorithm, since it can fit many different models and integrate older ones with newer parameters. Furthermore INLA contributors recently are extending the methodology to many different areas of application and integrating the LG class with many other random effects _miss lit Martins et al., 2013 _.
-With that said all the latent field components can be grouped into a variable denoted with $\boldsymbol{\theta}$ such that: $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}$ whose distribution depends on the hyper-paramenter $\boldsymbol{\psi}$. The analogue can be repeated for hyper-parameters obtaining $\boldsymbol{\psi} = \left\{\psi_{1}, \ldots, \psi_{K}\right\}$. 
-Then the probability distribution function conditioned to both parameters and hyper parameters is:
-
-$$
-y_{i} \mid \boldsymbol{\theta}, \boldsymbol{\psi} \sim \pi\left(y_{i} \mid \boldsymbol{\theta},\boldsymbol{\psi}\right)
-$$
-
-Since data $\left(y_{1}, \ldots, y_{n}\right)$ is drawn by the same distribution family but it is also conditioned to parameters which are said _conditional independent_ [@GMRFRue] (i.e. $\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)$) , then the joint distribution is given by the product of all the independent parameters i.e. the likelihood. Note that the product index $i$ ranges from 1 to $n$, i.e.  $\mathbf{I} = \left\{1 \ldots n \right\}$.
-In the case when an observation is missing, i.e. $i \notin \mathbf{I}$, INLA automatically discards missing values from the model estimation -@Bayesian_INLA_Rubio, this would be critical during missing values imputation \@ref(missassimp).
-The likelihood expression is, where $\boldsymbol\theta^{\prime}$ is the transposed version of $\boldsymbol\theta$ and the $|\cdot|$ is the determinant:
+Bayesian theory is straightforward, but it is not always simple to measure posterior and other interest quantities [@wang2018bayesian]. There are three ways to obtain a posterior estimate: by _Exact_ estimation, i.e. operating on conjugate priors, but there are relatively few conjugate priors which are also employed in simple models. By _Sampling_  through generating samples from the posterior distributions with MCMC methods [@hastings; @metropolis] and applied in Bayesian statistics by @gelfand1990sampling. MCMCs have improved over time due to inner algoritm optimization as well as both hardware and software progresses, nevertheless for certain model combinations and data they either fail or take an unacceptable amount of time [-@wang2018bayesian]. By _Approximation_ through numerical integration and INLA can count on a strategy leveraging on three elements: _LGMs_, _Gaussian Markov Random Fields_ (GMRF) and _Laplace Approximations_ and this will articulates the steps according to which the argument is treated.  LGMs despite their anonymity are very flexible and they can host a wide range of models as regression, dynamic, spatial, spatio-temporal [@Cameletti2012]. LGMs necessitate further three interconnected elements: **Likelihood**, **Latent field** and **Hyperpriors**.
+To start it can be specified a generalization of a linear predictor $\eta_{i}$ which takes into account both linear and non-linear effects on covariates:
 
 \begin{equation}
-\pi(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i \in \mathbb{I}} \pi\left(y_{i} \mid \theta^{\prime}_{i}, \boldsymbol{\psi}\right)
-(\#eq:likelihood)
+  \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right)
+(\#eq:linearpredictor)
 \end{equation}
 
-Each data point is connected to a single combination $\theta_{i}$ in the $\boldsymbol{\theta}$ _latent field_. In fact the latent aspect of the field regards the undergoing existence of many parameter combination. Furthermore hyper-parameters are by definition independent, in other words $\boldsymbol{\psi}$ is the product of many univariate priors [@Bayesian_INLA_Rubio]. A Multivariate Normal distribution prior is imposed on the latent field $\boldsymbol{\theta}$ such that it is centered in 0 with precision matrix $\boldsymbol{Q(\psi)}$ (the inverse of the covariance matrix $\boldsymbol{Q}^{-1}(\boldsymbol{\psi})$)  depending only on $\boldsymbol{\psi}$ hyper-parameter vector i.e., $\boldsymbol{\theta} \sim \operatorname{Normal}\left(\mathbf{0}, \boldsymbol{Q}^{-1}(\boldsymbol{\psi})\right)$. As a notation remark some authors choose to keep the covariance matrix expression as $\boldsymbol{Q}$ and its inverse precision matrix as $\boldsymbol{Q}^{-1}$, equation \@ref(eq:gmrf). Using the covariance instead of precision is strongly not encouraged essentially for two reasons: the first is a practical one and regards the default hyper-paramater argument option in R INLA library, which adopts precision matrix notation. While the second accounts [@GMRFRue] the relationship between conditional independence and the
-zero structure of the precision matrix, left in figure \@ref(fig:precvscov), that is dense in the covariance matrix, right in figure \@ref(fig:precvscov) notation case.
-
-![(#fig:precvscov)Precision Matrix in GMRF vs the Covariance matrix, source @GMRFRue](images/precvscov.jpg)
-
-
-The exponential family density function can be rewritten as: 
+where $\beta_{0}$ is the intercept, $\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}$ are the coefficients that quantifies the linear effects of covariates $\boldsymbol{x}=\left({x}_{1}, \ldots, {x}_{M}\right)$ and $f_{l}(\cdot), \forall l \in 1 \ldots L$ are a set of random effects defined in terms of a $\boldsymbol{z}$ set of covariates $\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)$ (e.g. Random Walks @GMRFRue, Gaussian Processes @besag1995conditional), such models are termed as General Additive Models i.e. GAM [@wang2018bayesian].
+For the response $\mathbf{y}=\left(y_{1}, \ldots, y_{n}\right)$ it is specified an _exponential family_ distribution function whose mean $\mu_i$ (computed as its expectation $\left.E\left(\mathbf{y}\right)\right)$) is linked via a link function $g(\cdot)$ to $\eta_{i}$ in eq. \@ref(eq:linearpredictor), i.e. $g\left(\mu_i\right)=\eta_{i}$. At this point is possible to group all the latent (in the sense of unobserved) inference components into a variable, said **latent field** and denoted as $\boldsymbol{\theta}$ such that: $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}$, where each single observation $i$ is connected to a $\theta_{i}$ combination of parameters in $\boldsymbol{\theta}$. 
+The latent parameters $\boldsymbol{\theta}$ actually may depend on some hyper-parameters $\boldsymbol{\psi} = \left\{\psi_{1}, \ldots, \psi_{K}\right\}$. Then, given $\mathbf{y}$, the joint probability distribution function conditioned to both parameters and hyper-parameters, assuming _conditional independence_, is expressed by the **likelihood**:
 
 \begin{equation}
-\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi})=(2 \pi)^{-n / 2}| \boldsymbol{Q(\psi)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta} \boldsymbol{Q(\psi)} \boldsymbol{\theta}\right)
-(\#eq:gmrf)
+  \pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i\ = 1}^{\mathbf{I}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)
+(\#eq:jpd)
 \end{equation}
 
-The conditional independence assumption on each $\theta_i$ element of the latent field $\boldsymbol{\theta}$ leads $\boldsymbol{Q^{-1}(\psi)}$ to be a sparse precision matrix since for a general pair of combinations $\theta_{i}$ and $\theta_{j}$, when $ i \neq j$, the resulting element in the precision matrix is 0 i.e. $\theta_{i} \perp \theta_{j} \mid \theta_{-i, j} \Longleftrightarrow Q_{i j}(\boldsymbol{\psi})=0$ -@Blangiardo-Cameletti, where the notation $x_{-i}$ denotes all elements in $\boldsymbol{x}$ but $x_{-i}$. 
-A probability distribution whose characteristics are the aforementioned is named  _Gaussian Markov random field_ (**GMRF**). GMRF as a matter of fact are Gaussian Variables with _Markov properties_ encoded in the precision matrix $\boldsymbol{Q}$ [@Rue2009]. The computational gain of doing inference with a GMRF is directly related to the sparse precision matrix $\boldsymbol{Q}$ structure. In fact, it can be done using numerical methods for the sparse matrices in linear algebras, leading to a substantial computational benefit [@Cameletti2012], [@GMRFRue], for the specific algorithms.
-Once priors distributions are specified both for$\boldsymbol{\theta}$ and $\boldsymbol{\psi}$, then the joint posterior distribution is obtained by the product of the _GMRF_ \@ref(eq:gmrf) density, the _likelihood_ \@ref(eq:likelihood) and the hyper-parameter prior distribution:
+The conditional independence assumption [@@Blangiardo-Cameletti] grants that for a general couple of conditionally independent $\theta_j$ and $\theta_i$, where $i \neq j$, the joint conditional distribution is factorized by $\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)$, i.e. the likelihood in eq:\@ref(eq:jpd). The assumption constitutes a building block in INLA since as it will be shown later it will assure that there will be 0 patterns encoded inside matrices, implying computational benefits.
+<!-- The conditional independence assumption [@GMRFRue] (i.e. $\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)$), states that the joint conditional distribution is given by the product of all the independent parameters i.e. the likelihood. -->
+Note also that the product index $i$ ranges from 1 to $\mathbf{I}$, i.e.  $\mathbf{I} = \left\{1 \ldots n \right\}$. In the case when an observations are missing, i.e. $i \notin \mathbf{I}$, INLA automatically discards missing values from the model estimation -@Bayesian_INLA_Rubio, this would be critical during missing values imputation \@ref(missassimp).
+At this point, as required by LGM, are needed to be imposed Gaussian priors on each linear effect and each model covariate that have either a univariate or _multivaried normal_ density in order to make the additive $\eta_i$ Gaussian [-@wang2018bayesian].
+An example might make the setting clear: let assume to have a Normally distributed response and let set the goal to specify a Bayesian Generalized Linear Model (GLM). Then the linear predictor can have this appearance $\eta_{i}=\beta_{0}+\beta_{1} x_{i 1}, \quad i=1, \ldots, n$, where $\beta_{0}$ is the intercept and $\beta_{1}$ is the slope for a general covariate $x_{i1}$. While applying LGM are need to be specified Gaussian priors on $\beta_{0}$ and $\beta_{1}$, such that: $\beta_{0} \sim N\left(\mu_{0}, \sigma_{0}^{2}\right)$ and $\beta_{1} \sim N\left(\mu_{1}, \sigma_{1}^{2}\right)$, for which the latent linear predictor $\eta_i$ is $\eta_{i} \sim N\left(\mu_{0}+\mu_{1} x_{i 1}, \sigma_{0}^{2}+\sigma_{1}^{2} x_{i 1}^{2}\right)$. It can be illustrated by some linear algebra [-@wang2018bayesian] that $\boldsymbol{\eta}=\left(\eta_{1}, \ldots, \eta_{n}\right)^{\prime}$ is a Gaussian Process with mean structure $\mu$ and covariance matrix $\boldsymbol{Q^{-1}}$. The hyperparameters  $\sigma_{0}^{2}$ and
+$\sigma_{1}^{2}$ are to be either fixed or estimated by taking hyperpriors on them. In this context $\boldsymbol\theta = \{\beta_0, \beta_1\}$ can group all the latent components and $\boldsymbol\psi = \{\sigma_{0}^{2},\sigma_{1}^{2} \} $ is the vector of **hyperpriors**.
+<!-- Moreover there exists a special class of LG, namely Gaussian Markov random field (GMRF), which is very effective and versatile in modeling paricular effects in LGMs. -->
+For what it can be noticed there is a clear hierarchical relationship for which three different levels are seen: a _higher_ level represented by the exponential family distribution function on $\mathbf{y}$, given the latent parameter and the hyper parameters. The _medium_ by latent Gaussian random field with density function given some other hyper parameters. The _lower_ by the joint distribution or a product of several distributions for which priors can be specified
+So letting be $\boldsymbol{y}=\left(y_{1}, \ldots, y_{n}\right)^{\prime}$ at the _higher_ level it is assumed an exponential family distribution function given a first set of hyper-parameters $\boldsymbol\psi_1$, usually referred to measurement error precision @Blangiardo-Cameletti). Therefore as in \@ref(eq:jpd), 
+
+\begin{equation}
+  \pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{I}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)
+(\#eq:higher)
+\end{equation}
+
+At the _medium_ level it is specified on the latent field $\boldsymbol\theta$ a latent Gaussian random field (LGRF), given $\boldsymbol\psi_2$, the rest of the hyper-parameters,
+
+\begin{equation}
+  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q(\psi_2)} \boldsymbol{\theta}\right)
+(\#eq:medium)
+\end{equation}
+
+where $\boldsymbol{Q(\psi_2)}$ denotes positive definite matrix and $|\cdot|$ its determinant. $\prime$ is the transpose operator. The matrix $\boldsymbol{Q(\psi_2)}$ is called the _precision matrix_ that outlines the underlying dependence structure of the data, and its inverse $\boldsymbol{Q(\cdot)}^{-1}$ is the covariance matrix [@wang2018bayesian]. In the spatial setting this would be critical since by a specifying a multivariate Normal distribution of eq. \@ref(eq:medium) it will become a GMRF. Due to conditional independence GMRF precision matrices are sparse and through linear algebra and numerical method for sparse matrices model fitting time is saved [@GMRFRue].
+In the _lower_ level priors are collected togheter $\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}$ for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors. 
+Since the end goal is to find the joint posterior for $\boldsymbol\theta$ and $\boldsymbol\psi$, as a consequence the expression is: 
 
 $$
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y)\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {prior }} \times \underbrace{\pi(\theta \mid \psi)}_{\text {GMRF }} \times \underbrace{\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)}_{\text {likelihood }}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {LGRM}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
 $$
-Which can be further rewritten as in [@Blangiardo-Cameletti] as:
 
-$$
+Which can be further rewritten following [@Blangiardo-Cameletti] as:
+
+\begin{equation}
 \begin{aligned}
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \pi(y \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \pi(\mathbf{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\
 & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\
 & \propto \pi(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i}^{n} \exp \left(\log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right)
 \end{aligned}
-$$
-
-In the end joining exponents by their multiplicative property
-
-\begin{equation}
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) \propto \pi(\psi) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum^{n} \log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right)
-(\#eq:jointpostdistr)
+(\#eq:finallgm)
 \end{equation}
 
 
-## INLA Approximate Inference setting{#approx}
+From eq: \@ref(eq:finallgm) is derived Bayesian inference and INLA through Laplace can approximate posterior parameters distributions.Sadly, INLA cannot effectively suit all LGM's. In general INLA requires the following supplementary assumptions [-@wang2018bayesian]:
 
-INLA is not going to try to estimate the whole joint posterior distribution from expression \@ref(eq:jointpostdistr). Instead it will try to estimate the posterior marginal distribution for each $\theta_{i}$ combination in the latent parameter $\boldsymbol{\theta}$, given the hyper parameter priors specification $\psi_{k}$. Proper estimation methodsa through Laplace Approximation however are beyond the scope of the analysis, further excellent references focused on the task are Rubio -@Bayesian_INLA_Rubio in section 2.2.2  and Blangiardo & Cameletti -@Blangiardo-Cameletti in section 4.7.2. 
-The final goal of Bayesian Inference is to compute marginal posterior distribution function for each latent parameter element $\theta_{i}$ in $\boldsymbol\theta$
+- The hyper-parameter number $\boldsymbol\psi$ should be unpretentious, normally between 2 and 5, but not greater than 20.
+- When the number of observation is considerably high ($10^4$ to $10^5$), then the LGMR $\boldsymbol\theta$ must be a Gaussian Markov random field (GMRF).
+
+## Gaussian Markov Random Field (GMRF){#gmrf}
+
+In the order to make INLA working efficiently the latent field $\boldsymbol\theta$ must not only be Gaussian but also Gaussian Markov Random Field (GMRF). A GMRF is a genuinely simple structure: It is just  random vector following a multivariate normal (or Gaussian) distribution [@GMRFRue]. However It is more interesting to research a restricted set of GMRF for which are satisfied the conditional independence assumptions (section \@ref(LGM)), from here the term "Markov". Expanding the concept of conditional independece let asssume to have a vector $\boldsymbol{\mathbf{x}}=\left(x_{1}, x_{2}, x_{3}\right)^{T}$ where $x_1$ and $x_2$ are conditionally independent given $x_3$, i.e. $x_{1} \perp x_{2} \mid x_3$. With that said if the objective is $x_3$, then uncovering $x_2$ gives no information on $x_1$. The joint density for $\boldsymbol{\mathbf{x}}$ is
+
+\begin{equation}
+  \pi(\boldsymbol{\mathbf{x}})=\pi\left(x_{1} \mid x_{3}\right) \pi\left(x_{2} \mid x_{3}\right) \pi\left(x_{3}\right)
+(\#eq:pix)
+\end{equation}
+
+Now let assume a more general case of AR(1) exploiting the possibilities of definying $f_{1}(\cdot)$ function through the eq. \@ref(eq:linearpredictor). AR(1) is an _autoregressive model_ of order 1 specified on the latent linear predictor $\eta$, with costant variance $\sigma_{\eta}^{2}$ and standard normal errors [-@GMRFRue; -@wang2018bayesian]. The model may have following expression:
+
+$$
+\eta_t=\phi \eta_{t-1}+\epsilon_{t}, \quad \epsilon_{t} \stackrel{\mathrm{iid}}{\sim} \mathcal{N}(0,1), \quad|\phi|<1
+$$
+Where $t$ pedix is the time index and $\phi$ is the correlation in time. The conditional form of the previous equation can be rewritten when $t = 2 \ldots n$:
+
+$$
+\eta_{t} \mid \eta_{1}, \ldots, \eta_{t-1} \sim \mathcal{N}\left(\phi \eta_{t-1}, \sigma_{\eta}^{2}\right)
+$$
+Then let also consider the marginal distribution for each $\eta_i$, it can be proven to be Gaussian with mean 0 and variance $\sigma_{\eta}^{2} /\left(1-\phi^{2}\right)$ [-@wang2018bayesian]. Moreover the covariance between each general $\eta_{i}$ and $\eta_{j}$ is defined as $\sigma_{\eta}^{2} \rho^{|i-j|} /\left(1-\rho^{2}\right)$ which vanishes the more the distance $|i-j|$ increases. 
+Therefore $\boldsymbol\eta$ is a Gaussian Process (whose definition is \@ref(def:gp) and whose basics are in the appendix in sec \@ref(gpbasics) are with mean structure of 0s and covariance matrix $\boldsymbol{Q}^{-1}$ i.e. $\boldsymbol{\eta} \sim N(\mathbf{0}, \boldsymbol{Q}^{-1})$. $\boldsymbol{Q}^{-1}$ is an $n \times n$ dense matrix that complicates computations. 
+But by a simple trick it is possible to recognize that AR(1) is a special type of GP with sparce precision matrix which is evident by showing the joint distribution for $\boldsymbol\eta$ 
+
+$$
+\pi(\boldsymbol{\eta})=\pi\left(\eta_{1}\right) \pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{3} \mid \eta_{1}, \eta_{2}\right) \cdots \pi\left(\eta_{n} \mid \eta_{n-1}, \ldots, \eta_{1}\right)
+$$
+whose precision matrix compared to its covariance matrix is:
+
+![(#fig:precisionmat)Precision Matrix in GMRF vs the Covariance matrix, source @GMRFRue](images/precvscov.jpg)
+with zero entries outside the diagonal (right panel fig. \@ref(fig:precisionmat)) and first off-diagonals [-@GRMFRue]. 
+The conditional independence assumption makes the precision matrix tridiagonal since for generals $\eta_i$ and $\eta_j$ are conditionally independent for $|i − j| > 1$, given all the rest. In other words $\boldsymbol{Q}$ is sparse since given all the latent predictors in $\boldsymbol\eta$,  then $\eta_t$ depends only on the preceding $\eta_{t-1}$. For example, let assume to have $\eta_2$ and $\eta_4$, then:
+
+
+$$
+\begin{aligned}
+\pi\left(\eta_{2}, \eta_{4} \mid \eta_{1}, \eta_{3}\right) &=\pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{4} \mid \eta_{1}, \eta_{2}, \eta_{3}\right) \\
+&=\pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{4} \mid \eta_{3}\right)
+\end{aligned}
+$$
+For which the conditional density of $\eta_2$ does only depend on its preceding term i.e. $\eta_1$. The same inner reasoning can be done for $\eta_4$, which depends on $\eta_3$ and vice versa.
+Therefore we are able to produce a definition of GMRF 
+```{definition, gmrf, name ="GMRF"}
+A latent gaussian random field e.g. $\boldsymbol\eta$ is said a GMRF if it has a multivariate normal density with additional conditional independence (also called the “Markov property”) [@wang2018bayesian].
+```
+
+
+<!-- <!-- PROVA DA QUA  -->
+
+<!-- To start, for some observations $\mathbf{y}=\left(y_{1}, \ldots, y_{n}\right)$, it is convenient to specify an _exponential family_ distribution function which is characterized by some parameters $\phi_{i}$ (usually expressed by the mean $\left.E\left(y_{i}\right)\right)) and other hyper-parameters $\psi_{k} ,\forall k \in \ 1\ldots K$ [-@Blangiarod-Cameletti]. The parameters $\phi_{i}$ can be defined as an additive _latent linear predictor_ $\eta_{i}$ [@Krainski-Rubio], through a _link function_ $g(\cdot)$, i.e. $g\left(\phi_{i}\right)=\eta_{i}$. A generalization of the linear predictor takes into account both linear and non-linear effects on covariates: -->
+
+<!-- Then it has to be specified an associated likelihood and many options are available [@Bayesian_INLA_Rubio; wang2018bayesian], the default choice is _Gaussian model_. -->
+
+<!-- $$ -->
+<!-- \eta_{i}=\beta_{0}+\sum_{m=1}^{M} \beta_{m} x_{m i}+\sum_{l=1}^{L} f_{l}\left(z_{l i}\right) -->
+<!-- $$ -->
+
+<!-- where $\beta_{0}$ is the intercept, $\boldsymbol{\beta}=\left\{\beta_{1}, \ldots, \beta_{M}\right\}$ are the coefficients that quantifies the linear effects of covariates $\boldsymbol{x}=\left({x}_{1}, \ldots, {x}_{M}\right)$ and $f_{l}(\cdot), \forall l \in 1 \ldots L$ are a set of random effects defined in terms of a $\boldsymbol{z}$ set of covariates $\boldsymbol{z}=\left(z_{1}, \ldots, z_{L}\right)$ (e.g. rw, ar1) [@Blangiardo-Cameletti]. As a consequence of the extended possibilities of combining mixed effects into LGMs, they contain a wide range of models e.g. GLM, GAM, GLMM, linear models and spatio-temporal models. This constitutes one of the main advantages of INLA algorithm, since it can fit many different models and integrate older ones with newer parameters. Furthermore INLA contributors recently are extending the methodology to many different areas of application and integrating the LG class with many other random effects _miss lit Martins et al., 2013 _. -->
+<!-- With that said all the latent field components can be grouped into a variable denoted with $\boldsymbol{\theta}$ such that: $\boldsymbol{\theta}=\left\{\beta_{0}, \boldsymbol{\beta}, f\right\}$ whose distribution depends on the hyper-parameter $\boldsymbol{\psi}$. The analogue can be repeated for hyper-parameters obtaining $\boldsymbol{\psi} = \left\{\psi_{1}, \ldots, \psi_{K}\right\}$.  -->
+<!-- Then the probability distribution function conditioned to both parameters and hyper parameters is: -->
+
+<!-- $$ -->
+<!-- y_{i} \mid \boldsymbol{\theta}, \boldsymbol{\psi} \sim \pi\left(y_{i} \mid \boldsymbol{\theta},\boldsymbol{\psi}\right) -->
+<!-- $$ -->
+
+<!-- Since data $\left(y_{1}, \ldots, y_{n}\right)$ is drawn by the same distribution family but it is also conditioned to parameters which are said _conditional independent_ [@GMRFRue] (i.e. $\pi\left(\theta_{i}, \theta_{j} \mid \theta_{-i, j}\right)=\pi\left(\theta_{i} \mid \theta_{-i, j}\right) \pi\left(\theta_{j} \mid \theta_{-i, j}\right)$) , then the joint distribution is given by the product of all the independent parameters i.e. the likelihood. Note that the product index $i$ ranges from 1 to $n$, i.e.  $\mathbf{I} = \left\{1 \ldots n \right\}$. -->
+<!-- In the case when an observation is missing, i.e. $i \notin \mathbf{I}$, INLA automatically discards missing values from the model estimation -@Bayesian_INLA_Rubio, this would be critical during missing values imputation \@ref(missassimp). -->
+<!-- The likelihood expression is, where $\boldsymbol\theta^{\prime}$ is the transposed version of $\boldsymbol\theta$ and the $|\cdot|$ is the determinant: -->
+
+<!-- \begin{equation} -->
+<!-- \pi(\boldsymbol{y} \mid \boldsymbol{\theta}, \boldsymbol{\psi})=\prod_{i \in \mathbb{I}} \pi\left(y_{i} \mid \theta^{\prime}_{i}, \boldsymbol{\psi}\right) -->
+<!-- (\#eq:likelihood) -->
+<!-- \end{equation} -->
+
+<!-- Each data point is connected to a single combination $\theta_{i}$ in the $\boldsymbol{\theta}$ _latent field_. In fact the latent aspect of the field regards the undergoing existence of many parameter combination. Furthermore hyper-parameters are by definition independent, in other words $\boldsymbol{\psi}$ is the product of many univariate priors [@Bayesian_INLA_Rubio]. A Multivariate Normal distribution prior is imposed on the latent field $\boldsymbol{\theta}$ such that it is centered in 0 with precision matrix $\boldsymbol{Q(\psi)}$ (the inverse of the covariance matrix $\boldsymbol{Q}^{-1}(\boldsymbol{\psi})$)  depending only on $\boldsymbol{\psi}$ hyper-parameter vector i.e., $\boldsymbol{\theta} \sim \operatorname{Normal}\left(\mathbf{0}, \boldsymbol{Q}^{-1}(\boldsymbol{\psi})\right)$. As a notation remark some authors choose to keep the covariance matrix expression as $\boldsymbol{Q}$ and its inverse precision matrix as $\boldsymbol{Q}^{-1}$, equation \@ref(eq:gmrf). Using the covariance instead of precision is strongly not encouraged essentially for two reasons: the first is a practical one and regards the default hyper-parameter argument option in R INLA library, which adopts precision matrix notation. While the second accounts [@GMRFRue] the relationship between conditional independence and the -->
+<!-- zero structure of the precision matrix, left in figure \@ref(fig:precvscov), that is dense in the covariance matrix, right in figure \@ref(fig:precvscov) notation case. -->
+
+<!-- ![(#fig:precvscov)Precision Matrix in GMRF vs the Covariance matrix, source @GMRFRue](images/precvscov.jpg) -->
+
+
+<!-- The exponential family density function can be rewritten as:  -->
+
+<!-- \begin{equation} -->
+<!-- \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi})=(2 \pi)^{-n / 2}| \boldsymbol{Q(\psi)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta} \boldsymbol{Q(\psi)} \boldsymbol{\theta}\right) -->
+<!-- (\#eq:gmrf) -->
+<!-- \end{equation} -->
+
+<!-- The conditional independence assumption on each $\theta_i$ element of the latent field $\boldsymbol{\theta}$ leads $\boldsymbol{Q^{-1}(\psi)}$ to be a sparse precision matrix since for a general pair of combinations $\theta_{i}$ and $\theta_{j}$, when $ i \neq j$, the resulting element in the precision matrix is 0 i.e. $\theta_{i} \perp \theta_{j} \mid \theta_{-i, j} \Longleftrightarrow Q_{i j}(\boldsymbol{\psi})=0$ -@Blangiardo-Cameletti, where the notation $x_{-i}$ denotes all elements in $\boldsymbol{x}$ but $x_{-i}$.  -->
+<!-- A probability distribution whose characteristics are the aforementioned is named  _Gaussian Markov random field_ (**GMRF**). GMRF as a matter of fact are Gaussian Variables with _Markov properties_ encoded in the precision matrix $\boldsymbol{Q}$ [@Rue2009]. The computational gain of doing inference with a GMRF is directly related to the sparse precision matrix $\boldsymbol{Q}$ structure. In fact, it can be done using numerical methods for the sparse matrices in linear algebras, leading to a substantial computational benefit [@Cameletti2012], [@GMRFRue], for the specific algorithms. -->
+<!-- Once priors distributions are specified both for$\boldsymbol{\theta}$ and $\boldsymbol{\psi}$, then the joint posterior distribution is obtained by the product of the _GMRF_ \@ref(eq:gmrf) density, the _likelihood_ \@ref(eq:likelihood) and the hyper-parameter prior distribution: -->
+
+<!-- $$ -->
+<!-- \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y)\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {prior }} \times \underbrace{\pi(\theta \mid \psi)}_{\text {GMRF }} \times \underbrace{\prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)}_{\text {likelihood }} -->
+<!-- $$ -->
+<!-- Which can be further rewritten as in [@Blangiardo-Cameletti] as: -->
+
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \pi(y \mid \boldsymbol{\theta}, \boldsymbol{\psi}) \\ -->
+<!-- & \propto \pi(\boldsymbol{\psi}) \times \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}) \times \prod_{i=1}^{n} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right) \\ -->
+<!-- & \propto \pi(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i}^{n} \exp \left(\log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) -->
+<!-- \end{aligned} -->
+<!-- $$ -->
+
+<!-- In the end joining exponents by their multiplicative property -->
+
+<!-- \begin{equation} -->
+<!-- \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) \propto \pi(\psi) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum^{n} \log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) -->
+<!-- (\#eq:jointpostdistr) -->
+<!-- \end{equation} -->
+
+
+## INLA Laplace Approximations{#approx}
+
+INLA is not going to try to estimate the whole joint posterior distribution from expression \@ref(eq:finallgm). Instead it will try to estimate the posterior marginal distribution for each $\theta_{i}$ combination in the latent parameter $\boldsymbol{\theta}$, given the hyper parameter priors specification $\psi_{k}$. Proper estimation methods through Laplace Approximation and search strategies however are beyond the scope of the analysis, further excellent references focused on the task are Rubio -@Bayesian_INLA_Rubio in section 2.2.2, Blangiardo & Cameletti -@Blangiardo-Cameletti in section 4.7.2 and 2.3 in @wang2018bayesian
+The goal of Laplace approximation in this context is to approximate marginal posterior integrals each latent parameter $\theta_{i}$ in $\boldsymbol\theta$ in the most efficient and effective way as possible-
 
 \begin{equation}
   \pi(\theta_{i} \mid \boldsymbol{y})=\int \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y}) \pi(\boldsymbol{\psi} \mid \mathbf{y}) d \psi
