@@ -16,6 +16,8 @@ A summary table of the columns involved in the analysis is presented with the go
 
 
 
+**prova a farla in latex***
+
 
 \begin{longtable}{ll}
 \toprule
@@ -104,7 +106,7 @@ ggplot2 visualzitaion matt dancho inspiration::
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:fctCounts) offers the rearranged factor *TOTLOCALI*. 
 Bilocali are the most common option for rent, then trilocali comes after. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are warmly welcomed.
 
-![(\#fig:fctCounts)Most common housedolds categories](06-exploratory_files/figure-latex/fctCounts-1.pdf) 
+![(\#fig:fctCounts)Count plot for each housedolds category](06-exploratory_files/figure-latex/fctCounts-1.pdf) 
 
 Two of the most requested features for comfort and livability in rents are the heating/cooling systems installed. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients needs. In this sense accomodation coming with the newest and most techonological systems are naturally preferred with respect the contrary. 
 x-axis in figure \@ref(fig:PricePerAc) represents log_10 price for both of the two plots. Logarithmic scale is needed to smooth distributions and the resulting price interpretation have to considered into relative percent changes. Furthermore factors are reordered with respect to decreasing price.  
@@ -113,7 +115,7 @@ The top plot displays the most prevalent heating systems categories, among which
 Then in bottom plot Jittering is then applied to point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indedd in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
 
-![(\#fig:PricePerAc)Log Monthly Price per Heating/Cooling system?](06-exploratory_files/figure-latex/PricePerAc-1.pdf) 
+![(\#fig:PricePerAc)Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings](06-exploratory_files/figure-latex/PricePerAc-1.pdf) 
 
 
 this visualization intersects allows to discover bimodality in the response variable.  Log scales was needed since they are all veru skewd and log scale then is needed also in the model.
@@ -153,7 +155,10 @@ The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how 
 it can be noticed is that ultimo piano, otgether with 2 abagni ad 3 bagni are unusually expensive with respect to their proper square meter footage. On the other hand the piano rialzato and piano terra are unusually undervalued given their surface.  
 In other words the  to help with the interpretation. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house returns. The conclusion 
 
-![(\#fig:TieFighterPlot)Coefficient Tie fighter plot for the linear model: log2(price) ~ log2(abs_price) + condom + other_colors](06-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
+Tie fighter coefficient plot for the linear model: $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$
+
+
+![(\#fig:TieFighterPlot)Tie fighter coefficient plot for a log-linear model](06-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
 
 
 ## Text Mining in estate Review
@@ -300,16 +305,6 @@ A further method for imputation has been designed by _Gómez-Rubio, Cameletti, a
 At first the additive regression model with all the covariates is called including the covariates with missing values. The response variable *PRICE* displays no missing values and the model fitted is: 
 
  
-## Model Specification
-
-
-
-## Mesh building 
-
-*PARAFRASARE*
-The SPDE approach approximates the continuous Gaussian field $w_{i}$ as a discrete Gaussian Markov random field by means of a finite basis function defined on a triangulated mesh of the region of study. The spatial surface can be interpolated performing this approximation with the inla.mesh.2d() function of the R-INLA package. This function creates a Constrained Refined Delaunay Triangulation (CRDT) over the study region, that will be simply referred to as the mesh. Mesh should be intended as a trade off between the accuracy of the GMRF surface representation and the computational cost, in other words the more are the vertices, the finer is the GF approximation, leading to a computational funnel. 
-
-![Traingularization intuition, @Krainski-Rubio source](images/triangle.jpg)
 
 Arguments can tune triangularization through inla.mesh.2d() :
 
@@ -336,12 +331,4 @@ INLA includes a Shiny (Chang et al., 2018) application that can be used to tune 
 
 The mesh builder has a number of options to define the mesh on the left side. These include options to be passed to functions inla.nonconvex.hull() and inla.mesh.2d() and the resulting mesh displayed on the right part.
 
-### BUilding SPDE model on mesh
-
-
-    
-# fit.vgm = fit.variogram(semivar, vgm("Sph"))
-# krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)
-
-```
 

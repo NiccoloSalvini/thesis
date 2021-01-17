@@ -1,0 +1,3781 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.1.13)  17 JAN 2021 15:50
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Niccolo_Salvini_Thesis.tex
+(./Niccolo_Salvini_Thesis.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-01-09> xparse <2020-03-03>
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count177
+\c@chapter=\count178
+\c@section=\count179
+\c@subsection=\count180
+\c@subsubsection=\count181
+\c@paragraph=\count182
+\c@subparagraph=\count183
+\c@figure=\count184
+\c@table=\count185
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.
+sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.s
+ty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.
+sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.st
+y
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.st
+y
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen139
+))
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count186
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count187
+\leftroot@=\count188
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count189
+\DOTSCASE@=\count190
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count191
+\c@MaxMatrixCols=\count192
+\dotsspace@=\muskip16
+\c@parentequation=\count193
+\dspbrk@lvl=\count194
+\tag@help=\toks17
+\row@=\count195
+\column@=\count196
+\maxfields@=\count197
+\andhelp@=\toks18
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks19
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifxetex.st
+y
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.s
+ty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
+2.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+))
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks21
+\inpenc@posthook=\toks22
+) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.st
+y
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color
+.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdfte
+x.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.
+sty
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.
+sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdfte
+xcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwar
+err.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.st
+y
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks23
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetk
+eys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvd
+efinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfesc
+ape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.st
+y
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltx
+macro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.st
+y
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoption
+s.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+)
+\@linkdim=\dimen148
+\Hy@linkcounter=\count198
+\Hy@pagecounter=\count199
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.de
+f
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.
+sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmd
+s.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count266
+Package hyperref Info: Option `unicode' set `true' on input line 4338.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2020-05-15 v7.00e Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count267
+ (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen149
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.st
+y
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigin
+tcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count268
+\Field@Width=\dimen150
+\Fld@charsize=\dimen151
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.
+sty
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
+ge
+with kernel methods
+)
+\Hy@abspage=\count269
+\c@Item=\count270
+\c@Hfootnote=\count271
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.d
+ef
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx
+.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
+)
+\Fld@listcount=\count272
+\c@bookmark@seq@number=\count273
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rer
+unfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/un
+iquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip52
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.
+sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count274
+\Gm@cntv=\count275
+\c@Gm@tempcnt=\count276
+\Gm@bindingoffset=\dimen152
+\Gm@wd@mp=\dimen153
+\Gm@odd@mp=\dimen154
+\Gm@even@mp=\dimen155
+\Gm@layoutwidth=\dimen156
+\Gm@layoutheight=\dimen157
+\Gm@layouthoffset=\dimen158
+\Gm@layoutvoffset=\dimen159
+\Gm@dimlist=\toks24
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.
+sty
+\lst@mode=\count277
+\lst@gtempboxa=\box49
+\lst@token=\toks25
+\lst@length=\count278
+\lst@currlwidth=\dimen160
+\lst@column=\count279
+\lst@pos=\count280
+\lst@lostspace=\dimen161
+\lst@width=\dimen162
+\lst@newlines=\count281
+\lst@lineno=\count282
+\lst@maxwidth=\dimen163
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.s
+ty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count283
+\lst@skipnumbers=\count284
+\lst@framebox=\box50
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.
+cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.st
+y
+Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
+\LTleft=\skip53
+\LTright=\skip54
+\LTpre=\skip55
+\LTpost=\skip56
+\LTchunksize=\count285
+\LTcapwidth=\dimen164
+\LT@head=\box51
+\LT@firsthead=\box52
+\LT@foot=\box53
+\LT@lastfoot=\box54
+\LT@cols=\count286
+\LT@rows=\count287
+\c@LT@tables=\count288
+\c@LT@chunks=\count289
+\LT@p@ftn=\toks26
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.
+sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen165
+\lightrulewidth=\dimen166
+\cmidrulewidth=\dimen167
+\belowrulesep=\dimen168
+\belowbottomsep=\dimen169
+\aboverulesep=\dimen170
+\abovetopsep=\dimen171
+\cmidrulesep=\dimen172
+\cmidrulekern=\dimen173
+\defaultaddspace=\dimen174
+\@cmidla=\count290
+\@cmidlb=\count291
+\@aboverulesep=\dimen175
+\@belowrulesep=\dimen176
+\@thisruleclass=\count292
+\@lastruleclass=\count293
+\@thisrulewidth=\dimen177
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.
+sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count294
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.
+sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box55
+\fn@width=\dimen178
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.
+sty
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.
+sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graph
+ics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+)
+\Gin@req@height=\dimen179
+\Gin@req@width=\dimen180
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grffile/grffile.st
+y
+Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
+y)
+Package grffile Info: This package is an empty stub for compatibility on input 
+line 40.
+)
+LaTeX Info: Redefining \href on input line 75.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfpages.
+sty
+Package: pdfpages 2021/01/09 v0.5r Insert pages of external PDF documents (AM)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count295
+\calc@Bcount=\count296
+\calc@Adimen=\dimen181
+\calc@Bdimen=\dimen182
+\calc@Askip=\skip57
+\calc@Bskip=\skip58
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count297
+\calc@Cskip=\skip59
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/eso-pic/eso-pic.st
+y
+Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
+\ESO@tempdima=\dimen183
+\ESO@tempdimb=\dimen184
+)
+\AM@pagewidth=\dimen185
+\AM@pageheight=\dimen186
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pppdftex.
+def
+File: pppdftex.def 2021/01/09 v0.5r Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count298
+\AM@pagebox=\box56
+\AM@global@opts=\toks27
+\AM@pagecnt=\count299
+\AM@toc@title=\toks28
+\c@AM@survey=\count300
+\AM@templatesizebox=\box57
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks29
+\thm@bodyfont=\toks30
+\thm@headfont=\toks31
+\thm@notefont=\toks32
+\thm@headpunct=\toks33
+\thm@preskip=\skip60
+\thm@postskip=\skip61
+\thm@headsep=\skip62
+\dth@everypar=\toks34
+) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen187
+\ar@mcellbox=\box58
+\extrarowheight=\dimen188
+\NC@list=\toks35
+\extratabsurround=\skip63
+\backup@length=\skip64
+\ar@cellbox=\box59
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.
+sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box60
+\sift@deathcycles=\count301
+\@vwid@loff=\dimen189
+\@vwid@roff=\dimen190
+)
+\c@taburow=\count302
+\tabu@nbcols=\count303
+\tabu@cnt=\count304
+\tabu@Xcol=\count305
+\tabu@alloc=\count306
+\tabu@nested=\count307
+\tabu@target=\dimen191
+\tabu@spreadtarget=\dimen192
+\tabu@naturalX=\dimen193
+\tabucolX=\dimen194
+\tabu@Xsum=\dimen195
+\extrarowdepth=\dimen196
+\abovetabulinesep=\dimen197
+\belowtabulinesep=\dimen198
+\tabustrutrule=\dimen199
+\tabu@thebody=\toks36
+\tabu@footnotes=\toks37
+\tabu@box=\box61
+\tabu@arstrutbox=\box62
+\tabu@hleads=\box63
+\tabu@vleads=\box64
+\tabu@cellskip=\skip65
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.
+sty
+Package: multirow 2021/01/02 v2.6 Span multiple rows of a table
+\multirow@colwidth=\skip66
+\multirow@cntb=\count308
+\multirow@dima=\skip67
+\bigstrutjot=\dimen256
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.st
+y
+\wrapoverhang=\dimen257
+\WF@size=\dimen258
+\c@WF@wrappedlines=\count309
+\WF@box=\box65
+\WF@everypar=\toks38
+Package: wrapfig 2003/01/31  v 3.6
+) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count310
+\float@exts=\toks39
+\float@box=\box66
+\@float@everytoks=\toks40
+\@floatcapt=\box67
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.
+sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+\everycr=\toks41
+\minrowclearance=\skip68
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscap
+e.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.st
+y
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/algorithm2e/algori
+thm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count311
+\algocf@hangindent=\skip69
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpag
+e.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count312
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/relsize/relsize.st
+y
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip70
+\skiplinenumber=\skip71
+\skiprule=\skip72
+\skiphlne=\skip73
+\skiptext=\skip74
+\skiplength=\skip75
+\algomargin=\skip76
+\skipalgocfslide=\skip77
+\algowidth=\dimen259
+\inoutsize=\dimen260
+\inoutindent=\dimen261
+\interspacetitleruled=\dimen262
+\interspacealgoruled=\dimen263
+\interspacetitleboxruled=\dimen264
+\algocf@ruledwidth=\skip78
+\algocf@inoutbox=\box68
+\algocf@inputbox=\box69
+\AlCapSkip=\skip79
+\AlCapHSkip=\skip80
+\algoskipindent=\skip81
+\algocf@nlbox=\box70
+\algocf@hangingbox=\box71
+\algocf@untilbox=\box72
+\algocf@skipuntil=\skip82
+\algocf@capbox=\box73
+\algocf@lcaptionbox=\skip83
+\algoheightruledefault=\skip84
+\algoheightrule=\skip85
+\algotitleheightruledefault=\skip86
+\algotitleheightrule=\skip87
+\c@algocfline=\count313
+\c@algocfproc=\count314
+\c@algocf=\count315
+\algocf@algoframe=\box74
+\algocf@algobox=\box75
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/thr
+eeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box76
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/th
+reeparttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.st
+y
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspa
+ces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip88
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box77
+\UL@hyphenbox=\box78
+\UL@skip=\skip89
+\UL@hook=\toks42
+\UL@height=\dimen265
+\UL@pe=\count316
+\UL@pixel=\dimen266
+\ULC@box=\box79
+Package: ulem 2019/11/18
+\ULdepth=\dimen267
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.
+sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen268
+\c@nlinenum=\count317
+\TeXr@lab=\toks43
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip90
+\bibsep=\skip91
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count318
+)
+\c@theorem=\count319
+\c@lemma=\count320
+\c@corollary=\count321
+\c@proposition=\count322
+\c@conjecture=\count323
+\c@definition=\count324
+\c@example=\count325
+\c@exercise=\count326
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
+d-pdftex.def
+File: l3backend-pdftex.def 2021-01-09 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count327
+\l__pdf_internal_box=\box80
+)
+No file Niccolo_Salvini_Thesis.aux.
+\openout1 = `Niccolo_Salvini_Thesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
+pdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstop
+df-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package hyperref Info: Link coloring OFF on input line 155.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
+ty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.
+sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/g
+ettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count328
+)
+LaTeX Info: Redefining \ref on input line 155.
+LaTeX Info: Redefining \pageref on input line 155.
+LaTeX Info: Redefining \nameref on input line 155.
+\@outlinefile=\write3
+\openout3 = `Niccolo_Salvini_Thesis.out'.
+
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(113.81102pt, 398.3386pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=398.3386pt
+* \textheight=674.33032pt
+* \oddsidemargin=41.54103pt
+* \evensidemargin=41.54103pt
+* \topmargin=-18.78552pt
+* \headheight=12.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=38.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\c@lstlisting=\count329
+
+! Package pdfpages Error: Cannot find file `cover.pdf'.
+
+See the pdfpages package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+This error message was generated by an \errmessage
+command, so I can't give any explicit help.
+Pretend that you're Hercule Poirot: Examine all clues,
+and deduce the truth by order and method.
+
+
+! Package pdfpages Error: Cannot find file `1'.
+
+See the pdfpages package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+(That was another \errmessage.)
+
+! Undefined control sequence.
+\AM@checkpagenumber #1->\ifnum #1>\AM@pagecount 
+                                                \relax \ifthenelse {\boolean...
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \relax 
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+
+! Package pdfpages Error: Page 1 of `\AM@currentdocname ' does not exist.
+
+See the pdfpages package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+You have set a wrong page number in the `pages' option. Document 
+`\AM@currentdocname ' does not have 1 pages.
+
+
+! LaTeX Error: File `\AM@currentdocname ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Arithmetic overflow.
+<recently read> \calc@Acount 
+                             
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I can't carry out that multiplication or division,
+since the result is out of range.
+
+! Arithmetic overflow.
+<recently read> \calc@Acount 
+                             
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I can't carry out that multiplication or division,
+since the result is out of range.
+
+
+! LaTeX Error: File `\AM@currentdocname ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: File `\AM@currentdocname ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: File `\AM@currentdocname ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: File `\AM@currentdocname ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.158 \includepdf[pages={1}, scale=1]{cover.pdf}
+                                                
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[1
+
+]
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+63.
+ (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+63.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+163.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+163.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 163.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 163.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 163.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 163
+.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 163
+.
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 163.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 163.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 163.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.163 
+       [1
+
+{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
+x.map}]
+\tf@toc=\write4
+\openout4 = `Niccolo_Salvini_Thesis.toc'.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.168 \listoftables
+                    [1
+
+]
+\tf@lot=\write5
+\openout5 = `Niccolo_Salvini_Thesis.lot'.
+
+ [2
+
+]
+\tf@lof=\write6
+\openout6 = `Niccolo_Salvini_Thesis.lof'.
+
+ [3
+
+]
+Chapter 1.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+79.
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+[4
+
+]
+
+Package natbib Warning: Citation `plumber' on page 5 undefined on input line 22
+2.
+
+
+Package natbib Warning: Citation `shiny' on page 5 undefined on input line 222.
+
+
+[5]
+Chapter 2.
+
+Package natbib Warning: Citation `rvest' on page 6 undefined on input line 230.
+
+
+
+Package natbib Warning: Citation `Beautifulsoup' on page 6 undefined on input l
+ine 230.
+
+
+Package natbib Warning: Citation `polite' on page 6 undefined on input line 232
+.
+
+
+Package natbib Warning: Citation `future' on page 6 undefined on input line 233
+.
+
+
+Package natbib Warning: Citation `doParallel' on page 6 undefined on input line
+ 233.
+
+
+Package natbib Warning: Citation `furrr' on page 6 undefined on input line 233.
+
+
+
+Package natbib Warning: Citation `foreach' on page 6 undefined on input line 23
+3.
+
+[6
+
+] [7]
+
+Package natbib Warning: Citation `ciscooutlook' on page 8 undefined on input li
+ne 244.
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 244.
+
+Package natbib Warning: Citation `krotovtennyson' on page 8 undefined on input 
+line 244.
+
+
+Package natbib Warning: Citation `krotovtennyson' on page 8 undefined on input 
+line 244.
+
+
+Package natbib Warning: Citation `LegalityEthicsWS' on page 8 undefined on inpu
+t line 245.
+
+
+Package natbib Warning: Citation `html_2020' on page 8 undefined on input line 
+246.
+
+
+Package natbib Warning: Citation `css_2020' on page 8 undefined on input line 2
+46.
+
+
+Package natbib Warning: Citation `wiki:XML' on page 8 undefined on input line 2
+46.
+
+
+Package natbib Warning: Citation `wiki:JSON' on page 8 undefined on input line 
+246.
+
+
+Package natbib Warning: Citation `wiki:Javascript' on page 8 undefined on input
+ line 246.
+
+
+LaTeX Warning: Reference `parallelscraping' on page 8 undefined on input line 2
+47.
+
+
+LaTeX Warning: Reference `best-practices' on page 8 undefined on input line 247
+.
+
+
+Package natbib Warning: Citation `wsstatistics' on page 8 undefined on input li
+ne 249.
+
+
+LaTeX Warning: Reference `infrastructure' on page 8 undefined on input line 249
+.
+
+
+Package natbib Warning: Citation `automateddatacollection' on page 8 undefined 
+on input line 250.
+
+[8] [9]
+
+Package natbib Warning: Citation `wiki:url' on page 10 undefined on input line 
+275.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 10 undefined on input line 27
+6.
+
+<images/complex_url.png, id=70, 732.7375pt x 263.98625pt>
+File: images/complex_url.png Graphic file (type png)
+<use images/complex_url.png>
+Package pdftex.def Info: images/complex_url.png  used on input line 280.
+(pdftex.def)             Requested size: 398.34454pt x 143.51315pt.
+
+Package natbib Warning: Citation `Anatomyo72' on page 10 undefined on input lin
+e 281.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 10 undefined on input line 28
+4.
+
+
+LaTeX Warning: Reference `docker' on page 10 undefined on input line 284.
+
+
+LaTeX Warning: Reference `nginx' on page 10 undefined on input line 284.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 10 undefined on input line 28
+5.
+
+[10pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.291 
+       <./images/complex_url.png>] [11]
+<images/immobiliare_url.png, id=84, 549.55313pt x 197.98969pt>
+File: images/immobiliare_url.png Graphic file (type png)
+<use images/immobiliare_url.png>
+Package pdftex.def Info: images/immobiliare_url.png  used on input line 308.
+(pdftex.def)             Requested size: 398.35292pt x 143.51617pt.
+
+
+Package natbib Warning: Citation `wiki:cleanurl' on page 12 undefined on input 
+line 312.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 12 undefined on input line 31
+4.
+
+
+LaTeX Warning: Reference `fig:nestedstructure' on page 12 undefined on input li
+ne 316.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 12 undefined on input line 31
+7.
+
+[12pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.318 
+       <./images/immobiliare_url.png>]
+<images/website_tree1.jpg, id=92, 534.19576pt x 334.851pt>
+File: images/website_tree1.jpg Graphic file (type jpg)
+<use images/website_tree1.jpg>
+Package pdftex.def Info: images/website_tree1.jpg  used on input line 321.
+(pdftex.def)             Requested size: 398.33905pt x 249.69167pt.
+
+
+Package natbib Warning: Citation `automateddatacollection' on page 13 undefined
+ on input line 325.
+
+[13pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.333   B
+         uild the url based on the reverse engineered sematic: <./images/websit
+e_tree1.jpg>]
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 14 undefined on input line 34
+9.
+
+
+LaTeX Warning: Reference `fig:urlanatomy' on page 14 undefined on input line 34
+9.
+
+
+LaTeX Warning: Reference `fig:pseudocode3' on page 14 undefined on input line 3
+49.
+
+<images/pseudocode_latex/pseudocode_get_link.jpg, id=99, 316.7835pt x 381.22424
+pt>
+File: images/pseudocode_latex/pseudocode_get_link.jpg Graphic file (type jpg)
+<use images/pseudocode_latex/pseudocode_get_link.jpg>
+Package pdftex.def Info: images/pseudocode_latex/pseudocode_get_link.jpg  used 
+on input line 353.
+(pdftex.def)             Requested size: 278.83316pt x 335.55399pt.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+58.
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 358.
+
+
+LaTeX Warning: Reference `fig:rvestflowchart' on page 14 undefined on input lin
+e 360.
+
+
+LaTeX Warning: Reference `fig:rvestflowchart' on page 14 undefined on input lin
+e 360.
+
+
+LaTeX Warning: Reference `fig:pseudocode3' on page 14 undefined on input line 3
+60.
+
+
+LaTeX Warning: Reference `spoofing' on page 14 undefined on input line 360.
+
+[14] [15pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.2.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.361 
+       <./images/pseudocode_latex/pseudocode_get_link.jpg>]
+<images/workflow.png, id=118, 1835.35687pt x 1030.60031pt>
+File: images/workflow.png Graphic file (type png)
+<use images/workflow.png>
+Package pdftex.def Info: images/workflow.png  used on input line 364.
+(pdftex.def)             Requested size: 398.31874pt x 223.66626pt.
+
+
+LaTeX Warning: Reference `fig:rvestflowchart' on page 16 undefined on input lin
+e 368.
+
+
+Package natbib Warning: Citation `rvest' on page 16 undefined on input line 368
+.
+
+
+Package natbib Warning: Citation `Selectorgadget' on page 16 undefined on input
+ line 368.
+
+
+LaTeX Warning: Reference `ProperScraping' on page 16 undefined on input line 36
+8.
+
+[16pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.369 
+       <./images/workflow.png>]
+
+LaTeX Warning: Reference `fig:pseudocode1' on page 17 undefined on input line 3
+73.
+
+
+LaTeX Warning: Reference `fig:rvestflowchart' on page 17 undefined on input lin
+e 374.
+
+
+LaTeX Warning: Reference `fig:pseudocode3' on page 17 undefined on input line 3
+74.
+
+
+LaTeX Warning: Reference `spoofing' on page 17 undefined on input line 374.
+
+[17]
+<images/pseudocode_latex/pseudocode_price.jpg, id=131, 392.667pt x 383.031pt>
+File: images/pseudocode_latex/pseudocode_price.jpg Graphic file (type jpg)
+<use images/pseudocode_latex/pseudocode_price.jpg>
+Package pdftex.def Info: images/pseudocode_latex/pseudocode_price.jpg  used on 
+input line 379.
+(pdftex.def)             Requested size: 278.83746pt x 271.99481pt.
+
+
+LaTeX Warning: Reference `fig:pseudocode4' on page 18 undefined on input line 3
+83.
+
+
+LaTeX Warning: Reference `plumberapi' on page 18 undefined on input line 383.
+
+
+LaTeX Warning: Reference `sanitize' on page 18 undefined on input line 383.
+
+
+LaTeX Warning: Reference `DoS' on page 18 undefined on input line 383.
+
+
+LaTeX Warning: Reference `parallelscraping' on page 18 undefined on input line 
+383.
+
+[18]
+<images/pseudocode_latex/pseudocode_mainjpg.jpg, id=136, 446.8695pt x 308.352pt
+>
+File: images/pseudocode_latex/pseudocode_mainjpg.jpg Graphic file (type jpg)
+<use images/pseudocode_latex/pseudocode_mainjpg.jpg>
+Package pdftex.def Info: images/pseudocode_latex/pseudocode_mainjpg.jpg  used o
+n input line 387.
+(pdftex.def)             Requested size: 398.36038pt x 274.8794pt.
+
+
+Package natbib Warning: Citation `wiki:DOS' on page 19 undefined on input line 
+396.
+
+
+LaTeX Warning: Reference `spoofing' on page 19 undefined on input line 396.
+
+
+Package natbib Warning: Citation `meissner_2020' on page 19 undefined on input 
+line 397.
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 397.
+[19pdfTeX warning (ext4): destination with the same identifier (name{figure.2.6
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.398 
+       <./images/pseudocode_latex/pseudocode_price.jpg>]
+
+Package natbib Warning: Citation `robotstxt' on page 20 undefined on input line
+ 399.
+
+
+LaTeX Warning: Reference `spoofing' on page 20 undefined on input line 399.
+
+
+Package natbib Warning: Citation `google:robottxt' on page 20 undefined on inpu
+t line 399.
+
+[20pdfTeX warning (ext4): destination with the same identifier (name{figure.2.7
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.400 
+       <./images/pseudocode_latex/pseudocode_mainjpg.jpg>]
+
+Package natbib Warning: Citation `polite' on page 21 undefined on input line 41
+1.
+
+
+Package natbib Warning: Citation `ratelimitr' on page 21 undefined on input lin
+e 411.
+
+
+Package natbib Warning: Citation `memoise' on page 21 undefined on input line 4
+11.
+
+
+Package natbib Warning: Citation `ratelimitr' on page 21 undefined on input lin
+e 411.
+
+
+Package natbib Warning: Citation `densmore_2019' on page 21 undefined on input 
+line 419.
+
+
+LaTeX Warning: Reference `@' on page 21 undefined on input line 421.
+
+
+LaTeX Warning: Reference `spoofing' on page 21 undefined on input line 421.
+
+[21]
+
+Package natbib Warning: Citation `rate_delay' on page 22 undefined on input lin
+e 429.
+
+
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.
+sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstlang2.
+sty
+File: lstlang2.sty 2020/03/24 1.8d listings language file
+)
+(c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstlang3.
+sty
+File: lstlang3.sty 2020/03/24 1.8d listings language file
+) [22]
+
+LaTeX Warning: Reference `reverse' on page 23 undefined on input line 457.
+
+
+Package natbib Warning: Citation `automateddatacollection' on page 23 undefined
+ on input line 457.
+
+
+LaTeX Warning: Reference `fig:httpschema' on page 23 undefined on input line 45
+7.
+
+[23]
+<images/http_schema.jpg, id=197, 470.35725pt x 137.313pt>
+File: images/http_schema.jpg Graphic file (type jpg)
+<use images/http_schema.jpg>
+Package pdftex.def Info: images/http_schema.jpg  used on input line 461.
+(pdftex.def)             Requested size: 398.3486pt x 116.29126pt.
+
+
+Package natbib Warning: Citation `automateddatacollection' on page 24 undefined
+ on input line 462.
+
+[24pdfTeX warning (ext4): destination with the same identifier (name{figure.2.8
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.477 
+       <./images/http_schema.jpg>]
+
+LaTeX Warning: Reference `HTTPS' on page 25 undefined on input line 483.
+
+
+LaTeX Warning: Reference `spoofing' on page 25 undefined on input line 487.
+
+
+Package natbib Warning: Citation `UaDef' on page 25 undefined on input line 494
+.
+
+
+Package natbib Warning: Citation `wiki:UserAgent' on page 25 undefined on input
+ line 497.
+
+
+Package natbib Warning: Citation `whoishostingthis.com' on page 25 undefined on
+ input line 497.
+
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+ []
+
+
+Package natbib Warning: Citation `UserAgen23' on page 26 undefined on input lin
+e 515.
+
+
+LaTeX Warning: Reference `best-practices' on page 26 undefined on input line 52
+2.
+
+[26]
+
+Package natbib Warning: Citation `wiki:UserAgentHints' on page 27 undefined on 
+input line 537.
+
+
+LaTeX Warning: Reference `fig:proxycommunication' on page 27 undefined on input
+ line 543.
+
+[27]
+<images/proxy_schema.jpg, id=232, 443.85825pt x 61.4295pt>
+File: images/proxy_schema.jpg Graphic file (type jpg)
+<use images/proxy_schema.jpg>
+Package pdftex.def Info: images/proxy_schema.jpg  used on input line 558.
+(pdftex.def)             Requested size: 398.34444pt x 55.13042pt.
+
+
+Package natbib Warning: Citation `automateddatacollection' on page 28 undefined
+ on input line 559.
+
+
+LaTeX Warning: Reference `ProperScraping' on page 28 undefined on input line 57
+3.
+
+
+LaTeX Warning: Reference `spoofing' on page 28 undefined on input line 573.
+
+
+LaTeX Warning: Reference `crawling' on page 28 undefined on input line 574.
+
+
+Package natbib Warning: Citation `possibly' on page 28 undefined on input line 
+575.
+
+
+Package natbib Warning: Citation `Rdatascience' on page 28 undefined on input l
+ine 575.
+
+[28pdfTeX warning (ext4): destination with the same identifier (name{figure.2.9
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.576 
+       <./images/proxy_schema.jpg>]
+<images/pseudocode_latex/pseudocode_possibly.jpg, id=240, 407.72325pt x 236.684
+25pt>
+File: images/pseudocode_latex/pseudocode_possibly.jpg Graphic file (type jpg)
+<use images/pseudocode_latex/pseudocode_possibly.jpg>
+Package pdftex.def Info: images/pseudocode_latex/pseudocode_possibly.jpg  used 
+on input line 579.
+(pdftex.def)             Requested size: 278.83458pt x 161.86409pt.
+
+
+LaTeX Warning: Reference `possibly' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Reference `fig:singlethreaded' on page 29 undefined on input lin
+e 588.
+
+[29pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1
+0}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.589 
+       <./images/pseudocode_latex/pseudocode_possibly.jpg>]
+
+Package natbib Warning: Citation `eddelbuettel2020parallel' on page 30 undefine
+d on input line 591.
+
+
+LaTeX Warning: Reference `fig:singlethreaded' on page 30 undefined on input lin
+e 594.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 595--595
+[][][][]$\T1/lmr/m/n/10 https : / / medium . com / @cummingsi1993 / the -[] di^
+^[erence -[] between -[] asynchronous -[] and -[]
+ []
+
+<images/parallel_problem.jpg, id=251, 1994.45125pt x 471.7625pt>
+File: images/parallel_problem.jpg Graphic file (type jpg)
+<use images/parallel_problem.jpg>
+Package pdftex.def Info: images/parallel_problem.jpg  used on input line 599.
+(pdftex.def)             Requested size: 398.33539pt x 94.22125pt.
+
+Package natbib Warning: Citation `barney' on page 30 undefined on input line 60
+0.
+
+
+Package natbib Warning: Citation `wiki:forking' on page 30 undefined on input l
+ine 603.
+
+[30pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1
+1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.604 
+       <./images/parallel_problem.jpg>]
+
+Package natbib Warning: Citation `parallelr' on page 31 undefined on input line
+ 614.
+
+
+Package natbib Warning: Citation `doFuture' on page 31 undefined on input line 
+615.
+
+
+Package natbib Warning: Citation `future' on page 31 undefined on input line 61
+6.
+
+
+Package natbib Warning: Citation `furrr' on page 31 undefined on input line 616
+.
+
+
+Package natbib Warning: Citation `doFuture' on page 31 undefined on input line 
+616.
+
+
+Package natbib Warning: Citation `foreach' on page 31 undefined on input line 6
+16.
+
+
+Package natbib Warning: Citation `bengtsson_2017' on page 31 undefined on input
+ line 616.
+
+
+Package natbib Warning: Citation `doParallel' on page 31 undefined on input lin
+e 616.
+
+
+Package natbib Warning: Citation `barney' on page 31 undefined on input line 61
+7.
+
+
+Package natbib Warning: Citation `parallelr' on page 31 undefined on input line
+ 617.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 617--617
+[][][][]$\T1/lmr/m/n/10 https : / / nceas . github . io / oss -[] lessons / par
+allel -[] computing -[] in -[] r / parallel -[] computing -[] in -[]
+ []
+
+[31]
+
+LaTeX Warning: Reference `best-practices' on page 32 undefined on input line 62
+4.
+
+
+Package natbib Warning: Citation `BakerFuture' on page 32 undefined on input li
+ne 627.
+
+
+Package natbib Warning: Citation `future' on page 32 undefined on input line 62
+7.
+
+
+Package natbib Warning: Citation `furrr' on page 32 undefined on input line 630
+.
+
+[32]
+<images/divideconquer.png, id=280, 331.2375pt x 319.1925pt>
+File: images/divideconquer.png Graphic file (type png)
+<use images/divideconquer.png>
+Package pdftex.def Info: images/divideconquer.png  used on input line 636.
+(pdftex.def)             Requested size: 331.23668pt x 319.19171pt.
+
+
+LaTeX Warning: Reference `fig:furrrfuture' on page 33 undefined on input line 6
+40.
+
+
+LaTeX Warning: Reference `fig:furrrfuture' on page 33 undefined on input line 6
+41.
+
+
+LaTeX Warning: Reference `fig:cpumonitor' on page 33 undefined on input line 64
+1.
+
+[33] [34pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.2.12}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.642 
+       <./images/divideconquer.png>]
+<images/simulations/final_furrr_future.png, id=290, 625.58719pt x 365.11406pt>
+File: images/simulations/final_furrr_future.png Graphic file (type png)
+<use images/simulations/final_furrr_future.png>
+Package pdftex.def Info: images/simulations/final_furrr_future.png  used on inp
+ut line 645.
+(pdftex.def)             Requested size: 398.35075pt x 232.4911pt.
+<images/parallel_computing.jpg, id=291, 410.7345pt x 305.34074pt>
+File: images/parallel_computing.jpg Graphic file (type jpg)
+<use images/parallel_computing.jpg>
+Package pdftex.def Info: images/parallel_computing.jpg  used on input line 651.
+
+(pdftex.def)             Requested size: 398.3493pt x 296.13358pt.
+
+
+Package natbib Warning: Citation `foreach' on page 35 undefined on input line 6
+58.
+
+
+Package natbib Warning: Citation `doFuture' on page 35 undefined on input line 
+658.
+
+[35pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1
+3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.659 
+       <./images/simulations/final_furrr_future.png>] [36pdfTeX warning (ext4):
+ destination with the same identifier (name{figure.2.14}) has been already used
+, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.659 
+       <./images/parallel_computing.jpg>]
+
+LaTeX Warning: Reference `fig:foreachdofuture' on page 37 undefined on input li
+ne 660.
+
+
+LaTeX Warning: Reference `fig:furrrfuture' on page 37 undefined on input line 6
+61.
+
+<images/simulations/final_foreach_dofuture.png, id=307, 625.58719pt x 365.11406
+pt>
+File: images/simulations/final_foreach_dofuture.png Graphic file (type png)
+<use images/simulations/final_foreach_dofuture.png>
+Package pdftex.def Info: images/simulations/final_foreach_dofuture.png  used on
+ input line 665.
+(pdftex.def)             Requested size: 398.35075pt x 232.4911pt.
+
+Package natbib Warning: Citation `Rcrawler' on page 37 undefined on input line 
+672.
+
+
+LaTeX Warning: Reference `webstructure' on page 37 undefined on input line 675.
+
+
+
+Package natbib Warning: Citation `futurebatchtools' on page 37 undefined on inp
+ut line 676.
+
+[37] [38pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.2.15}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.677 
+       <./images/simulations/final_foreach_dofuture.png>]
+
+Package natbib Warning: Citation `WhatCour57' on page 39 undefined on input lin
+e 681.
+
+
+Package natbib Warning: Citation `Kitchens81' on page 39 undefined on input lin
+e 682.
+
+
+Package natbib Warning: Citation `ADetaile90' on page 39 undefined on input lin
+e 696.
+
+
+Package natbib Warning: Citation `peterson2003consumer' on page 39 undefined on
+ input line 696.
+
+
+Package natbib Warning: Citation `TheInter5' on page 39 undefined on input line
+ 696.
+
+
+LaTeX Warning: Reference `DoS' on page 39 undefined on input line 696.
+
+
+Package natbib Warning: Citation `WhatCour57' on page 39 undefined on input lin
+e 696.
+
+
+Package natbib Warning: Citation `Letterfr71' on page 39 undefined on input lin
+e 697.
+
+
+Package natbib Warning: Citation `WhatCour57' on page 39 undefined on input lin
+e 697.
+
+
+Package natbib Warning: Citation `hiQLabsI66' on page 39 undefined on input lin
+e 697.
+
+
+Package natbib Warning: Citation `wiki:HiQvsLinkedIn' on page 39 undefined on i
+nput line 697.
+
+
+Package natbib Warning: Citation `immobiliareterms' on page 39 undefined on inp
+ut line 698.
+
+[39] [40]
+Chapter 3.
+
+LaTeX Warning: Reference `scraping' on page 41 undefined on input line 706.
+
+[41
+
+]
+
+LaTeX Warning: Reference `plumberapi' on page 42 undefined on input line 715.
+
+
+LaTeX Warning: Reference `docker' on page 42 undefined on input line 717.
+
+
+LaTeX Warning: Reference `nginx' on page 42 undefined on input line 719.
+
+
+LaTeX Warning: Reference `HTTPS' on page 42 undefined on input line 721.
+
+
+LaTeX Warning: Reference `aws' on page 42 undefined on input line 723.
+
+<images/software_arch.jpg.png, id=340, 2223.05531pt x 1151.05031pt>
+File: images/software_arch.jpg.png Graphic file (type png)
+<use images/software_arch.jpg.png>
+Package pdftex.def Info: images/software_arch.jpg.png  used on input line 730.
+(pdftex.def)             Requested size: 398.33488pt x 206.24924pt.
+
+Package natbib Warning: Citation `rmarkdown1' on page 42 undefined on input lin
+e 734.
+
+
+Package natbib Warning: Citation `bookdown2' on page 42 undefined on input line
+ 734.
+
+[42]
+
+LaTeX Warning: Reference `fig:apigenstru' on page 43 undefined on input line 74
+3.
+
+
+LaTeX Warning: Reference `fig:apigenstru' on page 43 undefined on input line 74
+3.
+
+
+LaTeX Warning: Reference `fig:apigenstru' on page 43 undefined on input line 74
+3.
+
+[43pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.745 \begin{definition}
+                        [REST] <./images/software_arch.jpg.png>]
+
+Package natbib Warning: Citation `what_is_a_rest_api' on page 44 undefined on i
+nput line 749.
+
+
+Package natbib Warning: Citation `what_is_a_rest_api' on page 44 undefined on i
+nput line 749.
+
+
+LaTeX Warning: Reference `HTTPmethod' on page 44 undefined on input line 750.
+
+
+LaTeX Warning: Reference `fig:apigenstru' on page 44 undefined on input line 75
+0.
+
+<images/api_stru.png, id=360, 1968.60469pt x 910.15031pt>
+File: images/api_stru.png Graphic file (type png)
+<use images/api_stru.png>
+Package pdftex.def Info: images/api_stru.png  used on input line 754.
+(pdftex.def)             Requested size: 398.30984pt x 184.15166pt.
+
+LaTeX Warning: Reference `def:rest' on page 44 undefined on input line 758.
+
+[44pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.763   A
+          client-server architecture made up of clients, servers, and resour...
+ <./images/api_stru.png>]
+
+Package natbib Warning: Citation `plumber' on page 45 undefined on input line 7
+84.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 784--784
+[][][][]$\T1/lmr/m/n/10 https : / / docs . aws . amazon . com / it _ it / apiga
+teway / latest / developerguide / http -[] api -[] vs -[]
+ []
+
+[45]
+
+Package natbib Warning: Citation `an_api_generator_for_r' on page 46 undefined 
+on input line 802.
+
+[46] [47] [48]
+
+Package natbib Warning: Citation `wiki:logging' on page 49 undefined on input l
+ine 877.
+
+[49]
+
+LaTeX Warning: Reference `spoofing' on page 50 undefined on input line 892.
+
+
+Package natbib Warning: Citation `plumber' on page 50 undefined on input line 8
+92.
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 892--893
+[]\T1/lmr/m/n/12 The above fil-ter parses the re-quest through the de-fault re-
+quest ar-gu-
+ []
+
+
+LaTeX Warning: Reference `fig:swagger' on page 50 undefined on input line 897.
+
+
+LaTeX Warning: Reference `fig:pseudocode3' on page 50 undefined on input line 8
+97.
+
+
+LaTeX Warning: Reference `reverse' on page 50 undefined on input line 897.
+
+
+Package natbib Warning: Citation `swaggerUI' on page 50 undefined on input line
+ 897.
+
+
+LaTeX Warning: Reference `fig:swagger' on page 50 undefined on input line 898.
+
+[50]
+<images/swagger.PNG, id=455, 781.11826pt x 463.7325pt>
+File: images/swagger.PNG Graphic file (type png)
+<use images/swagger.PNG>
+Package pdftex.def Info: images/swagger.PNG  used on input line 902.
+(pdftex.def)             Requested size: 398.3412pt x 236.48628pt.
+ [51pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
+3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.910 \begin{definition}
+                        [Docker and Containers] <./images/swagger.PNG>]
+
+Package natbib Warning: Citation `docker' on page 52 undefined on input line 91
+1.
+
+
+Package natbib Warning: Citation `docker_documentation_2020' on page 52 undefin
+ed on input line 916.
+
+
+LaTeX Warning: Reference `sdwf' on page 52 undefined on input line 917.
+
+
+LaTeX Warning: Reference `sdwf' on page 52 undefined on input line 923.
+
+[52]
+
+LaTeX Warning: Reference `fig:dockerfile' on page 53 undefined on input line 92
+5.
+
+<images/dockerfile2.PNG.jpg, id=474, 399.29175pt x 190.91325pt>
+File: images/dockerfile2.PNG.jpg Graphic file (type jpg)
+<use images/dockerfile2.PNG.jpg>
+Package pdftex.def Info: images/dockerfile2.PNG.jpg  used on input line 929.
+(pdftex.def)             Requested size: 398.34639pt x 190.46124pt.
+
+Package natbib Warning: Citation `tidyverse' on page 53 undefined on input line
+ 937.
+
+
+Underfull \hbox (badness 4084) in paragraph at lines 939--941
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] \T1/lmr/m/n/12 : The
+
+ []
+
+[53pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.941   \passthrough
+                    {\lstinline!RUN apt-get update \&\& apt-get install -y \...
+ <./images/dockerfile2.PNG.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 941--943
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][]
+ []
+
+
+Underfull \hbox (badness 2478) in paragraph at lines 941--943
+[][][][][][][][][] \T1/lmr/m/n/12 : The com-mand up-date and in-stall re-main-i
+ng
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 943--945
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+]
+ []
+
+
+LaTeX Warning: Reference `spoofing' on page 54 undefined on input line 957.
+
+
+LaTeX Warning: Reference `def:proxy' on page 54 undefined on input line 957.
+
+
+Package natbib Warning: Citation `nginxDocs' on page 54 undefined on input line
+ 957.
+
+[54]
+
+LaTeX Warning: Reference `sanitize' on page 55 undefined on input line 965.
+
+
+LaTeX Warning: Reference `Dos' on page 55 undefined on input line 965.
+
+
+LaTeX Warning: Reference `fig:nginxfun' on page 55 undefined on input line 968.
+
+
+<images/nginx_gateway.png, id=488, 958.3303pt x 493.845pt>
+File: images/nginx_gateway.png Graphic file (type png)
+<use images/nginx_gateway.png>
+Package pdftex.def Info: images/nginx_gateway.png  used on input line 972.
+(pdftex.def)             Requested size: 398.34308pt x 205.2734pt.
+
+Package natbib Warning: Citation `azureNGINX' on page 55 undefined on input lin
+e 973.
+
+[55]
+
+Package natbib Warning: Citation `dockervolumes' on page 56 undefined on input 
+line 981.
+
+
+Package natbib Warning: Citation `docker_documentation_2020' on page 56 undefin
+ed on input line 982.
+
+[56pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.989   \emph
+             {Preserve data volumes (which are the preferred Docker mechanis...
+ <./images/nginx_gateway.png>]
+<images/docker-compose.jpg, id=500, 476.37975pt x 314.3745pt>
+File: images/docker-compose.jpg Graphic file (type jpg)
+<use images/docker-compose.jpg>
+Package pdftex.def Info: images/docker-compose.jpg  used on input line 998.
+(pdftex.def)             Requested size: 398.339pt x 262.87352pt.
+
+
+LaTeX Warning: Reference `dockerfile' on page 57 undefined on input line 1002.
+
+
+LaTeX Warning: Reference `dockerfile' on page 57 undefined on input line 1002.
+
+
+LaTeX Warning: Reference `nginx' on page 57 undefined on input line 1003.
+
+[57pdfTeX warning (ext4): destination with the same identifier (name{figure.3.6
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1004 
+        <./images/docker-compose.jpg>]
+
+LaTeX Warning: Reference `fig:httpsmeth' on page 58 undefined on input line 100
+8.
+
+
+LaTeX Warning: Reference `HTTPmethod' on page 58 undefined on input line 1008.
+
+
+LaTeX Warning: Reference `fig:nginxfun' on page 58 undefined on input line 1008
+.
+
+<images/https_method.jpg, id=506, 453.49425pt x 139.11975pt>
+File: images/https_method.jpg Graphic file (type jpg)
+<use images/https_method.jpg>
+Package pdftex.def Info: images/https_method.jpg  used on input line 1012.
+(pdftex.def)             Requested size: 398.3565pt x 122.20497pt.
+
+Package natbib Warning: Citation `automateddatacollection' on page 58 undefined
+ on input line 1013.
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 1016--1017
+[]\T1/lmr/m/n/12 From a port com-mu-ni-ca-tion point of view at first NG-INX co
+n-tainer
+ []
+
+[58]
+
+LaTeX Warning: Reference `dockerfile' on page 59 undefined on input line 1027.
+
+[59pdfTeX warning (ext4): destination with the same identifier (name{figure.3.7
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1028 
+        <./images/https_method.jpg>]
+
+LaTeX Warning: Reference `fig:sfmap' on page 60 undefined on input line 1032.
+
+
+LaTeX Warning: Reference `fig:sfmap' on page 60 undefined on input line 1032.
+
+
+Package natbib Warning: Citation `nolispmanager' on page 60 undefined on input 
+line 1032.
+
+[60]
+<images/SoftwareDevWF.jpg, id=533, 736.25063pt x 429.10312pt>
+File: images/SoftwareDevWF.jpg Graphic file (type jpg)
+<use images/SoftwareDevWF.jpg>
+Package pdftex.def Info: images/SoftwareDevWF.jpg  used on input line 1037.
+(pdftex.def)             Requested size: 398.34457pt x 232.16402pt.
+
+
+Package natbib Warning: Citation `colin_fay_2020' on page 61 undefined on input
+ line 1044.
+
+
+Package natbib Warning: Citation `plungr' on page 61 undefined on input line 10
+45.
+
+
+Package natbib Warning: Citation `plumber' on page 61 undefined on input line 1
+045.
+
+
+Package natbib Warning: Citation `colin_fay_2020' on page 61 undefined on input
+ line 1045.
+
+
+Package natbib Warning: Citation `TDD_2004' on page 61 undefined on input line 
+1045.
+
+
+Package natbib Warning: Citation `testthat' on page 61 undefined on input line 
+1045.
+
+
+Package natbib Warning: Citation `loadtest' on page 61 undefined on input line 
+1045.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1047--1047
+[][][][]$\T1/lmr/m/n/10 https : / / rstudio . com / resources / rstudioconf -[]
+ 2020 / deploying -[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1047--1047
+\T1/lmr/m/n/10 end -[] to -[] end -[] data -[] science -[] with -[] shiny -[] p
+lumber -[] and -[] pins / ?mkt _ tok =
+ []
+
+
+Overfull \hbox (921.64621pt too wide) in paragraph at lines 1047--1047
+\T1/lmr/m/n/10 eyJpIjoiTmprNU1USXhPVEprWXpNMSIsInQiOiJtTUhKVzlvSjVIV2hKc0NRNVU1
+NTRQYSsrRGd5MWMyemlTazQ5b1lHRGJXNVBLcnpScjZRaWVcL2JGUjBPNGIwV3pwY1dKTW45cnhcL2J
+zZUlGWndtSFNJZVNaOUcyc1ZXcEJOcnppSVJXSGZRSVU1ZUY1YUU2NWdDamoxZG5VMHZcLyJ9$[]| 
+ []
+
+[61pdfTeX warning (ext4): destination with the same identifier (name{figure.3.8
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1049 
+        <./images/SoftwareDevWF.jpg>] [62]
+Chapter 4.
+
+Package natbib Warning: Citation `mcmc' on page 63 undefined on input line 1053
+.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 63 undefined on inp
+ut line 1053.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 63 undefined on input 
+line 1053.
+
+
+Package natbib Warning: Citation `Rue2009' on page 63 undefined on input line 1
+055.
+
+
+Package natbib Warning: Citation `YT:Rue' on page 63 undefined on input line 10
+55.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 63 undefined on inp
+ut line 1055.
+
+
+Package natbib Warning: Citation `Rue2009' on page 63 undefined on input line 1
+059.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 63 undefined on
+ input line 1060.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 63 undefined on 
+input line 1060.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 63 undefined on inp
+ut line 1060.
+
+[63
+
+]
+
+Package natbib Warning: Citation `wang2018bayesian' on page 64 undefined on inp
+ut line 1065.
+
+
+Package natbib Warning: Citation `hastings' on page 64 undefined on input line 
+1065.
+
+
+Package natbib Warning: Citation `metropolis' on page 64 undefined on input lin
+e 1065.
+
+
+Package natbib Warning: Citation `gelfand1990sampling' on page 64 undefined on 
+input line 1065.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 64 undefined on inp
+ut line 1065.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 64 undefined on input 
+line 1065.
+
+[64]
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 65 undefined on
+ input line 1073.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 65 undefined on inp
+ut line 1073.
+
+
+Package natbib Warning: Citation `GMRFRue' on page 65 undefined on input line 1
+080.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 65 undefined on inp
+ut line 1081.
+
+
+Package natbib Warning: Citation `wang2018bayesian' on page 65 undefined on inp
+ut line 1082.
+
+
+Underfull \hbox (badness 1596) in paragraph at lines 1080--1083
+[]\T1/lmr/m/n/12 The con-di-tional in-de-pen-dence as-sump-tion (\T1/lmr/bx/n/1
+2 ?\T1/lmr/m/n/12 ) (i.e. $\OML/lmm/m/it/12 ^^Y [] \OT1/lmr/m/n/12 =
+ []
+
+[65]
+
+Package natbib Warning: Citation `Blangiarod-Cameletti' on page 66 undefined on
+ input line 1084.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 66 undefined on input
+ line 1084.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 66 undefined on 
+input line 1086.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 66 undefined on
+ input line 1092.
+
+[66]
+
+Package natbib Warning: Citation `GMRFRue' on page 67 undefined on input line 1
+100.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 67 undefined on 
+input line 1101.
+
+
+LaTeX Warning: Reference `missassimp' on page 67 undefined on input line 1101.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 67 undefined on 
+input line 1109.
+
+
+LaTeX Warning: Reference `eq:gmrf' on page 67 undefined on input line 1109.
+
+
+Package natbib Warning: Citation `GMRFRue' on page 67 undefined on input line 1
+109.
+
+
+LaTeX Warning: Reference `fig:precvscov' on page 67 undefined on input line 111
+0.
+
+
+LaTeX Warning: Reference `fig:precvscov' on page 67 undefined on input line 111
+0.
+
+<images/precvscov.jpg, id=587, 952.30782pt x 244.66406pt>
+File: images/precvscov.jpg Graphic file (type jpg)
+<use images/precvscov.jpg>
+Package pdftex.def Info: images/precvscov.jpg  used on input line 1114.
+(pdftex.def)             Requested size: 398.33908pt x 102.34007pt.
+
+Package natbib Warning: Citation `GMRFRue' on page 67 undefined on input line 1
+115.
+
+[67]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1125 ...{i}\) and \(\theta_{j}\), when \$ i \neq
+                                                   j\$, the resulting elemen...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1125 ...ent in the precision matrix is 0 i.e.~\(
+                                                  \theta_{i} \perp \theta_{j...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 68 undefined on
+ input line 1125.
+
+
+Package natbib Warning: Citation `Rue2009' on page 68 undefined on input line 1
+126.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 68 undefined on input 
+line 1126.
+
+
+Package natbib Warning: Citation `GMRFRue' on page 68 undefined on input line 1
+126.
+
+
+LaTeX Warning: Reference `eq:gmrf' on page 68 undefined on input line 1127.
+
+
+LaTeX Warning: Reference `eq:likelihood' on page 68 undefined on input line 112
+7.
+
+
+Overfull \hbox (47.97136pt too wide) in paragraph at lines 1125--1128
+\T1/lmr/m/n/12 bi-na-tions $\OML/lmm/m/it/12 ^^R[]$ \T1/lmr/m/n/12 and $\OML/lm
+m/m/it/12 ^^R[]$\T1/lmr/m/n/12 , when $ i $\OMS/lmsy/m/n/12 6\OT1/lmr/m/n/12 = 
+\OML/lmm/m/it/12 j\OT1/lmr/m/n/12 $\OML/lmm/m/it/12 ; theresultingelementinthep
+recisionmatrixis\OT1/lmr/m/n/12 0\OML/lmm/m/it/12 i:e: []^^R[] \OMS/lmsy/m/n/12
+ ?
+ []
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 68 undefined on
+ input line 1132.
+
+
+Overfull \hbox (7.78156pt too wide) detected at line 1140
+[][]
+ []
+
+[68pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1140 \]
+          <./images/precvscov.jpg>]
+
+LaTeX Warning: Reference `eq:jointpostdistr' on page 69 undefined on input line
+ 1152.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 69 undefined on 
+input line 1152.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 69 undefined on
+ input line 1152.
+
+
+LaTeX Warning: Reference `eq:hyperparam' on page 69 undefined on input line 116
+7.
+
+
+LaTeX Warning: Reference `eq:latentparam' on page 69 undefined on input line 11
+67.
+
+
+Package natbib Warning: Citation `Krainski2018' on page 69 undefined on input l
+ine 1167.
+
+
+Package natbib Warning: Citation `Rue2009' on page 69 undefined on input line 1
+167.
+
+
+LaTeX Warning: Reference `eq:latentparam' on page 69 undefined on input line 11
+67.
+
+[69]
+
+Package natbib Warning: Citation `Krainski2018' on page 70 undefined on input l
+ine 1172.
+
+
+Package natbib Warning: Citation `Rue2009' on page 70 undefined on input line 1
+172.
+
+
+LaTeX Warning: Reference `approx' on page 70 undefined on input line 1177.
+
+
+LaTeX Warning: Reference `LGM' on page 70 undefined on input line 1178.
+
+[70]
+
+LaTeX Warning: Reference `eq:exchange' on page 71 undefined on input line 1191.
+
+
+
+Package natbib Warning: Citation `PACI2017149' on page 71 undefined on input li
+ne 1191.
+
+
+LaTeX Warning: Reference `LGM' on page 71 undefined on input line 1192.
+
+
+LaTeX Warning: Reference `example' on page 71 undefined on input line 1194.
+
+[71]
+
+LaTeX Warning: Reference `fig:summartable' on page 72 undefined on input line 1
+216.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 72 undefined on input
+ line 1216.
+
+<images/summarytable.PNG, id=623, 430.60875pt x 210.18526pt>
+File: images/summarytable.PNG Graphic file (type png)
+<use images/summarytable.PNG>
+Package pdftex.def Info: images/summarytable.PNG  used on input line 1220.
+(pdftex.def)             Requested size: 398.34627pt x 194.43755pt.
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 72 undefined on input
+ line 1221.
+
+[72]
+<images/cotour_toy.png, id=631, 520.19344pt x 367.3725pt>
+File: images/cotour_toy.png Graphic file (type png)
+<use images/cotour_toy.png>
+Package pdftex.def Info: images/cotour_toy.png  used on input line 1228.
+(pdftex.def)             Requested size: 398.33562pt x 281.3137pt.
+
+
+LaTeX Warning: Reference `prdm' on page 73 undefined on input line 1233.
+
+
+LaTeX Warning: Reference `Matern' on page 73 undefined on input line 1233.
+
+[73pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1246 \]
+          <./images/summarytable.PNG>]
+Overfull \hbox (110.8653pt too wide) in paragraph at lines 1254--1263
+[][] 
+ []
+
+
+LaTeX Warning: Reference `fig:marginalsplot' on page 74 undefined on input line
+ 1264.
+
+
+LaTeX Warning: Reference `fig:SPDEplot' on page 74 undefined on input line 1264
+.
+
+[74pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1265 
+        <./images/cotour_toy.png>]
+<images/marginal_distr.png, id=648, 520.19344pt x 367.3725pt>
+File: images/marginal_distr.png Graphic file (type png)
+<use images/marginal_distr.png>
+Package pdftex.def Info: images/marginal_distr.png  used on input line 1268.
+(pdftex.def)             Requested size: 398.33562pt x 281.3137pt.
+ [75pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
+4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1282 N
+        ote that the interpretation is different from the traditional freque...
+ <./images/marginal_distr.png>]
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 76 undefined on
+ input line 1282.
+
+[76]
+Chapter 5.
+
+Package natbib Warning: Citation `Moraga2019' on page 77 undefined on input lin
+e 1287.
+
+
+Package natbib Warning: Citation `Bell2006' on page 77 undefined on input line 
+1287.
+
+
+Package natbib Warning: Citation `Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020' on pa
+ge 77 undefined on input line 1287.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 77 undefined on input 
+line 1287.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 77 undefined on 
+input line 1287.
+
+[77
+
+]
+<images/map.png, id=668, 597.432pt x 448.074pt>
+File: images/map.png Graphic file (type png)
+<use images/map.png>
+Package pdftex.def Info: images/map.png  used on input line 1311.
+(pdftex.def)             Requested size: 398.35387pt x 298.7654pt.
+
+
+Package natbib Warning: Citation `leaflet' on page 78 undefined on input line 1
+312.
+
+
+Package natbib Warning: Citation `leaflet' on page 78 undefined on input line 1
+312.
+
+
+LaTeX Warning: Reference `Infrastructure' on page 78 undefined on input line 13
+15.
+
+
+LaTeX Warning: Reference `fig:prdmap' on page 78 undefined on input line 1315.
+
+
+LaTeX Warning: Reference `LGM' on page 78 undefined on input line 1316.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 78 undefined on input 
+line 1316.
+
+[78pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1320 
+        <./images/map.png>]
+! Undefined control sequence.
+l.1327 Y(s) \equiv\{y(s), s \in \mathscr
+                                        {D}\}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1329 where \(\mathscr
+                       {D}\) is a (fixed) subset of \(\mathbb{R}^{d}\) (in t...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `LGM' on page 79 undefined on input line 1329.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 79 undefined on input 
+line 1329.
+
+
+LaTeX Warning: Reference `fig:prdproc' on page 79 undefined on input line 1329.
+
+
+
+LaTeX Warning: Reference `fig:prdproc' on page 79 undefined on input line 1329.
+
+
+
+Package natbib Warning: Citation `LecturePaci' on page 79 undefined on input li
+ne 1329.
+
+<images/prdprocess.png, id=675, 725.71124pt x 411.78844pt>
+File: images/prdprocess.png Graphic file (type png)
+<use images/prdprocess.png>
+Package pdftex.def Info: images/prdprocess.png  used on input line 1333.
+(pdftex.def)             Requested size: 398.34512pt x 226.03192pt.
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 79 undefined on
+ input line 1334.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 79 undefined on
+ input line 1334.
+
+[79]
+
+LaTeX Warning: Reference `LGM' on page 80 undefined on input line 1337.
+
+
+LaTeX Warning: Reference `inla' on page 80 undefined on input line 1338.
+
+
+LaTeX Warning: Reference `gpbasics' on page 80 undefined on input line 1338.
+
+! Undefined control sequence.
+l.1341 ...then by a covariance function \(\mathscr
+                                                  {\cdot, \cdot}\)
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1344 ...heta_{i}, \theta_{j})=\sigma^2_{\mathscr
+                                                  {C}} \mathscr{C}(\Delta_{i...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1344 ...eta_{j})=\sigma^2_{\mathscr{C}} \mathscr
+                                                  {C}(\Delta_{i j})\), where...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1344 ...Delta_{i j})\), where \(\sigma_{\mathscr
+                                                  {C}}^{2}\) is the variance...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1344 ... for \(i, j = 1, \ldots, n\). \(\mathscr
+                                                  {C}\left( \cdot, \cdot \ri...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1345 ...ized by a covariance function \(\mathscr
+                                                  {C(\Delta_{i j})}\) depend...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 80 undefined on input
+ line 1345.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 80 undefined on input
+ line 1346.
+
+
+Package natbib Warning: Citation `LecturePaci' on page 80 undefined on input li
+ne 1346.
+
+
+LaTeX Warning: Reference `fig:isoovsanis' on page 80 undefined on input line 13
+46.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 80 undefined on
+ input line 1346.
+
+[80pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1347 
+        <./images/prdprocess.png>]
+<images/isotropyVSanisotropy.png, id=689, 449.2785pt x 213.79875pt>
+File: images/isotropyVSanisotropy.png Graphic file (type png)
+<use images/isotropyVSanisotropy.png>
+Package pdftex.def Info: images/isotropyVSanisotropy.png  used on input line 13
+50.
+(pdftex.def)             Requested size: 398.3621pt x 189.56909pt.
+
+
+Package natbib Warning: Citation `blanchetscalliet' on page 81 undefined on inp
+ut line 1351.
+
+
+Package natbib Warning: Citation `blanchetscalliet' on page 81 undefined on inp
+ut line 1351.
+
+
+Package natbib Warning: Citation `Krainski2018' on page 81 undefined on input l
+ine 1354.
+
+[81pdfTeX warning (ext4): destination with the same identifier (name{figure.5.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1355 
+        <./images/isotropyVSanisotropy.png>]
+! Undefined control sequence.
+l.1358 &\text { Exponential } \quad \mathscr
+                                            {C}(\mathbf{ \Delta_{i j}})=\lef...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1359 \tau^{2}_{\mathscr
+                         {C}}+\sigma^{2}_{\mathscr{C}} & \text { if }  \Delt...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1359 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr
+                                                  {C}} & \text { if }  \Delt...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1360 \sigma^{2}_{\mathscr
+                           {C}} \exp (-\phi_{\mathscr{C}} \Delta_{i j}) & \t...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1360 ...^{2}_{\mathscr{C}} \exp (-\phi_{\mathscr
+                                                  {C}} \Delta_{i j}) & \text...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1362 &\text { Gaussian } \quad \mathscr
+                                         {C}(\mathbf{ \Delta_{i j}})=\left\{...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1363 \tau^{2}_{\mathscr
+                         {C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1363 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr
+                                                  {C}} & \text { if } \Delta...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1364 \sigma^{2}_{\mathscr
+                           {C}} \exp \left(-\phi^{2}_{\mathscr{C}}  \Delta_{...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1364 ...thscr{C}} \exp \left(-\phi^{2}_{\mathscr
+                                                  {C}}  \Delta_{i j}^{2}\rig...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1366 &\text { Mat√©rn } \quad \mathscr
+                                        {C}(\mathbf{ \Delta_{i j}})=\left\{\...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1367 \tau^{2}_{\mathscr
+                         {C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1367 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr
+                                                  {C}} & \text { if } \Delta...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \sigma ^{2}_{\mathscr 
+                                 {C}}
+l.1368 ...2}_{\mathscr{C}}}{2^{\nu-1} \Gamma(\nu)}
+                                                  (\phi_{\mathscr{C}}  \Delt...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1368 ...}}{2^{\nu-1} \Gamma(\nu)}(\phi_{\mathscr
+                                                  {C}}  \Delta_{i j})^{\nu} ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1368 ...elta_{i j})^{\nu} K_{\nu}(\phi_{\mathscr
+                                                  {C}}  \Delta_{i j}) & \tex...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `spdeapproach' on page 82 undefined on input line 1373
+.
+
+! Undefined control sequence.
+l.1373 ...et equal to the range \(\sigma_{\mathscr
+                                                  {C}}^{2}\) i.e.~the distan...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1373 ...ible, by the relation \(\sigma_{\mathscr
+                                                  {C}}^{2}=\frac{\sqrt{8 \la...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1373 ...ined by isolating the \(\sigma_{\mathscr
+                                                  {C}}^{2}\), the variance c...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Package natbib Warning: Citation `Cressie_2015' on page 82 undefined on input l
+ine 1373.
+
+! Undefined control sequence.
+l.1376 \mathscr
+               {C}\left(\Delta_{i j}\right)=\frac{1}{\Gamma(\lambda) 2^{\lam...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `fig:matern' on page 82 undefined on input line 1378.
+
+
+Package natbib Warning: Citation `LecturePaci' on page 82 undefined on input li
+ne 1378.
+
+
+LaTeX Warning: Reference `spdeapproach' on page 82 undefined on input line 1378
+.
+
+! Undefined control sequence.
+l.1378 ...on \ref{spdeapproach} \(\sigma_{\mathscr
+                                                  {C}}^{2}\) range is set eq...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+<images/matern.png, id=696, 520.19344pt x 384.6872pt>
+File: images/matern.png Graphic file (type png)
+<use images/matern.png>
+Package pdftex.def Info: images/matern.png  used on input line 1382.
+(pdftex.def)             Requested size: 398.33562pt x 294.57236pt.
+[82]
+
+LaTeX Warning: Reference `GP' on page 83 undefined on input line 1394.
+
+
+Package natbib Warning: Citation `LecturePaci' on page 83 undefined on input li
+ne 1394.
+
+
+Package natbib Warning: Citation `PACI2017149' on page 83 undefined on input li
+ne 1394.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 83 undefined on input 
+line 1394.
+
+
+Package natbib Warning: Citation `BLANGIARDO201339' on page 83 undefined on inp
+ut line 1394.
+
+
+Package natbib Warning: Citation `Banerjee-Gelfand' on page 83 undefined on inp
+ut line 1394.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 83 undefined on input 
+line 1394.
+
+
+Package natbib Warning: Citation `Lindgren2011' on page 83 undefined on input l
+ine 1395.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 83 undefined on input
+ line 1395.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 83 undefined on input
+ line 1395.
+
+
+LaTeX Warning: Reference `approx' on page 83 undefined on input line 1396.
+
+
+LaTeX Warning: Reference `inla' on page 83 undefined on input line 1396.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 83 undefined on input 
+line 1397.
+
+
+LaTeX Warning: Reference `triangular' on page 83 undefined on input line 1397.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 83 undefined on input 
+line 1398.
+
+
+LaTeX Warning: Reference `fig:piepm10' on page 83 undefined on input line 1398.
+
+
+
+LaTeX Warning: Reference `fig:piepm10' on page 83 undefined on input line 1398.
+
+
+[83pdfTeX warning (ext4): destination with the same identifier (name{figure.5.4
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1399 
+        <./images/matern.png>] [84]
+<images/piemonte_pm10.jpg, id=716, 504.08325pt x 225.84375pt>
+File: images/piemonte_pm10.jpg Graphic file (type jpg)
+<use images/piemonte_pm10.jpg>
+Package pdftex.def Info: images/piemonte_pm10.jpg  used on input line 1402.
+(pdftex.def)             Requested size: 398.35216pt x 178.47318pt.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 85 undefined on input 
+line 1403.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 85 undefined on input 
+line 1403.
+
+
+LaTeX Warning: Reference `fig:spdesurf' on page 85 undefined on input line 1406
+.
+
+
+LaTeX Warning: Reference `fig:spdesurf' on page 85 undefined on input line 1406
+.
+
+
+LaTeX Warning: Reference `fig:spdesurf' on page 85 undefined on input line 1406
+.
+
+<images/spde_indexedsurface.jpg, id=717, 419.76825pt x 152.36925pt>
+File: images/spde_indexedsurface.jpg Graphic file (type jpg)
+<use images/spde_indexedsurface.jpg>
+Package pdftex.def Info: images/spde_indexedsurface.jpg  used on input line 141
+0.
+(pdftex.def)             Requested size: 398.35483pt x 144.5965pt.
+
+Package natbib Warning: Citation `Cameletti2012' on page 85 undefined on input 
+line 1411.
+
+
+Package natbib Warning: Citation `Cameletti2012' on page 85 undefined on input 
+line 1411.
+
+
+Package natbib Warning: Citation `Lancaster' on page 85 undefined on input line
+ 1417.
+
+
+Package natbib Warning: Citation `Rosen' on page 85 undefined on input line 141
+7.
+
+[85pdfTeX warning (ext4): destination with the same identifier (name{figure.5.5
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1419 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.5.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1419 
+        <./images/piemonte_pm10.jpg> <./images/spde_indexedsurface.jpg>]
+
+Package natbib Warning: Citation `Malpezzi' on page 86 undefined on input line 
+1422.
+
+
+Package natbib Warning: Citation `SHEPPARD19991595' on page 86 undefined on inp
+ut line 1425.
+
+
+Package natbib Warning: Citation `Ling' on page 86 undefined on input line 1425
+.
+
+
+Package natbib Warning: Citation `Ling' on page 86 undefined on input line 1425
+.
+
+
+Package natbib Warning: Citation `clapp' on page 86 undefined on input line 142
+6.
+
+
+Package natbib Warning: Citation `kammanwand' on page 86 undefined on input lin
+e 1427.
+
+
+Package natbib Warning: Citation `buja1989' on page 86 undefined on input line 
+1427.
+
+
+Package natbib Warning: Citation `Ling' on page 86 undefined on input line 1427
+.
+
+
+Package natbib Warning: Citation `dey2017metamodel' on page 86 undefined on inp
+ut line 1427.
+
+
+LaTeX Warning: Reference `GP' on page 86 undefined on input line 1427.
+
+
+Package natbib Warning: Citation `basilebenfratmcast' on page 86 undefined on i
+nput line 1427.
+
+
+Package natbib Warning: Citation `Ling' on page 86 undefined on input line 1427
+.
+
+
+Package natbib Warning: Citation `spateconomshifei' on page 86 undefined on inp
+ut line 1428.
+
+
+Package natbib Warning: Citation `spateconanslein' on page 86 undefined on inpu
+t line 1428.
+
+
+Package natbib Warning: Citation `spateconanslein' on page 86 undefined on inpu
+t line 1428.
+
+
+Package natbib Warning: Citation `dubelegros' on page 86 undefined on input lin
+e 1429.
+
+
+Package natbib Warning: Citation `dubelegros' on page 86 undefined on input lin
+e 1429.
+
+
+Package natbib Warning: Citation `baltagiparis' on page 86 undefined on input l
+ine 1429.
+
+
+Package natbib Warning: Citation `arbia2020spatial' on page 86 undefined on inp
+ut line 1429.
+
+
+LaTeX Warning: Reference `scraping' on page 86 undefined on input line 1429.
+
+
+Package natbib Warning: Citation `arbia2020postsampling' on page 86 undefined o
+n input line 1429.
+
+
+Package natbib Warning: Citation `Herath_Maier_2011' on page 86 undefined on in
+put line 1430.
+
+
+Package natbib Warning: Citation `sellingVSrental' on page 86 undefined on inpu
+t line 1430.
+
+
+Package natbib Warning: Citation `Capozza_Seguin_1996' on page 86 undefined on 
+input line 1430.
+
+
+Package natbib Warning: Citation `Clark_1995' on page 86 undefined on input lin
+e 1430.
+
+[86] [87]
+
+LaTeX Warning: Reference `LGM' on page 88 undefined on input line 1435.
+
+[88]
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 89 undefined on
+ input line 1437.
+
+
+LaTeX Warning: Reference `inla' on page 89 undefined on input line 1437.
+
+
+LaTeX Warning: Reference `inla' on page 89 undefined on input line 1448.
+
+
+Underfull \hbox (badness 5652) in paragraph at lines 1448--1449
+[]\T1/lmr/m/n/12 then by the fol-low-ing re-la-tion-ship $\OML/lmm/m/it/12 E []
+ \OT1/lmr/m/n/12 =
+ []
+
+[89] [90]
+
+LaTeX Warning: Reference `LGM' on page 91 undefined on input line 1479.
+
+[91]
+
+LaTeX Warning: Reference `eq:genregvec' on page 92 undefined on input line 1510
+.
+
+
+LaTeX Warning: Reference `GP' on page 92 undefined on input line 1514.
+
+[92]
+<images/spatial_prediction.jpg, id=763, 519.1395pt x 214.401pt>
+File: images/spatial_prediction.jpg Graphic file (type jpg)
+<use images/spatial_prediction.jpg>
+Package pdftex.def Info: images/spatial_prediction.jpg  used on input line 1549
+.
+(pdftex.def)             Requested size: 398.34447pt x 164.51349pt.
+
+
+Package natbib Warning: Citation `Blangiardo-Cameletti' on page 93 undefined on
+ input line 1550.
+
+[93] [94pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.5.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1578   t
+          he \emph{posterior predictive p-value} whose math expression is:\(...
+ <./images/spatial_prediction.jpg>]
+
+LaTeX Warning: Reference `example' on page 95 undefined on input line 1585.
+
+[95]
+Chapter 6.
+
+LaTeX Warning: Reference `docs' on page 96 undefined on input line 1593.
+
+
+LaTeX Warning: Reference `prep' on page 96 undefined on input line 1595.
+
+
+LaTeX Warning: Reference `fig:NonLinearSpatialRel' on page 96 undefined on inpu
+t line 1595.
+
+
+Package natbib Warning: Citation `Little' on page 96 undefined on input line 15
+95.
+
+[96
+
+] [97]
+Overfull \hbox (289.37825pt too wide) in alignment at lines 1597--1623
+ [] [] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1623
+ []
+
+
+Overfull \hbox (289.37825pt too wide) in alignment at lines 1623--1641
+ [] [] 
+ []
+
+[98] [99]
+
+! LaTeX Error: File `images/leaflet_prezzi' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1669 ...idth=1\linewidth]{images/leaflet_prezzi}
+                                                   \caption{Leaflet Map}\lab...
+
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/NonLinearSpatialRel-1.pd
+f' not found on input line 1676.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/NonLinearSp
+atialRel-1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1676 .../figure-latex/NonLinearSpatialRel-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[100pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1683 ...s}\label{counts-and-first-orientations}}
+                                                  ]
+
+LaTeX Warning: Reference `fig:fctCounts' on page 101 undefined on input line 16
+85.
+
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/fctCounts-1.pdf' not fou
+nd on input line 1690.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/fctCounts-1
+.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1690 ...tory_files/figure-latex/fctCounts-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:PricePerAc' on page 101 undefined on input line 1
+695.
+
+[101pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1699 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.6.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1699 
+       ]
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/PricePerAc-1.pdf' not fo
+und on input line 1702.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/PricePerAc-
+1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1702 ...ory_files/figure-latex/PricePerAc-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf' n
+ot found on input line 1710.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/unnamed-chu
+nk-1-1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1710 ...iles/figure-latex/unnamed-chunk-1-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[102pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1712 W
+        hat it might be really relevant to research is how monthly prices ch...
+]
+
+LaTeX Warning: Reference `fig:GlmPriceSq' on page 103 undefined on input line 1
+715.
+
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/GlmPriceSq-1.pdf' not fo
+und on input line 1719.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/GlmPriceSq-
+1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1719 ...ory_files/figure-latex/GlmPriceSq-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[103]
+Overfull \hbox (103.12943pt too wide) in paragraph at lines 1725--1738
+[][] 
+ []
+
+
+LaTeX Warning: Reference `fig:TieFighterPlot' on page 104 undefined on input li
+ne 1740.
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 1739--1741
+\T1/lmr/m/n/12 model fit-ted is [][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][].
+ []
+
+[104pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1741 
+       ]
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/TieFighterPlot-1.pdf' no
+t found on input line 1747.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/TieFighterP
+lot-1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1747 ...files/figure-latex/TieFighterPlot-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `(' on page 105 undefined on input line 1754.
+
+[105pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1756 
+       ]
+
+LaTeX Warning: Reference `(' on page 106 undefined on input line 1775.
+
+
+Overfull \hbox (35.60576pt too wide) in paragraph at lines 1775--1778
+[]\T1/lmr/m/n/12 Furthermore it is pos-si-ble to grossly di-vide the plot in fi
+g-ure []fig:WordNetworkgraph)
+ []
+
+[106]
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/WordNetworkgraph-1.pdf' 
+not found on input line 1781.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/WordNetwork
+graph-1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1781 ...les/figure-latex/WordNetworkgraph-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[107pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1790 
+       ]
+
+LaTeX Warning: Reference `ContentArchitecture' on page 108 undefined on input l
+ine 1794.
+
+
+Package natbib Warning: Citation `Little' on page 108 undefined on input line 1
+795.
+
+[108]
+
+Package natbib Warning: Citation `Kuhn' on page 109 undefined on input line 180
+8.
+
+
+LaTeX Warning: Reference `fig:Heatmap' on page 109 undefined on input line 1809
+.
+
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/Heatmap-1.pdf' not found
+ on input line 1813.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/Heatmap-1.p
+df' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1813 ...ratory_files/figure-latex/Heatmap-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:cooccurrence' on page 109 undefined on input line
+ 1818.
+
+
+Package natbib Warning: Citation `Kuhn' on page 109 undefined on input line 181
+9.
+
+[109pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1820 
+       ]
+
+LaTeX Warning: File `06-exploratory_files/figure-latex/cooccurrence-1.pdf' not 
+found on input line 1823.
+
+
+! Package pdftex.def Error: File `06-exploratory_files/figure-latex/cooccurrenc
+e-1.pdf' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1823 ...y_files/figure-latex/cooccurrence-1.pdf}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `Little' on page 110 undefined on input line 1
+830.
+
+
+Package natbib Warning: Citation `Bayesian_INLA_Rubio' on page 110 undefined on
+ input line 1830.
+
+[110pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1837 
+       ]
+Underfull \hbox (badness 1142) in paragraph at lines 1856--1858
+[]\T1/lmr/m/n/12 A fur-ther method for im-pu-ta-tion has been de-signed by \T1/
+lmr/m/it/12 GÛmez-Rubio,
+ []
+
+[111]
+<images/triangle.jpg, id=881, 389.65575pt x 260.77425pt>
+File: images/triangle.jpg Graphic file (type jpg)
+<use images/triangle.jpg>
+Package pdftex.def Info: images/triangle.jpg  used on input line 1870.
+(pdftex.def)             Requested size: 389.68451pt x 260.79349pt.
+
+
+Package natbib Warning: Citation `Krainski-Rubio' on page 112 undefined on inpu
+t line 1871.
+
+[112pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1883   \passthrough
+                     {\lstinline!offset!}: argument is a numeric value (or a...
+ <./images/triangle.jpg>] [113]
+Chapter 7.
+[114
+
+]
+Chapter 8.
+[115
+
+]
+Chapter 9.
+[116
+
+]
+Chapter 10.
+[117
+
+]
+
+LaTeX Warning: Reference `fig:gpcloud' on page 118 undefined on input line 1929
+.
+
+<appendix_images/gp_base_1.jpg, id=925, 524.55975pt x 250.536pt>
+File: appendix_images/gp_base_1.jpg Graphic file (type jpg)
+<use appendix_images/gp_base_1.jpg>
+Package pdftex.def Info: appendix_images/gp_base_1.jpg  used on input line 1933
+.
+(pdftex.def)             Requested size: 398.35738pt x 190.26022pt.
+
+Package natbib Warning: Citation `YT:freitas1' on page 118 undefined on input l
+ine 1934.
+
+
+Package natbib Warning: Citation `YT:freitas1' on page 118 undefined on input l
+ine 1934.
+
+
+LaTeX Warning: Reference `fig:gpclouds' on page 118 undefined on input line 193
+7.
+
+
+LaTeX Warning: Reference `fig:gpclouds' on page 118 undefined on input line 193
+7.
+
+[118
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10.1})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.1939 
+        <./appendix_images/gp_base_1.jpg>] [119] [120]
+<appendix_images/inverse_lemma.jpg, id=946, 446.8695pt x 68.05424pt>
+File: appendix_images/inverse_lemma.jpg Graphic file (type jpg)
+<use appendix_images/inverse_lemma.jpg>
+Package pdftex.def Info: appendix_images/inverse_lemma.jpg  used on input line 
+2015.
+(pdftex.def)             Requested size: 398.36038pt x 60.66672pt.
+ [121 <./appendix_images/inverse_lemma.jpg>]
+
+Package natbib Warning: Citation `YT:paumoraga' on page 122 undefined on input 
+line 2033.
+
+[122]
+<appendix_images/appendix_triangularization.jpg, id=956, 464.937pt x 350.5095pt
+>
+File: appendix_images/appendix_triangularization.jpg Graphic file (type jpg)
+<use appendix_images/appendix_triangularization.jpg>
+Package pdftex.def Info: appendix_images/appendix_triangularization.jpg  used o
+n input line 2040.
+(pdftex.def)             Requested size: 398.36238pt x 300.31984pt.
+
+
+Package natbib Warning: Citation `YT:paumoraga' on page 123 undefined on input 
+line 2041.
+
+
+LaTeX Warning: Reference `inla' on page 123 undefined on input line 2045.
+
+
+LaTeX Warning: Reference `fig:projmat' on page 123 undefined on input line 2045
+.
+
+
+LaTeX Warning: Reference `fig:projmat' on page 123 undefined on input line 2045
+.
+
+
+LaTeX Warning: Reference `fig:triang' on page 123 undefined on input line 2045.
+
+
+[123] [124pdfTeX warning (ext4): destination with the same identifier (name{fig
+ure.10.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.2046 
+        <./appendix_images/appendix_triangularization.jpg>]
+<appendix_images/appendix_proj.jpg, id=967, 479.99326pt x 330.033pt>
+File: appendix_images/appendix_proj.jpg Graphic file (type jpg)
+<use appendix_images/appendix_proj.jpg>
+Package pdftex.def Info: appendix_images/appendix_proj.jpg  used on input line 
+2049.
+(pdftex.def)             Requested size: 398.35768pt x 273.90213pt.
+
+
+Package natbib Warning: Citation `YT:paumoraga' on page 125 undefined on input 
+line 2050.
+
+
+Package natbib Warning: Citation `YT:paumoraga' on page 125 undefined on input 
+line 2050.
+
+No file Niccolo_Salvini_Thesis.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+[125pdfTeX warning (ext4): destination with the same identifier (name{figure.10
+.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.2055 \end{document}
+                      <./appendix_images/appendix_proj.jpg>]
+(./Niccolo_Salvini_Thesis.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `Niccolo_Salvini_Thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Niccolo_Salvini_Thesis.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  7646C5C53D73A373E80AFD280F777140;11953.
+ ) 
+Here is how much of TeX's memory you used:
+ 18102 strings out of 481252
+ 266866 string characters out of 5914123
+ 800184 words of memory out of 5000000
+ 34195 multiletter control sequences out of 15000+600000
+ 506444 words of font info for 102 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 71i,16n,92p,3428b,2524s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+nc}{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mat
+hsy.enc}{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
+m-mathit.enc}{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips
+/lm/lm-rm.enc}{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvip
+s/lm/lm-mathex.enc}{c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc
+/dvips/lm/lm-ts1.enc}<c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmbsy10.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/f
+onts/type1/public/lm/lmbx12.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmbx8.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/nicco/AppData/Roaming/TinyTe
+X/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/nicco/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/nicco/AppData/Roami
+ng/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/nicco/AppData/R
+oaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmib10.pfb><c:/Users/nicco/App
+Data/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/nicco
+/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/n
+icco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Use
+rs/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/
+Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><
+c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pf
+b><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri
+12.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm
+/lmro12.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
+ic/lm/lmsy10.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
+/public/lm/lmsy6.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmsy8.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/fon
+ts/type1/public/lm/lmtk10.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dis
+t/fonts/type1/public/lm/lmtt12.pfb><c:/Users/nicco/AppData/Roaming/TinyTeX/texm
+f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Niccolo_Salvini_Thesis.pdf (127 pages, 3316148 bytes).
+PDF statistics:
+ 1152 PDF objects out of 1200 (max. 8388607)
+ 940 compressed objects within 10 object streams
+ 442 named destinations out of 1000 (max. 500000)
+ 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+

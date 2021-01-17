@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
+  <title>Chapter 7 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
   <meta name="description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta property="og:title" content="Chapter 7 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="NiccoloSalvini/thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta name="twitter:title" content="Chapter 7 Model Selection &amp; Fitting | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/logo/spatial_logo.png" />
   <link rel="shortcut icon" href="images/logo/spatial_logo.ico" type="image/x-icon" />
-<link rel="prev" href="krg-krigelogprice-1-data-model-fit-vgm.html"/>
+<link rel="prev" href="exploratory.html"/>
 <link rel="next" href="application.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -194,10 +194,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8" data-path="Infrastructure.html"><a href="Infrastructure.html#further-sf-integrations"><i class="fa fa-check"></i><b>3.8</b> Further SF Integrations</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a><ul>
-<li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models LGM</a></li>
-<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Approximate Inference setting</a></li>
-<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#inlahier"><i class="fa fa-check"></i><b>4.3</b> INLA as a Hierarchical Model</a></li>
-<li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package in Bayesian Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models (LGM)</a></li>
+<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Laplace Approximations</a></li>
+<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
@@ -207,8 +206,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>5.4.1</b> Parameter estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging (prediction)</a></li>
-<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-checking"><i class="fa fa-check"></i><b>5.6</b> Model Checking</a></li>
-<li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#prior-specification"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
+<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.6</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
+<li class="chapter" data-level="5.8" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.8</b> Spatial Kriging{#kriging} 6.8</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Data preparation</a><ul>
@@ -219,20 +219,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="exploratory.html"><a href="exploratory.html#missassimp"><i class="fa fa-check"></i><b>6.4</b> Missing Assessement and Imputation</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>6.4.1</b> Missing assessement</a></li>
 <li class="chapter" data-level="6.4.2" data-path="exploratory.html"><a href="exploratory.html#covariates-imputation"><i class="fa fa-check"></i><b>6.4.2</b> Covariates Imputation</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="exploratory.html"><a href="exploratory.html#model-specification"><i class="fa fa-check"></i><b>6.5</b> Model Specification</a></li>
-<li class="chapter" data-level="6.6" data-path="exploratory.html"><a href="exploratory.html#mesh-building"><i class="fa fa-check"></i><b>6.6</b> Mesh building</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>6.6.1</b> Shinyapp for mesh assessment</a></li>
-<li class="chapter" data-level="6.6.2" data-path="exploratory.html"><a href="exploratory.html#building-spde-model-on-mesh"><i class="fa fa-check"></i><b>6.6.2</b> BUilding SPDE model on mesh</a></li>
+<li class="chapter" data-level="6.4.3" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>6.4.3</b> Shinyapp for mesh assessment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="fit-vgm-fit-variogramsemivar-vgmsph.html"><a href="fit-vgm-fit-variogramsemivar-vgmsph.html"><i class="fa fa-check"></i><b>7</b> fit.vgm = fit.variogram(semivar, vgm(“Sph”))</a></li>
-<li class="chapter" data-level="8" data-path="krg-krigelogprice-1-data-model-fit-vgm.html"><a href="krg-krigelogprice-1-data-model-fit-vgm.html"><i class="fa fa-check"></i><b>8</b> krg = krige(log(PRICE) ~ 1, data, model = fit.vgm)</a></li>
-<li class="chapter" data-level="9" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>9</b> Model Selection &amp; Fitting</a></li>
-<li class="chapter" data-level="10" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>10</b> Conclusions</a></li>
+<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a></li>
+<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li class="chapter" data-level="10.1" data-path="appendix.html"><a href="appendix.html#gpbasics"><i class="fa fa-check"></i><b>10.1</b> Gaussian Process</a></li>
-<li class="chapter" data-level="10.2" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>10.2</b> SPDE and Triangularization (YT speech: <span class="citation">Moraga (<span>2020</span>)</span>)</a></li>
+<li class="chapter" data-level="8.1" data-path="appendix.html"><a href="appendix.html#gpbasics"><i class="fa fa-check"></i><b>8.1</b> Gaussian Process</a></li>
+<li class="chapter" data-level="8.2" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>8.2</b> SPDE and Triangularization (YT speech: <span class="citation">Moraga (<span>2020</span>)</span>)</a></li>
+<li class="chapter" data-level="8.3" data-path="appendix.html"><a href="appendix.html#laplaceapprox"><i class="fa fa-check"></i><b>8.3</b> Laplace Approximation</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -258,7 +253,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="modelspec" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Model Selection &amp; Fitting</h1>
+<h1><span class="header-section-number">Chapter 7</span> Model Selection &amp; Fitting</h1>
 <!-- ## Model Criticism  -->
 <!-- evaluation of the variables to include in the mode,, assumptions of the model i.e. exchangeablity and independence prior distribution to assign to parameters and hyper parameters. -->
 <!-- ## Spatial Kriging -->
@@ -274,7 +269,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="krg-krigelogprice-1-data-model-fit-vgm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

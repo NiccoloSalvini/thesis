@@ -1,25 +1,33 @@
 # Point Referenced Data Modeling {#prdm}
 
-Geostatistical data are a collection of samples of geo type data indexed by coordinate Reference Systems (CRS), projected (e.g. Eastings and Northings) or unprojected (e.g. Latitude and Longitude), that originates from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, e.g. disease cancer detection [@Bell2006] at several sites, COVID19 spread in China [@Li_Li_Ding_Hu_Chen_Wang_Peng_Shen_2020], PM pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. Moreover house prices variation, as observed in @Bayesian_INLA_Rubio, where house prices smoothly vary between closer neighborhoods. All the Examples taken before might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:
+Geostatistical data are a collection of samples of geo type data indexed by coordinate Reference Systems (CRS), projected (e.g. Eastings and Northings) or unprojected (e.g. Latitude and Longitude), that originates from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, e.g. accidental fisheries bycatch for endangered species [@CosandeyGodin2015], COVID19 severity and case fatality rates in Spain [@Moragacovid2020], PM10 pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. Moreover a large geostatistical application takes place on Real Estate where Boston house prices lattice data from MASS @mass package @rubiorealestate are developed according to several spatial models, where apartment transaction prices are in Corsica (France) are modeled in time and space [@Ling]. All the Examples taken before and might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:
 
 > "Everything is related to everything else, 
 > but near things are more related than distant things"
 >
 >  `r tufte::quote_footer('--- Waldo R. Tobler')`
 
-Spatial models are explicitly designed to take into account this behavior and can separate spatial patterns from simply random spatial variance. 
 Spatial data can be partitioned into three spatial data type whose modeling tools are specific to their respective category.
 
 - Areal Data
 - **Point Referenced Data**
 - Point Pattern Data
 
-
 ![(#fig:prdmap)Point Referenced Data map plot (`Leaflet` @leaflet) of a RESTful API call on Milan Rental Real Estate 20-11-2019, Author's Source](images/map.png)
 
-RESTful scraping API designed in chapter \@ref(Infrastructure) extracts point referenced covariates in the form of Latitude and Longitude nested in a hidden source code JSON object. Observations are then plotted in figure \@ref(fig:prdmap) obtaining a scattered map of houses with their respective geo-coordinates. Modeling methodologies described in this analysis will exclusively take into account point referenced techniques.
-Then in order to extend data from discrete measurements (i.e. point referenced) to a continuous spatial surface a stochastic process, namely Gaussian Process, has to be introduced and constrained to Stationarity and Isotropy. GP is then evaluated with a convenient covariance function, i.e. Matèrn. The reason why Matérn is selected as candidate for covariance function relies in its flexibility and the fact that GP represented with Matérn covariance are able to determine a GMRF \@ref(LGM) through the Stochastic Partial Differential Equations (SPDE) approach [@Cameletti2012]. The main benefit proceeding from a GF to a GMRF arises from the good computational properties that the latter appreciate.
-Hedonic Price Models brings to the present analysis the theoretical foundation according to which covariates are added to the model.
+RESTful scraping API in \@ref(Infrastructure) allows to grab point referenced data (and covariates in tab. \@ref(exploratory)) by simply specifing the city or the sub-entity wanted. Moreover it allows also to specify the number of observation, this may result helpful in some context when complex models can not ingest large amounts of data or when the analyst's interest resides in only certain type of house characteristics.
+
+
+
+RESTful scraping API designed in chapter \@ref(Infrastructure) extracts geostatistical components in the form of Latitude and Longitude nested in a hidden source code JSON object. Resulting observations can be represented through a map as in fig. \@ref(fig:prdmap). API allows gather dat 
+
+Large areas with no housing within the polygons have
+been removed (e.g. parks, the University of Zaragoza campus, hospital areas, etc.). What is
+retained is, essentially, a full census of apartment sale transactions in and around the city center
+
+Modeling methodologies described in this analysis will exclusively take into account point referenced techniques within the INLA algorithm.
+Geostatical data can be considered as a stochastic process indexed on a continuous plane [@arbia2012spatial] i.e Gaussian Process.
+This information is essential to interpolate points and build a Gaussian Process over the y-studied variable domain in order to predict the phenomenon at locations not yet observed. GPs ,at first, have to be introduced and constrained to the properties of Stationarity and Isotropy and then they are considered with a convenient covariance function, i.e. Matèrn. The reason why Matérn is selected as candidate for covariance function relies, besides its inner flexibility, on the fact that GP whose covariance function is Matérn are able to determine a GMRF \@ref(gmrf) through the Stochastic Partial Differential Equations (SPDE) approach [@Lindren2011]. The main benefit proceeding from a GP to a GMRF arises from the good computational properties that the latter appreciate enabling to wrap up modeling around INLA and consequently benefiting from it. Hedonic Price Models brings to the present analysis the theoretical foundation according to which covariates are added to the model.
 Spatial kriging is essential to predict the process at new locations given the continuous spatial surface.
 In the end models have to be checked and verified with resampling schemes which are once again specific to the data type and the scope of the analysis.
 
@@ -32,11 +40,11 @@ Point referenced data are defined as realizations of a stochastic process indexe
 $$
 Y(s) \equiv\{y(s), s \in \mathscr{D}\}
 $$
-where $\mathscr{D}$ is a (fixed) subset of $\mathbb{R}^{d}$ (in the present work _Latitude_ and _Longitude_, i.e. $d=2$). The actual data can be then represented by a collection of observations    $\boldsymbol{y}=\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ (recall INLA notation in section \@ref(LGM)) where the set $\left(s_{1}, \ldots, s_{n}\right)$ points to the spatial location where data has been considered. For example, as in @Cameletti2012, assume to have collection of samples from air pollutant measurements obtained by observing a set of monitoring stations. Then The stochastic process $Y(s)$ is observed in a fixed set of spatial indexes corresponding to the station locations (upwords arrows left in figure \@ref(fig:prdproc)). This information is essential to interpolate points and build a spatially continuous surface (right panel in figure \@ref(fig:prdproc)) over the y-studied variable domain in order to predict the phenomenon at locations not yet observed. [@LecturePaci].
+where $\mathscr{D}$ is a (fixed) subset of $\mathbb{R}^{d}$ (in the present work _Latitude_ and _Longitude_, i.e. $d=2$). The actual data can be then represented by a collection of observations    $\boldsymbol{\mathbf{y}}=\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ (recall notation from previous chapter \@ref(LGM)) where the set $\left(s_{1}, \ldots, s_{n}\right)$ points to the spatial location where data has been considered. For example, following @Cameletti2012, assume to have collection of samples from air pollutant measurements obtained by observing a set of monitoring stations. Then The stochastic process $Y(s)$ is observed in a fixed set of spatial indexes corresponding to the station locations (upwords arrows left in figure \@ref(fig:prdproc)). This information is essential to interpolate points and build a spatially continuous surface (right panel in figure \@ref(fig:prdproc)) over the y-studied variable domain in order to predict the phenomenon at locations not yet observed. [@LecturePaci].
 
 ![(#fig:prdproc)Stockton data, Left: Spatial Lat and Long points pojected into the $3^{rd}$ dim $\log(Price)$, Right: spatial interpolation of points, source @Blangiardo-Cameletti](images/prdprocess.png)
 
-The first step in defining a spatial model within the Bayesian framework is to identify a probability distribution for the observed data. Usually are drawn distributions from the _Exponential family_, indexed by a set of parameters $\boldsymbol\theta$ as in \@ref(LGM), accounting for the spatial correlation — note that for the sake of simplicity we slightly abuse the notation and index the generic spatial point or area by using just the subscript $i$, rather than the indicator $s_i$, in the following.
+The first step in defining a spatial model within INLA is to impose a LGM which reuires at first to identify a probability distribution for the observed data $\boldsymbol{\mathbf{y}}$. Usually are drawn distributions from the _Exponential family_, indexed by a set of parameters $\boldsymbol\theta$ as in \@ref(LGM), accounting for the spatial correlation — note that for the sake of simplicity we slightly abuse the notation and index the generic spatial point or area by using just the subscript $i$, rather than the indicator $s_i$, in the following.
 In the case of geostatistical data, the model parameters $\boldsymbol\theta$, folllwing notation imposed in  chapter \@ref(inla) are defined as a latent stationary Gaussian Process (GP). The GP theoretical foundations and the spatial intuition are offered as a companion in the appendix \@ref(gpbasics).
 
 ```{definition,GP,name="GP definition"}
@@ -68,13 +76,15 @@ $$
 \end{aligned}
 $$
 
-In particular the focus is on the _Matérn_ – as it is required by the SPDE approach in Section \@ref(spdeapproach) – and this should not be intended as a restriction. In fact, as described in Guttorp and Gneiting (2006) _miss lit_, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one $\kappa>0$, usually set equal to the range $\sigma_{\mathscr{C}}^{2}$ i.e. the distance at which the spatial dependece becomes negligible, by the relation $\sigma_{\mathscr{C}}^{2}=\frac{\sqrt{8 \lambda}}{\kappa}$), and a smoothing one $\nu>0$.  A _isotropic_ Matérn covariance expression is obtained by isolating the $\sigma_{\mathscr{C}}^{2}$, the variance component [@Cressie_2015]:
+In particular the focus is on the _Matérn_ – as it is required by the SPDE approach in Section \@ref(spdeapproach) – and this should not be intended as a restriction. In fact, as described in Guttorp and Gneiting (2006) _miss lit_, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one $\kappa>0$, usually set equal to the range $\sigma_{\mathscr{C}}^{2}$ i.e. the distance at which the spatial dependence becomes negligible, by the relation $\sigma_{\mathscr{C}}^{2}=\frac{\sqrt{8 \lambda}}{\kappa}$), and a smoothing one $\nu>0$.  A _isotropic_ Matérn covariance expression is obtained by isolating the $\sigma_{\mathscr{C}}^{2}$, the variance component [@Cressie_2015]:
 
 $$
 \mathscr{C}\left(\Delta_{i j}\right)=\frac{1}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa \Delta_{i j}\right)^{\lambda} K_{\lambda}\left(\kappa \Delta_{i j}\right)
 $$
 $\Gamma(\nu)$ is a Gamma function depending on $\nu$ values, $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The smoothness parameter $\nu$ in figure \@ref(fig:matern) takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When $\nu = 1$ ... When $\nu = 1/2$ it becomes the exponential covariance function, When $\nu = 3/2$ it uncovers a convenient closed form [@LecturePaci], when $\nu \approx \infty$, e.g. for graphical constraints $\nu = 80$, it becomes Gaussian covariance function. In the the case shown in section \@ref(spdeapproach) $\sigma_{\mathscr{C}}^{2}$ range is set equal to the distance at which dependence vanishes below .1, for any $\lambda$.
 
+
+**qui metti codici**
 ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png)
 
 
@@ -383,7 +393,7 @@ $$\hat{\boldsymbol{\beta}}_{M L E}=\left(\mathbf{X}^{\prime} Q^{-1} \mathbf{X}\r
 <!-- prePRENDI DA KRAINSKI -->
 
 In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed. 
-Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier          )) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained: 
+Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier)) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained: 
 
 $$
 \begin{aligned}
@@ -402,8 +412,9 @@ A DAG representation might offr the intuition behind Prediction in spatial model
 where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
 
 
-## Model Checking
+## Model Criticism
 
+Since INLA can fit a wide range of model then the flexibility should be reflected by a mouldable tool to check model suitability. 
 Once the model is set up and fitted a resampling scheme has to be chosen in order to evaluate the model performance. One of the most used method to assess beyasian model quality is LOOCV cross validation and defualt choice fo R-INLA package. From data is left out one single observation and so that the Validation set is  $\boldsymbol{y}_{v} = \boldsymbol{y}_{-i}$ and the Assessement set is a $\boldsymbol{y}_{a} = \boldsymbol{y}_{i}$
 the rest of the observations. Two KPI are assumed to be representative:
 
@@ -421,6 +432,43 @@ Posteerior checking method exploits a full cross validation where $\boldsymbol{y
 
 R-INLA has already antiticipated in chapter 4 section\@ref(example) have designed function to compute statistics on posterior distribution as `inla.pmarginal()` returning the cumulative density distribution.
 
-## Prior Specification
+## Prior Specification{#priorsspec}
+
+The priors choice is the most central part of a Bayesian analysis and at the same time the weakest since any selection might be criticized. Priors expression involves a considerably high amount of subjectivity and domain experience which may be imported from other comparable literature works or results. However according to purists Bayesian priors should be decided _a-priori_, without either looking at the data, nor the posterior results. This can be tedious since many models are sensitive to priors, as evidenced in the example in sec. \@ref(rinla). Priors may negatively impact posteriors when are 
+wrong and they usually require a later revision. The choice in this context is also more difficult since it is also constrained to LGM requirements for which the latent field demands them to be jointly Gaussian. @simpson2017 provide a solid backbone knowledge on priors specification in Hierarchical models by setting up 4 guidelines principles on top of which it is built a new class said Penalized Complexity (PC) priors. Before jumping into the principles it is needed an abstract concept that goes by the name of “base model". For a general density $\pi(\mathbf{y} \,| \,\xi)$ which is controlled by a flexibility parameter $\xi$ the base model is the most uncomplicated one in the class. Following the notation this would be the model corresponding to $\xi = 0$. The base model ideally grabs the parameter choice with the lowest possible complexity given the model an set it as a ground benchmark. The following example regards base model for a a Gaussian Random effect and it considers a multivarite gaussian distributed with mean **0** and precision matrix $\tau \boldsymbol{Q}$, i.e.  $\mathbf{y} \mid \xi \sim \operatorname{MVN}(\, 0\, ,\,\tau \boldsymbol{Q})$, where $\tau=\xi^{-1}$. The base model tries to put the mass [-@simpson2017] on $\xi = 0$ since the base model in this case is a model without the random effect. At this point it is possible to present the building blocks, first priciple is _Occam’s razor_ according to which priors should be weighted down in fuction of the distance between the added complexity and the base model i.e. simpler solutions are preferred. The second principle regards how it is measured complexity whose solution is found in KLD (Kullback–Leibler divergence) calculating distance $d$. KLD in this context along with principle 1 affirms that the prior shall have high mass in areas where replacing the base model with the flexible model will not cause any information loss. Principle 3 is constant rate penalization that actually relates the distance $d$ to a constant penalization. In the end principle 4 regards a scale parameter which actually ends up not being very sharp in prior setting. A prior satistfyng all the requirements is said Penalized in Complexity.
+Priors of this class therefore should be derived with respect to the specific content they are needed. In this context PC priors are seen for Gaussian Random effect, i.e. the GP process hyper parameter.
+Assume to have a gaussian random effect modeling some sort of spatial dependece as in \@ref(GP), i.e. $\mathbf{x} \sim \mathcal{N}\left(\mathbf{0}, \tau^{-1} \boldsymbol{Q}^{-1}\right)$. The base model considers the absence of the random effect which implies $\tau \rightarrow \infty$, [...] the applying principles priors take the form of an exponential distribution i.e. "type-2 Gumbel distribution" on the standard deviation (in contrast to the exponential on the precision seen in the default). 
+
+![(#fig:priorcomp)New prior (dashed) with parameters ($U = 0.968$,$\alpha = 0.01$), and the $\Gamma(shape = 1,rate = b)$ prior (solid).](images/new_prior.jpg)
+
+
+- wang genral prior specifications OK
+- wang 106 choice of priors OK 
+- wang 216 choice of priors for GP OK
+- blangiardo 6.9 pagina 214 OK
+- pagina 197 rimando a 214 OK
+- leggere @simpson2017 OK
+
+
+
+## Spatial Kriging{#kriging} 6.8
+
+The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. 
+
+
+
+
+At first it may be convenient to look at general bayesian prediction 
+
+- general bayesian prediction (wang + balngiardo)
+- spartial prediction by Gelfand
+- integrating with paci
+- code from blangiardo 
+
+
+
+
+
+
 
 

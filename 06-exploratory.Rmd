@@ -151,7 +151,9 @@ datiprep = readd(datiprep)
 
 ```
 
-```{r covar_table, fig.cap="Covariate explanation table"}
+**prova a farla in latex***
+
+```{r covar_table, fig.cap="List of Hedonic variables in the API call and their brief explanation"}
 
 ### fai la tabella delle colonne
 ### 
@@ -338,7 +340,7 @@ usa_voting_tbl %>%
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictor to include in the model. The visualization in figure \@ref(fig:fctCounts) offers the rearranged factor *TOTLOCALI*. 
 Bilocali are the most common option for rent, then trilocali comes after. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so short stayings are warmly welcomed.
 
-```{r fctCounts, fig.cap="Most common housedolds categories"} 
+```{r fctCounts, fig.cap="Count plot for each housedolds category"} 
 datiprep %>%
   mutate(totlocali = as_factor(totlocali)) %>% 
   count(totlocali, sort = TRUE) %>% 
@@ -346,8 +348,7 @@ datiprep %>%
   ggplot(aes(n, totlocali)) +
   geom_col() +
   labs(x = "# of houses",
-       y = "",
-       title = "Most common housedolds categories in Milan")+
+       y = "") +
   theme_nicco()
 ```
 
@@ -358,7 +359,7 @@ The top plot displays the most prevalent heating systems categories, among which
 Then in bottom plot Jittering is then applied to point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indedd in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
 
-```{r PricePerAc, fig.cap="Log Monthly Price per Heating/Cooling system?"}
+```{r PricePerAc, fig.cap="Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings"}
 
 pph =datiprep %>%
   mutate(heating = fct_lump(heating, 4)) %>%
@@ -373,7 +374,6 @@ pph =datiprep %>%
   mutate(heating = glue("{ heating } ({ heating_count })"),
          heating  = fct_reorder(heating, price)) %>%
   ggplot(aes(price, heating)) +
-  ggtitle("Log Monthly Price per Heating and AC systems?")+
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
@@ -487,7 +487,10 @@ The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how 
 it can be noticed is that ultimo piano, otgether with 2 abagni ad 3 bagni are unusually expensive with respect to their proper square meter footage. On the other hand the piano rialzato and piano terra are unusually undervalued given their surface.  
 In other words the  to help with the interpretation. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house returns. The conclusion 
 
-```{r TieFighterPlot, fig.cap="Coefficient Tie fighter plot for the linear model: log2(price) ~ log2(abs_price) + condom + other_colors"}
+Tie fighter coefficient plot for the linear model: $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$
+
+
+```{r TieFighterPlot, fig.cap="Tie fighter coefficient plot for a log-linear model"}
 
 datiprep_sq %>%
   mutate(totpiani = fct_lump(totpiani, 5),
@@ -510,8 +513,7 @@ datiprep_sq %>%
   geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = .1) +
   geom_vline(xintercept = 0, color = "red", lty = 2) +
   labs(x = "Coefficient",
-       y = "",
-       title = "Unusually expensive house chars wrt House Surface") +
+       y = "") +
   theme_nicco()
 ```
 

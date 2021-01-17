@@ -1,5 +1,7 @@
 # Appendix {-}
 
+
+
 ## Gaussian Process{#gpbasics}
 
 Let assume ti have cloud of points represented by two variables $X_1$ and $X_2$, figure \@ref(fig:gpcloud). The cloud of points are observation taken from a realization of two variables e.g. height and weight, What it might be observed is:
@@ -127,3 +129,120 @@ Imagine to have a point a location X laying inside a triangle whose vertices are
 In order to do this within INLA \@ref(inla) it is needed also a _Projection Matrix_ , figure \@ref(fig:projmat). The Projection matrix maps the continuous GRMF (when it is assumed a GP) from the observation to the triangulation. It essentially assigns the hieght of the triangle for each vertex of the triangularization to the process. Matrix $\mathcal{A}$, whose dimensions are $\mathcal{A_{ng}}$. It has $n$ rows a $g$ columns, where $n$ is the number of observations and $g$ is the number of vertices of the triangulation. Each row has possibly three non-0 values, right matrix in figure \@ref(fig:projmat), and the columns represent the vertices of the triangles that contains the point. Assume to have an observation that coincides with a vertex $S_1$ of the triangle in \@ref(fig:triang), since the point is on top of the vertex (not inside), there are no weights ($A_1 = \mathcal{A}$) and 1 would be the value at $A_{(1,1)}$ and 0 would be the rest f the values in the row. Now let assume to have an observation coinciding with $S_3$ (vertex in position 3), then the result for $A_{(2,3)}$ would be 1 and the rest 0. Indeed when tha value is X that lies within one of the triangles all the elements of the rows will be 0, but three elements in the row corresponding of the p osition of the vertices $1 = .2, 2 = .2 and g = .6$, as a result X will be weighted down for the areas.
 
 ![(#fig:projmat)Projection Matrix to map valjes from tringulation back to the GP, @YT:paumoraga surce](appendix_images/appendix_proj.jpg)
+
+
+## Laplace Approximation{#laplaceapprox}
+
+@Blangiardo-Cameletti offers an INLA focused intuiton on how the Laplace approximation works for integrals. Let assume that the interest is to compute the follwing integral, assuming the notation followed throughout the analysis:
+
+$$
+\int \pi(x) \mathrm{d} x=\int \exp (\log f(x)) \mathrm{d} x
+$$
+Where $X$ is a random variable for which it is specified a distribution function $\pi$. Then by the Taylor series expansions [@taylorseries] it is possible to represent the $\log \pi(x)$ evaluated in an exact point $x = x_0$, so that:
+
+\begin{equation}
+\log \pi(x) \approx \log \pi\left(x_{0}\right)+\left.\left(x-x_{0}\right) \frac{\partial \log \pi(x)}{\partial x}\right|_{x=x_{0}}+\left.\frac{\left(x-x_{0}\right)^{2}}{2} \frac{\partial^{2} \log \pi(x)}{\partial x^{2}}\right|_{x=x_{0}}
+(\#eq:secondordexpan)
+\end{equation}
+
+Then if it is assumed that $x_0$ is set equal to the mode $x_*$ of the distribution (the highest point), for which $x_{*}=\operatorname{argmax}_{x} \log \pi(x)$, then the first order derivative with respect to $x$ is 0, i.e. $\left.\frac{\partial \log f(x)}{\partial x}\right|_{x=x_{*}}=0$. That comes natural since once the function reaches its peak, i.e. the max then the derivative in that point is 0. Then by leaving out the first derivative element in eq. \@ref(eq:secondordexpan) it is obtained: 
+
+$$
+\log \pi(x) \approx \log \pi\left(x_{*}\right)+\left.\frac{\left(x-x_{*}\right)^{2}}{2} \frac{\partial^{2} \log \pi(x)}{\partial x^{2}}\right|_{x=x_{*}}
+$$
+
+Then by integrating what remained, exponantiating and taking out non integrable terms,  
+
+<!-- $$ -->
+<!-- \int \pi(x) \mathrm{d} x \approx \int \exp \left(\log \pi\left(x^{*}\right)+\left.\frac{\left(x-x^{*}\right)^{2}}{2} \frac{\partial^{2} \log \pi(x)}{\partial x^{2}}\right|_{x=x^{*}}\right) \mathrm{d} x -->
+<!-- $$ -->
+
+\begin{equation}
+\int \pi(x) \mathrm{d} x \approx \exp \left(\log \pi\left(x_{*}\right)\right) \int \exp \left(\left.\frac{\left(x-x_{*}\right)^{2}}{2} \frac{\partial^{2} \log \pi(x)}{\partial x^{2}}\right|_{x=x_{*}}\right) \mathrm{d} x
+(\#eq:integraltay)
+\end{equation}
+
+At this point it might be already intuited the expression \@ref(eq:integraltay) is actually the density of a Normal. As a matter of fact, by imposing $\sigma^{2}_{*}=-1 /\left.\frac{\partial^{2} \log f(x)}{\partial x^{2}}\right|_{x=x_{*}}$, then expression \@ref(eq:integraltay) can be rewritten as:
+
+\begin{equation}
+\int \pi(x) \mathrm{d} x \approx \exp \left(\log \pi\left(x_{*}\right)\right) \int \exp \left(-\frac{\left(x-x_{*}\right)^{2}}{2 \sigma^{2}_{*}}\right) \mathrm{d} x
+(\#eq:rearrangeintr)
+\end{equation}
+
+Furthermore the integrand is the _Kernel_ of the Normal distribution having mean equal to the mode $x_*$ and variance specified as $\sigma^{2}_{*}$. By computing the finite integral of \@ref(eq:rearrangeintr) on the closed neighbor $[ \alpha, \beta]$ the approximation becomes:
+
+$$
+\int_{\alpha}^{\beta} f(x) \mathrm{d} x \approx \pi\left(x_{*}\right) \sqrt{2 \pi \sigma^{2^{*}}}(\Phi(\beta)-\Phi(\alpha))
+$$
+where $\Phi(\cdot)$ is the cumulative distribution function corresponding value of the Normal disttribution in eq. \@ref(eq:rearrangeintr).
+
+<!-- further example: let assume to have a Beta distribution $\operatorname{Beta}(\alpha = 2,8)$ whose parameter are $\alpha$ and  $\beta$ and whose density is:  -->
+ <!-- FORSE L'ESEMPIO -->
+ 
+For example consider the Chi-squared $\chi^{2}$ density function (since it is easily differentiable and Gamma $\Gamma$ term in denominator is constant). The following quantities of interest are the $\log \pi(x)$, then the $\frac{\partial \log \pi(x)}{\partial x}$, which has to be set equal to 0 to find the integrating point, and finally $\log \pi(x)$ $\frac{\partial^2 \log \pi(x)}{\partial x^2}$. The $\chi^{2}$ pdf, whose support is $x \in \mathbb{R}^{+}$ and whose degrees of freedom are $k$: 
+
+
+$$
+\chi^{2}(x,k)=\frac{x^{(k / 2-1)} e^{-x / 2}}{2^{k / 2} \,\, \Gamma\left(\frac{k}{2}\right)}, x \geq 0
+$$
+
+for which are computed: 
+
+$$
+\log f(x)=(k / 2-1) \log x-x / 2
+$$
+Ths single variable _Score Function_ and the $x_{*}=\operatorname{argmax}_{x} \log \pi(x)$,
+
+\begin{equation}
+\begin{aligned} 
+  &\frac{\partial \log \pi(x)}{\partial x}= \frac{(k/2 -1)}{x} - \frac{1}{2} =0 \quad \text {solving for 0 }\\
+  &(k/2-1) = x/2\quad \text {moving addends}\\
+  &x_* = (k-2) 
+\end{aligned}
+\end{equation} 
+
+And the _Fisher Information_ in the $x_*$ (for which it is known $\sigma^{2}_*=-1 / f^{\prime \prime}(x)$)
+
+
+\begin{equation} 
+\begin{split}
+  &\frac{\partial^2 \log \pi(x)}{\partial x^2}=-\frac{(k / 2-1) }{x^{2}} \quad \text {substituting} \,\,x_* \\
+  &= -\frac{(k / 2-1) }{(k-2)^{2}} = - \frac{2(k/2-1)}{2(k-2)^{2}} \quad \text {multiply by 2 } \\
+  &=-  \frac{(k-2)}{2(k-2)^{2}} = 2(k-2)  = \sigma^{2}_*\quad \text {change of sign and inverse }
+\end{split}
+\end{equation} 
+
+finally, 
+
+$$
+\chi^{2} \stackrel{L A}{\sim} N\left(x_*=k-2, \sigma^{2}_*=2(k-2)\right)
+$$
+Assuming $k = 8, 16$ degrees of freedom $\chi^{2}$ densities against their Laplace approximation, the figure \@ref(fig:laplacevisual) displays how the approximations fits the real density. Integrals are computed in the case of $k = 8$ in the interval $(5, 7)$, leading to a very good Normal approximation that slightly differ from the orginal CHisquared. The same has been done for the $k = 16$ case, whose interval is $(12, 17)$ showing other very good approximations. Note that intervals are very close to the mode of distributions, if they were evaluted farther results would be inaccurate. 
+
+
+![(\#fig:laplacevisual-1)Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method](98-appendix_files/figure-latex/laplacevisual-1.pdf) ![(\#fig:laplacevisual-2)Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method](98-appendix_files/figure-latex/laplacevisual-2.pdf) ![(\#fig:laplacevisual-3)Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method](98-appendix_files/figure-latex/laplacevisual-3.pdf) 
+
+```
+## [1] 0.2209435
+```
+
+```
+## [1] 0.3583827
+```
+
+```
+## [1] 0.2209686
+```
+
+```
+## [1] 0.3576164
+```
+
+
+
+
+
+
+
+
+

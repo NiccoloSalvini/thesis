@@ -1,0 +1,57 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces General url Anatomy, \citet {Anatomyo72} source}}{10}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces immobiliare url composed according to some filters, author's source}}{12}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces immobiliare.it website structure, author's source}}{13}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces pseudo code algorithm to reverse engineer url, author's source}}{15}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces rvest general flow chart, author's source}}{16}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces pseudo code algorithm for price search, author's source}}{19}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces pseudo code algorithm structure for fatstscrape, author's source}}{20}{figure.2.7}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces User-Server communication scheme via HTTP, source \citet {automateddatacollection}}}{24}{figure.2.8}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces proxy middle man,, source \citet {automateddatacollection}}}{28}{figure.2.9}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces pseudo code for a generic set of functions applied with possibly fail dealers , author's source}}{29}{figure.2.10}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces single threaded computing vs parallel computing, \citet {barney} source}}{30}{figure.2.11}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces futures reimagined as divide and conquer, author's source}}{34}{figure.2.12}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces computational complexity analysis with Furrr}}{35}{figure.2.13}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces local machine monitoring of cores during parallel scraping}}{36}{figure.2.14}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces computational complexity analysis with Furrr}}{38}{figure.2.15}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces complete infrastructure, author's source}}{43}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces API general functioning, unknown source}}{44}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Swagger UI in localhost on port 8000, author's source}}{51}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Custom Dockerfile from salvini/api-immobiliare Docker Hub repository, author's source}}{53}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces NGINX gateway redirecting an incoming request, source \citet {azureNGINX}}}{56}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Docker Compose YAML file orchestration for NGINX container and RESTful API, author's source}}{57}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces HTTPS encryption with SSL certificates, source \citet {automateddatacollection}}}{59}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Software development CI/CD workflow, author's source}}{61}{figure.3.8}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Precision Matrix in GMRF vs the Covariance matrix, source \citet {GMRFRue}}}{68}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces summary table list object, source: \citet {Krainski-Rubio}}}{73}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces SPDEtoy plot, author's source}}{74}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Linear predictor marginals, plot recoded in \lstinline !ggplot2!, author's source}}{75}{figure.4.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Point Referenced Data map plot (\lstinline !Leaflet! \citet {leaflet}) of a RESTful API call on Milan Rental Real Estate 20-11-2019, Author's Source}}{78}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Stockton data, Left: Spatial Lat and Long points pojected into the \(3^{rd}\) dim \(\qopname \relax o{log}(Price)\), Right: spatial interpolation of points, source \citet {Blangiardo-Cameletti}}}{80}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Left: isotropy concentric decaying contours, Right: anisotropy concentric decaying contours, source \citet {blanchetscalliet}}}{81}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Matérn function with 4 different values of \(\nu \) (upper right legend), kept \(\phi \) fixed, author's source}}{83}{figure.5.4}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. \citet {Cameletti2012} source}}{85}{figure.5.5}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Left: example of a spatial random field where \(X(s)= \qopname \relax o{cos}(s_1)+\qopname \relax o{sin}(s_2)\), Right: \(X(s)\) SPDE representation given a triangulation, \citet {Cameletti2012} source}}{85}{figure.5.6}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Spatial prediction representation through DAG, source \citet {Blangiardo-Cameletti}}}{94}{figure.5.7}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Leaflet Map}}{100}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Non Linear Spatial Relationship disclosed}}{101}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Most common housedolds categories}}{101}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Log Monthly Price per Heating/Cooling system?}}{102}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Monthly Prices change wrt square meters footage in different n-roomed apt}}{104}{figure.6.5}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Coefficient Tie fighter plot for the linear model: log2(price) \textasciitilde {} log2(abs\_price) + condom + other\_colors}}{105}{figure.6.6}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Word Network Graph for 250 Estate Agencies Review}}{107}{figure.6.7}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Missingness Heatmap plot}}{109}{figure.6.8}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Missingness co-occurrence plot}}{110}{figure.6.9}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Traingularization intuition, \citet {Krainski-Rubio} source}}{112}{figure.6.10}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Left panel: GP cloud of points fitted with a \emph {circle}, Right panel: GP cloud of points fitted with a \emph {ellipse}, source \citet {YT:freitas1}}}{118}{figure.10.1}%
+\contentsline {figure}{\numberline {10.2}{\ignorespaces Triangulariation weights and associated process value, \citet {YT:paumoraga} source}}{124}{figure.10.2}%
+\contentsline {figure}{\numberline {10.3}{\ignorespaces Projection Matrix to map valjes from tringulation back to the GP, \citet {YT:paumoraga} surce}}{125}{figure.10.3}%

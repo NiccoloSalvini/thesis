@@ -1,0 +1,63 @@
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Web Scraping}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}A Gentle Introduction on Web Scraping}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Anatomy of a url and reverse engineering}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Scraping with \texttt {rvest}}{14}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Searching Technique for Scarping}{17}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Scraping Best Practices and Security provisions}{19}{section.2.4}%
+\contentsline {section}{\numberline {2.5}HTTP overview}{23}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}User Agent and further Identification Headers Spoofing}{25}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}Dealing with failure}{28}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Parallel Scraping}{29}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Parallel furrr+future}{32}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Parallel foreach+doFuture}{35}{subsection.2.7.2}%
+\contentsline {section}{\numberline {2.8}Open Challenges and Further Improvemements}{37}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Legal Profiles}{39}{section.2.9}%
+\contentsline {chapter}{\numberline {3}API Technology Stack}{41}{chapter.3}%
+\contentsline {section}{\numberline {3.1}RESTful API}{43}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Plumber HTTP API}{46}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Sanitization}{48}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Denial Of Service (DoS)}{49}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Logging}{49}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}RESTful API docs}{50}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}Docker}{51}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}REST-API container}{52}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}NGINX reverse Proxy Server and Authorization}{54}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Docker-Compose}{56}{section.3.4}%
+\contentsline {section}{\numberline {3.5}HTTPS(ecure) and SSL certificates}{58}{section.3.5}%
+\contentsline {section}{\numberline {3.6}AWS EC2 instance}{59}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Software CI/CD Workflow}{60}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Further SF Integrations}{61}{section.3.8}%
+\contentsline {chapter}{\numberline {4}INLA}{63}{chapter.4}%
+\contentsline {section}{\numberline {4.1}The class of Latent Gaussian Models LGM}{64}{section.4.1}%
+\contentsline {section}{\numberline {4.2}INLA Approximate Inference setting}{69}{section.4.2}%
+\contentsline {section}{\numberline {4.3}INLA as a Hierarchical Model}{70}{section.4.3}%
+\contentsline {section}{\numberline {4.4}R-INLA package in Bayesian Regression}{72}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Point Referenced Data Modeling}{77}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Gaussian Process (GP)}{79}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The Stochastic Partial Differential Equation (SPDE) approach}{83}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Hedonic (rental) Price Models}{86}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Point Referenced Regression for univariate spatial data}{89}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Parameter estimation}{92}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.5}Spatial Kriging (prediction)}{93}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Model Checking}{93}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Prior Specification}{95}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Exploratory Analysis}{96}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Data preparation}{99}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Maps and Geo-Visualisations}{100}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}Counts and First Orientations}{101}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Text Mining in estate Review}{106}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Missing Assessement and Imputation}{108}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Missing assessement}{108}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Covariates Imputation}{110}{subsection.6.4.2}%
+\contentsline {section}{\numberline {6.5}Model Specification}{112}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Mesh building}{112}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Shinyapp for mesh assessment}{113}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}BUilding SPDE model on mesh}{113}{subsection.6.6.2}%
+\contentsline {chapter}{\numberline {7}fit.vgm = fit.variogram(semivar, vgm(``Sph''))}{114}{chapter.7}%
+\contentsline {chapter}{\numberline {8}krg = krige(log(PRICE) \textasciitilde {} 1, data, model = fit.vgm)}{115}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Model Selection \& Fitting}{116}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Conclusions}{117}{chapter.10}%
+\contentsline {chapter}{Appendix}{118}{chapter*.4}%
+\contentsline {section}{\numberline {10.1}Gaussian Process}{118}{section.10.1}%
+\contentsline {section}{\numberline {10.2}SPDE and Triangularization (YT speech: \citet {YT:paumoraga})}{123}{section.10.2}%
