@@ -195,20 +195,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a><ul>
 <li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models (LGM)</a></li>
-<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Laplace Approximations</a></li>
-<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package</a></li>
+<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#gmrf"><i class="fa fa-check"></i><b>4.2</b> Gaussian Markov Random Field (GMRF)</a></li>
+<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
+<li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>5.4</b> Point Referenced Regression for univariate spatial data</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>5.4.1</b> Parameter estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging (prediction)</a></li>
-<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.6</b> Model Criticism</a></li>
-<li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
-<li class="chapter" data-level="5.8" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.8</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.6</b> Prior Specification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Data preparation</a><ul>
@@ -318,10 +315,12 @@ Since the end goal is to find the joint posterior for <span class="math inline">
 \end{equation}\]</span></p>
 <p>From final eq: <a href="inla.html#eq:finallgm">(4.6)</a> is derived Bayesian inference and INLA through Laplace can approximate posterior parameters distributions.Sadly, INLA cannot effectively suit all LGM’s. In general INLA requires the following supplementary assumptions <span class="citation">(<a href="#ref-wang2018bayesian" role="doc-biblioref">2018</a>)</span>:</p>
 <ul>
-<li><p>The hyper-parameter number <span class="math inline">\(\boldsymbol\psi\)</span> should be unpretentious, normally between 2 and 5, but not greater than 20.</p></li>
-<li><p>When the number of observation is considerably high (<span class="math inline">\(10^4\)</span> to <span class="math inline">\(10^5\)</span>), then the LGMR <span class="math inline">\(\boldsymbol\theta\)</span> must be a Gaussian Markov random field (GMRF).</p>
-<h2 id="gmrf"><span class="header-section-number">4.1</span> Gaussian Markov Random Field (GMRF)</h2></li>
+<li>The hyper-parameter number <span class="math inline">\(\boldsymbol\psi\)</span> should be unpretentious, normally between 2 and 5, but not greater than 20.</li>
+<li>When the number of observation is considerably high (<span class="math inline">\(10^4\)</span> to <span class="math inline">\(10^5\)</span>), then the LGMR <span class="math inline">\(\boldsymbol\theta\)</span> must be a Gaussian Markov random field (GMRF).</li>
 </ul>
+</div>
+<div id="gmrf" class="section level2">
+<h2><span class="header-section-number">4.2</span> Gaussian Markov Random Field (GMRF)</h2>
 <p>In the order to make INLA working efficiently the latent field <span class="math inline">\(\boldsymbol\theta\)</span> must not only be Gaussian but also Gaussian Markov Random Field (GMRF). A GMRF is a genuinely simple structure: It is just random vector following a multivariate normal (or Gaussian) distribution <span class="citation">(Rue and Held <a href="#ref-GMRFRue" role="doc-biblioref">2005</a>)</span>. However It is more interesting to research a restricted set of GMRF for which are satisfied the conditional independence assumptions (section <a href="inla.html#LGM">4.1</a>), from here the term “Markov”. Expanding the concept of conditional independece let asssume to have a vector <span class="math inline">\(\boldsymbol{\mathbf{x}}=\left(x_{1}, x_{2}, x_{3}\right)^{T}\)</span> where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are conditionally independent given <span class="math inline">\(x_3\)</span>, i.e. <span class="math inline">\(x_{1} \perp x_{2} \mid x_3\)</span>. With that said if the objective is <span class="math inline">\(x_3\)</span>, then uncovering <span class="math inline">\(x_2\)</span> gives no information on <span class="math inline">\(x_1\)</span>. The joint density for <span class="math inline">\(\boldsymbol{\mathbf{x}}\)</span> is</p>
 <p><span class="math display" id="eq:pix">\[\begin{equation}
   \pi(\boldsymbol{\mathbf{x}})=\pi\left(x_{1} \mid x_{3}\right) \pi\left(x_{2} \mid x_{3}\right) \pi\left(x_{3}\right)
@@ -407,7 +406,7 @@ Therefore ultimately it is possible to produce a rather formal definition of a G
 <!-- \end{equation} -->
 </div>
 <div id="approx" class="section level2">
-<h2><span class="header-section-number">4.2</span> INLA Laplace Approximations</h2>
+<h2><span class="header-section-number">4.3</span> INLA Laplace Approximations</h2>
 <p>The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression <a href="inla.html#eq:finallgm">(4.6)</a> i.e. <span class="math inline">\(\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})\)</span>, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each <span class="math inline">\(\theta_{i}\)</span> in the latent parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, for each hyper-parameter prior <span class="math inline">\(\psi_{k} \in \boldsymbol\psi\)</span> (back to the <span class="math inline">\(\boldsymbol\theta\)</span> latent field notation).
 The mathematical intuition behind Laplace approximation is contained in the appendix sec. …<br />
 Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian <span class="citation">(<a href="#ref-wang2018bayesian" role="doc-biblioref">2018</a>)</span> or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are “more Gaussian” than the thier joint distribution.
@@ -443,8 +442,8 @@ and the <em>lower</em>, where it is specified a joint prior distribution for <sp
 \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {LGRM}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
 \tag{4.9}
 \end{equation}\]</span></p>
-<p>Then recalling the goal for Bayesian Inference, i.e.approximate posterior marginals for <span class="math inline">\(\pi\left(\theta_{i} \mid \mathbf{y}\right)\)</span> and <span class="math inline">\(\pi\left(\tau \mid \boldsymbol{\mathbf{y}}\right)\)</span> and <span class="math inline">\(p\left(\rho \mid \boldsymbol{\mathbf{y}}\right)\)</span>. First difficulties regard the fact that Laplace approximations on this model implies the product of a Gaussian distribution and a non-gaussian one. As the INLA key point suggest, the algorithm starts by rearranging the problem so that the “most Gaussian” are computed at first.
-Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate <span class="math inline">\(\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span> as the joint posterior of <span class="math inline">\({\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span>. Then subsequently will try to approximate <span class="math inline">\(\tilde{p}\left(\theta_{i} \mid \boldsymbol\psi, \  mathbf{y}\right)\)</span> to their conditional marginal distribution fro <span class="math inline">\(\theta_i\)</span>. In the end explore <span class="math inline">\(\tilde{1pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span> with numerical methods for integration.
+<p>Then recalling the goal for Bayesian Inference, i.e.approximate posterior marginals for <span class="math inline">\(\pi\left(\theta_{i} \mid \mathbf{y}\right)\)</span> and <span class="math inline">\(\pi\left(\tau \mid \boldsymbol{\mathbf{y}}\right)\)</span> and <span class="math inline">\(\pi\left(\rho \mid \boldsymbol{\mathbf{y}}\right)\)</span>. First difficulties regard the fact that Laplace approximations on this model implies the product of a Gaussian distribution and a non-gaussian one. As the INLA key point suggest, the algorithm starts by rearranging the problem so that the “most Gaussian” are computed at first.
+Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate <span class="math inline">\(\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span> as the joint posterior of <span class="math inline">\({\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span>. Then subsequently will try to approximate <span class="math inline">\(\tilde{\pi}\left(\theta_{i} \mid \boldsymbol\psi, \  mathbf{y}\right)\)</span> to their conditional marginal distribution fro <span class="math inline">\(\theta_i\)</span>. In the end explores <span class="math inline">\(\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})\)</span> with numerical methods for integration.
 The corresponding integrals to be approximated are:</p>
 <ul>
 <li>for task 1: <span class="math inline">\(\pi\left(\psi_{k} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) \mathrm{d} \boldsymbol{\psi}_{-k}\)</span></li>
@@ -573,7 +572,7 @@ In other words the bigger the <span class="math inline">\(\Delta_{j}\)</span> we
 <!--        PORV APORV APORVA  PORV A PORV APO R VAPO R VAPORV APORV APORVA PORVPO RVAPO RVAPOR VAPOR VvAA  PORVA             -->
 </div>
 <div id="rinla" class="section level2">
-<h2><span class="header-section-number">4.3</span> R-INLA package</h2>
+<h2><span class="header-section-number">4.4</span> R-INLA package</h2>
 <p>INLA library and algorithm is developed by the R-INLA project whose package is available on their website at their <a href="https://www.r-inla.org/download-install">source repository</a>. Users can also enjoy on INLA website (recently restyled) a dedicated forum where discussion groups are opened and an active community is keen to answer. Moreover It also contains a number of reference books, among which some of them are fully open sourced. INLA is available for any operating system and it is built on top of other libraries still not on CRAN.
 The core function of the package is <code>inla()</code>and it works as many other regression functions like <code>glm()</code>, <code>lm()</code> or <code>gam()</code>. Inla function takes as argument the <em>model formula</em> i.e. the linear predictor for which it can be specified a number of linear and non-linear effects on covariates as seen in eq. <a href="inla.html#eq:linearpredictor">(4.1)</a>, the whole set of available effects are obtained with the command <code>names(inla.models()$latent)</code>. Furthermore it requires to specify the dataset and its respective likelihood family, equivalently <code>names(inla.models()$likelihood)</code>.
 Many other methods in the function can be added through lists, such as <code>control.family</code> and <code>control.fixed</code> which let the analyst specifying parameter and hyper-paramenters priors family distributions and control hyper parameters. They come in the of nested lists when parameters and hyper paramenters are more than 2, when nothing is specified the default option is non-informativeness.
@@ -584,14 +583,14 @@ Inla output objects are inla.dataframe summary-lists-type containing the results
 </div>
 <p>SPDEtoy dataset <span class="math inline">\(\mathbf{y}\)</span> are two random variables that simulates points location in two coordinates <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
 <div class="figure"><span id="fig:spatplot"></span>
-<img src="04-inla_files/figure-html/spatplot-1.png" alt="SPDEtoy plot, author's source" width="672" />
+<img src="04-inla_files/figure-html/spatplot-1.png" alt="SPDEtoy bubble plot, author's source" width="672" />
 <p class="caption">
-Figure 4.4: SPDEtoy plot, author’s source
+Figure 4.4: SPDEtoy bubble plot, author’s source
 </p>
 </div>
 <!-- ![SPDEtoy plot, author's source](images/cotour_toy.png) -->
-<p>Imposing an LGM model requires at first to select as a <em>higher</em> hierarchy level a likelihood model for <span class="math inline">\(\mathbf{y}\)</span> i.e. Gaussian (by default), and a model formula (eq. <a href="inla.html#eq:linearpredictor">(4.1)</a>), i.e. <span class="math inline">\(\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\)</span>, which link function <span class="math inline">\(\mathbf{g}\)</span> is identity. There are not Non-linear effects effect on covariates in $$ nevertheless they can be easily added with <code>f()</code> function. Secondly in the <em>medium</em> step a LGRF on the latent parameters <span class="math inline">\(\boldsymbol\theta\)</span>. In the <em>lower</em> end some priors distributions <span class="math inline">\(\boldsymbol\psi\)</span> which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter <span class="math inline">\(\tau\)</span> which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters <span class="math inline">\(\alpha = 1\)</span> and <span class="math inline">\(\beta = 0.00005\)</span> (default).
-Note that models are sensitive to prior choices (sec. <a href="prdm.html#priorsspec">5.7</a>), as a consequence if necessary later are revised.
+<p>Imposing an LGM model requires at first to select as a <em>higher</em> hierarchy level a likelihood model for <span class="math inline">\(\mathbf{y}\)</span> i.e. Gaussian (by default), and a model formula (eq. <a href="inla.html#eq:linearpredictor">(4.1)</a>), i.e. <span class="math inline">\(\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\)</span>, which link function <span class="math inline">\(\mathbf{g}\)</span> is identity. There are not Non-linear effects effect on covariates in $$ nevertheless they can be easily added with <code>f()</code> function. Note that this will allow to integrate random effects i.e. spatial effects inside the model. Secondly in the <em>medium</em> step a LGRF on the latent parameters <span class="math inline">\(\boldsymbol\theta\)</span>. In the <em>lower</em> end some priors distributions <span class="math inline">\(\boldsymbol\psi\)</span> which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter <span class="math inline">\(\tau\)</span> which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters <span class="math inline">\(\alpha = 1\)</span> and <span class="math inline">\(\beta = 0.00005\)</span> (default).
+Note that models are sensitive to prior choices (sec. <a href="prdm.html#priorsspec">5.6</a>), as a consequence if necessary later are revised.
 A summary of the model specifications are set below:</p>
 <p><span class="math display">\[\begin{equation} 
 \begin{split}

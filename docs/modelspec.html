@@ -195,20 +195,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a><ul>
 <li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models (LGM)</a></li>
-<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Laplace Approximations</a></li>
-<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package</a></li>
+<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#gmrf"><i class="fa fa-check"></i><b>4.2</b> Gaussian Markov Random Field (GMRF)</a></li>
+<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
+<li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>5.4</b> Point Referenced Regression for univariate spatial data</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>5.4.1</b> Parameter estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging (prediction)</a></li>
-<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.6</b> Model Criticism</a></li>
-<li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
-<li class="chapter" data-level="5.8" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.8</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.6</b> Prior Specification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Data preparation</a><ul>
@@ -254,15 +251,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="modelspec" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Model Selection &amp; Fitting</h1>
-<!-- ## Model Criticism  -->
-<!-- evaluation of the variables to include in the mode,, assumptions of the model i.e. exchangeablity and independence prior distribution to assign to parameters and hyper parameters. -->
-<!-- ## Spatial Kriging -->
-<!-- ## Model Checking -->
-<!-- if (models > 2){ -->
-<!--     ## Model Selection -->
-<!--       IDEA: proporre due modelli uno più interepretabile con distribuzione normale, e un ò'altro con sempre exponential family ma con Gamma distribution function, ora vedo se riesco a fare tutto. dovrei sacrificare applicazione. -->
-<!-- } -->
+<ul>
+<li>metti <span class="citation">Ling (<a href="#ref-Ling" role="doc-biblioref">2019</a>)</span> che ha messo i prioris come defaults nella inla call</li>
+</ul>
+<p><a href="https://inbo.github.io/tutorials/tutorials/r_inla/spatial.pdf">ref.</a></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="modelspec.html#cb16-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb16-2"><a href="modelspec.html#cb16-2"></a>data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/data2021.csv&quot;</span>)</span>
+<span id="cb16-3"><a href="modelspec.html#cb16-3"></a>mesh2 &lt;-<span class="st"> </span><span class="kw">inla.mesh.2d</span>(confini, <span class="dt">max.edge =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>),<span class="dt">cutoff =</span> <span class="dv">3</span>)</span>
+<span id="cb16-4"><a href="modelspec.html#cb16-4"></a><span class="kw">ggplot</span>(data) <span class="op">+</span><span class="st"> </span><span class="kw">gg</span>(mesh2) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
+<span id="cb16-5"><a href="modelspec.html#cb16-5"></a><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Vertices: &quot;</span>, mesh2<span class="op">$</span>n)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_sf</span>(<span class="dt">datum =</span> <span class="kw">st_crs</span>(<span class="dv">5880</span>))</span></code></pre></div>
+<p><a href="https://inlabru-org.github.io/inlabru/">mega ref</a></p>
+<p><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13168">mega mega ref</a></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="modelspec.html#cb17-1"></a><span class="kw">library</span>(inlabru)</span>
+<span id="cb17-2"><a href="modelspec.html#cb17-2"></a>formula =<span class="st"> </span>price <span class="op">~</span><span class="st"> </span>condom <span class="op">+</span><span class="st"> </span>totlocali <span class="op">+</span><span class="st"> </span>sqfeet </span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelspec.html#cb18-1"></a><span class="kw">ggplot</span>(data)<span class="op">+</span></span>
+<span id="cb18-2"><a href="modelspec.html#cb18-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lat, long), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb18-3"><a href="modelspec.html#cb18-3"></a><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb18-4"><a href="modelspec.html#cb18-4"></a><span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
+<span id="cb18-5"><a href="modelspec.html#cb18-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> confini) <span class="op">+</span></span>
+<span id="cb18-6"><a href="modelspec.html#cb18-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Ling">
+<p>Ling, Yuheng. 2019. “Time, Space and Hedonic Prediction Accuracy Evidence from the Corsican Apartment Market.” <em>The Annals of Regional Science</em>, April, 28. <a href="https://doi.org/10.1007/s00168-019-00967-2">https://doi.org/10.1007/s00168-019-00967-2</a>.</p>
+</div>
 </div>
             </section>
 

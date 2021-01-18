@@ -89,7 +89,7 @@ From final  eq: \@ref(eq:finallgm) is derived Bayesian inference and INLA throug
 - The hyper-parameter number $\boldsymbol\psi$ should be unpretentious, normally between 2 and 5, but not greater than 20.
 - When the number of observation is considerably high ($10^4$ to $10^5$), then the LGMR $\boldsymbol\theta$ must be a Gaussian Markov random field (GMRF).
 
-  ## Gaussian Markov Random Field (GMRF){#gmrf}
+## Gaussian Markov Random Field (GMRF){#gmrf}
 
 In the order to make INLA working efficiently the latent field $\boldsymbol\theta$ must not only be Gaussian but also Gaussian Markov Random Field (GMRF). A GMRF is a genuinely simple structure: It is just  random vector following a multivariate normal (or Gaussian) distribution [@GMRFRue]. However It is more interesting to research a restricted set of GMRF for which are satisfied the conditional independence assumptions (section \@ref(LGM)), from here the term "Markov". Expanding the concept of conditional independece let asssume to have a vector $\boldsymbol{\mathbf{x}}=\left(x_{1}, x_{2}, x_{3}\right)^{T}$ where $x_1$ and $x_2$ are conditionally independent given $x_3$, i.e. $x_{1} \perp x_{2} \mid x_3$. With that said if the objective is $x_3$, then uncovering $x_2$ gives no information on $x_1$. The joint density for $\boldsymbol{\mathbf{x}}$ is
 
@@ -247,8 +247,8 @@ and the _lower_, where it is specified a joint prior distribution for $\boldsymb
 (\#eq:poissonlgm)
 \end{equation}
 
-Then recalling the goal for Bayesian Inference, i.e.approximate posterior marginals for $\pi\left(\theta_{i} \mid \mathbf{y}\right)$ and $\pi\left(\tau \mid \boldsymbol{\mathbf{y}}\right)$ and $p\left(\rho \mid \boldsymbol{\mathbf{y}}\right)$. First difficulties regard the fact that Laplace approximations on this model implies the product of a Gaussian distribution and a non-gaussian one. As the INLA key point suggest, the algorithm starts by rearranging the problem so that the "most Gaussian" are computed at first. 
-Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ as the joint posterior of  ${\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$. Then subsequently will try to approximate $\tilde{p}\left(\theta_{i} \mid \boldsymbol\psi, \   mathbf{y}\right)$ to their conditional marginal distribution fro $\theta_i$. In the end explore $\tilde{1pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ with numerical methods for integration.
+Then recalling the goal for Bayesian Inference, i.e.approximate posterior marginals for $\pi\left(\theta_{i} \mid \mathbf{y}\right)$ and $\pi\left(\tau \mid \boldsymbol{\mathbf{y}}\right)$ and $\pi\left(\rho \mid \boldsymbol{\mathbf{y}}\right)$. First difficulties regard the fact that Laplace approximations on this model implies the product of a Gaussian distribution and a non-gaussian one. As the INLA key point suggest, the algorithm starts by rearranging the problem so that the "most Gaussian" are computed at first. 
+Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ as the joint posterior of  ${\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$. Then subsequently will try to approximate $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol\psi, \   mathbf{y}\right)$ to their conditional marginal distribution fro $\theta_i$. In the end explores $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ with numerical methods for integration.
 The corresponding integrals to be approximated are:
 
 - for task 1: $\pi\left(\psi_{k} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) \mathrm{d} \boldsymbol{\psi}_{-k}$
@@ -455,12 +455,12 @@ Inla output objects are inla.dataframe summary-lists-type containing the results
 
 SPDEtoy dataset $\mathbf{y}$ are two random variables that simulates points location in two coordinates $s_1$ and $s_2$.
 
-![(\#fig:spatplot)SPDEtoy plot, author's source](04-inla_files/figure-latex/spatplot-1.pdf) 
+![(\#fig:spatplot)SPDEtoy bubble plot, author's source](04-inla_files/figure-latex/spatplot-1.pdf) 
 
 
 <!-- ![(#fig:SPDEplot)SPDEtoy plot, author's source](images/cotour_toy.png) -->
 
-Imposing an LGM model requires at first to select as a _higher_ hierarchy level a likelihood model for $\mathbf{y}$ i.e. Gaussian (by default),  and a model formula (eq. \@ref(eq:linearpredictor)), i.e. $\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, which link function $\mathbf{g}$ is identity. There are not Non-linear effects effect on covariates in $\eta $ nevertheless they can be easily added with `f()` function. Secondly in the _medium_ step a LGRF on the latent parameters $\boldsymbol\theta$. In the _lower_ end some priors distributions $\boldsymbol\psi$ which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter $\tau$ which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters $\alpha = 1$ and $\beta = 0.00005$ (default).
+Imposing an LGM model requires at first to select as a _higher_ hierarchy level a likelihood model for $\mathbf{y}$ i.e. Gaussian (by default),  and a model formula (eq. \@ref(eq:linearpredictor)), i.e. $\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, which link function $\mathbf{g}$ is identity. There are not Non-linear effects effect on covariates in $\eta $ nevertheless they can be easily added with `f()` function. Note that this will allow to integrate random effects i.e. spatial effects inside the model. Secondly in the _medium_ step a LGRF on the latent parameters $\boldsymbol\theta$. In the _lower_ end some priors distributions $\boldsymbol\psi$ which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter $\tau$ which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters $\alpha = 1$ and $\beta = 0.00005$ (default).
 Note that models are sensitive to prior choices (sec. \@ref(priorsspec)), as a consequence if necessary later are revised.
 A summary of the model specifications are set below:
 

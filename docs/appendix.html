@@ -195,20 +195,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a><ul>
 <li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models (LGM)</a></li>
-<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.2</b> INLA Laplace Approximations</a></li>
-<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.3</b> R-INLA package</a></li>
+<li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#gmrf"><i class="fa fa-check"></i><b>4.2</b> Gaussian Markov Random Field (GMRF)</a></li>
+<li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
+<li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Point Referenced Data Modeling</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#univariateregr"><i class="fa fa-check"></i><b>5.4</b> Point Referenced Regression for univariate spatial data</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#parameter-estimation"><i class="fa fa-check"></i><b>5.4.1</b> Parameter estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#kriging"><i class="fa fa-check"></i><b>5.5</b> Spatial Kriging (prediction)</a></li>
-<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.6</b> Model Criticism</a></li>
-<li class="chapter" data-level="5.7" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.7</b> Prior Specification</a></li>
-<li class="chapter" data-level="5.8" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.8</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.6</b> Prior Specification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Data preparation</a><ul>
@@ -422,29 +419,13 @@ Ths single variable <em>Score Function</em> and the <span class="math inline">\(
 <p><span class="math display">\[
 \chi^{2} \stackrel{L A}{\sim} N\left(x_*=k-2, \sigma^{2}_*=2(k-2)\right)
 \]</span>
-Assuming <span class="math inline">\(k = 8, 16\)</span> degrees of freedom <span class="math inline">\(\chi^{2}\)</span> densities against their Laplace approximation, the figure <a href="#fig:laplacevisual"><strong>??</strong></a> displays how the approximations fits the real density. Integrals are computed in the case of <span class="math inline">\(k = 8\)</span> in the interval <span class="math inline">\((5, 7)\)</span>, leading to a very good Normal approximation that slightly differ from the orginal CHisquared. The same has been done for the <span class="math inline">\(k = 16\)</span> case, whose interval is <span class="math inline">\((12, 17)\)</span> showing other very good approximations. Note that intervals are very close to the mode of distributions, if they were evaluted farther results would be inaccurate.</p>
-<div class="figure"><span id="fig:laplacevisual-1"></span>
+Assuming <span class="math inline">\(k = 8, 16\)</span> degrees of freedom <span class="math inline">\(\chi^{2}\)</span> densities against their Laplace approximation, the figure <a href="appendix.html#fig:laplacevisual">8.4</a> displays how the approximations fits the real density. Integrals are computed in the case of <span class="math inline">\(k = 8\)</span> in the interval <span class="math inline">\((5, 7)\)</span>, leading to a very good Normal approximation that slightly differ from the orginal CHisquared. The same has been done for the <span class="math inline">\(k = 16\)</span> case, whose interval is <span class="math inline">\((12, 17)\)</span> showing other very good approximations. Note that intervals are very close to the mode of distributions, if they were evaluted farther results would be inaccurate.</p>
+<div class="figure"><span id="fig:laplacevisual"></span>
 <img src="98-appendix_files/figure-html/laplacevisual-1.png" alt="Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method" width="672" />
 <p class="caption">
 Figure 8.4: Chisquared density function with parameter <span class="math inline">\(k = 8\)</span> (top) and <span class="math inline">\(k = 16\)</span> (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method
 </p>
 </div>
-<div class="figure"><span id="fig:laplacevisual-2"></span>
-<img src="98-appendix_files/figure-html/laplacevisual-2.png" alt="Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method" width="672" />
-<p class="caption">
-Figure 8.5: Chisquared density function with parameter <span class="math inline">\(k = 8\)</span> (top) and <span class="math inline">\(k = 16\)</span> (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method
-</p>
-</div>
-<div class="figure"><span id="fig:laplacevisual-3"></span>
-<img src="98-appendix_files/figure-html/laplacevisual-3.png" alt="Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method" width="672" />
-<p class="caption">
-Figure 8.6: Chisquared density function with parameter <span class="math inline">\(k = 8\)</span> (top) and <span class="math inline">\(k = 16\)</span> (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method
-</p>
-</div>
-<pre><code>## [1] 0.2209435</code></pre>
-<pre><code>## [1] 0.3583827</code></pre>
-<pre><code>## [1] 0.2209686</code></pre>
-<pre><code>## [1] 0.3576164</code></pre>
 
 </div>
 </div>

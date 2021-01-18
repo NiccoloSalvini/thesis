@@ -286,7 +286,7 @@ chisq8 = dat %>%
   geom_vline(xintercept = beta1,alpha = 0.6, linetype = "dotdash",color = "red")+
   annotate("text", x = 20, y = 0.05, label = TeX("$\\int_{5}^{7} \\chi^{2}(\\, 8\\,) \\mathrm{d} x\\, = \\, 0.2209435 $"),size = 4) +
   annotate("text", x = 20, y = 0.09, label = TeX("$\\int_{5}^{7} \\mathit{N}(\\, 6,\\, 12) \\mathrm{d} x\\, = \\, 0.2209686 $"),size = 4) +
-  theme_nicco();chisq8
+  theme_nicco()
 
 chisq16 = dat %>% 
  ggplot(aes(x = x)) +
@@ -299,7 +299,7 @@ chisq16 = dat %>%
   annotate("text", x = 35, y = 0.03, label = TeX("$\\int_{12}^{17} \\chi^{2}(\\, 16\\,) \\mathrm{d} x\\, = \\, 0.3583827 $"),size = 4) +
   annotate("text", x = 35, y = 0.062, label = TeX("$\\int_{12}^{17} \\mathit{N}(\\, 14,\\, 28) \\mathrm{d} x\\, = \\, 0.3576164 $"),size = 4) +
   ylab("Density")+ 
-  theme_nicco();chisq16
+  theme_nicco()
 
 (chisq8 / chisq16)
   
@@ -310,19 +310,19 @@ chisq16 = dat %>%
 # alpha = 10
 # beta = 12
 # 
-## exact values
-pchisq(beta1, df = df1) -pchisq(alpha1, df = df1)
-pchisq(beta2, df = df2) -pchisq(alpha2, df = df2)
-## approx values
-dchisq(x_star1, df = df1)*
-  sqrt(2*pi*sigma2_star1)*
-  (pnorm(beta1,mean=x_star1,sd=sqrt(sigma2_star1)) -
-  pnorm(alpha1,mean=x_star1,sd=sqrt(sigma2_star1)))
-
-dchisq(x_star2, df = df2)*
-  sqrt(2*pi*sigma2_star2)*
-  (pnorm(beta2,mean=x_star2,sd=sqrt(sigma2_star2)) -
-  pnorm(alpha2,mean=x_star2,sd=sqrt(sigma2_star2)))
+# ## exact values
+# pchisq(beta1, df = df1) -pchisq(alpha1, df = df1)
+# pchisq(beta2, df = df2) -pchisq(alpha2, df = df2)
+# ## approx values
+# dchisq(x_star1, df = df1)*
+#   sqrt(2*pi*sigma2_star1)*
+#   (pnorm(beta1,mean=x_star1,sd=sqrt(sigma2_star1)) -
+#   pnorm(alpha1,mean=x_star1,sd=sqrt(sigma2_star1)))
+# 
+# dchisq(x_star2, df = df2)*
+#   sqrt(2*pi*sigma2_star2)*
+#   (pnorm(beta2,mean=x_star2,sd=sqrt(sigma2_star2)) -
+#   pnorm(alpha2,mean=x_star2,sd=sqrt(sigma2_star2)))
 
 # 
 # xx=seq(0,20,l=100)

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.13)  17 JAN 2021 17:11
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.13)  18 JAN 2021 03:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1219,13 +1219,13 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 ] (./Niccolo_Salvini_Thesis.lof [5
 
 ]
-Underfull \hbox (badness 1603) in paragraph at lines 35--35
+Underfull \hbox (badness 1603) in paragraph at lines 36--36
  [][] [][]\TU/lmr/m/n/12 Left: monitoring stations in Piemonte region for PM10 
 
  []
 
 
-Underfull \hbox (badness 6859) in paragraph at lines 37--37
+Underfull \hbox (badness 6859) in paragraph at lines 38--38
  [][] [][]\TU/lmr/m/n/12 Spatial prediction representation through DAG, source 
 
  []
@@ -1492,24 +1492,19 @@ Overfull \hbox (2.8808pt too wide) detected at line 1121
 [][][]
  []
 
-[72]
-Underfull \hbox (badness 10000) in paragraph at lines 1132--1132
-[]\TU/lmr/bx/n/17.28 Gaussian Markov Random Field
- []
+[72] [73]
 
-[73]
-
-LaTeX Warning: Reference `def:gp' on page 74 undefined on input line 1153.
+LaTeX Warning: Reference `def:gp' on page 74 undefined on input line 1154.
 
 File: images/precvscov.jpg Graphic file (type bmp)
 <images/precvscov.jpg>
 
 LaTeX Warning: Reference `fig:precisionmat' on page 74 undefined on input line 
-1162.
+1163.
 
 
 Package natbib Warning: Citation `GRMFRue' on page 74 undefined on input line 1
-162.
+163.
 
 [74] [75] [76] [77]
 File: images/summarytable.PNG Graphic file (type bmp)
@@ -1520,16 +1515,16 @@ Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text
 [78] [79]
 
 LaTeX Warning: Reference `fig:marginalsplot' on page 80 undefined on input line
- 1290.
+ 1291.
 
-[80]
-Overfull \hbox (111.13344pt too wide) in paragraph at lines 1292--1301
+
+Overfull \hbox (111.13344pt too wide) in paragraph at lines 1293--1302
 [][] 
  []
 
 File: 04-inla_files/figure-latex/postplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/postplot-1.pdf>
-[81] [82]
+[80] [81] [82]
 Chapter 5.
 [83
 
@@ -1539,7 +1534,7 @@ File: images/map.png Graphic file (type bmp)
 [84]
 
 Package natbib Warning: Citation `Lindren2011' on page 85 undefined on input li
-ne 1360.
+ne 1361.
 
 [85]
 File: images/prdprocess.png Graphic file (type bmp)
@@ -1551,195 +1546,174 @@ Missing character: There is no 𝛥 in font [lmroman12-bold]:mapping=tex-text;!
 Missing character: There is no 𝛥 in font [lmroman12-bold]:mapping=tex-text;!
 Missing character: There is no 𝛥 in font [lmroman12-bold]:mapping=tex-text;!
 [88]
-
-LaTeX Warning: Reference `fig:matern' on page 89 undefined on input line 1421.
-
 File: images/matern.png Graphic file (type bmp)
 <images/matern.png>
-
-Overfull \hbox (92.817pt too wide) in paragraph at lines 1423--1425
-[]\TU/lmr/bx/n/12 qui metti codici [] 
- []
-
 [89] [90] [91]
 File: images/piemonte_pm10.jpg Graphic file (type bmp)
 <images/piemonte_pm10.jpg>
+[92]
 File: images/spde_indexedsurface.jpg Graphic file (type bmp)
 <images/spde_indexedsurface.jpg>
-[92]
+[93]
 Missing character: There is no ‒ in font [lmroman12-regular]:mapping=tex-text;!
-[93] [94] [95]
-Underfull \hbox (badness 6236) in paragraph at lines 1488--1489
-[]\TU/lmr/m/n/12 then by the following relationship $[] [] []
- []
+[94] [95]
 
-[96] [97] [98] [99]
+LaTeX Warning: Reference `inlahier' on page 96 undefined on input line 1496.
 
-LaTeX Warning: Reference `inlahier' on page 100 undefined on input line 1574.
-
+[96]
 File: images/spatial_prediction.jpg Graphic file (type bmp)
 <images/spatial_prediction.jpg>
 
-Underfull \hbox (badness 4505) in paragraph at lines 1590--1590
-[]\TU/lmr/m/n/12 Figure 5.6: []Spatial prediction representation through DAG, s
+Underfull \hbox (badness 4505) in paragraph at lines 1512--1512
+[]\TU/lmr/m/n/12 Figure 5.7: []Spatial prediction representation through DAG, s
 ource
  []
 
-[100] [101]
+[97] [98]
 
-LaTeX Warning: Reference `example' on page 102 undefined on input line 1626.
+LaTeX Warning: Reference `example' on page 99 undefined on input line 1548.
 
-[102]
+[99]
 File: images/new_prior.jpg Graphic file (type bmp)
 <images/new_prior.jpg>
-[103] [104] [105]
+[100] [101]
 Chapter 6.
-[106
+[102
 
-] [107]
-Overfull \hbox (289.42946pt too wide) in alignment at lines 1686--1712
+] [103]
+Overfull \hbox (289.42946pt too wide) in alignment at lines 1587--1613
  [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1712
+Underfull \vbox (badness 10000) detected at line 1613
  []
 
 
-Overfull \hbox (289.42946pt too wide) in alignment at lines 1712--1730
+Overfull \hbox (289.42946pt too wide) in alignment at lines 1613--1631
  [] [] 
  []
 
-[108] [109]
+[104] [105]
 File: images/leaflet_prezzi.jpg Graphic file (type bmp)
 <images/leaflet_prezzi.jpg>
 File: 06-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf Graphic file 
 (type pdf)
 <use 06-exploratory_files/figure-latex/NonLinearSpatialRel-1.pdf>
-[110] [111]
+[106] [107]
 File: 06-exploratory_files/figure-latex/fctCounts-1.pdf Graphic file (type pdf)
 
 <use 06-exploratory_files/figure-latex/fctCounts-1.pdf>
-[112]
+[108]
 File: 06-exploratory_files/figure-latex/PricePerAc-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/PricePerAc-1.pdf>
 File: 06-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (typ
 e pdf)
 <use 06-exploratory_files/figure-latex/unnamed-chunk-1-1.pdf>
-[113] [114]
+[109] [110]
 File: 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
-[115]
-Overfull \hbox (103.18945pt too wide) in paragraph at lines 1814--1827
+[111]
+Overfull \hbox (103.18945pt too wide) in paragraph at lines 1715--1728
 [][] 
  []
 
 
-Underfull \hbox (badness 1259) in paragraph at lines 1828--1830
+Underfull \hbox (badness 1259) in paragraph at lines 1729--1731
 \TU/lmr/m/n/12 model fitted is [][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][][][][][][][][][][][][].
  []
 
-[116]
-Overfull \hbox (3.62784pt too wide) in paragraph at lines 1834--1835
+[112]
+Overfull \hbox (3.62784pt too wide) in paragraph at lines 1735--1736
 []\TU/lmr/m/n/12 Tie fighter coefficient plot for the linear model: $[][][][][]
 [][][][] [] [][][][][][][][][][][][][] []
  []
 
-[117]
+[113]
 File: 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
  pdf)
 <use 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf>
 
-LaTeX Warning: Reference `(' on page 118 undefined on input line 1845.
+LaTeX Warning: Reference `(' on page 114 undefined on input line 1746.
 
-[118]
+[114]
 
-LaTeX Warning: Reference `(' on page 119 undefined on input line 1866.
+LaTeX Warning: Reference `(' on page 115 undefined on input line 1767.
 
 
-Overfull \hbox (35.63744pt too wide) in paragraph at lines 1866--1869
+Overfull \hbox (35.63744pt too wide) in paragraph at lines 1767--1770
 []\TU/lmr/m/n/12 Furthermore it is possible to grossly divide the plot in figur
 e []fig:WordNetworkgraph)
  []
 
-[119]
+[115]
 File: 06-exploratory_files/figure-latex/WordNetworkgraph-1.pdf Graphic file (ty
 pe pdf)
 <use 06-exploratory_files/figure-latex/WordNetworkgraph-1.pdf>
-[120]
+[116]
 
-LaTeX Warning: Reference `ContentArchitecture' on page 121 undefined on input l
-ine 1885.
+LaTeX Warning: Reference `ContentArchitecture' on page 117 undefined on input l
+ine 1786.
 
-[121]
+[117]
 File: 06-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
 <use 06-exploratory_files/figure-latex/Heatmap-1.pdf>
-[122]
+[118]
 File: 06-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
 df)
 <use 06-exploratory_files/figure-latex/cooccurrence-1.pdf>
-[123] [124]
-Underfull \hbox (badness 1147) in paragraph at lines 1947--1949
+[119] [120]
+Underfull \hbox (badness 1147) in paragraph at lines 1848--1850
 []\TU/lmr/m/n/12 A further method for imputation has been designed by \TU/lmr/m
 /it/12 Gómez-Rubio,
  []
 
-[125] [126]
+[121] [122]
 Chapter 7.
-[127
+[123
 
-]
+] [124]
 Chapter 8.
-[128
+[125
 
 ]
 
-LaTeX Warning: Reference `fig:gpcloud' on page 129 undefined on input line 1994
+LaTeX Warning: Reference `fig:gpcloud' on page 126 undefined on input line 1929
 .
 
 File: appendix_images/gp_base_1.jpg Graphic file (type bmp)
 <appendix_images/gp_base_1.jpg>
-[129
+[126
 
-] [130] [131]
+] [127] [128]
 File: appendix_images/inverse_lemma.jpg Graphic file (type bmp)
 <appendix_images/inverse_lemma.jpg>
-[132] [133]
+[129] [130]
 File: appendix_images/appendix_triangularization.jpg Graphic file (type bmp)
 <appendix_images/appendix_triangularization.jpg>
-[134] [135]
+[131] [132]
 File: appendix_images/appendix_proj.jpg Graphic file (type bmp)
 <appendix_images/appendix_proj.jpg>
-[136] [137] [138]
-
-LaTeX Warning: Reference `fig:laplacevisual' on page 139 undefined on input lin
-e 2196.
-
+[133] [134] [135]
 File: 98-appendix_files/figure-latex/laplacevisual-1.pdf Graphic file (type pdf
 )
 <use 98-appendix_files/figure-latex/laplacevisual-1.pdf>
-File: 98-appendix_files/figure-latex/laplacevisual-2.pdf Graphic file (type pdf
-)
-<use 98-appendix_files/figure-latex/laplacevisual-2.pdf>
-File: 98-appendix_files/figure-latex/laplacevisual-3.pdf Graphic file (type pdf
-)
-<use 98-appendix_files/figure-latex/laplacevisual-3.pdf>
-[139] [140] (./Niccolo_Salvini_Thesis.bbl [141] [142
+(./Niccolo_Salvini_Thesis.bbl [136] [137] [138
 
-] [143] [144] [145] [146] [147] [148] [149] [150]
-Underfull \hbox (badness 5022) in paragraph at lines 613--616
+] [139] [140] [141] [142] [143] [144] [145] [146]
+Underfull \hbox (badness 5022) in paragraph at lines 619--622
 []\TU/lmr/m/n/12 UserAgentString.com (1999).  Useragentstring.com - chrome vers
 ion
  []
 
-[151])
+[147])
 
 Package natbib Warning: There were undefined citations.
 
-[152] (./Niccolo_Salvini_Thesis.aux)
+[148] (./Niccolo_Salvini_Thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1748,15 +1722,15 @@ LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: 9900D74DF04F2B386858F7420F74D7D8;11116.
+(rerunfilecheck)             Checksum: F384E09888A41D6ADF8497A7CF48D526;10396.
  ) 
 Here is how much of TeX's memory you used:
- 23353 strings out of 479212
- 400752 string characters out of 5873273
- 1116730 words of memory out of 5000000
- 42462 multiletter control sequences out of 15000+600000
+ 23373 strings out of 479212
+ 400475 string characters out of 5873273
+ 1119560 words of memory out of 5000000
+ 42484 multiletter control sequences out of 15000+600000
  423254 words of font info for 123 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 98i,18n,122p,3426b,1720s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 98i,18n,122p,3426b,1722s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (154 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (150 pages).
