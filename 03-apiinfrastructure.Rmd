@@ -35,9 +35,6 @@ Technology stack:
 - HTTPS and SSL certificates \@ref(HTTPS)
 - AWS EC2 \@ref(aws)
 
-
-**immagine infrastruttura da rivedere**
-
 ![(#fig:CompleteStructure)complete infrastructure, author's source](images/software_arch.jpg.png)
 
 
@@ -212,6 +209,13 @@ The service disposes of 2 endpoints */fastscrape* , */completescrape*. Parameter
 Rest API documentation can be reached to the API address in the `/__docs__/` path, in the upper navigation bar of figure \@ref(fig:swagger). A further parameter argument, namely `thesis` into both of the endpoint has been added in order to make the API calls reproducible by providing to the scarping function a pre-compiled url to scrape.
 
 ![(#fig:swagger)Swagger UI in localhost on port 8000, author's source](images/swagger.PNG)
+
+An API call might look like the following for both of the endpoint, further details (apart from the minimal requirements in the Swagger UI) are found in the api documentation at the GitHub repository @NiccoloS11.
+
+![(#fig:endpoint1and2)Left: API fastscrape endpoint JSON results, Right: API completescrape endpoint JSON results author's source](images/endpoint1and2.jpg)
+
+
+
 
 ## Docker{#docker}
 

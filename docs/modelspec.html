@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/logo/spatial_logo.png" />
   <link rel="shortcut icon" href="images/logo/spatial_logo.ico" type="image/x-icon" />
 <link rel="prev" href="exploratory.html"/>
-<link rel="next" href="application.html"/>
+<link rel="next" href="conclusions.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -57,9 +57,23 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="libs/leaflet-locationfilter2-0.1.1/locationfilter.css" rel="stylesheet" />
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter.js"></script>
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter-bindings.js"></script>
+<link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
 <script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
 <script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/reactable-binding-0.2.3/reactable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -173,7 +187,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.7.2</b> Parallel foreach+doFuture</a></li>
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.8</b> Open Challenges and Further Improvemements</a></li>
-<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.9</b> Legal Profiles</a></li>
+<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#legal"><i class="fa fa-check"></i><b>2.9</b> Legal Profiles</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#restful-api"><i class="fa fa-check"></i><b>3.1</b> RESTful API</a><ul>
@@ -203,8 +217,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging{#kriging} 6.8</a></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-kriging-in-inlakriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging in INLA{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="prdm.html"><a href="prdm.html#methods-based-on-the-predictive-distribution"><i class="fa fa-check"></i><b>5.5.1</b> Methods based on the predictive distribution</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.6</b> Prior Specification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
@@ -219,8 +235,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.3" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>6.4.3</b> Shinyapp for mesh assessment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a></li>
-<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
+<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a><ul>
+<li class="chapter" data-level="7.1" data-path="modelspec.html"><a href="modelspec.html#mesh-construction-200-blangiardo"><i class="fa fa-check"></i><b>7.1</b> Mesh Construction 200 blangiardo</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
 <li class="chapter" data-level="8.1" data-path="appendix.html"><a href="appendix.html#gpbasics"><i class="fa fa-check"></i><b>8.1</b> Gaussian Process</a></li>
 <li class="chapter" data-level="8.2" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>8.2</b> SPDE and Triangularization (YT speech: <span class="citation">Moraga (<span>2020</span>)</span>)</a></li>
@@ -260,17 +278,58 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-3"><a href="modelspec.html#cb16-3"></a>mesh2 &lt;-<span class="st"> </span><span class="kw">inla.mesh.2d</span>(confini, <span class="dt">max.edge =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>),<span class="dt">cutoff =</span> <span class="dv">3</span>)</span>
 <span id="cb16-4"><a href="modelspec.html#cb16-4"></a><span class="kw">ggplot</span>(data) <span class="op">+</span><span class="st"> </span><span class="kw">gg</span>(mesh2) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
 <span id="cb16-5"><a href="modelspec.html#cb16-5"></a><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Vertices: &quot;</span>, mesh2<span class="op">$</span>n)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_sf</span>(<span class="dt">datum =</span> <span class="kw">st_crs</span>(<span class="dv">5880</span>))</span></code></pre></div>
+<p>fit with the suggestion of INLA in <a href="https://www.r-inla.org/faq#h.sxjo232d6ho5">ref</a></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="modelspec.html#cb17-1"></a><span class="kw">library</span>(spdep)</span>
+<span id="cb17-2"><a href="modelspec.html#cb17-2"></a><span class="kw">library</span>(spDataLarge)</span>
+<span id="cb17-3"><a href="modelspec.html#cb17-3"></a>border &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;data/confini/A090101_ComuneMilano.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spdep&quot;</span>)[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelspec.html#cb18-1"></a><span class="kw">require</span>(sp)  <span class="co"># package to work with spatial data</span></span>
+<span id="cb18-2"><a href="modelspec.html#cb18-2"></a><span class="kw">require</span>(rgdal)</span>
+<span id="cb18-3"><a href="modelspec.html#cb18-3"></a><span class="kw">library</span>(leaflet)</span>
+<span id="cb18-4"><a href="modelspec.html#cb18-4"></a><span class="kw">library</span>(sf)</span>
+<span id="cb18-5"><a href="modelspec.html#cb18-5"></a></span>
+<span id="cb18-6"><a href="modelspec.html#cb18-6"></a></span>
+<span id="cb18-7"><a href="modelspec.html#cb18-7"></a>milan_borders =<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;data/confini/A090101_ComuneMilano.dbf&quot;</span>)</span>
+<span id="cb18-8"><a href="modelspec.html#cb18-8"></a><span class="kw">proj4string</span>(milan_borders)</span>
+<span id="cb18-9"><a href="modelspec.html#cb18-9"></a>milan_borders_pj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(milan_borders, <span class="kw">CRS</span>(<span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0&quot;</span>))</span>
+<span id="cb18-10"><a href="modelspec.html#cb18-10"></a>pal =<span class="st"> </span><span class="kw">colorBin</span>(<span class="st">&quot;viridis&quot;</span>, <span class="dt">bins =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">400</span>))</span>
+<span id="cb18-11"><a href="modelspec.html#cb18-11"></a></span>
+<span id="cb18-12"><a href="modelspec.html#cb18-12"></a><span class="kw">leaflet</span>(dati) <span class="op">%&gt;%</span></span>
+<span id="cb18-13"><a href="modelspec.html#cb18-13"></a><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>CartoDB.Positron) <span class="op">%&gt;%</span></span>
+<span id="cb18-14"><a href="modelspec.html#cb18-14"></a><span class="st">  </span><span class="kw">addCircles</span>(<span class="dt">lng =</span> <span class="op">~</span>long, <span class="dt">lat =</span> <span class="op">~</span>lat, <span class="dt">color =</span> <span class="op">~</span><span class="kw">pal</span>(price))<span class="op">%&gt;%</span></span>
+<span id="cb18-15"><a href="modelspec.html#cb18-15"></a><span class="st">  </span><span class="kw">addLegend</span>(<span class="st">&quot;bottomright&quot;</span>,</span>
+<span id="cb18-16"><a href="modelspec.html#cb18-16"></a>    <span class="dt">pal =</span> pal, <span class="dt">values =</span> <span class="op">~</span>price,</span>
+<span id="cb18-17"><a href="modelspec.html#cb18-17"></a>    <span class="dt">title =</span> <span class="st">&quot;Price&quot;</span></span>
+<span id="cb18-18"><a href="modelspec.html#cb18-18"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb18-19"><a href="modelspec.html#cb18-19"></a><span class="st">  </span><span class="kw">addScaleBar</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;bottomleft&quot;</span>))</span></code></pre></div>
 <p><a href="https://inlabru-org.github.io/inlabru/">mega ref</a></p>
 <p><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13168">mega mega ref</a></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="modelspec.html#cb17-1"></a><span class="kw">library</span>(inlabru)</span>
-<span id="cb17-2"><a href="modelspec.html#cb17-2"></a>formula =<span class="st"> </span>price <span class="op">~</span><span class="st"> </span>condom <span class="op">+</span><span class="st"> </span>totlocali <span class="op">+</span><span class="st"> </span>sqfeet </span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelspec.html#cb18-1"></a><span class="kw">ggplot</span>(data)<span class="op">+</span></span>
-<span id="cb18-2"><a href="modelspec.html#cb18-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lat, long), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb18-3"><a href="modelspec.html#cb18-3"></a><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb18-4"><a href="modelspec.html#cb18-4"></a><span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
-<span id="cb18-5"><a href="modelspec.html#cb18-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> confini) <span class="op">+</span></span>
-<span id="cb18-6"><a href="modelspec.html#cb18-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="modelspec.html#cb19-1"></a><span class="kw">library</span>(inlabru)</span>
+<span id="cb19-2"><a href="modelspec.html#cb19-2"></a>formula =<span class="st"> </span>price <span class="op">~</span><span class="st"> </span>condom <span class="op">+</span><span class="st"> </span>totlocali <span class="op">+</span><span class="st"> </span>sqfeet </span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="modelspec.html#cb20-1"></a><span class="kw">ggplot</span>(data)<span class="op">+</span></span>
+<span id="cb20-2"><a href="modelspec.html#cb20-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(lat, long), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb20-3"><a href="modelspec.html#cb20-3"></a><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb20-4"><a href="modelspec.html#cb20-4"></a><span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span></span>
+<span id="cb20-5"><a href="modelspec.html#cb20-5"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> confini) <span class="op">+</span></span>
+<span id="cb20-6"><a href="modelspec.html#cb20-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><strong>covariate choice </strong>
+## Model Selection</p>
+<ul>
+<li>wang pagina 49
+In regression analysis, we often want to find a reduced model with the best subset of
+the variables from the full model. The model selection in frequentist analysis is com-
+monly based on Akaike information criterion (AIC), a MLE-based criterion. Back to
+the air pollution data example, a stepwise model selection procedure using AIC can
+be implemented by the function stepAIC in R library MASS</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="modelspec.html#cb21-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb21-2"><a href="modelspec.html#cb21-2"></a>usair.step &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(usair.lm1, <span class="dt">trace =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb21-3"><a href="modelspec.html#cb21-3"></a>usair.step<span class="op">$</span>anova</span></code></pre></div>
+<div id="mesh-construction-200-blangiardo" class="section level2">
+<h2><span class="header-section-number">7.1</span> Mesh Construction 200 blangiardo</h2>
+<p>how to fit a spatial model
+<a href="https://www.r-inla.org/faq#h.sxjo232d6ho5" class="uri">https://www.r-inla.org/faq#h.sxjo232d6ho5</a></p>
 
+</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
@@ -284,7 +343,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="exploratory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="conclusions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

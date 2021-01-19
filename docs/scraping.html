@@ -57,9 +57,23 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="libs/leaflet-locationfilter2-0.1.1/locationfilter.css" rel="stylesheet" />
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter.js"></script>
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter-bindings.js"></script>
+<link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
 <script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
 <script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/reactable-binding-0.2.3/reactable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -173,7 +187,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.7.2</b> Parallel foreach+doFuture</a></li>
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#challenges"><i class="fa fa-check"></i><b>2.8</b> Open Challenges and Further Improvemements</a></li>
-<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#legal-profiles"><i class="fa fa-check"></i><b>2.9</b> Legal Profiles</a></li>
+<li class="chapter" data-level="2.9" data-path="scraping.html"><a href="scraping.html#legal"><i class="fa fa-check"></i><b>2.9</b> Legal Profiles</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
 <li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#restful-api"><i class="fa fa-check"></i><b>3.1</b> RESTful API</a><ul>
@@ -203,8 +217,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-krigingkriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging{#kriging} 6.8</a></li>
-<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#model-criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a></li>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#spatial-kriging-in-inlakriging-6.8"><i class="fa fa-check"></i><b>5.4</b> Spatial Kriging in INLA{#kriging} 6.8</a></li>
+<li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#criticism"><i class="fa fa-check"></i><b>5.5</b> Model Criticism</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="prdm.html"><a href="prdm.html#methods-based-on-the-predictive-distribution"><i class="fa fa-check"></i><b>5.5.1</b> Methods based on the predictive distribution</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.6</b> Prior Specification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
@@ -219,8 +235,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.3" data-path="exploratory.html"><a href="exploratory.html#shinyapp-for-mesh-assessment"><i class="fa fa-check"></i><b>6.4.3</b> Shinyapp for mesh assessment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a></li>
-<li class="chapter" data-level="8" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
+<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a><ul>
+<li class="chapter" data-level="7.1" data-path="modelspec.html"><a href="modelspec.html#mesh-construction-200-blangiardo"><i class="fa fa-check"></i><b>7.1</b> Mesh Construction 200 blangiardo</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
 <li class="chapter" data-level="8.1" data-path="appendix.html"><a href="appendix.html#gpbasics"><i class="fa fa-check"></i><b>8.1</b> Gaussian Process</a></li>
 <li class="chapter" data-level="8.2" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>8.2</b> SPDE and Triangularization (YT speech: <span class="citation">Moraga (<span>2020</span>)</span>)</a></li>
@@ -511,7 +529,7 @@ UA is a dense content string that includes many User details: the user applicati
 <span id="cb5-3"><a href="scraping.html#cb5-3"></a>agents =<span class="st"> </span><span class="kw">read_html</span>(url) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="dt">css =</span> <span class="st">&quot;.agents_list li&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</span>
 <span id="cb5-4"><a href="scraping.html#cb5-4"></a></span>
 <span id="cb5-5"><a href="scraping.html#cb5-5"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 10; LM-G710 Build/QKQ1.191222.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.138 Mobile Safari/537.36&quot;</code></pre>
+<pre><code>## [1] &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBDV/iPhone13,2;FBMD/iPhone;FBSN/iOS;FBSV/14.3;FBSS/3;FBID/phone;FBLC/en_US;FBOP/5]&quot;</code></pre>
 <p>The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
 However UA field name technology has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named <em>Hints</em> <span class="citation">contributors (<a href="#ref-wiki:UserAgentHints" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgentHints" role="doc-biblioref">e</a>)</span>.</p>
 An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process.
@@ -652,7 +670,7 @@ As a disclaimer Rcrawler is designed to be flexible to scrape a vast number of w
 On the parallel computing side a further boosts might be added with parallel distributed processing through HPC (high-performance computing) clusters by <code>future.batchtools</code> <span class="citation">Bengtsson (<a href="#ref-futurebatchtools" role="doc-biblioref">2020</a><a href="#ref-futurebatchtools" role="doc-biblioref">a</a>)</span>. The package implements a generic future wrapper around batchtools with job scheduler like Torque, Slurm, Sge and many more. A higher level API built on top of the Future framework that exploits <a href="https://cloudyr.github.io/googleComputeEngineR/articles/massive-parallel.html">Google Cloud Engine Clusters</a> i.e.<code>cloudyR</code> allows to distribute computation on Google machines.
 <!-- Moreover error messages can not sometimes be printed out in console and be undesrtood while in parallel beckend. as it is shown the [stackoverflow reproducible example](https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar). As a consequence to that each time an error occurs the "main" functions needs to be taken out of from the parallel back end and separately evaluated. This is time consuming but for the time being no solutions have been found.  --></p>
 </div>
-<div id="legal-profiles" class="section level2">
+<div id="legal" class="section level2">
 <h2><span class="header-section-number">2.9</span> Legal Profiles</h2>
 <p>There is a legitimate <em>gray</em> web scrapers area, not only creating possible new uses for the data collected, but also potentially damaging the host website <span class="citation">(Media <a href="#ref-WhatCour57" role="doc-biblioref">2017</a>)</span>. Online platforms and the hunger for new data insights are increasingly seeking to defend their information from web scrapers. Online platforms are unfortunately not always successful distinguishing users between polite, impolite and criminals, risking new ones Valid competition and creativity. A minimal but effective self limitation can really be
 The courts have fought hard to achieve clear judgments Cases for web scraping. The crucial obstacle is a coherent verdicts to ascertain “Kitchen Sink” <span class="citation">(MERRIAM-WEBSTER <a href="#ref-Kitchens81" role="doc-biblioref">2018</a>)</span>, the standard web claim discontroversy on scraping. Kitchen Sink main arguments are:</p>
@@ -664,7 +682,7 @@ The courts have fought hard to achieve clear judgments Cases for web scraping. T
 </ul>
 <p>A second challenge to clear verdicts is that there are several purposes for which a business model operates in a continuum of social acceptability hiring web scrapers <span class="citation">(Maheedharan <a href="#ref-ADetaile90" role="doc-biblioref">2016</a>)</span>. As an example Googlebot ranks, sorts and indexes search results for Google users, without which the search would not optimized and business would not profit from this fact. A more coherent case is represented by the exploitation of scraping on online Real Estate advertiser whose importance is ascertained by the fact that they are the fist house purchase media 52% (USA survey) and searches are expected to be growing by 22% per yeay <span class="citation">(Peterson and Merino <a href="#ref-peterson2003consumer" role="doc-biblioref">2003</a>)</span>. On the other hand it is estimated that the 20% of crawlers are actually DoSsing scrapers <span class="citation">(LaFrance <a href="#ref-TheInter5" role="doc-biblioref">2017</a>)</span> causing an economic damage, as in <a href="Infrastructure.html#DoS">3.1.3</a>. Unfortunately the majority of web scraping services fall between these two extremes <span class="citation">(<a href="#ref-WhatCour57" role="doc-biblioref">2017</a>)</span>.
 The most discussed and observed case regards Linkedin Corp. “Linkedin” vs hiQ Labs Inc. (“hiQ”) whose claim argues the exploitation of the former personal profile data to offer a series of HR services. The litigation started by accusing hiQ with “using processes to improperly, and without authorization, access and copy data from LinkedIn’s website” <span class="citation">(Corporation <a href="#ref-Letterfr71" role="doc-biblioref">2017</a>)</span>. As reinforcement to their arguments they presented also a citation directly form their terms raising the point on copying, web scarping prohibition without their explicit consent. Furthermore Linkedin noted that technical barriers were taken into existence to restrict the access of hiQ to the platform and warned of a breach of state and federal law by ignoring such barriers <span class="citation">(<a href="#ref-WhatCour57" role="doc-biblioref">2017</a>)</span>. As a response Hiq submitted a temporary restricting order to prevent LinkedIn from denying the access to their platform, focusing on the aspect that the motivation was led by an anticompetitive intent. Linkedin’s response brought into the litigation CFAA which actually pollutes argumentation since Court evidences that CFAA is ambiguous whether it is granting or restringing the access to public available website <span class="citation">(Edward G. Black <a href="#ref-hiQLabsI66" role="doc-biblioref">2017</a>)</span>. In other words CFAA intent was to protect user data when they are authenticated with passwords, and in no case out of these borders. In the end the litigation moved to the Ninth Circuit where in 2019 it uphelds the preliminary injunction to prohibit LinkedIn from continuing to provide access to publicly accessible LinkedIn member profiles to the claimant hiQ Labs <span class="citation">(contributors <a href="#ref-wiki:HiQvsLinkedIn" role="doc-biblioref">2020</a><a href="#ref-wiki:HiQvsLinkedIn" role="doc-biblioref">d</a>)</span>.
-Immobiliare.it expressed similarly to linkedin in their terms <span class="citation">(immobiliare.it <a href="#ref-immobiliareterms" role="doc-biblioref">2020</a>)</span> the prohibition to reproduce any form of intellectual property in their web pages. This once again does not imply the inaccessibility to scraping their content and should not in any case prevent the usage of an open sourced tool inspired by research grounds and efficient market choices.</p>
+Immobiliare.it expressed similarly to linkedin in their terms <span class="citation">(immobiliare.it <a href="#ref-immobiliareterms" role="doc-biblioref">2020</a>)</span> the prohibition to reproduce any form of intellectual property in their web pages. This once again does not imply the inaccessibility to scraping their content and should not in any case prevent the usage of an open sourced tool inspired by research grounds and efficient and transparent market choices.</p>
 
 </div>
 </div>

@@ -157,8 +157,25 @@ In other words the  to help with the interpretation. The fact that 2 and 3 bathr
 
 Tie fighter coefficient plot for the linear model: $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$
 
+<!-- # ```{r, eval = FALSE} -->
+<!-- #  -->
+<!-- # library(tidyverse) -->
+<!-- # library(broom) -->
+<!-- # prova = datiprep_sq %>% -->
+<!-- #  mutate(totpiani = fct_lump(totpiani, 5), -->
+<!-- #         floor = fct_lump(floor,10)) %>%  -->
+<!-- #  filter(floor != "Other") %>%   -->
+<!-- #  filter(totpiani != "Other")  %>%  -->
+<!-- #  filter(!is.na(.))  -->
+<!-- #  model = inla(log2(price) ~ log2(abs_price) + bagno + floor + totpiani  , family = "normal", data = prova)  %>%  -->
+<!-- #    .$summary.fixed -->
+<!-- #  model %>%  -->
+<!-- #    tidy(model, conf.int =T ) -->
+<!-- #  -->
+<!-- # ``` -->
 
-![(\#fig:TieFighterPlot)Tie fighter coefficient plot for a log-linear model](06-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
+
+![(\#fig:TieFighterPlot)Tie fighter coefficient plot for the log-linear model](06-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
 
 
 ## Text Mining in estate Review

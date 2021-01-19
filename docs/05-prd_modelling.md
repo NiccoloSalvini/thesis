@@ -1,5 +1,8 @@
 # Point Referenced Data Modeling {#prdm}
 
+
+
+
 Geostatistical data are a collection of samples of geo type data indexed by coordinate Reference Systems (CRS), projected (e.g. Eastings and Northings) or unprojected (e.g. Latitude and Longitude), that originates from a spatially continuous phenomenon [@Moraga2019]. Data as such can monitor a vast range of phenomena, e.g. accidental fisheries bycatch for endangered species [@CosandeyGodin2015], COVID19 severity and case fatality rates in Spain [@Moragacovid2020], PM10 pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. Moreover a large geostatistical application takes place on Real Estate where Boston house prices lattice data from MASS @mass package @rubiorealestate are developed according to several spatial models, where apartment transaction prices are in Corsica (France) are modeled in time and space [@Ling]. All the Examples taken before and might document a spatial nature of data according to which closer observations can display similar values, this phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:
 
 > "Everything is related to everything else, 
@@ -47,9 +50,7 @@ where $\mathscr{D}$ is a (fixed) subset of $\mathbb{R}^{d}$ (in the present work
 The first step in defining a spatial model within INLA is to impose a LGM which requires at first to identify a probability distribution function for the observed data $\boldsymbol{\mathbf{y}}$. The most common choice is to drawn distributions from the _Exponential family_, indexed by a set of parameters $\boldsymbol\theta$ as in \@ref(LGM), accounting for the spatial correlation. From now on it will be used index for the generic spatial point or area with the subscript $i$, rather than the indicator $s_i$.
 In the case of geostatistical data, the model parameters $\boldsymbol\theta$, following notation imposed in chapter \@ref(inla) are defined as a latent Gaussian Process (GP). The GP theoretical foundations and the spatial intuition are offered as a companion in the appendix \@ref(gpbasics).
 
-\BeginKnitrBlock{definition}\iffalse{-91-71-80-32-100-101-102-105-110-105-116-105-111-110-93-}\fi{}
-<span class="definition" id="def:GP"><strong>(\#def:GP)  \iffalse (GP definition) \fi{} </strong></span>A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ and  _finite_ stochastic processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ follows a _Multivariate Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{Q}^{-1}_{i,j}, \forall i \neq j$ defined then by a covariance function $\mathscr{\cdot, \cdot}$
-\EndKnitrBlock{definition}
+
 
 The latent GP are in function of some hyper-parameters $\boldsymbol\psi$ and their respective prior $\pi(\boldsymbol\psi)$. Moreover a GP is completely characterized by a mean $\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}$ and a spatially structured covariance matrix $\boldsymbol{Q^{-1}}$, whose generic element is $\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{C}} \mathscr{C}(\Delta_{i j})$, where $\sigma_{\mathscr{C}}^{2}$ is the variance component and for $i, j = 1, \ldots, n$. $\mathscr{C}\left( \cdot, \cdot \right)$ function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the _validity_ and _positive definitness_ characteristics from the GP. The spatial stochastic process commonly is assumed to fulfill two important properties: **stationary**, **Isotropy** (both of the two can be relaxed and the cost of using differten). 
 A process is said **stationary** i.e. weak stationary, if process values at any two locations can be summarized by a covariance function $\mathscr{C(\Delta_{i j})}$ depending only on the distance. In other words it is invariant under _translation_ [@Krainski-Rubio].
@@ -81,12 +82,12 @@ In particular the focus is on the _Matérn_ – as it is required by the SPDE ap
 $$
 \mathscr{C}\left(\Delta_{i j}\right)=\frac{1}{\Gamma(\lambda) 2^{\lambda-1}}\left(\kappa \Delta_{i j}\right)^{\lambda} K_{\lambda}\left(\kappa \Delta_{i j}\right)
 $$
-$\Gamma(\nu)$ is a Gamma function depending on $\nu$ values, $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The smoothness parameter $\nu$ in figure \@ref(fig:matern) takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When $\nu = 1$ ... When $\nu = 1/2$ it becomes the exponential covariance function, When $\nu = 3/2$ it uncovers a convenient closed form [@LecturePaci], when $\nu \approx \infty$, e.g. for graphical constraints $\nu = 80$, it becomes Gaussian covariance function. In the the case shown in section \@ref(spdeapproach) $\sigma_{\mathscr{C}}^{2}$ range is set equal to the distance at which dependence vanishes below .1, for any $\lambda$.
+$\Gamma(\nu)$ is a Gamma function depending on $\nu$ values, $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The smoothness parameter $\nu$ in figure \@ref(fig:matern) takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When $\nu = 1$, i.e green in fig. \@ref(fig:matern) ... When $\nu = 1/2$ i.e. red it becomes the exponential covariance function, When $\nu = 3/2$ i.e. blue it uncovers a convenient closed form [@LecturePaci], when $\nu \approx \infty$, i.e. purple (here $\nu = 80$ for graphical reasons), it becomes Gaussian covariance function. In the the case shown in section \@ref(spdeapproach) $\sigma_{\mathscr{C}}^{2}$ range is set equal to the distance at which dependence vanishes below .1, for any $\lambda$.
 
 ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png)
 
 
-
+If we have a realization $x(s)$ at $n$ locations, we can define its joint covariance matrix. Each entry of this joint covariance matrix $\Sigma$ is $\Sigma_{i, j}=\sigma_{x} \operatorname{Cor}_{M}\left(X\left(s_{i}\right), X\left(s_{j}\right)\right)$. It is common to assume that $X(x)$ has a zero mean. We have now completely defined a multivariate distribution for $x(s)$
 
 <!-- For simplicity lets consider $y$ point of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$ -->
 <!-- from a random spatial process $Y(s_n)$, such that: $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of point reference data modeling each observation has to be considered as a partial realization of an unobserved/underlying random spatial process $\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$, where surface $D$ is a subset of r-dimensional Euclidean space $\mathbb{R}^{r}$.  -->
@@ -387,17 +388,15 @@ A further aspect of the problem is posed by scholars not considering rents to be
 <!-- $\boldsymbol{\psi}_{l}$ identifies the hyper pram for the $l_{th}$ level of hierarchy. Each further parameter level $\psi$ is conditioned to its previous in hierarchy level $l-1$ so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The *Exchangeability* property enables to have higher $H$ nested DAG (i.e. add further $L$ levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many $L$ levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off. -->
 
 
-## Spatial Kriging{#kriging} 6.8
+## Spatial Kriging in INLA{#kriging} 6.8
 
 The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. In general Bayesian settings 
 
 
-At first it may be convenient to look at general bayesian prediction 
 
-- general bayesian prediction (wang + balngiardo)
-- spartial prediction by Gelfand
-- integrating with paci
-- code from blangiardo 
+- prima prendi da gelfand e intergi con paci
+- poi prendi blangiardo + WANG 
+- infine simuli un un dataset e fai prediction con INLA 
 
 
 
@@ -421,49 +420,266 @@ A DAG representation might offr the intuition behind Prediction in spatial model
 where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
 
 
-## Model Criticism
+## Model Criticism{#criticism}
 
-Since INLA can fit a wide range of model then the flexibility should be reflected by a mouldable tool to check model suitability. 
-Once the model is set up and fitted a resampling scheme has to be chosen in order to evaluate the model performance. One of the most used method to assess beyasian model quality is LOOCV cross validation and defualt choice fo R-INLA package. From data is left out one single observation and so that the Validation set is  $\boldsymbol{y}_{v} = \boldsymbol{y}_{-i}$ and the Assessement set is a $\boldsymbol{y}_{a} = \boldsymbol{y}_{i}$
-the rest of the observations. Two KPI are assumed to be representative:
+Since INLA can fit a wide range of models then the flexibility should be reflected by a mouldable tool to check model suitability. Model criticism may regard the research on which variables are used in the model, which assumptions are made on parameters and on the likelihood as well as the prior choice addressed in \@ref(priorsspec).  However here are two common _modi operandi_ which are also implemented inside inla: one based on predictive distribution and the other on deviance. Note that all specifications mentioned in this analysis can be determined by setting the option in `control.compute`.
 
-- CPO conditional predictive ordinate (pettit, 1990): $CPO_{i} = \pi(y^{\star} \mid \boldsymbol{y}_{v})$
-- PIT probability integral tranform (dawid, 1984): $PIT_{i} = \pi(y^{\star} < y_{i} \mid \boldsymbol{y}_{v})$
+### Methods based on the predictive distribution
 
-These quantities are used by default by setting control options in the `inla(control.compute = list())` list object by setting them equal o TRUE. Inla also provides an inner method to authomatically handlee failing in computing those two quantities, leadind to values of 1 when predictions are not reliable and the ipposite for 0.Moreover the empirical distribution of the PIT can be used to asses predictive performance: if it is Uniform, so there are not values that strongly differ from the others then the model is correctly checked. Otherwise if the dostribtuon almost approxiamtes any of the other possibles then the Cross validation assessement prediction has led incorrectly predict the "out of the bag" validation sample.
+One of the most used method to assess Bayesian model quality is LOOCV, i.e. Leave One Out Cross Validation and it is also default choice in INLA. Assume to have $\boldsymbol{y}$ data from which it is left out one single $y_i$ observation, as a result the assessment set is $\boldsymbol{y}_{A} = \boldsymbol{y}_{-i}$ and the validation set is ${y}_{V} = y_{i}$, where the notation is the same for chapter \@ref(inla). Two metrics are assumed to be demonstrative:
 
-Posteerior checking method exploits a full cross validation where $\boldsymbol{y}_{a} = \boldsymbol{y}_{v}$ and it is called predictive checks. Th assessement set now is equal to the validation set,a s a consequence all the observation are evaluated twice. 4 quantities are driver to model estimate quality:
+- CPO Conditional Predictive Ordinate [@petit1990]: $CPO_{i} = \pi(y_{V} \mid \boldsymbol{y}_{A})$, For any observation the CPO is the posterior probability of observing the left out $y_{V}$ when the model is fitted with $\boldsymbol{y}_A$ assessment set. High values imply that the model suits well the data, while small values indicate a poor fit, i.e. outlier. [@Bayesian_INLA_Rubio]. The negative log-summation (LPML @lpml) of each CPO gives a cross-validatory summary measure of fit [@wang2018bayesian] i.e. $-\sum_{i=1}^{n} \log \left(C P O_{i}\right)$
+- PIT Predictive Integral Transform [@marshall2007]: $PIT_{i} = \pi(y_{V} < y_{i} \mid \boldsymbol{y}_{A})$. PIT computes the probability of a new response value being smaller than the observed real value and it is calculated for each left out observation:
+
+Inla also provides for both of the predictive methods an inner functionality to automatically handle abnormalities while computing the two quantities. Inla encodes values with 1 when predictions are not reliable, otherwise they are set equal to 0. Moreover the empirical distribution of the PIT can be used to asses predictive performance: if it is Uniform, so there are not values that significantly differ from the others then the model suits the data. Otherwise if the distribution almost approximates any of the other one then the "out of the bag" prediction suggest a model miss-pecification. 
+
+
+
+
+For example assume to have data from a 1970's study on the relationship between insurance redlining in Chicago and racial composition, fire and theft rates, age of housing and income in 47 zip codes (inherited by `brinla`[@brinla]). Assume also to fit a linear model whose response is "involact" being new FAIR plan policies and renewals per 100 housing units and the rest are predictors, i.e. $involact \sim race + fire +theft + age + \log(income)$.
+Then the resulting LPML is: -20.6402104
+Furthermore in left panel of fig. \@ref(fig:pitcpo) the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
+
+![(\#fig:pitcpo)Left: histogram of cross-validate PIT, Right: qq plot for Unif(0,1)](05-prd_modelling_files/figure-latex/pitcpo-1.pdf) 
+
+
+Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. One major drawback refers to the fact that observation are processed twice, once to fit the model, and twice for evaluating performances. 4 quantities are driver to model estimate quality:
 
 - the _posterior predictive distribution_: $\pi(y^{\star} \mid \boldsymbol{y})  = \int \pi(y^{\star} \mid \theta_{i})\pi({\theta_{i}} \mid \boldsymbol{y})\mathrm{d}\theta_{i}$ which is the likelihood of a replicate observation. When values are small that indicates that are those values are coming from tails, since the area under the curve (i.e. probability) is less. If this happens for many observation then outliers are driving the model leading to poor estimates
-- the _posterior predictive p-value_ whose math expression is:$\pi(y^{\star} \leq y_{i} \mid \boldsymbol{y})$ for which values near to 0 and 1 indicates poor perfomances. 
-- _Root Mean Square Predictive Error RMSE_: $\sqrt{\frac{1}{n} \sum_{i=1}^{n}(y_{i}-{y}^{\star}_{i})^{2}}$
+- the _posterior predictive p-value_ whose math expression is:$\pi(y^{\star} \leq y_{i} \mid \boldsymbol{y})$ for which values near to 0 and 1 indicates poor performances. 
+- the _Root Mean Square Predictive Error RMSE_: $\sqrt{\frac{1}{n} \sum_{i=1}^{n}(y_{i}-{y}^{\star}_{i})^{2}}$
 - $R^2$
 
 R-INLA has already antiticipated in chapter 4 section\@ref(example) have designed function to compute statistics on posterior distribution as `inla.pmarginal()` returning the cumulative density distribution.
+
+
+
 
 ## Prior Specification{#priorsspec}
 
 The priors choice is the most central part of a Bayesian analysis and at the same time the weakest since any selection might be criticized. Priors expression involves a considerably high amount of subjectivity and domain experience which may be imported from other comparable literature works or results. However according to purists Bayesian priors should be decided _a-priori_, without either looking at the data, nor the posterior results. This can be tedious since many models are sensitive to priors, as evidenced in the example in sec. \@ref(rinla). Priors may negatively impact posteriors when are 
 wrong and they usually require a later revision. The choice in this context is also more difficult since it is also constrained to LGM requirements for which the latent field demands them to be jointly Gaussian.
-@simpson2017 provide a solid backbone knowledge on priors specification in Hierarchical models by setting up 4 guidelines principles on top of which it is built a new prior class called Penalized Complexity (PC) priors. Before jumping into the principles it is needed an abstract concept that goes by the name of “base model". For a general density $\pi(\mathbf{y} \,| \,\xi)$ which is controlled by a flexibility parameter $\xi$ the base model is the most uncomplicated one in the class. Following the notation this would be the model corresponding to $\xi = 0$. The base model ideally grabs the parameter choice with the lowest possible complexity given the model and set it as a ground benchmark. The following example regards base model for a a Gaussian Random effect and it considers a multivarite gaussian distributed with mean **0** and precision matrix $\tau \boldsymbol{Q}$, i.e.  $\mathbf{y} \mid \xi \sim \operatorname{MVN}(\, 0\, ,\,\tau \boldsymbol{Q})$, where $\tau=\xi^{-1}$. The base model tries to put the mass [-@simpson2017] on $\xi = 0$ since the base model in this case is a model without the random effect. At this point it is possible to present the building blocks, first priciple is _Occam’s razor_ according to which priors should be weighted down in fuction of the distance between the added complexity and the base model i.e. simpler models are preferred. The second principle regards how it is measured complexity whose solution is found in KLD (Kullback–Leibler divergence), calculating distance $d$ from base model. KLD in this context along with principle 1 affirms that the prior shall have high mass in areas where replacing the base model with the flexible model will not cause any information loss. Principle 3 is constant rate penalization as names suggest relates the distance $d$ to a constant rate penalization. In the end principle 4 regards a scale parameter which actually ends up not being very sharp in postrior results [-@simpson2017]. A prior satistfyng all the requirements is said Penalized in Complexity.
-Priors of this class should be then derived with respect to the specific content they are needed. In this context PC priors are seen for Gaussian Random effect, i.e. the GP process \@ref(def:GP) modeling spatial dependence for which a precision hyper parameter is demanded.
-Then the latent field has mean 0 and covariance matrix $\boldsymbol{Q^{-1}}$, i.e. $\mathbf{x} \sim \mathcal{N}\left(\mathbf{0}, \tau^{-1} \boldsymbol{Q}^{-1}\right)$. The base model considers the absence of the random effect which implies $\tau \rightarrow \infty$. Then the derived [@simpson2017] PC prior does not depend on the matrix $\boldsymbol{Q}$ and takes the form of an exponential distribution i.e. "type-2 Gumbel distribution" on the standard deviation (in contrast to the exponential on the precision seen in the default). The disitrbution depends on a scale parameter  $\lambda$ taht regulates the penalty deviating from the base model.
+@simpson2017 provide a solid backbone knowledge on priors specification in Hierarchical models by setting up 4 guidelines principles on top of which it is built a new prior class called Penalized Complexity (PC) priors. Before jumping into the principles it is needed an abstract concept that goes by the name of “base model". For a general density $\pi(\mathbf{y} \,| \,\xi)$ which is controlled by a flexibility parameter $\xi$ the base model is the most uncomplicated one in the class. Following the notation this would be the model corresponding to $\xi = 0$. The base model ideally grabs the parameter choice with the lowest possible complexity given the model and set it as a ground benchmark. The following example regards base model for a a Gaussian Random effect and it considers a multivarite gaussian distributed with mean **0** and precision matrix $\tau \boldsymbol{Q}$, i.e.  $\mathbf{y} \mid \xi \sim \operatorname{MVN}(\, 0\, ,\,\tau \boldsymbol{Q})$, where $\tau=\xi^{-1}$. The base model tries to put the mass [-@simpson2017] on $\xi = 0$ since the base model in this case is a model without the random effect. At this point it is possible to present the building blocks, first priciple is _Occam’s razor_ according to which priors should be weighted down in fuction of the distance between the added complexity and the base model i.e. simpler models are preferred. The second principle regards how it is measured complexity whose solution is found in KLD (Kullback–Leibler divergence), calculating distance $d$ from base model. KLD in this context along with principle 1 affirms that the prior shall have high mass in areas where replacing the base model with the flexible model will not cause any information loss. Principle 3 is constant rate penalization as names suggest relates the distance $d$ to a constant rate penalization whose assumption implies an exponential prior on the distance scale, i.e. $\pi(d) =  \lambda \exp (-\lambda d)$. In the end, the PC prior is described in the required scale with probability statements on the model parameters. Statement regards the selection of two further user defined (here the subjectivity) hyper-parameters, $U$ regulating the tail event and $\alpha$ the mass to put to this event such that $\operatorname{P}(Q(\xi)>U)=\alpha$. A prior satisfying all the requirements is said Penalized in Complexity.
+Priors of this class should be then derived with respect to the specific content they are needed. In this context PC priors are seen for Gaussian Random effect, i.e. the GP \@ref(def:GP) modeling spatial dependence for which a precision hyper parameter is demanded. The PC prior for the precision $\tau$ is on standard deviation scale $\sigma=\tau^{-1 / 2}$.  
+Then the GMRF latent field has mean 0 and covariance matrix $\boldsymbol{Q^{-1}}$, i.e. $\boldsymbol{\theta} \sim \mathcal{N}\left(\mathbf{0}, \tau^{-1} \boldsymbol{Q}^{-1}\right)$. The base model considers the absence of the random effect which implies $\tau \rightarrow \infty$. Then the derived PC prior [@simpson2017] takes the form of an exponential distribution, i.e. "type-2 Gumbel distribution" eq: \@ref(eq:exponential), whose rate parameter is $\lambda$ determining the severity of the penalty when diverging from the base model. Note that the parameter $\lambda$ is on the standard deviation scale (in contrast to the Gamma on the precision seen in \@ref(rinla)).
 
-![(#fig:priorcomp)New prior (dashed) with parameters ($U = 0.968$,$\alpha = 0.01$), and the $\Gamma(shape = 1,rate = b)$ prior (solid).](images/new_prior.jpg)
+\begin{equation}
+  \pi(\tau)=\frac{\lambda}{2} \tau^{-3 / 2} \exp \left(-\lambda \tau^{-1 / 2}\right), \tau>0
+(\#eq:exponential)
+\end{equation}
 
+The distribution depends on a rate parameter $\lambda$ that regulates the penalty according to the probability natural criterion [@slides] $\operatorname{Prob}(\tau^{-\frac{1}{2}} > U)=\alpha$. $U$ in this case is an upper limit for the standard deviation (being in the base model) and $\alpha$ a small probability. The probability statement aforementioned implies the follwing realtion $\lambda=-\ln (\alpha) / U$. Some further investigations of @simpson2017 acknowledged that parameters upper bounds for $\tau$ are $U = 0.968$, and $\alpha = 0.01$, where alpha regulates the importance of the prior believe. Ideally it would be picked up $U$ drawing on previous experience. Indeed a reasonable choice in the absence of knowledge might be taking the semivariogram range \@ref(GP), i.e. where the spatial dependece disappears.
+PC priors are natively implemented in INLA and are shown to be well suited for the modular additive definition [@Bayesian_INLA_Rubio]. As a consequence they are selected as prior candidates with a reasonable $U$ selection and no sensitivity analysis is performed i.e. evalutaing posterior disstribution while prior are changing.
 
+<!-- ![(#fig:priorcomp)New prior (dashed) with parameters ($U = 0.968$,$\alpha = 0.01$), and the $\Gamma(shape = 1,rate = b)$ prior (solid).](images/new_prior.jpg) -->
 
-```r
-x = rnorm(20, mean = 40, sd = 2)
-sdres = sd(x)
-pc.prior = function(tau, alpha, u = 3*sdres) {
-  lambda = -log(alpha)/u
-  res = lambda/2*tau^(-3/2)*exp(-lambda*tau^(-1/2))
-  return(res)
-}
+Fig. \@ref(fig:priorfun) indicates various PC priors using several $\alpha$ values for the precision $\tau$. Note that increasing $\alpha$'s values contribute to a stronger prior implies more confidence in the prior belief for $U$ which then leads to a higher conviction of $\tau$.
 
+<!-- PROVA A METTERE ESEMPIO SPDETOY -->
+![(\#fig:priorfun)PC priors for the precision by varying alpha values and fixing $U$](05-prd_modelling_files/figure-latex/priorfun-1.pdf) 
 
-curve(pc.prior(x, alpha = 0.1))
+```
+##             s1         s2         y
+## 1   0.08265625 0.05640625 11.521206
+## 2   0.61230625 0.91680625  5.277960
+## 3   0.16200625 0.35700625  6.902959
+## 4   0.75255625 0.25755625 13.176691
+## 5   0.85100625 0.15405625 14.599692
+## 6   0.00180625 0.73530625  9.780211
+## 7   0.26265625 0.12425625 10.484077
+## 8   0.74390625 0.07700625  7.402424
+## 9   0.27825625 0.02640625  9.807374
+## 10  0.19140625 0.98505625  7.004359
+## 11  0.82355625 0.20930625 14.045147
+## 12  0.18275625 0.99500625  8.139851
+## 13  0.40640625 0.04100625  9.370882
+## 14  0.28890625 0.40005625  9.122177
+## 15  0.00950625 0.00180625 12.683316
+## 16  0.69305625 0.41925625 11.850910
+## 17  0.05175625 0.10400625 10.038157
+## 18  0.00140625 0.13875625 10.049431
+## 19  0.08850625 0.55875625  9.826410
+## 20  0.92640625 0.69305625  9.880732
+## 21  0.64400625 0.06375625  8.261963
+## 22  0.38750625 0.74390625 10.554678
+## 23  0.32775625 0.85100625  9.675417
+## 24  0.77000625 0.36905625 11.651395
+## 25  0.33350625 0.00225625  9.881267
+## 26  0.38130625 0.12075625 10.218456
+## 27  0.22325625 0.17430625  8.539647
+## 28  0.93605625 0.23280625 11.249526
+## 29  0.06125625 0.36300625  5.861386
+## 30  0.01625625 0.61230625 10.976325
+## 31  0.66830625 0.27825625 11.349087
+## 32  0.58140625 0.13140625  8.360767
+## 33  0.33930625 0.89775625  8.859870
+## 34  0.43890625 0.77000625 10.626958
+## 35  0.00050625 0.04730625 12.234739
+## 36  0.15405625 0.10725625 11.605694
+## 37  0.79655625 0.90725625  8.357961
+## 38  0.03150625 0.45900625  5.955060
+## 39  0.06630625 0.01500625 12.213605
+## 40  0.03515625 0.78765625  8.198252
+## 41  0.01265625 0.19140625  9.225290
+## 42  0.10725625 0.71825625  9.010178
+## 43  0.62805625 0.01890625  9.882607
+## 44  0.99500625 0.24750625  9.998317
+## 45  0.01380625 0.05880625 11.419724
+## 46  0.01155625 0.31640625  8.201965
+## 47  0.66015625 0.09455625  7.260304
+## 48  0.12780625 0.55130625  9.437145
+## 49  0.04100625 0.54390625  8.844811
+## 50  0.41925625 0.29975625 10.635078
+## 51  0.00105625 0.03705625 12.694075
+## 52  0.62015625 0.02805625  8.922519
+## 53  0.35105625 0.63600625  9.688054
+## 54  0.00765625 0.03900625 11.558530
+## 55  0.16605625 0.15015625  9.048480
+## 56  0.02175625 0.32205625  8.109944
+## 57  0.00855625 0.65205625 10.957313
+## 58  0.86955625 0.08265625 11.012671
+## 59  0.87890625 0.11055625 11.403940
+## 60  0.06890625 0.37515625  6.514706
+## 61  0.21855625 0.64400625 10.532563
+## 62  0.00455625 0.49350625  7.613400
+## 63  0.49350625 0.21855625 10.543116
+## 64  0.80550625 0.42575625 11.884289
+## 65  0.30525625 0.93605625  7.311768
+## 66  0.09150625 0.52925625  8.837557
+## 67  0.29430625 0.05175625 10.535708
+## 68  0.44555625 0.05405625  9.322864
+## 69  0.27300625 0.00015625 10.489673
+## 70  0.98505625 0.67650625 10.455933
+## 71  0.24255625 0.52200625 10.825370
+## 72  0.52925625 0.00000625  9.704465
+## 73  0.20475625 0.81450625 10.711842
+## 74  0.00000625 0.01050625 12.265023
+## 75  0.89775625 0.23765625 11.562261
+## 76  0.01890625 0.70140625 10.321681
+## 77  0.05640625 0.94575625 11.943829
+## 78  0.14250625 0.50765625  7.471346
+## 79  0.04515625 0.40640625  5.210211
+## 80  0.47955625 0.95550625  7.629185
+## 81  0.52200625 0.38750625 11.511578
+## 82  0.15800625 0.00680625  9.690301
+## 83  0.73530625 0.43890625 12.422465
+## 84  0.21390625 0.01755625 10.810233
+## 85  0.00330625 0.00105625 11.331814
+## 86  0.06375625 0.44555625  5.902465
+## 87  0.31640625 0.00140625 11.137378
+## 88  0.25250625 0.01625625  9.614785
+## 89  0.24750625 0.33350625  7.987569
+## 90  0.86025625 0.83265625  8.520741
+## 91  0.00525625 0.66830625 10.426023
+## 92  0.70980625 0.00275625  7.267051
+## 93  0.46580625 0.48650625 12.984020
+## 94  0.12425625 0.22325625  8.604337
+## 95  0.02805625 0.15800625 10.412779
+## 96  0.45900625 0.18275625 10.318936
+## 97  0.41280625 0.26265625 11.480936
+## 98  0.00225625 0.29430625  9.490764
+## 99  0.76125625 0.26780625 12.795160
+## 100 0.65205625 0.16200625  9.843336
+## 101 0.39375625 0.38130625 11.099737
+## 102 0.02640625 0.41280625  6.350215
+## 103 0.25755625 0.14630625  9.085389
+## 104 0.70140625 0.66015625 10.779579
+## 105 0.05405625 0.09150625  8.928765
+## 106 0.17850625 0.32775625  7.031448
+## 107 0.88830625 0.00525625 10.114940
+## 108 0.07980625 0.24255625  7.299954
+## 109 0.50765625 0.04305625  8.612045
+## 110 0.36300625 0.04950625 10.130192
+## 111 0.96530625 0.03150625  9.558832
+## 112 0.01755625 0.97515625  9.242578
+## 113 0.00075625 0.09765625 11.708983
+## 114 0.17015625 0.00050625  8.204880
+## 115 0.09455625 0.02325625 11.120641
+## 116 0.00390625 0.11730625 10.541193
+## 117 0.22800625 0.79655625 10.665144
+## 118 0.54390625 0.00950625  9.953295
+## 119 0.05880625 0.02175625 12.853021
+## 120 0.56625625 0.76125625  6.729077
+## 121 0.32205625 0.17850625 11.458213
+## 122 0.72675625 0.01380625  7.536989
+## 123 0.01500625 0.00330625 12.430897
+## 124 0.00680625 0.07425625 11.753105
+## 125 0.02030625 0.28890625  8.090522
+## 126 0.13505625 0.43230625  5.292575
+## 127 0.77880625 0.13505625 11.561474
+## 128 0.55875625 0.30525625 11.417403
+## 129 0.00275625 0.51480625  7.180697
+## 130 0.26780625 0.84180625  9.044314
+## 131 0.04730625 0.68475625 10.219317
+## 132 0.48650625 0.17015625  9.705935
+## 133 0.84180625 0.80550625  8.089407
+## 134 0.34515625 0.92640625  7.878482
+## 135 0.02975625 0.86955625  9.132228
+## 136 0.36905625 0.56625625 11.415670
+## 137 0.47265625 0.20475625 10.739998
+## 138 0.11055625 0.87890625  9.062114
+## 139 0.45225625 0.53655625 13.363078
+## 140 0.19580625 0.08850625 10.591193
+## 141 0.51480625 0.12780625  9.213694
+## 142 0.15015625 0.14250625  9.463218
+## 143 0.40005625 0.27300625 10.966375
+## 144 0.95550625 0.00390625  8.329804
+## 145 0.23765625 0.62015625  9.192809
+## 146 0.20025625 0.46580625  6.716194
+## 147 0.07425625 0.07155625 10.579771
+## 148 0.68475625 0.39375625 12.771921
+## 149 0.07155625 0.45225625  6.270675
+## 150 0.20930625 0.02480625 10.666040
+## 151 0.10400625 0.31080625  6.915738
+## 152 0.08555625 0.88830625 10.317686
+## 153 0.31080625 0.22800625 10.094644
+## 154 0.13875625 0.08555625 11.299390
+## 155 0.90725625 0.02030625  9.264593
+## 156 0.53655625 0.10080625  8.583951
+## 157 0.67650625 0.16605625 11.114233
+## 158 0.81450625 0.00855625  9.009514
+## 159 0.07700625 0.00455625 11.489132
+## 160 0.94575625 0.02975625 10.436021
+## 161 0.01050625 0.00075625 11.681581
+## 162 0.50055625 0.34515625 11.796611
+## 163 0.28355625 0.57380625 10.732502
+## 164 0.03705625 0.06630625 11.339642
+## 165 0.18705625 0.19580625  8.713556
+## 166 0.04305625 0.50055625  7.937483
+## 167 0.12075625 0.06125625 10.823341
+## 168 0.83265625 0.21390625 13.406385
+## 169 0.03330625 0.20025625 10.744823
+## 170 0.57380625 0.47265625 12.911628
+## 171 0.55130625 0.07980625  9.038295
+## 172 0.11390625 0.77880625  8.563388
+## 173 0.78765625 0.60450625 11.624813
+## 174 0.03900625 0.25250625  6.893118
+## 175 0.04950625 0.11390625  8.999622
+## 176 0.00600625 0.03515625 11.869126
+## 177 0.02325625 0.04515625 12.220035
+## 178 0.58905625 0.18705625  7.113870
+## 179 0.43230625 0.58140625 12.471387
+## 180 0.63600625 0.06890625 10.007761
+## 181 0.14630625 0.03330625  9.913795
+## 182 0.37515625 0.47955625 11.871174
+## 183 0.11730625 0.01155625 10.127291
+## 184 0.10080625 0.59675625 10.746637
+## 185 0.09765625 0.86025625  9.529523
+## 186 0.97515625 0.35105625 10.191057
+## 187 0.00030625 0.70980625 10.621475
+## 188 0.29975625 0.00030625 11.464156
+## 189 0.23280625 0.00005625  8.877159
+## 190 0.71825625 0.72675625  7.771203
+## 191 0.00015625 0.28355625  8.987643
+## 192 0.17430625 0.96530625  9.256980
+## 193 0.91680625 0.58905625 11.389237
+## 194 0.59675625 0.82355625  6.316558
+## 195 0.35700625 0.75255625 10.178707
+## 196 0.60450625 0.62805625  9.031248
+## 197 0.00005625 0.01265625 12.505694
+## 198 0.02480625 0.00765625 13.125192
+## 199 0.42575625 0.00600625  9.774905
+## 200 0.13140625 0.33930625  5.296270
 ```
 
 

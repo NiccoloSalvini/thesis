@@ -1,4 +1,4 @@
-# Conclusions{#application}
+# Conclusions{#conclusions}
 
 <!-- with UI build with free tool for front end design ion shiny [fomantic-ui](https://fomantic-ui.com/). prendi shiny app e rifai interface. in questo blog vedi Hacaton tirato e vincitori [blog](https://blog.rstudio.com/2020/11/10/the-appsilon-shiny-semantic-pocontest/).  -->
 
@@ -7,3 +7,31 @@
 <!-- senno flexdashboard paula moraga. -->
 
 <!-- [this inspiration](https://demo.appsilon.ai/apps/polluter/) -->
+
+<!-- Reacttable blended in leaflet -->
+<!-- https://glin.github.io/reactable/articles/examples.html -->
+
+Ideally the emtire work can be partitioned in two different pieces which forms and end-to-end project.
+
+- la api funziona riesce quasi sempre a deliverare i dati ed ad evitare in incorrere in fails. il secondo endpoint tuttavia richiede ragionevolmente più tempo perchè le covariate sono di più, tuttavia rispetto al rpimo èin media iuù accurato nel reperire i dati. DA alcuen delle sattistiche proposte in sede di trattazione del web scarping si possonod desumenre le performance generali in termini di latenza. i risulatati comunicano che per 250 osservazioni per 6 colonne (10 pagine specificate, parametro npages) il primo endpoint richiede per la prima richiesra circa 5 secondi (4.42 sec elapsed, compatibile con l'pertura delle sessioni in parallelo) nelle successive una media di 1.20 (ricordando che la cache tiene conto dell'ultima richiesta e se richiamta viene restituita). questo andamento non spiegato viene evidenziato in tutte le query successive alla prima per cuo viene specificato iun nuovo numero di pagine. per query che interrogano 100 pagine equivelnti a 2500 osservazioni il temp linermente richiedendo 15 secondi. il secondo endpoint, più lento, chiede 15 secondi per 10 pagine a parità di osservazioni ma con 40 covariate e poco oltre 1 minuto per 100 pagine. Le performances vengono riassunte nella tabella sottostante. TABELLA
+
+
+Il costo totale dell'infrastruttura risulta essere basso (grazie all'ampio utilizzo di Sosftware open source) e attribuinbile ad una sola voce di spesa, i.e. aws per cui un dominio 15 euro, e uno sforamento mensile dello usage (fase di testing) in rifereimento al contratto free tier circa 5 euro. Altre soluzioni come GCP o come Azure avrebbero richiesto stesse cifre per medesimi servizi, tuttavia amazon offre una stack di servizi integrata a monte e a valle, i.e. l'acquisto del dominio che l'ha resa preferitA rispetto ai competittors. la preferenza, per onestà intellettuale, rigurda anche la ffamiliarità con i servizi. 
+
+utilizzo per ora dell'api: l'implementazione di logginin in \@ref(logging) ha permesso un monitoraggio passivo del servizio eed ha evideniato un timido utilizzo da parte di soggetti relativi alla tesi e qualche contributore curioso, tuttavia non è ancora stata pubblicizzata. l'impiego di loadtest in ogni caso ha permesso di stimar ela latenza media per varie richiesto quando l'api è sotto stress, evidenziando anche il buon lavoro svolto da nginx. non sono stati registrati attacchi malicious di nessun tipo. 
+
+profili legali: grazie al precauzioni prese e alla quasi totale assenza di controllo l'api runna smooth, tuttavia vista la forte crescita del mercato dello scraping è possibile supporre che immobiliare.it prenda provvedimenti sul lato security. Le accortezze server side in ogni caso accomodano immobiliare permettendo akll'api di non pesare al sito (overload) e come sottolineato nelle sezione \@ref(legal)  \@ref(best-practices) è necessario trovare un compromesso tra chi ruba e chi rende libero un mercato che nasce con l'idea di essere libero. La giurisprudenza italiana non si è ancora trivata a fare i conti con cause civili e penali di questo genere, ma i tribunali internazioni hanno dato un orientamento giurisprudenziale in favore di parte passiva, lo scraper. per l'esperienza dell'autore di questa analisi i siti che hanno più aertura intenazionale (si muovono su più mercati oin più paesi) è più facile che abbiano un meccanismo di protezione. 
+
+il sito della tesie monitoraggio. Il sito della tesi come espresso in breve all'inizio di \@ref(Infrastructure) ha visto in vece una notevole platea da diverse regioni del mondo. Infatti l'utilizzo di google analytics sulla stess ha permesso di monitorare anche gli utenti che curiosavano sulla scrittura in itinere della tesi. Il traffico sul sito della tesi sfrutta l'api di google analytics in figura \@ref() 
+
+
+![(#fig:gaanalytics)Google Analyitics Dashoaboard for site logs, author's source](images/analytics_dashbboard.jpg)
+
+
+
+inla 
+
+considerazioni su i risultati del modello
+
+
+

@@ -43,6 +43,10 @@ library(visdat, quietly = F)
 library(ComplexHeatmap, quietly = F)
 library(patchwork, quietly = F)
 library(ggridges, quietly = F)
+library(latex2exp, quietly = F)
+## html widget 
+library(reactable, quietly = F)
+library(crosstalk, quietly = F)
 
 
 ## Personal ggplot theme 
@@ -251,10 +255,18 @@ if(knitr::is_latex_output()){
     knitr::include_graphics("images/leaflet_prezzi.jpg")
 } else if(knitr::is_html_output()){  
   dati2 = dati %>%
-    dplyr::select(price, long, lat )
+    dplyr::select(price, long, lat, location, nroom, condom , sqfeet)
   pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
   
-  leaflet(dati2) %>%
+dati_sp <- SharedData$new(dati2, group = "houses")
+
+# A regular data frame (without coordinates) for the table.
+# Use the same group name as the map data.
+dati_table = dati2 %>%
+  select(-lat, -long) %>%
+  SharedData$new(group = "houses")
+  
+  map = leaflet(dati_sp) %>%
     # addProviderTiles(providers$CartoDB.Positron) %>% bug in Lealfet while caching
     setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>%
     addMiniMap() %>% 
@@ -268,7 +280,18 @@ if(knitr::is_latex_output()){
       pal = pal, values = ~price,
       title = "Prices") %>%
     addScaleBar(position = c("bottomleft"))
-  }
+  
+  tbl = reactable(
+  dati_table,
+  selection = "multiple",
+  onClick = "select",
+  rowStyle = list(cursor = "pointer"),
+  minRows = 10
+  )
+htmltools::tagList(map, tbl)  
+}
+
+
 ```
 
 Predictors, in this case latitude and longitude appear to have nonlinear relationships with the outcome price. The relationship appears to be Gaussian whose mean points to the city center, red dashed line represent latitude and longitude coordinates for the Dome of Milan. Non linearities can be treated with regression splines
@@ -490,8 +513,25 @@ In other words the  to help with the interpretation. The fact that 2 and 3 bathr
 
 Tie fighter coefficient plot for the linear model: $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$
 
+<!-- # ```{r, eval = FALSE} -->
+<!-- #  -->
+<!-- # library(tidyverse) -->
+<!-- # library(broom) -->
+<!-- # prova = datiprep_sq %>% -->
+<!-- #  mutate(totpiani = fct_lump(totpiani, 5), -->
+<!-- #         floor = fct_lump(floor,10)) %>%  -->
+<!-- #  filter(floor != "Other") %>%   -->
+<!-- #  filter(totpiani != "Other")  %>%  -->
+<!-- #  filter(!is.na(.))  -->
+<!-- #  model = inla(log2(price) ~ log2(abs_price) + bagno + floor + totpiani  , family = "normal", data = prova)  %>%  -->
+<!-- #    .$summary.fixed -->
+<!-- #  model %>%  -->
+<!-- #    tidy(model, conf.int =T ) -->
+<!-- #  -->
+<!-- # ``` -->
 
-```{r TieFighterPlot, fig.cap="Tie fighter coefficient plot for a log-linear model"}
+
+```{r TieFighterPlot, fig.cap="Tie fighter coefficient plot for the log-linear model"}
 
 datiprep_sq %>%
   mutate(totpiani = fct_lump(totpiani, 5),
