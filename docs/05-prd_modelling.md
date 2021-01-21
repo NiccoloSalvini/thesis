@@ -84,8 +84,9 @@ $$
 $$
 $\Gamma(\nu)$ is a Gamma function depending on $\nu$ values, $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The smoothness parameter $\nu$ in figure \@ref(fig:matern) takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When $\nu = 1$, i.e green in fig. \@ref(fig:matern) ... When $\nu = 1/2$ i.e. red it becomes the exponential covariance function, When $\nu = 3/2$ i.e. blue it uncovers a convenient closed form [@LecturePaci], when $\nu \approx \infty$, i.e. purple (here $\nu = 80$ for graphical reasons), it becomes Gaussian covariance function. In the the case shown in section \@ref(spdeapproach) $\sigma_{\mathscr{C}}^{2}$ range is set equal to the distance at which dependence vanishes below .1, for any $\lambda$.
 
-![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png)
+<!-- ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png) -->
 
+![](05-prd_modelling_files/figure-latex/matern-1.pdf)<!-- --> 
 
 If we have a realization $x(s)$ at $n$ locations, we can define its joint covariance matrix. Each entry of this joint covariance matrix $\Sigma$ is $\Sigma_{i, j}=\sigma_{x} \operatorname{Cor}_{M}\left(X\left(s_{i}\right), X\left(s_{j}\right)\right)$. It is common to assume that $X(x)$ has a zero mean. We have now completely defined a multivariate distribution for $x(s)$
 
@@ -241,14 +242,26 @@ If we have a realization $x(s)$ at $n$ locations, we can define its joint covari
 Locations in the spatial setting are considered as realizations of a stationary, isotropic unobserved GP to be estimated (\@ref(GP)). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood [@LecturePaci]. Covariance matrices in the context of spatial and spatio-temporal models [@PACI2017149; @Cameletti2012] are $n \times n$ dimension matrices defined by the number of observations at each single point location (at each time stamp in spatio-temporal) [@BLANGIARDO201339]. Covariance matrix as such are very dense and they were scaling with the order of $\mathcal{O}\left(n^{3}\right)$ [@Banerjee-Gelfand]. Problem were linked to the computational costs needed for linear algebra operations for model fitting and spatial interpolation as well as prediction [@Cameletti2012], having led to obvious _big-n_ problem. 
 The breakthrough came with @Lindgren2011 that proves that a stationary, isotropic (can be both relaxed at the cost of different settings) GP with Matérn covariance can be represented as a GMRF using SPDE solutions by Finite Element Method [@Krainski-Rubio]. In other words given a GP whose covariance matrix is $\boldsymbol{Q^{-1}}$, SPDE can provide a method to approximate $\boldsymbol{Q^{-1}}$ without the previous computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies [-@Krainski-Rubio].
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix $\boldsymbol{Q}$ . Sparse matrices enable convenient inner computation properties of GMRF \@ref(approx) which are exploited by INLA algorithm \@ref(inla) leading to a more feasible big-O $\mathcal{O}\left(n^{3 / 2}\right)$. Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego. 
-In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. Secondly SPDE projects the values of the trinagularization to the dicretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized valuez and how it projects the  triangulation to the GRMF.  
-To illustrate the concept of triangulation @Cameletti2012 provide a simple example for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10) and using 123 vertices and a Piemonte borders, right in figure \@ref(fig:piepm10). 
+In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged. Secondly SPDE projects with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized values and how it uses the projection matrix to inject the triangulation into the GRMF.  
+To illustrate the concept of triangulation @Cameletti2012 provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10). Its respective mesh using 123 vertices and Piemonte borders is in right figure \@ref(fig:piepm10). 
 
 ![(#fig:piepm10)Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. @Cameletti2012 source](images/piemonte_pm10.jpg)
 
-Any triangle height (the size of the spatial field at each vertix triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \@ref(fig:spdesurf) shows a continously indexed random spatial field (left side of figure \@ref(fig:spdesurf)) with the corresponding SPDE on the basis of a triangulation (right panel \@ref(fig:spdesurf)).
+Any triangle height (the size of the spatial field at each vertex triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \@ref(fig:spdesurf) shows a continously indexed random spatial field (left side of figure \@ref(fig:spdesurf)) with the corresponding SPDE on the basis of a triangulation (right panel \@ref(fig:spdesurf)).
 
 ![(#fig:spdesurf)Left: example of a spatial random field where $X(s)= \cos(s_1)+\sin(s_2)$, Right: $X(s)$ SPDE representation given a triangulation, @Cameletti2012 source](images/spde_indexedsurface.jpg)
+
+In INLA mesh triangularization of the region of the study is performed within the function `inla.mesh.2d()`. Main arguments are: 
+
+- `loc`: the coordinates used as initial vertices of mesh,
+- `boundary`: the borders of the region of the study $\mathscr{D}$
+- `offset`: the distance between data positions, which determines the inner and outer extension size,
+- `cutoff`: Minimum distance between points approved.
+- `max.edge`: value that suggest the current maximum triangle edge lengths in the area and extension. This argument is on the same scale unit as coordinates.
+
+Moreover the mesh can also be built on non convex study area by prior passing coordinates on `inla.nonconvex.hull()` and then back through the function seen before. A decent mesh must have triangles of size and shape as regularly as possible [@Krainski-Rubio].
+
+
 
 ## Hedonic (rental) Price Models
 
@@ -388,43 +401,43 @@ A further aspect of the problem is posed by scholars not considering rents to be
 <!-- $\boldsymbol{\psi}_{l}$ identifies the hyper pram for the $l_{th}$ level of hierarchy. Each further parameter level $\psi$ is conditioned to its previous in hierarchy level $l-1$ so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The *Exchangeability* property enables to have higher $H$ nested DAG (i.e. add further $L$ levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many $L$ levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off. -->
 
 
-## Spatial Kriging in INLA{#kriging} 6.8
+<!-- ## Spatial Kriging in INLA{#kriging} 6.8 -->
 
-The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. In general Bayesian settings 
-
-
-
-- prima prendi da gelfand e intergi con paci
-- poi prendi blangiardo + WANG 
-- infine simuli un un dataset e fai prediction con INLA 
+<!-- The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. In general Bayesian settings  -->
 
 
 
-In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed. 
-Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier)) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained: 
-
-$$
-\begin{aligned}
-&\pi\left(y^{\star} \mid \boldsymbol{y}\right)=\frac{\pi\left(\boldsymbol{y}, y^{\star}\right)}{\pi(\boldsymbol{y})} \text { from the conditional probability }\\
-&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\boldsymbol{y} \mid \theta) \pi(\theta) \mathrm{d} \theta}{\pi(\boldsymbol{y})} \text { by exchangeability }\\
-&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\theta \mid y) \pi(y) \mathrm{d} \theta}{\pi(y)} \text { applying Bayes' theorem }\\
-&=\int \pi\left(y^{\star} \mid \boldsymbol{\theta}\right) \pi(\boldsymbol{\theta} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\theta}
-\end{aligned}
-$$
-
-A DAG representation might offr the intuition behind Prediction in spatial models:
-
-![Spatial prediction representation through DAG, source @Blangiardo-Cameletti](images/spatial_prediction.jpg)
+<!-- - prima prendi da gelfand e intergi con paci -->
+<!-- - poi prendi blangiardo + WANG  -->
+<!-- - infine simuli un un dataset e fai prediction con INLA  -->
 
 
-where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
+
+<!-- In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed.  -->
+<!-- Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier)) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained:  -->
+
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- &\pi\left(y^{\star} \mid \boldsymbol{y}\right)=\frac{\pi\left(\boldsymbol{y}, y^{\star}\right)}{\pi(\boldsymbol{y})} \text { from the conditional probability }\\ -->
+<!-- &=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\boldsymbol{y} \mid \theta) \pi(\theta) \mathrm{d} \theta}{\pi(\boldsymbol{y})} \text { by exchangeability }\\ -->
+<!-- &=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\theta \mid y) \pi(y) \mathrm{d} \theta}{\pi(y)} \text { applying Bayes' theorem }\\ -->
+<!-- &=\int \pi\left(y^{\star} \mid \boldsymbol{\theta}\right) \pi(\boldsymbol{\theta} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\theta} -->
+<!-- \end{aligned} -->
+<!-- $$ -->
+
+<!-- A DAG representation might offr the intuition behind Prediction in spatial models: -->
+
+<!-- ![Spatial prediction representation through DAG, source @Blangiardo-Cameletti](images/spatial_prediction.jpg) -->
+
+
+<!-- where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics. -->
 
 
 ## Model Criticism{#criticism}
 
 Since INLA can fit a wide range of models then the flexibility should be reflected by a mouldable tool to check model suitability. Model criticism may regard the research on which variables are used in the model, which assumptions are made on parameters and on the likelihood as well as the prior choice addressed in \@ref(priorsspec).  However here are two common _modi operandi_ which are also implemented inside inla: one based on predictive distribution and the other on deviance. Note that all specifications mentioned in this analysis can be determined by setting the option in `control.compute`.
 
-### Methods based on the predictive distribution
+### Methods based on the predictive distribution{#predbase}
 
 One of the most used method to assess Bayesian model quality is LOOCV, i.e. Leave One Out Cross Validation and it is also default choice in INLA. Assume to have $\boldsymbol{y}$ data from which it is left out one single $y_i$ observation, as a result the assessment set is $\boldsymbol{y}_{A} = \boldsymbol{y}_{-i}$ and the validation set is ${y}_{V} = y_{i}$, where the notation is the same for chapter \@ref(inla). Two metrics are assumed to be demonstrative:
 
@@ -440,19 +453,31 @@ For example assume to have data from a 1970's study on the relationship between 
 Then the resulting LPML is: -20.6402104
 Furthermore in left panel of fig. \@ref(fig:pitcpo) the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
 
-![(\#fig:pitcpo)Left: histogram of cross-validate PIT, Right: qq plot for Unif(0,1)](05-prd_modelling_files/figure-latex/pitcpo-1.pdf) 
+![(\#fig:pitcpo)Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)](05-prd_modelling_files/figure-latex/pitcpo-1.pdf) 
 
 
-Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. One major drawback refers to the fact that observation are processed twice, once to fit the model, and twice for evaluating performances. 4 quantities are driver to model estimate quality:
+Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. The statistics capitalized below are quite commonly used in practice, but they are high context dependent:
 
 - the _posterior predictive distribution_: $\pi(y^{\star} \mid \boldsymbol{y})  = \int \pi(y^{\star} \mid \theta_{i})\pi({\theta_{i}} \mid \boldsymbol{y})\mathrm{d}\theta_{i}$ which is the likelihood of a replicate observation. When values are small that indicates that are those values are coming from tails, since the area under the curve (i.e. probability) is less. If this happens for many observation then outliers are driving the model leading to poor estimates
 - the _posterior predictive p-value_ whose math expression is:$\pi(y^{\star} \leq y_{i} \mid \boldsymbol{y})$ for which values near to 0 and 1 indicates poor performances. 
 - the _Root Mean Square Predictive Error RMSE_: $\sqrt{\frac{1}{n} \sum_{i=1}^{n}(y_{i}-{y}^{\star}_{i})^{2}}$
 - $R^2$
 
-R-INLA has already antiticipated in chapter 4 section\@ref(example) have designed function to compute statistics on posterior distribution as `inla.pmarginal()` returning the cumulative density distribution.
+R-INLA has already antiticipated in chapter 4 section\@ref(example) have dedicated function to compute statistics on posterior distribution e.g. `inla.pmarginal()` returning the cumulative density distribution.
 
+### Deviance-based Criteria
 
+If there is an interest in comparing multiple models, then their deviance may be used. Given data $\boldsymbol{y}$ and its likelihood function, along with its parameters $\boldsymbol\theta$ then the _deviance_ is:
+
+$$
+\mathrm{D}(\theta)=-2 \log (\pi(\boldsymbol{y} \mid \theta))
+$$
+
+The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterio mean deviance i.e.$\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))$ which is also robust [@Blangiaro-Cameletti]. Indeed it suffers from cost complexity, as a result DIC proposed by @spiegelhalter2002bayesian adds to the deviance a penalization for complex model i.e. $p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})$ from which, following @Blangiaro-Cameletti obtain,
+
+$$\mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}$$
+
+Data is best served in models with smaller DICs and the correspondent INLA option setting is analogous to the ones seen sec. \@ref(predbase). INLA moreover take advantage of the hierarchical structure and computes different poseterior deviances fro latent parameters i.e. mean  and hyper parameters i.e. mode (due to skewness). For further discussions @spiegelhalter2014deviance constrat DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred [@gelman2014understanding].
 
 
 ## Prior Specification{#priorsspec}
@@ -478,209 +503,6 @@ Fig. \@ref(fig:priorfun) indicates various PC priors using several $\alpha$ valu
 <!-- PROVA A METTERE ESEMPIO SPDETOY -->
 ![(\#fig:priorfun)PC priors for the precision by varying alpha values and fixing $U$](05-prd_modelling_files/figure-latex/priorfun-1.pdf) 
 
-```
-##             s1         s2         y
-## 1   0.08265625 0.05640625 11.521206
-## 2   0.61230625 0.91680625  5.277960
-## 3   0.16200625 0.35700625  6.902959
-## 4   0.75255625 0.25755625 13.176691
-## 5   0.85100625 0.15405625 14.599692
-## 6   0.00180625 0.73530625  9.780211
-## 7   0.26265625 0.12425625 10.484077
-## 8   0.74390625 0.07700625  7.402424
-## 9   0.27825625 0.02640625  9.807374
-## 10  0.19140625 0.98505625  7.004359
-## 11  0.82355625 0.20930625 14.045147
-## 12  0.18275625 0.99500625  8.139851
-## 13  0.40640625 0.04100625  9.370882
-## 14  0.28890625 0.40005625  9.122177
-## 15  0.00950625 0.00180625 12.683316
-## 16  0.69305625 0.41925625 11.850910
-## 17  0.05175625 0.10400625 10.038157
-## 18  0.00140625 0.13875625 10.049431
-## 19  0.08850625 0.55875625  9.826410
-## 20  0.92640625 0.69305625  9.880732
-## 21  0.64400625 0.06375625  8.261963
-## 22  0.38750625 0.74390625 10.554678
-## 23  0.32775625 0.85100625  9.675417
-## 24  0.77000625 0.36905625 11.651395
-## 25  0.33350625 0.00225625  9.881267
-## 26  0.38130625 0.12075625 10.218456
-## 27  0.22325625 0.17430625  8.539647
-## 28  0.93605625 0.23280625 11.249526
-## 29  0.06125625 0.36300625  5.861386
-## 30  0.01625625 0.61230625 10.976325
-## 31  0.66830625 0.27825625 11.349087
-## 32  0.58140625 0.13140625  8.360767
-## 33  0.33930625 0.89775625  8.859870
-## 34  0.43890625 0.77000625 10.626958
-## 35  0.00050625 0.04730625 12.234739
-## 36  0.15405625 0.10725625 11.605694
-## 37  0.79655625 0.90725625  8.357961
-## 38  0.03150625 0.45900625  5.955060
-## 39  0.06630625 0.01500625 12.213605
-## 40  0.03515625 0.78765625  8.198252
-## 41  0.01265625 0.19140625  9.225290
-## 42  0.10725625 0.71825625  9.010178
-## 43  0.62805625 0.01890625  9.882607
-## 44  0.99500625 0.24750625  9.998317
-## 45  0.01380625 0.05880625 11.419724
-## 46  0.01155625 0.31640625  8.201965
-## 47  0.66015625 0.09455625  7.260304
-## 48  0.12780625 0.55130625  9.437145
-## 49  0.04100625 0.54390625  8.844811
-## 50  0.41925625 0.29975625 10.635078
-## 51  0.00105625 0.03705625 12.694075
-## 52  0.62015625 0.02805625  8.922519
-## 53  0.35105625 0.63600625  9.688054
-## 54  0.00765625 0.03900625 11.558530
-## 55  0.16605625 0.15015625  9.048480
-## 56  0.02175625 0.32205625  8.109944
-## 57  0.00855625 0.65205625 10.957313
-## 58  0.86955625 0.08265625 11.012671
-## 59  0.87890625 0.11055625 11.403940
-## 60  0.06890625 0.37515625  6.514706
-## 61  0.21855625 0.64400625 10.532563
-## 62  0.00455625 0.49350625  7.613400
-## 63  0.49350625 0.21855625 10.543116
-## 64  0.80550625 0.42575625 11.884289
-## 65  0.30525625 0.93605625  7.311768
-## 66  0.09150625 0.52925625  8.837557
-## 67  0.29430625 0.05175625 10.535708
-## 68  0.44555625 0.05405625  9.322864
-## 69  0.27300625 0.00015625 10.489673
-## 70  0.98505625 0.67650625 10.455933
-## 71  0.24255625 0.52200625 10.825370
-## 72  0.52925625 0.00000625  9.704465
-## 73  0.20475625 0.81450625 10.711842
-## 74  0.00000625 0.01050625 12.265023
-## 75  0.89775625 0.23765625 11.562261
-## 76  0.01890625 0.70140625 10.321681
-## 77  0.05640625 0.94575625 11.943829
-## 78  0.14250625 0.50765625  7.471346
-## 79  0.04515625 0.40640625  5.210211
-## 80  0.47955625 0.95550625  7.629185
-## 81  0.52200625 0.38750625 11.511578
-## 82  0.15800625 0.00680625  9.690301
-## 83  0.73530625 0.43890625 12.422465
-## 84  0.21390625 0.01755625 10.810233
-## 85  0.00330625 0.00105625 11.331814
-## 86  0.06375625 0.44555625  5.902465
-## 87  0.31640625 0.00140625 11.137378
-## 88  0.25250625 0.01625625  9.614785
-## 89  0.24750625 0.33350625  7.987569
-## 90  0.86025625 0.83265625  8.520741
-## 91  0.00525625 0.66830625 10.426023
-## 92  0.70980625 0.00275625  7.267051
-## 93  0.46580625 0.48650625 12.984020
-## 94  0.12425625 0.22325625  8.604337
-## 95  0.02805625 0.15800625 10.412779
-## 96  0.45900625 0.18275625 10.318936
-## 97  0.41280625 0.26265625 11.480936
-## 98  0.00225625 0.29430625  9.490764
-## 99  0.76125625 0.26780625 12.795160
-## 100 0.65205625 0.16200625  9.843336
-## 101 0.39375625 0.38130625 11.099737
-## 102 0.02640625 0.41280625  6.350215
-## 103 0.25755625 0.14630625  9.085389
-## 104 0.70140625 0.66015625 10.779579
-## 105 0.05405625 0.09150625  8.928765
-## 106 0.17850625 0.32775625  7.031448
-## 107 0.88830625 0.00525625 10.114940
-## 108 0.07980625 0.24255625  7.299954
-## 109 0.50765625 0.04305625  8.612045
-## 110 0.36300625 0.04950625 10.130192
-## 111 0.96530625 0.03150625  9.558832
-## 112 0.01755625 0.97515625  9.242578
-## 113 0.00075625 0.09765625 11.708983
-## 114 0.17015625 0.00050625  8.204880
-## 115 0.09455625 0.02325625 11.120641
-## 116 0.00390625 0.11730625 10.541193
-## 117 0.22800625 0.79655625 10.665144
-## 118 0.54390625 0.00950625  9.953295
-## 119 0.05880625 0.02175625 12.853021
-## 120 0.56625625 0.76125625  6.729077
-## 121 0.32205625 0.17850625 11.458213
-## 122 0.72675625 0.01380625  7.536989
-## 123 0.01500625 0.00330625 12.430897
-## 124 0.00680625 0.07425625 11.753105
-## 125 0.02030625 0.28890625  8.090522
-## 126 0.13505625 0.43230625  5.292575
-## 127 0.77880625 0.13505625 11.561474
-## 128 0.55875625 0.30525625 11.417403
-## 129 0.00275625 0.51480625  7.180697
-## 130 0.26780625 0.84180625  9.044314
-## 131 0.04730625 0.68475625 10.219317
-## 132 0.48650625 0.17015625  9.705935
-## 133 0.84180625 0.80550625  8.089407
-## 134 0.34515625 0.92640625  7.878482
-## 135 0.02975625 0.86955625  9.132228
-## 136 0.36905625 0.56625625 11.415670
-## 137 0.47265625 0.20475625 10.739998
-## 138 0.11055625 0.87890625  9.062114
-## 139 0.45225625 0.53655625 13.363078
-## 140 0.19580625 0.08850625 10.591193
-## 141 0.51480625 0.12780625  9.213694
-## 142 0.15015625 0.14250625  9.463218
-## 143 0.40005625 0.27300625 10.966375
-## 144 0.95550625 0.00390625  8.329804
-## 145 0.23765625 0.62015625  9.192809
-## 146 0.20025625 0.46580625  6.716194
-## 147 0.07425625 0.07155625 10.579771
-## 148 0.68475625 0.39375625 12.771921
-## 149 0.07155625 0.45225625  6.270675
-## 150 0.20930625 0.02480625 10.666040
-## 151 0.10400625 0.31080625  6.915738
-## 152 0.08555625 0.88830625 10.317686
-## 153 0.31080625 0.22800625 10.094644
-## 154 0.13875625 0.08555625 11.299390
-## 155 0.90725625 0.02030625  9.264593
-## 156 0.53655625 0.10080625  8.583951
-## 157 0.67650625 0.16605625 11.114233
-## 158 0.81450625 0.00855625  9.009514
-## 159 0.07700625 0.00455625 11.489132
-## 160 0.94575625 0.02975625 10.436021
-## 161 0.01050625 0.00075625 11.681581
-## 162 0.50055625 0.34515625 11.796611
-## 163 0.28355625 0.57380625 10.732502
-## 164 0.03705625 0.06630625 11.339642
-## 165 0.18705625 0.19580625  8.713556
-## 166 0.04305625 0.50055625  7.937483
-## 167 0.12075625 0.06125625 10.823341
-## 168 0.83265625 0.21390625 13.406385
-## 169 0.03330625 0.20025625 10.744823
-## 170 0.57380625 0.47265625 12.911628
-## 171 0.55130625 0.07980625  9.038295
-## 172 0.11390625 0.77880625  8.563388
-## 173 0.78765625 0.60450625 11.624813
-## 174 0.03900625 0.25250625  6.893118
-## 175 0.04950625 0.11390625  8.999622
-## 176 0.00600625 0.03515625 11.869126
-## 177 0.02325625 0.04515625 12.220035
-## 178 0.58905625 0.18705625  7.113870
-## 179 0.43230625 0.58140625 12.471387
-## 180 0.63600625 0.06890625 10.007761
-## 181 0.14630625 0.03330625  9.913795
-## 182 0.37515625 0.47955625 11.871174
-## 183 0.11730625 0.01155625 10.127291
-## 184 0.10080625 0.59675625 10.746637
-## 185 0.09765625 0.86025625  9.529523
-## 186 0.97515625 0.35105625 10.191057
-## 187 0.00030625 0.70980625 10.621475
-## 188 0.29975625 0.00030625 11.464156
-## 189 0.23280625 0.00005625  8.877159
-## 190 0.71825625 0.72675625  7.771203
-## 191 0.00015625 0.28355625  8.987643
-## 192 0.17430625 0.96530625  9.256980
-## 193 0.91680625 0.58905625 11.389237
-## 194 0.59675625 0.82355625  6.316558
-## 195 0.35700625 0.75255625 10.178707
-## 196 0.60450625 0.62805625  9.031248
-## 197 0.00005625 0.01265625 12.505694
-## 198 0.02480625 0.00765625 13.125192
-## 199 0.42575625 0.00600625  9.774905
-## 200 0.13140625 0.33930625  5.296270
-```
 
 
 

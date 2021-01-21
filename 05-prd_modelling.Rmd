@@ -120,19 +120,21 @@ $$
 $$
 $\Gamma(\nu)$ is a Gamma function depending on $\nu$ values, $K_{\nu}(\cdot)$ is a modified Bessel function of second kind. The smoothness parameter $\nu$ in figure \@ref(fig:matern) takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters. When $\nu = 1$, i.e green in fig. \@ref(fig:matern) ... When $\nu = 1/2$ i.e. red it becomes the exponential covariance function, When $\nu = 3/2$ i.e. blue it uncovers a convenient closed form [@LecturePaci], when $\nu \approx \infty$, i.e. purple (here $\nu = 80$ for graphical reasons), it becomes Gaussian covariance function. In the the case shown in section \@ref(spdeapproach) $\sigma_{\mathscr{C}}^{2}$ range is set equal to the distance at which dependence vanishes below .1, for any $\lambda$.
 
-![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png)
-```{r matern, eval=FALSE}
+<!-- ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png) -->
 
-x = seq(1,50)
-ggplot(tibble(x = x))+
-  stat_function(fun = matern, args = list(phi= 0.25, kappa = 1), colour = "green", size = 1.2)+
-  stat_function(fun = matern, args = list(phi= 0.25, kappa = 1/2), colour = "red",size = 1.2)+
-  stat_function(fun = matern, args = list(phi= 0.25, kappa = 3/2),colour = "blue",size = 1.2)+
-  stat_function(fun = matern, args = list(phi= 0.25, kappa = 80),colour = "purple",size = 1.2)+
+```{r matern}
+ggplot(NULL)+
+  stat_function(fun = matern, args = list(phi= 0.25, kappa = 1),aes(colour  = "kappa = 1"), size = 1.2, alpha = .6)+
+  stat_function(fun = matern, args = list(phi= 0.25, kappa = 1/2),aes(colour = "kappa = 1/2"),size = 1.2, alpha = .6)+
+  stat_function(fun = matern, args = list(phi= 0.25, kappa = 3/2),aes(colour = "kappa = 3/2"),size = 1.2, alpha = .6)+
+  stat_function(fun = matern, args = list(phi= 0.25, kappa = 80),aes(colour = "kappa = 80"),size = 1.2, alpha = .6)+
   labs(
     x = TeX("distance ($\\Delta_{i\\,j}$)"),
     y = "covariance"
   )+
+  scale_colour_brewer(TeX("$Values \\, of \\, \\kappa$")) +
+  # scale_colour_viridis("Legend Title", discrete = T) +
+  # scale_colour_manual("Legend title", values = c("#56B4E9", "#009E73","#F0E442", "#0072B2")) +
   theme_nicco()
   
 
@@ -292,14 +294,26 @@ If we have a realization $x(s)$ at $n$ locations, we can define its joint covari
 Locations in the spatial setting are considered as realizations of a stationary, isotropic unobserved GP to be estimated (\@ref(GP)). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood [@LecturePaci]. Covariance matrices in the context of spatial and spatio-temporal models [@PACI2017149; @Cameletti2012] are $n \times n$ dimension matrices defined by the number of observations at each single point location (at each time stamp in spatio-temporal) [@BLANGIARDO201339]. Covariance matrix as such are very dense and they were scaling with the order of $\mathcal{O}\left(n^{3}\right)$ [@Banerjee-Gelfand]. Problem were linked to the computational costs needed for linear algebra operations for model fitting and spatial interpolation as well as prediction [@Cameletti2012], having led to obvious _big-n_ problem. 
 The breakthrough came with @Lindgren2011 that proves that a stationary, isotropic (can be both relaxed at the cost of different settings) GP with Matérn covariance can be represented as a GMRF using SPDE solutions by Finite Element Method [@Krainski-Rubio]. In other words given a GP whose covariance matrix is $\boldsymbol{Q^{-1}}$, SPDE can provide a method to approximate $\boldsymbol{Q^{-1}}$ without the previous computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies [-@Krainski-Rubio].
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix $\boldsymbol{Q}$ . Sparse matrices enable convenient inner computation properties of GMRF \@ref(approx) which are exploited by INLA algorithm \@ref(inla) leading to a more feasible big-O $\mathcal{O}\left(n^{3 / 2}\right)$. Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego. 
-In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. Secondly SPDE projects the values of the trinagularization to the dicretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized valuez and how it projects the  triangulation to the GRMF.  
-To illustrate the concept of triangulation @Cameletti2012 provide a simple example for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10) and using 123 vertices and a Piemonte borders, right in figure \@ref(fig:piepm10). 
+In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged. Secondly SPDE projects with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized values and how it uses the projection matrix to inject the triangulation into the GRMF.  
+To illustrate the concept of triangulation @Cameletti2012 provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10). Its respective mesh using 123 vertices and Piemonte borders is in right figure \@ref(fig:piepm10). 
 
 ![(#fig:piepm10)Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. @Cameletti2012 source](images/piemonte_pm10.jpg)
 
-Any triangle height (the size of the spatial field at each vertix triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \@ref(fig:spdesurf) shows a continously indexed random spatial field (left side of figure \@ref(fig:spdesurf)) with the corresponding SPDE on the basis of a triangulation (right panel \@ref(fig:spdesurf)).
+Any triangle height (the size of the spatial field at each vertex triangle) is calculated by weighted sum, with linear interpolation deciding the values within the triangle. Figure \@ref(fig:spdesurf) shows a continously indexed random spatial field (left side of figure \@ref(fig:spdesurf)) with the corresponding SPDE on the basis of a triangulation (right panel \@ref(fig:spdesurf)).
 
 ![(#fig:spdesurf)Left: example of a spatial random field where $X(s)= \cos(s_1)+\sin(s_2)$, Right: $X(s)$ SPDE representation given a triangulation, @Cameletti2012 source](images/spde_indexedsurface.jpg)
+
+In INLA mesh triangularization of the region of the study is performed within the function `inla.mesh.2d()`. Main arguments are: 
+
+- `loc`: the coordinates used as initial vertices of mesh,
+- `boundary`: the borders of the region of the study $\mathscr{D}$
+- `offset`: the distance between data positions, which determines the inner and outer extension size,
+- `cutoff`: Minimum distance between points approved.
+- `max.edge`: value that suggest the current maximum triangle edge lengths in the area and extension. This argument is on the same scale unit as coordinates.
+
+Moreover the mesh can also be built on non convex study area by prior passing coordinates on `inla.nonconvex.hull()` and then back through the function seen before. A decent mesh must have triangles of size and shape as regularly as possible [@Krainski-Rubio].
+
+
 
 ## Hedonic (rental) Price Models
 
@@ -439,43 +453,43 @@ A further aspect of the problem is posed by scholars not considering rents to be
 <!-- $\boldsymbol{\psi}_{l}$ identifies the hyper pram for the $l_{th}$ level of hierarchy. Each further parameter level $\psi$ is conditioned to its previous in hierarchy level $l-1$ so that the parameter hierarchy chain is respected and all the linear combinations of parameters are carefully evaluated. The *Exchangeability* property enables to have higher $H$ nested DAG (i.e. add further $L$ levels) and to extend the dimensions in which the problem is evaluated, considering also time together with space. From a theoretical point of view there are no constraints to how many $L$ levels can be included in the model, but as a drawback the more the model is nested the more it suffers in terms of interpretability and computational power. Empirical studies have suggest that three levels are the desired amount since they offer a good bias vs variance trade-off. -->
 
 
-## Spatial Kriging in INLA{#kriging} 6.8
+<!-- ## Spatial Kriging in INLA{#kriging} 6.8 -->
 
-The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. In general Bayesian settings 
-
-
-
-- prima prendi da gelfand e intergi con paci
-- poi prendi blangiardo + WANG 
-- infine simuli un un dataset e fai prediction con INLA 
+<!-- The most important aspect in geostatistics regards the possibility to predict response where the phenomenon is not yet observed as well as predicting on latent parameters also named kriging [@gelfand2010handbook]. The name Kriging dates back to a South African mining engineer who actually was the the inventor of the methodology. In general Bayesian settings  -->
 
 
 
-In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed. 
-Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier)) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained: 
-
-$$
-\begin{aligned}
-&\pi\left(y^{\star} \mid \boldsymbol{y}\right)=\frac{\pi\left(\boldsymbol{y}, y^{\star}\right)}{\pi(\boldsymbol{y})} \text { from the conditional probability }\\
-&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\boldsymbol{y} \mid \theta) \pi(\theta) \mathrm{d} \theta}{\pi(\boldsymbol{y})} \text { by exchangeability }\\
-&=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\theta \mid y) \pi(y) \mathrm{d} \theta}{\pi(y)} \text { applying Bayes' theorem }\\
-&=\int \pi\left(y^{\star} \mid \boldsymbol{\theta}\right) \pi(\boldsymbol{\theta} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\theta}
-\end{aligned}
-$$
-
-A DAG representation might offr the intuition behind Prediction in spatial models:
-
-![Spatial prediction representation through DAG, source @Blangiardo-Cameletti](images/spatial_prediction.jpg)
+<!-- - prima prendi da gelfand e intergi con paci -->
+<!-- - poi prendi blangiardo + WANG  -->
+<!-- - infine simuli un un dataset e fai prediction con INLA  -->
 
 
-where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics.
+
+<!-- In Geostatistics the main interest resides in the spatial prediction of the spatial latent field pr the response variable at location not yet observed.  -->
+<!-- Assumed the model in the previous section, suppose that $y^{\star}$ is not a observed occurrence of the response variable at location $s_{0}$ (not in the data) of the GP $w_{i}$ spatial surface estimated through observed refereced points in $\boldsymbol{y}$. As a consequence of exchangeability (first step previous section \@ref(inlahier)) then $\boldsymbol{y}^{\otimes}=\left\{\boldsymbol{y}, y^{\star}\right\}$. Then considering INLA notation it is obtained:  -->
+
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- &\pi\left(y^{\star} \mid \boldsymbol{y}\right)=\frac{\pi\left(\boldsymbol{y}, y^{\star}\right)}{\pi(\boldsymbol{y})} \text { from the conditional probability }\\ -->
+<!-- &=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\boldsymbol{y} \mid \theta) \pi(\theta) \mathrm{d} \theta}{\pi(\boldsymbol{y})} \text { by exchangeability }\\ -->
+<!-- &=\frac{\int \pi\left(y^{\star} \mid \theta\right) \pi(\theta \mid y) \pi(y) \mathrm{d} \theta}{\pi(y)} \text { applying Bayes' theorem }\\ -->
+<!-- &=\int \pi\left(y^{\star} \mid \boldsymbol{\theta}\right) \pi(\boldsymbol{\theta} \mid \boldsymbol{y}) \mathrm{d} \boldsymbol{\theta} -->
+<!-- \end{aligned} -->
+<!-- $$ -->
+
+<!-- A DAG representation might offr the intuition behind Prediction in spatial models: -->
+
+<!-- ![Spatial prediction representation through DAG, source @Blangiardo-Cameletti](images/spatial_prediction.jpg) -->
+
+
+<!-- where $\pi\left(y^{\star} \mid \boldsymbol{y}\right)$ is said predictive distribution and it is meaningful only in the Bayesian framework since the posterior distribution is treated as a random variable, which is totally not true in frequentist statistics. -->
 
 
 ## Model Criticism{#criticism}
 
 Since INLA can fit a wide range of models then the flexibility should be reflected by a mouldable tool to check model suitability. Model criticism may regard the research on which variables are used in the model, which assumptions are made on parameters and on the likelihood as well as the prior choice addressed in \@ref(priorsspec).  However here are two common _modi operandi_ which are also implemented inside inla: one based on predictive distribution and the other on deviance. Note that all specifications mentioned in this analysis can be determined by setting the option in `control.compute`.
 
-### Methods based on the predictive distribution
+### Methods based on the predictive distribution{#predbase}
 
 One of the most used method to assess Bayesian model quality is LOOCV, i.e. Leave One Out Cross Validation and it is also default choice in INLA. Assume to have $\boldsymbol{y}$ data from which it is left out one single $y_i$ observation, as a result the assessment set is $\boldsymbol{y}_{A} = \boldsymbol{y}_{-i}$ and the validation set is ${y}_{V} = y_{i}$, where the notation is the same for chapter \@ref(inla). Two metrics are assumed to be demonstrative:
 
@@ -495,13 +509,13 @@ For example assume to have data from a 1970's study on the relationship between 
 Then the resulting LPML is: `r sum(log(model$cpo$cpo))`
 Furthermore in left panel of fig. \@ref(fig:pitcpo) the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
 
-```{r pitcpo, fig.cap="Left: histogram of cross-validate PIT, Right: qq plot for Unif(0,1)"}
+```{r pitcpo, fig.cap="Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)"}
 hist = ggplot(data = NULL, aes(x = model$cpo$pit)) + 
   geom_histogram(binwidth = 0.1,
                  boundary = 2, 
                  # col="red", 
-                 fill="green", 
-                 alpha=.2) +
+                 fill="lightblue", 
+                 alpha=.5) +
   geom_density(col=5) +
   labs(x = "PIT",
        y = " ") +
@@ -509,7 +523,7 @@ hist = ggplot(data = NULL, aes(x = model$cpo$pit)) +
 
 qq = ggplot(data = NULL, aes(sample = model$cpo$pit)) +  
   stat_qq(distribution = qunif) +
-  stat_qq_line(distribution = qunif, colour = "green",alpha=.3, size = 1) +
+  stat_qq_line(distribution = qunif, colour = "lightblue",alpha=.7, size = 1) +
   labs(x = "Theoretical Quantiles",
        y = " "
     )+
@@ -519,16 +533,28 @@ qq = ggplot(data = NULL, aes(sample = model$cpo$pit)) +
 ```
 
 
-Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. One major drawback refers to the fact that observation are processed twice, once to fit the model, and twice for evaluating performances. 4 quantities are driver to model estimate quality:
+Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. The statistics capitalized below are quite commonly used in practice, but they are high context dependent:
 
 - the _posterior predictive distribution_: $\pi(y^{\star} \mid \boldsymbol{y})  = \int \pi(y^{\star} \mid \theta_{i})\pi({\theta_{i}} \mid \boldsymbol{y})\mathrm{d}\theta_{i}$ which is the likelihood of a replicate observation. When values are small that indicates that are those values are coming from tails, since the area under the curve (i.e. probability) is less. If this happens for many observation then outliers are driving the model leading to poor estimates
 - the _posterior predictive p-value_ whose math expression is:$\pi(y^{\star} \leq y_{i} \mid \boldsymbol{y})$ for which values near to 0 and 1 indicates poor performances. 
 - the _Root Mean Square Predictive Error RMSE_: $\sqrt{\frac{1}{n} \sum_{i=1}^{n}(y_{i}-{y}^{\star}_{i})^{2}}$
 - $R^2$
 
-R-INLA has already antiticipated in chapter 4 section\@ref(example) have designed function to compute statistics on posterior distribution as `inla.pmarginal()` returning the cumulative density distribution.
+R-INLA has already antiticipated in chapter 4 section\@ref(example) have dedicated function to compute statistics on posterior distribution e.g. `inla.pmarginal()` returning the cumulative density distribution.
 
+### Deviance-based Criteria
 
+If there is an interest in comparing multiple models, then their deviance may be used. Given data $\boldsymbol{y}$ and its likelihood function, along with its parameters $\boldsymbol\theta$ then the _deviance_ is:
+
+$$
+\mathrm{D}(\theta)=-2 \log (\pi(\boldsymbol{y} \mid \theta))
+$$
+
+The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterio mean deviance i.e.$\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))$ which is also robust [@Blangiaro-Cameletti]. Indeed it suffers from cost complexity, as a result DIC proposed by @spiegelhalter2002bayesian adds to the deviance a penalization for complex model i.e. $p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})$ from which, following @Blangiaro-Cameletti obtain,
+
+$$\mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}$$
+
+Data is best served in models with smaller DICs and the correspondent INLA option setting is analogous to the ones seen sec. \@ref(predbase). INLA moreover take advantage of the hierarchical structure and computes different poseterior deviances fro latent parameters i.e. mean  and hyper parameters i.e. mode (due to skewness). For further discussions @spiegelhalter2014deviance constrat DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred [@gelman2014understanding].
 
 
 ## Prior Specification{#priorsspec}
@@ -552,7 +578,7 @@ PC priors are natively implemented in INLA and are shown to be well suited for t
 Fig. \@ref(fig:priorfun) indicates various PC priors using several $\alpha$ values for the precision $\tau$. Note that increasing $\alpha$'s values contribute to a stronger prior implies more confidence in the prior belief for $U$ which then leads to a higher conviction of $\tau$.
 
 <!-- PROVA A METTERE ESEMPIO SPDETOY -->
-```{r priorfun, fig.cap="PC priors for the precision by varying alpha values and fixing $U$" }
+```{r priorfun, fig.cap="PC priors for the precision by varying alpha values and fixing $U$"}
 norm_vec = rnorm(20, mean = 40, sd = 2)
 sdres = sd(norm_vec)
 pc.prior = function(tau, alpha, u = 3*sdres) {
@@ -562,7 +588,7 @@ pc.prior = function(tau, alpha, u = 3*sdres) {
 }
 
 
-ggplot(tibble(x = seq(1,50)))+
+ggplot(NULL)+
   stat_function(fun = pc.prior, args = list(alpha = 0.1, u = 3*sdres), aes(colour  = "alpha = 0.1"), size = 1)+
   stat_function(fun = pc.prior, args = list(alpha = 0.01, u = 3*sdres), aes(colour = "alpha = 0.01"), size = 1)+
   stat_function(fun = pc.prior, args = list(alpha = 1, u = 3*sdres), aes(colour = "alpha = 1"), size = 1)+
@@ -572,26 +598,12 @@ ggplot(tibble(x = seq(1,50)))+
     x = TeX("Precision ($\\Delta_{i\\,j\\,}$)"),
     y = "Density"
   )+
-  scale_colour_manual("Legend title", values = c("red", "blue", "green", "orange")) +
+  scale_colour_brewer(TeX("$Values \\, of\\, \\alpha$")) +
+  # scale_colour_manual("Legend title", values = c("red", "blue", "green", "orange")) +
   theme_nicco()
   
 ```
-```{r}
-SPDEtoy
 
-pl.dom <- cbind(c(0, 1, 1, 0.7, 0), c(0, 0, 0.7, 1, 1))
-mesh5 <- inla.mesh.2d(loc.domain = pl.dom, max.e = c(0.092, 0.2))
-
-spde5 <- inla.spde2.pcmatern(
-# Mesh and smoothness parameter
-mesh = mesh5, alpha = 2,
-# P(practic.range < 0.3) = 0.5
-prior.range = c(0.3, 0.5),
-# P(sigma > 1) = 0.01
-prior.sigma = c(10, 0.01))
-
-
-```
 
 
 

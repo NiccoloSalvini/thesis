@@ -2,33 +2,17 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-The previous chapter has encapsulated the main concepts behind the design of consistent, secure, and fast scraping functions with R. In truth challenges not only regard scraping per se, but also the way and how many times the service has to interact with different clients. Indeed the fact that functions are compressed into scripts does not imply that are shareable and portable. As a consequence when they are executed they also need to be at first understood and secondly loaded into a dedicated R environment (higher and lower dependecies). Moreover results are actually computed, whether in parallel or not, with local machines resources that are limited in many sense. In the end exposing the service traffic to the public or internally to a network of servers requires authentication and precautions from both malicious attack and privacy dangers. Actually from a restricted personal usage perspective what has been done since now is totally feasible. But in a large-scale orientation where different stakeholders should gather massive amount of data, then a unsuitable service may cause an enormous waste of time.
-The following chapter tries to capture the essence and its specific context usage of each technology involved that address each aforementioned issues raised. In parallel it highlights the _fil rouge_ that ties together the chronological order according to which the stack has been developed.
+The previous chapter has encapsulated the main concepts behind the design of consistent, secure, and fast scraping functions with R. In truth challenges not only regard scraping per se, but also the way and how many times the service has to interact with different clients. Indeed the fact that functions are compressed into scripts does not imply that are shareable and portable. As a consequence when they are executed they also need to be at first understood and secondly loaded into a dedicated R environment (higher and lower dependencies). Moreover results are actually computed, whether in parallel or not, with local machines resources that are limited in many senses. In the end exposing the service traffic to the public or internally to a network of servers requires authentication and precautions from both malicious attack and privacy infringements. Actually from a restricted personal usage perspective what has been done since now is totally feasible. But in a large-scale orientation where different stakeholders should gather massive amount of data, then a unsuitable service may cause an enormous waste of time.
+The following chapter tries to capture the essence and its specific context usage of each single technology involved  considering the aforementioned issues. In parallel it highlights the _fil rouge_ that guides the chronological order according to which the stack has been developed.
+The recipe proposed serves a RESTful Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions settled down in section \@ref(scraping). Precautions regards sanitization of users input, anti-Dossing strategies and logs monitoring. The software environment is containerized in a Docker container and _Composed_ with a further container housing NGINX proxy server. Orchestration of service containers is managed through Docker Compose. NGINX with SSL certificates bring HTTPS communication and authentication. An AWS free tier EC2 server hosts the orchestration of containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to cloud repository.
 
-<!-- Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. -->
+<!-- happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server.  \@ref(fig:CompleteStructure). -->
 
-<!-- Moreover The fact that scraped data is a result of a R file (containing function) execution prevents other software users (Python, Scala etc. ) to benefit from that. -->
-<!-- As a solution are proposed APIs which essentially let a product or a service communicate with other products and services without having to know how they’re implemented. -->
-
-<!-- In order to provide a fast and secure API service to the end user many technologies needs to be considered. Challenges in scraping as pointed out in section \@ref(challenges) are many and still some unfortunately remains unsolved. However challenges not only regard scraping per se, but also the way and how many times the service has to interact with different users. Obstacles to tackle in dealing with users are seemingly encountered when systems are put into production. As a result a number of precautions and recommendation has to be taken: -->
-
-<!-- - The API has to be naturally deployed so that it the service can be really used by different stakeholders -->
-<!-- -  -->
-<!-- - The API maintainer needs to take promptly action due to sudden and unpredictable immobiliare.it changes, thus it needs to be continuously maintained and easily updated. -->
-<!-- - Code behind the service has to be version controlled and freezed, so that the service can guarantee continuity and prevent failures.  -->
-<!-- - The service has to be scalable at need since, due to deployment, when the number of users increases the run time performances should not decrease. -->
-<!-- - The service should be load balanced and authozied so that  -->
-<!-- - In addition API inbound traffic has to be managed both in terms traffic and security by securing access only to the ones authorized. -->
-
-<!-- The long list of requirements is met by many open source technologies, some of them offer a direct R embedding. As a result the technologies stack is the intersection between a comprehensive documentation available and the requirements listed. -->
-The recipe proposed serves a REST Plumber API (an R framework) with 2 endpoints each of which calls Parallel scraping functions accomodated in section \@ref(scraping). Precautions regards sanitization of user inputs, anti-Dossing strategies and log monitoring. The software enviroment is containerized in a Docker container and _Composed_ with a further container housing NGINX proxy server. Orchestration is managed with docker compose. NGINX with SSL certificates bring HTTPS communication and authentication. An AWS free tier EC2 server hosts the orchestation of containers and the IP is made Elastic. Furthermore the software development is made automatic with a straightforward composition of cloud services that ignites sequential building when local changes are pushed to cloud repository.
-
-<!-- happens through a Linux OS (Ubuntu distr) Docker container hosted by a free tier AWS EC2 server machine equipped with 30GB max capacity. API endpoints are secured with https protocols, load balanced and protected with authentication by NGINX reverse proxy server. On a second server a Shiny App calls one endpoint gievn specified parameters that returns data from the former infrastructure. A sketch of the infrastructure is represented in figure \@ref(fig:CompleteStructure). -->
-
-Technology stack:
+Technologies involved:
 
 - GitHub version control and CI
 <!-- - Scheduler cron job, section \@ref(scheduler) -->
+<!-- - MongoDB ATLAS database -->
 - Plumber REST API, section \@ref(plumberapi)
 - Docker containers and compose, section \@ref(docker)
 - NGINX reverse proxy, section \@ref(nginx)
@@ -229,11 +213,6 @@ The API up to this point needs a dedicated lightweight software environment that
 _Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 \EndKnitrBlock{definition}
 Containers can be thought as a software abstraction that groups code and dependencies together. One critical advantage of containers is that multiple containers can run on the same machine with the same OS along with their specific dependencies (docker compose). Each container can run its own isolated process in the user space, so that each task/application is exhaustively and complementary to the other. The fact that containers are treated singularly enables a collaborative framework that it also simplifies bugs isolation. 
-
-<!-- Containers are lightweight and take up less space than Virtual Machines (container images are files which can take up typically tens of MBs in size), can handle more applications and require fewer Virtual Machines and OS. The structure differences are figrued in \@ref(fig:(#fig:dockervsvm)). -->
-
-
-<!-- ![(#fig:dockervsvm)Docker containers versus Virtual Machines, ](images/dockerVSvirtualmachines.PNG) -->
 
 Actually _Docker containers_ are the build stage of _Docker Images_. Docker images therefore are the starting point to containerize a software environment. They are built up from a series of software layers each of which represents an instruction in the image’s _Dockerfile_ [-@docker_documentation_2020] . In addition images can be open sourced and reused through Docker Hub.
 _Docker Hub_ is a web service provided by Docker for searching and sharing container images with other teams or developers in the community. Docker Hub can authorize third party applications as GitHub entailing an collaborative image version control, this would be critical for software development as disguised in section (\@ref(sdwf)).

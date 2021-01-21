@@ -1,6 +1,52 @@
 # Model Selection & Fitting{#modelspec}
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,  
+  strip.white = TRUE,
+  message = FALSE,
+  cache = FALSE,
+  echo = FALSE
+)
+
+# libraries are in libs.R
+# source(here::here("libs.R"))
+
+library(geoR, warn.conflicts = F, quietly = T )
+library(brinla, warn.conflicts = F, quietly = T )
+library(ggplot2, warn.conflicts = F, quietly = T )
+library(tibble, warn.conflicts = F, quietly = T )
+library(knitr, warn.conflicts = F, quietly = T)
+library(latex2exp, warn.conflicts = F, quietly = T)
+library(faraway, quietly = T, warn.conflicts = F)
+library(patchwork, warn.conflicts = F, quietly = T)
+library(INLA, warn.c, warn.conflicts = F, quietly = T)
+library(rgdal, warn.conflicts = F, quietly = T)
+library(ggthemes, warn.conflicts = F, quietly = T)
+library(sf, warn.conflicts = F, quietly = T)
+
+theme_nicco = function (base_size = 11, base_family = "") {
+  theme_bw() %+replace% 
+    theme(
+      text = element_text(family = "sans", size = 12),
+      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
+      panel.background  = element_blank(),
+      axis.ticks = element_line(colour = "grey70", size = 0.2),
+      plot.background = element_rect(fill="white", colour=NA),
+      panel.border = element_rect(linetype = "blank", fill = NA),
+      legend.background = element_rect(fill="transparent", colour=NA),
+      legend.key = element_rect(fill="transparent", colour=NA)
+    )
+}
+```
+
+
+
+
 - metti @Ling che ha messo i prioris come defaults nella inla call
+
+
+- link tanta roba con inlabru [link](https://www.muscardinus.be/2018/07/inlabru-bru/)
 
 
 [ref.](https://inbo.github.io/tutorials/tutorials/r_inla/spatial.pdf)
@@ -19,7 +65,28 @@ fit with the suggestion of INLA in [ref](https://www.r-inla.org/faq#h.sxjo232d6h
 library(spdep)
 library(spDataLarge)
 border <- readShapePoly(system.file("data/confini/A090101_ComuneMilano.shp", package="spdep")[1])
+
+
+
 ```
+
+
+
+
+```{r, eval=F}
+
+confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp") 
+  # st_as_sf()
+proj4string(confini)
+confini_proj = spTransform(confini, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))%>% 
+                              st_as_sf()
+plot(confini_proj)                     
+ggplot(NULL) +
+  geom_sf(data = confini_proj)+
+  geom_point(data = dati, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
+  theme_map() 
+```
+
 
 ```{r, eval=F}
 require(sp)  # package to work with spatial data

@@ -91,14 +91,14 @@ From final  eq: \@ref(eq:finallgm) is derived Bayesian inference and INLA throug
 
 ## Gaussian Markov Random Field (GMRF){#gmrf}
 
-In the order to make INLA working efficiently the latent field $\boldsymbol\theta$ must not only be Gaussian but also Gaussian Markov Random Field (GMRF). A GMRF is a genuinely simple structure: It is just  random vector following a multivariate normal (or Gaussian) distribution [@GMRFRue]. However It is more interesting to research a restricted set of GMRF for which are satisfied the conditional independence assumptions (section \@ref(LGM)), from here the term "Markov". Expanding the concept of conditional independece let asssume to have a vector $\boldsymbol{\mathbf{x}}=\left(x_{1}, x_{2}, x_{3}\right)^{T}$ where $x_1$ and $x_2$ are conditionally independent given $x_3$, i.e. $x_{1} \perp x_{2} \mid x_3$. With that said if the objective is $x_3$, then uncovering $x_2$ gives no information on $x_1$. The joint density for $\boldsymbol{\mathbf{x}}$ is
+In the order to make INLA working efficiently the latent field $\boldsymbol\theta$ must not only be Gaussian but also Gaussian Markov Random Field (GMRF). A GMRF is a genuinely simple structure: It is just random vector following a multivariate normal (or Gaussian) distribution [@GMRFRue]. However It is more interesting to research a restricted set of GMRF for which are satisfied the conditional independence assumptions (section \@ref(LGM)), from here the term "Markov". Expanding the concept of conditional independece let assume to have a vector $\boldsymbol{\mathbf{x}}=\left(x_{1}, x_{2}, x_{3}\right)^{T}$ where $x_1$ and $x_2$ are conditionally independent given $x_3$, i.e. $x_{1} \perp x_{2} \mid x_3$. With that said if the objective is $x_3$, then uncovering $x_2$ gives no information on $x_1$. The joint density for $\boldsymbol{\mathbf{x}}$ is
 
 \begin{equation}
   \pi(\boldsymbol{\mathbf{x}})=\pi\left(x_{1} \mid x_{3}\right) \pi\left(x_{2} \mid x_{3}\right) \pi\left(x_{3}\right)
 (\#eq:pix)
 \end{equation}
 
-Now let assume a more general case of AR(1) exploiting the possibilities of definying $f_{1}(\cdot)$ function through the eq. \@ref(eq:linearpredictor). AR(1) is an _autoregressive model_ of order 1 specified on the latent linear predictor $\boldsymbol\eta$ (use directly $\eta$ instead of $\theta$ since latent components are few), with constant variance $\sigma_{\eta}^{2}$ and standard normal errors [-@GMRFRue; -@wang2018bayesian]. The model may have following expression:
+Now let assume a more general case of AR(1) exploiting the possibilities of defining $f_{1}(\cdot)$ function through the eq. \@ref(eq:linearpredictor). AR(1) is an _autoregressive model_ of order 1 specified on the latent linear predictor $\boldsymbol\eta$ (use directly $\eta$ instead of $\theta$ since latent components are few), with constant variance $\sigma_{\eta}^{2}$ and standard normal errors [-@GMRFRue; -@wang2018bayesian]. The model may have following expression:
 
 $$
 \eta_t=\phi \eta_{t-1}+\epsilon_{t}, \quad \epsilon_{t} \stackrel{\mathrm{iid}}{\sim} \mathcal{N}(0,1), \quad|\phi|<1
@@ -115,9 +115,10 @@ But by a simple trick it is possible to recognize that AR(1) is a special type o
 $$
 \pi(\boldsymbol{\eta})=\pi\left(\eta_{1}\right) \pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{3} \mid \eta_{1}, \eta_{2}\right) \cdots \pi\left(\eta_{n} \mid \eta_{n-1}, \ldots, \eta_{1}\right)
 $$
-whose precision matrix compared to its covariance matrix is:
+whose precision matrix compared to its respective covariance matrix is:
 
 ![(#fig:precisionmat)Precision Matrix in GMRF vs the Covariance matrix, source @GMRFRue](images/precvscov.jpg)
+
 with zero entries outside the diagonal (right panel fig. \@ref(fig:precisionmat)) and first off-diagonals [-@GRMFRue]. 
 The conditional independence assumption makes the precision matrix tridiagonal since for generals $\eta_i$ and $\eta_j$ are conditionally independent for $|i − j| > 1$, given all the rest. In other words $\boldsymbol{Q}$ is sparse since given all the latent predictors in $\boldsymbol\eta$,  then $\eta_t$ depends only on the preceding $\eta_{t-1}$. For example in \@ref(eq:conditinal), let assume to have $\eta_2$ and $\eta_4$, then:
 
@@ -206,9 +207,8 @@ Therefore ultimately it is possible to produce a rather formal definition of a G
 
 ## INLA Laplace Approximations{#approx}
 
-The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \@ref(eq:finallgm) i.e. $\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})$, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each $\theta_{i}$ in the latent parameter $\boldsymbol{\theta}$, for each hyper-parameter prior $\psi_{k} \in \boldsymbol\psi$ (back to the $\boldsymbol\theta$ latent field notation).
-The mathematical intuition behind Laplace approximation is contained in the appendix  sec. ...  
-Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian [-@wang2018bayesian] or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are "more Gaussian" than the thier joint distribution.
+The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \@ref(eq:finallgm) i.e. $\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})$, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each $\theta_{i}$ in the latent parameter $\boldsymbol{\theta}$, for each hyper-parameter prior $\psi_{k} \in \boldsymbol\psi$ (back to the $\boldsymbol\theta$ latent field notation). The mathematical intuition behind Laplace approximation is contained in the appendix in sec. \@ref(laplaceapprox).
+Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian [-@wang2018bayesian] or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are "more Gaussian" than the their joint distribution.
 Into the LGM framework let assume to observe $n$ counts, i.e. $\mathbf{y} = y_i = 1,2, \ldots, n$ drawn from Poisson distribution whose mean is $\lambda_i, \forall i \in \mathbf{I}$. Then a the link function $\mathscr{g}(\cdot)$ is the $\log()$ and relates $\lambda_i$ with the linear predictor and so the latent filed $\theta$  , i.e. $\log(\lambda_i)=\theta_{i}$. The hyper-parameters are $\boldsymbol\psi = (\tau, \rho)$ with their covariance matrix structure.
 <!-- $$ -->
 <!-- Q_{\theta}=\tau\left(\begin{array}{cc} -->
@@ -517,6 +517,12 @@ level:0.9 & -2.291268 & -0.879445\\
 \end{tabular}
 
 Note that the interpretation is more convoluted [-@wang2018bayesian] than the traditional frequentist approach: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.  
+
+However introducing a random Gaussian effect on the spatial coordinated then the model formula is $\mu_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$
+
+$$y_{i} \mid \beta_{0}, x_{i}, \sigma_{e}^{2} \sim N\left(\beta_{0}+x_{i}, \sigma_{e}^{2}\right)$$
+
+
 
 
 <!-- valuta l'idea di metter qyalciosa con un effetto non lineare -->
