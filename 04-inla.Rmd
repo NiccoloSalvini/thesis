@@ -46,7 +46,6 @@ theme_nicco2 = function (base_size = 11, base_family = "") {
                                          margin = ggplot2::margin(10, 10, 
                                                                   10, 10, 
                                                                   "pt"))
-      
     )
 }
 
@@ -83,7 +82,7 @@ $\pi(\cdot)$ is a generic notation for the density of its arguments and $\tilde\
 
 ## The class of Latent Gaussian Models (LGM){#LGM}
 
-Bayesian theory is straightforward, but it is not always simple to measure posterior and other interest quantities [@wang2018bayesian]. There are three ways to obtain a posterior estimate: by _Exact_ estimation, i.e. operating on conjugate priors, but there are relatively few conjugate priors which are also employed in simple models. By _Sampling_  through generating samples from the posterior distributions with MCMC methods [@hastings; @metropolis] and applied in Bayesian statistics by @gelfand1990sampling. MCMCs have improved over time due to inner algorithm optimization as well as both hardware and software progresses, nevertheless for certain model combinations and data they either fail or take an unacceptable amount of time [-@wang2018bayesian]. By _Approximation_ through numerical integration and INLA can count on a strategy leveraging on three elements: _LGMs_, _Gaussian Markov Random Fields_ (GMRF) and _Laplace Approximations_ and this will articulates the steps according to which the arguments are treated. LGMs despite their anonymity are very flexible and they can host a wide range of models as regression, dynamic, spatial, spatio-temporal [@Cameletti2012]. LGMs necessitate further three interconnected elements: **Likelihood**, **Latent field** and **Hyperpriors**.
+Bayesian theory is straightforward, but it is not always simple to measure posterior and other interest quantities [@wang2018bayesian]. There are three ways to obtain a posterior estimate: by _Exact_ estimation, i.e. operating on conjugate priors, but there are relatively few conjugate priors which are also employed in simple models. By _Sampling_  through generating samples from the posterior distributions with MCMC methods [@hastings; @metropolis] and applied in Bayesian statistics by @gelfand1990sampling. MCMCs have improved over time due to inner algorithm optimization as well as both hardware and software progresses, nevertheless for certain model combinations and data they either fail or take an unacceptable amount of time [-@wang2018bayesian]. By _Approximation_ through numerical integration and INLA can count on a strategy leveraging on three elements: _LGMs_, _Gaussian Markov Random Fields_ (GMRF) and _Laplace Approximations_ and this will articulates the steps according to which the arguments are treated. LGMs despite their anonymity are very flexible and they can host a wide range of models as regression, dynamic, spatial, spatio-temporal [@Cameletti2012]. LGMs necessitate further three interconnected elements: **Likelihood**, **Latent field** and **Priors**.
 To start it can be specified a generalization of a linear predictor $\eta_{i}$ which takes into account both linear and non-linear effects on covariates:
 
 \begin{equation}
@@ -105,7 +104,7 @@ The conditional independence assumption grants that for a general couple of cond
 Note also that the product index $i$ ranges from 1 to $\mathbf{I}$, i.e.  $\mathbf{I} = \left\{1 \ldots n \right\}$. In the case when an observations are missing, i.e. $i \notin \mathbf{I}$, INLA automatically discards missing values from the model estimation -@Bayesian_INLA_Rubio, this would be critical during missing values imputation sec. \@ref(missassimp).
 At this point, as required by LGM, are needed to be imposed _Gaussian priors_ on each linear effect and each model covariate that have either a univariate or _multivaried normal_ density in order to make the additive $\eta_i$ Gaussian [-@wang2018bayesian].
 An example might clear up the setting requirement: let assume to have a Normally distributed response and let set the goal to specify a Bayesian Generalized Linear Model (GLM). Then the linear predictor can have this appearance $\eta_{i}=\beta_{0}+\beta_{1} x_{i 1}, \quad i=1, \ldots, n$, where $\beta_{0}$ is the intercept and $\beta_{1}$ is the slope for a general covariate $x_{i1}$. While applying LGM are **needed** to be specified Gaussian priors on $\beta_{0}$ and $\beta_{1}$, such that: $\beta_{0} \sim N\left(\mu_{0}, \sigma_{0}^{2}\right)$ and $\beta_{1} \sim N\left(\mu_{1}, \sigma_{1}^{2}\right)$, for which the latent linear predictor $\eta_i$ is $\eta_{i} \sim N\left(\mu_{0}+\mu_{1} x_{i 1}, \sigma_{0}^{2}+\sigma_{1}^{2} x_{i 1}^{2}\right)$. It can be illustrated by some linear algebra [-@wang2018bayesian] that $\boldsymbol{\eta}=\left(\eta_{1}, \ldots, \eta_{n}\right)^{\prime}$ is a Gaussian Process with mean structure $\mu$ and covariance matrix $\boldsymbol{Q^{-1}}$. The hyperparameters $\sigma_{0}^{2}$ and
-$\sigma_{1}^{2}$ are to be either fixed or estimated by taking hyperpriors on them. In this context $\boldsymbol{\theta}=\left\{\beta_{0}, \beta_{1}\right\}$ can group all the latent components and $\boldsymbol{\psi} = \left\{\sigma_{0}^{2},\sigma_{1}^{2}\right\}$ is the vector of **hyperpriors**. 
+$\sigma_{1}^{2}$ are to be either fixed or estimated by taking hyperpriors on them. In this context $\boldsymbol{\theta}=\left\{\beta_{0}, \beta_{1}\right\}$ can group all the latent components and $\boldsymbol{\psi} = \left\{\sigma_{0}^{2},\sigma_{1}^{2}\right\}$ is the vector of **Priors**. 
 <!-- Moreover there exists a special class of LG, namely Gaussian Markov random field (GMRF), which is very effective and versatile in modeling paricular effects in LGMs. -->
 For what it can be noticed there is a clear hierarchical relationship for which three different levels are seen: a _higher_ level represented by the exponential family distribution function on $\mathbf{y}$, given the latent parameter and the hyper parameters. The _medium_ by latent Gaussian random field with density function given some other hyper parameters. The _lower_ by the joint distribution or a product of several distributions for which priors can be specified
 So letting be $\boldsymbol{\mathbf{y}}=\left(y_{1}, \ldots, y_{n}\right)^{\prime}$ at the _higher_ level it is assumed an exponential family distribution function given a first set of hyper-parameters $\boldsymbol\psi_1$, usually referred to measurement error precision @Blangiardo-Cameletti). Therefore as in \@ref(eq:jpd), 
@@ -262,6 +261,7 @@ A latent gaussian random field (LGRM) e.g. $\boldsymbol\eta$ is said a GMRF if i
 <!-- \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid y) \propto \pi(\psi) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}+\sum^{n} \log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right) -->
 <!-- (\#eq:jointpostdistr) -->
 <!-- \end{equation} -->
+
 
 
 ## INLA Laplace Approximations{#approx}
@@ -559,7 +559,7 @@ m0 = inla(formula, data = SPDEtoy)
 The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure\@ref(fig:spatplot) where bigger bubbles are concentrated throughout the origin.
 
 
-```{r table_INLA}
+```{r table_INLA, results='asis'}
 knitr::kable(m0$summary.fixed, booktabs = T)
 ```
 

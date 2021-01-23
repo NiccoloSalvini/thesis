@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
 # source(here::here("libs.R"))
 
 library(geoR, warn.conflicts = F, quietly = T )
+library(raster, warn.conflicts = F, quietly = T )
 library(ggplot2, warn.conflicts = F, quietly = T )
 library(tibble, warn.conflicts = F, quietly = T )
 library(knitr, warn.conflicts = F, quietly = T)
@@ -63,10 +64,8 @@ been removed (e.g. parks, the University of Zaragoza campus, hospital areas, etc
 retained is, essentially, a full census of apartment sale transactions in and around the city center
 
 Modeling methodologies described in this analysis will exclusively take into account point referenced techniques within the INLA algorithm.
-Geostatical data can be considered as a stochastic process indexed on a continuous plane [@arbia2012spatial] i.e Gaussian Process.
+Geostatical data can be considered as a stochastic process indexed on a continuous plane [@arbia2012spatial] i.e. Gaussian Process.
 This information is essential to interpolate points and build a Gaussian Process over the y-studied variable domain in order to predict the phenomenon at locations not yet observed. GPs ,at first, have to be introduced and constrained to the properties of Stationarity and Isotropy and then they are considered with a convenient covariance function, i.e. Matèrn. The reason why Matérn is selected as candidate for covariance function relies, besides its inner flexibility, on the fact that GP whose covariance function is Matérn are able to determine a GMRF \@ref(gmrf) through the Stochastic Partial Differential Equations (SPDE) approach [@Lindren2011]. The main benefit proceeding from a GP to a GMRF arises from the good computational properties that the latter appreciate enabling to wrap up modeling around INLA and consequently benefiting from it. Hedonic Price Models brings to the present analysis the theoretical foundation according to which covariates are added to the model.
-Spatial kriging is essential to predict the process at new locations given the continuous spatial surface.
-In the end models have to be checked and verified with resampling schemes which are once again specific to the data type and the scope of the analysis.
 
 ## Gaussian Process (GP){#GP}
 
@@ -140,7 +139,15 @@ ggplot(NULL)+
 
 ```
 
-If we have a realization $x(s)$ at $n$ locations, we can define its joint covariance matrix. Each entry of this joint covariance matrix $\Sigma$ is $\Sigma_{i, j}=\sigma_{x} \operatorname{Cor}_{M}\left(X\left(s_{i}\right), X\left(s_{j}\right)\right)$. It is common to assume that $X(x)$ has a zero mean. We have now completely defined a multivariate distribution for $x(s)$
+<!-- If we have a realization $x(s)$ at $n$ locations, we can define its joint covariance matrix. Each entry of this joint covariance matrix $\Sigma$ is $\Sigma_{i, j}=\sigma_{x} \operatorname{Cor}_{M}\left(X\left(s_{i}\right), X\left(s_{j}\right)\right)$. It is common to assume that $X(x)$ has a zero mean. We have now completely defined a multivariate distribution for $x(s)$ -->
+
+In the end summarizing the result obtained in chapter \@ref(inla) with what it has been seen so far the model assumes the following mesaurament equation, where $\xi_{i}$ is the spatial random process, $\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)$ is the white noise error and $I_{d}$ is an identity matrix.
+
+$$
+y(s)=\boldsymbol{z}(\boldsymbol{s}) \boldsymbol{\beta}+\xi(\boldsymbol{s})+\varepsilon(\boldsymbol{s})
+$$
+
+
 
 <!-- For simplicity lets consider $y$ point of interest observations $y\left(\boldsymbol{s}_{1}\right),y\left(\boldsymbol{s}_{2}\right), \ldots, y\left(\boldsymbol{s}_{n}\right)$ -->
 <!-- from a random spatial process $Y(s_n)$, such that: $Y\left(\boldsymbol{s}_{1}\right),Y\left(\boldsymbol{s}_{2}\right), \ldots, Y\left(\boldsymbol{s}_{n}\right)$ observed at location $\boldsymbol{s}_{1}, \ldots, \boldsymbol{s}_{n}$. In the context of point reference data modeling each observation has to be considered as a partial realization of an unobserved/underlying random spatial process $\left\{Y(s): s \in D \subset \mathbb{R}^{2}\right\}$, where surface $D$ is a subset of r-dimensional Euclidean space $\mathbb{R}^{r}$.  -->
@@ -294,7 +301,9 @@ If we have a realization $x(s)$ at $n$ locations, we can define its joint covari
 Locations in the spatial setting are considered as realizations of a stationary, isotropic unobserved GP to be estimated (\@ref(GP)). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood [@LecturePaci]. Covariance matrices in the context of spatial and spatio-temporal models [@PACI2017149; @Cameletti2012] are $n \times n$ dimension matrices defined by the number of observations at each single point location (at each time stamp in spatio-temporal) [@BLANGIARDO201339]. Covariance matrix as such are very dense and they were scaling with the order of $\mathcal{O}\left(n^{3}\right)$ [@Banerjee-Gelfand]. Problem were linked to the computational costs needed for linear algebra operations for model fitting and spatial interpolation as well as prediction [@Cameletti2012], having led to obvious _big-n_ problem. 
 The breakthrough came with @Lindgren2011 that proves that a stationary, isotropic (can be both relaxed at the cost of different settings) GP with Matérn covariance can be represented as a GMRF using SPDE solutions by Finite Element Method [@Krainski-Rubio]. In other words given a GP whose covariance matrix is $\boldsymbol{Q^{-1}}$, SPDE can provide a method to approximate $\boldsymbol{Q^{-1}}$ without the previous computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies [-@Krainski-Rubio].
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix $\boldsymbol{Q}$ . Sparse matrices enable convenient inner computation properties of GMRF \@ref(approx) which are exploited by INLA algorithm \@ref(inla) leading to a more feasible big-O $\mathcal{O}\left(n^{3 / 2}\right)$. Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego. 
-In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged. Secondly SPDE projects with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized values and how it uses the projection matrix to inject the triangulation into the GRMF.  
+In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.
+
+Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularized values and how it uses the projection matrix to inject the triangulation into the GRMF.  
 To illustrate the concept of triangulation @Cameletti2012 provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10). Its respective mesh using 123 vertices and Piemonte borders is in right figure \@ref(fig:piepm10). 
 
 ![(#fig:piepm10)Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. @Cameletti2012 source](images/piemonte_pm10.jpg)
@@ -308,10 +317,13 @@ In INLA mesh triangularization of the region of the study is performed within th
 - `loc`: the coordinates used as initial vertices of mesh,
 - `boundary`: the borders of the region of the study $\mathscr{D}$
 - `offset`: the distance between data positions, which determines the inner and outer extension size,
-- `cutoff`: Minimum distance between points approved.
+- `cutoff`: minimum distance between points approved.
 - `max.edge`: value that suggest the current maximum triangle edge lengths in the area and extension. This argument is on the same scale unit as coordinates.
+- `min.angle` the opposite of max.edge 
 
-Moreover the mesh can also be built on non convex study area by prior passing coordinates on `inla.nonconvex.hull()` and then back through the function seen before. A decent mesh must have triangles of size and shape as regularly as possible [@Krainski-Rubio].
+
+
+Moreover the mesh can also be built on non convex study area by prior passing coordinates on `inla.nonconvex.hull()` which are then sent back to the `inla.mesh.2d()`. A convex hull is a polygon of triangles out of the domain area, in other words the extension made to avoid the boundary effect. If borders are available (and they are) are generally preferred over non convex hull meshes. A decent mesh must have triangles of size and shape as regularly as possible [@Krainski-Rubio].
 
 
 
@@ -528,8 +540,9 @@ qq = ggplot(data = NULL, aes(sample = model$cpo$pit)) +
        y = " "
     )+
   theme_nicco()
-## patch
-(hist + qq)
+
+(hist + qq) 
+  # plot_layout(ncol=2,widths=c(1,2))
 ```
 
 
@@ -557,7 +570,7 @@ $$\mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}$$
 Data is best served in models with smaller DICs and the correspondent INLA option setting is analogous to the ones seen sec. \@ref(predbase). INLA moreover take advantage of the hierarchical structure and computes different poseterior deviances fro latent parameters i.e. mean  and hyper parameters i.e. mode (due to skewness). For further discussions @spiegelhalter2014deviance constrat DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred [@gelman2014understanding].
 
 
-## Prior Specification{#priorsspec}
+## Prior Specifications{#priorsspec}
 
 The priors choice is the most central part of a Bayesian analysis and at the same time the weakest since any selection might be criticized. Priors expression involves a considerably high amount of subjectivity and domain experience which may be imported from other comparable literature works or results. However according to purists Bayesian priors should be decided _a-priori_, without either looking at the data, nor the posterior results. This can be tedious since many models are sensitive to priors, as evidenced in the example in sec. \@ref(rinla). Priors may negatively impact posteriors when are 
 wrong and they usually require a later revision. The choice in this context is also more difficult since it is also constrained to LGM requirements for which the latent field demands them to be jointly Gaussian.

@@ -386,19 +386,19 @@ With that said a custom function caches the results of robotstxt into a variable
 
 \begin{lstlisting}[language=R]
 get_delay = function(memoised_robot, domain) {
-    
+
     message(glue("Refreshing robots.txt data for %s... {domain}"))
     temp = memoised_robot$crawl_delay
-    
+
     if (length(temp) > 0 && !is.na(temp[1, ]$value)) {
         star = dplyr::filter(temp, useragent == "*")
-        if (nrow(star) == 0) 
+        if (nrow(star) == 0)
             star = temp[1, ]
         as.numeric(star$value[1])
     } else {
         2.5
     }
-    
+
 }
 get_delay(rbtxt_memoised, domain = dom)
 \end{lstlisting}
@@ -816,7 +816,7 @@ A simple but effective approach tries to limit and stop the number of request se
  if (npages > 300 & npages > 0){
                         msg = "Don't DoS me!"
                         res$status = 500 # code num: Bad request
-                        stop(list(error=jsonlite::unbox(msg)))     
+                        stop(list(error=jsonlite::unbox(msg)))
             }
 \end{lstlisting}
 
@@ -833,7 +833,7 @@ A request log filter might have this appearance:
 #* @filter logging
 function(req){
             cat(as.character(Sys.time()), "-",
-                req$HTTP_USER_AGENT, "@", 
+                req$HTTP_USER_AGENT, "@",
                 req$REMOTE_ADDR, "\n",
                 req$QUERY_STRING, "\n")
             plumber::forward()
@@ -1127,7 +1127,7 @@ whose precision matrix compared to its respective covariance matrix is:
 with zero entries outside the diagonal (right panel fig.~\ref{fig:precisionmat}) and first off-diagonals \citeyearpar{GRMFRue}.
 The conditional independence assumption makes the precision matrix tridiagonal since for generals \(\eta_i\) and \(\eta_j\) are conditionally independent for \(|i − j| > 1\), given all the rest. In other words \(\boldsymbol{Q}\) is sparse since given all the latent predictors in \(\boldsymbol\eta\), then \(\eta_t\) depends only on the preceding \(\eta_{t-1}\). For example in \eqref{eq:conditinal}, let assume to have \(\eta_2\) and \(\eta_4\), then:
 
-\begin{equation} 
+\begin{equation}
 \begin{split}
   \pi\left(\eta_{2}, \eta_{4} \mid \eta_{1}, \eta_{3}\right) &=\pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{4} \mid \eta_{1}, \eta_{2}, \eta_{3}\right) \\
   & =\pi\left(\eta_{2} \mid \eta_{1}\right) \pi\left(\eta_{4} \mid \eta_{3}\right)
@@ -1234,7 +1234,7 @@ Imposing an LGM model requires at first to select as a \emph{higher} hierarchy l
 Note that models are sensitive to prior choices (sec.~\ref{priorsspec}), as a consequence if necessary later are revised.
 A summary of the model specifications are set below:
 
-\begin{equation} 
+\begin{equation}
 \begin{split}
 y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \mu_{i} &=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i} \\
@@ -1253,6 +1253,7 @@ m0 = inla(formula, data = SPDEtoy)
 
 The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \ref{fig:marginalsplot}. From the table it can also be seen that the mean for \(s_2\) is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure\ref{fig:spatplot} where bigger bubbles are concentrated throughout the origin.
 
+\begin{table}
 \begin{tabular}{lrrrrrrr}
 \toprule
   & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
@@ -1262,6 +1263,8 @@ s1 & 0.7624296 & 0.4293757 & -0.0814701 & 0.7624179 & 1.6056053 & 0.7624315 & 7e
 s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 & 7e-07\\
 \bottomrule
 \end{tabular}
+\caption{\label{tab:tablle}}
+\end{table}
 
 \begin{figure}
 \centering
@@ -1364,11 +1367,11 @@ In spatial statistics the assumption of isotropy is very frequent despite being 
 \begin{aligned}
 &\text { Exponential } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if }  \Delta_{i j}=0 \\
-\sigma^{2}_{\mathscr{C}} \exp (-\phi_{\mathscr{C}} \Delta_{i j}) & \text { if } \Delta_{i j}>0 
+\sigma^{2}_{\mathscr{C}} \exp (-\phi_{\mathscr{C}} \Delta_{i j}) & \text { if } \Delta_{i j}>0
 \end{array}\right.\\
 &\text { Gaussian } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
-\sigma^{2}_{\mathscr{C}} \exp \left(-\phi^{2}_{\mathscr{C}}  \Delta_{i j}^{2}\right) & \text { if } \Delta_{i j}>0 
+\sigma^{2}_{\mathscr{C}} \exp \left(-\phi^{2}_{\mathscr{C}}  \Delta_{i j}^{2}\right) & \text { if } \Delta_{i j}>0
 \end{array}\right. \\
 &\text { Matérn } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
@@ -2082,16 +2085,16 @@ for which are computed:
 Ths single variable \emph{Score Function} and the \(x_{*}=\operatorname{argmax}_{x} \log \pi(x)\),
 
 \begin{equation}
-\begin{aligned} 
+\begin{aligned}
   &\frac{\partial \log \pi(x)}{\partial x}= \frac{(k/2 -1)}{x} - \frac{1}{2} =0 \quad \text {solving for 0 }\\
   &(k/2-1) = x/2\quad \text {moving addends}\\
-  &x_* = (k-2) 
+  &x_* = (k-2)
 \end{aligned}
 \end{equation}
 
 And the \emph{Fisher Information} in the \(x_*\) (for which it is known \(\sigma^{2}_*=-1 / f^{\prime \prime}(x)\))
 
-\begin{equation} 
+\begin{equation}
 \begin{split}
   &\frac{\partial^2 \log \pi(x)}{\partial x^2}=-\frac{(k / 2-1) }{x^{2}} \quad \text {substituting} \,\,x_* \\
   &= -\frac{(k / 2-1) }{(k-2)^{2}} = - \frac{2(k/2-1)}{2(k-2)^{2}} \quad \text {multiply by 2 } \\

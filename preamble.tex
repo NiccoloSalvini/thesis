@@ -13,6 +13,7 @@
 \usepackage{tabu}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage[bf,singlelinecheck=off]{caption}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{wrapfig}
@@ -38,4 +39,17 @@
 \let\oldmaketitle\maketitle
 \AtBeginDocument{\let\maketitle\relax}
 
+\ifxetex
+  \usepackage{letltxmacro}
+  \setlength{\XeTeXLinkMargin}{1pt}
+  \LetLtxMacro\SavedIncludeGraphics\includegraphics
+  \def\includegraphics#1#{% #1 catches optional stuff (star/opt. arg.)
+    \IncludeGraphicsAux{#1}%
+  }%
+  \newcommand*{\IncludeGraphicsAux}[2]{%
+    \XeTeXLinkBox{%
+      \SavedIncludeGraphics#1{#2}%
+    }%
+  }%
+\fi
 

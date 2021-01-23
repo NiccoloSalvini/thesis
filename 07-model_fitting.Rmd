@@ -20,10 +20,15 @@ library(knitr, warn.conflicts = F, quietly = T)
 library(latex2exp, warn.conflicts = F, quietly = T)
 library(faraway, quietly = T, warn.conflicts = F)
 library(patchwork, warn.conflicts = F, quietly = T)
-library(INLA, warn.c, warn.conflicts = F, quietly = T)
+library(INLA, warn.conflicts = F, quietly = T)
+library(inlabru, warn.conflicts = F, quietly = T)
 library(rgdal, warn.conflicts = F, quietly = T)
 library(ggthemes, warn.conflicts = F, quietly = T)
 library(sf, warn.conflicts = F, quietly = T)
+library(ggregplot, warn.conflicts = F, quietly = T)
+library(readr, warn.conflicts = F, quietly = T)
+library(forcats, warn.conflicts = F, quietly = T)
+library(patchwork, warn.conflicts = F, quietly = T)
 
 theme_nicco = function (base_size = 11, base_family = "") {
   theme_bw() %+replace% 
@@ -38,12 +43,310 @@ theme_nicco = function (base_size = 11, base_family = "") {
       legend.key = element_rect(fill="transparent", colour=NA)
     )
 }
+
+
+```
+
+
+```{r loadpreprocess}
+## qui leggi gli ultimi dati e li chiami finali
+final_data = read_csv("data/prova_finale.csv") %>%
+  # converti tutto a fattore
+  mutate((across(where(is.character), ~ forcats::as_factor(.)))) %>%
+  # droppi le variabili  che non ti servono
+  select(lat, long, condom, totlocali, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato) %>%
+  # conversione dataframe
+  as.data.frame() %>%  
+  #togli gli na
+  na.omit() 
+
+# qui sistemi il processo gaussiano sulle coordinate
+coordinate = final_data %>%  select(lat, long) %>%  as.data.frame()
+coordinates(coordinate) = c("long", "lat")
+proj4string(coordinate) <- CRS("+init=epsg:28992")
+
+final_data = final_data %>% 
+  select(-lat, -long)
+
+
+
+confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
+
+```
+
+<!-- # ```{r covariasel, eval=F} -->
+<!-- # resp = "price" -->
+<!-- # covar = final_data %>%  names() -->
+<!-- # # Specify the formula -->
+<!-- # formula_lin <- as.formula(paste0(resp, " ~ ", # Response first -->
+<!-- #                           paste(covar, collapse = " + ") # Collapse the vector of covariates -->
+<!-- # )) -->
+<!-- #  -->
+<!-- # IM0.1  <- inla(formula_lin,  -->
+<!-- #                family = "nbinomial", # Specify the family. Can be a wide range (see r-inla.org). -->
+<!-- #                data = TestHosts) # Specify the data -->
+<!-- #  -->
+<!-- # # Then with an ID random effect #### -->
+<!-- #  -->
+<!-- # f0.2 <- as.formula(paste0(resp, " ~ ",  -->
+<!-- #                           paste(covar, collapse = " + "),  -->
+<!-- #                           " +  f(ID, model = 'iid')")) # This is how you include  a typical random effect. -->
+<!-- #  -->
+<!-- # IM0.2  <- inla(f0.2,  -->
+<!-- #                family = "nbinomial", -->
+<!-- #                data = TestHosts)  -->
+<!-- #  -->
+<!-- # summary(IM0.1) -->
+<!-- # summary(IM0.2) -->
+<!-- #  -->
+<!-- # ``` -->   
+
+
+<!--                                                  [var selection](https://ourcodingclub.github.io/tutorials/inla/) -->
+
+
+
+## Model Specification & Mesh Assessement {#modelspecandmesh}
+
+In order to make the distribution of the response approximately Normal is applied a log transformation (further transformation better Normalize data i.e. Box-Cox and Yeo-Johnson however they over complicate interpretability). No assessement neither validation set are retained since it is going to be fitted a LOOCV (refer to \@ref(criticism)) throughout the `inla()` function call. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM reference (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be moved on to a proper coordinate system description by filling out or overwriting the existing one. Then It need to be transformed, i.e. reprojected with the new CRS. In the end the latitude and the logitude points are overlayed to the borders.
+
+```{r ggmap}
+library(sf)
+confini_st = st_read( "data/confini/A090101_ComuneMilano.shp")
+confini = st_transform(confini_st, "+proj=longlat +datum=WGS84") %>%
+  st_as_sf()
+
+# coordinate = datiprep2 %>%  select(lat, long) %>% as.data.frame(lat = coordinate$lat , long = coordinate$long) 
+# coordinates(coordinate) <- c("long", "lat")
+# coordinate_proj <- spTransform(coordinate, CRS())
+# coordinates
+
+ggplot(NULL) +
+  geom_sf(data = confini)+
+  geom_point(data = datiprep2, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
+  theme_map() 
+
+```
+
+
+The hierarchical model defined for Real Estate Rental data, for which it is assumed Normality is:
+
+$$
+{y}_{i} \sim \operatorname{Normal}\left(\eta_{i}, \sigma_{e}^{2}\right)
+$$
+And the linear predictor i.e. mean since the $\mathrm{g}\left(\mu_{i}\right)$ is identity, is:
+
+$$
+\eta_{i}=b_{0}+x_{i} \boldsymbol\beta+\xi_{i} 
+$$
+where, following the expression \@ref(eq:linearpredictor) in chapter \@ref(inla), $\xi_i$ is the spatial random effect for the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\xi_{i}$ is also the GMRF seen in chpater \@ref(gmrf) which is distributed as a multivariate Normal and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NA are omitted is $192 \times 192$. 
+$ \boldsymbol\beta$ are the model scraped covariates, which comprehends `r noquote(names(final_data))`. Moreover the latent field which is _a priori_ independent  is $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. 
+Then in the end the model can be reformualted as follows:
+
+$$
+\boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)
+$$
+The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no effective boundaries are provided. Two meshes are produced, whose figure are in \@ref(fig:meshes). Triangles appears to be equilateral and smooth, which suggest a decent interpolation _miss lit_. Critical parameters for meshes are `max.edge=c(0.025, 0.048)` and  `max.edge=c(0.017, 0.019)` which also regulates the refinement. Further trials have show that below the limit max.edge value of $0.017$ the current machine does not output the result due to heavy calculations, therefore the maximum number of vertices coincides with the triangulation built in mesh_2. 
+
+```{r meshes, fig.cap="Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices"}
+## Build boundary information:
+## (fmesher supports SpatialPolygons, but this app is not (yet) intelligent enough for that.)
+boundary.loc <- coordinate
+boundary <- list(
+list(inla.nonconvex.hull(coordinates(boundary.loc), 0.0475),
+    bnd),
+    inla.nonconvex.hull(coordinates(boundary.loc), 0.0625))
+
+
+mesh1 <- inla.mesh.2d(boundary=boundary,
+                     max.edge=c(0.025, 0.048),
+                     min.angle=c(30, 21),
+                     max.n=c(48000, 16000), ## Safeguard against large meshes.
+                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
+                     cutoff=0.01, ## Filter away adjacent points.
+                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+
+plt_mesh1 = ggplot(st_as_sf(coordinate)) +
+  gg(mesh1) +
+  geom_sf(colour = "red", alpha = .4)+
+  ggtitle(paste("Vertices: ", mesh1$n),  subtitle = "Mesh_1") +
+  coord_equal() +
+  coord_sf() +
+  theme_map()
+
+
+mesh2 <- inla.mesh.2d(boundary=boundary,
+                     max.edge=c(0.017, 0.019), ## con max edge più ampio
+                     min.angle=c(30, 21),
+                     max.n=c(48000, 16000), ## Safeguard against large meshes.
+                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
+                     cutoff=0.01, ## Filter away adjacent points.
+                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+
+plt_mesh2 = ggplot(st_as_sf(coordinate)) +
+  gg(mesh2) +
+  geom_sf(colour = "red", alpha = .4)+
+  ggtitle(paste("Vertices: ", mesh2$n), subtitle = "Mesh_2") +
+  coord_equal() +
+  coord_sf() +
+  theme_map()
+
+(plt_mesh1 +plt_mesh2)
+
+```
+
+At this point with the aim to apply INLA and specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field $\boldsymbol\theta$ requires to have Gaussian vagues ones with a fixed precision. The priors $\boldsymbol\psi_1$ for the higher level eq. \@ref(eq:higher) are $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)$ i.e. hyper parameter for the latent field precision and Matérn are chose to be PC priors \@ref(priorsspec) [... qualcosa di più su pc prior choice ...]. At the medium level it is needed a further hyper prior $\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})$ which accounts for the variance of the $\boldsymbol{y}$ data. Thus following the equation in \@ref(eq:formallgm) then it is obtained: 
+
+$$
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
+$$
+## Building the SPDE model{#spdemodeol}
+
+Now there is the need to construct the SPDE model object using the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation and the PC priors probability statements satisfying the relationships: \@ref(priorsspec) for , which are [...]
+
+
+```{r model_fit_INLA, eval = F}
+
+
+## QUESTO FUNZIONA
+spde1 = inla.spde2.pcmatern(mesh1, prior.range = c(100e3, 0.5), 
+                             prior.sigma = c(0.9, 0.05))
+spde2 = inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.5), 
+                             prior.sigma = c(0.9, 0.05))
+
+
+### se volessi fare conla staaxck seguendo INLA dovrei allora fare 
+### 
+A1 <- inla.spde.make.A(mesh = mesh1, loc = coordinate)
+stack1 <- inla.stack(
+  tag = "estimation", ## tag
+  data = list(price = final_data$price), ## response
+  A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
+  effects = list(
+    list(coordinate = seq_len(spde1$n.spde)), ## random field index
+    final_data %>%
+      as.data.frame() %>%
+      transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
+  )
+)
+
+
+## e qui fitti il modello
+## 
+model_spde1 <- inla(price ~ 0 + Intercept + totlocali + condom + f(coordinate, model = spde1), 
+                    family = "normal", data = inla.stack.data(stack1),
+                    control.predictor = list(A = inla.stack.A(stack1)),
+                    control.compute = list(waic = TRUE)
+                  )
+
+model_spde1$summary.fixed
+```
+
+
+```{r model_fit_inlabru, eval=F}
+## questo non funzionAA
+
+
+## l'spde rimane prova1
+## 
+bru_spde1 <- bru(price ~ condom + totlocali + site(map = coordinate, model = spde1), 
+                 family = "gamma", data = as_Spatial(final_data))
+### prova2
+bru_spde1 <- bru(price ~ condom + totlocali + site(map = coordinate, model = spde1), 
+                 family = "normal", data = final_data)
+
+dataset %>%
+  mutate(
+    mu = model_spde1$summary.fitted.values$mean,
+    sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
+    Pearson_iid = (Rain - mu) / sqrt(sigma2)
+  ) -> dataset
+
+
+as_Spatial(final_data)
+
+spde.posterior(bru_spde1, "site", what = "matern.covariance") -> covplot
+spde.posterior(bru_spde1, "site", what = "matern.correlation") -> corplot
 ```
 
 
 
 
-- metti @Ling che ha messo i prioris come defaults nella inla call
+
+
+
+
+
+## Model Definition and Fitting{#fit}
+
+Bayesian hierarchical models are proposed finding housing price determinants
+and predicting house prices [36]. However, they have not been widely adopted
+due to high computational costs and complex estimation procedures. By con-
+trast, hierarchical models can handle complex interactions via random com-
+ponents, which is determined by another regression model (see Lang et al. [27]
+for more details).
+
+The hierarchical model defined by (12) and (10) belongs to the class of latent
+Gaussian models and can be estimated using the INLA algorithm proposed in
+Rue et al (2009). INLA is a computational approach for Bayesian inference and
+is an alternative to MCMC for getting the approximated posterior marginals
+for the latent variables as well as for the hyperparameters.
+
+
+
+```{r maternfitting}
+matern <- inla.spde2.pcmatern(gorillas$mesh, 
+                              prior.sigma = c(0.1, 0.01), 
+                              prior.range = c(0.01, 0.01))
+
+
+```
+
+
+
+## Model Results{#res}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### -->
+
 
 
 - link tanta roba con inlabru [link](https://www.muscardinus.be/2018/07/inlabru-bru/)
@@ -70,39 +373,55 @@ border <- readShapePoly(system.file("data/confini/A090101_ComuneMilano.shp", pac
 
 ```
 
+## per mappa
 
-
-
+[mappa crs con sf](https://mgimond.github.io/Spatial/coordinate-systems-in-r.html)
 ```{r, eval=F}
 
 confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp") 
   # st_as_sf()
 proj4string(confini)
-confini_proj = spTransform(confini, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))%>% 
+confini_pergg = spTransform(confini, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))%>% 
                               st_as_sf()
 plot(confini_proj)                     
 ggplot(NULL) +
-  geom_sf(data = confini_proj)+
-  geom_point(data = dati, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
+  geom_sf(data = confini_pergg)+
+  geom_point(data = datiprep2, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
   theme_map() 
 ```
 
 
-```{r, eval=F}
+```{r leaflet_map, eval=F}
 require(sp)  # package to work with spatial data
 require(rgdal)
 library(leaflet)
 library(sf)
 
 
-milan_borders = readOGR("data/confini/A090101_ComuneMilano.dbf")
-proj4string(milan_borders)
-milan_borders_pj <- spTransform(milan_borders, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-pal = colorBin("viridis", bins = c(100,200,300,400))
+## modify coordinates
+coordinate = datiprep2 %>%  select(lat, long) %>%  unclass() %>%  as.data.frame(lat = coordinate$lat , long = coordinate$long) 
+coordinates(coordinate) <- c("long", "lat")
+proj4string(coordinate) <- CRS("+proj=longlat +ellps=WGS84+datum=WGS84 +no_defs")
+coordinate_proj <- spTransform(coordinate, CRS("+proj=utm +zone=35 +ellps=WGS84
+                      +datum=WGS84 +units=m +no_defs +south"))
 
-leaflet(dati) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addCircles(lng = ~long, lat = ~lat, color = ~pal(price))%>%
+## rread shapefile
+confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
+
+
+## modify confini sf
+confinigg = st_read("data/confini/A090101_ComuneMilano.shp")
+st_crs(confinigg)
+confinigg = st_transform(confinigg, 4326)
+
+library(tmap)
+tmap_mode("view") +
+  tm_shape(map) + 
+  tm_polygons("SID74")
+
+
+leaflet(confinigg) %>%
+  addCircles(data = datiprep2, lng = ~long, lat = ~lat, color = ~pal(price))%>%
   addLegend("bottomright",
     pal = pal, values = ~price,
     title = "Price"
@@ -117,51 +436,7 @@ leaflet(dati) %>%
 
 [mega ref](https://inlabru-org.github.io/inlabru/)
 
-[mega mega ref](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13168)
-
-```{r, eval=FALSE}
-library(inlabru)
-formula = price ~ condom + totlocali + sqfeet 
-```   
 
 
-
-```{r, eval=FALSE}
-ggplot(data)+
-  geom_point(aes(lat, long), size = 2) +
-  coord_fixed(ratio = 1) +
-  scale_color_gradient(low = "blue", high = "orange") +
-  geom_sf(data = confini) +
-  theme_bw()
-```
-
-
-
-
-
-
-**covariate choice **
-## Model Selection
-
-- wang pagina 49
-In regression analysis, we often want to find a reduced model with the best subset of
-the variables from the full model. The model selection in frequentist analysis is com-
-monly based on Akaike information criterion (AIC), a MLE-based criterion. Back to
-the air pollution data example, a stepwise model selection procedure using AIC can
-be implemented by the function stepAIC in R library MASS
-
-```{r, eval=FALSE}
-library(MASS)
-usair.step <- stepAIC(usair.lm1, trace = FALSE)
-usair.step$anova
-```
-
-
-## Mesh Construction 200 blangiardo
-
-
-
-how to fit a spatial model
-https://www.r-inla.org/faq#h.sxjo232d6ho5
 
 
