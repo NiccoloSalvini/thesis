@@ -239,7 +239,7 @@ agents[sample(1)]
 ```
 
 ```
-## [1] "Mozilla/5.0 (Linux; Android 10; SM-G398FN Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36"
+## [1] "Mozilla/5.0 (Linux; Android 9; moto e6 (XT2005DL) Build/PPBS29.73-81-5-14-5-2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0"
 ```
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.

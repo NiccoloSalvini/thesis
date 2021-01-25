@@ -368,7 +368,7 @@ Since the response is not missing, indeed it does _condominium_  imputation is p
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response varibale is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
 
 
 \begin{tabular}{lrr}

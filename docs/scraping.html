@@ -165,6 +165,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="images/logo/spatial_logo.png"></a></li>
 
 <li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#reverse"><i class="fa fa-check"></i><b>2.1</b> A Gentle Introduction on Web Scraping</a></li>
@@ -468,7 +472,7 @@ UA is a dense content string that includes many User details: the user applicati
 <span id="cb5-3"><a href="scraping.html#cb5-3"></a>agents =<span class="st"> </span><span class="kw">read_html</span>(url) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="dt">css =</span> <span class="st">&quot;.agents_list li&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</span>
 <span id="cb5-4"><a href="scraping.html#cb5-4"></a></span>
 <span id="cb5-5"><a href="scraping.html#cb5-5"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 10; SM-G398FN Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36&quot;</code></pre>
+<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 9; moto e6 (XT2005DL) Build/PPBS29.73-81-5-14-5-2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0&quot;</code></pre>
 <p>The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
 However UA field name technology has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named <em>Hints</em> <span class="citation">contributors (<a href="#ref-wiki:UserAgentHints" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgentHints" role="doc-biblioref">e</a>)</span>.</p>
 An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process.

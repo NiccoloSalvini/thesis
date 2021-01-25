@@ -76,3 +76,13 @@ _keywords_ : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, W
 <!-- ), 'packages.bib', append = TRUE) -->
 <!-- ``` -->
 
+
+<!-- LI TENGO PER SICUREZZA -->
+
+<!-- ```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")} -->
+<!-- ``` -->
+
+<!-- ```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")} -->
+<!-- ``` -->
+
+

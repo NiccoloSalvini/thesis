@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.24)  25 JAN 2021 05:15
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.24)  25 JAN 2021 05:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1711,10 +1711,10 @@ Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 95E421BCDB08749F177AE3CB15CA1FE5;11633.
  ) 
 Here is how much of TeX's memory you used:
- 24595 strings out of 479212
- 425128 string characters out of 5873273
+ 24601 strings out of 479212
+ 425207 string characters out of 5873273
  1132694 words of memory out of 5000000
- 43696 multiletter control sequences out of 15000+600000
+ 43702 multiletter control sequences out of 15000+600000
  423254 words of font info for 123 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,19n,122p,3247b,1722s stack positions out of 5000i,500n,10000p,200000b,80000s

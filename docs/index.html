@@ -166,7 +166,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 </ul></li>
@@ -274,8 +273,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="preliminary-content" class="section level1 unnumbered">
 <h1>Preliminary Content</h1>
-<div id="abstract" class="section level2 unnumbered">
-<h2>Abstract</h2>
 <p>The following work has the aim to build a robust Scraping API service to extract Real Estate rental data (Milan, IT) and applying <em>geostatistics</em> spatial modeling through a convenient computing alternative called INLA.
 Data originates from immobiliare.it database and it is extracted through a <em>scraper</em> built on top of the website. The scraper is <em>optimized</em> with respect to both the server side <em>kindly requesting</em> permission and imposing <em>delayed-request rates</em>, and the client side by granting continuity through <em>fail dealers</em> and request’s <em>headers rotation</em>. Scraping functions exploit a custom workflow that combines url reverse engineering and optimal search strategies within the website. This dramatically speeds up scraping since a dedicated function can recompose urls starting from functional parameter arguments and call scraping on those urls. Speed comes from the fact that differently from spiders and derivatives which operate a full crawling down of the web site, the workflow concentrates only on a restricted set of urls. A further critical speed boost is offered by parallelism through the latest <em>Future</em> back-end, and a run time benchmark demonstrates the scraper rapidity for two recent parallel with two configurations.
 The scraper is then wrapped into a http API through an opinionated R framework, namely <em>Plumber</em>. Security is a major focus and anti dossing strategies, HTTPS and sanitization are singularly treated. The whole API service <em>Docker</em> containers (built upon custom Dockerfiles) is then orchestrated with <em>Compose</em> through a .yml file. The system is consequently served into a free tier <em>EC2</em> machine, and load balanced with <em>NGINX</em> reverse proxy server. The architecture principles stacked on top of the http API elevates it to being RESTful. Software CI/CD is managed through automatic workflow that exploits GitHub and DockerHub, which ultimately allows containers to be pulled into the EC2. Once the RESTful API endpoint is invoked, data, in this case Milan rental market within the municipality borders, is asynchronously scraped and collected into a JSON format.
@@ -283,7 +280,6 @@ Traditional spatial bayesian methods are generally slow since covariance matrice
 Hedonic Price Models (HPM) constitutes the economic theoretical foundation of the model according to which the linear predictor is set. As a matter of fact house prices are related to the value of the property by their demand-offer price equilibra for each single characteristic (including the spatial ones). A further aspects addresses the fact that prices are considered as a proxy value for rents since they are both interchangeable economic actions satisfying the same need. However the critical part of studying house characteristics in geostatistics is the <em>estimation</em> for the reason already anticipates.
 LGMs are defined into a hierarchical bayesian modeling framework, distinguishing three nested hierarchy levels: the likelihood of the data (generally an exponential family), the latent Gaussian Markov Random Field GRMF (where the linear predictor is) and the hyper parameter distribution for which priors are specified. GMRF are suitable since they provide a sparse precision matrix due to conditional assumption, marking matrices tridiagonal. The spatial component of the data is considered as a discrete realization of an underlying unobserved and continuous Gaussian Process (GP) to be estimated, completely characterized by a mean structure and a covariance matrix. For the Gaussian Process are made two major assumptions: stationarity and isotropy, which let specifying a flexible covariance function i.e. Matérn.
 The Stochastic Partial Differential Equations (SPDE) solutions can provide a GMRF representation of the GP whose covariance matrix is Matérn. This happens through a triangulation of the domain of the study said mesh. The model is then fitted and cross validated with R-INLA and inference on parameter posterior distribution is given.</p>
-</div>
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements</h2>
 <p>First of all I acknowledge a special debt to <strong>Professor Della Vedova</strong> who has patently followed me during this 6 months long journey, he has encouraged me and let me try things never done before. Our communication through this process has always been transparent and each moment spent was a lesson to learn. I came to his office desk with strong ideas and he let me shape my dissertation giving me carte blanche. Most of all when something was not working he has always been keen to solve and suggest a better approach. I owe a lot also to Dr. <strong>Vincenzo Nardelli</strong>, he is one of the kindest and most talented guys I have ever met. I took a big inspiration by its works. He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics. Sometimes I feel like I am copying him, but then I realize that it is just inspiration. I owe also a huge thanks to <strong>Professor Lucia Paci</strong>. She has been one of the top teacher in my master course to me by far. She has the capability to explain very hard stuff and to transpose it in the easiest way possible. She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got. The bayesian statistical intuition relies on her thoughts and on her experience on the subject.
@@ -304,6 +300,11 @@ Mum’s always right.</p>
 <!-- knitr::write_bib(c( -->
 <!--   .packages(), 'bookdown', 'knitr', 'rmarkdown' -->
 <!-- ), 'packages.bib', append = TRUE) -->
+<!-- ``` -->
+<!-- LI TENGO PER SICUREZZA -->
+<!-- ```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")} -->
+<!-- ``` -->
+<!-- ```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")} -->
 <!-- ``` -->
 
 </div>
