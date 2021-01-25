@@ -103,7 +103,7 @@ $$
 \eta_{t} \mid \eta_{1}, \ldots, \eta_{t-1} \sim \mathcal{N}\left(\phi \eta_{t-1}, \sigma_{\eta}^{2}\right)
 $$
 Then let us also consider the marginal distribution for each $\eta_i$, it can be proven to be Gaussian with mean 0 and variance $\sigma_{\eta}^{2} /\left(1-\phi^{2}\right)$ [-@wang2018bayesian]. Moreover the covariance between each general $\eta_{i}$ and $\eta_{j}$ is defined as $\sigma_{\eta}^{2} \rho^{|i-j|} /\left(1-\rho^{2}\right)$ which vanishes the more the distance $|i-j|$ increases. 
-Therefore $\boldsymbol\eta$ is a Gaussian Process (whose definition is in \@ref(def:gp) and whose basics are in the appendix  \@ref(gpbasics)) are with mean structure of *0s* and covariance matrix $\boldsymbol{Q}^{-1}$ i.e. $\boldsymbol{\eta} \sim N(\mathbf{0}, \boldsymbol{Q}^{-1})$. $\boldsymbol{Q}^{-1}$ is an $n \times n$ dense matrix that complicates computations. 
+Therefore $\boldsymbol\eta$ is a Gaussian Process, whose proper definition is in \@ref(def:gp), with mean structure of *0s* and covariance matrix $\boldsymbol{Q}^{-1}$ i.e. $\boldsymbol{\eta} \sim N(\mathbf{0}, \boldsymbol{Q}^{-1})$. $\boldsymbol{Q}^{-1}$ is an $n \times n$ dense matrix that complicates computations. 
 But by a simple trick it is possible to recognize that AR(1) is a special type of GP with sparce precision matrix which is evident by showing the joint distribution for $\boldsymbol\eta$ 
 
 $$
@@ -243,7 +243,7 @@ and the _lower_, where it is specified a joint prior distribution for $\boldsymb
 \end{equation}
 
 Then recalling the goal for Bayesian Inference, i.e.approximate posterior marginals for $\pi\left(\theta_{i} \mid \mathbf{y}\right)$ and $\pi\left(\tau \mid \boldsymbol{\mathbf{y}}\right)$ and $\pi\left(\rho \mid \boldsymbol{\mathbf{y}}\right)$. First difficulties regard the fact that Laplace approximations on this model implies the product of a Gaussian distribution and a non-gaussian one. As the INLA key point suggest, the algorithm starts by rearranging the problem so that the "most Gaussian" are computed at first. 
-Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ as the joint posterior of  ${\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$. Then subsequently will try to approximate $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol\psi, \   mathbf{y}\right)$ to their conditional marginal distribution fro $\theta_i$. In the end explores $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ with numerical methods for integration.
+Ideally the method can be generally subdivided into three tasks. At first INLA attempts to approximate $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ as the joint posterior of  ${\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$. Then subsequently will try to approximate $\tilde{\pi}\left(\theta_{i} \mid \boldsymbol\psi, \mathbf{y}\right)$ to their conditional marginal distribution fro $\theta_i$. In the end explores $\tilde{\pi}(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}})$ with numerical methods for integration.
 The corresponding integrals to be approximated are:
 
 - for task 1: $\pi\left(\psi_{k} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) \mathrm{d} \boldsymbol{\psi}_{-k}$
@@ -455,8 +455,7 @@ SPDEtoy dataset $\mathbf{y}$ are two random variables that simulates points loca
 
 <!-- ![(#fig:SPDEplot)SPDEtoy plot, author's source](images/cotour_toy.png) -->
 
-Imposing an LGM model requires at first to select as a _higher_ hierarchy level a likelihood model for $\mathbf{y}$ i.e. Gaussian (by default),  and a model formula (eq. \@ref(eq:linearpredictor)), i.e. $\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, which link function $\mathbf{g}$ is identity. There are not Non-linear effects effect on covariates in $\eta $ nevertheless they can be easily added with `f()` function. Note that this will allow to integrate random effects i.e. spatial effects inside the model. Secondly in the _medium_ step a LGRF on the latent parameters $\boldsymbol\theta$. In the _lower_ end some priors distributions $\boldsymbol\psi$ which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter $\tau$ which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters $\alpha = 1$ and $\beta = 0.00005$ (default).
-Note that models are sensitive to prior choices (sec. \@ref(priorsspec)), as a consequence if necessary later are revised.
+Imposing an LGM model requires at first to select as a _higher_ hierarchy level a likelihood model for $\mathbf{y}$ i.e. Gaussian (by default),  and a model formula (eq. \@ref(eq:linearpredictor)), i.e. $\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}$, which link function $\mathbf{g}$ is identity. There are not Non-linear effects effect on covariates in $\eta $ nevertheless they can be easily added with `f()` function. Note that this will allow to integrate random effects i.e. spatial effects inside the model. Secondly in the _medium_ step a LGRF on the latent parameters $\boldsymbol\theta$. In the _lower_ end some priors distributions $\boldsymbol\psi$ which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e. centered in 0 with very low standard deviation. Furthermore the precision hyper parameter $\tau$ which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters $\alpha = 1$ and $\beta = 0.00005$ (default). Note that models are sensitive to prior choices (sec. \@ref(priorsspec)), as a consequence if necessary later are revised.
 A summary of the model specifications are set below:
 
 
@@ -471,15 +470,15 @@ y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 \end{equation} 
 
 
-Then the model is fitted within `inla()` call.
+Then the model is fitted within `inla()` call, specifying the formula, data and the exponential family distribution.
 
 
 ```r
 formula = y ~ s1 + s2
-m0 = inla(formula, data = SPDEtoy)
+m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure\@ref(fig:spatplot) where bigger bubbles are concentrated throughout the origin.
+The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
 
 
 
@@ -500,7 +499,7 @@ s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 
 
 <!-- ![(#fig:marginalsplot)Linear predictor marginals, plot recoded in `ggplot2`, author's source](images/marginal_distr.png) -->
 
-In the end R-INLA enables also r-base style function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which, packed into a dedicated function, computes the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ (90% credibility), whose result is in table \@ref(tab:higer_posterior).
+In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which allows to compute the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ (90% credibility), whose result is in table below.
 
 
 \begin{tabular}{lrr}

@@ -47,7 +47,7 @@ In order to make the distribution of the response i.e. price (per month in €) 
 ![(\#fig:ggmap)Milan Real Estate data within the Municpality borders, 4 points of interest, author's source](07-model_fitting_files/figure-latex/ggmap-1.pdf) 
 
 
-The hierarchical model defined for Milan Real Estate Rental data, for which it is assumed Normality is:
+The hierarchical model defined for Milan Real Estate Rental data, for which it is assumed Normality is (notation is left with the pedix reference for the corresponding observation index):
 
 $$
 {y}_{i} \sim \operatorname{Normal}\left(\eta_{i}, \sigma_{e}^{2}\right)
@@ -57,25 +57,28 @@ And the linear predictor i.e. mean since the $\mathrm{g}\left(\mu_{i}\right)$ is
 $$
 \eta_{i}=b_{0}+x_{i} \boldsymbol\beta+\xi_{i} 
 $$
-where, following the expression \@ref(eq:linearpredictor) in chapter \@ref(inla), $\xi_i$ is the spatial random effect for the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\xi_{i}$ is also the GMRF seen in chapter \@ref(gmrf) which is distributed as a multivariate Normal and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NA are omitted is $192 \times 192$.
-$\boldsymbol\beta$ are the model scraped covariates, which include condom, totlocali, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme, reception, porta_blindata, esposizione_esterna, cancello_elettrico, portiere_intera_giornata, balcone, arredato, impianto_tv_centralizzato, armadio_a_muro, portiere_mezza_giornata, caminetto, esposizione_interna, mansarda, parzialmente_arredato, taverna, idromassaggio, terrazza, esposizione_doppia, giardino_comune, giardino_privato.
+where, following the expression \@ref(eq:linearpredictor), $\xi_i$ is the spatial random effect for the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\xi_{i}$ is also the GMRF seen in chapter \@ref(gmrf) which is distributed as a multivariate Normal and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NA are omitted is $192 \times 192$.
+$\boldsymbol\beta$ are the model scraped covariates coefficients, which include condom, totlocali, altro, bagno, cucina, heating ... and the rest.
 
-Moreover the latent field which is _a priori_ independent  is $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. 
-Then in the end the model can be reformualted as follows:
+Moreover the latent field which is _a priori_ independent with respect to the observations $\boldsymbol{\mathbf{y}}$ is $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. In addition to this it must be added the white noise measurement error precision for the spatial effect, which is commonly assumed in Geostatistics to coincide with the nugget effect $\tau^2$ [@Cressie_2015], refer to \@ref(GP) for nugget definition:
+In the end the LGM model can be reformatted as follows (with usual notation):
 
 $$
-\boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)
+\boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 $$
-The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no original boundaries are provided. Two meshes are produced, whose figure are in \@ref(fig:meshes). Triangles appears to be equilateral and smooth, which suggest a decent interpolation _miss lit_. Critical parameters for meshes are `max.edge=c(0.025, 0.048)` and  `max.edge=c(0.017, 0.019)` which also regulates the refinement. Further trials have show that below the limit max.edge value of $0.017$ the current machine does not output the result due to heavy calculations, therefore the maximum number of vertices obtainable coincides with the triangulation built in mesh_2. 
+
+<!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction --><!-- paramtere estimation and spatial prediction -->
+
+The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no original boundaries are provided. Two meshes are produced, whose figures are in \@ref(fig:meshes). Triangles appears to be equilateral and smooth, which suggest decent triangulation result _miss lit_. Critical parameters for meshes are `max.edge=c(0.025, 0.048)` and  `max.edge=c(0.017, 0.019)` which also regulates the refinement. Further trials have show that below the lower bound of max.edge value of $0.017$ the current machine computing power does not output the mesh, therefore the maximum number of vertices obtainable coincides with the triangulation built in $\text{mesh}_2$, right panel in fig\@ref(fig:meshes). . 
 
 ![(\#fig:meshes)Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices](07-model_fitting_files/figure-latex/meshes-1.pdf) 
 
-At this point with the aim to apply INLA and specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field $\boldsymbol\theta$ requires to have Gaussian vagues ones with a fixed precision. The priors $\boldsymbol\psi_1$ for the higher level eq. \@ref(eq:higher) are $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)$ i.e. hyper parameter for the GMRF latent field precision and Matérn are chosen to be PC priors \@ref(priorsspec) [... qualcosa di più su pc prior choice ...]. At the medium level it is needed a further hyper prior $\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})$ which accounts for the variance of the $\boldsymbol{y}$ data. 
+At this point with the aim to apply INLA and to specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field $\boldsymbol\theta$ requires to have Gaussian vagues ones with fixed precision. The priors $\boldsymbol\psi_1$ for the higher level eq. \@ref(eq:higher) are $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)$ i.e. hyper parameter for the GMRF latent field precision and Matérn are chosen to be PC priors \@ref(priorsspec) [... qualcosa di più su pc prior choice ...]. At the medium level it is needed a further hyper prior $\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})$ which accounts for the variance of the $\boldsymbol{y}$ data. 
 
 
 <!-- $$ -->
 <!-- \begin{tabular}[t]{lcc} -->
-<!-- Treatment A&Treatment A\\ -->
+<!-- Treatment A&Treatment A\\ --> 
 <!-- \hline -->
 <!-- \text{for precision of Surface} \sigma_{e}^{2}  & (1, 0.5)\\ -->
 <!-- \text{Mean of spatial} range \kappa&--(20, 0.8)\\ -->
@@ -90,17 +93,16 @@ $$
 \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
 $$
 
-## Building the SPDE model{#spdemodeol}
+## Building the SPDE object{#spdemodeol}
 
 The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation and the PC priors \@ref(priorsspec), satisfying the following probability statements: `prior.range = c(r, alpha_r)` for  $\operatorname{Prob}(\rho<r)<\alpha_{r}$ where $\rho$ is the spatial range of the random field. And `prior.sigma = c(s, alpha_s)` for $\operatorname{Prob}(\sigma>s)<\alpha_{s}$ where $\sigma$ is the marginal standard deviation of the field [... trova le relazione con variogram (ci metto dentro l'empirical range e una standard deviation abbastanza grande)...] \@ref(spatassess).
-As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and a the matrix of observations A. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis. 
+As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and a the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis. 
 
 
 
 
 
-
-## Model Fitting and Results{#fit}
+## Parameter estimation and Results{#fit}
 
 In the end the model is fitted whose final formula is $\log_{10}(price) \sim Intercept + totlocali + \dots + f(coordinate, model = spde1)$. The most part of the covariates are omitted for brevity reasons. It is only considered the spatial effect for the `f()` in which needs to reside also both the coordinates and the spde object.
 
