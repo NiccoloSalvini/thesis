@@ -31,10 +31,10 @@ lof: true
 
 <!-- VALUTARE SE METTERE NEL DOCUMENTO FINALE -->
 
-```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")}
+```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-prelim.Rmd")}
 ```
 
-```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
+```{r eval=knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
 ```
 
 

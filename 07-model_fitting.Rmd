@@ -1,5 +1,8 @@
 # Model Selection & Fitting{#modelspec}
 
+In this chapter is applied all the theory seen so far through the R-INLA package. The hierarchical Latent Gaussian model to-be-fitted sets against the response price (inevitably normalized) with the other predictors scraped (standardized and scaled the numerical ones). As a result on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with "markov" precision matrix). In the end penalized complexity priors are specified as prior distributions. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field and posterior distributions for parameters and hyper parameters are evaluated.
+
+
 ```{r, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,  
@@ -20,6 +23,7 @@ library(knitr, warn.conflicts = F, quietly = T)
 library(latex2exp, warn.conflicts = F, quietly = T)
 library(faraway, quietly = T, warn.conflicts = F)
 library(patchwork, warn.conflicts = F, quietly = T)
+library(tidyverse, warn.conflicts = F, quietly = T)
 library(INLA, warn.conflicts = F, quietly = T)
 library(inlabru, warn.conflicts = F, quietly = T)
 library(rgdal, warn.conflicts = F, quietly = T)
@@ -63,14 +67,14 @@ final_data = read_csv("data/prova_finale.csv") %>%
 # qui sistemi il processo gaussiano sulle coordinate
 coordinate = final_data %>%  select(lat, long) %>%  as.data.frame()
 coordinates(coordinate) = c("long", "lat")
-proj4string(coordinate) <- CRS("+init=epsg:28992")
-
-final_data = final_data %>% 
+proj4string(coordinate) <- CRS("+init=epsg:28992")## qui era 28992 ora metto 3003
+final_data2 = final_data %>% 
   select(-lat, -long)
 
 
 
 confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
+
 
 ```
 
@@ -108,11 +112,15 @@ confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
 
 ## Model Specification & Mesh Assessement {#modelspecandmesh}
 
-In order to make the distribution of the response approximately Normal is applied a log transformation (further transformation better Normalize data i.e. Box-Cox and Yeo-Johnson however they over complicate interpretability). No assessement neither validation set are retained since it is going to be fitted a LOOCV (refer to \@ref(criticism)) throughout the `inla()` function call. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM reference (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be moved on to a proper coordinate system description by filling out or overwriting the existing one. Then It need to be transformed, i.e. reprojected with the new CRS. In the end the latitude and the logitude points are overlayed to the borders.
+In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a $log_{10}$ transformation (further transformation would have better Normalized data i.e. Box-Cox [@boxcox] and Yeo-Johnson [@yeojohnson] however they over complicate interpretability). Moreover all of the numerical covariate i.e. condominium, and sqmeeter, (respectively the condominium price and the house width) are standardized and scale for modeling purposes. No assessement neither validation set are retained since it is going to be fitted a LOOCV (refer to \@ref(criticism)) throughout the `inla()` function call. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the borders shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be moved from UTM to latlong reprojected to a new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \@ref(fig:ggmap).
 
-```{r ggmap}
-library(sf)
-confini_st = st_read( "data/confini/A090101_ComuneMilano.shp")
+```{r ggmap, fig.cap="Milan Real Estate data within the Municpality borders, 4 points of interest, author's source" }
+library(sf, warn.conflicts = F, quietly = T)
+library(ggspatial, warn.conflicts = F, quietly = T)
+library(RColorBrewer)
+library(ggrepel, warn.conflicts = F, quietly = T)
+
+confini_st = st_read( "data/confini/A090101_ComuneMilano.shp", quiet = T)
 confini = st_transform(confini_st, "+proj=longlat +datum=WGS84") %>%
   st_as_sf()
 
@@ -120,16 +128,46 @@ confini = st_transform(confini_st, "+proj=longlat +datum=WGS84") %>%
 # coordinates(coordinate) <- c("long", "lat")
 # coordinate_proj <- spTransform(coordinate, CRS())
 # coordinates
+# 
+# ### qui migliorare la scala di colori ## #
 
-ggplot(NULL) +
-  geom_sf(data = confini)+
-  geom_point(data = datiprep2, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
-  theme_map() 
+poi = tribble(
+    ~poi,~lat,~long,
+  "Milan Dome",45.464211,9.191383,
+  "Generali Tower",45.4783,9.1552,
+  "Meazza Stadium",45.478489,9.122150,
+  "Porta Venezia",45.47438,9.20501
+) 
+
+# coordinates(poi) = c("long", "lat")
+# proj4string(poi) = CRS("+proj=longlat +datum=WGS84")
+poi_sf  = poi %>% 
+  st_as_sf(coords = c("long", "lat")) %>% 
+  st_set_crs("+proj=longlat +datum=WGS84") 
+  
+ggplot(final_data) +
+  geom_sf(data = confini,fill = "antiquewhite1") +
+  geom_sf(data = poi_sf, colour = "red", size = 6, alpha = .4) +
+  annotation_scale(location = "bl", width_hint = 0.4) +
+  geom_point(aes(x = long, y = lat, colour = price), size = 3, shape = 16) +
+  geom_text_repel(data = poi, aes(x = long, y = lat, label = poi),fontface = "bold", box.padding = 0.5,min.segment.length = 1.8, nudge_x = .9,nudge_y = 1,
+                  segment.curvature = -0.4, arrow = arrow(length = unit(0.015, "npc"))) + 
+  coord_sf()+
+  scale_colour_continuous(name = 'Price (€)\n', type = "viridis",alpha = .8, limits=c(200,5000))+
+  # scale_colour_gradient(name = 'Price (€)\n', 
+  #                       limits=c(200, 5000), 
+  #                       low="#FCB9B2", high="#B23A48") +
+  annotation_north_arrow(location = "bl", which_north = "true", 
+        pad_x = unit(0.95, "in"), pad_y = unit(0.5, "in"),
+        style = north_arrow_fancy_orienteering) +
+  theme_map() +
+  theme(legend.position="right", legend.box = "horizontal")
+
 
 ```
 
 
-The hierarchical model defined for Real Estate Rental data, for which it is assumed Normality is:
+The hierarchical model defined for Milan Real Estate Rental data, for which it is assumed Normality is:
 
 $$
 {y}_{i} \sim \operatorname{Normal}\left(\eta_{i}, \sigma_{e}^{2}\right)
@@ -139,19 +177,22 @@ And the linear predictor i.e. mean since the $\mathrm{g}\left(\mu_{i}\right)$ is
 $$
 \eta_{i}=b_{0}+x_{i} \boldsymbol\beta+\xi_{i} 
 $$
-where, following the expression \@ref(eq:linearpredictor) in chapter \@ref(inla), $\xi_i$ is the spatial random effect for the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\xi_{i}$ is also the GMRF seen in chpater \@ref(gmrf) which is distributed as a multivariate Normal and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NA are omitted is $192 \times 192$. 
-$ \boldsymbol\beta$ are the model scraped covariates, which comprehends `r noquote(names(final_data))`. Moreover the latent field which is _a priori_ independent  is $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. 
+where, following the expression \@ref(eq:linearpredictor) in chapter \@ref(inla), $\xi_i$ is the spatial random effect for the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\xi_{i}$ is also the GMRF seen in chapter \@ref(gmrf) which is distributed as a multivariate Normal and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NA are omitted is $192 \times 192$.
+$\boldsymbol\beta$ are the model scraped covariates, which include `r noquote(names(final_data2))`.
+
+Moreover the latent field which is _a priori_ independent  is $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. 
 Then in the end the model can be reformualted as follows:
 
 $$
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)
 $$
-The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no effective boundaries are provided. Two meshes are produced, whose figure are in \@ref(fig:meshes). Triangles appears to be equilateral and smooth, which suggest a decent interpolation _miss lit_. Critical parameters for meshes are `max.edge=c(0.025, 0.048)` and  `max.edge=c(0.017, 0.019)` which also regulates the refinement. Further trials have show that below the limit max.edge value of $0.017$ the current machine does not output the result due to heavy calculations, therefore the maximum number of vertices coincides with the triangulation built in mesh_2. 
+The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no original boundaries are provided. Two meshes are produced, whose figure are in \@ref(fig:meshes). Triangles appears to be equilateral and smooth, which suggest a decent interpolation _miss lit_. Critical parameters for meshes are `max.edge=c(0.025, 0.048)` and  `max.edge=c(0.017, 0.019)` which also regulates the refinement. Further trials have show that below the limit max.edge value of $0.017$ the current machine does not output the result due to heavy calculations, therefore the maximum number of vertices obtainable coincides with the triangulation built in mesh_2. 
 
 ```{r meshes, fig.cap="Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices"}
 ## Build boundary information:
 ## (fmesher supports SpatialPolygons, but this app is not (yet) intelligent enough for that.)
 boundary.loc <- coordinate
+bnd = inla.nonconvex.hull(coordinate, convex = 1, concave = 10)
 boundary <- list(
 list(inla.nonconvex.hull(coordinates(boundary.loc), 0.0475),
     bnd),
@@ -195,17 +236,33 @@ plt_mesh2 = ggplot(st_as_sf(coordinate)) +
 
 ```
 
-At this point with the aim to apply INLA and specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field $\boldsymbol\theta$ requires to have Gaussian vagues ones with a fixed precision. The priors $\boldsymbol\psi_1$ for the higher level eq. \@ref(eq:higher) are $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)$ i.e. hyper parameter for the latent field precision and Matérn are chose to be PC priors \@ref(priorsspec) [... qualcosa di più su pc prior choice ...]. At the medium level it is needed a further hyper prior $\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})$ which accounts for the variance of the $\boldsymbol{y}$ data. Thus following the equation in \@ref(eq:formallgm) then it is obtained: 
+At this point with the aim to apply INLA and specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field $\boldsymbol\theta$ requires to have Gaussian vagues ones with a fixed precision. The priors $\boldsymbol\psi_1$ for the higher level eq. \@ref(eq:higher) are $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)$ i.e. hyper parameter for the GMRF latent field precision and Matérn are chosen to be PC priors \@ref(priorsspec) [... qualcosa di più su pc prior choice ...]. At the medium level it is needed a further hyper prior $\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})$ which accounts for the variance of the $\boldsymbol{y}$ data. 
+
+
+<!-- $$ -->
+<!-- \begin{tabular}[t]{lcc} -->
+<!-- Treatment A&Treatment A\\ -->
+<!-- \hline -->
+<!-- \text{for precision of Surface} \sigma_{e}^{2}  & (1, 0.5)\\ -->
+<!-- \text{Mean of spatial} range \kappa&--(20, 0.8)\\ -->
+<!-- \text{for precision spatial effect} \sigma_{\mathscr{C}}^{2}& (0.4, 0.2)\\ -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- $$ -->
+
+Thus following the equation in \@ref(eq:formallgm) then it is obtained: 
 
 $$
 \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
 $$
+
 ## Building the SPDE model{#spdemodeol}
 
-Now there is the need to construct the SPDE model object using the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation and the PC priors probability statements satisfying the relationships: \@ref(priorsspec) for , which are [...]
+The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation and the PC priors \@ref(priorsspec), satisfying the following probability statements: `prior.range = c(r, alpha_r)` for  $\operatorname{Prob}(\rho<r)<\alpha_{r}$ where $\rho$ is the spatial range of the random field. And `prior.sigma = c(s, alpha_s)` for $\operatorname{Prob}(\sigma>s)<\alpha_{s}$ where $\sigma$ is the marginal standard deviation of the field [... trova le relazione con variogram (ci metto dentro l'empirical range e una standard deviation abbastanza grande)...] \@ref(spatassess).
+As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and a the matrix of observations A. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis. 
 
 
-```{r model_fit_INLA, eval = F}
+```{r spde_matern, eval = F}
 
 
 ## QUESTO FUNZIONA
@@ -220,29 +277,41 @@ spde2 = inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.5),
 A1 <- inla.spde.make.A(mesh = mesh1, loc = coordinate)
 stack1 <- inla.stack(
   tag = "estimation", ## tag
-  data = list(price = final_data$price), ## response
+  data = list(price = final_data2$price), ## response
   A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
   effects = list(
-    list(coordinate = seq_len(spde1$n.spde)), ## random field index
-    final_data %>%
+    list(site = seq_len(spde1$n.spde)), ## random field index
+    final_data2 %>%
       as.data.frame() %>%
       transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
   )
 )
 
 
+```
+
+
+
+## Model Fitting and Results{#fit}
+
+In the end the model is fitted whose final formula is $\log_{10}(price) \sim Intercept + totlocali + \dots + f(coordinate, model = spde1)$. The most part of the covariates are omitted for brevity reasons. It is only considered the spatial effect for the `f()` in which needs to reside also both the coordinates and the spde object.
+
+```{r model_fitting, eval=F}
+
 ## e qui fitti il modello
 ## 
-model_spde1 <- inla(price ~ 0 + Intercept + totlocali + condom + f(coordinate, model = spde1), 
+model_spde1 <- inla(price ~ 0 + Intercept + totlocali + condom + f(site, model = spde1), 
                     family = "normal", data = inla.stack.data(stack1),
                     control.predictor = list(A = inla.stack.A(stack1)),
                     control.compute = list(waic = TRUE)
                   )
-
+library(brinla)
 model_spde1$summary.fixed
+brinla::bri.hyperpar.plot(model_spde1)
 ```
 
 
+<!-- PROVARE A FAR FUNZIONARE INLABRU -->
 ```{r model_fit_inlabru, eval=F}
 ## questo non funzionAA
 
@@ -250,10 +319,10 @@ model_spde1$summary.fixed
 ## l'spde rimane prova1
 ## 
 bru_spde1 <- bru(price ~ condom + totlocali + site(map = coordinate, model = spde1), 
-                 family = "gamma", data = as_Spatial(final_data))
+                 family = "gamma", data = as_Spatial(final_data2))
 ### prova2
 bru_spde1 <- bru(price ~ condom + totlocali + site(map = coordinate, model = spde1), 
-                 family = "normal", data = final_data)
+                 family = "normal", data = final_data2)
 
 dataset %>%
   mutate(
@@ -265,178 +334,94 @@ dataset %>%
 
 as_Spatial(final_data)
 
-spde.posterior(bru_spde1, "site", what = "matern.covariance") -> covplot
+spde.posterior(model_spde1, "site", what = "matern.covariance")
 spde.posterior(bru_spde1, "site", what = "matern.correlation") -> corplot
 ```
 
 
 
+With regard to model criticsm, the model evaluation is focused on DIC and CPO, which are directly obtained from the output of the R-INLA object.
+
+
+inference on posterior results, credibility levels 
+
+posterior results table...
 
 
 
+## Spatial Prediction on grid
+
+A gridded object is required in order to project spatial prediction on the domain space. Usually these operations are very computationally expensive since grid objects size can easily reach $10^4$ to $10^6$ dimension points. Since in this case the linear predictor marginal distributions are not the focus then a more feasible solution consists in projecting the latent field estimated at the triangulation vertices onto the grid location [-@Blangiardo-Cameletti]. At first a proper projection matrix is created without specifying the locations. 
 
 
-
-## Model Definition and Fitting{#fit}
-
-Bayesian hierarchical models are proposed finding housing price determinants
-and predicting house prices [36]. However, they have not been widely adopted
-due to high computational costs and complex estimation procedures. By con-
-trast, hierarchical models can handle complex interactions via random com-
-ponents, which is determined by another regression model (see Lang et al. [27]
-for more details).
-
-The hierarchical model defined by (12) and (10) belongs to the class of latent
-Gaussian models and can be estimated using the INLA algorithm proposed in
-Rue et al (2009). INLA is a computational approach for Bayesian inference and
-is an alternative to MCMC for getting the approximated posterior marginals
-for the latent variables as well as for the hyperparameters.
+```{r pred_on_grid, eval=F}
+## questo non funziona
+A1.grid <- inla.mesh.projector(mesh1, dims = c(41, 41))
+inla.mesh.project(A1.grid, model_spde1$summary.random$site) %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  bind_cols(
+    expand.grid(x = A1.grid$x, y = A1.grid$y)
+  ) -> eta_spde
 
 
-
-```{r maternfitting}
-matern <- inla.spde2.pcmatern(gorillas$mesh, 
-                              prior.sigma = c(0.1, 0.01), 
-                              prior.range = c(0.01, 0.01))
+ggplot(final_data2) + geom_tile(data = eta_spde, aes(x = x, y = y, fill = mean)) +
+geom_sf() + scale_fill_gradient2()
 
 
-```
+## Questo funziona però risultati un po' di merda!
 
+A1.grid <- inla.mesh.projector(mesh2, dims = c(12, 12)) # 41 x 41
+expand.grid(X = A1.grid$x, Y = A1.grid$y) %>%
+  mutate(Intercept = 1) -> grid_data
+stack1_grid <- inla.stack(
+  tag = "grid", ## tag
+  data = list(price = NA), ## response
+  A = list(A1.grid$proj$A, 1), ## projector matrices (SPDE and fixed effects)
+  effects = list(
+    list(site = seq_len(spde2$n.spde)), ## random field index
+    grid_data  ## covariates at grid locations
+  )
+)
+stack_all <- inla.stack(stack1, stack1_grid)
+model_grid <- inla(price ~ 0 + Intercept + X + Y + f(site, model = spde2), 
+                   family = "normal", data = inla.stack.data(stack_all),
+                   control.predictor = list(A = inla.stack.A(stack_all), 
+                                            link = 1),
+                   control.compute = list(waic = TRUE),
+                   control.mode = list(theta = model_spde1$mode$theta, 
+                                       restart = FALSE),
+                   control.results = list(return.marginals.random = FALSE,
+                                          return.marginals.predictor = FALSE)
+                   )
 
+boundary = SpatialPoints(confini, proj4string=CRS(SRS_string = "EPSG:3003"), bbox = NULL)
 
-## Model Results{#res}
+si <- inla.stack.index(stack_all, "grid")$data
+grid_data %>%
+  bind_cols(model_grid$summary.fitted.values[si, ]) %>%
+  `coordinates<-`(~X + Y) %>%
+  `proj4string<-`(CRS(SRS_string = "EPSG:3003")) -> gd
+gd[!is.na(over(gd, boundary,returnList = TRUE)), ] %>%
+  as.data.frame() %>%
+  ggplot() + 
+  geom_tile(aes(x = X, y = Y, fill = mean)) +
+  coord_fixed()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### --><!-- ############### -->
-
-
-
-- link tanta roba con inlabru [link](https://www.muscardinus.be/2018/07/inlabru-bru/)
-
-
-[ref.](https://inbo.github.io/tutorials/tutorials/r_inla/spatial.pdf)
-```{r, eval=FALSE}
-library(readr)
-data = read_csv("data/data2021.csv")
-mesh2 <- inla.mesh.2d(confini, max.edge = c(0.2, 0.2),cutoff = 3)
-ggplot(data) + gg(mesh2) + geom_sf() +
-ggtitle(paste("Vertices: ", mesh2$n)) + coord_sf(datum = st_crs(5880))
+# 
+# boundary = bnd$loc %>%  
+#   as_tibble() %>% 
+#   rename("lat" = "V1","long" = "V2") %>% 
+#   as.data.frame()
+# 
+# spTransform(boundary, CRS(SRS_string = "EPSG:3003")) -> boundary
+# SpatialPointsDataFrame(boundary, data, coords.nrs = numeric(0), 
+#       proj4string = CRS(as.character(NA)),bbox = NULL)
+# 
+# boundary = SpatialPoints(boundary, proj4string=CRS(SRS_string = "EPSG:3003"), bbox = NULL)
+# plot(boundary)
+# coordinate
 
 ```
-
-
-fit with the suggestion of INLA in [ref](https://www.r-inla.org/faq#h.sxjo232d6ho5)
-```{r, eval=F}
-library(spdep)
-library(spDataLarge)
-border <- readShapePoly(system.file("data/confini/A090101_ComuneMilano.shp", package="spdep")[1])
-
-
-
-```
-
-## per mappa
-
-[mappa crs con sf](https://mgimond.github.io/Spatial/coordinate-systems-in-r.html)
-```{r, eval=F}
-
-confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp") 
-  # st_as_sf()
-proj4string(confini)
-confini_pergg = spTransform(confini, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))%>% 
-                              st_as_sf()
-plot(confini_proj)                     
-ggplot(NULL) +
-  geom_sf(data = confini_pergg)+
-  geom_point(data = datiprep2, aes(x = long, y = lat), size = 4, shape = 23, fill = "darkred") +
-  theme_map() 
-```
-
-
-```{r leaflet_map, eval=F}
-require(sp)  # package to work with spatial data
-require(rgdal)
-library(leaflet)
-library(sf)
-
-
-## modify coordinates
-coordinate = datiprep2 %>%  select(lat, long) %>%  unclass() %>%  as.data.frame(lat = coordinate$lat , long = coordinate$long) 
-coordinates(coordinate) <- c("long", "lat")
-proj4string(coordinate) <- CRS("+proj=longlat +ellps=WGS84+datum=WGS84 +no_defs")
-coordinate_proj <- spTransform(coordinate, CRS("+proj=utm +zone=35 +ellps=WGS84
-                      +datum=WGS84 +units=m +no_defs +south"))
-
-## rread shapefile
-confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
-
-
-## modify confini sf
-confinigg = st_read("data/confini/A090101_ComuneMilano.shp")
-st_crs(confinigg)
-confinigg = st_transform(confinigg, 4326)
-
-library(tmap)
-tmap_mode("view") +
-  tm_shape(map) + 
-  tm_polygons("SID74")
-
-
-leaflet(confinigg) %>%
-  addCircles(data = datiprep2, lng = ~long, lat = ~lat, color = ~pal(price))%>%
-  addLegend("bottomright",
-    pal = pal, values = ~price,
-    title = "Price"
-  ) %>%
-  addScaleBar(position = c("bottomleft"))
-
-```
-
-
-
-
-
-[mega ref](https://inlabru-org.github.io/inlabru/)
-
-
-
 
 

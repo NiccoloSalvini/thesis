@@ -1,4 +1,4 @@
 # Preliminary Content {-}
 
-`r if(!knitr:::is_latex_output()) '## Abstract {-}'`
+`r if(knitr:::is_latex_output()) '## Abstract {-}'`
 

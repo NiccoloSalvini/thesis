@@ -16,5 +16,5 @@ language:
   ui:
     chapter_name: "Chapter "
     edit: "Edit "
-delete_merged_file: tru
+delete_merged_file: true
 output_dir: "docs"

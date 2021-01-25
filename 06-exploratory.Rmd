@@ -64,15 +64,15 @@ theme_nicco = function (base_size = 11, base_family = "") {
 }
 ```
 
-
-Data emerging from the RESTful API body response is not in its tidiest format regardless of the query arguments sent. Yet data undergoes to a series of pre-processing steps during scraping, which still requires to clear up unnecessary character and to separate columns containing more than one covariate. To the analysis extent data should be reproducible in the sense that it should be constrained to the same geographic area otherwise the analysis would not be either comparable nor reproducible. As a result RESTful API parameters are kept permanent by passing to the API the `.thesis` parameter, section \@ref(docs). In other words the (mandatory) argument option secures to specify to the API an already composed url to be passed to the scraping endpoint. The composed url corresponds to the properties contained in zones within the _circonvallazione_ i.e.  beltway of Milan. From a more practical point of view the operation is the equivalent to refresh each time the same immobiliare.it web page for which filters are always the same. A further parameter npages is set equal to 10, leading to to a total of 250 data points.
+To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters number of covariates a number of observations)
 <!-- As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster.  -->
-A summary table of the columns involved in the analysis is presented with the goal to familiarize with incoming API data. Data already enters semi-preprocessed, but due to API smoothness reasons it still needs some processing, treated in \@ref(prep). Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. (`r noquote(Sys.Date())`) is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. `r noquote(Sys.Date())` is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
-<!-- Visualisations are done with ggplot2 in a Tidyverse approach. Maps are done with ggplot2 too and Leaflet, together with its extensions.  -->
-<!-- A preliminary API data exploratory analysis evidences 34 covariates and 250 rows, which are once again conditioned to the query sent to the API. Immobiliare.it furnishes many information regarding property attributes and estate agency circumstances. Data displays many NA in some of the columns but georeference coordinates, due to the design of scraping functions, are in any case present.  -->
+<!-- [gebstionale immobiliare](https://www.gestionaleimmobiliare.it/export/docs/GI_XML_attributi_v.1.11.pdf) -->
 
 ```{r dati_2}
+## metti drake plan
+##
 dati2 = read_csv("data/data2021.csv", locale = readr::locale(encoding = "latin1")) %>%
   dplyr::select(-X1) %>%
   rename(nroom = nrooms) %>% 
@@ -117,7 +117,7 @@ dati2 = read_csv("data/data2021.csv", locale = readr::locale(encoding = "latin1"
     mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
     ## cucina (ne ho perse qualcuna)
     replace_with_na(replace = list(cucina = "1 bagno")) %>% 
-    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) %>% ## non proviene più di sei locali 
+    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale","5+" = "Multilocale")) %>% ## non proviene più di sei locali 
     ## aptchar
     mutate(aptchar = str_remove_all(aptchar,"-"),
            aptchar = str_trim(aptchar)) %>%
@@ -145,11 +145,12 @@ dati2 = read_csv("data/data2021.csv", locale = readr::locale(encoding = "latin1"
            giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
            giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
            taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
-           )
+           ) %>% 
+    select(-aptchar)
 
 ```
 
-```{r drake_plan_data}
+```{r drake_plan_data, eval=F}
 
 tasks = drake::drake_plan(
   ## load data
@@ -188,7 +189,7 @@ tasks = drake::drake_plan(
     mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
     ## cucina (ne ho perse qualcuna)
     replace_with_na(replace = list(cucina = "1 bagno")) %>% 
-    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale")) %>% ## non proviene più di sei locali 
+    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale", "5+" = "Multilocale")) %>% 
     ## aptchar
     mutate(aptchar = str_remove_all(aptchar,"-"),
            aptchar = str_trim(aptchar)) %>%
@@ -228,7 +229,6 @@ datiprep = readd(datiprep)
 
 ```
 
-**prova a farla in latex e aggiungere covariate nuove su dataset più grande***
 
 ```{r covar_table, fig.cap="List of Hedonic variables in the API call and their brief explanation"}
 
@@ -238,39 +238,45 @@ ref =c(
 "ID of the apartements",
 "latitude coordinate",
 "longitude coordinate",
-"the complete address: street name and number",
-"the condominium monthly expenses",
-"the age in which the building was contructed",
-"the property floor",
+"property address: street name and eventual number",
+"condominium monthly expenses",
+"age in which the building was contructed",
 "indipendent property type versus apartement type",
-"specification of the type and number of rooms",
-"property type residential or not",
-"the actual status of the house, ristrutturato, nuovo, abitabile",
-"the heating system Cen_Rad_Gas (centralizzato a radiatori, alim a gas), Cen_Rad_Met,",
-"air conditioning hot and cold, Autonomo, freddo/caldo, Centralizzato, freddo/caldo",
-"the date of publication of the advertisement",
+"type and number of rooms",
+"property category",
+"maintenance status of the house, ristrutturato, nuovo, abitabile",
+"heating system",
+"air conditioning",
 "land registry information",
-"apartement main characteristics",
+"apartement characteristics",
 "number of photos displayed in the advertisement",
 "real estate agency name",
+"energy class",
+"contract type proposed",
+"availability or already rented",
+"total number of building floors",
+"number of parking box or garages",
+"estate agency review (long chr string)",
+"total apartement surface area",
+"total commercial surface area",
+"covered and uncovered surface areas type",
+"the property floor for each covered and uncovered area",
+"square meter footage for each covered and uncovered type", 
+"contribution percentage for each element to the total surface",
+"appliances or princpal category surface ",
+"square meter footage for each commercial surface area",
+"it if has multimedia option, (3D house ristualization home experience and videos)",
 "If the price is lowered it flags the starting price",
 "If the price is lowered it flags the current price",
-"If the price is lowered indicates the days passed since the price has changed",
-"If the price is lowered indicates the date the price has changed",
-"the energy class according to the land registers",
-"the type of contract",
-"if it is still avaiable or already rented",
-"the total number of the building floors",
-"number of parking box or garages avaibable in the property",
-"estate agency review, long chr string",
-"it if has multimedia option, such as 3D house vitualization home experience or videos",
-"the monthly price <- response",
-"square meters footage",
-"the number of rooms in the house, and their types",
-"title of published advertisement"
+"If the price is lowered marks the number of days passed by since the price change",
+"the date of publication of the advertisement",
+"number of rooms (int)",
+"monthly price € (response)",
+"total square meters footage surface area (int)",
+"title of advertisement"
 )
 
-names = dati %>%  names
+names = dati2 %>%  names
 tibble(
   name = toupper(names),
   ref  = ref 
@@ -281,22 +287,19 @@ tibble(
   # kable_styling(full_width = F,font_size = 8) %>%
   # column_spec(1, bold = T) %>%
   # column_spec(2, width = "20em")
-
 ```
 
 
-## Data Preprocessing{#prep}
+## Preprocessing and Feature Engineering{#prep}
 
-Data needs to undergo to many previous cleaning preprocess steps, which mainly regard separating columns and extracting relevant covariates. This is a forced stage since for the way the API is designed it tries several searches (refer to fig. \@ref(fig:pseudocode1)) for the data demanded. Chances are that information may be found into a hidden json object (this is true fot Latitude and Longitude) which needs some heavy wrangling. Steps followed are:
+Data needs to undergo to many previous cleaning preprocess steps, which mainly regard separating columns and extracting relevant covariates. This is a forced stage since for the way the API is designed it tries several searches (refer to fig. \@ref(fig:pseudocode1)). Chances are that the search algorithm explores a hidden json object nested in the website source code, which actually needs to be properly wrangled. Steps followed are:
 
-- *floors* covariate needs to be separated in its *ascensore* and *accdisabili* components, adding 2 more bivariate covariates.
-- *locali* needs to be separated too. 5 category levels drain out: *totlocali*, *camereletto*, *altro*, *bagno*, *cucina*. *nroom* is a duplicate for *totlocali*, so it is discarded.
-- *aptchar* is a character string column that contains a non fixed number of features per house. The preprocess steps include cleaning the string from unnecessary characters, finding the set of unique elements across the character column (regex pattern), separating each feature in its proper column, in the end recoding newly created bivariate columns as "yes" or "no" according to a matching pattern.
+- *locali* needs to be separated, from which are drained out 5 categories : *totlocali*, *camereletto*, *altro*, *bagno*, *cucina*. *nroom* now is a duplicate for *totlocali*, so it is discarded.
+- *aptchar* is a character string column that contains a non fixed number of features per house. The preprocess steps include cleaning the string from unnecessary characters, finding the set of unique elements across the character column (regex pattern), separating each feature in its proper column, in the end recoding newly created bivariate columns as "yes" or "no" according to a matching pattern. 
+- dropped unnecessary non UTF characters from continuous integer covariates i.e. *price*, *condominium*, *sqfeet*
+- recoded factors for *totlocali* and *floor*
 
-## Maps and Geo-Visualisations
-
-Geographic coordinates can be represented on a map in order to reveal first symptoms of spatial autocorrelation. Observations are spread almost equally throughout the surface even though the response *price* indicates unsurprisingly that higher prices are located near to the city center.
-The map in figure \@ref(fig:leaflet_visuals) is a leaflet object, which needs to be overlapped with layers indicating different maps projections. This is interactive in the .html version, and static is proposed in the .pdf output version. The map object takes a input the latitute and longitude coordinates coming from THE API, and they do not need any CRS (Coordinate Reference System) projection since leaflet can accept the data type.
+The previous steps lead to have a 250 data points per 64 covariates. Ultimately exploiting the spatial component, data can be represented through a map, as in fig. \@ref(fig:LeafletVisuals). Maps (not properly a "spatial" visualization) must determine the regularity of the arrangement of points and also if the maximum gap between points is much greater in some directions than others (symptomps of anisotropy, not detected). 
 
 ```{r LeafletVisuals, out.width="100%", fig.cap="Leaflet Map"}
 
@@ -343,15 +346,76 @@ htmltools::tagList(map, tbl)
 # mapshot(map, file = "images/leaflet_prezzi.jpg")
 ```
 
-Predictors, in this case latitude and longitude appear to have nonlinear relationships with the outcome price. The relationship appears to be Gaussian whose mean points to the city center, red dashed line represent latitude and longitude coordinates for the Dome of Milan, fig \@ref(fig:NonLinearSpatialRel). Next, the empirical variogram is determined by `variogram()` function and a spherical variogram by fitting a linear model, whose covariates are only the spatial ones.
 
-```{r varigram, eval=F}
-library(inlabru)
+## Spatial Dependece Assessement{#spatassess}
+
+Spatial continuous data, as Waldo Tobler's first law suggests, may be split split into a mean term and an error term [@Banerjee-Gelfand]. The mean is the global (or first order) behaviour, while the error reports a contextual (or second-order) behavior through a covariance function. An effective set of EDA on spatial data should be able to separate and correctly detect these two quantities. As a matter of fact spatial data association for the spatial process $Y(s)$ need not imitate its residuals $\epsilon(s)$. A 3D scatterplot elevated for the price is plotted in \@ref(fig:3dmap), this is effective in displaying how the response is spatially dependent however it does not reveal the entire spatial surface. Moreover it can be tricky since it can display a spatial pattern that vanishes as soon as a model is fitted or vice versa. The analysis of spatial variations in the residual seems more organic [-@Banerjee-Gelfand]
+
+![(#fig:3dmap)3D Rayshader @rayshader Perspective scatterplot with Price elevation](images/3d_map2.png)
+
+```{r 3dsurface, eval=FALSE}
+ 
+# library(rayshader)
+
+est = ggplot(datiprep2) +
+  geom_point(aes(x=lat, y=long, color= price),size=2) +
+  scale_colour_gradient(name = 'Price (€)\n', 
+                        limits=c(200, 5000), 
+                        low="#FCB9B2", high="#B23A48") +
+  # scale_y_continuous(labels = dollar_format(suffix = "€", prefix = "")) +
+  xlab(NULL) + 
+  ylab(NULL)
+
+# plot_gg(est,  multicore = TRUE, width=5,height=5,scale=300,windowsize=c(1400,866), zoom = 0.55, phi = 30)
+# render_camera()
+# render_snapshot(clear = TRUE, filename = "images/3d_map2.png")
+
+```
+
+
+By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \@ref(GP) of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \@ref(GP) on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e. $\text{price} \sim \text{totlocali} + \text{condominium}+  \text{sqmeter}$. The model is also computed through inla and by taking advantage of `INLAtools` Pearson residuals [@pearson] are extracted, i.e. $\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}$. Moreover variogram from package `gstat` is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
+
+
+```{r semivariogram, eval=F}
+############################################
+############################################
+############# Questo funziona #############
+############################################
+############################################
+
+library(inlatools, warn.conflicts = F, quietly = T)
+
+coordinate_var =  datiprep2 %>%  select(lat, long, price, condom, totlocali, sqfeet) %>%  na.omit() %>%  as.data.frame()
+st_as_sf(coordinate_var, coords = c("long", "lat")) %>% #crs = 3003
+  st_set_crs("+proj=longlat +datum=WGS84") %>%
+  st_transform(crs = 3003) -> coordinate_var
+
+
+
+
+st_crs(coordinate_var)
+
+coordinate_var %>%
+  bind_cols(st_coordinates(coordinate_var) %>%
+  as.data.frame()) -> coordinate_var
+
+model_iid <- inla(log(price) ~  condom + sqfeet + totlocali, family = "normal", data = coordinate_var, control.compute = list(waic = TRUE))
+
+coordinate_var %>%
+  mutate(
+    mu = model_iid$summary.fitted.values$mean,
+    sigma2 = mu ^ 2 / model_iid$summary.hyperpar[1, "mean"],
+    Pearson_iid = (price - mu) / sqrt(sigma2)
+) -> coordinate_var
+
 
 vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y, 
-                        data = as.data.frame(dataset), cressie = TRUE)
-vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
+                        data = as.data.frame(coordinate_var), cressie = TRUE)
+
+
+vgm(psill= 0.5, model = "Mat", range = 3060, nugget = 0.375) %>%
   fit.variogram(object = vg_default) -> vgm_default
+
 vgl_default <- variogramLine(vgm_default, maxdist = max(vg_default$dist))
 ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_default) +
@@ -359,6 +423,11 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 
+
+### da qui prendi il range del processo spaziale!
+vgm_default$range[2]
+vgm_default$kappa[2]
+vgm_default$psill[2]
 
 characteristics <- tribble(
   ~id, ~label, ~x, ~xend, ~y, ~yend,
@@ -369,54 +438,82 @@ characteristics <- tribble(
 )
 
 
-  
+ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
+  geom_line(data = vgl_default) +
+  geom_point() +
+  geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
+  geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
+  geom_segment(data = characteristics, arrow = arrow(ends = "both"),
+               aes(x = x, xend = xend, y = y, yend = yend)) +
+  geom_label(data = characteristics,
+             aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+
+
 ```
 
 
 
-```{r NonLinearSpatialRel,fig.cap="Non Linear Spatial Relationship disclosed"}
-dome = data.frame(coords = c(9.191383, 45.464211), latlong = c("lat","long"))
-domecoords = data.frame(coords = c(9.191383, 45.464211))
-bu = datiprep2 %>% 
-  dplyr::select(price, lat, long) %>% 
-  tidyr::pivot_longer(cols = c(long, lat), 
-                      names_to = "predictor", values_to = "value")
+<!-- # ```{r NonLinearSpatialRel,fig.cap="Non Linear Spatial Relationship disclosed", eval=F} -->
+<!-- # dome = data.frame(coords = c(9.191383, 45.464211), latlong = c("lat","long")) -->
+<!-- # domecoords = data.frame(coords = c(9.191383, 45.464211)) -->
+<!-- # bu = datiprep2 %>%  -->
+<!-- #   dplyr::select(price, lat, long) %>%  -->
+<!-- #   tidyr::pivot_longer(cols = c(long, lat),  -->
+<!-- #                       names_to = "predictor", values_to = "value") -->
+<!-- #  -->
+<!-- # ggplot(bu,aes(x = value, price)) +  -->
+<!-- #   geom_point(alpha = .2) +  -->
+<!-- #   geom_smooth(se = FALSE) +  -->
+<!-- #   facet_wrap(~ predictor, scales = "free_x") + -->
+<!-- #   geom_vline(data = subset(bu, predictor == "lat"), aes(xintercept = 45.464211), color = "red", lty = 2) +  -->
+<!-- #   geom_vline(data = subset(bu, predictor == "long"), aes(xintercept = 9.191383),color = "red", lty = 2) +  -->
+<!-- #   scale_y_continuous(labels = dollar_format(suffix = "€", prefix = ""))+ -->
+<!-- #   labs(x = "", -->
+<!-- #        y = "Price (EUR)")+ -->
+<!-- #   theme_nicco() -->
+<!-- # #> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")' -->
+<!-- # ``` -->
 
-ggplot(bu,aes(x = value, price)) + 
-  geom_point(alpha = .2) + 
-  geom_smooth(se = FALSE) + 
-  facet_wrap(~ predictor, scales = "free_x") +
-  geom_vline(data = subset(bu, predictor == "lat"), aes(xintercept = 45.464211), color = "red", lty = 2) + 
-  geom_vline(data = subset(bu, predictor == "long"), aes(xintercept = 9.191383),color = "red", lty = 2) + 
-  scale_y_continuous(labels = dollar_format(suffix = "€", prefix = ""))+
-  labs(x = "",
-       y = "Price (EUR)")+
-  theme_nicco()
-#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-```
 
+## Factor Counts
 
-## Counts and First Perceptions
+Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictors and which factor is relevant to the analysis. The left panel in figure \@ref(fig:fctCounts) offers the rearranged factor count fot the covariate *TOTLOCALI*.  "Bilocale" are the most common option for rent, then "Trilocale" follows. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This comes natural since Milan is both a vivid study and working area, so temporary accommodations are warmly welcomed. Right in figure \@ref(fig:fctCounts) it can be seen that building are generally old and mostly built either at the start of the 20th century or in the middle. Further investigation might assess how this fact can affect the overall city status.
 
-Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictors to include in the model. The visualization in figure \@ref(fig:fctCounts) offers the  rearranged factor fot the covariate *TOTLOCALI*.  "Bilocali" are the most common option for rent, then "Trilocale" follows. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This should comes natural since Milan is both a vivid study and working area, so temporary accommodations are warmly welcomed. 
-
-```{r fctCounts, fig.cap="Count plot for each housedolds category"} 
-datiprep2 %>%
+```{r fctCounts, fig.cap="Left: Count plot for each housedolds category, Right: count plot for building age"} 
+hc = datiprep2 %>%
   mutate(totlocali = as_factor(totlocali)) %>% 
   count(totlocali, sort = TRUE) %>% 
   mutate(totlocali = fct_reorder(totlocali, n)) %>%
   ggplot(aes(n, totlocali)) +
   geom_col() +
-  labs(x = "# of houses",
+  labs(x = "",
        y = "") +
   theme_nicco()
+
+year = datiprep2 %>%
+  filter(!is.na(buildage)) %>%
+  mutate(buildage = as_factor(buildage)) %>% 
+  mutate(buildage = fct_lump(buildage, 10)) %>%
+  filter(buildage != "Other") %>%
+  count(buildage, sort = TRUE) %>% 
+  mutate(buildage = fct_reorder(buildage, n)) %>%
+  ggplot(aes(n, buildage)) +
+  geom_col() +
+  labs(x = "",
+       y = "") +
+  theme_nicco()
+
+(hc+ year) 
+
 ```
 
 Two of the most requested features for comfort and livability in rents are the heating/cooling systems. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients expectation. In this sense accommodation coming with the newest and the most technologically advanced systems are naturally preferred. 
 x-axis in figure \@ref(fig:PricePerAc) represents $\log_{10}$ price for both of the upper and lower panel. Logarithmic scale is needed to smooth distributions and the resulting price interpretation have to considered into relative percent changes. Furthermore factors are reordered with respect to decreasing price.  
 y-axis are the different level for the categorical variables recoded from the original data due to simplify lables and to hold plot dimension. Moreover counts per level are expressed between brackets close to their respective factor.
-The top plot displays the most prevalent heating systems categories, among which the most prevalent is "Cen_Rad_Met" by far. This fact is extremely important since methane is a green energy source and if the adoption is wide spread and pipelines are well organized than the city turns out to be soustainable. As a consequence one major concern regards that for many years policies have been oriented to reduce vehicles emission (euro1 euro2...) instead of focusing on house emissions. This was also a consequence of the lack of house data samples, especially in rural areas. According to data there are still a 15% portion of houses powered by oil fired. 
-Then in bottom plot Jittering is then applied to point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indedd in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
+The top plot displays the most prevalent heating systems categories, among which the most prevalent is "Cen_Rad_Met" by far. This fact is extremely important since methane is a green energy source and if the adoption is wide spread and pipelines are well organized than the city turns out to be sustainable. Indeed according to data there is still a 15% portion of houses powered by oil fired (old and polluting heating systems), which has been already presumed in the previous plot. This partially explains why Milan is one of the most polluted city in the world. 
+Then in bottom plot Jitters point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indeed in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
 
 ```{r PricePerAc, fig.cap="Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings"}
@@ -462,14 +559,6 @@ pph / ppa
 
 
 
-
-
-VALE LA PENA GUARDARE QUELLE CHE SI SONO ABBASSATE DI PREZZO E DOVE SONO e magari desumere il perchè (magari vedere che sono più a stundente che a non studente) --> questo implica fare un'analisi di covid il che è buono perchèè pè un'analisi bella fresca
-
-
-
-
-
 <!-- this visualization intersects allows to discover bimodality in the response variable.  Log scales was needed since they are all veru skewd and log scale then is needed also in the model. -->
 
 <!-- (qui ci puoi mettere a confronto per variabile bianria, così vedi cosa includere nel modello esempio sotto dove commentato, ) -->
@@ -504,10 +593,12 @@ VALE LA PENA GUARDARE QUELLE CHE SI SONO ABBASSATE DI PREZZO E DOVE SONO e magar
 <!-- with_fill / non_fill -->
 <!-- ``` -->
 
-What it might be really relevant to research is how monthly prices change with respect to house square footage for each house configuration. The idea is to asses how much adding a further square meter affetcs the monthly price for each n-roomed flat.
-One implication is how the property should be developed in order to request a greater amount of money per month. As an example in a situation in which the household has to lot its property into different sub units he can be helped to decide the most proficient choice in economic terms by setting ex ante the square footage extensions for each of the sub-properties.
-A further implication can regard economic convenience to enlarge new property acquisitions under the expectation to broadened the square footage (construction firms). Some of the potential enlargements are economically justified, some of the other are not.
-The plot  \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y (sqfeet) axis, the latter is log 10 scaled due to smoothness reasons. Coloration discretizes points for the each $j$ household rooms totlocali. A sort of overlapping  piece-wise linear regression (log-linear due to transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the square footage surface (i.e.  $\log_{10}(\mathbf{price_j}) \sim +\beta_{0,j}+\beta_{1,j}\mathbf{sqfeet_j}$). Five different regression models are proposed in the top left. The interesting part regards the models slopes $\hat\beta_{1,j}$. The highest corresponds to "Monolocale" for which the enlargement of a 10 square meters in surface enriches the apartment of a `r 10^(0.00726*10)-1`% monthly price addition. Almost the same is witnessed in "Bilocale" for which a 10 square meters extension gains a `r 10^(0.0049*10)-1`% value. One more major thing to notice is the "ensamble" regression line obtained as the interpolation of the 5 plotted ones. The line suggests a clear slope descending pattern (logarithmic trend) from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the $\hat\beta_1$ predictor slopes coefficients. Furthermore investing into an extension for "Quadrilocale" and "Trilocale" is _coeteris paribus_ an interchangeable economic choice.
+## Assessing the most valuable properties
+
+It might be relevant also to research how monthly prices change with respect to houses' square footage for each house configuration, in other word how much adding a further square meter affects monthly price for each n-roomed flat.
+Answering to the previous question implies also knowing how properties should be developed in order to request a greater amount of money per month. This may be of interest, for instance, to those who have to lot their property into sub units and need to decide the most profitable choice in economic terms by setting _ex ante_ the square footage extensions.
+A further example may regard the economic convenience for those who need to enlarge new properties (construction firms). Some of the potential enlargements are economically justified, some of the other are not.
+The plot \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y (sqfeet) axis, the former is once again $log_{10}$ scaled. Coloration discretizes points for each of $j_{th}$ totlocali. A sort of overlapping  piece-wise linear regression (log-linear due to the transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the square footage surface (i.e.  $\log_{10}(\text{price}_j) \sim +\beta_{0,j}+\beta_{1,j}\, \text{sqfeet}_j$). Five different regression models are proposed in the top left. The interesting part regards the models slopes $\hat\beta_{1,j}$. The highest corresponds to "Monolocale" for which the enlargement of a 10 square meters in surface enriches the apartment of a `r 10^(0.00726*10)-1`% monthly price addition. Almost the same is witnessed in "Bilocale" for which a 10 square meters extension gains a `r 10^(0.0049*10)-1`% value. One more major thing to notice is the "ensamble" regression line obtained as the interpolation of the 6 plotted ones. The line suggests a clear logarithmic pattern from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the $\hat\beta_1$ predictor slopes coefficients. Furthermore investing into an extension for "Quadrilocale" and "Trilocale" is _coeteris paribus_ an interchangeable economic choice.
 
 ```{r GlmPriceSq, fig.cap="Monthly Prices change wrt square meters footage in different n-roomed apt"}
 
@@ -528,8 +619,10 @@ datiprep_sq %>%
   stat_poly_eq(formula = my_formula, 
                eq.with.lhs = "italic(hat(y))~`=`~",
                aes(label = paste(..eq.label.., sep = "~~~")), 
-               parse = TRUE) +
-  geom_point() +
+               parse = TRUE,
+               # label.x = 200,
+               label.x = 10) +
+  geom_point( alpha = 0.6) +
   scale_y_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   scale_x_continuous(labels = unit_format(suffix = "m^2", prefix = "")) +
   # scale_colour_brewer(TeX("Household Type")) +
@@ -538,24 +631,23 @@ datiprep_sq %>%
   theme_nicco()
 ```
 
-In table (...) resides the answer to the question "which are the most profitable properties per month in terms of the price per square meter footage ratio". The covariate floor together with the totpiani are not part of the model, indeed they can explain the importance and the height of the building justifying extraordinary prices.  The first 4 observations are unsurprisingly "Bilocale", the spatial column location, not a regressor, can lend a hand to acknowledge that the street addresses point to very central and popular zones. The zones are, first City Life, second Brera and third Moscova, proving that in modeling real estate rents the spatial component is fundamental , even more in Milan. 
+Furthermore in table (...) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
 ```{r TopAbsPrice, fig.cap="prima tabella"}
 datiprep_sq %>%
   arrange(desc(abs_price)) %>% 
   select(location,totlocali, price, sqfeet,floor, totpiani,abs_price) %>%
-  head() %>% 
+  slice(3:8) %>%  
+  mutate(abs_price = round(abs_price,2),
+         abs_price = glue("{abs_price}€")) %>% 
   kable(booktabs = T)
 ```
 
-Then as a further point it might be important to investigate a linear model whose response is price and whose covariates are the newly created abs_price and some other presumably important ones e.g. floor, bagno, totpiani. The model fitted is `log2(price) ~ log2(abs_price) + bagno + floor + totpiani`.
-The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how monthly price is affected by covariates conditioned to their respective square meter footage. The interpretation of the plot starts by fixing a focus point on 0, which is the null effect highlighted by the red dashed line. Then the second focus is on house surface effect (i.e. House Surface (doubling) in the plot, the term log2(abs_price) has been converted to more familiar House Surface (doubling)), which contributes to increase the price of an estimated coefficient of $\approx .6$ for each doubling of the square meter footage. Then what it can be noticed with respect to the two focus points are the unusual effects provoked by the other predictors t the right of the house surface effect and to the far left below 0. "2 and 3 bagni" are unusually expensive with respect to the square meter footage increment, on the other hand" al piano rialzato" and "al piano terra" are undervalued with respect to their surface.  The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. the number of bathrooms are a proxy to both house extension since normally for each sleeping room there also exist at least 1 bathroom as well as prestigious houses dispose of more than 1 toilette services. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house monthly returns,
+## Assessing relevant predictors
 
+Now it is fitted a log-linear model whose response is price and whose covariates are the newly created abs_price and some other presumably important ones e.g. floor, bagno, totpiani. The model formula is $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$.
+The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how monthly price is affected by covariates conditioned to their respective square meter footage. The interpretation of the plot starts by fixing a focus point on 0, which is the null effect highlighted by the red dashed line. Then the second focus is on house surface effect (i.e. House Surface (doubling) in the plot, the term $\log_{2}(abs\_price)$ has been converted to more familiar House Surface (doubling)), which contributes to increase the price of an estimated coefficient of $\approx .6$ for each doubling of the square meter footage. Then what it can be noticed with respect to the two focus points are the unusual effects provoked by the other predictors to the right of the doubling effect and to the far left below 0. "2 bagni", 3 bagni" and 3+ bagni" are unusually expensive with respect to the square meter footage increment, on the other hand "al piano rialzato" and "al piano terra" are undervalued with respect to their surface. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. the number of bathrooms are a proxy to both house extension since normally for each sleeping room there also exist at least 1 bathroom as well as prestigious houses dispose of more than 1 toilette services. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house monthly returns.
 
-it can be noticed is that ultimo piano, otgether with 2 abagni ad 3 bagni are unusually expensive with respect to their proper square meter footage. On the other hand the piano rialzato and piano terra are unusually undervalued given their surface.  
-In other words the  to help with the interpretation. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house returns. The conclusion 
-
-Tie fighter coefficient plot for the linear model: $\log_{2}(price) \sim \log_{2}(abs\_price) + condominium + other_colors$
 
 <!-- # ```{r, eval = FALSE} -->
 <!-- #  -->
@@ -603,114 +695,111 @@ datiprep_sq %>%
 ```
 
 
-## Text Mining in estate Review
+<!-- ## Text Mining in estate Review{#textmining} -->
 
-The word network in figure \ref(fig:WordNetworkgraph) tries to summarize relevant information from real estate agency review into each advertisement. avg_totprice expresses the sum of the price per month plus the condominium in order to fulzly integrate inner property characteristics together with building exclusivity. Tokenized words are then filtered with "stopwords-iso" italian dictionary. 
-Nodes associated with hotter colours are also associated to more expensive in and out-house characteristics. The size of nodes keeps track of the number of reviews in which the specific word appears. A table of the most common words can help highlight both the real estate jargon as well as words that brings up house values. 
+<!-- One might also be interested in text mining analysis on real estate agency reviews for various reasons. It might be of interest creating features from text data [@Khun] such as sentiment analysis on each review, topic modeling or feature hashing [@featurehashing] with the explicit aim to either visualize the phenomenon or to include the covariate in the model. -->
+<!-- The word network in figure \ref(fig:WordNetworkgraph) tries to summarize relevant information from real estate agency review into each advertisement. avg_totprice expresses the sum of the price per month plus the condominium in order to fulzly integrate inner property characteristics together with building exclusivity. Tokenized words are then filtered with "stopwords-iso" italian dictionary.  -->
+<!-- Nodes associated with hotter colours are also associated to more expensive in and out-house characteristics. The size of nodes keeps track of the number of reviews in which the specific word appears. A table of the most common words can help highlight both the real estate jargon as well as words that brings up house values.  -->
 
-```{r MostUsed, fig.cap="Most valuable and used words in reviews"}
+<!-- ```{r MostUsed, fig.cap="Most valuable and used words in reviews"} -->
 
-datiprep_review = datiprep %>% 
-  select(review, id, price)
+<!-- datiprep_review = datiprep2 %>%  -->
+<!--   select(review, id, price)  -->
 
-datiprep  = datiprep %>%  
-  rename_all(tolower)
+<!-- it_stopwd = tibble(word =  stopwords("it", source = "stopwords-iso")) -->
 
-it_stopwd = tibble(word =  stopwords("it", source = "stopwords-iso"))
+<!-- review_tokenized = datiprep_review %>% -->
+<!--   unnest_tokens(word, review) %>%  -->
+<!--   anti_join(it_stopwd, by = "word") %>%  -->
+<!--   filter(str_detect(word, "[a-z]")) %>%  -->
+<!--   inner_join(datiprep2, by = "id") -->
 
-review_tokenized = datiprep_review %>%
-  unnest_tokens(word, review) %>% 
-  anti_join(it_stopwd, by = "word") %>% 
-  filter(str_detect(word, "[a-z]")) %>% 
-  inner_join(datiprep, by = "id")
+<!-- review_words = review_tokenized %>% -->
+<!--   filter(!is.na(condom)) %>%  -->
+<!--   mutate(totprice = price.x +condom) %>%  -->
+<!--   relocate(totprice, after  = "id") %>%  -->
+<!--   group_by(word) %>%  -->
+<!--   summarize(count = n(), -->
+<!--             reviews = n_distinct(id), -->
+<!--             avg_totprice = mean(totprice))%>% -->
+<!--   arrange(desc(reviews))  -->
 
-review_words = review_tokenized %>%
-  filter(!is.na(condom)) %>% 
-  mutate(totprice = price.x +condom) %>% 
-  relocate(totprice, after  = "id") %>% 
-  group_by(word) %>% 
-  summarize(count = n(),
-            reviews = n_distinct(id),
-            avg_totprice = mean(totprice))%>%
-  arrange(desc(reviews)) 
-
-review_words %>% 
-  head(10) %>% 
-  knitr::kable(booktabs = T)
-```
+<!-- review_words %>%  -->
+<!--   head(10) %>%  -->
+<!--   knitr::kable(booktabs = T) -->
+<!-- ``` -->
 
 
-```{r TF_IDF,eval=FALSE, fig.cap="review tokenized words"}
-review_tf_idf = review_tokenized %>%
-  bind_tf_idf(word, reviews, count) %>% 
-  arrange(desc(tf_idf))
-```
+<!-- ```{r TF_IDF,eval=FALSE, fig.cap="review tokenized words"} -->
+<!-- review_tf_idf = review_tokenized %>% -->
+<!--   bind_tf_idf(word, reviews, count) %>%  -->
+<!--   arrange(desc(tf_idf)) -->
+<!-- ``` -->
 
 
-Furthermore it is possible to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups of nodes, each of which addresses a specific part of the house comprehensive evaluation.
-In the far right side of the plot are considered the external appliances like neighbor stores, subway stations and services and are associated to mean prices. The correspondent number of reviews are not justifying by any type of price increasing effect. Whereas slightly moving the view to the left, the area centered in portineria evidences a sub-groups of nodes associated to relatively higher avg-totprice. Some of them are servizio signorile palazzo. The previous set of nodes indicates services that are proper to the building can lead to some sort of extra payment. Then still moving 
-Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro. 
+<!-- Furthermore it is possible to grossly divide the plot in figure \ref(fig:WordNetworkgraph) into 3 sub-groups of nodes, each of which addresses a specific part of the house comprehensive evaluation. -->
+<!-- In the far right side of the plot are considered the external appliances like neighbor stores, subway stations and services and are associated to mean prices. The correspondent number of reviews are not justifying by any type of price increasing effect. Whereas slightly moving the view to the left, the area centered in portineria evidences a sub-groups of nodes associated to relatively higher avg-totprice. Some of them are servizio signorile palazzo. The previous set of nodes indicates services that are proper to the building can lead to some sort of extra payment. Then still moving  -->
+<!-- Possiamo immaginare di dividere il network in 3 raggruppamenti di nodi, ognuno dei quali parla di uni specifico tema. nella parte alta sinistra csi parla delle circostanze estenre dell'appartamente, i negozi i mezzi serizi la metri, i prezzi evidenzziati dal colore nei nodi sono neutri, indicando che non impattano il prezzo in maniera significativa. poco più sotto è possibile vedere un altro centroide verso il quale puntano  una serie di edges peritenti che riguardano i servizi interni al building come la portinerua, l'ingresso, il palazzo. in questo caso i colori sono più caldi e i servizi sembrano essere pagati di più. successivamente sosptandoci veros il centro del'network si nota un nodo di gravità attorno alquale si trovamo molti outgoing edges, che riscaldamento. Attorno a riscaldamento che vista la grandezza ricorre spesso nelle recensioni, si sviluppano tutti i servizi non descritti da immobiliare all'interno della casa, insiema a tutte le caratteristiche cbe distinguono la casa revisionata dalle altre. i colori degradano spostandosi da sinistra verso destea, accanto a riscaldmaento si nota un cluster che associati a prezzi minoro come spese condominiali e arredato arredato. nel caso delle spese condominiali i cluster sono associati a prezzi minori perchè il prezzo del conominio spesso non è commisurato al prezzo nè al prestigio dell'appartamento. Speso infatti include costi variabili come utenze gas e luce, o acqua che vengono scontati con prezzi più bassi di affitto. la somma di condominio e prezzo offrirebbe un panorama più chiaro.  -->
 
 
-```{r WordNetworkgraph, fig.cap="Word Network Graph for 250 Estate Agencies Review"}
+<!-- ```{r WordNetworkgraph, fig.cap="Word Network Graph for 250 Estate Agencies Review"} -->
 
-word_cors = review_tokenized %>%
-  semi_join(review_words, by = "word") %>%
-  distinct(id, word) %>%
-  pairwise_cor(word, id, sort = TRUE)
+<!-- word_cors = review_tokenized %>% -->
+<!--   semi_join(review_words, by = "word") %>% -->
+<!--   distinct(id, word) %>% -->
+<!--   pairwise_cor(word, id, sort = TRUE) -->
 
-set.seed(2020)
+<!-- set.seed(2020) -->
 
-filtered_cors = word_cors %>%
-  head(300)
+<!-- filtered_cors = word_cors %>% -->
+<!--   head(300) -->
 
-nodes = review_words %>%
-  filter(word %in% filtered_cors$item1 | word %in% filtered_cors$item2)
-  
-filtered_cors %>%
-  graph_from_data_frame(vertices = nodes)  %>% 
-  ggraph() +
-  geom_edge_link() +
-  geom_node_point(aes(size = reviews * 1.5)) +
-  geom_node_point(aes(size = reviews,  color = avg_totprice)) +
-  geom_node_text(aes(label = name), repel = TRUE) +
-  scale_color_gradient2(low = "blue", high = "red", midpoint = 2000) +
-  theme_void() +
-  labs(color = "Avg Price",
-       size = "# of reviews",
-       title = "Network of words used together in REA reviews",
-       subtitle = "Based on 250 rental reviews and their respective price")
+<!-- nodes = review_words %>% -->
+<!--   filter(word %in% filtered_cors$item1 | word %in% filtered_cors$item2) -->
 
-```
+<!-- filtered_cors %>% -->
+<!--   graph_from_data_frame(vertices = nodes)  %>%  -->
+<!--   ggraph() + -->
+<!--   geom_edge_link() + -->
+<!--   geom_node_point(aes(size = reviews * 1.5)) + -->
+<!--   geom_node_point(aes(size = reviews,  color = avg_totprice)) + -->
+<!--   geom_node_text(aes(label = name), repel = TRUE) + -->
+<!--   scale_color_gradient2(low = "blue", high = "red", midpoint = 2000) + -->
+<!--   theme_void() + -->
+<!--   labs(color = "Avg Price", -->
+<!--        size = "# of reviews", -->
+<!--        title = "Network of words used together in REA reviews", -->
+<!--        subtitle = "Based on 250 rental reviews and their respective price") -->
+
+<!-- ``` -->
 
 
 
 ## Missing Assessement and Imputation{#missassimp}
 
-Some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be reverse engineered by other information in the web pages e.g. given the street address it is possible to trace back the lat and long coordinates. Some other information can be encountered in .json files hidden inside each of the single web pages.
-The approach followed in this part is to prune redundant data and rare predictors trying to limit the dimensionality of the dataset.
+Some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be traced back to scraping, some other are due to the context. The section tries to give substantial insights to discern what it can be recalled to the former issue or to the latter. The guidelines followed in this part is to prune redundant data and rare predictors trying to limit the dimensionality of the dataset as well as keeping covariates that are assumed to be relevant.
 
 ### Missing assessement 
 
-The first problem to assess is why information are missing. As already pointed out in the preliminary part as well as in section \@ref(ContentArchitecture) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of forced step inside scraping functions with the aim to avoid to be lost. If at the end of the sequence covariates are still missing, the correspondent observation is not considered and it is left out of the resulting scraped dataset. The choice originates from empirical missing patterns suggesting that when important information are missing then the rest of the covariates are more likely to be missing to, as a consequence the observation should be discarded.
-The missing profile is crucial since it can also raise suspicion on the scraping failures. By Taking advantage of the missing pattern in observations the maintainer can directly identify the problem and derivatives and immediately debug the error. In order to identify if the nature of the pattern a revision of missing and randomness is introduced by @Little.
-Missing can be devided into 3 categories:
+When data is presenting missing values, the analyst should typically investigate the etiology its lack [@Kuhn]. As already pointed out in the dedicated section \@ref(ProperScraping) many of the presumably important covariates (i.e. price lat, long, title ,id ...) undergo to a sequence of nested searches within the web page with the aim to avoid to be lost. This guarantees that when data is missing is actually due to an improper advertisement completion when posting the offer and by no means to a superficial scrape. Moreover empirical observation suggests that when relevant advertisement data is absent then it is more likely that the rest of the information are missing too.
+However in the API context the missing profile is crucial since it can also raise suspicion on scraping inability to catch data. By taking advantage of the patterns the maintainer can directly identify which data or combination of data are missing and immediately debug the error. In order to identify the nature of the missing patterns a revision of missing and randomness is introduced [@Little].
+Categories are three:
 
-- *MCAR* (missing completely at random) likelihood of missing is equal for all the information, in other words missing data are one idependetn for the other.
-- *MAR* (missing at random) likelihood of missing is not equal.
-- *NMAR* (not missing at random) data that is missing due to a specific cause, scarping can be the cause.
+- *MCAR* (Missing Completely At Random ), the likelihood of missing is equal for all the information, in other words missing data are one independent from the other.
+- *MAR* (Missing At Random). the likelihood of missing is not equal.
+- *NMAR* (Not Missing At Random), data that is missing due to a specific cause, scarping is an option.
 
-MNAR is often the case of daily monitoring clinical studies [@Kuhn], where patient might drop out the experiment because of death and so all the relating data starting from the death time +1 are lost.
-To identify the pattern a _heat map_  plot \@ref(fig:Heatmap) clarifies the idea:
+This MNAR case is difficult to detect since the missing process and details are not available. An example of MNAR is the case of daily monitoring clinical studies [-@Kuhn], when patient might drop out the experiment because of death, as a result all the subsequent data starting from the death time +1 are lost.
+Patterns are visible through a statistical tool whose typical application is found in detecting collinearity in predictors i.e.  _heat map_. The plot in fig. \@ref(fig:Heatmap) assign $1$ when data is present and $0$ otherwise. Gray background signifies data presence, black absence. 
 
-```{r Heatmap, fig.cap="Missingness Heatmap plot"}
+```{r Heatmap, fig.cap="Heatmap of missing observations where gray implies data presence otherwise black, author's source"}
 data1 = datiprep2 %>% select(-which(colMeans(is.na(.)) < 0.001)) ## % of missing
 convert_missing = function(x) ifelse(is.na(x), 0, 1)
 scat_missing = apply(data1, 2, convert_missing)
 
 Heatmap(
   scat_missing, 
-  name = "Missing", #title of legend
+  name = "Miss-Pres", #title of legend
   column_title = "Predictors", row_title = "Samples",
   col = c("black","lightgrey"),
   show_heatmap_legend = FALSE,
@@ -718,36 +807,52 @@ Heatmap(
 )
 ```
 
-Looking at the top of the heat map plot, right under the "Predictor" label, the first tree split divides predictors into two sub-groups. The left branch considers from *TOTPIANI* to *CATASTINFO* and there are no evident patterns. Then missingness can be traced back to MAR. Imputation needs to be applied up to *CONDOM* included, the others are discarded due to rarity: i.e. *BUILDAGE*: 14% missing, *CATASTINFO*: 21% and *AC*: 24%. Moreover *CUCINA* and *ALTRO* are generated as "childred" of the original *LOCALI* variable, so it should not surprise that their missing behavior is similar ,whose prevalence is respectively 13% and 14%, for that reason are discarded. 
-In the far right hand side *ENCLASS* and *DISP* data are completely missing and a pattern seems to be found. The most obvious reason is a scraping fail in capturing data. Further inspection of the API scraping functions focused on the two covariates is strongly advised. From *LOWRDPRICE.* covariates gorup class it seems to be witnessing a missing underlining pattern NMAR which is clearer by looking at the co_occurrence plot in figure \@ref(fig:cooccurrence). Co-occurrence analysis might suggest frequency of missing predictor in combination and *LOWRDPRICE.* class covariates are displaying this type of behavior. *PAUTO* is missing in the place where *LOWRDPRICE.* class covariates are missing, but this is not happening for the opposite, leading to the conclusion that *PAUTO* should be treated as a rare covariate MAR, therefore *PAUTO* is dropped.
-After some further investigation on *LOWRDPRICE.*, the group class flags when the *PRICE* covariate is effectively decreased and this is unusual. That is solved by grouping the covariate's information and to encode it as a two levels categorical covariate if lowered or not. Further methods to feature engineer the *LOWRDPRICE.* class covariates can be with techniques typical of profile data, further references are on @Kuhn.
+Looking at the top of the heat map plot, the first tree split divides predictors into two sub-trees. The left branch considers from *camereletto* to *ac* and there are no evident patterns except for a small portion of the group from *constitution* to _commercial surface_. In the former group the missing pattern can be traced back to MAR and covariate imputation for *condom*, *photosnum* and *price* is scheduled (response and relevant continuous covariate). In the latter group a further inspection in the scraping code suggests that missing pattern are traced back to an improperly parsed json object in the source code, that is the case of NMAR and observations needs to be left out (covariate are not assumed to be important, therefore are not included in the model). From *cucina* to *post_auto* a relevant pattern is evident for *cucina* and *altro*, that is because they come from the same predictor from which have been feature engineered two separated and different covariates. As a result the observations that are missing for the one are also missing for the other. Nonetheless the entire group of covariates is dropped due to rarity (percentages of missing are found in tab. \@ref(tab:)).
+In the far right side of figure \@ref(fig:Heatmap) *enclass*, *catastinfo* and *disp* data are completely missing (NMAR), the pattern suggests some problem in gathering the respective values. A further assessement of the API totally absent covariates scraping is strongly advised. From *total_commercial_surface* to _date_, as in cooccurrence plot in figure \@ref(fig:cooccurrence), they are missing in combination for a total of 196 out of 250 cases, therefore are dropped, even though the pattern is NMAR, suggesting that are strongly tied in the scraping process. 
 
 ```{r cooccurrence, fig.cap="Missingness co-occurrence plot"}
-gg_miss_upset(datiprep2, nsets = 7) 
+gg_miss_upset(datiprep2, nsets = 9)
 ```
 
 ### Missing Imputation
 ```{r ImputationData}
 ## conversion to dataframe
-data_miss = datiprep %>%  
-  select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice_original_price,-lowrdprice_current_price, -lowrdprice_passed_days,-lowrdprice_date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
-  as.data.frame()
+# data_miss = datiprep %>%  
+#   select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice_original_price,-lowrdprice_current_price, -lowrdprice_passed_days,-lowrdprice_date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
+#   as.data.frame()
 
 data_miss2 = datiprep2 %>%  
-  select(condom, totlocali, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato)
+  select(condom, totlocali,price, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato) %>% 
   as.data.frame()
 
 
 ```
 
-A relatively simple approach to front missingness is to build a regression model to explain the covariates that have missings and plug-back-in the respective posterior estimates (e.g. posterior means) from their predictive distributions @Little. This approach is fast and easy to implement in most of the cases, but it ignores the uncertainty behind the imputed values [@Bayesian_INLA_Rubio]. However it has the benefit to be a more than a reasonable choice with respect to the number of computation required, especially with INLA and in a spatial setting. That makes it the first choice method to follow since imputation regards also a small portion of data and predictors. At first it is considered the predictor _condominium_  for which the following observation are missing. The corresponding indices are:
+A relatively simple approach to front MAR missingn is to build a regression model to explain the covariates that contain missings and plug-back-in the respective posterior estimates (e.g. posterior means) from their predictive distributions @Little. This approach is available in INLA and it is fast and easy to implement in most of the cases, indeed it ignores the uncertainty behind the imputed values [@Bayesian_INLA_Rubio]. However it has the benefit to be a more than a reasonable choice with respect to the number of imputation needed. In the table below are reported the percentage of missing values for both continuous and categorial predictors. There are two approaches to follow, the former that consider the imputation of the response, the latter it has been deigned for covariates.
+Since the response is not missing, indeed it does _condominium_  imputation is pursued for the latter. The output below reports the corresponding indexes for missing observations for _condominium_.
 
 ```{r IndexCondominium}
 ##  missing data index
 condom_na = which(is.na(data_miss2$condom)) ## 19  74  77  90  99 113 116 120 179 249
 condom_na
+price_na = which(is.na(data_miss2$price))
 
 ```
+
+
+
+
+
+```{r see_how_much_miss, eval=F}
+library(finalfit, warn.conflicts = F, quietly = T) 
+ff =data_miss2 %>% 
+  mutate((across(where(is.character), ~ forcats::as_factor(.)))) %>% 
+  ff_glimpse()
+
+ff$Continuous
+
+```
+
 
 
 
@@ -767,21 +872,18 @@ condom_na
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response varibale is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
 
 ```{r condomimputation, fig.cap="Posterior Means imputation"}
 ## condom model fitted
-condo_imputation = inla(condom ~ 1 + sqfeet + totlocali + heating + ascensore + accdisabili, data = data_miss,
+condo_imputation = inla(condom ~ 1 + sqfeet + totlocali, data = data_miss2,
                       control.predictor = list(compute = TRUE),
                       control.compute = list(config = TRUE))
 
-data_imputed = data.frame(data_miss) 
-data_imputed$condom[condom_na] = cond_imputation$summary.fitted.values[condom_na, "mean"]
-cond_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>% 
+data_imputed = data.frame(data_miss2) 
+data_imputed$condom[condom_na] = condo_imputation$summary.fitted.values[condom_na, "mean"]
+condo_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>% 
   knitr::kable(booktabs = T)
-
-price_imputation
-
 
 ```
 
