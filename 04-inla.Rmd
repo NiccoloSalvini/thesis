@@ -136,10 +136,25 @@ Which can be further solved following [@Blangiardo-Cameletti] as:
 \end{equation}
 
 
+From which the two quantities of interest are the posterior marginal distribution for each element in the latent field and for each hyper parameter. 
+
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+\pi\left(\theta_{i} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi\left(\boldsymbol{\theta}_{i} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}}\right) \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) d \boldsymbol{\psi} \\
+\pi\left(\boldsymbol{\psi}_{k} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) d \boldsymbol{\psi}_{-k}
+\end{array}
+\end{aligned}
+(\#eq:finalobj)
+\end{equation}
+
+
 From final  eq: \@ref(eq:finallgm) is derived Bayesian inference and INLA through Laplace can approximate posterior parameters distributions. Sadly, INLA cannot effectively suit all LGM's. In general INLA depends upon the following supplementary assumptions [-@wang2018bayesian]:
 
 - The hyper-parameter number $\boldsymbol\psi$ should be unpretentious, normally between 2 and 5, but not greater than 20.
 - When the number of observation is considerably high ($10^4$ to $10^5$), then the LGMR $\boldsymbol\theta$ must be a Gaussian Markov random field (GMRF).
+
+
 
 ## Gaussian Markov Random Field (GMRF){#gmrf}
 
