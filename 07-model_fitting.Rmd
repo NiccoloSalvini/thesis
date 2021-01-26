@@ -1,6 +1,6 @@
 # Model Selection & Fitting{#modelspec}
 
-In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response price with the other predictors scraped. As a consequence on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with "markov" properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e. the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.
+In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response monthly price with the other predictors scraped. As a consequence on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with "markov" properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e. the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.
 
 
 ```{r, include=FALSE}
@@ -146,7 +146,7 @@ $$
 \boldsymbol\eta=b_{0}+\boldsymbol x \boldsymbol\beta+\boldsymbol\xi 
 $$
 where, following the notation in expression \@ref(eq:linearpredictor), $\boldsymbol\xi$ is the spatial random effect assigned to the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\boldsymbol\xi$ is also the GMRF defined in\@ref(def:gmrf), as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NAs are omitted and after imputation it results in $192 \times 192$.
-$\boldsymbol\beta$ are the model scraped covariates coefficients, which include `r noquote(head(names(final_data2)))` ... and the rest.
+$\boldsymbol\beta$ are the model scraped covariates coefficients.
 Then the latent field is composed by $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. In the end following the traits of the final expression in \@ref(GP) the LGM can be reformatted as follows,
 
 $$
@@ -278,32 +278,35 @@ As model complexity increases, for instance, a lot of random effects may be disc
 spde2 = inla.spde2.pcmatern(mesh3, prior.range = c(3060, 0.01), 
                              prior.sigma = c(0.9, 0.05))
 
+
+## default ones
 spde3 = inla.spde2.matern(mesh3)
 
-### se volessi fare conla staaxck seguendo INLA dovrei allora fare 
-### 
-A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
-stack1 <- inla.stack(
-  tag = "estimation", ## tag
-  data = list(price = final_data2$price), ## response
-  A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
-  effects = list(
-    list(site = seq_len(spde2$n.spde)), ## random field index
-    final_data2 %>%
-      as.data.frame() %>%
-      transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
-  )
-)
+
+# ### se volessi fare conla staaxck seguendo INLA dovrei allora fare 
+# ### 
+# A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
+# stack1 <- inla.stack(
+#   tag = "estimation", ## tag
+#   data = list(price = final_data2$price), ## response
+#   A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
+#   effects = list(
+#     list(site = seq_len(spde2$n.spde)), ## random field index
+#     final_data2 %>%
+#       as.data.frame() %>%
+#       transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
+#   )
+# )
 
 
 ```
 
-## Model selection
+## Model Selection
 
-Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
-Consequently a Forward Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
+Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in INLA features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
+Consequently a Forward Stepwise Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
-```{r model_sel, eval=F}
+```{r model_sel}
 
 ## add varibale to the stack
 
@@ -327,11 +330,11 @@ stack1 <- inla.stack(
 
 
 covs_df = final_data %>%  
-  dplyr::select(-lat, -long, -altro)%>% 
+  dplyr::select(-lat, -long, -altro,-price)%>% 
   na.omit() %>% 
   as.data.frame()
 
-for(i in 1:5){
+for(i in 1:16){
   
   f1= as.formula(paste0("log(price) ~ -1 + Intercept + f(site, model = spde3) + ", paste0(colnames(covs_df)[1:i], collapse = " + ")))
   
@@ -347,52 +350,113 @@ for(i in 1:5){
 
 }
 
-model_selection
+# model_selection2 =data.frame(model_selection)
+# tibble(predictors = 1:15,
+#        waic = model_selection2$waic,
+#        dic = model_selection2$dic) %>%
+#   gather(statistic, value, -predictors) %>%
+#   ggplot(aes(predictors, value)) +
+#   geom_line(show.legend = F) +
+#   geom_point(show.legend = F) +
+#   facet_wrap(~ statistic, scales = "free")
+# 
+
+model_selection[13,1]
+
+
+## il candidato perfetto è il modello humero 13
+## quello che contiene i seguenti predittori
+## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata" 
+## 
 ```
 
 
-## Parameter estimation and Results{#fit}
+## Parameter Estimation and Results{#fit}
 
-In the end the model is fitted calling inla on the final formula i.e. $\log_{10}(price) \sim Intercept + totlocali ... \dots + f(coordinate, model = spde1)$ where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random effects will now be discussed.
+Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.
 
 ```{r model_fitting}
 
-## e qui fitti il modello
+## rebuilt the stack based on stepwise forward
 ## 
 
-model_spde1 <- inla(log(price) ~ 0 + Intercept + totlocali + condom + f(site, model = spde3), 
-                    family = "normal", data = inla.stack.data(stack1),
-                    control.predictor = list(A = inla.stack.A(stack1)),
+A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
+stack_fin <- inla.stack(
+  tag = "estimation", ## tag
+  data = list(price = final_data2$price), ## response
+  A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
+  effects = list(
+    list(site = seq_len(spde3$n.spde)), ## random field index
+    final_data2 %>%
+      as.data.frame() %>%
+      transmute(Intercept = 1,condom, totlocali,altro, bagno, cucina, heating,
+                photosnum, floor, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme,
+                reception, porta_blindata ) ## fixed effect covariates
+  )
+)
+
+model_final = inla(log(price) ~ 0 + Intercept + condom + totlocali+ altro+ bagno+ cucina +heating +
+                photosnum +floor + sqfeet +fibra_ottica +videocitofono + impianto_di_allarme +
+                reception +porta_blindata + f(site, model = spde3), 
+                    family = "normal", data = inla.stack.data(stack_fin),
+                    control.predictor = list(A = inla.stack.A(stack_fin)),
                     control.compute = list(waic = TRUE, cpo = TRUE)
                   )
 
-model_spde1$summary.fixed %>%  
+summ_fin = model_final$summary.fixed %>%  
   tibble::rownames_to_column("coefficients") %>% 
   dplyr::select(-mode, -kld)  %>%
   mutate(across(where(is.numeric), round, 2)) %>% 
-  arrange(desc(mean)) %>% 
+  arrange(desc(mean))
+
+summ_fin %>% 
+  head(10) %>% 
   kable(booktabs = T, longtable = T)
+
 ```
 
-Since the models coefficients are too many the analysis will concentrate on the most interesting ones. Looking at TAB(...) arranged by descending mean, the posterior mean for the intercept in the rescaled from log is actually quite elevated, affirming that the average house price `r paste(round(exp((model_spde1$summary.fixed[1,1])),2),"€", sep = " ")`. Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones. (qualcosa di più)
-Moreover Inla is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance, see TAB(). 
+Since the models coefficients are many i.e.`r dim(summ_fin)[1]` the analysis will concentrate on the most interesting ones. Looking at TAB(...) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is `r paste(round(exp(summ_fin[1,2]),2),"€", sep = " ")`.
+Moreover being a "Trilocale" or "Bilocale", as pointed out in \@ref(mvp), brings a monthly extra profit respectively of `r paste(round(exp(summ_fin[2,2]),2),"€", sep = " ")` and `r paste(round(exp(summ_fin[4,2]),2),"€", sep = " ")`. However standard deviations are quite high. 
+Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
+Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
+INLA is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance. In figure \@ref(fig:summ_hyper) are plotted the respective marginal hyper parameter distributions for $\boldsymbol\psi$.
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  -->
 
-```{r summ_hyper}
-model_spde1$summary.hyperpar
-summary_hyperpar <- tibble::rownames_to_column(model_spde1$summary.hyperpar, "hyper-param") %>%
-  as_tibble() %>% 
+
+```{r table_hyper}
+model_final$summary.hyperpar
+summary_hyperpar <- tibble::rownames_to_column(model_final$summary.hyperpar, "hyper-param") %>%
+  as_tibble() %>%
   dplyr::select(-mean, -"0.975quant", -"0.5quant", -"0.025quant")
-summary_hyperpar %>%  
+summary_hyperpar %>%
   kable()
+
 ```
 
 
-In respect to the function parameter the Matérn hyper parameters $\psi_1$ (penalized complexity priors) ...
+```{r summ_hyper, fig.cap="Marginal Hyper Parameter distributions for each element of Psi"}
+plot_sigma2 = ggplot(as.data.frame(model_final$marginals.hyperpar$`Precision for the Gaussian observations` )) +
+  geom_line(aes(x = x, y = y)) +
+  ylab (TeX("$\\pi(\\,\\sigma^2_{e} \\,|\\, \\mathbf{y}\\,)$")) + 
+  xlab (TeX("$\\sigma^2_{e}$")) +
+  theme_nicco()
+
+plot_kappa = ggplot(as.data.frame(model_final$marginals.hyperpar$`Theta1 for site` )) +
+  geom_line(aes(x = x, y = y)) +
+  ylab (TeX("$\\pi(\\,\\kappa \\,|\\, \\mathbf{y}\\,)$")) + 
+  xlab (TeX("$\\kappa$")) +
+  theme_nicco()
 
 
+plot_nu = ggplot(as.data.frame(model_final$marginals.hyperpar$`Theta2 for site` )) +
+  geom_line(aes(x = x, y = y)) +
+  ylab (TeX("$\\pi(\\,\\nu \\,|\\, \\mathbf{y}\\,)$")) + 
+  xlab (TeX("$\\nu$")) +
+  theme_nicco()
 
+( plot_nu+ plot_kappa)/ plot_sigma2
 
+```
 
 
 
@@ -400,17 +464,18 @@ In respect to the function parameter the Matérn hyper parameters $\psi_1$ (pena
 
 ## Plot GMRF
 
-Finally, it might be of interest to look at the latent field into the spatial field. It can inform you about the possible omitted variable, i.e. how much variance the predictors are not able to capture in the response variable. From plot \@ref(fig:pltgmrf), for which it is chosen a grid od $150 \times 150$ points, seems that the variance is correctly explained evidecing also three distinctive darker and relatively chepear areas.
+Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e. how much variance the predictors are not able to capture in the response variable. From plot \@ref(fig:pltgmrf), for which it is chosen a grid of $150 \times 150$ points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.
 
 ```{r pltgmrf, fig.cap="Gaussian Markov Random field of the final model projected onto the spatial field"}
+
 A1.grid = inla.mesh.projector(mesh3, dims = c(150, 150)) ## c(41, 41)
-inla.mesh.project(A1.grid, model_spde1$summary.random$site) %>%
-as.matrix() %>%
-as.data.frame() %>%
-bind_cols(
-expand.grid(x = A1.grid$x, y = A1.grid$y)
-) %>%
-filter(!is.na(ID)) = eta_spde
+inla.mesh.project(A1.grid, model_final$summary.random$site) %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  bind_cols(
+  expand.grid(x = A1.grid$x, y = A1.grid$y)
+  ) %>%
+  filter(!is.na(ID)) -> eta_spde
 
 ggplot(final_data) +
    # geom_sf(data = confini,fill = "antiquewhite1") +
@@ -424,7 +489,6 @@ ggplot(final_data) +
   scale_fill_viridis_c(alpha  = .8) +
   theme_nicco()
 
-
   
 ```
 
@@ -432,15 +496,12 @@ ggplot(final_data) +
 <!-- a further trial  --> <!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  -->
 
 
-
-
 ## Spatial Model Criticism 
 
+The model on the basis of the PIT \@ref(predbase) does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ `r sum(model_final$cpo$failure)` outliers. The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining `r -sum(log(model_final$cpo$cpo)) %>% round(3) `. 
 
-The model on the basis of the PIT \@ref(predbase) does not seems to show any residual trend nor failures (meaning bizarre values in relation to the others) i.e. $\operatorname{fails} = $ `r sum(model_spde1$cpo$failure)` . The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining `r -sum(log(model_spde1$cpo$cpo)) %>% round(3) `. 
-
-```{r modelcpo, fig.cap="PIT cross validation statistics on $model_spde1$"}
-ggplot(data = NULL, aes(x = model_spde1$cpo$pit)) + 
+```{r modelcpo, fig.cap="PIT cross validation statistics on $model_final$"}
+ggplot(data = NULL, aes(x = model_final$cpo$pit)) + 
   geom_histogram(binwidth = 0.1,
                  boundary = 2, 
                  # col="red", 
@@ -455,15 +516,15 @@ ggplot(data = NULL, aes(x = model_spde1$cpo$pit)) +
 
 
 
-## Spatial Prediction on grid
+## Spatial Prediction on a Grid
 
-A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch $10^4$ to $10^6$ points. For the purposes of spatial prediction, it is considered a grid of $10km \times 10km$ with $122 \times 122$ grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding man of uncertainty i.e. the standard error.
-Higher prices in \@ref(fig:pred_on_grid) are observed nearby the points of interest in \@ref(ggmap), however the north ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data 
+A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch $10^4$ to $10^6$ points. For the purposes of spatial prediction, it is considered a grid of $10km \times 10km$ with $100 \times 100$ grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e. the standard error.
+Higher prices in \@ref(fig:pred_on_grid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
 
 
-```{r pred_on_grid, eval=F, fig.cap="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3"}
+```{r pred_on_grid, fig.cap="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3"}
 
-A1.grid <- inla.mesh.projector(mesh3, dims = c(122, 122)) # 41 x 41
+A1.grid <- inla.mesh.projector(mesh3, dims = c(100, 100)) # 41 x 41
 expand.grid(X = A1.grid$x, Y = A1.grid$y) %>%
   mutate(Intercept = 1) -> grid_data
 stack1_grid <- inla.stack(
@@ -475,13 +536,13 @@ stack1_grid <- inla.stack(
     grid_data  ## covariates at grid locations
   )
 )
-stack_all <- inla.stack(stack1, stack1_grid)
-model_grid <- inla(price ~ 0 + Intercept + X + Y + f(site, model = spde2), 
+stack_all <- inla.stack(stack_fin, stack1_grid)
+model_grid <- inla(log(price) ~ 0 + Intercept + X + Y + f(site, model = spde3), 
                    family = "normal", data = inla.stack.data(stack_all),
                    control.predictor = list(A = inla.stack.A(stack_all), 
                                             link = 1),
                    control.compute = list(waic = TRUE),
-                   control.mode = list(theta = model_spde1$mode$theta, 
+                   control.mode = list(theta = model_final$mode$theta, 
                                        restart = FALSE),
                    control.results = list(return.marginals.random = FALSE,
                                           return.marginals.predictor = FALSE)

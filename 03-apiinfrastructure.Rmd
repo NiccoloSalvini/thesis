@@ -244,7 +244,7 @@ Each line from the Dockerfile has its own specific role:
 
 - `MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"` : The command tags the maintainer and its e-mail contact information.
 
-- `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` : The command update and install remaining "lower" Linux dependencies required to run Plumber and rvest.
+- `RUN apt-get update && apt-get install -y \ libxml2-dev \ libudunits2-dev` : The command update and install remaining OS Linux dependencies required to run Plumber and rvest.
 
 - `RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)` : The command install all the further lower level libraries required to execute the files. Since some packages have inner dependencies the option `dependencies=TRUE` is necessary. 
 
@@ -260,7 +260,7 @@ Each line from the Dockerfile has its own specific role:
 
 Proxy server in this context offers the opposite angle for the exact same security problem. As a matter of fact the downside is that they can be exploited for the same reason for which they have been criticized at the end of section (\@ref(spoofing)). Reverse Proxy server are a special type of gateway \@ref(def:proxy) that is usually located behind a private network firewall to route client requests to the corresponding backend server [@nginxDocs]. An reverse proxy offers an extra abstraction and control level to ensure that network traffic flows smoothly between clients and servers. NGINX as it can be inferred by its official documentation empowers traffic flows by:
 
-- _Load balancing_: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).
+- _Load balancing_: A reverse proxy server will stand guard in front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).
 
 - _Web acceleration_: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.
 
@@ -305,7 +305,7 @@ Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure
 
 ```
 AWS EC2 represents a popular hosting option, most importantly this path is already narrowed by many open source contributors. The selected target is a AWS free tier t3.micro whose specifications are: 2 vCPU (Virtual CPU), 1 GB memory and a mounted Ubuntu distribution OS. Moreover T3 instances are known to provide device, memory, and network resource balance and have been developed for applications that experience transient spikes in use with modest CPU use. They are designed especially to serve low-latency interactive applications, small and medium databases, virtual desktops, development environments, code repositories, and business-critical applications, therefore they suit the needs.
-Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Tags are not required. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e. open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\@ref(dockerfile)), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH (Putty or Bash depending on the OS) behind authentication. 
+Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e. open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\@ref(dockerfile)), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH behind authentication. 
 
 <!-- ![aws dashboard](images/aws.PNG) -->
 

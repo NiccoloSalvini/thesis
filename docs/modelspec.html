@@ -49,6 +49,31 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="libs/leaflet-locationfilter2-0.1.1/locationfilter.css" rel="stylesheet" />
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter.js"></script>
+<script src="libs/leaflet-locationfilter2-0.1.1/locationfilter-bindings.js"></script>
+<link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/reactable-binding-0.2.3/reactable.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
 <script>
@@ -60,6 +85,69 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -78,7 +166,6 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 </ul></li>
@@ -88,7 +175,7 @@
 <li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#anatomy-of-a-url-and-reverse-engineering"><i class="fa fa-check"></i><b>2.2</b> Anatomy of a url and reverse engineering</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.2.1</b> Scraping with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.3</b> Searching Technique for Scarping</a></li>
+<li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.3</b> Searching Technique for Scraping</a></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.4</b> Scraping Best Practices and Security provisions</a></li>
 <li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#HTTPmethod"><i class="fa fa-check"></i><b>2.5</b> HTTP overview</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.5.1</b> User Agent and further Identification Headers Spoofing</a></li>
@@ -130,7 +217,7 @@
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
 <li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#criticism"><i class="fa fa-check"></i><b>5.4</b> Model Criticism</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#predbase"><i class="fa fa-check"></i><b>5.4.1</b> Methods based on the predictive distribution</a></li>
-<li class="chapter" data-level="5.4.2" data-path="prdm.html"><a href="prdm.html#deviance-based-criteria"><i class="fa fa-check"></i><b>5.4.2</b> Deviance-based Criteria</a></li>
+<li class="chapter" data-level="5.4.2" data-path="prdm.html"><a href="prdm.html#devbased"><i class="fa fa-check"></i><b>5.4.2</b> Deviance-based Criteria</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.5</b> Penalized Complexity Priors</a></li>
 </ul></li>
@@ -138,26 +225,28 @@
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Preprocessing and Feature Engineering</a></li>
 <li class="chapter" data-level="6.2" data-path="exploratory.html"><a href="exploratory.html#spatassess"><i class="fa fa-check"></i><b>6.2</b> Spatial Dependece Assessement</a></li>
 <li class="chapter" data-level="6.3" data-path="exploratory.html"><a href="exploratory.html#factor-counts"><i class="fa fa-check"></i><b>6.3</b> Factor Counts</a></li>
-<li class="chapter" data-level="6.4" data-path="exploratory.html"><a href="exploratory.html#assessing-the-most-valuable-properties"><i class="fa fa-check"></i><b>6.4</b> Assessing the most valuable properties</a></li>
+<li class="chapter" data-level="6.4" data-path="exploratory.html"><a href="exploratory.html#mvp"><i class="fa fa-check"></i><b>6.4</b> Assessing the most valuable properties</a></li>
 <li class="chapter" data-level="6.5" data-path="exploratory.html"><a href="exploratory.html#assessing-relevant-predictors"><i class="fa fa-check"></i><b>6.5</b> Assessing relevant predictors</a></li>
 <li class="chapter" data-level="6.6" data-path="exploratory.html"><a href="exploratory.html#missassimp"><i class="fa fa-check"></i><b>6.6</b> Missing Assessement and Imputation</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>6.6.1</b> Missing assessement</a></li>
+<li class="chapter" data-level="6.6.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>6.6.1</b> Missing Assessement</a></li>
 <li class="chapter" data-level="6.6.2" data-path="exploratory.html"><a href="exploratory.html#missing-imputation"><i class="fa fa-check"></i><b>6.6.2</b> Missing Imputation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a><ul>
 <li class="chapter" data-level="7.1" data-path="modelspec.html"><a href="modelspec.html#modelspecandmesh"><i class="fa fa-check"></i><b>7.1</b> Model Specification &amp; Mesh Assessement</a></li>
 <li class="chapter" data-level="7.2" data-path="modelspec.html"><a href="modelspec.html#spdemodeol"><i class="fa fa-check"></i><b>7.2</b> Building the SPDE object</a></li>
-<li class="chapter" data-level="7.3" data-path="modelspec.html"><a href="modelspec.html#model-selection"><i class="fa fa-check"></i><b>7.3</b> Model selection</a></li>
-<li class="chapter" data-level="7.4" data-path="modelspec.html"><a href="modelspec.html#fit"><i class="fa fa-check"></i><b>7.4</b> Parameter estimation and Results</a></li>
-<li class="chapter" data-level="7.5" data-path="modelspec.html"><a href="modelspec.html#spatial-model-criticism"><i class="fa fa-check"></i><b>7.5</b> Spatial Model Criticism</a></li>
-<li class="chapter" data-level="7.6" data-path="modelspec.html"><a href="modelspec.html#spatial-prediction-on-grid"><i class="fa fa-check"></i><b>7.6</b> Spatial Prediction on grid</a></li>
+<li class="chapter" data-level="7.3" data-path="modelspec.html"><a href="modelspec.html#model-selection"><i class="fa fa-check"></i><b>7.3</b> Model Selection</a></li>
+<li class="chapter" data-level="7.4" data-path="modelspec.html"><a href="modelspec.html#fit"><i class="fa fa-check"></i><b>7.4</b> Parameter Estimation and Results</a></li>
+<li class="chapter" data-level="7.5" data-path="modelspec.html"><a href="modelspec.html#plot-gmrf"><i class="fa fa-check"></i><b>7.5</b> Plot GMRF</a></li>
+<li class="chapter" data-level="7.6" data-path="modelspec.html"><a href="modelspec.html#spatial-model-criticism"><i class="fa fa-check"></i><b>7.6</b> Spatial Model Criticism</a></li>
+<li class="chapter" data-level="7.7" data-path="modelspec.html"><a href="modelspec.html#spatial-prediction-on-a-grid"><i class="fa fa-check"></i><b>7.7</b> Spatial Prediction on a Grid</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
 <li class="chapter" data-level="8.1" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>8.1</b> SPDE and Triangulation</a></li>
 <li class="chapter" data-level="8.2" data-path="appendix.html"><a href="appendix.html#laplaceapprox"><i class="fa fa-check"></i><b>8.2</b> Laplace Approximation</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
 <li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
@@ -182,7 +271,7 @@
             <section class="normal" id="section-">
 <div id="modelspec" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Model Selection &amp; Fitting</h1>
-<p>In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response price with the other predictors scraped. As a consequence on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with “markov” properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e. the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.</p>
+<p>In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response monthly price with the other predictors scraped. As a consequence on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with “markov” properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e. the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.</p>
 <p>In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a <span class="math inline">\(log_{10}\)</span> transformation (further transformation would have better Normalized data i.e. Box-Cox <span class="citation">(Box and Cox <a href="#ref-boxcox" role="doc-biblioref">1964</a>)</span> and Yeo-Johnson <span class="citation">(Yeo and Johnson <a href="#ref-yeojohnson" role="doc-biblioref">2000</a>)</span> however they over complicate interpretability). Moreover all of the numerical covariates e.g. <em>condominium</em>, <em>sqmeter</em> and <em>photosnum</em> have already been prepared in <a href="exploratory.html#prep">6.1</a> and are further standardized and scaled. The Locations are represented in map plot <a href="modelspec.html#fig:ggmap">7.1</a> within the borders of the Municipality of Milan. At first the borders shapefile is imported from <a href="https://geoportale.comune.milano.it/sit/open-data/">GeoPortale Milano</a>. The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure <a href="modelspec.html#fig:ggmap">7.1</a>.</p>
 <div class="figure"><span id="fig:ggmap"></span>
 <img src="07-model_fitting_files/figure-html/ggmap-1.png" alt="Milan Real Estate data within the Municpality borders, 4 points of interest" width="672" />
@@ -200,22 +289,22 @@ Figure 7.1: Milan Real Estate data within the Municpality borders, 4 points of i
 <p><span class="math display">\[
 \boldsymbol\eta=b_{0}+\boldsymbol x \boldsymbol\beta+\boldsymbol\xi 
 \]</span>
-where, following the notation in expression <a href="#eq:linearpredictor">(<strong>??</strong>)</a>, <span class="math inline">\(\boldsymbol\xi\)</span> is the spatial random effect assigned to the function <span class="math inline">\(f_1()\)</span>, for the set of coviarates <span class="math inline">\(\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)\)</span>. <span class="math inline">\(\boldsymbol\xi\)</span> is also the GMRF defined in<a href="#def:gmrf"><strong>??</strong></a>, as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig. <a href="#fig:matern"><strong>??</strong></a>) i.e. <span class="math inline">\(\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)\)</span>. The precision matrix <span class="math inline">\(\mathbf{Q}_{\mathscr{C}}^{-1}\)</span> (see left panel in figure <a href="#fig:precisionmat"><strong>??</strong></a>) is the one that requires to be treated with SPDE and its dimensions are <span class="math inline">\(n \times n\)</span>, in this case when NAs are omitted and after imputation it results in <span class="math inline">\(192 \times 192\)</span>.
-<span class="math inline">\(\boldsymbol\beta\)</span> are the model scraped covariates coefficients, which include condom, totlocali, altro, bagno, cucina, heating … and the rest.
+where, following the notation in expression <a href="inla.html#eq:linearpredictor">(4.1)</a>, <span class="math inline">\(\boldsymbol\xi\)</span> is the spatial random effect assigned to the function <span class="math inline">\(f_1()\)</span>, for the set of coviarates <span class="math inline">\(\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)\)</span>. <span class="math inline">\(\boldsymbol\xi\)</span> is also the GMRF defined in<a href="inla.html#def:gmrf">4.1</a>, as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig. <a href="prdm.html#fig:matern">5.4</a>) i.e. <span class="math inline">\(\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)\)</span>. The precision matrix <span class="math inline">\(\mathbf{Q}_{\mathscr{C}}^{-1}\)</span> (see left panel in figure <a href="inla.html#fig:precisionmat">4.1</a>) is the one that requires to be treated with SPDE and its dimensions are <span class="math inline">\(n \times n\)</span>, in this case when NAs are omitted and after imputation it results in <span class="math inline">\(192 \times 192\)</span>.
+<span class="math inline">\(\boldsymbol\beta\)</span> are the model scraped covariates coefficients.
 Then the latent field is composed by <span class="math inline">\(\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}\)</span>. In the end following the traits of the final expression in <a href="prdm.html#GP">5.1</a> the LGM can be reformatted as follows,</p>
 <p><span class="math display">\[
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 \]</span>
 Priors are assigned as Gaussian vagues ones for the <span class="math inline">\(\boldsymbol\beta\)</span> coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process <span class="math inline">\(\tilde{\boldsymbol\xi}\)</span> as Penalized in Complexity.
-Thus following the steps and notation marked in sec. <a href="inla.html#LGM">4.1</a>. the <em>higher</em> level eq. <a href="#eq:higher">(<strong>??</strong>)</a> is constituted by the <strong>likelihood</strong>, depending on hyper parameters <span class="math inline">\(\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)\)</span>:</p>
+Thus following the steps and notation marked in sec. <a href="inla.html#LGM">4.1</a>. the <em>higher</em> level eq. <a href="inla.html#eq:higher">(4.3)</a> is constituted by the <strong>likelihood</strong>, depending on hyper parameters <span class="math inline">\(\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)\)</span>:</p>
 <p><span class="math display">\[\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)\]</span></p>
-<p>At the <em>medium</em> level eq. <a href="#eq:medium">(<strong>??</strong>)</a> there exists the <strong>latent field</strong> <span class="math inline">\(\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)\)</span>, conditioned to the hyper parameter <span class="math inline">\(\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}\)</span>, whose only component is the measurement error precision,</p>
+<p>At the <em>medium</em> level eq. <a href="inla.html#eq:medium">(4.4)</a> there exists the <strong>latent field</strong> <span class="math inline">\(\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)\)</span>, conditioned to the hyper parameter <span class="math inline">\(\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}\)</span>, whose only component is the measurement error precision,</p>
 <p><span class="math display">\[  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)\]</span></p>
 <p>In the lower level priors are considered as their joint distribution i.e. <span class="math inline">\(\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}\)</span>. It follows the expression of the joint posterior distribution:</p>
 <p><span class="math display">\[
 \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{192}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
 \]</span>
-Then once again the objectives of bayesian inference are the posterior marginal distributions for the latent field and the hyperparameters, which are contained in equation <a href="#eq:finalobj">(<strong>??</strong>)</a>, for which Laplace approximations in <a href="inla.html#approx">4.3</a> are employed.</p>
+Then once again the objectives of bayesian inference are the posterior marginal distributions for the latent field and the hyperparameters, which are contained in equation <a href="inla.html#eq:finalobj">(4.7)</a>, for which Laplace approximations in <a href="inla.html#approx">4.3</a> are employed.</p>
 <!-- paramtere estimation and spatial prediction -->
 <!-- paramtere estimation and spatial prediction -->
 <!-- paramtere estimation and spatial prediction -->
@@ -242,14 +331,24 @@ Figure 7.2: Left: mesh traingulation for 156 vertices, Right: mesh traingulation
 As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the <code>inla.stack</code> function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in <span class="citation">Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>, but are beyond the scope of the analysis.</p>
 </div>
 <div id="model-selection" class="section level2">
-<h2><span class="header-section-number">7.3</span> Model selection</h2>
-<p>Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section <a href="#devbased"><strong>??</strong></a> are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. <a href="#eq:dic">(<strong>??</strong>)</a>.
-Consequently a Forward Selection <span class="citation">(Guyon and Elisseeff <a href="#ref-guyon2003introduction" role="doc-biblioref">2003</a>)</span> algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.</p>
+<h2><span class="header-section-number">7.3</span> Model Selection</h2>
+<p>Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in INLA features. As a matter of fact in section <a href="prdm.html#devbased">5.4.2</a> are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. <a href="prdm.html#eq:dic">(5.1)</a>.
+Consequently a Forward Stepwise Selection <span class="citation">(Guyon and Elisseeff <a href="#ref-guyon2003introduction" role="doc-biblioref">2003</a>)</span> algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.</p>
+<pre><code>##                                                                                                                                                          model 
+## &quot;condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata&quot;</code></pre>
 </div>
 <div id="fit" class="section level2">
-<h2><span class="header-section-number">7.4</span> Parameter estimation and Results</h2>
-<p>In the end the model is fitted calling inla on the final formula i.e. <span class="math inline">\(\log_{10}(price) \sim Intercept + totlocali ... \dots + f(coordinate, model = spde1)\)</span> where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random effects will now be discussed.</p>
-<table>
+<h2><span class="header-section-number">7.4</span> Parameter Estimation and Results</h2>
+<p>Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="60%" />
+<col width="4%" />
+<col width="5%" />
+<col width="10%" />
+<col width="8%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">coefficients</th>
@@ -263,81 +362,100 @@ Consequently a Forward Selection <span class="citation">(Guyon and Elisseeff <a 
 <tbody>
 <tr class="odd">
 <td align="left">Intercept</td>
-<td align="right">6.19</td>
+<td align="right">5.46</td>
 <td align="right">12.91</td>
-<td align="right">-19.16</td>
-<td align="right">6.19</td>
-<td align="right">31.51</td>
+<td align="right">-19.89</td>
+<td align="right">5.46</td>
+<td align="right">30.79</td>
 </tr>
 <tr class="even">
-<td align="left">totlocali5+</td>
-<td align="right">1.92</td>
-<td align="right">12.91</td>
-<td align="right">-23.43</td>
-<td align="right">1.92</td>
-<td align="right">27.24</td>
-</tr>
-<tr class="odd">
-<td align="left">totlocaliPentalocale</td>
-<td align="right">1.55</td>
-<td align="right">12.91</td>
-<td align="right">-23.80</td>
-<td align="right">1.55</td>
-<td align="right">26.88</td>
-</tr>
-<tr class="even">
-<td align="left">totlocaliQuadrilocale</td>
-<td align="right">1.20</td>
-<td align="right">12.91</td>
-<td align="right">-24.14</td>
-<td align="right">1.20</td>
-<td align="right">26.53</td>
-</tr>
-<tr class="odd">
 <td align="left">totlocaliTrilocale</td>
-<td align="right">0.93</td>
+<td align="right">1.19</td>
 <td align="right">12.91</td>
-<td align="right">-24.41</td>
-<td align="right">0.93</td>
-<td align="right">26.26</td>
+<td align="right">-24.15</td>
+<td align="right">1.19</td>
+<td align="right">26.52</td>
+</tr>
+<tr class="odd">
+<td align="left">totlocali5+</td>
+<td align="right">1.18</td>
+<td align="right">12.91</td>
+<td align="right">-24.17</td>
+<td align="right">1.18</td>
+<td align="right">26.50</td>
 </tr>
 <tr class="even">
 <td align="left">totlocaliBilocale</td>
-<td align="right">0.58</td>
+<td align="right">1.09</td>
 <td align="right">12.91</td>
-<td align="right">-24.76</td>
-<td align="right">0.58</td>
-<td align="right">25.91</td>
+<td align="right">-24.25</td>
+<td align="right">1.09</td>
+<td align="right">26.42</td>
 </tr>
 <tr class="odd">
-<td align="left">totlocaliMonolocale</td>
-<td align="right">0.00</td>
-<td align="right">31.62</td>
-<td align="right">-62.09</td>
-<td align="right">0.00</td>
-<td align="right">62.03</td>
+<td align="left">totlocaliQuadrilocale</td>
+<td align="right">1.03</td>
+<td align="right">12.91</td>
+<td align="right">-24.32</td>
+<td align="right">1.03</td>
+<td align="right">26.36</td>
 </tr>
 <tr class="even">
-<td align="left">condom</td>
+<td align="left">totlocaliPentalocale</td>
+<td align="right">0.97</td>
+<td align="right">12.91</td>
+<td align="right">-24.38</td>
+<td align="right">0.97</td>
+<td align="right">26.29</td>
+</tr>
+<tr class="odd">
+<td align="left">heatingAutonomo, a pavimento, alimentato a pompa di calore</td>
+<td align="right">0.67</td>
+<td align="right">0.21</td>
+<td align="right">0.26</td>
+<td align="right">0.66</td>
+<td align="right">1.08</td>
+</tr>
+<tr class="even">
+<td align="left">receptionyes</td>
+<td align="right">0.46</td>
+<td align="right">0.16</td>
+<td align="right">0.14</td>
+<td align="right">0.46</td>
+<td align="right">0.78</td>
+</tr>
+<tr class="odd">
+<td align="left">heatingCentralizzato, ad aria</td>
+<td align="right">0.33</td>
+<td align="right">0.17</td>
 <td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
+<td align="right">0.33</td>
+<td align="right">0.66</td>
+</tr>
+<tr class="even">
+<td align="left">heatingCentralizzato, a pavimento, alimentato a pompa di calore</td>
+<td align="right">0.31</td>
+<td align="right">0.15</td>
+<td align="right">0.01</td>
+<td align="right">0.31</td>
+<td align="right">0.60</td>
 </tr>
 </tbody>
 </table>
-<p>Since the models coefficients are too many the analysis will concentrate on the most interesting ones. Looking at TAB(…) arranged by descending mean, the posterior mean for the intercept in the rescaled from log is actually quite elevated, affirming that the average house price 485.99 €. Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones. (qualcosa di più)
-Moreover Inla is able to output the mean and the standard deviation of measurement precision error in <span class="math inline">\(\psi_2\)</span> i.e. <span class="math inline">\(1 / \sigma_{\varepsilon}^{2}\)</span>, note that the interpretation is different from variance, see TAB().
+<p>Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at TAB(…) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is 235.1 €.
+Moreover being a “Trilocale” or “Bilocale”, as pointed out in <a href="exploratory.html#mvp">6.4</a>, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
+Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
+Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
+INLA is able to output the mean and the standard deviation of measurement precision error in <span class="math inline">\(\psi_2\)</span> i.e. <span class="math inline">\(1 / \sigma_{\varepsilon}^{2}\)</span>, note that the interpretation is different from variance. In figure @ref(fig:summ_hyper) are plotted the respective marginal hyper parameter distributions for <span class="math inline">\(\boldsymbol\psi\)</span>.
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  --></p>
 <pre><code>##                                              mean        sd 0.025quant
-## Precision for the Gaussian observations 14.146477 1.8323868  10.835628
-## Theta1 for site                         -4.244211 0.4302051  -5.053108
-## Theta2 for site                          4.336038 0.4941173   3.324577
+## Precision for the Gaussian observations 31.054876 4.3460742  23.274749
+## Theta1 for site                         -3.531603 0.3729812  -4.249729
+## Theta2 for site                          3.858551 0.4993020   2.842148
 ##                                          0.5quant 0.975quant      mode
-## Precision for the Gaussian observations 14.049535  18.035766 13.878183
-## Theta1 for site                         -4.259375  -3.363177 -4.313992
-## Theta2 for site                          4.355101   5.262670  4.422629</code></pre>
+## Precision for the Gaussian observations 30.802554  40.357549 30.350547
+## Theta1 for site                         -3.540270  -2.776946 -3.570613
+## Theta2 for site                          3.870666   4.812311  3.913943</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -349,44 +467,52 @@ Moreover Inla is able to output the mean and the standard deviation of measureme
 <tbody>
 <tr class="odd">
 <td align="left">Precision for the Gaussian observations</td>
-<td align="right">1.8323868</td>
-<td align="right">13.878183</td>
+<td align="right">4.3460742</td>
+<td align="right">30.350547</td>
 </tr>
 <tr class="even">
 <td align="left">Theta1 for site</td>
-<td align="right">0.4302051</td>
-<td align="right">-4.313992</td>
+<td align="right">0.3729812</td>
+<td align="right">-3.570613</td>
 </tr>
 <tr class="odd">
 <td align="left">Theta2 for site</td>
-<td align="right">0.4941173</td>
-<td align="right">4.422629</td>
+<td align="right">0.4993020</td>
+<td align="right">3.913943</td>
 </tr>
 </tbody>
 </table>
-<p>In respect to the function parameter the Matérn hyper parameters <span class="math inline">\(\psi_1\)</span> (penalized complexity priors) …</p>
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<!-- PLOT THE LATENT FIELD -->
-<p>It might be of interest to plot the latent field which is projected from the model.</p>
-<div class="figure"><span id="fig:pltgmrf"></span>
-<img src="07-model_fitting_files/figure-html/pltgmrf-1.png" alt="Gaussian Markov Random field result from the model" width="672" />
+<div class="figure">
+<img src="07-model_fitting_files/figure-html/summ_hyper-1.png" alt="Marginal Hyper Parameter distributions for each element of Psi" width="672" />
 <p class="caption">
-Figure 7.3: Gaussian Markov Random field result from the model
+(#fig:summ_hyper)Marginal Hyper Parameter distributions for each element of Psi
+</p>
+</div>
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+<!-- PLOT THE LATENT FIELD -->
+</div>
+<div id="plot-gmrf" class="section level2">
+<h2><span class="header-section-number">7.5</span> Plot GMRF</h2>
+<p>Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e. how much variance the predictors are not able to capture in the response variable. From plot <a href="modelspec.html#fig:pltgmrf">7.3</a>, for which it is chosen a grid of <span class="math inline">\(150 \times 150\)</span> points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.</p>
+<div class="figure"><span id="fig:pltgmrf"></span>
+<img src="07-model_fitting_files/figure-html/pltgmrf-1.png" alt="Gaussian Markov Random field of the final model projected onto the spatial field" width="672" />
+<p class="caption">
+Figure 7.3: Gaussian Markov Random field of the final model projected onto the spatial field
 </p>
 </div>
 <!-- a further trial  -->
@@ -412,19 +538,25 @@ Figure 7.3: Gaussian Markov Random field result from the model
 <!-- a further trial  -->
 </div>
 <div id="spatial-model-criticism" class="section level2">
-<h2><span class="header-section-number">7.5</span> Spatial Model Criticism</h2>
-<p>The model on the basis of the PIT <a href="prdm.html#predbase">5.4.1</a> the model seems to be able to capture the variability and does not show any residual trend nor failures i.e. $ = $ 0 . The fact that the distribution is seemingly Uniform tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO obtaining 44.573.</p>
+<h2><span class="header-section-number">7.6</span> Spatial Model Criticism</h2>
+<p>The model on the basis of the PIT <a href="prdm.html#predbase">5.4.1</a> does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ 8 outliers. The fact that the distribution is seemingly Uniform <a href="modelspec.html#fig:modelcpo">7.4</a> tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681.</p>
 <div class="figure"><span id="fig:modelcpo"></span>
-<img src="07-model_fitting_files/figure-html/modelcpo-1.png" alt="PIT cross validation statistics on $model_spde1$" width="672" />
+<img src="07-model_fitting_files/figure-html/modelcpo-1.png" alt="PIT cross validation statistics on $model_final$" width="672" />
 <p class="caption">
-Figure 7.4: PIT cross validation statistics on <span class="math inline">\(model_spde1\)</span>
+Figure 7.4: PIT cross validation statistics on <span class="math inline">\(model_final\)</span>
 </p>
 </div>
-<pre><code>## [1] 189.4186</code></pre>
 </div>
-<div id="spatial-prediction-on-grid" class="section level2">
-<h2><span class="header-section-number">7.6</span> Spatial Prediction on grid</h2>
-<p>A gridded object is required in order to project spatial prediction on the domain space. Usually these operations are very computationally expensive since grid objects size can easily reach <span class="math inline">\(10^4\)</span> to <span class="math inline">\(10^6\)</span> dimension points. Since in this case the linear predictor marginal distributions are not the focus then a more feasible solution consists in projecting the latent field estimated at the triangulation vertices onto the grid location <span class="citation">(<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>. At first a proper projection matrix is created without specifying the locations.</p>
+<div id="spatial-prediction-on-a-grid" class="section level2">
+<h2><span class="header-section-number">7.7</span> Spatial Prediction on a Grid</h2>
+<p>A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch <span class="math inline">\(10^4\)</span> to <span class="math inline">\(10^6\)</span> points. For the purposes of spatial prediction, it is considered a grid of <span class="math inline">\(10km \times 10km\)</span> with <span class="math inline">\(100 \times 100\)</span> grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e. the standard error.
+Higher prices in @ref(fig:pred_on_grid) are observed nearby the points of interest in <a href="#ggmap"><strong>??</strong></a>, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.</p>
+<div class="figure">
+<img src="07-model_fitting_files/figure-html/pred_on_grid-1.png" alt="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3" width="672" />
+<p class="caption">
+(#fig:pred_on_grid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3
+</p>
+</div>
 
 </div>
 </div>

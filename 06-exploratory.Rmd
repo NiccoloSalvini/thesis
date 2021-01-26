@@ -593,7 +593,7 @@ pph / ppa
 <!-- with_fill / non_fill -->
 <!-- ``` -->
 
-## Assessing the most valuable properties
+## Assessing the most valuable properties{#mvp}
 
 It might be relevant also to research how monthly prices change with respect to houses' square footage for each house configuration, in other word how much adding a further square meter affects monthly price for each n-roomed flat.
 Answering to the previous question implies also knowing how properties should be developed in order to request a greater amount of money per month. This may be of interest, for instance, to those who have to lot their property into sub units and need to decide the most profitable choice in economic terms by setting _ex ante_ the square footage extensions.

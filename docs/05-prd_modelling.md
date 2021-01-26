@@ -8,7 +8,7 @@ Geostatistical or equivalently point reference data are a collection of samples 
 > "Everything is related to everything else, 
 > but near things are more related than distant things"
 >
->  <footer>--- Waldo R. Tobler</footer>
+>  \hfill --- Waldo R. Tobler
 
 Spatial data can be partitioned into three main types, even tough they all fall under the umbrella of inla algorithm, indeed each employs context specific tools.
 
@@ -35,9 +35,11 @@ where $\mathscr{D}$ is a (fixed) subset of $\mathbb{R}^{d}$ (in the present work
 The first step in defining a spatial model within INLA is to impose a LGM hierarchical structure which requires at first to identify a probability distribution function for the observed data $\boldsymbol{\mathbf{y}}$, i.e. higher level. The most common choice is to draw distributions from the _Exponential family_, indexed by a set of parameters $\boldsymbol\theta$ as in \@ref(LGM), accounting for the spatial correlation.
 In the case of geostatistical data, the model parameters $\boldsymbol\theta$, following notation imposed in chapter \@ref(inla) are defined as a latent Gaussian Process (GP). Then a formal definition of GP is given,
 
-\BeginKnitrBlock{definition}\iffalse{-91-71-80-32-100-101-102-105-110-105-116-105-111-110-93-}\fi{}<div class="definition"><span class="definition" id="def:GP"><strong>(\#def:GP)  \iffalse (GP definition) \fi{} </strong></span>A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ and  _finite_ stochastic processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ follows a _Multivariate Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{Q}^{-1}_{i,j}, \forall i \neq j$ defined then by a covariance function $\mathscr{\cdot, \cdot}$ i.e. </div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-71-80-32-100-101-102-105-110-105-116-105-111-110-93-}\fi{}
+<span class="definition" id="def:GP"><strong>(\#def:GP)  \iffalse (GP definition) \fi{} </strong></span>A collection of $n$ random variables, such as $Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})$ that are _valid_ and  _finite_ stochastic processes are said to be a **GP** if for any set of spatial index $n$ and for each set of corresponding locations $\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}$ follows a _Multivariate Gaussian_ distribution with mean $\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}$ and covariance matrix $\mathbf{Q}^{-1}_{i,j}, \forall i \neq j$ defined then by a covariance function $\mathscr{\cdot, \cdot}$ i.e. 
+\EndKnitrBlock{definition}
 
-The latent GP are in function of some hyper-parameters $\boldsymbol\psi$ and their respective prior $\pi(\boldsymbol\psi)$. Moreover a GP is completely characterized by a mean $\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}$ and a spatially structured covariance matrix $\boldsymbol{Q^{-1}}$, whose generic element is $\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{\boldsymbol{\mathbf{y}}}} \mathscr{C}(\Delta_{i j})$, where $\sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2}$ is the variance component of the process and for $i, j = 1, \ldots, n$. $\mathscr{C}\left( \cdot, \cdot \right)$ function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the _validity_ and _positive definitness_ characteristics from the GP. The spatial stochastic process commonly is assumed to fulfill two important properties: **stationary**, **Isotropy** (even tough both of the two can be relaxed). 
+The latent GP are in function of some hyper-parameters $\boldsymbol\psi$ and their respective prior $\pi(\boldsymbol\psi)$. Moreover a GP is completely characterized by a mean $\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}$ and a spatially structured covariance matrix $\boldsymbol{Q^{-1}}$, whose generic element is $\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{\boldsymbol{\mathbf{y}}}} \mathscr{C}(\Delta_{i j})$, where $\sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2}$ is the variance component of the process and for $i, j = 1, \ldots, n$. $\mathscr{C}\left( \cdot, \cdot \right)$ function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the _validity_ and _positive definitness_ characteristics from the GP. The spatial stochastic process commonly is assumed to fulfill two important properties: **stationary**, **Isotropy** (even tough both of the two can be relaxed). 
 A process is said **stationary** i.e. weak stationary, if process values at any two locations can be summarized by a covariance function $\mathscr{C(\Delta_{i j})}$ depending solely on the distance. In other words it is invariant under _translation_ [@Krainski-Rubio].
 A process is said **Isotropical** if the covariance function depends only on the between-points distance $\Delta_{i j}=\left\|s_{i}-s_{j}\right\|$ (in this context _Euclidean_), so it is invariant under _rotation_ [-@Krainski-Rubio]. A further way of seeing this property is that Isotropy causes to stochastic processes concentric decaying contours [@LecturePaci], green in fig. \@ref(fig:isoovsanis), meaning the vanishing of spatial dependence [@Blangiardo-Cameletti], and so for covariance values. 
 
@@ -63,12 +65,12 @@ $$
 $$
 
 where all the parameters above are special quantities derived from the emphirical variogram. $\sigma^2$, $\tau^2$,  $\phi^2$,  and  are respectively the _range_, the distance at which correlation vanishes, the _nugget_, i.e. the non spatial variance and the _partial sill_, i.e. the spatial effect variance [@LecturePaci].
-In particular the focus is on the _Matérn_ – as it is required by the SPDE approach in section \@ref(spdeapproach) – and this should not be intended as a restriction. In fact, as long described in @gneiting2006geostatistical, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one $\phi>0$, usually set equal to the range of the spatial process $\sigma^{2}_{var}$ i.e. the distance at which the spatial dependence becomes negligible, by the empirically derived relation $r =\frac{\sqrt{8 \lambda}}{\kappa}$), and a smoothing one $\nu>0$ usually kept fixed.  An _isotropical_ and _stationary_ Matérn covariance expression by isolating the variance of the spatial process $\sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2}$ is:
+In particular the focus is on the _Matérn_ – as it is required by the SPDE approach in section \@ref(spdeapproach) – and this should not be intended as a restriction. In fact, as long described in @gneiting2006geostatistical, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one $\phi>0$, usually set equal to the range of the spatial process $\sigma^{2}_{var}$ i.e. the distance at which the spatial dependence becomes negligible, by the empirically derived relation $r =\frac{\sqrt{8 \lambda}}{\kappa}$), and a smoothing one $\nu>0$ usually kept fixed.  An _isotropical_ and _stationary_ Matérn covariance expression by isolating the variance of the spatial process $\sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2}$ is:
 
 
 $$
 \begin{aligned}
-\text { Matérn } \quad \mathscr{C}( \Delta_{i j})= \sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2} \left\{\begin{array}{cl}
+\text { Matérn } \quad \mathscr{C}( \Delta_{i j})= \sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2} \left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
 \frac{1}{\Gamma(\nu) 2^{\nu-1}}\left(\phi \Delta_{i j}\right)^{\nu} K_{\nu}\left(\phi \Delta_{i j}\right)& \text { if } \Delta_{i j}>0
 \end{array}\right.
@@ -80,13 +82,10 @@ Looking at the functions in figure \@ref(fig:matern) and their interception with
 
 <!-- ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png) -->
 
-<div class="figure">
-<img src="05-prd_modelling_files/figure-html/matern-1.png" alt="Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1" width="672" />
-<p class="caption">(\#fig:matern)Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1</p>
-</div>
+![(\#fig:matern)Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1](05-prd_modelling_files/figure-latex/matern-1.pdf) 
 
 
-In the end summarizing the result obtained (abuse of notation with $(s)$ to make it clear that is a spatial process) in chapter \@ref(inla) with what it has been seen so far, the Gaussian process $y(s)$ assumes the following measurement equation, where $\xi_{i}$ is the latent field, $\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)$ is the white noise error and $I_{d}$ is an identity matrix and $\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\mathbf{y}}^{2} \mathscr{C}(\mathbf{ \Delta_{i j}})\right)$.
+In the end summarizing the result obtained (abuse of notation with $(s)$ to make it clear that is a spatial process) in chapter \@ref(inla) with what it has been seen so far, the Gaussian process $y(s)$ assumes the following measurement equation, where $\xi_{i}$ is the latent field, $\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)$ is the white noise error and $I_{d}$ is an identity matrix and $\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\xi}^{2} \mathscr{C}( \Delta_{i j})\right)$.
 
 $$
 y(s)=\boldsymbol{z}(\boldsymbol{s}) \boldsymbol{\beta}+\xi(\boldsymbol{s})+\varepsilon(\boldsymbol{s})
@@ -97,7 +96,7 @@ $$
 Locations in the spatial setting are considered as realizations of a stationary, isotropical unobserved GP to be estimated (\@ref(GP)). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood [@LecturePaci]. Covariance matrices in the context of spatial and spatio-temporal models [@PACI2017149; @Cameletti2012] are $n \times n$ dimension matrices defined by the number of observations at each single point location (at each time stamp in spatio-temporal) [@BLANGIARDO201339]. Covariance matrix as such are very dense and they were scaling with the order of $\mathcal{O}\left(n^{3}\right)$ [@Banerjee-Gelfand]. Problem were linked to the computational costs needed for linear algebra operations for model fitting and spatial interpolation as well as prediction [@Cameletti2012], having led to obvious _big-n_ problem. 
 The breakthrough came with @Lindgren2011 that proves that a stationary, isotropical (can be both relaxed at the cost of different settings) GP with Matérn covariance can be represented as a GMRF using SPDE solutions by Finite Element Method [@Krainski-Rubio]. In other words given a GP whose covariance matrix is $\boldsymbol{Q^{-1}}$, SPDE can provide a method to approximate $\boldsymbol{Q^{-1}}$ without the previous computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies [-@Krainski-Rubio].
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix $\boldsymbol{Q}$ . Sparse matrices enable convenient inner computation properties of GMRF \@ref(approx) which are exploited by INLA algorithm \@ref(inla) leading to a more feasible big-O $\mathcal{O}\left(n^{3 / 2}\right)$. Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego. 
-As a result of SPDE the spatial Matérn field $\xi(\boldsymbol{s})$ becomes $\tilde\xi(\boldsymbol{s})$, where the precision matrix $Q$ comes from the SPDE representation [-@Cameletti2012].
+As a result of SPDE the spatial Matérn field i.e. the spatial process $\xi(\boldsymbol{s})$ becomes $\tilde\xi(\boldsymbol{s})$, where the precision matrix $Q$ comes from the SPDE representation [-@Cameletti2012].
 
 In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.
 
@@ -121,8 +120,6 @@ In INLA mesh triangularization of the region of the study is performed within th
 
 
 Moreover the mesh can also be built on non convex study area by prior passing coordinates on `inla.nonconvex.hull()` which are then sent back to the `inla.mesh.2d()`. A convex hull is a polygon of triangles out of the domain area, in other words the extension made to avoid the boundary effect. If borders are available (and they are) are generally preferred over non convex hull meshes. A decent mesh must have triangles of size and shape as regularly as possible [@Krainski-Rubio].
-
-
 
 
 ## Hedonic (rental) Price Models
@@ -164,10 +161,7 @@ For example assume to have data from a 1970's study on the relationship between 
 Then the resulting LPML is: -20.6402106
 Furthermore in left panel of fig. \@ref(fig:pitcpo) the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
 
-<div class="figure">
-<img src="05-prd_modelling_files/figure-html/pitcpo-1.png" alt="Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)" width="672" />
-<p class="caption">(\#fig:pitcpo)Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)</p>
-</div>
+![(\#fig:pitcpo)Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)](05-prd_modelling_files/figure-latex/pitcpo-1.pdf) 
 
 
 Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. The statistics capitalized below are quite commonly used in practice, but they are high context dependent:
@@ -179,7 +173,7 @@ Posterior Predictive checking methods [@gelman1996posterior] exploit a full cros
 
 R-INLA has already antiticipated in chapter 4 section\@ref(example) have dedicated function to compute statistics on posterior distribution e.g. `inla.pmarginal()` returning the cumulative density distribution.
 
-### Deviance-based Criteria
+### Deviance-based Criteria{#devbased}
 
 If there is an interest in comparing multiple models, then their deviance may be used. Given data $\boldsymbol{y}$ and its likelihood function, along with its parameters $\boldsymbol\theta$ then the _deviance_ is:
 
@@ -187,11 +181,14 @@ $$
 \mathrm{D}(\theta)=-2 \log (\pi(\boldsymbol{y} \mid \theta))
 $$
 
-The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterio mean deviance i.e.$\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))$ which is also robust [@Blangiaro-Cameletti]. Indeed it suffers from cost complexity, as a result DIC proposed by @spiegelhalter2002bayesian adds to the deviance a penalization for complex model i.e. $p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})$ from which, following @Blangiaro-Cameletti obtain,
+The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterior mean deviance i.e.$\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))$ which is also robust [@Blangiaro-Cameletti]. Indeed it suffers from cost complexity, as a result DIC proposed by @spiegelhalter2002bayesian adds to the deviance a penalization for complex model i.e. $p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})$ from which, following @Blangiaro-Cameletti obtain,
 
-$$\mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}$$
+\begin{equation}
+  \mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}
+(\#eq:dic)
+\end{equation}
 
-Data is best served in models with smaller DICs and the correspondent INLA option setting is analogous to the ones seen sec. \@ref(predbase). INLA moreover take advantage of the hierarchical structure and computes different poseterior deviances fro latent parameters i.e. mean  and hyper parameters i.e. mode (due to skewness). For further discussions @spiegelhalter2014deviance constrat DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred [@gelman2014understanding].
+Data is best served in models with small-scale DICs and the correspondent INLA option setting is analogous to the ones seen sec. \@ref(predbase). INLA moreover take advantage of the hierarchical structure and computes different posterior deviances for latent parameters i.e. mean  and hyper parameters i.e. mode (due to skewness). For further discussions @spiegelhalter2014deviance oppose DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred [@gelman2014understanding].
 
 
 ## Penalized Complexity Priors{#priorsspec}
@@ -215,10 +212,7 @@ PC priors are natively implemented in INLA and are shown to be well suited for t
 Fig. \@ref(fig:priorfun) indicates various PC priors using several $\alpha$ values for the precision $\tau$. Note that increasing $\alpha$'s values contribute to a stronger prior belief for $U$ which then leads to a higher conviction of $\tau$.
 
 <!-- PROVA A METTERE ESEMPIO SPDETOY -->
-<div class="figure">
-<img src="05-prd_modelling_files/figure-html/priorfun-1.png" alt="PC priors for the precision by varying alpha values and fixing $U$" width="672" />
-<p class="caption">(\#fig:priorfun)PC priors for the precision by varying alpha values and fixing $U$</p>
-</div>
+![(\#fig:priorfun)PC priors for the precision by varying alpha values and fixing $U$](05-prd_modelling_files/figure-latex/priorfun-1.pdf) 
 
 
 

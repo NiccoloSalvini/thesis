@@ -150,7 +150,7 @@
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
 \author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 25 gennaio, 2021}
+\date{Lastest build: 26 gennaio, 2021}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -192,9 +192,12 @@
 \addcontentsline{toc}{section}{Abstract}
 
 The following work has the aim to build a robust Scraping API service to extract Real Estate rental data (Milan, IT) and applying \emph{geostatistics} spatial modeling through a convenient computing alternative called INLA.
-Data originates from immobiliare.it database and it is extracted through a \emph{scraper} built on top of the website. The scraper is \emph{optimized} with respect to both the server side \emph{kindly requesting} permission and imposing \emph{delayed-request rates}, and the client side by granting continuity through \emph{fail dealers} and request's \emph{headers rotation}. Scraping functions exploit a custom workflow that combines url reverse engineering and optimal search strategies within the website. This dramatically speeds up scraping since a dedicated function can recompose urls starting from functional parameter arguments and call scraping on those urls. Speed comes from the fact that differently from spiders and derivatives which operate a full crawling down of the web site, the workflow concentrates only on a restricted set of urls. A further critical speed boost is offered by parallelism through the latest \emph{Future} back-end, and a run time benchmark demonstrates the scraper rapidity for two recent parallel with two configurations.
-The scraper is then wrapped into a http API through an opinionated R framework, namely \emph{Plumber}. Security is a major focus and anti dossing strategies, HTTPS and sanitization are singularly treated. The whole API service \emph{Docker} containers (built upon custom Dockerfiles) is then orchestrated with \emph{Compose} through a .yml file. The system is consequently served into a free tier \emph{EC2} machine, and load balanced with \emph{NGINX} reverse proxy server. The architecture principles stacked on top of the http API elevates it to being RESTful. Software CI/CD is managed through automatic workflow that exploits GitHub and DockerHub, which ultimately allows containers to be pulled into the EC2. Once the RESTful API endpoint is invoked, data, in this case Milan rental market within the municipality borders, is asynchronously scraped and collected into a JSON format.
-Traditional spatial bayesian methods are generally slow since covariance matrices are dense and matrix inversions scale to a cubic order. Therefore Integrated Nested Laplace approximation (INLA) is applied constituting a faster computational alternative on a special type of models called Latent Gaussian models (LGM). \emph{INLA} shorten computations through analytics approximations with Laplace and numerical methods for space matrices with the aim to obtain an approximated posterior distribution of the parameters.
+Data originates from immobiliare.it database and it is extracted through a \emph{scraper} built on top of the website. The scraper is \emph{optimized} with respect to both the server side \emph{kindly requesting} permission and imposing \emph{delayed-request rates}, and the client side by granting continuity through \emph{fail dealers} and request's \emph{headers rotation}. Scraping functions exploit a custom workflow that combines url reverse engineering and optimal search strategies within the website. Speed comes from the fact that differently from spiders and derivatives which operate a full crawling down of the web site, the workflow concentrates only on a restricted set of urls. A further critical speed boost is offered by parallelism through the latest \emph{Future} back-end, and a run time benchmark demonstrates the scraper rapidity for two recent parallel with two configurations.
+The scraper is then wrapped into a http API through an R framework, namely \emph{Plumber}. Security is a major focus and anti dossing strategies, HTTPS and sanitization are singularly treated.
+Docker can offer a lightweight environment where dependencies are conveniently organized making the software portable. As a result the whole API service is \emph{containerized} and built upon custom Dockerfiles, which are orchestrated by \emph{Compose} through a .yml file. Amazon EC2 is an AWS web service providing a stable, scalable cloud computing capability in which the system is hosted. The service choice is a free tier one. Along with the server it comes the need of a reverse proxy service and the choice falls on \emph{NGINX} reverse proxy server for authentication and load balancing. The architecture principles stacked on top of the http API elevates it to being RESTful. RESTful APIs are a mean of communication among internet services that allows to perform any kind of action without having both parts to know how they are implemented.
+In other words, if the client wants to interact with a web service with the aim to retrieve information or perform a function, a RESTful API land a hand by communicating the \emph{desiderata} to that system so it can understand and fulfill the request in a secured and structured way.
+Software CI/CD is managed through automatic workflow that exploits GitHub and DockerHub, which ultimately allows containers to be pulled into the EC2. Once the RESTful API endpoint is invoked, data, in this case Milan rental market within the municipality borders, is asynchronously scraped and collected into a JSON format.
+Traditional spatial bayesian methods have been generally slow in the context of spatial big data since covariance matrices are dense and their inversions scale to a cubic order. Therefore Integrated Nested Laplace approximation (INLA) is applied constituting a faster computational alternative on a special type of models called Latent Gaussian models (LGM). \emph{INLA} shorten computations through analytics approximations with Laplace and numerical methods for space matrices with the aim to obtain an approximated posterior distribution of the parameters.
 Hedonic Price Models (HPM) constitutes the economic theoretical foundation of the model according to which the linear predictor is set. As a matter of fact house prices are related to the value of the property by their demand-offer price equilibra for each single characteristic (including the spatial ones). A further aspects addresses the fact that prices are considered as a proxy value for rents since they are both interchangeable economic actions satisfying the same need. However the critical part of studying house characteristics in geostatistics is the \emph{estimation} for the reason already anticipates.
 LGMs are defined into a hierarchical bayesian modeling framework, distinguishing three nested hierarchy levels: the likelihood of the data (generally an exponential family), the latent Gaussian Markov Random Field GRMF (where the linear predictor is) and the hyper parameter distribution for which priors are specified. GMRF are suitable since they provide a sparse precision matrix due to conditional assumption, marking matrices tridiagonal. The spatial component of the data is considered as a discrete realization of an underlying unobserved and continuous Gaussian Process (GP) to be estimated, completely characterized by a mean structure and a covariance matrix. For the Gaussian Process are made two major assumptions: stationarity and isotropy, which let specifying a flexible covariance function i.e.~Matérn.
 The Stochastic Partial Differential Equations (SPDE) solutions can provide a GMRF representation of the GP whose covariance matrix is Matérn. This happens through a triangulation of the domain of the study said mesh. The model is then fitted and cross validated with R-INLA and inference on parameter posterior distribution is given.
@@ -224,7 +227,7 @@ Mum's always right.
 
 Existing real estate websites advertise the purchase and rental of properties and offer the means to study and continuously list new opportunities. Moreover according to Google 9 out of 10 homebuyers have used such portals as first ``broker'' to the searching process, and this percentage has massively surged over last years. However they still miss to provide investors, buyers and tenants with historical data and price comparison with respect to the specific market context. This is also more true since one of the most interesting aspects of Real Estate markets is that data is distributed through multiple websites, each with its own structure and information presentation, so it can be said decentralized. Another factor is that having multiple sources implies also that the accuracy of the data, including missing values, redundancies, incoherence and noise, may also be affected. Here comes the need to have an automated and structured mechanism to collect data to be on the trail.
 The most trusted player both for selling and rental in Italy is immobiliare.it and the mechanism i.e.~scraping are built on top of it.\\
-Scraping functions (\ref{scraping}) are genuinely websites' source code interpreters that gathers data and arrange them in a structured way. In addition urls are the way websites organize contents and also the only argument required to these functions. That means if there is a scheme, i.e.~a further function, to compose urls at will such that only certain contents are displayed then scraping can be called on these urls and extract desired data based on some parameters of the compose function. Scraping is handled in R by \passthrough{\lstinline!rvest!} which is wrapped around a popular navigated Python scraping library i.e.~Beautifulsoup. rvest follows a custom workflow according to which html source code is at first parsed, then based on a css location it can gather requested data. Since some of the important information are nested into hidden json objects or are absent in one part but present in others then custom search strategies are adopted. Scraping can damage websites because of insistent requests made to the hosting servers, this is strongly not suggested and a way to balance interest is given. As a consequence a web \emph{etiquette} is observed taking inspiration from the \passthrough{\lstinline!Polite!} package and revisiting the concepts in a more consumer side orientation. This is done by putting into place delayed request rates, rotating User Agents (web ID) and through fail dealers (functions that can handle failure, e.g.~trycatch) by the \passthrough{\lstinline!purrr!} stack. Scraping function can take a while and parallelism is required i.e.~scraping asynchronously. The selected back-end embodies a programming concept i.e.~future by \passthrough{\lstinline!Future!} that enables to split tasks into ``unresolved'' and ``resolved'' stage. Tasks are sent to workers in the form of back ground sessions in an unresolved stage, then are resolved simultaneously. Since now this may be sufficient for personal usage but the idea is to propose a prduction grade open source sofware interacting with different stakeholders. The \emph{desiderata} list also accounts: a service that shares information without having to know how it is implemented i.e.~API \ref{Infrastructure}, a service realtively cheap, portable, highly functional with authentication. As a result the stack of technologies proposed serves a RESTful API with \passthrough{\lstinline!Plumber!} framework generating 2 endpoints each of which calls Parallel scraping functions settled down in section \ref{scraping}. Precautions taken concerns sanitization of user inputs, anti-Dossing strategies and logs monitoring. The software environment is containerized with Docker and then it is \emph{Composed} by Docker Compose with a further container housing NGINX proxy server for load balancing and authentication. SSL certificates bring HTTPS communication which is nowadays a compulsory standard for any service. An AWS free tier EC2 server hosts the whole system and the IP is made Elastic. Furthermore the software CI/CD is made automatic by simple connecting cloud services that triggers sequential building. Each single technology cited is attacked singularly in the dedicated chapter.
+Scraping functions (\ref{scraping}) are genuinely websites' source code interpreters that gathers data and arrange them in a structured way. In addition urls are the way websites organize contents and also the only argument required to these functions. That means if there is a scheme, i.e.~a further function, to compose urls at will such that only certain contents are displayed then scraping can be called on these urls and extract desired data based on some parameters of the compose function. Scraping is handled in R by \passthrough{\lstinline!rvest!} package which is wrapped around a popular navigated Python scraping library i.e.~Beautifulsoup. rvest follows a custom workflow according to which html source code is at first parsed, then based on a css location it can gather requested data. Since some of the important information are nested in more loactions of the source code, e.g.~sometimes in hidden json objects, then custom search strategies through the website source code are adopted. Scraping can damage websites because of insistent requests made to the hosting servers, this is strongly not suggested and a way to balance interest is given. As a consequence a web \emph{etiquette} is observed taking inspiration from the \passthrough{\lstinline!Polite!} R package and revisiting the concepts in a more consumer side orientation. This is done by putting into place delayed request rates, rotating User Agents (web ID) and through fail dealers (functions that can handle failure, e.g.~trycatch) by the R \passthrough{\lstinline!purrr!} stack. Scraping function can take a while and parallelism is required i.e.~scraping asynchronously. The selected back-end embodies a programming concept i.e.~future by \passthrough{\lstinline!Future!} R package that enables to split tasks into ``unresolved'' and ``resolved'' stage. Tasks are sent to workers in the form of back ground sessions in an unresolved stage, then are resolved simultaneously. Since now this may be sufficient for personal usage but the idea is to propose a prduction grade open source sofware interacting with different stakeholders. The \emph{desiderata} list also accounts: a service that shares information frictionless i.e.~API \ref{Infrastructure}, a service realtively cheap, portable, highly functional with authentication. As a result the stack of technologies proposed serves a RESTful API with \passthrough{\lstinline!Plumber!} framework generating 2 endpoints each of which calls Parallel scraping functions settled down in section \ref{scraping}. Precautions taken concerns sanitization of user inputs, anti-Dossing strategies and logs monitoring. The software environment is containerized with Docker and then it is \emph{Composed} by Docker Compose with a further container housing NGINX proxy server for load balancing and authentication. SSL certificates bring HTTPS communication which is nowadays a compulsory standard for any service. An AWS free tier EC2 server hosts the whole system and the IP is made Elastic. Furthermore the software CI/CD is made automatic by simple connecting cloud services that triggers sequential building. Each single technology cited is attacked singularly in the dedicated chapter.
 The fact that residential locations impact house prices as well as rents is axiomatic and it is usually epitomized with the common catch phrase ``location location location''. Hedonic Price modeling constitutes the economic theoretical foundations that relates the property value/rental to each of the single house characteristics. Literature has widely displayed that various models incorporating spatial location in various settings are only beaten by spatio-temporal ones.
 Hedonic Price Models (HPM) might help through theory to set up the linear predictor, indeed the critical part of these models is always \emph{estimation}.
 As a matter of fact traditional spatial bayesian methods are generally very flexible and offer a certain degrees of subjectivity, but ate tha same time are computing intensive and slow. The computational aspect refers in particular to the ineffectiveness of linear algebra operations dealing with large dense covariance matrices that scale to the order of \(\mathcal{O}(n^3)\). Unfortunately this is even worse in the spatial contexts where house prices dynamics may be regarded as stochastic process indexed on a continuous surface i.e.Gaussian Process, whose covariance matrices are \(n \times n\) observations.
@@ -235,13 +238,13 @@ The spatial component in the extracted data is assumed to be a discrete realizat
 \chapter{Web Scraping}\label{scraping}}
 
 The following chapter covers a modern technique with the latest libraries for web scraping in R and related challenges with a focus on the immobiliare.it case. The easiest way of collecting information from websites involves inspecting and manipulating URLs. While browsing web pages urls under the hood compose themselves in the navigation bar according to a certain encoded semantic, specifying domain, url paths and url parameters. As a matter of fact websites can be regarded as a complex system of nested folders where urls are the relative file path to access to the content desired. That implies if a function can mimic the url semantic by providing decoded, human-readable arguments, then any content in the website can be filtered out and later accessed.
-Once urls are reproduced through the fucnction they are stored into a variable, then scraping is called on the set of addresses.
+Once urls are reproduced through the function they are stored into a variable, then scraping is called on the set of addresses.
 The major time improvement with respect to crawlers comes from retrieving a specific set of urls instead of acquiring the entire website sitemap and then searching with keywords.
-This is attained by exploiting a scraping workflow library, namely \passthrough{\lstinline!rvest!} \citet{rvest}, which takes inspiration from the scraping gold standard Python library Beautiful Soup \citet{Beautifulsoup}. A search algorithm strategy, calibrated on the specific scraping context, is nested inside scraping functions whose skeleton is reproduced for all the data of interest. The search strategy exploits different CSS queries that point to different data location within the web page, with the aim to be sure to carry out a comprehensive exploration and to deliver data where available. Functions are then wrapped up around a ``main'' function that simplifies portability and enables parallelization.
+This is attained by exploiting a scraping workflow library, namely \passthrough{\lstinline!rvest!} \citet{rvest}, which takes inspiration from the scraping gold standard Python library Beautiful Soup \citet{Beautifulsoup}. A search algorithm strategy, calibrated on the specific scraping context, is nested inside scraping functions whose skeleton is reproduced for all the data of interest. The search strategy exploits different CSS selectors that point to different data location within the web page, with the aim to be sure to carry out a comprehensive exploration and to deliver data where available. Functions are then wrapped up around a ``main'' function that simplifies portability and enables parallelization.
 HTTP protocol communication and related main concepts are introduced with the aim to familiarize with internet communication layers focusing on traffic from web server to web clients and viceversa and principal actors involved.
 By doing that some opinionated but highly diffused scraping best practices are incorporated into scraping taking inspiration by a further R library \passthrough{\lstinline!Polite!} \citet{polite}. Revised best practices try to balance scraping efficiency and \emph{web etiquette}. As a result optimization happens both from the \emph{web server} side; this is tackled by kindly asking for permission and sending delayed server requests rate based on Robotstxt file requirements. As well as from the \emph{web client} by preventing scraping discontinuity caused by server blocks thanks to \emph{User Agent} (HTTP request headers) pool \emph{rotation} and \emph{fail dealers}.
 \emph{Parallel} computing is carried out due to data fast obsolescence, since the market on which scraping functions are called is vivid and responsive. At first concepts and are introduced and then main centered on the specific R parallel ecosystem. Then a run time scraping benchmark is presented for two different modern parallel back end options \passthrough{\lstinline!future!} \citet{future} and \passthrough{\lstinline!doParallel!} \citet{doParallel}, along with two parallel looping paradigma, \passthrough{\lstinline!furrr!} \citet{furrr} and \passthrough{\lstinline!foreach!} \citet{foreach}. Both of the two combinations have showed similar results, nevertheless the former offers a more \passthrough{\lstinline!\{Tidiverse\}!} coherence and a more comfortable debugging experience.
-Furthermore an overview of the still unlocked challenges is provided on the open source project and possible improvements, with the sincere hope that the effort put might be extended or integrated. In the end a heuristic overview on the main legal aspect is offered bringing also an orientation inspired by a ``fair balance'' trade off between web scraping practices and the most common claims. Then a court case study about a well known scraping litigation is brought demonstrating how law is not solid in this area and how scrapign market should find its own equilibrium.
+Furthermore an overview of the still unlocked challenges is provided on the open source project and possible improvements, with the sincere hope that the effort put might be extended or integrated. In the end a heuristic overview on the main legal aspect is offered bringing also an orientation inspired by a ``fair balance'' trade off between web scraping practices and the most common claims. Then a court case study about a well known scraping litigation is brought demonstrating how law is not solid in this area and how scraping market should find its own equilibrium.
 
 \hypertarget{reverse}{%
 \section{A Gentle Introduction on Web Scraping}\label{reverse}}
@@ -253,7 +256,7 @@ Automated data collection, web extraction, web crawling, or web data mining are 
 
 The World Wide Web (WWW or just the web") data accessible today is calculated in zettabytes \citep{ciscooutlook} (\(1\) zettabyte = \(10^{21}\) bytes). This huge volume of data provides a wealth of resources for researchers and practitioners to obtain new insights in real time regarding individuals, organizations, or even macro-level socio-technical phenomena \citep{krotovtennyson}. Unsurprisingly, researchers of Information Systems are increasingly turning to the internet for data that can address their research questions \citeyearpar{krotovtennyson}. Taking advantage of the immense web data also requires a programmatic approach and a strong foundation in different web technologies.
 Besides the large amount of web access and data to be analyzed, there are three rather common problems related to big web data: variety, velocity, and veracity \citep{LegalityEthicsWS}, each of which exposes a singular aspect of scraping and constitutes some of the challenges fronted in later chapters.
-\emph{Variety} mainly accounts the most commonly used mark-up languages on the web used for content creation and organization such as such as HTML \citep{html_2020}, CSS \citep{css_2020}, XML \citep{wiki:XML} and JSON \citep{wiki:JSON}. Sometimes Javascript \citep{wiki:Javascript} components are also embedded into websites. In this cases dedicated parsers are required which would add a further stumbling block. Starting from these points scraping requires at least to know the ropes of these technologies which are also assumed in this analysis. Indeed later a section will be partially dedicated to familiarize with the inner internet mechanism taht manages the exhanges of information, such as HTTP protocols.
+\emph{Variety} mainly accounts the most commonly used mark-up languages on the web used for content creation and organization such as such as HTML \citep{html_2020}, CSS \citep{css_2020}, XML \citep{wiki:XML} and JSON \citep{wiki:JSON}. Sometimes Javascript \citep{wiki:Javascript} components are also embedded into websites. In this cases dedicated parsers are required which would add a further stumbling block. Starting from these points scraping requires at least to know the ropes of these technologies which are also assumed in this analysis. Indeed later a section will be partially dedicated to familiarize with the inner internet mechanism that manages the exhanges of information, such as HTTP protocols.
 \emph{Velocity}: web data are in continuous flow status: it is created in real time, modified and changed continuously. This massively impacts the analysis that relies on those data which, as times passes, becomes obsolete. However it also suggests the speed and pace at which data should be collected. From one hand data should be gathered as quicker as possible so that analysis or softwares are up-to-date, section \ref{parallelscraping}. From the other this should happen in any case by constraining speed to common shared scraping best practices, which require occasional rests in requesting information. The latter issue is faced later in section \ref{best-practices}.
 \emph{Veracity}: Internet data quality and usability are still surrounded by confusion. A researcher can never entirely be sure if the data he wants are available on the internet and if the data are sufficiently accurate to be used in analysis. While for the former point data can be, from a theoretical perspective, accurately selected it can not be by any means predicted to exist. This is a crucial aspects of scraping, it should take care of dealing with the possibility to fail, in other words to be lost. The latter point that points to data quality is also crucial and it is assessed by a thoughtful market analysis that mostly assures the importance of immobiliare.it as a top player in italian real estate. As a consequence data coming from reliable source is also assumed to be reliable.
 Furthermore web scraping can be mainly applied in two common forms as in \citep{wsstatistics}: the first is browser scraping, where extractions takes place through HTML/XML parser with regular expression matching from the website's source code. The second uses programming interfaces for applications, usually referred to APIs. The main goal of this chapter is to combine the two by shaping a HTML parser and make the code portable into an RESTful API whose software structure is found at \ref{infrastructure}.
@@ -375,12 +378,12 @@ Reverse engineered urls are then feeded to the scraper which arranges the proces
 \caption{\label{fig:rvestflowchart}rvest general flow chart, author's source}
 \end{figure}
 
-Indeed at the right of dashed line in \ref{fig:rvestflowchart} are represented the last two steps configured into two \passthrough{\lstinline!rvest!}\citep{rvest} functions that locate the data within the HTML nodes and convert it into a human readble text, i.e.~from HTML/XML to text. The most of the times can be crafty to find the exact HTML node or nodes set that contains the data wanted, expecially when HTML trees are deep nested and dense. html\_node function provides and argument that grants to specify a simple CSS/XPATH selector which may group a set of HTML/XML nodes or a single node. Help comes from an open source library and browser extension technology named SelectorGadget. SelectorGadget \citep{Selectorgadget} which is a JavaScript bookmark that allows to interactively explore which CSS selector is needed to gather desired components from a webpage. Data can be repeated many times into webpages so the same information can be found at multiple CSS queries. This fact highlights one of the priciples embodied in the follwing section \ref{ProperScraping} accroding to which searching methods gravitates. Once the CSS query points address to the desired content then data finally needs to be converted into text. This is what explicitly achieve hmlt\_text.
+Indeed at the right of dashed line in \ref{fig:rvestflowchart} are represented the last two steps configured into two \passthrough{\lstinline!rvest!}\citep{rvest} functions that locate the data within the HTML nodes and convert it into a human readble text, i.e.~from HTML/XML to text. The most of the times can be crafty to find the exact HTML node or nodes set that contains the data wanted, expecially when HTML trees are deep nested and dense. html\_node function provides and argument that grants to specify a simple CSS/XPATH selector which may group a set of HTML/XML nodes or a single node. Help comes from an open source library and browser extension technology named SelectorGadget. SelectorGadget \citep{Selectorgadget} which is a JavaScript bookmark that allows to interactively explore which CSS selector is needed to gather desired components from a webpage. Data can be repeated many times into webpages so the same information can be found at multiple CSS queries. This fact highlights one of the priciples embodied in the follwing section \ref{ProperScraping} accroding to which searching methods gravitates. Once the CSS query points address to the desired content then data finally needs to be converted into text. This is what explicitly achieve html\_text.
 
 \hypertarget{ProperScraping}{%
-\section{Searching Technique for Scarping}\label{ProperScraping}}
+\section{Searching Technique for Scraping}\label{ProperScraping}}
 
-The present algorithm in figure \ref{fig:pseudocode1} imposes a nested sequential search strategy and gravitates around the fact that data within the same webpage is repeated many times, so multiple CSS queries are avaialble for the same information. Furthermore since data is repeated has also less probability to be missed. CSS sequential searches are calibrated from the highest probability of appearance in that CSS selector location to the lowest so that most visited locations are also the the most likely to grab data.
+The present algorithm in figure \ref{fig:pseudocode1} imposes a nested sequential search strategy and gravitates around the fact that data within the same webpage is repeated many times, so there exist multiple CSS selections for the exact same information. Furthermore since data is repeated has also less probability to be missed. CSS sequential searches are calibrated from the highest probability of appearance in that CSS selector location to the lowest so that most visited locations are also the the most likely to grab data.
 A session object \passthrough{\lstinline!opensess!}, the one seen in \ref{fig:rvestflowchart}), is initialized sending urls built in \ref{fig:pseudocode3}. The object opensess constitutes a check point obj because it is reused more than once along the algorithm flow. The object contains session data as well as HTML/XML content. Immediately after another object \passthrough{\lstinline!price!} parses the sessions and points to a CSS query through a set of HTML nodes. The CSS location \passthrough{\lstinline!.im-mainFeatures\_\_title!} addresses a precise group of data which are found right below the main title. Expectations are that monthly price amount in that location is a single character vector string, containing price along with unnecessary non-UTF characters. Then the algorithm bumps into the first \passthrough{\lstinline!if!} statement. The logical condition checks whether the object \passthrough{\lstinline!price!} first CSS search went lost. If it does not the algorithm directly jumps to the end of the algorithm and returns a preprocessed single quantity. Indeed if it does it considers again the check point \passthrough{\lstinline!opensess!} and hits with a second css query \passthrough{\lstinline!.im-features\_\_value , .im-features\_\_title!}, pointing to a second data location. Note that the whole search is done within the same session (i.e.~reusing the same session object), so no more additional request headers \ref{spoofing} has to be sent). Since the second CSS query points to data sequentially stored into a list object, the newly initialized \passthrough{\lstinline!price2!} is a type list object containing various information. Then the algorithm flows through a second \passthrough{\lstinline!if!} statement that checks whether \passthrough{\lstinline!"prezzo"!} is matched in the list, if it does the algorithm returns the +1 position index element with respect to the ``prezzo'' position. This happens because data in the list are stored by couples sequentially (as a flattened list), e.g.~list(title, ``Appartamento Sempione'', energy class, ``G'', ``prezzo'', 1200/al mese). Then in the end a third CSS query is called and a further nested if statement checks the emptiness of the latest CSS query. \passthrough{\lstinline!price3!} points to a hidden JSON object within the HTML content. If even the last search is lost then the algorithm escapes in the else statement by setting \passthrough{\lstinline!NA\_Character\_!}, ending with any CSS query is able to find price data.
 The search skeleton used for price scraping constitutes a standard reusable search method in the analysis for all the scraping functions. However for some of the information not all the CSS location points are available and the algorithm is forced to be rooted to only certain paths, e.g.~``condizionatore'' can not be found under main title and so on.
 
@@ -404,7 +407,7 @@ Once all the functions have been designed and optimized with respect to their sc
 \section{Scraping Best Practices and Security provisions}\label{best-practices}}
 
 Web scraping have to naturally interact multiple times with both the \emph{client} and \emph{server side} and as a result many precautions must be seriously taken into consideration. From the server side a scraper can forward as many requests as it could (in the form of sessions opened) which might cause a traffic bottleneck (DOS attack \citet{wiki:DOS}) impacting the overall server capacity. As a further side effect it can confuse the nature of traffic due to fake user agents \ref{spoofing} and proxy servers, consequently analytics reports might be driven off track.
-Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt \citet{meissner_2020} are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto ``standard'' never made it beyond a \emph{informal} ``Network Working Group INTERNET DRAFT''. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g.~\href{https://en.wikipedia.org/robots.txt}{Wikipedia robot}, \href{https://www.google.com/robots.txt}{Google robot}). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their \emph{interpretation} might differ.
+Those are a small portion of the reasons why most of the servers have their dedicated Robots.txt files. Robots.txt \citet{meissner_2020} are a way to kindly ask webbots, spiders, crawlers to access or not access certain parts of a webpage. The de facto ``standard'' never made it beyond a \emph{informal} ``Network Working Group internet draft''. Nonetheless, the use of robots.txt files is widespread due to the vast number of web crawlers (e.g.~\href{https://en.wikipedia.org/robots.txt}{Wikipedia robot}, \href{https://www.google.com/robots.txt}{Google robot}). Bots from the own Google, Yahoo adhere to the rules defined in robots.txt files, although their \emph{interpretation} might differ.
 
 Robots.txt files \citep{robotstxt} essentially are plain text and always found at the root of a website's domain. The syntax of the files follows a field-name value scheme with optional preceding user-agent. Blocks are separated by blank lines and the omission of a user-agent field (which directly corresponds to the HTTP user-agent field, cleared later in \ref{spoofing}) is seen as referring to all bots. The whole set of possible field names are pinpointed in \citet{google:robottxt}, some important are: user-agent, disallow, allow, crawl-delay, sitemap and host. Some common standard interpretations are:
 
@@ -540,7 +543,7 @@ agents[sample(1)]
 \end{lstlisting}
 
 \begin{lstlisting}
-## [1] "Mozilla/5.0 (Linux; Android 8.1.0; LG-M320 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/302.0.0.45.119;]"
+## [1] "Mozilla/5.0 (Linux; Android 10; SM-N9700 Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/302.0.0.45.119;]"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -582,7 +585,7 @@ Many proxy servers are offered as paid version. In this particular case security
 
 During scraping many difficulties coming from different source of problems are met. Some of them may come from the website's layout changes (\ref{ProperScraping}), some of them may regard internet connection, some other may have been caused by security breaches (section \ref{spoofing}).
 One of the most inefficient event it can happen is an unexpected error thrown while sending requests that causes all the data acquired and future coming going lost. In this particular context is even more worrying since scraping ``main'' functions is able to call 34 different functions each of which points to a different data location. Within a single function invocation, pagination contributes to initialize 10 pages. Each single page includes 25 different single links leading to a number of 8500 single data pieces. Unfortunately the probability given 8500 associated to one piece being lost, unparsed is frankly high.
-For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of \passthrough{\lstinline!purrr!} vectorization function \passthrough{\lstinline!map!} (and its derivatives) and the adverb \passthrough{\lstinline!possibly!} \citet{possibly}. \emph{Possibly} takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in \citet{Rdatascience} section 21.6. Moreover vecrotizaion is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.
+For all the reasons said scraping functions needs to deal with the possibility to fail. This is carried out by the implementation of \passthrough{\lstinline!purrr!} vectorization function \passthrough{\lstinline!map!} (and its derivatives) and the adverb \passthrough{\lstinline!possibly!} \citet{possibly}. \emph{Possibly} takes as argument a function (map iteration over a list) and returns a modified version. In this case, the modified function returns an empty dataframe regardless of the error thrown. The approach is strongly encouraged when functions need to be mapped over large objects and time consuming processes as outlined in \citet{Rdatascience} section 21.6. Moreover vectorization is not only applied to a vector of urls, but also to a set of functions defined in the environemnt.
 
 \begin{figure}
 \centering
@@ -642,8 +645,8 @@ Furthermore furrr has also a convenient tuning option which can interfere with t
 \caption{\label{fig:divideconquer}Futures envisaged as Divide \& Conquer algorithm, author's source}
 \end{figure}
 
-The upper plot in figure \ref{fig:furrrfuture} are 20 simulations of 100 url (2500 data points) performed by the lightweight scraping. On the x-axis are plotted the 20 simulations and on the y-axis are represented the respective elapsed times. One major point to breakdown is the first simulation run time measurement which is considerably higher with respect to the others i.e.~15 sec vs mean 7.72 sec.~Empirical demonstrations traces this behavior back to the opening time for all the background sessions. As a result the more are the back ground sessions/workers, the more it would be the time occupied to pop up all the sessions. As opposite whence many sessions are opened the mean execution time for each simulation is slightly less.
-The lower plot in in figure \ref{fig:furrrfuture} tries to capture the run time slope behavior of the scraping function when urls (1 to 80) are cumulated one by one. The first iteration scrapes 1 single url, the second iteration 2, the third 3 etc. Three replications of the experiment has been made, evidenced by three colours. The former urls are more time consuming confirming the hypothesis casted before. Variability within the first 40 urls for the three repetitions does not show diversion. However It slightly increases when the 40 threshold is trespassed. Two outliers in the yellow line are visible in the nearby of 50 and 60. It can be assumed that workers in that urls neighbor may be overloaded but no evidences are witnessed on cores activity as in plot \ref{fig:cpumonitor}. The measured computational complexity of scraping when \(n\) is number of urls seems to be much more less than linear \(\mathcal{O}(0.06n)\).
+The upper plot in figure \ref{fig:furrrfuture} are 20 simulations of 100 url (2500 data points) performed by the lightweight scraping. On the horizontal axis are plotted the 20 simulations and on the vertical axis are represented the respective elapsed times. One major point to breakdown is the first simulation run time measurement which is considerably higher with respect to the others i.e.~15 sec vs mean 7.72 sec.~Empirical demonstrations traces this behavior back to the opening time for all the background sessions. As a result the more are the back ground sessions/workers, the more it would be the time occupied to pop up all the sessions. As opposite whence many sessions are opened the mean execution time for each simulation is slightly less.
+The lower plot in in figure \ref{fig:furrrfuture} tries to capture the run time slope behavior of the scraping function when urls (1 to 80) are cumulated one by one. The first iteration scrapes 1 single url, the second iteration 2, the third 3 etc. Three replications of the experiment has been made, evidenced by three colours. The former urls are more time consuming confirming the hypothesis casted before. Variability within the first 40 urls for the three repetitions does not show diversion. However It slightly increases when the 40 threshold is trespassed. Two outliers in the yellow line are visible in the nearby of 50 and 60. One straightforward explanation might be delay in server response. A further point of view may address the workers being overloaded, but no evidences are witnessed on cores activity as in plot \ref{fig:cpumonitor}. The measured computational complexity of scraping when \(n\) is number of urls seems to be much more less than linear \(\mathcal{O}(0.06n)\).
 
 \begin{figure}
 \centering
@@ -663,7 +666,7 @@ The lower plot in in figure \ref{fig:furrrfuture} tries to capture the run time 
 A second attempt tries to encapsulate \passthrough{\lstinline!foreach!} \citep{foreach} originally developed by Microsoft R, being a very fast loop alternative, parallelized with \passthrough{\lstinline!doFuture!}. The package registered with older back ends required rigorous effort to specify exact dependencies for child process inside foreach arguments \passthrough{\lstinline!.export!}. From a certain angle the approach could led to an indirect benefit from memory optimization. If global variables needs to be stated than the developer might be forced to focus on limiting packages exporting. Indeed since doFuture implements optimized auto dependency search this problem may be considered solved as in \citet{doFuture}. Two major looping related speed improvements may come from \passthrough{\lstinline!.inorder!} and \passthrough{\lstinline!.multicombine!} arguments which both take advantage of parallel split disorder a subsequent recombination of results. In the context where data collection order matters this is extremely wrong, but since in this case order is defined through url composition based on criteria expressed inside nodes contents this can be totally applied. A drawback of enabling .multicombine is a worst debugging experience since errors are thrown at the end when results are reunited and no traceback of the error is given.
 
 The upper part in \ref{fig:foreachdofuture} displays lower initialization lag from R sessions opening and parallel execution that also lead to a lower mean execution time of 6.42 seconds. No other interesting behavior are detected.
-THe lower plot displays high similarities with the curves in \ref{fig:furrrfuture} highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable \{Tidyverse\} oriented framework and offers and easy debugging experience.
+The lower plot displays high similarities with the curves in \ref{fig:furrrfuture} highlighting an outlier in the same proximities of 45/50 urls. The blue simulation repetition shows an uncommon pattern that is not seen in the other plot. Segmented variability from 40 to 80 suggests a higher value which may be addressed do instability. As a result the approach is discarded in favor of furrr + future which also offers both a comfortable \{Tidyverse\} oriented framework and offers and easy debugging experience.
 
 \begin{figure}
 \centering
@@ -691,7 +694,6 @@ In fact courts have fought hard to achieve clear judgments cases for web scrapin
 
 A second challenge to clear verdicts is that there are several purposes for which a business model operates in a continuum of social acceptability hiring web scrapers \citep{ADetaile90}. As an example Googlebot ranks, sorts and indexes search results for Google users, without which the search would not optimized and business would not profit from this fact. A more coherent case is represented by the exploitation of scraping on online Real Estate advertiser whose importance is ascertained by the fact that they are the fist house purchase media 52\% (USA survey) and searches are expected to be growing by 22\% per yeay \citep{peterson2003consumer}. On the other hand it is estimated that the 20\% of crawlers are actually DoSsing scrapers \citep{TheInter5} causing an economic damage, as in \ref{DoS}. Unfortunately the majority of web scraping services fall between these two extremes \citeyearpar{WhatCour57}.
 The most discussed and observed case regards Linkedin Corp.~``Linkedin'' vs hiQ Labs Inc.~(``hiQ'') whose claim argues the exploitation of the former personal profile data to offer a series of HR services. The litigation started by accusing hiQ with ``using processes to improperly, and without authorization, access and copy data from LinkedIn's website'' \citep{Letterfr71}. As reinforcement to their arguments they presented also a citation directly form their terms raising the point on copying, web scarping prohibition without their explicit consent. Furthermore Linkedin noted that technical barriers were taken into existence to restrict the access of hiQ to the platform and warned of a breach of state and federal law by ignoring such barriers \citeyearpar{WhatCour57}. As a response Hiq submitted a temporary restricting order to prevent LinkedIn from denying the access to their platform, focusing on the aspect that the motivation was led by an anticompetitive intent. Linkedin's response brought into the litigation CFAA which actually pollutes argumentation since Court evidences that CFAA is ambiguous whether it is granting or restringing the access to public available website \citep{hiQLabsI66}. In other words CFAA intent was to protect user data when they are authenticated with passwords, and in no case out of these borders. In the end the litigation moved to the Ninth Circuit where in 2019 it uphelds the preliminary injunction to prohibit LinkedIn from continuing to provide access to publicly accessible LinkedIn member profiles to the claimant hiQ Labs \citep{wiki:HiQvsLinkedIn}.
-Immobiliare.it expressed similarly to linkedin in their terms \citep{immobiliareterms} the prohibition to reproduce any form of intellectual property in their web pages. This once again does not imply the inaccessibility to scraping their content and should not in any case prevent the usage of an open sourced tool inspired by research grounds and efficient and transparent market choices.
 
 \hypertarget{Infrastructure}{%
 \chapter{API Technology Stack}\label{Infrastructure}}
@@ -940,7 +942,7 @@ Each line from the Dockerfile has its own specific role:
 \item
   \passthrough{\lstinline!MAINTAINER Niccolo Salvini "niccolo.salvini27@gmail.com"!} : The command tags the maintainer and its e-mail contact information.
 \item
-  \passthrough{\lstinline!RUN apt-get update \&\& apt-get install -y \\ libxml2-dev \\ libudunits2-dev!} : The command update and install remaining ``lower'' Linux dependencies required to run Plumber and rvest.
+  \passthrough{\lstinline!RUN apt-get update \&\& apt-get install -y \\ libxml2-dev \\ libudunits2-dev!} : The command update and install remaining OS Linux dependencies required to run Plumber and rvest.
 \item
   \passthrough{\lstinline!RUN R -e "install.packages(c('tictoc','here','...',dependencies=TRUE)!} : The command install all the further lower level libraries required to execute the files. Since some packages have inner dependencies the option \passthrough{\lstinline!dependencies=TRUE!} is necessary.
 \item
@@ -960,7 +962,7 @@ Proxy server in this context offers the opposite angle for the exact same securi
 
 \begin{itemize}
 \item
-  \emph{Load balancing}: A reverse proxy server will stand guard inf front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).
+  \emph{Load balancing}: A reverse proxy server will stand guard in front of back end servers and redirect requests across a group of servers in a way that maximizes speed and capacity usage as well as not overloading the server. When a server crashes, the load balancer redirects traffic to the other online servers (note required since traffic is not expected to be enormous).
 \item
   \emph{Web acceleration}: A reverse proxies can condense input and output data by caching frequently requested information. This assists traffic between clients and servers avoiding to request data more than once. They can also apply SSL encryption, which improves their performance by eliminating loads form web servers.
 \item
@@ -1026,7 +1028,7 @@ From henceforth the software container environment can be reproduced regardless 
 \end{definition}
 
 AWS EC2 represents a popular hosting option, most importantly this path is already narrowed by many open source contributors. The selected target is a AWS free tier t3.micro whose specifications are: 2 vCPU (Virtual CPU), 1 GB memory and a mounted Ubuntu distribution OS. Moreover T3 instances are known to provide device, memory, and network resource balance and have been developed for applications that experience transient spikes in use with modest CPU use. They are designed especially to serve low-latency interactive applications, small and medium databases, virtual desktops, development environments, code repositories, and business-critical applications, therefore they suit the needs.
-Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Tags are not required. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e.~open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\ref{dockerfile}), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH (Putty or Bash depending on the OS) behind authentication.
+Prior any new instance initialization AWS offers to tune servers' set up options. Networking and VPC are chosen to be left as is since they can always be updated at need. Storage is increased to 30 GB which represents the free tier eligibility upper limit. Indeed security at first needs to account for a SSH connection that allows communication with the server i.e.~open port 22. Secondly it should account for port openings accordingly to NGINX configuration file and rest-api dockerfile (\ref{dockerfile}), port 80 (default for TCP) and 443 (HTTPS default) are opened. Once the instance is running the server can be accessed through SSH behind authentication.
 
 \hypertarget{sdwf}{%
 \section{Software CI/CD Workflow}\label{sdwf}}
@@ -1116,6 +1118,18 @@ Which can be further solved following \citep{Blangiardo-Cameletti} as:
 & \propto \pi(\boldsymbol{\psi}) \times|\boldsymbol{Q}(\boldsymbol{\psi})|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q}(\boldsymbol{\psi}) \boldsymbol{\theta}\right) \times \prod_{i}^{n} \exp \left(\log \left(\pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi}\right)\right)\right)
 \end{aligned}
 \label{eq:finallgm}
+\end{equation}
+
+From which the two quantities of interest are the posterior marginal distribution for each element in the latent field and for each hyper parameter.
+
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+\pi\left(\theta_{i} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi\left(\boldsymbol{\theta}_{i} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}}\right) \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) d \boldsymbol{\psi} \\
+\pi\left(\boldsymbol{\psi}_{k} \mid \boldsymbol{\mathbf{y}}\right)=\int \pi(\boldsymbol{\psi} \mid \boldsymbol{\mathbf{y}}) d \boldsymbol{\psi}_{-k}
+\end{array}
+\end{aligned}
+\label{eq:finalobj}
 \end{equation}
 
 From final eq: \eqref{eq:finallgm} is derived Bayesian inference and INLA through Laplace can approximate posterior parameters distributions. Sadly, INLA cannot effectively suit all LGM's. In general INLA depends upon the following supplementary assumptions \citeyearpar{wang2018bayesian}:
@@ -1374,7 +1388,7 @@ In the case of geostatistical data, the model parameters \(\boldsymbol\theta\), 
 \protect\hypertarget{def:GP}{}{\label{def:GP} \iffalse (GP definition) \fi{} }A collection of \(n\) random variables, such as \(Y(s_{1}), Y(s_{2}) , \ldots, Y(s_{n})\) that are \emph{valid} and \emph{finite} stochastic processes are said to be a \textbf{GP} if for any set of spatial index \(n\) and for each set of corresponding locations \(\left\{y\left(s_{1}\right), \ldots, y\left(s_{n}\right)\right\}\) follows a \emph{Multivariate Gaussian} distribution with mean \(\boldsymbol{\mu}=\left\{\mu\left(s_{1}\right), \ldots, \mu\left(s_{n}\right)\right\}\) and covariance matrix \(\mathbf{Q}^{-1}_{i,j}, \forall i \neq j\) defined then by a covariance function \(\mathscr{\cdot, \cdot}\) i.e.~
 \end{definition}
 
-The latent GP are in function of some hyper-parameters \(\boldsymbol\psi\) and their respective prior \(\pi(\boldsymbol\psi)\). Moreover a GP is completely characterized by a mean \(\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}\) and a spatially structured covariance matrix \(\boldsymbol{Q^{-1}}\), whose generic element is \(\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{\boldsymbol{\mathbf{y}}}} \mathscr{C}(\Delta_{i j})\), where \(\sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2}\) is the variance component of the process and for \(i, j = 1, \ldots, n\). \(\mathscr{C}\left( \cdot, \cdot \right)\) function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the \emph{validity} and \emph{positive definitness} characteristics from the GP. The spatial stochastic process commonly is assumed to fulfill two important properties: \textbf{stationary}, \textbf{Isotropy} (even tough both of the two can be relaxed).
+The latent GP are in function of some hyper-parameters \(\boldsymbol\psi\) and their respective prior \(\pi(\boldsymbol\psi)\). Moreover a GP is completely characterized by a mean \(\boldsymbol{\mu}=\left(\mu_{1}, \ldots, \mu_{n}\right)^{\prime}\) and a spatially structured covariance matrix \(\boldsymbol{Q^{-1}}\), whose generic element is \(\boldsymbol{Q^{-1}}_{i j}=\operatorname{Cov}(\theta_{i}, \theta_{j})=\sigma^2_{\mathscr{\boldsymbol{\mathbf{y}}}} \mathscr{C}(\Delta_{i j})\), where \(\sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2}\) is the variance component of the process and for \(i, j = 1, \ldots, n\). \(\mathscr{C}\left( \cdot, \cdot \right)\) function generally ensures that all the values that are close together in input space will produce output values that are close together, by inheriting the \emph{validity} and \emph{positive definitness} characteristics from the GP. The spatial stochastic process commonly is assumed to fulfill two important properties: \textbf{stationary}, \textbf{Isotropy} (even tough both of the two can be relaxed).
 A process is said \textbf{stationary} i.e.~weak stationary, if process values at any two locations can be summarized by a covariance function \(\mathscr{C(\Delta_{i j})}\) depending solely on the distance. In other words it is invariant under \emph{translation} \citep{Krainski-Rubio}.
 A process is said \textbf{Isotropical} if the covariance function depends only on the between-points distance \(\Delta_{i j}=\left\|s_{i}-s_{j}\right\|\) (in this context \emph{Euclidean}), so it is invariant under \emph{rotation} \citeyearpar{Krainski-Rubio}. A further way of seeing this property is that Isotropy causes to stochastic processes concentric decaying contours \citep{LecturePaci}, green in fig.~\ref{fig:isoovsanis}, meaning the vanishing of spatial dependence \citep{Blangiardo-Cameletti}, and so for covariance values.
 
@@ -1388,15 +1402,15 @@ In spatial statistics the isotropical assumption is very frequent despite being 
 
 \[
 \begin{aligned}
-&\text { Exponential } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
+&\text { Exponential } \quad \mathscr{C}(\Delta_{i j})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if }  \Delta_{i j}=0 \\
 \sigma^{2}_{\mathscr{C}} \exp (-\phi_{\mathscr{C}} \Delta_{i j}) & \text { if } \Delta_{i j}>0 
 \end{array}\right.\\
-&\text { Gaussian } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
+&\text { Gaussian } \quad \mathscr{C}(\Delta_{i j})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
 \sigma^{2}_{\mathscr{C}} \exp \left(-\phi^{2}_{\mathscr{C}}  \Delta_{i j}^{2}\right) & \text { if } \Delta_{i j}>0 
 \end{array}\right. \\
-&\text { Matérn } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})=\left\{\begin{array}{cl}
+&\text { Matérn } \quad \mathscr{C}(\Delta_{i j})=\left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}}+\sigma^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
 \frac{\sigma^{2}_{\mathscr{C}}}{\Gamma(\nu) 2^{\nu-1}}(\phi_{\mathscr{C}}  \Delta_{i j})^{\nu} K_{\nu}(\phi_{\mathscr{C}}  \Delta_{i j}) & \text { if } \Delta_{i j}>0
 \end{array}\right.
@@ -1404,11 +1418,11 @@ In spatial statistics the isotropical assumption is very frequent despite being 
 \]
 
 where all the parameters above are special quantities derived from the emphirical variogram. \(\sigma^2\), \(\tau^2\), \(\phi^2\), and are respectively the \emph{range}, the distance at which correlation vanishes, the \emph{nugget}, i.e.~the non spatial variance and the \emph{partial sill}, i.e.~the spatial effect variance \citep{LecturePaci}.
-In particular the focus is on the \emph{Matérn} -- as it is required by the SPDE approach in section \ref{spdeapproach} -- and this should not be intended as a restriction. In fact, as long described in \citet{gneiting2006geostatistical}, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one \(\phi>0\), usually set equal to the range of the spatial process \(\sigma^{2}_{var}\) i.e.~the distance at which the spatial dependence becomes negligible, by the empirically derived relation \(r =\frac{\sqrt{8 \lambda}}{\kappa}\)), and a smoothing one \(\nu>0\) usually kept fixed. An \emph{isotropical} and \emph{stationary} Matérn covariance expression by isolating the variance of the spatial process \(\sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2}\) is:
+In particular the focus is on the \emph{Matérn} -- as it is required by the SPDE approach in section \ref{spdeapproach} -- and this should not be intended as a restriction. In fact, as long described in \citet{gneiting2006geostatistical}, the Matèrn family is a very flexible class. Matérn is tuned mainly by two hyper-parameters, a scaling one \(\phi>0\), usually set equal to the range of the spatial process \(\sigma^{2}_{var}\) i.e.~the distance at which the spatial dependence becomes negligible, by the empirically derived relation \(r =\frac{\sqrt{8 \lambda}}{\kappa}\)), and a smoothing one \(\nu>0\) usually kept fixed. An \emph{isotropical} and \emph{stationary} Matérn covariance expression by isolating the variance of the spatial process \(\sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2}\) is:
 
 \[
 \begin{aligned}
-\text { Matérn } \quad \mathscr{C}(\mathbf{ \Delta_{i j}})= \sigma_{\mathscr{\boldsymbol{\mathbf{y}}}}^{2} \left\{\begin{array}{cl}
+\text { Matérn } \quad \mathscr{C}( \Delta_{i j})= \sigma_{\mathscr{\boldsymbol{\mathbf{\xi}}}}^{2} \left\{\begin{array}{cl}
 \tau^{2}_{\mathscr{C}} & \text { if } \Delta_{i j}=0 \\
 \frac{1}{\Gamma(\nu) 2^{\nu-1}}\left(\phi \Delta_{i j}\right)^{\nu} K_{\nu}\left(\phi \Delta_{i j}\right)& \text { if } \Delta_{i j}>0
 \end{array}\right.
@@ -1416,7 +1430,7 @@ In particular the focus is on the \emph{Matérn} -- as it is required by the SPD
 \]
 
 \(\Gamma(\nu)\) is a Gamma function depending on \(\nu\) values and \(K_{\nu}(\cdot)\) is a modified Bessel function of second kind \citep{yaşar2016unified}. The scaling parameter \(\phi\) in figure \ref{fig:matern} takes 4 different values showing the flexibility of Matérn to relate different distances according to varying parameters, while \(\nu\) is kept to the value of \(.5\) and addresses the GP degree of smoothness.
-Looking at the functions in figure \ref{fig:matern} and their interception with horizontal red line, when \(\phi = 1\), it smoothly falls towards 0 covariance and spatial dependece decays at \(\approx 2.3\). When \(\phi = 1/2\) it becomes the exponential covariance function and rapidly pushes covariance to 0, When \(\phi = 3/2\) it uncovers a convenient closed form for which spatial dependence vanishes at \(\approx 3.8\) \citep{LecturePaci}, when \(\phi \approx \infty\), (here \(\phi = 80\) for graphics reasons), it becomes Gaussian covariance function. In the the case shown in section \ref{spdeapproach} \(\sigma_{\mathscr{C}}^{2}\) the range, for any \(\phi\), is set equal to the distance at which dependence vanishes below .1, which is actually what the red line points out.
+Looking at the functions in figure \ref{fig:matern} and their interception with horizontal red line, when \(\phi = 1\), it smoothly falls towards 0 covariance and spatial dependece decays at \(\approx 2.3\). When \(\phi = 1/2\) it becomes the exponential covariance function and rapidly pushes covariance to 0, When \(\phi = 3/2\) it uncovers a convenient closed form \citep{LecturePaci} for which spatial dependence vanishes at \(\approx 3.8\). When \(\phi \approx \infty\), (here \(\phi = 80\) for graphics reasons), it becomes Gaussian covariance function. In the the case shown in section \ref{spdeapproach} \(\sigma_{\mathscr{C}}^{2}\) the range, for any \(\phi\), is set equal to the distance at which dependence vanishes below .1, which is actually what the red line points out.
 
 \begin{figure}
 \centering
@@ -1424,16 +1438,11 @@ Looking at the functions in figure \ref{fig:matern} and their interception with 
 \caption{\label{fig:matern}Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1}
 \end{figure}
 
-In the end summarizing the result obtained (abuse of notation with \((s)\) to make it clear that is a spatial process) in chapter \ref{inla} with what it has been seen so far, the Gaussian process \(y(s)\) assumes the following measurement equation, where \(\xi_{i}\) is the latent field, \(\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)\) is the white noise error and \(I_{d}\) is an identity matrix and \(\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\mathbf{y}}^{2} \mathscr{C}(\mathbf{ \Delta_{i j}})\right)\).
+In the end summarizing the result obtained (abuse of notation with \((s)\) to make it clear that is a spatial process) in chapter \ref{inla} with what it has been seen so far, the Gaussian process \(y(s)\) assumes the following measurement equation, where \(\xi_{i}\) is the latent field, \(\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)\) is the white noise error and \(I_{d}\) is an identity matrix and \(\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\xi}^{2} \mathscr{C}( \Delta_{i j})\right)\).
 
 \[
 y(s)=\boldsymbol{z}(\boldsymbol{s}) \boldsymbol{\beta}+\xi(\boldsymbol{s})+\varepsilon(\boldsymbol{s})
 \]
-
-\textless!--
-\textless!--
-\textless!--
-\textless!--
 
 \hypertarget{spdeapproach}{%
 \section{The Stochastic Partial Differential Equation (SPDE) approach}\label{spdeapproach}}
@@ -1441,6 +1450,8 @@ y(s)=\boldsymbol{z}(\boldsymbol{s}) \boldsymbol{\beta}+\xi(\boldsymbol{s})+\vare
 Locations in the spatial setting are considered as realizations of a stationary, isotropical unobserved GP to be estimated (\ref{GP}). Before approaching the problem with SPDE, GPs were treated as multivariate Gaussian densities and Cholesky factorizations were applied on the covariance matrices and then fitted with likelihood \citep{LecturePaci}. Covariance matrices in the context of spatial and spatio-temporal models \citep{PACI2017149, Cameletti2012} are \(n \times n\) dimension matrices defined by the number of observations at each single point location (at each time stamp in spatio-temporal) \citep{BLANGIARDO201339}. Covariance matrix as such are very dense and they were scaling with the order of \(\mathcal{O}\left(n^{3}\right)\) \citep{Banerjee-Gelfand}. Problem were linked to the computational costs needed for linear algebra operations for model fitting and spatial interpolation as well as prediction \citep{Cameletti2012}, having led to obvious \emph{big-n} problem.
 The breakthrough came with \citet{Lindgren2011} that proves that a stationary, isotropical (can be both relaxed at the cost of different settings) GP with Matérn covariance can be represented as a GMRF using SPDE solutions by Finite Element Method \citep{Krainski-Rubio}. In other words given a GP whose covariance matrix is \(\boldsymbol{Q^{-1}}\), SPDE can provide a method to approximate \(\boldsymbol{Q^{-1}}\) without the previous computational constraints. As a matter of fact SPDE are equations whose solutions are GPs with a chosen covariance function focused on satisfying the relationship SPDE specifies \citeyearpar{Krainski-Rubio}.
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix \(\boldsymbol{Q}\) . Sparse matrices enable convenient inner computation properties of GMRF \ref{approx} which are exploited by INLA algorithm \ref{inla} leading to a more feasible big-O \(\mathcal{O}\left(n^{3 / 2}\right)\). Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego.
+As a result of SPDE the spatial Matérn field i.e.~the spatial process \(\xi(\boldsymbol{s})\) becomes \(\tilde\xi(\boldsymbol{s})\), where the precision matrix \(Q\) comes from the SPDE representation \citeyearpar{Cameletti2012}.
+
 In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain \(\mathcal{D}\) \citeyearpar{Cameletti2012}, also named \emph{mesh}. What it internally does is splitting the domain \(\mathcal{D}\) into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at \(s_1 \ldots s_d\). In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.
 
 Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \ref{triangular} on how SPDE computes triangularizes values and how it uses the projection matrix to inject the triangulation into the GRMF.\\
@@ -1544,8 +1555,8 @@ Posterior Predictive checking methods \citep{gelman1996posterior} exploit a full
 
 R-INLA has already antiticipated in chapter 4 section\ref{example} have dedicated function to compute statistics on posterior distribution e.g.~\passthrough{\lstinline!inla.pmarginal()!} returning the cumulative density distribution.
 
-\hypertarget{deviance-based-criteria}{%
-\subsection{Deviance-based Criteria}\label{deviance-based-criteria}}
+\hypertarget{devbased}{%
+\subsection{Deviance-based Criteria}\label{devbased}}
 
 If there is an interest in comparing multiple models, then their deviance may be used. Given data \(\boldsymbol{y}\) and its likelihood function, along with its parameters \(\boldsymbol\theta\) then the \emph{deviance} is:
 
@@ -1553,11 +1564,14 @@ If there is an interest in comparing multiple models, then their deviance may be
 \mathrm{D}(\theta)=-2 \log (\pi(\boldsymbol{y} \mid \theta))
 \]
 
-The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterio mean deviance i.e.\(\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))\) which is also robust \citep{Blangiaro-Cameletti}. Indeed it suffers from cost complexity, as a result DIC proposed by \citet{spiegelhalter2002bayesian} adds to the deviance a penalization for complex model i.e.~\(p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})\) from which, following \citet{Blangiaro-Cameletti} obtain,
+The model's deviance tests the likelihood variability conditioned to its parameters. Since this is a random variable tt can be analyzed by several statistics such as mean, median, mode etc. The most used is the posterior mean deviance i.e.\(\overrightarrow{\mathrm{D}}=E_{\theta_{\mid y}}(\mathrm{D}(\theta))\) which is also robust \citep{Blangiaro-Cameletti}. Indeed it suffers from cost complexity, as a result DIC proposed by \citet{spiegelhalter2002bayesian} adds to the deviance a penalization for complex model i.e.~\(p_{\mathrm{D}}=\mathrm{E}_{\theta_{\mathrm{y}}}(\mathrm{D}(\theta))-\mathrm{D}\left(\mathrm{E}_{\theta_{\mathrm{y}}}(\theta)\right)=\overline{\mathrm{D}}-\mathrm{D}(\bar{\theta})\) from which, following \citet{Blangiaro-Cameletti} obtain,
 
-\[\mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}\]
+\begin{equation}
+  \mathrm{DIC}=\overline{\mathrm{D}}+p_{\mathrm{D}}
+\label{eq:dic}
+\end{equation}
 
-Data is best served in models with smaller DICs and the correspondent INLA option setting is analogous to the ones seen sec.~\ref{predbase}. INLA moreover take advantage of the hierarchical structure and computes different poseterior deviances fro latent parameters i.e.~mean and hyper parameters i.e.~mode (due to skewness). For further discussions \citet{spiegelhalter2014deviance} constrat DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred \citep{gelman2014understanding}.
+Data is best served in models with small-scale DICs and the correspondent INLA option setting is analogous to the ones seen sec.~\ref{predbase}. INLA moreover take advantage of the hierarchical structure and computes different posterior deviances for latent parameters i.e.~mean and hyper parameters i.e.~mode (due to skewness). For further discussions \citet{spiegelhalter2014deviance} oppose DIC with other criteria for model comparison. Finally the Watanabe Akaike information criterion (WAIC) which is more Bayesian orthodox in setting up the criteria, for this reason is also more preferred \citep{gelman2014understanding}.
 
 \hypertarget{priorsspec}{%
 \section{Penalized Complexity Priors}\label{priorsspec}}
@@ -1588,7 +1602,7 @@ Fig. \ref{fig:priorfun} indicates various PC priors using several \(\alpha\) val
 \chapter{Exploratory Analysis}\label{exploratory}}
 
 To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the \passthrough{\lstinline!.thesis!} option, section \ref{docs}. In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the \emph{circonvallazione} i.e.~beltway of Milan ( \emph{Municipality of Milan} ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters number of covariates a number of observations)
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-01-25 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-01-26 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 \begin{longtable}{ll}
 \toprule
@@ -1677,7 +1691,75 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 \caption{\label{fig:3dmap}3D Rayshader \citet{rayshader} Perspective scatterplot with Price elevation}
 \end{figure}
 
-By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \ref{GP} of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \ref{fig:matern} on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e.~\(\text{price} \sim \text{totlocali} + \text{condominium}+ \text{sqmeter}\). The model is also computed through inla and by taking advantage of \passthrough{\lstinline!INLAtools!} Pearson residuals \citep{pearson} are extracted, i.e.~\(\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}\). Moreover variogram from package \passthrough{\lstinline!gstat!} is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
+By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \ref{GP} of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \ref{fig:matern} on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e.~\(\text{price} \sim \text{totlocali} + \text{condominium}+ \text{sqmeter}\). The model is also computed through inla and by taking advantage of \passthrough{\lstinline!INLAtools!} and Pearson residuals \citep{pearson} are extracted, i.e.~\(\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}\). Moreover variogram from package \passthrough{\lstinline!gstat!} is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
+
+\begin{lstlisting}
+## Coordinate Reference System:
+##   User input: EPSG:3003 
+##   wkt:
+## PROJCRS["Monte Mario / Italy zone 1",
+##     BASEGEOGCRS["Monte Mario",
+##         DATUM["Monte Mario",
+##             ELLIPSOID["International 1924",6378388,297,
+##                 LENGTHUNIT["metre",1]]],
+##         PRIMEM["Greenwich",0,
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         ID["EPSG",4265]],
+##     CONVERSION["Italy zone 1",
+##         METHOD["Transverse Mercator",
+##             ID["EPSG",9807]],
+##         PARAMETER["Latitude of natural origin",0,
+##             ANGLEUNIT["degree",0.0174532925199433],
+##             ID["EPSG",8801]],
+##         PARAMETER["Longitude of natural origin",9,
+##             ANGLEUNIT["degree",0.0174532925199433],
+##             ID["EPSG",8802]],
+##         PARAMETER["Scale factor at natural origin",0.9996,
+##             SCALEUNIT["unity",1],
+##             ID["EPSG",8805]],
+##         PARAMETER["False easting",1500000,
+##             LENGTHUNIT["metre",1],
+##             ID["EPSG",8806]],
+##         PARAMETER["False northing",0,
+##             LENGTHUNIT["metre",1],
+##             ID["EPSG",8807]]],
+##     CS[Cartesian,2],
+##         AXIS["easting (X)",east,
+##             ORDER[1],
+##             LENGTHUNIT["metre",1]],
+##         AXIS["northing (Y)",north,
+##             ORDER[2],
+##             LENGTHUNIT["metre",1]],
+##     USAGE[
+##         SCOPE["unknown"],
+##         AREA["Italy - west of 12Â°E"],
+##         BBOX[36.53,5.94,47.04,12]],
+##     ID["EPSG",3003]]
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{06-exploratory_files/figure-latex/semivariogram-1.pdf}
+\caption{\label{fig:semivariogram-1}Semivariogram on a linear model Pearson residuals}
+\end{figure}
+
+\begin{lstlisting}
+## [1] 3059.883
+\end{lstlisting}
+
+\begin{lstlisting}
+## [1] 0.5
+\end{lstlisting}
+
+\begin{lstlisting}
+## [1] 0.4999916
+\end{lstlisting}
+
+\begin{figure}
+\centering
+\includegraphics{06-exploratory_files/figure-latex/semivariogram-2.pdf}
+\caption{\label{fig:semivariogram-2}Semivariogram on a linear model Pearson residuals}
+\end{figure}
 
 \hypertarget{factor-counts}{%
 \section{Factor Counts}\label{factor-counts}}
@@ -1702,8 +1784,8 @@ Then in bottom plot Jitters point out the number of outliers outside the IQR (In
 \caption{\label{fig:PricePerAc}Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings}
 \end{figure}
 
-\hypertarget{assessing-the-most-valuable-properties}{%
-\section{Assessing the most valuable properties}\label{assessing-the-most-valuable-properties}}
+\hypertarget{mvp}{%
+\section{Assessing the most valuable properties}\label{mvp}}
 
 It might be relevant also to research how monthly prices change with respect to houses' square footage for each house configuration, in other word how much adding a further square meter affects monthly price for each n-roomed flat.
 Answering to the previous question implies also knowing how properties should be developed in order to request a greater amount of money per month. This may be of interest, for instance, to those who have to lot their property into sub units and need to decide the most profitable choice in economic terms by setting \emph{ex ante} the square footage extensions.
@@ -1750,7 +1832,7 @@ The plot in figure \ref{fig:TieFighterPlot} has the purpose to demonstrate how m
 Some data might be lost since immobiliare provides the information that in turn are pre filled by estate agencies or privates through standard document formats. Some of the missing can be traced back to scraping, some other are due to the context. The section tries to give substantial insights to discern what it can be recalled to the former issue or to the latter. The guidelines followed in this part is to prune redundant data and rare predictors trying to limit the dimensionality of the dataset as well as keeping covariates that are assumed to be relevant.
 
 \hypertarget{missing-assessement}{%
-\subsection{Missing assessement}\label{missing-assessement}}
+\subsection{Missing Assessement}\label{missing-assessement}}
 
 When data is presenting missing values, the analyst should typically investigate the etiology its lack \citep{Kuhn}. As already pointed out in the dedicated section \ref{ProperScraping} many of the presumably important covariates (i.e.~price lat, long, title ,id \ldots) undergo to a sequence of nested searches within the web page with the aim to avoid to be lost. This guarantees that when data is missing is actually due to an improper advertisement completion when posting the offer and by no means to a superficial scrape. Moreover empirical observation suggests that when relevant advertisement data is absent then it is more likely that the rest of the information are missing too.
 However in the API context the missing profile is crucial since it can also raise suspicion on scraping inability to catch data. By taking advantage of the patterns the maintainer can directly identify which data or combination of data are missing and immediately debug the error. In order to identify the nature of the missing patterns a revision of missing and randomness is introduced \citep{Little}.
@@ -1787,8 +1869,8 @@ In the far right side of figure \ref{fig:Heatmap} \emph{enclass}, \emph{catastin
 \hypertarget{missing-imputation}{%
 \subsection{Missing Imputation}\label{missing-imputation}}
 
-A relatively simple approach to front MAR missingn is to build a regression model to explain the covariates that contain missings and plug-back-in the respective posterior estimates (e.g.~posterior means) from their predictive distributions \citet{Little}. This approach is available in INLA and it is fast and easy to implement in most of the cases, indeed it ignores the uncertainty behind the imputed values \citep{Bayesian_INLA_Rubio}. However it has the benefit to be a more than a reasonable choice with respect to the number of imputation needed. In the table below are reported the percentage of missing values for both continuous and categorial predictors. There are two approaches to follow, the former that consider the imputation of the response, the latter it has been deigned for covariates.
-Since the response is not missing, indeed it does \emph{condominium} imputation is pursued for the latter. The output below reports the corresponding indexes for missing observations for \emph{condominium}.
+A relatively simple approach to front MAR is to build a regression model to explain the covariates that contain missings and plug-back-in the respective posterior estimates (e.g.~posterior means) from their predictive distributions \citet{Little}. This approach is available in INLA and it is fast and easy to implement in most of the cases, indeed it ignores the uncertainty behind the imputed values \citep{Bayesian_INLA_Rubio}. However it has the benefit to be a more than a reasonable choice with respect to the number of imputation needed. There are two approaches to follow, the former that considers the imputation of the response, the latter it has been designed for covariates.
+Since the response is not missing, indeed it does \emph{condominium}, imputation is pursued for it. The output below reports the corresponding data indexes for missing observations in \emph{condominium}.
 
 \begin{lstlisting}
 ## [1]  83 109 132 167
@@ -1810,40 +1892,51 @@ fitted.Predictor.167 & 106.9133 & 22.13250\\
 \hypertarget{modelspec}{%
 \chapter{Model Selection \& Fitting}\label{modelspec}}
 
-In this chapter is applied all the theory seen so far through the R-INLA package. The hierarchical Latent Gaussian model to-be-fitted sets against the response price (inevitably normalized) with the other predictors scraped (standardized and scaled the numerical ones). As a result on top of the hierarchy i.e.~the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with ``markov'' precision matrix). In the end penalized complexity priors are specified as prior distributions. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field and posterior distributions for parameters and hyper parameters are evaluated.
+In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response monthly price with the other predictors scraped. As a consequence on top of the hierarchy i.e.~the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with ``markov'' properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e.~the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.
 
-\hypertarget{modelspecandmesh}{%
-\section{Model Specification \& Mesh Assessement}\label{modelspecandmesh}}
+In order to make the distribution of the response i.e.~price (per month in €) approximately Normal it is applied a \(log_{10}\) transformation (further transformation would have better Normalized data i.e.~Box-Cox \citep{boxcox} and Yeo-Johnson \citep{yeojohnson} however they over complicate interpretability). Moreover all of the numerical covariates e.g.~\emph{condominium}, \emph{sqmeter} and \emph{photosnum} have already been prepared in \ref{prep} and are further standardized and scaled. The Locations are represented in map plot \ref{fig:ggmap} within the borders of the Municipality of Milan. At first the borders shapefile is imported from \href{https://geoportale.comune.milano.it/sit/open-data/}{GeoPortale Milano}. The corresponding CRS is in UTM (i.e.~Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \ref{fig:ggmap}.
 
-In order to make the distribution of the response i.e.~price (per month in €) approximately Normal it is applied a \(log_{10}\) transformation (further transformation would have better Normalized data i.e.~Box-Cox \citep{boxcox} and Yeo-Johnson \citep{yeojohnson} however they over complicate interpretability). Moreover all of the numerical covariate i.e.~condominium, and sqmeeter, (respectively the condominium price and the house width) are standardized and scale for modeling purposes. No assessement neither validation set are retained since it is going to be fitted a LOOCV (refer to \ref{criticism}) throughout the \passthrough{\lstinline!inla()!} function call. The Locations are represented in map plot \ref{fig:ggmap} within the borders of the Municipality of Milan. At first the borders shapefile is imported from \href{https://geoportale.comune.milano.it/sit/open-data/}{GeoPortale Milano}. The corresponding CRS is in UTM (i.e.~Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be moved from UTM to latlong reprojected to a new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \ref{fig:ggmap}.
-
-\begin{figure}
-\centering
 \includegraphics{07-model_fitting_files/figure-latex/ggmap-1.pdf}
-\caption{\label{fig:ggmap}Milan Real Estate data within the Municpality borders, 4 points of interest, author's source}
-\end{figure}
+\#\# Model Specification \& Mesh Assessement \{\#modelspecandmesh\}
 
-The hierarchical model defined for Milan Real Estate Rental data, for which it is assumed Normality is (notation is left with the pedix reference for the corresponding observation index):
-
-\[
-{y}_{i} \sim \operatorname{Normal}\left(\eta_{i}, \sigma_{e}^{2}\right)
-\]
-And the linear predictor i.e.~mean since the \(\mathrm{g}\left(\mu_{i}\right)\) is identity, is:
+WIth the aim to harness INLA power a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data \(\mathbf{y}\) i.e.~normal distribution:
 
 \[
-\eta_{i}=b_{0}+x_{i} \boldsymbol\beta+\xi_{i} 
+\mathbf{y}\sim \operatorname{Normal}\left(\boldsymbol\mu, \sigma_{e}^{2}\right)
 \]
-where, following the expression \eqref{eq:linearpredictor}, \(\xi_i\) is the spatial random effect for the function \(f_1()\), for the set of coviarates \(\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)\). \(\xi_{i}\) is also the GMRF seen in chapter \ref{gmrf} which is distributed as a multivariate Normal and whose covariance function is Matérn (fig.~\ref{fig:matern}) i.e.~\(\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)\). The precision matrix \(\mathbf{Q}_{\mathscr{C}}^{-1}\) (see left panel in figure \ref{fig:precisionmat}) is the one that requires to be treated with SPDE and its dimensions are \(n \times n\), in this case when NA are omitted is \(192 \times 192\).
-\(\boldsymbol\beta\) are the model scraped covariates coefficients, which include condom, totlocali, altro, bagno, cucina, heating \ldots{} and the rest.
 
-Moreover the latent field which is \emph{a priori} independent with respect to the observations \(\boldsymbol{\mathbf{y}}\) is \(\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}\). In addition to this it must be added the white noise measurement error precision for the spatial effect, which is commonly assumed in Geostatistics to coincide with the nugget effect \(\tau^2\) \citep{Cressie_2015}, refer to \ref{GP} for nugget definition:
-In the end the LGM model can be reformatted as follows (with usual notation):
+Then the linear predictor i.e.~the mean, since the function \(\mathrm{g}\left(\boldsymbol\mu\right)\) is identity, is:
+
+\[
+\boldsymbol\eta=b_{0}+\boldsymbol x \boldsymbol\beta+\boldsymbol\xi 
+\]
+where, following the notation in expression \eqref{eq:linearpredictor}, \(\boldsymbol\xi\) is the spatial random effect assigned to the function \(f_1()\), for the set of coviarates \(\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)\). \(\boldsymbol\xi\) is also the GMRF defined in\ref{def:gmrf}, as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig.~\ref{fig:matern}) i.e.~\(\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)\). The precision matrix \(\mathbf{Q}_{\mathscr{C}}^{-1}\) (see left panel in figure \ref{fig:precisionmat}) is the one that requires to be treated with SPDE and its dimensions are \(n \times n\), in this case when NAs are omitted and after imputation it results in \(192 \times 192\).
+\(\boldsymbol\beta\) are the model scraped covariates coefficients.
+Then the latent field is composed by \(\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}\). In the end following the traits of the final expression in \ref{GP} the LGM can be reformatted as follows,
 
 \[
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 \]
+Priors are assigned as Gaussian vagues ones for the \(\boldsymbol\beta\) coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process \(\tilde{\boldsymbol\xi}\) as Penalized in Complexity.
+Thus following the steps and notation marked in sec.~\ref{LGM}. the \emph{higher} level eq. \eqref{eq:higher} is constituted by the \textbf{likelihood}, depending on hyper parameters \(\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)\):
 
-The first step needed to fit the model through SPDE approach is to triangulate the domain space as intuited in \ref{spdeapproach}. The function \passthrough{\lstinline!inla.mesh.2d!} together with the \passthrough{\lstinline!inla.nonconvex.hull!} are able to define a good triangulation since no original boundaries are provided. Two meshes are produced, whose figures are in \ref{fig:meshes}. Triangles appears to be equilateral and smooth, which suggest decent triangulation result \emph{miss lit}. Critical parameters for meshes are \passthrough{\lstinline!max.edge=c(0.025, 0.048)!} and \passthrough{\lstinline!max.edge=c(0.017, 0.019)!} which also regulates the refinement. Further trials have show that below the lower bound of max.edge value of \(0.017\) the current machine computing power does not output the mesh, therefore the maximum number of vertices obtainable coincides with the triangulation built in \(\text{mesh}_2\), right panel in fig\ref{fig:meshes}. .
+\[\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)\]
+
+At the \emph{medium} level eq. \eqref{eq:medium} there exists the \textbf{latent field} \(\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)\), conditioned to the hyper parameter \(\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}\), whose only component is the measurement error precision,
+
+\[  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)\]
+
+In the lower level priors are considered as their joint distribution i.e.~\(\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}\). It follows the expression of the joint posterior distribution:
+
+\[
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{192}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
+\]
+Then once again the objectives of bayesian inference are the posterior marginal distributions for the latent field and the hyperparameters, which are contained in equation \eqref{eq:finalobj}, for which Laplace approximations in \ref{approx} are employed.
+
+\hypertarget{spdemodeol}{%
+\section{Building the SPDE object}\label{spdemodeol}}
+
+SPDE requires to triangulate the domain space \(\mathscr{D}\) as intuited in \ref{spdeapproach}. The function \passthrough{\lstinline!inla.mesh.2d!} together with the \passthrough{\lstinline!inla.nonconvex.hull!} are able to define a good triangulation since no proper boundaries are provided. Four meshes are produced, whose figures are in \ref{fig:meshes}. Triangles appears to be thoroughly smooth and equilateral. The extra offset prevents the model to be affected by boundary effects. However the maximum accessible number of vertices is in \(\operatorname{mesh}_3\) , it seems to have the most potential for this dataset. Critical parameters for meshes are \passthrough{\lstinline!max.edge=c(0.01, 0.02)!} and \passthrough{\lstinline!offset=c(0.0475, 0.0625))!} which in fact mold their sophistication. Further trials have shown that below the lower bound of max.edge of \(0.01\) the function is not able to produce the triangulation.
 
 \begin{figure}
 \centering
@@ -1851,35 +1944,111 @@ The first step needed to fit the model through SPDE approach is to triangulate t
 \caption{\label{fig:meshes}Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices}
 \end{figure}
 
-At this point with the aim to apply INLA and to specify the SPDE object are needed to be assigned both priors and hyper priors. The latent field \(\boldsymbol\theta\) requires to have Gaussian vagues ones with fixed precision. The priors \(\boldsymbol\psi_1\) for the higher level eq. \eqref{eq:higher} are \(\boldsymbol\psi_1 = \left(\sigma_{\mathscr{C}}^{2}, \kappa\right)\) i.e.~hyper parameter for the GMRF latent field precision and Matérn are chosen to be PC priors \ref{priorsspec} {[}\ldots{} qualcosa di più su pc prior choice \ldots{]}. At the medium level it is needed a further hyper prior \(\boldsymbol\psi_2 = (\sigma_{\varepsilon}^{2})\) which accounts for the variance of the \(\boldsymbol{y}\) data.
+The SPDE model object is built with the function \passthrough{\lstinline!inla.spde2.pcmatern()!} which needs as arguments the mesh triangulation, i.e.~\(\operatorname{mesh}_3\) and the PC priors \ref{priorsspec}, satisfying the following probability statements: \(\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01\) where \(\sigma_{\varepsilon}^2\) is the spatial range desumed in \ref{fig:semivariogram}. And \(\operatorname{Prob}(\tau> 0.9)< 0.05\) where \(\tau\) is the marginal standard deviation (on the log scale) of the field \ref{spatassess}.
+As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the \passthrough{\lstinline!inla.stack!} function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in \citet{Blangiardo-Cameletti}, but are beyond the scope of the analysis.
 
-Thus following the equation in \eqref{eq:formallgm} then it is obtained:
+\hypertarget{model-selection}{%
+\section{Model Selection}\label{model-selection}}
 
-\[
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
-\]
+Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in INLA features. As a matter of fact in section \ref{devbased} are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \eqref{eq:dic}.
+Consequently a Forward Stepwise Selection \citep{guyon2003introduction} algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
-\hypertarget{spdemodeol}{%
-\section{Building the SPDE object}\label{spdemodeol}}
-
-The SPDE model object is built with the function \passthrough{\lstinline!inla.spde2.pcmatern()!} which needs as arguments the mesh triangulation and the PC priors \ref{priorsspec}, satisfying the following probability statements: \passthrough{\lstinline!prior.range = c(r, alpha\_r)!} for \(\operatorname{Prob}(\rho<r)<\alpha_{r}\) where \(\rho\) is the spatial range of the random field. And \passthrough{\lstinline!prior.sigma = c(s, alpha\_s)!} for \(\operatorname{Prob}(\sigma>s)<\alpha_{s}\) where \(\sigma\) is the marginal standard deviation of the field {[}\ldots{} trova le relazione con variogram (ci metto dentro l'empirical range e una standard deviation abbastanza grande)\ldots{]} \ref{spatassess}.
-As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the \passthrough{\lstinline!inla.stack!} function recreates the linear predictor as a combination of the elements of the old linear predictor and a the matrix of observations. Further mathematical details about the stack are in \citet{Blangiardo-Cameletti}, but are beyond the scope of the analysis.
+\begin{lstlisting}
+##                                                                                                                                                          model 
+## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata"
+\end{lstlisting}
 
 \hypertarget{fit}{%
-\section{Parameter estimation and Results}\label{fit}}
+\section{Parameter Estimation and Results}\label{fit}}
 
-In the end the model is fitted whose final formula is \(\log_{10}(price) \sim Intercept + totlocali + \dots + f(coordinate, model = spde1)\). The most part of the covariates are omitted for brevity reasons. It is only considered the spatial effect for the \passthrough{\lstinline!f()!} in which needs to reside also both the coordinates and the spde object.
+Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e.~number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.
 
-With regard to model criticsm, the model evaluation is focused on DIC and CPO, which are directly obtained from the output of the R-INLA object.
+\begin{longtable}{lrrrrr}
+\toprule
+coefficients & mean & sd & 0.025quant & 0.5quant & 0.975quant\\
+\midrule
+Intercept & 5.46 & 12.91 & -19.89 & 5.46 & 30.79\\
+totlocaliTrilocale & 1.19 & 12.91 & -24.15 & 1.19 & 26.52\\
+totlocali5+ & 1.18 & 12.91 & -24.17 & 1.18 & 26.50\\
+totlocaliBilocale & 1.09 & 12.91 & -24.25 & 1.09 & 26.42\\
+totlocaliQuadrilocale & 1.03 & 12.91 & -24.32 & 1.03 & 26.36\\
+\addlinespace
+totlocaliPentalocale & 0.97 & 12.91 & -24.38 & 0.97 & 26.29\\
+heatingAutonomo, a pavimento, alimentato a pompa di calore & 0.67 & 0.21 & 0.26 & 0.66 & 1.08\\
+receptionyes & 0.46 & 0.16 & 0.14 & 0.46 & 0.78\\
+heatingCentralizzato, ad aria & 0.33 & 0.17 & 0.00 & 0.33 & 0.66\\
+heatingCentralizzato, a pavimento, alimentato a pompa di calore & 0.31 & 0.15 & 0.01 & 0.31 & 0.60\\
+\bottomrule
+\end{longtable}
 
-inference on posterior results, credibility levels
+Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at TAB(\ldots) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is 235.1 €.
+Moreover being a ``Trilocale'' or ``Bilocale'', as pointed out in \ref{mvp}, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
+Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
+Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
+INLA is able to output the mean and the standard deviation of measurement precision error in \(\psi_2\) i.e.~\(1 / \sigma_{\varepsilon}^{2}\), note that the interpretation is different from variance. In figure @ref(fig:summ\_hyper) are plotted the respective marginal hyper parameter distributions for \(\boldsymbol\psi\).
 
-posterior results table\ldots{}
+\begin{lstlisting}
+##                                              mean        sd 0.025quant
+## Precision for the Gaussian observations 31.054876 4.3460742  23.274749
+## Theta1 for site                         -3.531603 0.3729812  -4.249729
+## Theta2 for site                          3.858551 0.4993020   2.842148
+##                                          0.5quant 0.975quant      mode
+## Precision for the Gaussian observations 30.802554  40.357549 30.350547
+## Theta1 for site                         -3.540270  -2.776946 -3.570613
+## Theta2 for site                          3.870666   4.812311  3.913943
+\end{lstlisting}
 
-\hypertarget{spatial-prediction-on-grid}{%
-\section{Spatial Prediction on grid}\label{spatial-prediction-on-grid}}
+\begin{tabular}{l|r|r}
+\hline
+hyper-param & sd & mode\\
+\hline
+Precision for the Gaussian observations & 4.3460742 & 30.350547\\
+\hline
+Theta1 for site & 0.3729812 & -3.570613\\
+\hline
+Theta2 for site & 0.4993020 & 3.913943\\
+\hline
+\end{tabular}
 
-A gridded object is required in order to project spatial prediction on the domain space. Usually these operations are very computationally expensive since grid objects size can easily reach \(10^4\) to \(10^6\) dimension points. Since in this case the linear predictor marginal distributions are not the focus then a more feasible solution consists in projecting the latent field estimated at the triangulation vertices onto the grid location \citeyearpar{Blangiardo-Cameletti}. At first a proper projection matrix is created without specifying the locations.
+\begin{figure}
+\centering
+\includegraphics{07-model_fitting_files/figure-latex/summ_hyper-1.pdf}
+\caption{(\#fig:summ\_hyper)Marginal Hyper Parameter distributions for each element of Psi}
+\end{figure}
+
+\hypertarget{plot-gmrf}{%
+\section{Plot GMRF}\label{plot-gmrf}}
+
+Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e.~how much variance the predictors are not able to capture in the response variable. From plot \ref{fig:pltgmrf}, for which it is chosen a grid of \(150 \times 150\) points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.
+
+\begin{figure}
+\centering
+\includegraphics{07-model_fitting_files/figure-latex/pltgmrf-1.pdf}
+\caption{\label{fig:pltgmrf}Gaussian Markov Random field of the final model projected onto the spatial field}
+\end{figure}
+
+\hypertarget{spatial-model-criticism}{%
+\section{Spatial Model Criticism}\label{spatial-model-criticism}}
+
+The model on the basis of the PIT \ref{predbase} does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e.~\$fails = \$ 8 outliers. The fact that the distribution is seemingly Uniform \ref{fig:modelcpo} tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681.
+
+\begin{figure}
+\centering
+\includegraphics{07-model_fitting_files/figure-latex/modelcpo-1.pdf}
+\caption{\label{fig:modelcpo}PIT cross validation statistics on \(model_final\)}
+\end{figure}
+
+\hypertarget{spatial-prediction-on-a-grid}{%
+\section{Spatial Prediction on a Grid}\label{spatial-prediction-on-a-grid}}
+
+A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch \(10^4\) to \(10^6\) points. For the purposes of spatial prediction, it is considered a grid of \(10km \times 10km\) with \(100 \times 100\) grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e.~the standard error.
+Higher prices in @ref(fig:pred\_on\_grid) are observed nearby the points of interest in \ref{ggmap}, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.
+
+\begin{figure}
+\centering
+\includegraphics{07-model_fitting_files/figure-latex/pred_on_grid-1.pdf}
+\caption{(\#fig:pred\_on\_grid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}
+\end{figure}
 
 \hypertarget{conclusions}{%
 \chapter{Conclusions}\label{conclusions}}
@@ -1894,7 +2063,8 @@ Under the security umbrella no malicious attacks have been registered since the 
 \caption{\label{fig:gaanalytics}Google Analyitics Dashoaboard for site logs, author's source}
 \end{figure}
 
-considerazione sul modello INLA e risultati finali\ldots{}
+INLA unveals incredible results in terms of fitting time and capacity to make the most of its flexibility. Moreover open source projects that are integrating INLA are closing the gap in the learning curve since many tutorials and software can assist the researcher. What it might be for sure welcomed is a more \passthrough{\lstinline!\{tidyverse\}!} orientation and integration of new spatial data packages such as \passthrough{\lstinline!sf!} instead of the superseded \passthrough{\lstinline!sp!}. The model fitted wan not deeply nested since it includes only the random spatial effects, limiting the number of hyper parameters to 4. With that said INLA was able to fit the spatial model astonishingly quick, the cross validated model selection, which evaluates 31 different models has been fitted in \(\approx 5\) minutes. However it is presumed that as soon as the dimensions of data increases then performances are going to be deteriorated. Triangulation has reached a sufficient amount of sophistication even though for unexplained reasons for certain values mesh computing does not converge. The model selection has clearly pointed out that many of the covariates are negligible to the price.
+For what concerns the results of the spatial model it is ascertained that prices deeply depends on the location, moreover besides where prices are higher, it would be better concentrating on where are cheaper. As a matter of fact it seems that prices in posterior prediction are aligned on top of a longitudinal straight line traversing the map from south east through the north west. That suggests that cheaper rents are located throughout the orthogonal directrix.
 
 \hypertarget{appendix}{%
 \chapter*{Appendix}\label{appendix}}
