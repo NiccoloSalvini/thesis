@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.24)  26 JAN 2021 20:17
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.1.24)  26 JAN 2021 21:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1500,16 +1500,7 @@ File: images/summarytable.PNG Graphic file (type bmp)
 File: 04-inla_files/figure-latex/spatplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/spatplot-1.pdf>
 Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text;!
-[84]
-
-LaTeX Warning: Reference `fig:marginalsplot' on page 85 undefined on input line
- 1306.
-
-[85]
-Overfull \hbox (111.13344pt too wide) in paragraph at lines 1308--1317
-[][] 
- []
-
+[84] [85]
 File: 04-inla_files/figure-latex/postplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/postplot-1.pdf>
 [86] [87]
@@ -1610,141 +1601,121 @@ File: images/leaflet_prezzi.jpg Graphic file (type bmp)
 [113]
 File: images/3d_map2.png Graphic file (type bmp)
 <images/3d_map2.png>
-[114] [115]
+[114]
 File: 06-exploratory_files/figure-latex/semivariogram-1.pdf Graphic file (type 
 pdf)
 <use 06-exploratory_files/figure-latex/semivariogram-1.pdf>
-File: 06-exploratory_files/figure-latex/semivariogram-2.pdf Graphic file (type 
-pdf)
-<use 06-exploratory_files/figure-latex/semivariogram-2.pdf>
-[116] [117]
+[115]
 File: 06-exploratory_files/figure-latex/fctCounts-1.pdf Graphic file (type pdf)
 
 <use 06-exploratory_files/figure-latex/fctCounts-1.pdf>
-[118]
+[116]
 File: 06-exploratory_files/figure-latex/PricePerAc-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/PricePerAc-1.pdf>
-[119]
+[117]
 File: 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
-[120]
-Overfull \hbox (72.69743pt too wide) in paragraph at lines 1803--1816
+[118]
+Overfull \hbox (72.69743pt too wide) in paragraph at lines 1741--1754
 [][] 
  []
 
-[121]
+[119]
 File: 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
  pdf)
 <use 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf>
-[122] [123]
+[120] [121]
 File: 06-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
 <use 06-exploratory_files/figure-latex/Heatmap-1.pdf>
 
-LaTeX Warning: Reference `tab:' on page 124 undefined on input line 1860.
+LaTeX Warning: Reference `tab:' on page 122 undefined on input line 1798.
 
-[124]
+[122]
 File: 06-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
 df)
 <use 06-exploratory_files/figure-latex/cooccurrence-1.pdf>
-[125] [126] [127]
+[123] [124] [125]
 Chapter 7.
-
-LaTeX Warning: Reference `fig:ggmap' on page 128 undefined on input line 1897.
-
-
-LaTeX Warning: Reference `fig:ggmap' on page 128 undefined on input line 1897.
-
-[128
+[126
 
 ]
 File: 07-model_fitting_files/figure-latex/ggmap-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/ggmap-1.pdf>
-[129]
-Underfull \hbox (badness 2635) in paragraph at lines 1912--1916
+[127]
+Underfull \hbox (badness 2635) in paragraph at lines 1856--1860
 \TU/lmr/m/n/12 dom effect assigned to the function $[][][][]$, for the set of c
 oviarates
  []
 
-
-Underfull \hbox (badness 3746) in paragraph at lines 1929--1930
+[128]
+Underfull \hbox (badness 3746) in paragraph at lines 1873--1874
 []\TU/lmr/m/n/12 In the lower level priors are considered as their joint distri
 bution
  []
 
-[130]
 File: 07-model_fitting_files/figure-latex/meshes-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/meshes-1.pdf>
-
-LaTeX Warning: Reference `fig:semivariogram' on page 131 undefined on input lin
-e 1947.
-
-[131] [132]
-Overfull \hbox (723.27261pt too wide) in paragraph at lines 1957--1958
-[][] 
- []
-
-
-Overfull \hbox (218.90544pt too wide) in alignment at lines 1966--1982
+[129] [130]
+Overfull \hbox (218.90544pt too wide) in alignment at lines 1909--1925
  [] [] [] [] [] [] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1982
+Underfull \vbox (badness 10000) detected at line 1925
  []
 
-[133]
-File: 07-model_fitting_files/figure-latex/summ_hyper-1.pdf Graphic file (type p
-df)
-<use 07-model_fitting_files/figure-latex/summ_hyper-1.pdf>
-[134]
+[131]
+File: 07-model_fitting_files/figure-latex/summhyper-1.pdf Graphic file (type pd
+f)
+<use 07-model_fitting_files/figure-latex/summhyper-1.pdf>
 File: 07-model_fitting_files/figure-latex/pltgmrf-1.pdf Graphic file (type pdf)
 
 <use 07-model_fitting_files/figure-latex/pltgmrf-1.pdf>
-[135]
+[132] [133]
 File: 07-model_fitting_files/figure-latex/modelcpo-1.pdf Graphic file (type pdf
 )
 <use 07-model_fitting_files/figure-latex/modelcpo-1.pdf>
 
-LaTeX Warning: Reference `ggmap' on page 136 undefined on input line 2045.
+LaTeX Warning: Reference `ggmap' on page 134 undefined on input line 1977.
 
-[136]
-File: 07-model_fitting_files/figure-latex/pred_on_grid-1.pdf Graphic file (type
- pdf)
-<use 07-model_fitting_files/figure-latex/pred_on_grid-1.pdf>
-[137] [138]
+[134]
+File: 07-model_fitting_files/figure-latex/predgrid-1.pdf Graphic file (type pdf
+)
+<use 07-model_fitting_files/figure-latex/predgrid-1.pdf>
+[135]
 Chapter 8.
-[139
+[136
 
-] [140]
+] [137]
 File: images/analytics_dashbboard.jpg Graphic file (type bmp)
 <images/analytics_dashbboard.jpg>
-[141] [142]
+[138] [139]
 File: appendix_images/appendix_triangularization.jpg Graphic file (type bmp)
 <appendix_images/appendix_triangularization.jpg>
-[143
+[140
 
-] [144]
+] [141]
 File: appendix_images/appendix_proj.jpg Graphic file (type bmp)
 <appendix_images/appendix_proj.jpg>
-[145] [146] [147]
+[142] [143] [144]
 File: 98-appendix_files/figure-latex/laplacevisual-1.pdf Graphic file (type pdf
 )
 <use 98-appendix_files/figure-latex/laplacevisual-1.pdf>
-(./Niccolo_Salvini_Thesis.bbl [148] [149] [150
+(./Niccolo_Salvini_Thesis.bbl [145] [146] [147
 
-] [151] [152] [153] [154] [155] [156] [157] [158] [159]
+] [148] [149] [150] [151] [152] [153] [154] [155] [156]
 Underfull \hbox (badness 5022) in paragraph at lines 661--664
 []\TU/lmr/m/n/12 UserAgentString.com (1999).  Useragentstring.com - chrome vers
 ion
  []
 
-[160])
+[157])
 
 Package natbib Warning: There were undefined citations.
 
-[161] (./Niccolo_Salvini_Thesis.aux)
+[158] (./Niccolo_Salvini_Thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1753,15 +1724,15 @@ LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: AA9150B1E518D7D099DD959F57BC94A1;11668.
+(rerunfilecheck)             Checksum: 146EC823906E7489331A8D1F47F27778;11928.
  ) 
 Here is how much of TeX's memory you used:
- 24717 strings out of 479212
- 427948 string characters out of 5873273
- 1161359 words of memory out of 5000000
- 43812 multiletter control sequences out of 15000+600000
+ 24651 strings out of 479212
+ 426923 string characters out of 5873273
+ 1133665 words of memory out of 5000000
+ 43747 multiletter control sequences out of 15000+600000
  423254 words of font info for 123 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,19n,122p,3273b,1722s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (163 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (160 pages).

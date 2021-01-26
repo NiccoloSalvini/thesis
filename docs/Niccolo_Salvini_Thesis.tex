@@ -543,7 +543,7 @@ agents[sample(1)]
 \end{lstlisting}
 
 \begin{lstlisting}
-## [1] "Mozilla/5.0 (Linux; Android 10; SM-N9700 Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/302.0.0.45.119;]"
+## [1] "Mozilla/5.0 (Linux; Android 10; BLA-L09 Build/HUAWEIBLA-L09S; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/303.0.0.27.122;]"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -1303,15 +1303,15 @@ formula = y ~ s1 + s2
 m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 \end{lstlisting}
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \ref{fig:marginalsplot}. From the table it can also be seen that the mean for \(s_2\) is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \ref{fig:spatplot} where bigger bubbles are concentrated around the origin.
+The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \ref{fig:postplot}. From the table it can also be seen that the mean for \(s_2\) is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \ref{fig:spatplot} where bigger bubbles are concentrated around the origin.
 
-\begin{tabular}{lrrrrrrr}
+\begin{tabular}{lrr}
 \toprule
-  & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
+coefficients & mean & sd\\
 \midrule
-(Intercept) & 10.1321487 & 0.2422118 & 9.6561033 & 10.1321422 & 10.6077866 & 10.1321497 & 7e-07\\
-s1 & 0.7624296 & 0.4293757 & -0.0814701 & 0.7624179 & 1.6056053 & 0.7624315 & 7e-07\\
-s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 & 7e-07\\
+(Intercept) & 10.1321487 & 0.2422118\\
+s1 & 0.7624296 & 0.4293757\\
+s2 & -1.5836768 & 0.4293757\\
 \bottomrule
 \end{tabular}
 
@@ -1693,72 +1693,10 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 
 By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \ref{GP} of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \ref{fig:matern} on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e.~\(\text{price} \sim \text{totlocali} + \text{condominium}+ \text{sqmeter}\). The model is also computed through inla and by taking advantage of \passthrough{\lstinline!INLAtools!} and Pearson residuals \citep{pearson} are extracted, i.e.~\(\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}\). Moreover variogram from package \passthrough{\lstinline!gstat!} is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
 
-\begin{lstlisting}
-## Coordinate Reference System:
-##   User input: EPSG:3003 
-##   wkt:
-## PROJCRS["Monte Mario / Italy zone 1",
-##     BASEGEOGCRS["Monte Mario",
-##         DATUM["Monte Mario",
-##             ELLIPSOID["International 1924",6378388,297,
-##                 LENGTHUNIT["metre",1]]],
-##         PRIMEM["Greenwich",0,
-##             ANGLEUNIT["degree",0.0174532925199433]],
-##         ID["EPSG",4265]],
-##     CONVERSION["Italy zone 1",
-##         METHOD["Transverse Mercator",
-##             ID["EPSG",9807]],
-##         PARAMETER["Latitude of natural origin",0,
-##             ANGLEUNIT["degree",0.0174532925199433],
-##             ID["EPSG",8801]],
-##         PARAMETER["Longitude of natural origin",9,
-##             ANGLEUNIT["degree",0.0174532925199433],
-##             ID["EPSG",8802]],
-##         PARAMETER["Scale factor at natural origin",0.9996,
-##             SCALEUNIT["unity",1],
-##             ID["EPSG",8805]],
-##         PARAMETER["False easting",1500000,
-##             LENGTHUNIT["metre",1],
-##             ID["EPSG",8806]],
-##         PARAMETER["False northing",0,
-##             LENGTHUNIT["metre",1],
-##             ID["EPSG",8807]]],
-##     CS[Cartesian,2],
-##         AXIS["easting (X)",east,
-##             ORDER[1],
-##             LENGTHUNIT["metre",1]],
-##         AXIS["northing (Y)",north,
-##             ORDER[2],
-##             LENGTHUNIT["metre",1]],
-##     USAGE[
-##         SCOPE["unknown"],
-##         AREA["Italy - west of 12Â°E"],
-##         BBOX[36.53,5.94,47.04,12]],
-##     ID["EPSG",3003]]
-\end{lstlisting}
-
 \begin{figure}
 \centering
 \includegraphics{06-exploratory_files/figure-latex/semivariogram-1.pdf}
-\caption{\label{fig:semivariogram-1}Semivariogram on a linear model Pearson residuals}
-\end{figure}
-
-\begin{lstlisting}
-## [1] 3059.883
-\end{lstlisting}
-
-\begin{lstlisting}
-## [1] 0.5
-\end{lstlisting}
-
-\begin{lstlisting}
-## [1] 0.4999916
-\end{lstlisting}
-
-\begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/semivariogram-2.pdf}
-\caption{\label{fig:semivariogram-2}Semivariogram on a linear model Pearson residuals}
+\caption{\label{fig:semivariogram}Semivariogram on a linear model Pearson residuals}
 \end{figure}
 
 \hypertarget{factor-counts}{%
@@ -1896,8 +1834,14 @@ In this chapter it is applied all the theory seen so far through the lenses of R
 
 In order to make the distribution of the response i.e.~price (per month in €) approximately Normal it is applied a \(log_{10}\) transformation (further transformation would have better Normalized data i.e.~Box-Cox \citep{boxcox} and Yeo-Johnson \citep{yeojohnson} however they over complicate interpretability). Moreover all of the numerical covariates e.g.~\emph{condominium}, \emph{sqmeter} and \emph{photosnum} have already been prepared in \ref{prep} and are further standardized and scaled. The Locations are represented in map plot \ref{fig:ggmap} within the borders of the Municipality of Milan. At first the borders shapefile is imported from \href{https://geoportale.comune.milano.it/sit/open-data/}{GeoPortale Milano}. The corresponding CRS is in UTM (i.e.~Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \ref{fig:ggmap}.
 
+\begin{figure}
+\centering
 \includegraphics{07-model_fitting_files/figure-latex/ggmap-1.pdf}
-\#\# Model Specification \& Mesh Assessement \{\#modelspecandmesh\}
+\caption{\label{fig:ggmap}Milan Real Estate data within the Municpality borders, 4 points of interest}
+\end{figure}
+
+\hypertarget{modelspecandmesh}{%
+\section{Model Specification \& Mesh Assessement}\label{modelspecandmesh}}
 
 WIth the aim to harness INLA power a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data \(\mathbf{y}\) i.e.~normal distribution:
 
@@ -1954,8 +1898,7 @@ Since covariates are many they arouse also many possible combinations of predict
 Consequently a Forward Stepwise Selection \citep{guyon2003introduction} algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
 \begin{lstlisting}
-##                                                                                                                                                          model 
-## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata"
+## [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
 \end{lstlisting}
 
 \hypertarget{fit}{%
@@ -1985,18 +1928,7 @@ Since the models coefficients are many i.e.66 the analysis will concentrate on t
 Moreover being a ``Trilocale'' or ``Bilocale'', as pointed out in \ref{mvp}, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
-INLA is able to output the mean and the standard deviation of measurement precision error in \(\psi_2\) i.e.~\(1 / \sigma_{\varepsilon}^{2}\), note that the interpretation is different from variance. In figure @ref(fig:summ\_hyper) are plotted the respective marginal hyper parameter distributions for \(\boldsymbol\psi\).
-
-\begin{lstlisting}
-##                                              mean        sd 0.025quant
-## Precision for the Gaussian observations 31.054876 4.3460742  23.274749
-## Theta1 for site                         -3.531603 0.3729812  -4.249729
-## Theta2 for site                          3.858551 0.4993020   2.842148
-##                                          0.5quant 0.975quant      mode
-## Precision for the Gaussian observations 30.802554  40.357549 30.350547
-## Theta1 for site                         -3.540270  -2.776946 -3.570613
-## Theta2 for site                          3.870666   4.812311  3.913943
-\end{lstlisting}
+INLA is able to output the mean and the standard deviation of measurement precision error in \(\psi_2\) i.e.~\(1 / \sigma_{\varepsilon}^{2}\), note that the interpretation is different from variance. In figure \ref{fig:summhyper} are plotted the respective marginal hyper parameter distributions for \(\boldsymbol\psi\).
 
 \begin{tabular}{l|r|r}
 \hline
@@ -2012,8 +1944,8 @@ Theta2 for site & 0.4993020 & 3.913943\\
 
 \begin{figure}
 \centering
-\includegraphics{07-model_fitting_files/figure-latex/summ_hyper-1.pdf}
-\caption{(\#fig:summ\_hyper)Marginal Hyper Parameter distributions for each element of Psi}
+\includegraphics{07-model_fitting_files/figure-latex/summhyper-1.pdf}
+\caption{\label{fig:summhyper}Marginal Hyper Parameter distributions for each element of Psi}
 \end{figure}
 
 \hypertarget{plot-gmrf}{%
@@ -2042,12 +1974,12 @@ The model on the basis of the PIT \ref{predbase} does not seems to show consiste
 \section{Spatial Prediction on a Grid}\label{spatial-prediction-on-a-grid}}
 
 A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch \(10^4\) to \(10^6\) points. For the purposes of spatial prediction, it is considered a grid of \(10km \times 10km\) with \(100 \times 100\) grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e.~the standard error.
-Higher prices in @ref(fig:pred\_on\_grid) are observed nearby the points of interest in \ref{ggmap}, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.
+Higher prices in \ref{fig:predgrid} are observed nearby the points of interest in \ref{ggmap}, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.
 
 \begin{figure}
 \centering
-\includegraphics{07-model_fitting_files/figure-latex/pred_on_grid-1.pdf}
-\caption{(\#fig:pred\_on\_grid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}
+\includegraphics{07-model_fitting_files/figure-latex/predgrid-1.pdf}
+\caption{\label{fig:predgrid}Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}
 \end{figure}
 
 \hypertarget{conclusions}{%

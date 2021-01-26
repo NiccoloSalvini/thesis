@@ -132,6 +132,8 @@ ggplot(final_data) +
 
 
 ```
+
+
 ## Model Specification & Mesh Assessement {#modelspecandmesh}
 
 WIth the aim to harness INLA power a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data $\mathbf{y}$ i.e. normal distribution:
@@ -306,7 +308,7 @@ spde3 = inla.spde2.matern(mesh3)
 Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in INLA features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
 Consequently a Forward Stepwise Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
-```{r model_sel}
+```{r model_sel, eval=F}
 
 ## add varibale to the stack
 
@@ -361,14 +363,20 @@ for(i in 1:16){
 #   facet_wrap(~ statistic, scales = "free")
 # 
 
-model_selection[13,1]
-
+model_selection[13,3]
 
 ## il candidato perfetto è il modello humero 13
 ## quello che contiene i seguenti predittori
 ## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata" 
 ## 
 ```
+
+
+```{r}
+print(paste("condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata", "WAIC  = -7.532", "DIC =-9.001"))
+
+```
+
 
 
 ## Parameter Estimation and Results{#fit}
@@ -419,12 +427,11 @@ Since the models coefficients are many i.e.`r dim(summ_fin)[1]` the analysis wil
 Moreover being a "Trilocale" or "Bilocale", as pointed out in \@ref(mvp), brings a monthly extra profit respectively of `r paste(round(exp(summ_fin[2,2]),2),"€", sep = " ")` and `r paste(round(exp(summ_fin[4,2]),2),"€", sep = " ")`. However standard deviations are quite high. 
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
-INLA is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance. In figure \@ref(fig:summ_hyper) are plotted the respective marginal hyper parameter distributions for $\boldsymbol\psi$.
+INLA is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance. In figure \@ref(fig:summhyper) are plotted the respective marginal hyper parameter distributions for $\boldsymbol\psi$.
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  -->
 
 
 ```{r table_hyper}
-model_final$summary.hyperpar
 summary_hyperpar <- tibble::rownames_to_column(model_final$summary.hyperpar, "hyper-param") %>%
   as_tibble() %>%
   dplyr::select(-mean, -"0.975quant", -"0.5quant", -"0.025quant")
@@ -434,7 +441,7 @@ summary_hyperpar %>%
 ```
 
 
-```{r summ_hyper, fig.cap="Marginal Hyper Parameter distributions for each element of Psi"}
+```{r summhyper, fig.cap="Marginal Hyper Parameter distributions for each element of Psi"}
 plot_sigma2 = ggplot(as.data.frame(model_final$marginals.hyperpar$`Precision for the Gaussian observations` )) +
   geom_line(aes(x = x, y = y)) +
   ylab (TeX("$\\pi(\\,\\sigma^2_{e} \\,|\\, \\mathbf{y}\\,)$")) + 
@@ -519,10 +526,10 @@ ggplot(data = NULL, aes(x = model_final$cpo$pit)) +
 ## Spatial Prediction on a Grid
 
 A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch $10^4$ to $10^6$ points. For the purposes of spatial prediction, it is considered a grid of $10km \times 10km$ with $100 \times 100$ grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e. the standard error.
-Higher prices in \@ref(fig:pred_on_grid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
+Higher prices in \@ref(fig:predgrid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
 
 
-```{r pred_on_grid, fig.cap="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3"}
+```{r predgrid, fig.cap="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3"}
 
 A1.grid <- inla.mesh.projector(mesh3, dims = c(100, 100)) # 41 x 41
 expand.grid(X = A1.grid$x, Y = A1.grid$y) %>%

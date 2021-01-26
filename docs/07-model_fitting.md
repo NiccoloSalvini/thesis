@@ -12,6 +12,8 @@ In order to make the distribution of the response i.e. price (per month in €) 
 
 
 ![(\#fig:ggmap)Milan Real Estate data within the Municpality borders, 4 points of interest](07-model_fitting_files/figure-latex/ggmap-1.pdf) 
+
+
 ## Model Specification & Mesh Assessement {#modelspecandmesh}
 
 WIth the aim to harness INLA power a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data $\mathbf{y}$ i.e. normal distribution:
@@ -72,10 +74,13 @@ Since covariates are many they arouse also many possible combinations of predict
 Consequently a Forward Stepwise Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
 
+
+
+
 ```
-##                                                                                                                                                          model 
-## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata"
+## [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
 ```
+
 
 
 ## Parameter Estimation and Results{#fit}
@@ -105,21 +110,9 @@ Since the models coefficients are many i.e.66 the analysis will concentrate on t
 Moreover being a "Trilocale" or "Bilocale", as pointed out in \@ref(mvp), brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high. 
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
-INLA is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance. In figure \@ref(fig:summ_hyper) are plotted the respective marginal hyper parameter distributions for $\boldsymbol\psi$.
+INLA is able to output the mean and the standard deviation of measurement precision error in $\psi_2$ i.e. $1 / \sigma_{\varepsilon}^{2}$, note that the interpretation is different from variance. In figure \@ref(fig:summhyper) are plotted the respective marginal hyper parameter distributions for $\boldsymbol\psi$.
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  -->
 
-
-
-```
-##                                              mean        sd 0.025quant
-## Precision for the Gaussian observations 31.054876 4.3460742  23.274749
-## Theta1 for site                         -3.531603 0.3729812  -4.249729
-## Theta2 for site                          3.858551 0.4993020   2.842148
-##                                          0.5quant 0.975quant      mode
-## Precision for the Gaussian observations 30.802554  40.357549 30.350547
-## Theta1 for site                         -3.540270  -2.776946 -3.570613
-## Theta2 for site                          3.870666   4.812311  3.913943
-```
 
 
 \begin{tabular}{l|r|r}
@@ -135,7 +128,7 @@ Theta2 for site & 0.4993020 & 3.913943\\
 \end{tabular}
 
 
-![(\#fig:summ_hyper)Marginal Hyper Parameter distributions for each element of Psi](07-model_fitting_files/figure-latex/summ_hyper-1.pdf) 
+![(\#fig:summhyper)Marginal Hyper Parameter distributions for each element of Psi](07-model_fitting_files/figure-latex/summhyper-1.pdf) 
 
 
 
@@ -162,9 +155,9 @@ The model on the basis of the PIT \@ref(predbase) does not seems to show consist
 ## Spatial Prediction on a Grid
 
 A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch $10^4$ to $10^6$ points. For the purposes of spatial prediction, it is considered a grid of $10km \times 10km$ with $100 \times 100$ grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e. the standard error.
-Higher prices in \@ref(fig:pred_on_grid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
+Higher prices in \@ref(fig:predgrid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
 
 
-![(\#fig:pred_on_grid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3](07-model_fitting_files/figure-latex/pred_on_grid-1.pdf) 
+![(\#fig:predgrid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3](07-model_fitting_files/figure-latex/predgrid-1.pdf) 
 
 

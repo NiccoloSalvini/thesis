@@ -327,15 +327,14 @@ Then once again the objectives of bayesian inference are the posterior marginal 
 Figure 7.2: Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices
 </p>
 </div>
-<p>The SPDE model object is built with the function <code>inla.spde2.pcmatern()</code> which needs as arguments the mesh triangulation, i.e. <span class="math inline">\(\operatorname{mesh}_3\)</span> and the PC priors <a href="prdm.html#priorsspec">5.5</a>, satisfying the following probability statements: <span class="math inline">\(\operatorname{Prob}(\sigma_{\varepsilon}^2&lt;3060)&lt; 0.01\)</span> where <span class="math inline">\(\sigma_{\varepsilon}^2\)</span> is the spatial range desumed in <a href="#fig:semivariogram"><strong>??</strong></a>. And <span class="math inline">\(\operatorname{Prob}(\tau&gt; 0.9)&lt; 0.05\)</span> where <span class="math inline">\(\tau\)</span> is the marginal standard deviation (on the log scale) of the field <a href="exploratory.html#spatassess">6.2</a>.
+<p>The SPDE model object is built with the function <code>inla.spde2.pcmatern()</code> which needs as arguments the mesh triangulation, i.e. <span class="math inline">\(\operatorname{mesh}_3\)</span> and the PC priors <a href="prdm.html#priorsspec">5.5</a>, satisfying the following probability statements: <span class="math inline">\(\operatorname{Prob}(\sigma_{\varepsilon}^2&lt;3060)&lt; 0.01\)</span> where <span class="math inline">\(\sigma_{\varepsilon}^2\)</span> is the spatial range desumed in <a href="exploratory.html#fig:semivariogram">6.2</a>. And <span class="math inline">\(\operatorname{Prob}(\tau&gt; 0.9)&lt; 0.05\)</span> where <span class="math inline">\(\tau\)</span> is the marginal standard deviation (on the log scale) of the field <a href="exploratory.html#spatassess">6.2</a>.
 As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the <code>inla.stack</code> function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in <span class="citation">Blangiardo (<a href="#ref-Blangiardo-Cameletti" role="doc-biblioref">2015</a>)</span>, but are beyond the scope of the analysis.</p>
 </div>
 <div id="model-selection" class="section level2">
 <h2><span class="header-section-number">7.3</span> Model Selection</h2>
 <p>Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in INLA features. As a matter of fact in section <a href="prdm.html#devbased">5.4.2</a> are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. <a href="prdm.html#eq:dic">(5.1)</a>.
 Consequently a Forward Stepwise Selection <span class="citation">(Guyon and Elisseeff <a href="#ref-guyon2003introduction" role="doc-biblioref">2003</a>)</span> algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.</p>
-<pre><code>##                                                                                                                                                          model 
-## &quot;condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata&quot;</code></pre>
+<pre><code>## [1] &quot;condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001&quot;</code></pre>
 </div>
 <div id="fit" class="section level2">
 <h2><span class="header-section-number">7.4</span> Parameter Estimation and Results</h2>
@@ -446,16 +445,8 @@ Consequently a Forward Stepwise Selection <span class="citation">(Guyon and Elis
 Moreover being a “Trilocale” or “Bilocale”, as pointed out in <a href="exploratory.html#mvp">6.4</a>, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
-INLA is able to output the mean and the standard deviation of measurement precision error in <span class="math inline">\(\psi_2\)</span> i.e. <span class="math inline">\(1 / \sigma_{\varepsilon}^{2}\)</span>, note that the interpretation is different from variance. In figure @ref(fig:summ_hyper) are plotted the respective marginal hyper parameter distributions for <span class="math inline">\(\boldsymbol\psi\)</span>.
+INLA is able to output the mean and the standard deviation of measurement precision error in <span class="math inline">\(\psi_2\)</span> i.e. <span class="math inline">\(1 / \sigma_{\varepsilon}^{2}\)</span>, note that the interpretation is different from variance. In figure <a href="modelspec.html#fig:summhyper">7.3</a> are plotted the respective marginal hyper parameter distributions for <span class="math inline">\(\boldsymbol\psi\)</span>.
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  --></p>
-<pre><code>##                                              mean        sd 0.025quant
-## Precision for the Gaussian observations 31.054876 4.3460742  23.274749
-## Theta1 for site                         -3.531603 0.3729812  -4.249729
-## Theta2 for site                          3.858551 0.4993020   2.842148
-##                                          0.5quant 0.975quant      mode
-## Precision for the Gaussian observations 30.802554  40.357549 30.350547
-## Theta1 for site                         -3.540270  -2.776946 -3.570613
-## Theta2 for site                          3.870666   4.812311  3.913943</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -482,10 +473,10 @@ INLA is able to output the mean and the standard deviation of measurement precis
 </tr>
 </tbody>
 </table>
-<div class="figure">
-<img src="07-model_fitting_files/figure-html/summ_hyper-1.png" alt="Marginal Hyper Parameter distributions for each element of Psi" width="672" />
+<div class="figure"><span id="fig:summhyper"></span>
+<img src="07-model_fitting_files/figure-html/summhyper-1.png" alt="Marginal Hyper Parameter distributions for each element of Psi" width="672" />
 <p class="caption">
-(#fig:summ_hyper)Marginal Hyper Parameter distributions for each element of Psi
+Figure 7.3: Marginal Hyper Parameter distributions for each element of Psi
 </p>
 </div>
 <!-- PLOT THE LATENT FIELD -->
@@ -508,11 +499,11 @@ INLA is able to output the mean and the standard deviation of measurement precis
 </div>
 <div id="plot-gmrf" class="section level2">
 <h2><span class="header-section-number">7.5</span> Plot GMRF</h2>
-<p>Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e. how much variance the predictors are not able to capture in the response variable. From plot <a href="modelspec.html#fig:pltgmrf">7.3</a>, for which it is chosen a grid of <span class="math inline">\(150 \times 150\)</span> points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.</p>
+<p>Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e. how much variance the predictors are not able to capture in the response variable. From plot <a href="modelspec.html#fig:pltgmrf">7.4</a>, for which it is chosen a grid of <span class="math inline">\(150 \times 150\)</span> points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.</p>
 <div class="figure"><span id="fig:pltgmrf"></span>
 <img src="07-model_fitting_files/figure-html/pltgmrf-1.png" alt="Gaussian Markov Random field of the final model projected onto the spatial field" width="672" />
 <p class="caption">
-Figure 7.3: Gaussian Markov Random field of the final model projected onto the spatial field
+Figure 7.4: Gaussian Markov Random field of the final model projected onto the spatial field
 </p>
 </div>
 <!-- a further trial  -->
@@ -539,22 +530,22 @@ Figure 7.3: Gaussian Markov Random field of the final model projected onto the s
 </div>
 <div id="spatial-model-criticism" class="section level2">
 <h2><span class="header-section-number">7.6</span> Spatial Model Criticism</h2>
-<p>The model on the basis of the PIT <a href="prdm.html#predbase">5.4.1</a> does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ 8 outliers. The fact that the distribution is seemingly Uniform <a href="modelspec.html#fig:modelcpo">7.4</a> tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681.</p>
+<p>The model on the basis of the PIT <a href="prdm.html#predbase">5.4.1</a> does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ 8 outliers. The fact that the distribution is seemingly Uniform <a href="modelspec.html#fig:modelcpo">7.5</a> tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681.</p>
 <div class="figure"><span id="fig:modelcpo"></span>
 <img src="07-model_fitting_files/figure-html/modelcpo-1.png" alt="PIT cross validation statistics on $model_final$" width="672" />
 <p class="caption">
-Figure 7.4: PIT cross validation statistics on <span class="math inline">\(model_final\)</span>
+Figure 7.5: PIT cross validation statistics on <span class="math inline">\(model_final\)</span>
 </p>
 </div>
 </div>
 <div id="spatial-prediction-on-a-grid" class="section level2">
 <h2><span class="header-section-number">7.7</span> Spatial Prediction on a Grid</h2>
 <p>A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch <span class="math inline">\(10^4\)</span> to <span class="math inline">\(10^6\)</span> points. For the purposes of spatial prediction, it is considered a grid of <span class="math inline">\(10km \times 10km\)</span> with <span class="math inline">\(100 \times 100\)</span> grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding uncertainty i.e. the standard error.
-Higher prices in @ref(fig:pred_on_grid) are observed nearby the points of interest in <a href="#ggmap"><strong>??</strong></a>, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.</p>
-<div class="figure">
-<img src="07-model_fitting_files/figure-html/pred_on_grid-1.png" alt="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3" width="672" />
+Higher prices in <a href="modelspec.html#fig:predgrid">7.6</a> are observed nearby the points of interest in <a href="#ggmap"><strong>??</strong></a>, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.</p>
+<div class="figure"><span id="fig:predgrid"></span>
+<img src="07-model_fitting_files/figure-html/predgrid-1.png" alt="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3" width="672" />
 <p class="caption">
-(#fig:pred_on_grid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3
+Figure 7.6: Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3
 </p>
 </div>
 

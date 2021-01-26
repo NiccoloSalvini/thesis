@@ -24,6 +24,7 @@ library(knitr, warn.conflicts = F, quietly = T)
 library(latex2exp, warn.conflicts = F, quietly = T)
 library(ggplot2, warn.conflicts = F, quietly = T)
 library(patchwork, warn.conflicts = F, quietly = T)
+library(tidyverse, warn.conflicts = F, quietly = T)
 
 theme_nicco2 = function (base_size = 11, base_family = "") {
   theme_bw() %+replace% 
@@ -564,12 +565,18 @@ formula = y ~ s1 + s2
 m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
+The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
 
 
 ```{r table_INLA, results='asis'}
-knitr::kable(m0$summary.fixed, booktabs = T)
+m0$summary.fixed %>%  
+  tibble::rownames_to_column("coefficients")  %>% 
+  as_tibble() %>% 
+  select(coefficients, mean, sd) %>%
+  knitr::kable(booktabs = T)
 ```
+
+
 
 
 

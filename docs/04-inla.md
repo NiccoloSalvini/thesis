@@ -493,19 +493,21 @@ formula = y ~ s1 + s2
 m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:marginalsplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
+The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
 
 
 
-\begin{tabular}{lrrrrrrr}
+\begin{tabular}{lrr}
 \toprule
-  & mean & sd & 0.025quant & 0.5quant & 0.975quant & mode & kld\\
+coefficients & mean & sd\\
 \midrule
-(Intercept) & 10.1321487 & 0.2422118 & 9.6561033 & 10.1321422 & 10.6077866 & 10.1321497 & 7e-07\\
-s1 & 0.7624296 & 0.4293757 & -0.0814701 & 0.7624179 & 1.6056053 & 0.7624315 & 7e-07\\
-s2 & -1.5836768 & 0.4293757 & -2.4275704 & -1.5836906 & -0.7404955 & -1.5836811 & 7e-07\\
+(Intercept) & 10.1321487 & 0.2422118\\
+s1 & 0.7624296 & 0.4293757\\
+s2 & -1.5836768 & 0.4293757\\
 \bottomrule
 \end{tabular}
+
+
 
 
 

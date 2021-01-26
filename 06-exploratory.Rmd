@@ -388,12 +388,8 @@ library(inlatools, warn.conflicts = F, quietly = T)
 coordinate_var =  datiprep2 %>%  select(lat, long, price, condom, totlocali, sqfeet) %>%  na.omit() %>%  as.data.frame()
 st_as_sf(coordinate_var, coords = c("long", "lat")) %>% #crs = 3003
   st_set_crs("+proj=longlat +datum=WGS84") %>%
-  st_transform(crs = 3003) -> coordinate_var
+  st_transform(crs = "+proj=longlat +datum=WGS84") -> coordinate_var
 
-
-
-
-st_crs(coordinate_var)
 
 coordinate_var %>%
   bind_cols(st_coordinates(coordinate_var) %>%
@@ -413,7 +409,7 @@ vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y,
                         data = as.data.frame(coordinate_var), cressie = TRUE)
 
 
-vgm(psill= 0.5, model = "Mat", range = 3060, nugget = 0.375) %>%
+vgm(psill=400000, model = "Mat", range = 3060, nugget = .35) %>%
   fit.variogram(object = vg_default) -> vgm_default
 
 vgl_default <- variogramLine(vgm_default, maxdist = max(vg_default$dist))
@@ -421,34 +417,35 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_default) +
   geom_point() +
   scale_x_continuous("distance (km)", limits = c(0, NA)) +
-  scale_y_continuous("variance", limits = c(0, NA))
+  scale_y_continuous("variance", limits = c(0, NA)) +
+  theme_nicco()
 
 
-### da qui prendi il range del processo spaziale!
-vgm_default$range[2]
-vgm_default$kappa[2]
-vgm_default$psill[2]
-
-characteristics <- tribble(
-  ~id, ~label, ~x, ~xend, ~y, ~yend,
-  1, "range", 0, 3 * vgm_default$range[2] / 1000, 0.25, 0.25,
-  3, "nugget", 0, 0, 0, vgm_default$psill[1],
-  2, "sill", 10, 10, 0, sum(vgm_default$psill),
-  4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
-)
-
-
-ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
-  geom_line(data = vgl_default) +
-  geom_point() +
-  geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
-  geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
-  geom_segment(data = characteristics, arrow = arrow(ends = "both"),
-               aes(x = x, xend = xend, y = y, yend = yend)) +
-  geom_label(data = characteristics,
-             aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
-  scale_x_continuous("distance (km)", limits = c(0, NA)) +
-  scale_y_continuous("variance", limits = c(0, NA))
+# ### da qui prendi il range del processo spaziale!
+# vgm_default$range[2]
+# vgm_default$kappa[2]
+# vgm_default$psill[2]
+# 
+# characteristics <- tribble(
+#   ~id, ~label, ~x, ~xend, ~y, ~yend,
+#   1, "range", 0, 3 * vgm_default$range[2] / 1000, 0.25, 0.25,
+#   3, "nugget", 0, 0, 0, vgm_default$psill[1],
+#   2, "sill", 10, 10, 0, sum(vgm_default$psill),
+#   4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
+# )
+# 
+# 
+# ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
+#   geom_line(data = vgl_default) +
+#   geom_point() +
+#   geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
+#   geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
+#   geom_segment(data = characteristics, arrow = arrow(ends = "both"),
+#                aes(x = x, xend = xend, y = y, yend = yend)) +
+#   geom_label(data = characteristics,
+#              aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
+#   scale_x_continuous("distance (km)", limits = c(0, NA)) +
+#   scale_y_continuous("variance", limits = c(0, NA))
 
 
 ```

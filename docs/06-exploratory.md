@@ -98,66 +98,7 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \@ref(GP) of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \@ref(fig:matern) on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e. $\text{price} \sim \text{totlocali} + \text{condominium}+  \text{sqmeter}$. The model is also computed through inla and by taking advantage of `INLAtools` and Pearson residuals [@pearson] are extracted, i.e. $\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}$. Moreover variogram from package `gstat` is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
 
 
-
-```
-## Coordinate Reference System:
-##   User input: EPSG:3003 
-##   wkt:
-## PROJCRS["Monte Mario / Italy zone 1",
-##     BASEGEOGCRS["Monte Mario",
-##         DATUM["Monte Mario",
-##             ELLIPSOID["International 1924",6378388,297,
-##                 LENGTHUNIT["metre",1]]],
-##         PRIMEM["Greenwich",0,
-##             ANGLEUNIT["degree",0.0174532925199433]],
-##         ID["EPSG",4265]],
-##     CONVERSION["Italy zone 1",
-##         METHOD["Transverse Mercator",
-##             ID["EPSG",9807]],
-##         PARAMETER["Latitude of natural origin",0,
-##             ANGLEUNIT["degree",0.0174532925199433],
-##             ID["EPSG",8801]],
-##         PARAMETER["Longitude of natural origin",9,
-##             ANGLEUNIT["degree",0.0174532925199433],
-##             ID["EPSG",8802]],
-##         PARAMETER["Scale factor at natural origin",0.9996,
-##             SCALEUNIT["unity",1],
-##             ID["EPSG",8805]],
-##         PARAMETER["False easting",1500000,
-##             LENGTHUNIT["metre",1],
-##             ID["EPSG",8806]],
-##         PARAMETER["False northing",0,
-##             LENGTHUNIT["metre",1],
-##             ID["EPSG",8807]]],
-##     CS[Cartesian,2],
-##         AXIS["easting (X)",east,
-##             ORDER[1],
-##             LENGTHUNIT["metre",1]],
-##         AXIS["northing (Y)",north,
-##             ORDER[2],
-##             LENGTHUNIT["metre",1]],
-##     USAGE[
-##         SCOPE["unknown"],
-##         AREA["Italy - west of 12Â°E"],
-##         BBOX[36.53,5.94,47.04,12]],
-##     ID["EPSG",3003]]
-```
-
-![(\#fig:semivariogram-1)Semivariogram on a linear model Pearson residuals](06-exploratory_files/figure-latex/semivariogram-1.pdf) 
-
-```
-## [1] 3059.883
-```
-
-```
-## [1] 0.5
-```
-
-```
-## [1] 0.4999916
-```
-
-![(\#fig:semivariogram-2)Semivariogram on a linear model Pearson residuals](06-exploratory_files/figure-latex/semivariogram-2.pdf) 
+![(\#fig:semivariogram)Semivariogram on a linear model Pearson residuals](06-exploratory_files/figure-latex/semivariogram-1.pdf) 
 
 
 
