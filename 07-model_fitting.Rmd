@@ -266,9 +266,8 @@ plt_mesh1 +plt_mesh2 +plt_mesh3+plt_mesh4
 
 ```
 
-
 The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation, i.e. $\operatorname{mesh}_3$ and the PC priors \@ref(priorsspec), satisfying the following probability statements: $\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01$ where $\sigma_{\varepsilon}^2$ is the spatial range desumed in \@ref(fig:semivariogram). And  $\operatorname{Prob}(\tau> 0.9)< 0.05$ where $\tau$ is the marginal standard deviation (on the log scale) of the field \@ref(spatassess).
-As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis.
+As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis.
 
 
 ```{r spde_matern}
@@ -297,27 +296,11 @@ stack1 <- inla.stack(
 )
 
 
-##### secon stack
-A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
-stack1 <- inla.stack(
-  tag = "estimation", ## tag
-  data = list(price = final_data2$price), ## response
-  A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
-  effects = list(
-    list(site = seq_len(spde3$n.spde)), ## random field index
-    final_data2 %>%
-      as.data.frame() %>%
-      transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
-  )
-)
-
-
-
 ```
 
 ## Model selection
 
-Since covariates are many they arouse also many possible combinations of predictors that may shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
+Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
 Consequently a Forward Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
 ```{r model_sel, eval=F}
@@ -411,28 +394,26 @@ In respect to the function parameter the Matérn hyper parameters $\psi_1$ (pena
 
 
 
- By using a summary, It can grasped the fixed random effect results
-
-With regard to model criticsm, the model evaluation is focused on DIC and CPO, which are directly obtained from the output of the R-INLA object.
-
-inference on posterior results, credibility levels 
-
-posterior results table...
 
 
-It might be of interest to plot the latent field which is projected from the model. 
+<!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD -->
 
-```{r pltgmrf, fig.cap="Gaussian Markov Random field result from the model"}
-A1.grid <- inla.mesh.projector(mesh3, dims = c(150, 150)) ## c(41, 41)
+## Plot GMRF
+
+Finally, it might be of interest to look at the latent field into the spatial field. It can inform you about the possible omitted variable, i.e. how much variance the predictors are not able to capture in the response variable. From plot \@ref(fig:pltgmrf), for which it is chosen a grid od $150 \times 150$ points, seems that the variance is correctly explained evidecing also three distinctive darker and relatively chepear areas.
+
+```{r pltgmrf, fig.cap="Gaussian Markov Random field of the final model projected onto the spatial field"}
+A1.grid = inla.mesh.projector(mesh3, dims = c(150, 150)) ## c(41, 41)
 inla.mesh.project(A1.grid, model_spde1$summary.random$site) %>%
 as.matrix() %>%
 as.data.frame() %>%
 bind_cols(
 expand.grid(x = A1.grid$x, y = A1.grid$y)
 ) %>%
-filter(!is.na(ID)) -> eta_spde
+filter(!is.na(ID)) = eta_spde
 
 ggplot(final_data) +
+   # geom_sf(data = confini,fill = "antiquewhite1") +
   geom_tile(data = eta_spde, aes(x = x, y = y, fill = mean)) +
   geom_point(aes(x = long, y = lat, colour = price), size = 3, shape = 16) +
   scale_colour_continuous(name = 'Price (€)\n', type = "viridis",alpha = 1, limits=c(200,5000)) +
@@ -442,6 +423,8 @@ ggplot(final_data) +
   )+
   scale_fill_viridis_c(alpha  = .8) +
   theme_nicco()
+
+
   
 ```
 
@@ -451,11 +434,10 @@ ggplot(final_data) +
 
 
 
-
 ## Spatial Model Criticism 
 
 
-The model on the basis of the PIT \@ref(predbase) the model seems to be able to capture the variability and does not show any residual trend nor failures i.e. $\operatorname{fail} = $ `r sum(model_spde1$cpo$failure)` . The fact that the distribution is seemingly Uniform tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO obtaining `r -sum(log(model_spde1$cpo$cpo)) %>% round(3) `. 
+The model on the basis of the PIT \@ref(predbase) does not seems to show any residual trend nor failures (meaning bizarre values in relation to the others) i.e. $\operatorname{fails} = $ `r sum(model_spde1$cpo$failure)` . The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining `r -sum(log(model_spde1$cpo$cpo)) %>% round(3) `. 
 
 ```{r modelcpo, fig.cap="PIT cross validation statistics on $model_spde1$"}
 ggplot(data = NULL, aes(x = model_spde1$cpo$pit)) + 
@@ -469,38 +451,19 @@ ggplot(data = NULL, aes(x = model_spde1$cpo$pit)) +
        y = " ") +
   theme_nicco()
 
-
-sum(model_spde1$cpo$cpo)
 ```
-
-
-
 
 
 
 ## Spatial Prediction on grid
 
-A gridded object is required in order to project spatial prediction on the domain space. Usually these operations are very computationally expensive since grid objects size can easily reach $10^4$ to $10^6$ dimension points. Since in this case the linear predictor marginal distributions are not the focus then a more feasible solution consists in projecting the latent field estimated at the triangulation vertices onto the grid location [-@Blangiardo-Cameletti]. At first a proper projection matrix is created without specifying the locations. 
+A gridded object is required in order to project the posterior mean onto the domain space. Usually these operations are very computationally expensive since grid objects size can easily touch $10^4$ to $10^6$ points. For the purposes of spatial prediction, it is considered a grid of $10km \times 10km$ with $122 \times 122$ grid points. The intention is to chart the price smoothness given the prediction grid, alongside the corresponding man of uncertainty i.e. the standard error.
+Higher prices in \@ref(fig:pred_on_grid) are observed nearby the points of interest in \@ref(ggmap), however the north ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data 
 
 
-```{r pred_on_grid, eval=F}
-## questo non funziona
-A1.grid <- inla.mesh.projector(mesh1, dims = c(41, 41))
-inla.mesh.project(A1.grid, model_spde1$summary.random$site) %>%
-  as.matrix() %>%
-  as.data.frame() %>%
-  bind_cols(
-    expand.grid(x = A1.grid$x, y = A1.grid$y)
-  ) -> eta_spde
+```{r pred_on_grid, eval=F, fig.cap="Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3"}
 
-
-ggplot(final_data2) + geom_tile(data = eta_spde, aes(x = x, y = y, fill = mean)) +
-geom_sf() + scale_fill_gradient2()
-
-
-## Questo funziona però risultati un po' di merda!
-
-A1.grid <- inla.mesh.projector(mesh2, dims = c(12, 12)) # 41 x 41
+A1.grid <- inla.mesh.projector(mesh3, dims = c(122, 122)) # 41 x 41
 expand.grid(X = A1.grid$x, Y = A1.grid$y) %>%
   mutate(Intercept = 1) -> grid_data
 stack1_grid <- inla.stack(
@@ -508,7 +471,7 @@ stack1_grid <- inla.stack(
   data = list(price = NA), ## response
   A = list(A1.grid$proj$A, 1), ## projector matrices (SPDE and fixed effects)
   effects = list(
-    list(site = seq_len(spde2$n.spde)), ## random field index
+    list(site = seq_len(spde3$n.spde)), ## random field index
     grid_data  ## covariates at grid locations
   )
 )
@@ -524,18 +487,50 @@ model_grid <- inla(price ~ 0 + Intercept + X + Y + f(site, model = spde2),
                                           return.marginals.predictor = FALSE)
                    )
 
-boundary = SpatialPoints(confini, proj4string=CRS(SRS_string = "EPSG:3003"), bbox = NULL)
 
 si <- inla.stack.index(stack_all, "grid")$data
 grid_data %>%
   bind_cols(model_grid$summary.fitted.values[si, ]) %>%
   `coordinates<-`(~X + Y) %>%
   `proj4string<-`(CRS(SRS_string = "EPSG:3003")) -> gd
-gd[!is.na(over(gd, boundary,returnList = TRUE)), ] %>%
+
+mean = gd[!is.na(gd), ] %>%
   as.data.frame() %>%
   ggplot() + 
+  geom_sf(data = confini) +
   geom_tile(aes(x = X, y = Y, fill = mean)) +
-  coord_fixed()
+  scale_fill_viridis_c(alpha  = .8) +# , limits=c(0,5000)
+  # scale_colour_brewer(palette = "Greens")+
+  coord_fixed()+
+  coord_sf()+
+  # geom_point(data = final_data, aes(x = long, y = lat), colour = "red", alpha = .3)+
+  labs(
+    x = "",
+    y = ""
+  )+
+  # gg(mesh3,alpha = .2, int.color = "red") +
+  theme_nicco() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+sd= gd[!is.na(gd), ] %>%
+  as.data.frame() %>%
+  ggplot() + 
+  geom_sf(data = confini) +
+  geom_tile(aes(x = X, y = Y, fill = sd)) +
+  scale_fill_viridis_c(alpha  = .8) +# , limits=c(0,5000)
+  # scale_colour_brewer(palette = "Greens")+
+  coord_fixed()+
+  coord_sf()+
+  # geom_point(data = final_data, aes(x = long, y = lat), colour = "red", alpha = .3)+
+  labs(
+    x = "",
+    y = ""
+  )+
+  # gg(mesh3,alpha = .2, int.color = "red") +
+  theme_nicco()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+mean +sd
 
 # 
 # boundary = bnd$loc %>%  

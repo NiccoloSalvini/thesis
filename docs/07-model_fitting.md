@@ -8,8 +8,7 @@ In this chapter it is applied all the theory seen so far through the lenses of R
 
 
 
-In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a $log_{10}$ transformation (further transformation would have better Normalized data i.e. Box-Cox [@boxcox] and Yeo-Johnson [@yeojohnson] however they over complicate interpretability). Moreover all of the numerical covariatesd i.e. condominium, and sqmeter, have already been prepared in \@ref(prep) and are further standardized and scaled. No assessment neither validation set are retained since it is going to be fitted a LOOCV (refer to \@ref(criticism)) within the `inla()` function call. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the borders shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to a new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \@ref(fig:ggmap).
-
+In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a $log_{10}$ transformation (further transformation would have better Normalized data i.e. Box-Cox [@boxcox] and Yeo-Johnson [@yeojohnson] however they over complicate interpretability). Moreover all of the numerical covariates e.g. _condominium_, _sqmeter_ and _photosnum_ have already been prepared in \@ref(prep) and are further standardized and scaled. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the borders shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \@ref(fig:ggmap).
 
 
 <div class="figure">
@@ -18,7 +17,7 @@ In order to make the distribution of the response i.e. price (per month in €) 
 </div>
 ## Model Specification & Mesh Assessement {#modelspecandmesh}
 
-WIth the aim to fit inla then a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data $\mathbf{y}$ i.e. normal distribution:
+WIth the aim to harness INLA power a hierarchical LGM need to be imposed. Its definition starts from fitting an exponential family distribution on Milan Real Estate Rental data $\mathbf{y}$ i.e. normal distribution:
 
 $$
 \mathbf{y}\sim \operatorname{Normal}\left(\boldsymbol\mu, \sigma_{e}^{2}\right)
@@ -29,19 +28,19 @@ Then the linear predictor i.e. the mean, since the function $\mathrm{g}\left(\bo
 $$
 \boldsymbol\eta=b_{0}+\boldsymbol x \boldsymbol\beta+\boldsymbol\xi 
 $$
-where, following the notation in expression \@ref(eq:linearpredictor), $\boldsymbol\xi$ is the spatial random effect assigned to the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\boldsymbol\xi$ is also the GMRF defined in\@ref(def:gmrf), as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NAs are omitted adn after imputation it results in $192 \times 192$.
+where, following the notation in expression \@ref(eq:linearpredictor), $\boldsymbol\xi$ is the spatial random effect assigned to the function $f_1()$, for the set of coviarates $\boldsymbol{z}=\left(x_{1} = lat,\, x_{2} = long\right)$. $\boldsymbol\xi$ is also the GMRF defined in\@ref(def:gmrf), as a result it is distributed as a multivariate Normal centered in 0 and whose covariance function is Matérn (fig. \@ref(fig:matern)) i.e. $\xi_{i} \sim N\left(\mathbf{0}, \mathbf{Q}_{\mathscr{C}}^{-1}\right)$. The precision matrix  $\mathbf{Q}_{\mathscr{C}}^{-1}$ (see left panel in figure \@ref(fig:precisionmat)) is the one that requires to be treated with SPDE and its dimensions are $n \times n$, in this case when NAs are omitted and after imputation it results in $192 \times 192$.
 $\boldsymbol\beta$ are the model scraped covariates coefficients, which include condom, totlocali, altro, bagno, cucina, heating ... and the rest.
-Then the latent field is composed by $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. In the end following the traits of the final expression in \@ref(GP) then the LGM can be reformatted as follows,
+Then the latent field is composed by $\boldsymbol{\theta}=\{\boldsymbol{\xi}, \boldsymbol{\beta}\}$. In the end following the traits of the final expression in \@ref(GP) the LGM can be reformatted as follows,
 
 $$
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 $$
-Priors are assigned as Gaussian vagues ones for the $\boldsymbol\beta$ coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process $\boldsymbol\xi$ as Penalized in Complexity. The referring probability statements are: for the mean posterior of the spatial range in kilometres $\operatorname{Prob}(r<20)=0.8$ and for the standard deviation of the spatial effect $\operatorname{Prob}(\sigma^2<20)=0.8$, see section \@ref(spdemodeol).
+Priors are assigned as Gaussian vagues ones for the $\boldsymbol\beta$ coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process $\tilde{\boldsymbol\xi}$ as Penalized in Complexity.
 Thus following the steps and notation marked in sec. \@ref(LGM). the _higher_ level eq. \@ref(eq:higher) is constituted by the **likelihood**, depending on hyper parameters $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)$:
 
-$$\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{I}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)$$
+$$\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)$$
 
-At the _medium_ level eq. \@ref(eq:medium) there is the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, for which $\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}$, the only component is the measurement error precision, 
+At the _medium_ level eq. \@ref(eq:medium) there exists the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, conditioned to the hyper parameter $\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}$, whose only component is the measurement error precision, 
 
 
 $$  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)$$
@@ -51,7 +50,7 @@ In the lower level priors are considered as their joint distribution i.e. $\bold
 $$
 \pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\psi)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{192}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\psi}\right)}_{\text {likelihood }}
 $$
-Then one again the objectives of bayesian inference are the posterior marginal distributions for the latent field and the hyperparameters, which are contained in equation \@ref(eq:finalobj) for which Laplace approximations in \@ref(approx) are used.
+Then once again the objectives of bayesian inference are the posterior marginal distributions for the latent field and the hyperparameters, which are contained in equation \@ref(eq:finalobj), for which Laplace approximations in \@ref(approx) are employed.
 
 
 
@@ -60,18 +59,23 @@ Then one again the objectives of bayesian inference are the posterior marginal d
 
 ## Building the SPDE object{#spdemodeol}
 
-SPDE requires to triangulate the domain space $\mathscr{D}$ as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no proper boundaries are provided. Four meshes are produced, whose figures are in \@ref(fig:meshes). Triangles appears seems to be thoroughly smooth and equilateral. The extra offset prevents the model to be affected by boundary effects. However the maximum ontainable number of vertices is in $\operatorname{mesh}_3$ , it appears to be the most suited to this dataset. Critical parameters for meshes are `max.edge=c(0.01, 0.02)` and  `offset=c(0.0475, 0.0625))`. Further trials have shown that below the lower bound of max.edge of $0.01$ the function is not able to output the triangulation.
+SPDE requires to triangulate the domain space $\mathscr{D}$ as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no proper boundaries are provided. Four meshes are produced, whose figures are in \@ref(fig:meshes). Triangles appears to be thoroughly smooth and equilateral. The extra offset prevents the model to be affected by boundary effects. However the maximum accessible number of vertices is in $\operatorname{mesh}_3$ , it seems to have the most potential for this dataset. Critical parameters for meshes are `max.edge=c(0.01, 0.02)` and  `offset=c(0.0475, 0.0625))` which in fact mold their sophistication. Further trials have shown that below the lower bound of max.edge of $0.01$ the function is not able to produce the triangulation.
 
 <div class="figure">
 <img src="07-model_fitting_files/figure-html/meshes-1.png" alt="Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices" width="672" />
 <p class="caption">(\#fig:meshes)Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices</p>
 </div>
 
-$\operatorname{Prob}(r<3060)=0.01$ and for the standard deviation of the spatial effect $\operatorname{Prob}(\sigma^2<20)=0.8$
-
 The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation, i.e. $\operatorname{mesh}_3$ and the PC priors \@ref(priorsspec), satisfying the following probability statements: $\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01$ where $\sigma_{\varepsilon}^2$ is the spatial range desumed in \@ref(fig:semivariogram). And  $\operatorname{Prob}(\tau> 0.9)< 0.05$ where $\tau$ is the marginal standard deviation (on the log scale) of the field \@ref(spatassess).
-As model complexity increases, for instance, a lot of random effects are found in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis.
+As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis.
 
+
+
+
+## Model selection
+
+Since covariates are many they arouse also many possible combinations of predictors that may better shape complex dynamics. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
+Consequently a Forward Selection [@guyon2003introduction] algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
 
 
@@ -123,14 +127,9 @@ In respect to the function parameter the Matérn hyper parameters $\psi_1$ (pena
 
 
 
- By using a summary, It can grasped the fixed random effect results
 
-With regard to model criticsm, the model evaluation is focused on DIC and CPO, which are directly obtained from the output of the R-INLA object.
 
-inference on posterior results, credibility levels 
-
-posterior results table...
-
+<!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD --><!-- PLOT THE LATENT FIELD -->
 
 It might be of interest to plot the latent field which is projected from the model. 
 
@@ -141,17 +140,6 @@ It might be of interest to plot the latent field which is projected from the mod
 
 
 <!-- a further trial  --> <!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  -->
-
-
-
-
-
-
-## Model selection
-
-Since covariates are many there also many possible combinations of predictors that may better express the response. However, there is the possibility to take advantage of several natively implemented ways to use built-in features. As a matter of fact in section \@ref(devbased) are presented a set of tools to compare models based on deviance criteria. One of them is DIC which actually balances the number of features applying a penalty when the number of features introduced increases eq. \@ref(eq:dic).
-As a result a Forward Selection [@guyon2003introduction] algorithm is chosen. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
-
 
 
 
