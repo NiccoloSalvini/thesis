@@ -1,4 +1,4 @@
-# Geostatistical Data analysis {#prdm}
+# Geostatistical Data Analysis {#prdm}
 
 
 ```{r, include=FALSE}
@@ -153,7 +153,13 @@ As a result of SPDE the spatial Matérn field i.e. the spatial process $\xi(\bol
 
 In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain $\mathcal{D}$  [-@Cameletti2012], also named _mesh_. What it internally does is splitting the domain $\mathcal{D}$ into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at $s_1 \ldots s_d$. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.
 
-Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \@ref(triangular) on how SPDE computes triangularizes values and how it uses the projection matrix to inject the triangulation into the GRMF.  
+Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. 
+
+
+:::bulb
+A less superficial intuition on how SPDE computes triangularizes values and how it uses the projection matrix based on a weighted sum of basis functions to inject the triangulation into the GRMF is offered in the appendix in section \@ref(triangular).
+:::
+
 To illustrate the concept of triangulation @Cameletti2012 provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \@ref(fig:piepm10). Its respective mesh using 123 vertices and Piemonte borders is in right figure \@ref(fig:piepm10). 
 
 ![(#fig:piepm10)Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. @Cameletti2012 source](images/piemonte_pm10.jpg)

@@ -4,9 +4,9 @@
 
 
 
-To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters number of covariates a number of observations)
+To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
 <!-- As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster.  -->
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. 2021-01-26 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \@ref(tab:covartable), involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second `/completescrape` endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. 2021-02-02 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 <!-- [gebstionale immobiliare](https://www.gestionaleimmobiliare.it/export/docs/GI_XML_attributi_v.1.11.pdf) -->
 
@@ -16,56 +16,57 @@ Data emerging from the RESTful API response is not in its tidiest format. Yet da
 
 
 
-\begin{longtable}{ll}
+\begin{longtable}[t]{ll}
+\caption{(\#tab:covartable)Covariates extracted on a general API call}\\
 \toprule
-name & ref\\
+name & descrition\\
 \midrule
-ID & ID of the apartements\\
-LAT & latitude coordinate\\
-LONG & longitude coordinate\\
-LOCATION & property address: street name and eventual number\\
-CONDOM & condominium monthly expenses\\
+id & ID of the apartements\\
+lat & latitude coordinate\\
+long & longitude coordinate\\
+location & property address: street name and eventual number\\
+condom & condominium monthly expenses\\
 \addlinespace
-BUILDAGE & age in which the building was contructed\\
-INDIVSAPT & indipendent property type versus apartement type\\
-LOCALI & type and number of rooms\\
-PROPCAT & property category\\
-STATUS & maintenance status of the house, ristrutturato, nuovo, abitabile\\
+buildage & age in which the building was contructed\\
+indivsapt & indipendent property type versus apartement type\\
+locali & type and number of rooms\\
+propcat & property category\\
+status & maintenance status of the house, ristrutturato, nuovo, abitabile\\
 \addlinespace
-HEATING & heating system\\
-AC & air conditioning\\
-CATASTINFO & land registry information\\
-APTCHAR & apartement characteristics\\
-PHOTOSNUM & number of photos displayed in the advertisement\\
+heating & heating system\\
+ac & air conditioning\\
+catastinfo & land registry information\\
+aptchar & apartement characteristics\\
+photosnum & number of photos displayed in the advertisement\\
 \addlinespace
-AGE & real estate agency name\\
-ENCLASS & energy class\\
-CONTR & contract type proposed\\
-DISP & availability or already rented\\
-TOTPIANI & total number of building floors\\
+age & real estate agency name\\
+enclass & energy class\\
+contr & contract type proposed\\
+disp & availability or already rented\\
+totpiani & total number of building floors\\
 \addlinespace
-POSTAUTO & number of parking box or garages\\
-REVIEW & estate agency review (long chr string)\\
-TOTAL\_MAIN\_SURFACE & total apartement surface area\\
-TOTAL\_COMMERCIAL\_SURFACE & total commercial surface area\\
-CONSTITUTION & covered and uncovered surface areas type\\
+postauto & number of parking box or garages\\
+review & estate agency review (long chr string)\\
+total\_main\_surface & total apartement surface area\\
+total\_commercial\_surface & total commercial surface area\\
+constitution & covered and uncovered surface areas type\\
 \addlinespace
-FLOOR & the property floor for each covered and uncovered area\\
-SURFACE & square meter footage for each covered and uncovered type\\
-PERCENTAGE & contribution percentage for each element to the total surface\\
-SURFACE\_TYPE & appliances or princpal category surface\\
-COMMERCIAL\_SURFACE & square meter footage for each commercial surface area\\
+floor & the property floor for each covered and uncovered area\\
+surface & square meter footage for each covered and uncovered type\\
+percentage & contribution percentage for each element to the total surface\\
+surface\_type & appliances or princpal category surface\\
+commercial\_surface & square meter footage for each commercial surface area\\
 \addlinespace
-MULTI & it if has multimedia option, (3D house ristualization home experience and videos)\\
-ORIGINAL\_PRICE & If the price is lowered it flags the starting price\\
-CURRENT\_PRICE & If the price is lowered it flags the current price\\
-PASSED\_DAYS & If the price is lowered marks the number of days passed by since the price change\\
-DATE & the date of publication of the advertisement\\
+multi & it if has multimedia option, (3D house ristualization home experience and videos)\\
+original\_price & If the price is lowered it flags the starting price\\
+current\_price & If the price is lowered it flags the current price\\
+passed\_days & If the price is lowered marks the number of days passed by since the price change\\
+date & the date of publication of the advertisement\\
 \addlinespace
-NROOM & number of rooms (int)\\
-PRICE & monthly price € (response)\\
-SQFEET & total square meters footage surface area (int)\\
-TITLE & title of advertisement\\
+nroom & number of rooms (int)\\
+price & monthly price € (response)\\
+sqfeet & total square meters footage surface area (int)\\
+title & title of advertisement\\
 \bottomrule
 \end{longtable}
 
@@ -184,10 +185,13 @@ The plot \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y 
 
 ![(\#fig:GlmPriceSq)Monthly Prices change wrt square meters footage in different n-roomed apt](06-exploratory_files/figure-latex/GlmPriceSq-1.pdf) 
 
-Furthermore in table (...) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
+Furthermore in table \@ref(tab:TopAbsPrice) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
+\begin{table}
 
-\begin{tabular}{llrrlll}
+\caption{(\#tab:TopAbsPrice)The most profitable properties per single square meter footage at the date of2021-02-02}
+\centering
+\begin{tabular}[t]{llrrlll}
 \toprule
 location & totlocali & price & sqfeet & floor & totpiani & abs\_price\\
 \midrule
@@ -200,6 +204,7 @@ via tommaso salvini 1 & Multilocale & 15000 & 360 & 5 & 6 piani & 41.67€\\
 via cappuccini C.A. & Trilocale & 4000 & 100 & 3 & 5 piani & 40€\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 ## Assessing relevant predictors
 
@@ -368,10 +373,13 @@ Since the response is not missing, indeed it does _condominium_,  imputation is 
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:CondomImputation).
 
+\begin{table}
 
-\begin{tabular}{lrr}
+\caption{(\#tab:condomimputation)Estimated Posterior mean quantities imputed at the place of the missing index}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
   & mean & sd\\
 \midrule
@@ -381,6 +389,7 @@ fitted.Predictor.132 & 312.9235 & 16.60390\\
 fitted.Predictor.167 & 106.9133 & 22.13250\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 
 <!-- Afterwards the benchmark model is refitted in imputed data and coefficients are compared with the missing. Results displays... -->

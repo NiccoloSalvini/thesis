@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Geostatistical Data analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
+  <title>Chapter 5 Geostatistical Data Analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</title>
   <meta name="description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Geostatistical Data analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta property="og:title" content="Chapter 5 Geostatistical Data Analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://niccolosalvini.github.io/Thesis/" />
   <meta property="og:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
@@ -16,12 +16,14 @@
   <meta name="github-repo" content="NiccoloSalvini/thesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Geostatistical Data analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
+  <meta name="twitter:title" content="Chapter 5 Geostatistical Data Analysis | RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA" />
   
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
 
-<meta name="author" content="Niccolò Salvini" />
+<meta name="author" content="Candidate: Niccolò Salvini" />
+<meta name="author" content="Supervisor: Phd Marco L. Della Vedova" />
+<meta name="author" content="Assistant Supervisor: PhD Vincenzo Nardelli" />
 
 
 
@@ -49,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -83,6 +87,7 @@
 
   gtag('config', 'UA-171723874-1');
 </script>
+<script src="js/1book.js"></script>
 
 
 <style type="text/css">
@@ -211,7 +216,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data analysis</a><ul>
+<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
@@ -270,7 +275,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="prdm" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Geostatistical Data analysis</h1>
+<h1><span class="header-section-number">Chapter 5</span> Geostatistical Data Analysis</h1>
 <p>Geostatistical or equivalently point reference data are a collection of samples indexed by coordinates pertaining to a spatially continuous surface <span class="citation">(Moraga <a href="#ref-Moraga2019" role="doc-biblioref">2019</a>)</span>. Coordinates might be in the form of Latitude and Longitude or Eastings and Northings, moreover they can be also unprojected with respect to a Coordinate Reference Systems (CRS e.g. lat and log), or projected (e.g. East. and North.). Data as such can monitor a vast range of phenomena, e.g. accidental fisheries bycatch for endangered species <span class="citation">(Cosandey-Godin et al. <a href="#ref-CosandeyGodin2015" role="doc-biblioref">2015</a>)</span>, COVID19 severity and case fatality rates in Spain <span class="citation">(Moraga et al. <a href="#ref-Moragacovid2020" role="doc-biblioref">2020</a>)</span>, PM10 pollution concentration in a North-Italian region Piemonte <span class="citation">(Cameletti et al. <a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>. Moreover a large geostatistical application takes place on Real Estate e.g. Boston house prices lattice data <span class="citation">(Venables and Ripley <a href="#ref-mass" role="doc-biblioref">2002</a>)</span> are ingested by several spatial models <span class="citation">(Bivand, Gómez Rubio, and Rue <a href="#ref-rubiorealestate" role="doc-biblioref">2015</a>)</span>, or spatio-temporal modeling for apartment transaction prices in Corsica (FR) <span class="citation">(Ling <a href="#ref-Ling" role="doc-biblioref">2019</a>)</span>. All the examples taken before have implied inla and might have documented a spatial nature of data according to which closer observations were displaying similar values. This phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:</p>
 <blockquote>
 <p>“Everything is related to everything else,
@@ -364,8 +369,11 @@ The breakthrough came with <span class="citation">Lindgren, Rue, and Lindström 
 Benefits are many but the most important is that the representation of the GP through a GMRF provides a sparse representation of the spatial effect through a sparse precision matrix <span class="math inline">\(\boldsymbol{Q}\)</span> . Sparse matrices enable convenient inner computation properties of GMRF <a href="inla.html#approx">4.3</a> which are exploited by INLA algorithm <a href="inla.html#inla">4</a> leading to a more feasible big-O <span class="math inline">\(\mathcal{O}\left(n^{3 / 2}\right)\)</span>. Mathematical details and deep understanding of the equations in SPDE are beyond the scope of the analysis. Luckily enough R-INLA has a set of functions that makes clear to the practitioner the minimal requirements to pass from discrete locations to their continuously indexed surface alter-ego.
 As a result of SPDE the spatial Matérn field i.e. the spatial process <span class="math inline">\(\xi(\boldsymbol{s})\)</span> becomes <span class="math inline">\(\tilde\xi(\boldsymbol{s})\)</span>, where the precision matrix <span class="math inline">\(Q\)</span> comes from the SPDE representation <span class="citation">(<a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>.</p>
 <p>In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain <span class="math inline">\(\mathcal{D}\)</span> <span class="citation">(<a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span>, also named <em>mesh</em>. What it internally does is splitting the domain <span class="math inline">\(\mathcal{D}\)</span> into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at <span class="math inline">\(s_1 \ldots s_d\)</span>. In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.</p>
-<p>Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section <a href="appendix.html#triangular">8.1</a> on how SPDE computes triangularizes values and how it uses the projection matrix to inject the triangulation into the GRMF.<br />
-To illustrate the concept of triangulation <span class="citation">Cameletti et al. (<a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span> provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure <a href="prdm.html#fig:piepm10">5.5</a>. Its respective mesh using 123 vertices and Piemonte borders is in right figure <a href="prdm.html#fig:piepm10">5.5</a>.</p>
+<p>Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles.</p>
+<div class="bulb">
+<p>A less superficial intuition on how SPDE computes triangularizes values and how it uses the projection matrix based on a weighted sum of basis functions to inject the triangulation into the GRMF is offered in the appendix in section <a href="appendix.html#triangular">8.1</a>.</p>
+</div>
+<p>To illustrate the concept of triangulation <span class="citation">Cameletti et al. (<a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span> provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure <a href="prdm.html#fig:piepm10">5.5</a>. Its respective mesh using 123 vertices and Piemonte borders is in right figure <a href="prdm.html#fig:piepm10">5.5</a>.</p>
 <div class="figure"><span id="fig:piepm10"></span>
 <img src="images/piemonte_pm10.jpg" alt="" />
 <p class="caption">Figure 5.5: Left: monitoring stations in Piemonte region for PM10 pollution levels. Right: its triangulation using 123 vertices. <span class="citation">Cameletti et al. (<a href="#ref-Cameletti2012" role="doc-biblioref">2012</a>)</span> source</p>

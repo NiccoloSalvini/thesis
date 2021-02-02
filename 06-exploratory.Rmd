@@ -18,6 +18,7 @@ library(tidyverse, quietly = F, warn.conflicts = F)
 library(broom, quietly = F, warn.conflicts = F)
 library(future, quietly = F, warn.conflicts = F)
 library(viridis, quietly = F, warn.conflicts = F)
+library(kableExtra, warn.conflicts = F, quietly = T)
 library(leaflet, quietly = F, warn.conflicts = F)
 library(magrittr, quietly = F, warn.conflicts = F)
 library(sp, quietly = F, warn.conflicts = F)
@@ -64,9 +65,9 @@ theme_nicco = function (base_size = 11, base_family = "") {
 }
 ```
 
-To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters number of covariates a number of observations)
+To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
 <!-- As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster.  -->
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. `r noquote(Sys.Date())` is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \@ref(tab:covartable), involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second `/completescrape` endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. `r noquote(Sys.Date())` is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 <!-- [gebstionale immobiliare](https://www.gestionaleimmobiliare.it/export/docs/GI_XML_attributi_v.1.11.pdf) -->
 
@@ -230,11 +231,11 @@ datiprep = readd(datiprep)
 ```
 
 
-```{r covar_table, fig.cap="List of Hedonic variables in the API call and their brief explanation"}
+```{r covartable}
 
 ### fai la tabella delle colonne
 ### 
-ref =c(
+ref = c(
 "ID of the apartements",
 "latitude coordinate",
 "longitude coordinate",
@@ -278,11 +279,12 @@ ref =c(
 
 names = dati2 %>%  names
 tibble(
-  name = toupper(names),
-  ref  = ref 
-) %>% 
-  knitr::kable(booktabs = T, longtable = T)
-  # 
+  name = names,
+  descrition  = ref 
+) %>%
+  kbl(caption = "Covariates extracted on a general API call", booktabs = T, longtable = T) %>%
+  kable_minimal()
+
   # kbl(booktabs = T, longtable = T) %>%
   # kable_styling(full_width = F,font_size = 8) %>%
   # column_spec(1, bold = T) %>%
@@ -628,7 +630,7 @@ datiprep_sq %>%
   theme_nicco()
 ```
 
-Furthermore in table (...) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
+Furthermore in table \@ref(tab:TopAbsPrice) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
 ```{r TopAbsPrice, fig.cap="prima tabella"}
 datiprep_sq %>%
@@ -636,8 +638,9 @@ datiprep_sq %>%
   select(location,totlocali, price, sqfeet,floor, totpiani,abs_price) %>%
   slice(3:8) %>%  
   mutate(abs_price = round(abs_price,2),
-         abs_price = glue("{abs_price}€")) %>% 
-  kable(booktabs = T)
+         abs_price = glue("{abs_price}€")) %>%
+  kbl(caption = paste0("The most profitable properties per single square meter footage at the date of", Sys.Date(), collapse = " "), booktabs = T) %>%
+  kable_minimal()
 ```
 
 ## Assessing relevant predictors
@@ -869,7 +872,7 @@ ff$Continuous
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:CondomImputation).
 
 ```{r condomimputation, fig.cap="Posterior Means imputation"}
 ## condom model fitted
@@ -880,7 +883,8 @@ condo_imputation = inla(condom ~ 1 + sqfeet + totlocali, data = data_miss2,
 data_imputed = data.frame(data_miss2) 
 data_imputed$condom[condom_na] = condo_imputation$summary.fitted.values[condom_na, "mean"]
 condo_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>% 
-  knitr::kable(booktabs = T)
+  kbl(caption = "Estimated Posterior mean quantities imputed at the place of the missing index",  booktabs = T) %>%
+  kable_minimal()
 
 ```
 

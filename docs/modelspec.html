@@ -21,7 +21,9 @@
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
 
-<meta name="author" content="Niccolò Salvini" />
+<meta name="author" content="Candidate: Niccolò Salvini" />
+<meta name="author" content="Supervisor: Phd Marco L. Della Vedova" />
+<meta name="author" content="Assistant Supervisor: PhD Vincenzo Nardelli" />
 
 
 
@@ -49,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -83,6 +87,7 @@
 
   gtag('config', 'UA-171723874-1');
 </script>
+<script src="js/1book.js"></script>
 
 
 <style type="text/css">
@@ -211,7 +216,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data analysis</a><ul>
+<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
@@ -338,110 +343,237 @@ Consequently a Forward Stepwise Selection <span class="citation">(Guyon and Elis
 </div>
 <div id="fit" class="section level2">
 <h2><span class="header-section-number">7.4</span> Parameter Estimation and Results</h2>
-<p>Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.</p>
-<table style="width:100%;">
-<colgroup>
-<col width="60%" />
-<col width="4%" />
-<col width="5%" />
-<col width="10%" />
-<col width="8%" />
-<col width="10%" />
-</colgroup>
+<p>Now the candidate statistical model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. When the model has run, the conclusions for the random and fixed effects are now discussed.</p>
+<table class=" lightable-minimal" style='font-family: "Trebuchet MS", verdana, sans-serif; margin-left: auto; margin-right: auto;'>
+<caption>
+<span id="tab:modelfitting">Table 7.1: </span>Summary statistics for the top 10 coefficients arranged by descending mean
+</caption>
 <thead>
-<tr class="header">
-<th align="left">coefficients</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">0.025quant</th>
-<th align="right">0.5quant</th>
-<th align="right">0.975quant</th>
+<tr>
+<th style="text-align:left;">
+coefficients
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+0.025quant
+</th>
+<th style="text-align:right;">
+0.5quant
+</th>
+<th style="text-align:right;">
+0.975quant
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Intercept</td>
-<td align="right">5.46</td>
-<td align="right">12.91</td>
-<td align="right">-19.89</td>
-<td align="right">5.46</td>
-<td align="right">30.79</td>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+5.46
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-19.89
+</td>
+<td style="text-align:right;">
+5.46
+</td>
+<td style="text-align:right;">
+30.79
+</td>
 </tr>
-<tr class="even">
-<td align="left">totlocaliTrilocale</td>
-<td align="right">1.19</td>
-<td align="right">12.91</td>
-<td align="right">-24.15</td>
-<td align="right">1.19</td>
-<td align="right">26.52</td>
+<tr>
+<td style="text-align:left;">
+totlocaliTrilocale
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-24.15
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+26.52
+</td>
 </tr>
-<tr class="odd">
-<td align="left">totlocali5+</td>
-<td align="right">1.18</td>
-<td align="right">12.91</td>
-<td align="right">-24.17</td>
-<td align="right">1.18</td>
-<td align="right">26.50</td>
+<tr>
+<td style="text-align:left;">
+totlocali5+
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-24.17
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+26.50
+</td>
 </tr>
-<tr class="even">
-<td align="left">totlocaliBilocale</td>
-<td align="right">1.09</td>
-<td align="right">12.91</td>
-<td align="right">-24.25</td>
-<td align="right">1.09</td>
-<td align="right">26.42</td>
+<tr>
+<td style="text-align:left;">
+totlocaliBilocale
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-24.25
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+<td style="text-align:right;">
+26.42
+</td>
 </tr>
-<tr class="odd">
-<td align="left">totlocaliQuadrilocale</td>
-<td align="right">1.03</td>
-<td align="right">12.91</td>
-<td align="right">-24.32</td>
-<td align="right">1.03</td>
-<td align="right">26.36</td>
+<tr>
+<td style="text-align:left;">
+totlocaliQuadrilocale
+</td>
+<td style="text-align:right;">
+1.03
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-24.32
+</td>
+<td style="text-align:right;">
+1.03
+</td>
+<td style="text-align:right;">
+26.36
+</td>
 </tr>
-<tr class="even">
-<td align="left">totlocaliPentalocale</td>
-<td align="right">0.97</td>
-<td align="right">12.91</td>
-<td align="right">-24.38</td>
-<td align="right">0.97</td>
-<td align="right">26.29</td>
+<tr>
+<td style="text-align:left;">
+totlocaliPentalocale
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+12.91
+</td>
+<td style="text-align:right;">
+-24.38
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+26.29
+</td>
 </tr>
-<tr class="odd">
-<td align="left">heatingAutonomo, a pavimento, alimentato a pompa di calore</td>
-<td align="right">0.67</td>
-<td align="right">0.21</td>
-<td align="right">0.26</td>
-<td align="right">0.66</td>
-<td align="right">1.08</td>
+<tr>
+<td style="text-align:left;">
+heatingAutonomo, a pavimento, alimentato a pompa di calore
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.66
+</td>
+<td style="text-align:right;">
+1.08
+</td>
 </tr>
-<tr class="even">
-<td align="left">receptionyes</td>
-<td align="right">0.46</td>
-<td align="right">0.16</td>
-<td align="right">0.14</td>
-<td align="right">0.46</td>
-<td align="right">0.78</td>
+<tr>
+<td style="text-align:left;">
+receptionyes
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.78
+</td>
 </tr>
-<tr class="odd">
-<td align="left">heatingCentralizzato, ad aria</td>
-<td align="right">0.33</td>
-<td align="right">0.17</td>
-<td align="right">0.00</td>
-<td align="right">0.33</td>
-<td align="right">0.66</td>
+<tr>
+<td style="text-align:left;">
+heatingCentralizzato, ad aria
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.66
+</td>
 </tr>
-<tr class="even">
-<td align="left">heatingCentralizzato, a pavimento, alimentato a pompa di calore</td>
-<td align="right">0.31</td>
-<td align="right">0.15</td>
-<td align="right">0.01</td>
-<td align="right">0.31</td>
-<td align="right">0.60</td>
+<tr>
+<td style="text-align:left;">
+heatingCentralizzato, a pavimento, alimentato a pompa di calore
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.60
+</td>
 </tr>
 </tbody>
 </table>
-<p>Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at TAB(…) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is 235.1 €.
+<p>Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at table <a href="modelspec.html#tab:modelfitting">7.1</a> where coefficients are arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is truly quite lofty, affirming that the average house price is 235.1 €.
 Moreover being a “Trilocale” or “Bilocale”, as pointed out in <a href="exploratory.html#mvp">6.4</a>, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
@@ -449,27 +581,51 @@ INLA is able to output the mean and the standard deviation of measurement precis
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  --></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">hyper-param</th>
-<th align="right">sd</th>
-<th align="right">mode</th>
+<tr>
+<th style="text-align:left;">
+hyper-param
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+mode
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Precision for the Gaussian observations</td>
-<td align="right">4.3460742</td>
-<td align="right">30.350547</td>
+<tr>
+<td style="text-align:left;">
+Precision for the Gaussian observations
+</td>
+<td style="text-align:right;">
+4.3460742
+</td>
+<td style="text-align:right;">
+30.350547
+</td>
 </tr>
-<tr class="even">
-<td align="left">Theta1 for site</td>
-<td align="right">0.3729812</td>
-<td align="right">-3.570613</td>
+<tr>
+<td style="text-align:left;">
+Theta1 for site
+</td>
+<td style="text-align:right;">
+0.3729812
+</td>
+<td style="text-align:right;">
+-3.570613
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Theta2 for site</td>
-<td align="right">0.4993020</td>
-<td align="right">3.913943</td>
+<tr>
+<td style="text-align:left;">
+Theta2 for site
+</td>
+<td style="text-align:right;">
+0.4993020
+</td>
+<td style="text-align:right;">
+3.913943
+</td>
 </tr>
 </tbody>
 </table>

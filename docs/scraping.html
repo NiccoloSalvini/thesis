@@ -21,7 +21,9 @@
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
 
-<meta name="author" content="Niccolò Salvini" />
+<meta name="author" content="Candidate: Niccolò Salvini" />
+<meta name="author" content="Supervisor: Phd Marco L. Della Vedova" />
+<meta name="author" content="Assistant Supervisor: PhD Vincenzo Nardelli" />
 
 
 
@@ -49,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -83,6 +87,7 @@
 
   gtag('config', 'UA-171723874-1');
 </script>
+<script src="js/1book.js"></script>
 
 
 <style type="text/css">
@@ -211,7 +216,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data analysis</a><ul>
+<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
@@ -475,7 +480,7 @@ UA is a dense content string that includes many User details: the user applicati
 <span id="cb5-3"><a href="scraping.html#cb5-3"></a>agents =<span class="st"> </span><span class="kw">read_html</span>(url) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="dt">css =</span> <span class="st">&quot;.agents_list li&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</span>
 <span id="cb5-4"><a href="scraping.html#cb5-4"></a></span>
 <span id="cb5-5"><a href="scraping.html#cb5-5"></a>agents[<span class="kw">sample</span>(<span class="dv">1</span>)]</span></code></pre></div>
-<pre><code>## [1] &quot;Mozilla/5.0 (Linux; Android 10; Nokia 3.1 Plus Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/302.0.0.45.119;]&quot;</code></pre>
+<pre><code>## [1] &quot;AppleCoreMedia/1.0.0.18A393 (iPod touch; U; CPU OS 14_0_1 like Mac OS X; es_es)&quot;</code></pre>
 <p>The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
 However UA field name technology has been recently sentenced as superseded in favor of a newer (2020) proactive content negotiator named <em>Hints</em> <span class="citation">contributors (<a href="#ref-wiki:UserAgentHints" role="doc-biblioref">2020</a><a href="#ref-wiki:UserAgentHints" role="doc-biblioref">e</a>)</span>.</p>
 An even more secure approach may be accomplished rotating proxy servers between the back and forth sending-receiving process.

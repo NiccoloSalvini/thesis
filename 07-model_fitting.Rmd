@@ -23,6 +23,7 @@ library(knitr, warn.conflicts = F, quietly = T)
 library(latex2exp, warn.conflicts = F, quietly = T)
 library(faraway, quietly = T, warn.conflicts = F)
 library(patchwork, warn.conflicts = F, quietly = T)
+library(kableExtra, warn.conflicts = F, quietly = T)
 library(tidyverse, warn.conflicts = F, quietly = T)
 library(INLA, warn.conflicts = F, quietly = T)
 library(inlabru, warn.conflicts = F, quietly = T)
@@ -381,9 +382,9 @@ print(paste("condom + totlocali + bagno + cucina + heating + photosnum + floor +
 
 ## Parameter Estimation and Results{#fit}
 
-Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.
+Now the candidate statistical model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. When the model has run, the conclusions for the random and fixed effects are now discussed.
 
-```{r model_fitting}
+```{r modelfitting}
 
 ## rebuilt the stack based on stepwise forward
 ## 
@@ -415,15 +416,17 @@ summ_fin = model_final$summary.fixed %>%
   tibble::rownames_to_column("coefficients") %>% 
   dplyr::select(-mode, -kld)  %>%
   mutate(across(where(is.numeric), round, 2)) %>% 
-  arrange(desc(mean))
+  arrange(desc(mean)) 
+  
 
 summ_fin %>% 
   head(10) %>% 
-  kable(booktabs = T, longtable = T)
+  kbl(caption = "Summary statistics for the top 10 coefficients arranged by descending mean", booktabs = T) %>%
+  kable_minimal()
 
 ```
 
-Since the models coefficients are many i.e.`r dim(summ_fin)[1]` the analysis will concentrate on the most interesting ones. Looking at TAB(...) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is `r paste(round(exp(summ_fin[1,2]),2),"€", sep = " ")`.
+Since the models coefficients are many i.e.`r dim(summ_fin)[1]` the analysis will concentrate on the most interesting ones. Looking at table \@ref(tab:modelfitting) where coefficients are arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is truly quite lofty, affirming that the average house price is `r paste(round(exp(summ_fin[1,2]),2),"€", sep = " ")`.
 Moreover being a "Trilocale" or "Bilocale", as pointed out in \@ref(mvp), brings a monthly extra profit respectively of `r paste(round(exp(summ_fin[2,2]),2),"€", sep = " ")` and `r paste(round(exp(summ_fin[4,2]),2),"€", sep = " ")`. However standard deviations are quite high. 
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.

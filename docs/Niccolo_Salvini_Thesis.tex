@@ -40,7 +40,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA},
-  pdfauthor={Niccolò Salvini},
+  pdfauthor={Candidate: Niccolò Salvini; Supervisor: Phd Marco L. Della Vedova; Assistant Supervisor: PhD Vincenzo Nardelli},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -100,7 +100,6 @@
 \usepackage{colortbl}
 \usepackage{pdflscape}
 \usepackage{algorithm2e}
-\usepackage{tabu}
 \usepackage{threeparttable}
 \usepackage{threeparttablex}
 \usepackage[normalem]{ulem}
@@ -149,8 +148,8 @@
 \bibliographystyle{apalike}
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
-\author{\href{https://niccolosalvini.netlify.app/}{Niccolò Salvini}}
-\date{Lastest build: 26 gennaio, 2021}
+\author{Candidate: \href{https://niccolosalvini.netlify.app/}{Niccolò Salvini} \and Supervisor: \href{https://mldv.it/home/}{Phd Marco L. Della Vedova} \and Assistant Supervisor: \href{https://github.com/vincnardelli}{PhD Vincenzo Nardelli}}
+\date{Lastest book build: 02 febbraio, 2021}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -543,7 +542,7 @@ agents[sample(1)]
 \end{lstlisting}
 
 \begin{lstlisting}
-## [1] "Mozilla/5.0 (Linux; Android 10; BLA-L09 Build/HUAWEIBLA-L09S; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/303.0.0.27.122;]"
+## [1] "AppleCoreMedia/1.0.0.18A393 (iPod touch; U; CPU OS 14_0_1 like Mac OS X; es_es)"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -1198,7 +1197,10 @@ Therefore ultimately it is possible to produce a rather formal definition of a G
 \hypertarget{approx}{%
 \section{INLA Laplace Approximations}\label{approx}}
 
-The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \eqref{eq:finallgm} i.e.~\(\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})\), in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each \(\theta_{i}\) in the latent parameter \(\boldsymbol{\theta}\), for each hyper-parameter prior \(\psi_{k} \in \boldsymbol\psi\) (back to the \(\boldsymbol\theta\) latent field notation). The mathematical intuition behind Laplace approximation is contained in the appendix in sec.~\ref{laplaceapprox}.
+The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \eqref{eq:finallgm} i.e.~\(\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})\), in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each \(\theta_{i}\) in the latent parameter \(\boldsymbol{\theta}\), for each hyper-parameter prior \(\psi_{k} \in \boldsymbol\psi\) (back to the \(\boldsymbol\theta\) latent field notation).
+
+The mathematical intuition behind \textbf{Laplace Approximation} along with some real life cases are contained in the appendix in sec.~\ref{laplaceapprox}.
+
 Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian \citeyearpar{wang2018bayesian} or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are ``more Gaussian'' than the their joint distribution.
 Into the LGM framework let us assume to observe \(n\) counts, i.e.~\(\mathbf{y} = y_i = 1,2, \ldots, n\) drawn from Poisson distribution whose mean is \(\lambda_i, \forall i \in \mathbf{I}\). Then a the link function \(\mathscr{g}(\cdot)\) is the \(\log()\) and relates \(\lambda_i\) with the linear predictor and so the latent filed \(\theta\), i.e.~\(\log(\lambda_i)=\theta_{i}\). The hyper-parameters are \(\boldsymbol\psi = (\tau, \rho)\) with their covariance matrix structure.
 \[
@@ -1303,9 +1305,13 @@ formula = y ~ s1 + s2
 m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 \end{lstlisting}
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \ref{fig:postplot}. From the table it can also be seen that the mean for \(s_2\) is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \ref{fig:spatplot} where bigger bubbles are concentrated around the origin.
+Table \ref{tab:tableINLA} offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \ref{fig:postplot}. From the table it can also be seen that the mean for \(s_2\) is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \ref{fig:spatplot} where bigger bubbles are concentrated around the origin.
 
-\begin{tabular}{lrr}
+\begin{table}
+
+\caption{\label{tab:tableINLA}Summary Posterior quantiles for coefficients}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
 coefficients & mean & sd\\
 \midrule
@@ -1314,6 +1320,7 @@ s1 & 0.7624296 & 0.4293757\\
 s2 & -1.5836768 & 0.4293757\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 \begin{figure}
 \centering
@@ -1321,20 +1328,25 @@ s2 & -1.5836768 & 0.4293757\\
 \caption{\label{fig:postplot}Linear predictor marginals, plot recoded in \passthrough{\lstinline!ggplot2!}, author's source}
 \end{figure}
 
-In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with \passthrough{\lstinline!inla.dmarginal!}, \passthrough{\lstinline!inla.pmarginal!} and \passthrough{\lstinline!inla.qmarginal!}. One option which allows to compute the higher posterior density credibility interval \passthrough{\lstinline!inla.hpdmarginal!} for a given covariate's coefficient, such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) (90\% credibility), whose result is in table below.
+In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with \passthrough{\lstinline!inla.dmarginal!}, \passthrough{\lstinline!inla.pmarginal!} and \passthrough{\lstinline!inla.qmarginal!}. One option which allows to compute the higher posterior density credibility interval \passthrough{\lstinline!inla.hpdmarginal!} for a given covariate's coefficient i.e, \(\beta_2\), such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) (90\% credibility), whose result is in table below.
 
-\begin{tabular}{lrr}
+\begin{table}
+
+\caption{\label{tab:higerPosteriorDensityInterval}Higer Posterior Density Interval for s2 coefficient}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
   & low & high\\
 \midrule
 level:0.9 & -2.291268 & -0.879445\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 Note that the interpretation is more convoluted \citeyearpar{wang2018bayesian} than the traditional frequentist approach: in Bayesian statistics \(\beta_{j}\) comes from probability distribution, while frequenstists considers \(\beta_{j}\) as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value \citeyearpar{Blangiardo-Cameletti}.
 
 \hypertarget{prdm}{%
-\chapter{Geostatistical Data analysis}\label{prdm}}
+\chapter{Geostatistical Data Analysis}\label{prdm}}
 
 Geostatistical or equivalently point reference data are a collection of samples indexed by coordinates pertaining to a spatially continuous surface \citep{Moraga2019}. Coordinates might be in the form of Latitude and Longitude or Eastings and Northings, moreover they can be also unprojected with respect to a Coordinate Reference Systems (CRS e.g.~lat and log), or projected (e.g.~East. and North.). Data as such can monitor a vast range of phenomena, e.g.~accidental fisheries bycatch for endangered species \citep{CosandeyGodin2015}, COVID19 severity and case fatality rates in Spain \citep{Moragacovid2020}, PM10 pollution concentration in a North-Italian region Piemonte \citep{Cameletti2012}. Moreover a large geostatistical application takes place on Real Estate e.g.~Boston house prices lattice data \citep{mass} are ingested by several spatial models \citep{rubiorealestate}, or spatio-temporal modeling for apartment transaction prices in Corsica (FR) \citep{Ling}. All the examples taken before have implied inla and might have documented a spatial nature of data according to which closer observations were displaying similar values. This phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:
 
@@ -1454,7 +1466,10 @@ As a result of SPDE the spatial Matérn field i.e.~the spatial process \(\xi(\bo
 
 In few words SPDE approach uses a finite element (FEM method) representation to shape the Matérn field as a linear combination of basis functions defined on a triangulation (Delaunay) of the domain \(\mathcal{D}\) \citeyearpar{Cameletti2012}, also named \emph{mesh}. What it internally does is splitting the domain \(\mathcal{D}\) into a number of non-intersecting triangles which converge in a common edge or corner. Then the initial vertices of the triangles are set at \(s_1 \ldots s_d\). In order to get a proper triangulation, useful for spatial prediction, additional vertices are then added. The more vertices are added the more the triangulation is accurate since many more triangles can better interpolate the surface reaching more complex shapes. On the other side the more are the triangle the more it will take to compute the mesh and INLA performances can be damaged.
 
-Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles. A less superficial intuition is offered in the appendix in section \ref{triangular} on how SPDE computes triangularizes values and how it uses the projection matrix to inject the triangulation into the GRMF.\\
+Secondly SPDE maps with a Projection matrix the values of the triangulation to the discretized spatial surface with weighted sum of areas of the underlying triangles.
+
+A less superficial intuition on how SPDE computes triangularizes values and how it uses the projection matrix based on a weighted sum of basis functions to inject the triangulation into the GRMF is offered in the appendix in section \ref{triangular}.
+
 To illustrate the concept of triangulation \citet{Cameletti2012} provide a scatterplot for Piemonte PM10 concentration observed at 24 monitoring stations left in figure \ref{fig:piepm10}. Its respective mesh using 123 vertices and Piemonte borders is in right figure \ref{fig:piepm10}.
 
 \begin{figure}
@@ -1601,59 +1616,60 @@ Fig. \ref{fig:priorfun} indicates various PC priors using several \(\alpha\) val
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
-To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the \passthrough{\lstinline!.thesis!} option, section \ref{docs}. In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the \emph{circonvallazione} i.e.~beltway of Milan ( \emph{Municipality of Milan} ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters number of covariates a number of observations)
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second /completescrape endpoint contains geo-statistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-01-26 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the \passthrough{\lstinline!.thesis!} option, section \ref{docs}. In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the \emph{circonvallazione} i.e.~beltway of Milan ( \emph{Municipality of Milan} ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \ref{tab:covartable}, involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second \passthrough{\lstinline!/completescrape!} endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-02-02 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
-\begin{longtable}{ll}
+\begin{longtable}[t]{ll}
+\caption{\label{tab:covartable}Covariates extracted on a general API call}\\
 \toprule
-name & ref\\
+name & descrition\\
 \midrule
-ID & ID of the apartements\\
-LAT & latitude coordinate\\
-LONG & longitude coordinate\\
-LOCATION & property address: street name and eventual number\\
-CONDOM & condominium monthly expenses\\
+id & ID of the apartements\\
+lat & latitude coordinate\\
+long & longitude coordinate\\
+location & property address: street name and eventual number\\
+condom & condominium monthly expenses\\
 \addlinespace
-BUILDAGE & age in which the building was contructed\\
-INDIVSAPT & indipendent property type versus apartement type\\
-LOCALI & type and number of rooms\\
-PROPCAT & property category\\
-STATUS & maintenance status of the house, ristrutturato, nuovo, abitabile\\
+buildage & age in which the building was contructed\\
+indivsapt & indipendent property type versus apartement type\\
+locali & type and number of rooms\\
+propcat & property category\\
+status & maintenance status of the house, ristrutturato, nuovo, abitabile\\
 \addlinespace
-HEATING & heating system\\
-AC & air conditioning\\
-CATASTINFO & land registry information\\
-APTCHAR & apartement characteristics\\
-PHOTOSNUM & number of photos displayed in the advertisement\\
+heating & heating system\\
+ac & air conditioning\\
+catastinfo & land registry information\\
+aptchar & apartement characteristics\\
+photosnum & number of photos displayed in the advertisement\\
 \addlinespace
-AGE & real estate agency name\\
-ENCLASS & energy class\\
-CONTR & contract type proposed\\
-DISP & availability or already rented\\
-TOTPIANI & total number of building floors\\
+age & real estate agency name\\
+enclass & energy class\\
+contr & contract type proposed\\
+disp & availability or already rented\\
+totpiani & total number of building floors\\
 \addlinespace
-POSTAUTO & number of parking box or garages\\
-REVIEW & estate agency review (long chr string)\\
-TOTAL\_MAIN\_SURFACE & total apartement surface area\\
-TOTAL\_COMMERCIAL\_SURFACE & total commercial surface area\\
-CONSTITUTION & covered and uncovered surface areas type\\
+postauto & number of parking box or garages\\
+review & estate agency review (long chr string)\\
+total\_main\_surface & total apartement surface area\\
+total\_commercial\_surface & total commercial surface area\\
+constitution & covered and uncovered surface areas type\\
 \addlinespace
-FLOOR & the property floor for each covered and uncovered area\\
-SURFACE & square meter footage for each covered and uncovered type\\
-PERCENTAGE & contribution percentage for each element to the total surface\\
-SURFACE\_TYPE & appliances or princpal category surface\\
-COMMERCIAL\_SURFACE & square meter footage for each commercial surface area\\
+floor & the property floor for each covered and uncovered area\\
+surface & square meter footage for each covered and uncovered type\\
+percentage & contribution percentage for each element to the total surface\\
+surface\_type & appliances or princpal category surface\\
+commercial\_surface & square meter footage for each commercial surface area\\
 \addlinespace
-MULTI & it if has multimedia option, (3D house ristualization home experience and videos)\\
-ORIGINAL\_PRICE & If the price is lowered it flags the starting price\\
-CURRENT\_PRICE & If the price is lowered it flags the current price\\
-PASSED\_DAYS & If the price is lowered marks the number of days passed by since the price change\\
-DATE & the date of publication of the advertisement\\
+multi & it if has multimedia option, (3D house ristualization home experience and videos)\\
+original\_price & If the price is lowered it flags the starting price\\
+current\_price & If the price is lowered it flags the current price\\
+passed\_days & If the price is lowered marks the number of days passed by since the price change\\
+date & the date of publication of the advertisement\\
 \addlinespace
-NROOM & number of rooms (int)\\
-PRICE & monthly price € (response)\\
-SQFEET & total square meters footage surface area (int)\\
-TITLE & title of advertisement\\
+nroom & number of rooms (int)\\
+price & monthly price € (response)\\
+sqfeet & total square meters footage surface area (int)\\
+title & title of advertisement\\
 \bottomrule
 \end{longtable}
 
@@ -1736,9 +1752,13 @@ The plot \ref{fig:GlmPriceSq} has two continuous variables for x (price) and y (
 \caption{\label{fig:GlmPriceSq}Monthly Prices change wrt square meters footage in different n-roomed apt}
 \end{figure}
 
-Furthermore in table (\ldots) resides the answer to the question ``which are the most profitable properties per square meter footage''. The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly ``Bilocale''. The second stands out for its ridiculous price per month. The other are all located nearby the city center.
+Furthermore in table \ref{tab:TopAbsPrice} resides the answer to the question ``which are the most profitable properties per square meter footage''. The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly ``Bilocale''. The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
-\begin{tabular}{llrrlll}
+\begin{table}
+
+\caption{\label{tab:TopAbsPrice}The most profitable properties per single square meter footage at the date of2021-02-02}
+\centering
+\begin{tabular}[t]{llrrlll}
 \toprule
 location & totlocali & price & sqfeet & floor & totpiani & abs\_price\\
 \midrule
@@ -1751,6 +1771,7 @@ via tommaso salvini 1 & Multilocale & 15000 & 360 & 5 & 6 piani & 41.67€\\
 via cappuccini C.A. & Trilocale & 4000 & 100 & 3 & 5 piani & 40€\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 \hypertarget{assessing-relevant-predictors}{%
 \section{Assessing relevant predictors}\label{assessing-relevant-predictors}}
@@ -1814,9 +1835,13 @@ Since the response is not missing, indeed it does \emph{condominium}, imputation
 ## [1]  83 109 132 167
 \end{lstlisting}
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.\(condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore\). In addition to the formula in the inla function a further specification has to be provided with the command \passthrough{\lstinline!compute = TRUE!} in the argument control.predictor. The command \passthrough{\lstinline!compute!} estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed, results table @red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.\(condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore\). In addition to the formula in the inla function a further specification has to be provided with the command \passthrough{\lstinline!compute = TRUE!} in the argument control.predictor. The command \passthrough{\lstinline!compute!} estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table @red(tab:CondomImputation).
 
-\begin{tabular}{lrr}
+\begin{table}
+
+\caption{\label{tab:condomimputation}Estimated Posterior mean quantities imputed at the place of the missing index}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
   & mean & sd\\
 \midrule
@@ -1826,6 +1851,7 @@ fitted.Predictor.132 & 312.9235 & 16.60390\\
 fitted.Predictor.167 & 106.9133 & 22.13250\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 \hypertarget{modelspec}{%
 \chapter{Model Selection \& Fitting}\label{modelspec}}
@@ -1904,9 +1930,13 @@ Consequently a Forward Stepwise Selection \citep{guyon2003introduction} algorith
 \hypertarget{fit}{%
 \section{Parameter Estimation and Results}\label{fit}}
 
-Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e.~number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.
+Now the candidate statistical model is fitted rebuilding the stack and calling inla on the final formula i.e.~number of predictors. When the model has run, the conclusions for the random and fixed effects are now discussed.
 
-\begin{longtable}{lrrrrr}
+\begin{table}
+
+\caption{\label{tab:modelfitting}Summary statistics for the top 10 coefficients arranged by descending mean}
+\centering
+\begin{tabular}[t]{lrrrrr}
 \toprule
 coefficients & mean & sd & 0.025quant & 0.5quant & 0.975quant\\
 \midrule
@@ -1922,9 +1952,10 @@ receptionyes & 0.46 & 0.16 & 0.14 & 0.46 & 0.78\\
 heatingCentralizzato, ad aria & 0.33 & 0.17 & 0.00 & 0.33 & 0.66\\
 heatingCentralizzato, a pavimento, alimentato a pompa di calore & 0.31 & 0.15 & 0.01 & 0.31 & 0.60\\
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{table}
 
-Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at TAB(\ldots) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is 235.1 €.
+Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at table \ref{tab:modelfitting} where coefficients are arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is truly quite lofty, affirming that the average house price is 235.1 €.
 Moreover being a ``Trilocale'' or ``Bilocale'', as pointed out in \ref{mvp}, brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high.
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.

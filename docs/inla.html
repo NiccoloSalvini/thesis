@@ -21,7 +21,9 @@
   <meta name="twitter:description" content="This is Niccolò Salvini master’s thesis project" />
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
 
-<meta name="author" content="Niccolò Salvini" />
+<meta name="author" content="Candidate: Niccolò Salvini" />
+<meta name="author" content="Supervisor: Phd Marco L. Della Vedova" />
+<meta name="author" content="Assistant Supervisor: PhD Vincenzo Nardelli" />
 
 
 
@@ -49,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -83,6 +87,7 @@
 
   gtag('config', 'UA-171723874-1');
 </script>
+<script src="js/1book.js"></script>
 
 
 <style type="text/css">
@@ -211,7 +216,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data analysis</a><ul>
+<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
@@ -435,8 +440,11 @@ Therefore ultimately it is possible to produce a rather formal definition of a G
 </div>
 <div id="approx" class="section level2">
 <h2><span class="header-section-number">4.3</span> INLA Laplace Approximations</h2>
-<p>The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression <a href="inla.html#eq:finallgm">(4.6)</a> i.e. <span class="math inline">\(\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})\)</span>, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each <span class="math inline">\(\theta_{i}\)</span> in the latent parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, for each hyper-parameter prior <span class="math inline">\(\psi_{k} \in \boldsymbol\psi\)</span> (back to the <span class="math inline">\(\boldsymbol\theta\)</span> latent field notation). The mathematical intuition behind Laplace approximation is contained in the appendix in sec. <a href="appendix.html#laplaceapprox">8.2</a>.
-Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian <span class="citation">(<a href="#ref-wang2018bayesian" role="doc-biblioref">2018</a>)</span> or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are “more Gaussian” than the their joint distribution.
+<p>The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression <a href="inla.html#eq:finallgm">(4.6)</a> i.e. <span class="math inline">\(\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})\)</span>, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each <span class="math inline">\(\theta_{i}\)</span> in the latent parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>, for each hyper-parameter prior <span class="math inline">\(\psi_{k} \in \boldsymbol\psi\)</span> (back to the <span class="math inline">\(\boldsymbol\theta\)</span> latent field notation).</p>
+<div class="bulb">
+<p>The mathematical intuition behind <strong>Laplace Approximation</strong> along with some real life cases are contained in the appendix in sec. <a href="appendix.html#laplaceapprox">8.2</a>.</p>
+</div>
+<p>Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian <span class="citation">(<a href="#ref-wang2018bayesian" role="doc-biblioref">2018</a>)</span> or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are “more Gaussian” than the their joint distribution.
 Into the LGM framework let us assume to observe <span class="math inline">\(n\)</span> counts, i.e. <span class="math inline">\(\mathbf{y} = y_i = 1,2, \ldots, n\)</span> drawn from Poisson distribution whose mean is <span class="math inline">\(\lambda_i, \forall i \in \mathbf{I}\)</span>. Then a the link function <span class="math inline">\(\mathscr{g}(\cdot)\)</span> is the <span class="math inline">\(\log()\)</span> and relates <span class="math inline">\(\lambda_i\)</span> with the linear predictor and so the latent filed <span class="math inline">\(\theta\)</span>, i.e. <span class="math inline">\(\log(\lambda_i)=\theta_{i}\)</span>. The hyper-parameters are <span class="math inline">\(\boldsymbol\psi = (\tau, \rho)\)</span> with their covariance matrix structure.
 <!-- $$ -->
 <!-- Q_{\theta}=\tau\left(\begin{array}{cc} -->
@@ -630,30 +638,57 @@ y_{i} &amp; \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 <p>Then the model is fitted within <code>inla()</code> call, specifying the formula, data and the exponential family distribution.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="inla.html#cb13-1"></a>formula =<span class="st"> </span>y <span class="op">~</span><span class="st"> </span>s1 <span class="op">+</span><span class="st"> </span>s2</span>
 <span id="cb13-2"><a href="inla.html#cb13-2"></a>m0 =<span class="st"> </span><span class="kw">inla</span>(formula, <span class="dt">data =</span> SPDEtoy, <span class="dt">family =</span> <span class="st">&quot;gaussian&quot;</span>)</span></code></pre></div>
-<p>The table below offers summary of the posterior marginal values for intercept and covariates’ coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure <a href="inla.html#fig:postplot">4.6</a>. From the table it can also be seen that the mean for <span class="math inline">\(s_2\)</span> is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure <a href="inla.html#fig:spatplot">4.4</a> where bigger bubbles are concentrated around the origin.</p>
-<table>
+<p>Table <a href="inla.html#tab:tableINLA">4.1</a> offers summary of the posterior marginal values for intercept and covariates’ coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure <a href="inla.html#fig:postplot">4.6</a>. From the table it can also be seen that the mean for <span class="math inline">\(s_2\)</span> is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure <a href="inla.html#fig:spatplot">4.4</a> where bigger bubbles are concentrated around the origin.</p>
+<table class=" lightable-minimal" style='font-family: "Trebuchet MS", verdana, sans-serif; margin-left: auto; margin-right: auto;'>
+<caption>
+<span id="tab:tableINLA">Table 4.1: </span>Summary Posterior quantiles for coefficients
+</caption>
 <thead>
-<tr class="header">
-<th align="left">coefficients</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
+<tr>
+<th style="text-align:left;">
+coefficients
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">10.1321487</td>
-<td align="right">0.2422118</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+10.1321487
+</td>
+<td style="text-align:right;">
+0.2422118
+</td>
 </tr>
-<tr class="even">
-<td align="left">s1</td>
-<td align="right">0.7624296</td>
-<td align="right">0.4293757</td>
+<tr>
+<td style="text-align:left;">
+s1
+</td>
+<td style="text-align:right;">
+0.7624296
+</td>
+<td style="text-align:right;">
+0.4293757
+</td>
 </tr>
-<tr class="odd">
-<td align="left">s2</td>
-<td align="right">-1.5836768</td>
-<td align="right">0.4293757</td>
+<tr>
+<td style="text-align:left;">
+s2
+</td>
+<td style="text-align:right;">
+-1.5836768
+</td>
+<td style="text-align:right;">
+0.4293757
+</td>
 </tr>
 </tbody>
 </table>
@@ -664,20 +699,34 @@ Figure 4.6: Linear predictor marginals, plot recoded in <code>ggplot2</code>, au
 </p>
 </div>
 <!-- ![Linear predictor marginals, plot recoded in `ggplot2`, author's source](images/marginal_distr.png) -->
-<p>In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One option which allows to compute the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> (90% credibility), whose result is in table below.</p>
-<table>
+<p>In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with <code>inla.dmarginal</code>, <code>inla.pmarginal</code> and <code>inla.qmarginal</code>. One option which allows to compute the higher posterior density credibility interval <code>inla.hpdmarginal</code> for a given covariate’s coefficient i.e, <span class="math inline">\(\beta_2\)</span>, such that <span class="math inline">\(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\)</span> (90% credibility), whose result is in table below.</p>
+<table class=" lightable-minimal" style='font-family: "Trebuchet MS", verdana, sans-serif; margin-left: auto; margin-right: auto;'>
+<caption>
+<span id="tab:higerPosteriorDensityInterval">Table 4.2: </span>Higer Posterior Density Interval for s2 coefficient
+</caption>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">low</th>
-<th align="right">high</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+low
+</th>
+<th style="text-align:right;">
+high
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">level:0.9</td>
-<td align="right">-2.291268</td>
-<td align="right">-0.879445</td>
+<tr>
+<td style="text-align:left;">
+level:0.9
+</td>
+<td style="text-align:right;">
+-2.291268
+</td>
+<td style="text-align:right;">
+-0.879445
+</td>
 </tr>
 </tbody>
 </table>

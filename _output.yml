@@ -3,7 +3,7 @@ bookdown::gitbook:
   highlight: tango
   table_css: false
   includes:
-    in_header: google_analytics.html
+    in_header: ["google_analytics.html", "js/header.html"]
   config:
     search: yes
     toc:

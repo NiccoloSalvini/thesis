@@ -85,10 +85,13 @@ Consequently a Forward Stepwise Selection [@guyon2003introduction] algorithm is 
 
 ## Parameter Estimation and Results{#fit}
 
-Now the candidate model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. where all the rest of the covariates are omitted for brevity reasons. When the model has run, the conclusions for the random and fixed effects are now discussed.
+Now the candidate statistical model is fitted rebuilding the stack and calling inla on the final formula i.e. number of predictors. When the model has run, the conclusions for the random and fixed effects are now discussed.
 
+\begin{table}
 
-\begin{longtable}{lrrrrr}
+\caption{(\#tab:modelfitting)Summary statistics for the top 10 coefficients arranged by descending mean}
+\centering
+\begin{tabular}[t]{lrrrrr}
 \toprule
 coefficients & mean & sd & 0.025quant & 0.5quant & 0.975quant\\
 \midrule
@@ -104,9 +107,10 @@ receptionyes & 0.46 & 0.16 & 0.14 & 0.46 & 0.78\\
 heatingCentralizzato, ad aria & 0.33 & 0.17 & 0.00 & 0.33 & 0.66\\
 heatingCentralizzato, a pavimento, alimentato a pompa di calore & 0.31 & 0.15 & 0.01 & 0.31 & 0.60\\
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{table}
 
-Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at TAB(...) arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is actually quite lofty, affirming that the average house price is 235.1 €.
+Since the models coefficients are many i.e.66 the analysis will concentrate on the most interesting ones. Looking at table \@ref(tab:modelfitting) where coefficients are arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is truly quite lofty, affirming that the average house price is 235.1 €.
 Moreover being a "Trilocale" or "Bilocale", as pointed out in \@ref(mvp), brings a monthly extra profit respectively of 3.29 € and 2.97 €. However standard deviations are quite high. 
 Unsurprisingly the covariate condominium is positively correlated with the response price but its effect is not very tangible. This might imply that pricier apartments expect in mean the same condominium cost as the cheaper ones.
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.

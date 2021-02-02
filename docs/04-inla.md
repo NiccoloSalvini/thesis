@@ -217,7 +217,12 @@ Therefore ultimately it is possible to produce a rather formal definition of a G
 
 ## INLA Laplace Approximations{#approx}
 
-The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \@ref(eq:finallgm) i.e. $\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})$, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each $\theta_{i}$ in the latent parameter $\boldsymbol{\theta}$, for each hyper-parameter prior $\psi_{k} \in \boldsymbol\psi$ (back to the $\boldsymbol\theta$ latent field notation). The mathematical intuition behind Laplace approximation is contained in the appendix in sec. \@ref(laplaceapprox).
+The goals of the Bayesian inference are the marginal posterior distributions for each of the elements of the latent field. INLA is not going to try to approximate the whole joint posterior marginal distribution from expression \@ref(eq:finallgm) i.e. $\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}, \boldsymbol{\mathbf{y}})$, in fact if it would (two-dimensional approx) it will cause a high biased approximations since it fail to capture both location and skewness in the marginals. Instead INLA algorithm will try to estimate the posterior marginal distribution for each $\theta_{i}$ in the latent parameter $\boldsymbol{\theta}$, for each hyper-parameter prior $\psi_{k} \in \boldsymbol\psi$ (back to the $\boldsymbol\theta$ latent field notation). 
+
+:::bulb
+The mathematical intuition behind **Laplace Approximation** along with some real life cases are contained in the appendix in sec. \@ref(laplaceapprox).
+:::
+
 Therefore the key focus of INLA is to approximate with Laplace only densities that are near-Gaussian [-@wang2018bayesian] or replacing very nested dependencies with their more comfortable conditional distribution which ultimately are "more Gaussian" than the their joint distribution.
 Into the LGM framework let us assume to observe $n$ counts, i.e. $\mathbf{y} = y_i = 1,2, \ldots, n$ drawn from Poisson distribution whose mean is $\lambda_i, \forall i \in \mathbf{I}$. Then a the link function $\mathscr{g}(\cdot)$ is the $\log()$ and relates $\lambda_i$ with the linear predictor and so the latent filed $\theta$, i.e. $\log(\lambda_i)=\theta_{i}$. The hyper-parameters are $\boldsymbol\psi = (\tau, \rho)$ with their covariance matrix structure.
 <!-- $$ -->
@@ -493,11 +498,14 @@ formula = y ~ s1 + s2
 m0 = inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
-The table below offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
+Table \@ref(tab:tableINLA) offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
 
 
+\begin{table}
 
-\begin{tabular}{lrr}
+\caption{(\#tab:tableINLA)Summary Posterior quantiles for coefficients}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
 coefficients & mean & sd\\
 \midrule
@@ -506,6 +514,7 @@ s1 & 0.7624296 & 0.4293757\\
 s2 & -1.5836768 & 0.4293757\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 
 
@@ -516,16 +525,20 @@ s2 & -1.5836768 & 0.4293757\\
 
 <!-- ![(#fig:marginalsplot)Linear predictor marginals, plot recoded in `ggplot2`, author's source](images/marginal_distr.png) -->
 
-In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which allows to compute the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ (90% credibility), whose result is in table below.
+In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which allows to compute the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient i.e, $\beta_2$, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ (90% credibility), whose result is in table below.
 
+\begin{table}
 
-\begin{tabular}{lrr}
+\caption{(\#tab:higerPosteriorDensityInterval)Higer Posterior Density Interval for s2 coefficient}
+\centering
+\begin{tabular}[t]{lrr}
 \toprule
   & low & high\\
 \midrule
 level:0.9 & -2.291268 & -0.879445\\
 \bottomrule
 \end{tabular}
+\end{table}
 
 Note that the interpretation is more convoluted [-@wang2018bayesian] than the traditional frequentist approach: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.  
 
