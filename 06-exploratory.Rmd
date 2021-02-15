@@ -2,14 +2,7 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).-->
 
-```{r options, include=FALSE}
-knitr::opts_chunk$set(
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
+```{r libs, include=FALSE}
 
 library(drake, quietly = F, warn.conflicts = F)
 library(readr, quietly = F, warn.conflicts = F)
@@ -49,20 +42,7 @@ library(latex2exp, quietly = F, warn.conflicts = F)
 library(reactable, quietly = F, warn.conflicts = F)
 library(crosstalk, quietly = F, warn.conflicts = F)
 
-## Personal ggplot theme 
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
+
 ```
 
 To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
@@ -872,7 +852,7 @@ ff$Continuous
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:condomimputation).
 
 ```{r condomimputation, fig.cap="Posterior Means imputation"}
 ## condom model fitted

@@ -1,13 +1,6 @@
 # Appendix {-}
 
-```{r options, include=FALSE}
-knitr::opts_chunk$set(
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
+```{r libs, include=FALSE}
 
 library(ggplot2,warn.conflicts = F,quietly = T)
 library(magrittr,warn.conflicts = F,quietly = T)
@@ -15,22 +8,6 @@ library(latex2exp, warn.conflicts = F,quietly = T)
 library(patchwork, warn.conflicts = F,quietly = T)
 library(tibble, warn.conflicts = F,quietly = T)
 
-## Personal ggplot theme 
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
-
-latex2exp_supported(plot=TRUE)
 
 ```
 
@@ -301,7 +278,7 @@ chisq16 = dat %>%
   ylab("Density")+ 
   theme_nicco()
 
-(chisq8 / chisq16)
+(chisq8 + chisq16)
   
 
 
@@ -336,6 +313,8 @@ chisq16 = dat %>%
 
 
 
-
+$$
+\pi(\boldsymbol{\psi}) \quad \boldsymbol{\psi}= \boldsymbol{\psi_1}, \boldsymbol{\psi_2}
+$$
 
 

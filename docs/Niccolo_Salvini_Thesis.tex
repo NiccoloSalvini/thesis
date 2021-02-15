@@ -8,12 +8,13 @@
   oneside]{book}
 \usepackage{lmodern}
 \usepackage{setspace}
-\usepackage{amssymb,amsmath}
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -40,7 +41,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA},
-  pdfauthor={Candidate: Niccolò Salvini; Supervisor: Phd Marco L. Della Vedova; Assistant Supervisor: PhD Vincenzo Nardelli},
+  pdfauthor={Candidate: Niccolò Salvini; Supervisor: PhD Marco L. Della Vedova; Assistant Supervisor: PhD Vincenzo Nardelli},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -50,6 +51,7 @@
 \lstset{defaultdialect=[5.3]Lua}
 \lstset{defaultdialect=[x86masm]Assembler}
 \usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -58,7 +60,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -130,6 +132,7 @@
     }%
   }%
 \fi
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -144,12 +147,15 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA}
-\author{Candidate: \href{https://niccolosalvini.netlify.app/}{Niccolò Salvini} \and Supervisor: \href{https://mldv.it/home/}{Phd Marco L. Della Vedova} \and Assistant Supervisor: \href{https://github.com/vincnardelli}{PhD Vincenzo Nardelli}}
-\date{Lastest book build: 02 febbraio, 2021}
+\author{Candidate: \href{https://niccolosalvini.netlify.app/}{Niccolò Salvini} \and Supervisor: \href{https://mldv.it/home/}{PhD Marco L. Della Vedova} \and Assistant Supervisor: \href{https://github.com/vincnardelli}{PhD Vincenzo Nardelli}}
+\date{Lastest book build: 15 febbraio, 2021}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -434,33 +440,29 @@ Newly balanced (with respect to the author thought) guidelines would try to impl
 With that said a custom function caches the results of robotstxt into a variable i.e.~\passthrough{\lstinline!polite\_permission!}. Then paths allowed are evaluated prior any scraping function execution. Results should either negate or affirm the contingency to scrape the following url address.
 
 \begin{lstlisting}
-## Memoised Function:
-## [1] TRUE
+#> Memoised Function:
+#> [1] TRUE
 \end{lstlisting}
 
 \passthrough{\lstinline!polite\_permission!} is then reused to check, if any, the server suggestion on crawl relay. In this particular context no delays are kindly advised. As a default polite selection delay request rates are set equal to 2.5 seconds. Delayed are managed through the \passthrough{\lstinline!purrr!} stack. At first a \passthrough{\lstinline!rate!} object is initialized based on polite\_permission results, as a consequence a \passthrough{\lstinline!rate\_sleep!} delay is defined and iterated together with any request sent, as in \citet{rate_delay}.
 
 \begin{lstlisting}[language=R]
 get_delay = function(memoised_robot, domain) {
-    
-    message(glue("Refreshing robots.txt data for %s... {domain}"))
-    temp = memoised_robot$crawl_delay
-    
-    if (length(temp) > 0 && !is.na(temp[1, ]$value)) {
-        star = dplyr::filter(temp, useragent == "*")
-        if (nrow(star) == 0) 
-            star = temp[1, ]
-        as.numeric(star$value[1])
-    } else {
-        2.5
-    }
-    
+  
+  message(glue("Refreshing robots.txt data for %s... {domain}"))
+  temp  = memoised_robot$crawl_delay
+  
+  if (length(temp) > 0 && !is.na(temp[1,]$value)) {
+    star = dplyr::filter(temp, useragent=="*")
+    if (nrow(star) == 0) star = temp[1,]
+    as.numeric(star$value[1])
+  } else {
+    2.5L
+  }
+  
 }
 get_delay(rbtxt_memoised, domain = dom)
-\end{lstlisting}
-
-\begin{lstlisting}
-## [1] 2.5
+#> [1] 2.5
 \end{lstlisting}
 
 \hypertarget{HTTPmethod}{%
@@ -510,7 +512,7 @@ In the HTTP identification headers the UA string is often considered as \emph{co
 UA is a dense content string that includes many User details: the user application or software, the operating system (and versions), the web client, the web client's version, as well as the web engine responsible for content displaying (e.g.~AppleWebKit). When the request is sent from an application software as R (no web browser), the default UA is set as:
 
 \begin{lstlisting}
-## [1] "libcurl/7.64.1 r-curl/4.3 httr/1.4.2"
+#> [1] "libcurl/7.64.1 r-curl/4.3 httr/1.4.2"
 \end{lstlisting}
 
 Indeed when a request comes from a web browser a full UA example and further components breakdown is (current machine):
@@ -536,13 +538,12 @@ The UA string is also one of the main responsible according to which Web crawler
 \begin{lstlisting}[language=R]
 set.seed(27)
 url = "https://user-agents.net/"
-agents = read_html(url) %>% html_nodes(css = ".agents_list li") %>% html_text()
+agents = read_html(url) %>%
+  html_nodes(css = ".agents_list li") %>% 
+  html_text()
 
 agents[sample(1)]
-\end{lstlisting}
-
-\begin{lstlisting}
-## [1] "AppleCoreMedia/1.0.0.18A393 (iPod touch; U; CPU OS 14_0_1 like Mac OS X; es_es)"
+#> [1] "Mozilla/5.0 (Linux; Android 8.1.0; INE-LX2 Build/HUAWEIINE-LX2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.152 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/305.1.0.40.120;]"
 \end{lstlisting}
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -616,10 +617,7 @@ Parallel execution heavily depends on hardware and software choice. Linux enviro
 
 \begin{lstlisting}[language=R]
 future::supportsMulticore()
-\end{lstlisting}
-
-\begin{lstlisting}
-## [1] FALSE
+#> [1] FALSE
 \end{lstlisting}
 
 \emph{Cluster processing} is an alternative to multi-core processing, where parallelization takes place through a collection of separate processes running in the background. The parent R session instructs the dependencies that needs to be sent to the children sessions.
@@ -795,34 +793,6 @@ Open and popular RESTful API examples are:
 \subsection{Plumber HTTP API}\label{plumberapi}}
 
 Plumber is a R framework \citep{plumber}, allowing users to construct HTTP APIs simply by adding decoration comment to the existing R code, in this context to scraping code. Decorations are a special type of comments that suggests to Plumber where and when the API specifications start. Below is reported a toy API with 3 endpoints inspired by the original documentation. Endpoints in the following code chunk are identifiable by the three distinguishing comment blocks, separated by the aforementioned decorations. http API specifications require the user to set the endpoint description (first comment), to specify the parameters role and input type (second), and the http method i.e.~GET, POST followed by the endpoints invokation verb e.g.~echo, plot, sum (third).
-
-\begin{lstlisting}[language=R]
-# plumber.R
-
-#* Echo back the input
-#* @param msg The message to echo
-#* @get /echo
-function(msg="") {
-  list(msg = paste0("The message is: '", msg, "'"))
-}
-
-#* Plot a histogram
-#* @param n the number of samples
-#* @serializer png
-#* @get /plot
-function(n = 10) {
-  rand = rnorm(n = n)
-  hist(rand)
-}
-
-#* Return the sum of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-#* @post /sum
-function(a, b) {
-  as.numeric(a) + as.numeric(b)
-}
-\end{lstlisting}
 
 Once HTTP api calls are sent to machines belonging to a single server or a network of servers, whether it is public or private they converge through endpoints. Endpoints execute functions involving the parameters specified through the call and by default response is JSON type. The first endpoint ``echo'' invocation simply \emph{echoes} back the text that it was sent. The second endpoints generates a histogram \emph{plot} i.e.~.png file based on a Normally distributed sample whose observation number are ``n''. The third endpoint calculates the \emph{sum} of a couple of number attached to the call. Scraping function are then implemented within the API framework and arguments becomes parameters for an incoming request. Many more options may induce plumber endpoints to respond in the preferred fashion, in any case are beyond the scope of the analysis.
 Exposing APIs on a private network or on a public server security is a major issue. Concerns and thought process therefore must adapt accordingly. There are several variables and consequent attacks that should be considered while creating Plumber APIs, but the focus will differ depending on the API audience. For example if APIs are offered without authentication on the Internet, potential vulnerabilities should seriously convince the api maintainer to properly account each of them. Three in the context of the analysis are critical:
@@ -1100,7 +1070,7 @@ At the \emph{medium} level it is specified on the latent field \(\boldsymbol\the
 \end{equation}
 
 where \(\boldsymbol{Q(\psi_2)}\) denotes positive definite matrix and \(|\cdot|\) its determinant. \(\prime\) is the transpose operator. The matrix \(\boldsymbol{Q(\psi_2)}\) is called the \emph{precision matrix} that outlines the underlying dependence structure of the data, and its inverse \(\boldsymbol{Q(\cdot)}^{-1}\) is the covariance matrix \citep{wang2018bayesian}. In the spatial setting this would be critical since by a specifying a multivariate Normal distribution of eq. \eqref{eq:medium} it will become a GMRF. Due to conditional independence GMRF precision matrices are sparse and through linear algebra and numerical method for sparse matrices model fitting time is saved \citep{GMRFRue}.
-In the \emph{lower} level priors are collected togheter \(\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}\) for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors.
+In the \emph{lower} level priors are collected togheter \(\boldsymbol\psi_ =\{ \boldsymbol\psi_1\ , \boldsymbol\psi_2\}\) for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors.
 Since the end goal is to find the joint posterior for \(\boldsymbol\theta\) and \(\boldsymbol\psi\), then given priors \(\boldsymbol\psi\) it possible to combine expression \eqref{eq:higher} with \eqref{eq:medium} obtaining:
 
 \begin{equation}
@@ -1191,8 +1161,12 @@ For which the conditional density of \(\eta_2\) does only depend on its precedin
 Therefore ultimately it is possible to produce a rather formal definition of a GMRF:
 
 \begin{definition}[GMRF]
-\protect\hypertarget{def:gmrf}{}{\label{def:gmrf} \iffalse (GMRF) \fi{} }A latent gaussian random field (LGRM) e.g.~\(\boldsymbol\eta\) is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the ``Markov property'') \citep{wang2018bayesian}.
+\protect\hypertarget{def:gmrf}{}{\label{def:gmrf} \iffalse (GMRF) \fi{} }A latent gaussian random field (LGRM) e.g.~\(\boldsymbol\eta = \boldsymbol\theta\) (when \(\mathscr{g}(\cdot)\) is identity) is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the ``Markov property'') \citep{wang2018bayesian}.
 \end{definition}
+
+\[
+\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}_2) = \operatorname{MVN}(0, \boldsymbol{Q(\psi_2}))
+\]
 
 \hypertarget{approx}{%
 \section{INLA Laplace Approximations}\label{approx}}
@@ -1230,7 +1204,7 @@ Then the \emph{medium} level is for the latent Gaussian Random Field a multivari
 and the \emph{lower}, where it is specified a joint prior distribution for \(\boldsymbol\psi = (\tau, \rho)\), which is \(\pi(\boldsymbol\psi)\). Following eq.\eqref{eq:formallgm} then:
 
 \begin{equation}
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {LGRM}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
 \label{eq:poissonlgm}
 \end{equation}
 
@@ -1280,9 +1254,12 @@ Inla output objects are inla.dataframe summary-lists-type containing the results
 SPDEtoy dataset \(\mathbf{y}\) are two random variables that simulates points location in two coordinates \(s_1\) and \(s_2\).
 
 \begin{figure}
-\centering
-\includegraphics{04-inla_files/figure-latex/spatplot-1.pdf}
-\caption{\label{fig:spatplot}SPDEtoy bubble plot, author's source}
+
+{\centering \includegraphics{04-inla_files/figure-latex/spatplot-1} 
+
+}
+
+\caption{SPDEtoy bubble plot, author's source}\label{fig:spatplot}
 \end{figure}
 
 Imposing an LGM model requires at first to select as a \emph{higher} hierarchy level a likelihood model for \(\mathbf{y}\) i.e.~Gaussian (by default), and a model formula (eq. \eqref{eq:linearpredictor}), i.e.~\(\eta_{i}=\beta_{0}+\beta_{1} s_{1 i}+\beta_{2} s_{2 i}\), which link function \(\mathbf{g}\) is identity. There are not Non-linear effects effect on covariates in \$\eta \$ nevertheless they can be easily added with \passthrough{\lstinline!f()!} function. Note that this will allow to integrate random effects i.e.~spatial effects inside the model. Secondly in the \emph{medium} step a LGRF on the latent parameters \(\boldsymbol\theta\). In the \emph{lower} end some priors distributions \(\boldsymbol\psi\) which are Uniform for the intercept indeed Gaussian vagues (default) priors i.e.~centered in 0 with very low standard deviation. Furthermore the precision hyper parameter \(\tau\) which accounts for the variance of the latent GRF, is set as Gamma distributed with parameters \(\alpha = 1\) and \(\beta = 0.00005\) (default). Note that models are sensitive to prior choices (sec.~\ref{priorsspec}), as a consequence if necessary later are revised.
@@ -1323,9 +1300,12 @@ s2 & -1.5836768 & 0.4293757\\
 \end{table}
 
 \begin{figure}
-\centering
-\includegraphics{04-inla_files/figure-latex/postplot-1.pdf}
-\caption{\label{fig:postplot}Linear predictor marginals, plot recoded in \passthrough{\lstinline!ggplot2!}, author's source}
+
+{\centering \includegraphics{04-inla_files/figure-latex/postplot-1} 
+
+}
+
+\caption{Linear predictor marginals, plot recoded in `ggplot2`, author's source}\label{fig:postplot}
 \end{figure}
 
 In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with \passthrough{\lstinline!inla.dmarginal!}, \passthrough{\lstinline!inla.pmarginal!} and \passthrough{\lstinline!inla.qmarginal!}. One option which allows to compute the higher posterior density credibility interval \passthrough{\lstinline!inla.hpdmarginal!} for a given covariate's coefficient i.e, \(\beta_2\), such that \(\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90\) (90\% credibility), whose result is in table below.
@@ -1445,9 +1425,12 @@ In particular the focus is on the \emph{Matérn} -- as it is required by the SPD
 Looking at the functions in figure \ref{fig:matern} and their interception with horizontal red line, when \(\phi = 1\), it smoothly falls towards 0 covariance and spatial dependece decays at \(\approx 2.3\). When \(\phi = 1/2\) it becomes the exponential covariance function and rapidly pushes covariance to 0, When \(\phi = 3/2\) it uncovers a convenient closed form \citep{LecturePaci} for which spatial dependence vanishes at \(\approx 3.8\). When \(\phi \approx \infty\), (here \(\phi = 80\) for graphics reasons), it becomes Gaussian covariance function. In the the case shown in section \ref{spdeapproach} \(\sigma_{\mathscr{C}}^{2}\) the range, for any \(\phi\), is set equal to the distance at which dependence vanishes below .1, which is actually what the red line points out.
 
 \begin{figure}
-\centering
-\includegraphics{05-prd_modelling_files/figure-latex/matern-1.pdf}
-\caption{\label{fig:matern}Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/matern-1} 
+
+}
+
+\caption{Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1}\label{fig:matern}
 \end{figure}
 
 In the end summarizing the result obtained (abuse of notation with \((s)\) to make it clear that is a spatial process) in chapter \ref{inla} with what it has been seen so far, the Gaussian process \(y(s)\) assumes the following measurement equation, where \(\xi_{i}\) is the latent field, \(\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)\) is the white noise error and \(I_{d}\) is an identity matrix and \(\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\xi}^{2} \mathscr{C}( \Delta_{i j})\right)\).
@@ -1549,9 +1532,12 @@ Then the resulting LPML is: -20.6402106
 Furthermore in left panel of fig.~\ref{fig:pitcpo} the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
 
 \begin{figure}
-\centering
-\includegraphics{05-prd_modelling_files/figure-latex/pitcpo-1.pdf}
-\caption{\label{fig:pitcpo}Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/pitcpo-1} 
+
+}
+
+\caption{Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)}\label{fig:pitcpo}
 \end{figure}
 
 Posterior Predictive checking methods \citep{gelman1996posterior} exploit a full cross-validation where \(\boldsymbol{y}_{A} = \boldsymbol{y}_{V}\), operating on the full set of observation. The statistics capitalized below are quite commonly used in practice, but they are high context dependent:
@@ -1608,16 +1594,19 @@ PC priors are natively implemented in INLA and are shown to be well suited for t
 Fig. \ref{fig:priorfun} indicates various PC priors using several \(\alpha\) values for the precision \(\tau\). Note that increasing \(\alpha\)'s values contribute to a stronger prior belief for \(U\) which then leads to a higher conviction of \(\tau\).
 
 \begin{figure}
-\centering
-\includegraphics{05-prd_modelling_files/figure-latex/priorfun-1.pdf}
-\caption{\label{fig:priorfun}PC priors for the precision by varying alpha values and fixing \(U\)}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/priorfun-1} 
+
+}
+
+\caption{PC priors for the precision by varying alpha values and fixing $U$}\label{fig:priorfun}
 \end{figure}
 
 \hypertarget{exploratory}{%
 \chapter{Exploratory Analysis}\label{exploratory}}
 
 To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the \passthrough{\lstinline!.thesis!} option, section \ref{docs}. In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the \emph{circonvallazione} i.e.~beltway of Milan ( \emph{Municipality of Milan} ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \ref{tab:covartable}, involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second \passthrough{\lstinline!/completescrape!} endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-02-02 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \ref{tab:covartable}, involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second \passthrough{\lstinline!/completescrape!} endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time i.e.~2021-02-15 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \ref{fig:NonLinearSpatialRel} to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a ``Bilocale'' prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by \citet{Little} which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( \emph{condominium} ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 \begin{longtable}[t]{ll}
 \caption{\label{tab:covartable}Covariates extracted on a general API call}\\
@@ -1693,7 +1682,12 @@ Data needs to undergo to many previous cleaning preprocess steps, which mainly r
 The previous steps lead to have a 250 data points per 64 covariates. Ultimately exploiting the spatial component, data can be represented through a map, as in fig.~\ref{fig:LeafletVisuals}. Maps (not properly a ``spatial'' visualization) must determine the regularity of the arrangement of points and also if the maximum gap between points is much greater in some directions than others (symptomps of anisotropy, not detected).
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}\label{fig:LeafletVisuals}
+
+{\centering \includegraphics[width=1\linewidth]{images/leaflet_prezzi} 
+
+}
+
+\caption{Leaflet Map}\label{fig:LeafletVisuals}
 \end{figure}
 
 \hypertarget{spatassess}{%
@@ -1710,9 +1704,12 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \ref{GP} of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \ref{fig:matern} on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e.~\(\text{price} \sim \text{totlocali} + \text{condominium}+ \text{sqmeter}\). The model is also computed through inla and by taking advantage of \passthrough{\lstinline!INLAtools!} and Pearson residuals \citep{pearson} are extracted, i.e.~\(\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}\). Moreover variogram from package \passthrough{\lstinline!gstat!} is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/semivariogram-1.pdf}
-\caption{\label{fig:semivariogram}Semivariogram on a linear model Pearson residuals}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/semivariogram-1} 
+
+}
+
+\caption{Semivariogram on a linear model Pearson residuals}\label{fig:semivariogram}
 \end{figure}
 
 \hypertarget{factor-counts}{%
@@ -1721,9 +1718,12 @@ By visual inspection, even though is assumed, the distribution of price seems to
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictors and which factor is relevant to the analysis. The left panel in figure \ref{fig:fctCounts} offers the rearranged factor count fot the covariate \emph{TOTLOCALI}. ``Bilocale'' are the most common option for rent, then ``Trilocale'' follows. The intuition behind suggests that Milan rental market is oriented to ``lighter'' accommodations in terms of space and squarefootage. This comes natural since Milan is both a vivid study and working area, so temporary accommodations are warmly welcomed. Right in figure \ref{fig:fctCounts} it can be seen that building are generally old and mostly built either at the start of the 20th century or in the middle. Further investigation might assess how this fact can affect the overall city status.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/fctCounts-1.pdf}
-\caption{\label{fig:fctCounts}Left: Count plot for each housedolds category, Right: count plot for building age}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/fctCounts-1} 
+
+}
+
+\caption{Left: Count plot for each housedolds category, Right: count plot for building age}\label{fig:fctCounts}
 \end{figure}
 
 Two of the most requested features for comfort and livability in rents are the heating/cooling systems. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients expectation. In this sense accommodation coming with the newest and the most technologically advanced systems are naturally preferred.
@@ -1733,9 +1733,12 @@ The top plot displays the most prevalent heating systems categories, among which
 Then in bottom plot Jitters point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indeed in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/PricePerAc-1.pdf}
-\caption{\label{fig:PricePerAc}Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/PricePerAc-1} 
+
+}
+
+\caption{Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings}\label{fig:PricePerAc}
 \end{figure}
 
 \hypertarget{mvp}{%
@@ -1747,16 +1750,19 @@ A further example may regard the economic convenience for those who need to enla
 The plot \ref{fig:GlmPriceSq} has two continuous variables for x (price) and y (sqfeet) axis, the former is once again \(log_{10}\) scaled. Coloration discretizes points for each of \(j_{th}\) totlocali. A sort of overlapping piece-wise linear regression (log-linear due to the transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the square footage surface (i.e.~\(\log_{10}(\text{price}_j) \sim +\beta_{0,j}+\beta_{1,j}\, \text{sqfeet}_j\)). Five different regression models are proposed in the top left. The interesting part regards the models slopes \(\hat\beta_{1,j}\). The highest corresponds to ``Monolocale'' for which the enlargement of a 10 square meters in surface enriches the apartment of a 0.1819524\% monthly price addition. Almost the same is witnessed in ``Bilocale'' for which a 10 square meters extension gains a 0.1194379\% value. One more major thing to notice is the ``ensamble'' regression line obtained as the interpolation of the 6 plotted ones. The line suggests a clear logarithmic pattern from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the \(\hat\beta_1\) predictor slopes coefficients. Furthermore investing into an extension for ``Quadrilocale'' and ``Trilocale'' is \emph{coeteris paribus} an interchangeable economic choice.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/GlmPriceSq-1.pdf}
-\caption{\label{fig:GlmPriceSq}Monthly Prices change wrt square meters footage in different n-roomed apt}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/GlmPriceSq-1} 
+
+}
+
+\caption{Monthly Prices change wrt square meters footage in different n-roomed apt}\label{fig:GlmPriceSq}
 \end{figure}
 
 Furthermore in table \ref{tab:TopAbsPrice} resides the answer to the question ``which are the most profitable properties per square meter footage''. The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly ``Bilocale''. The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
 \begin{table}
 
-\caption{\label{tab:TopAbsPrice}The most profitable properties per single square meter footage at the date of2021-02-02}
+\caption{\label{tab:TopAbsPrice}The most profitable properties per single square meter footage at the date of2021-02-15}
 \centering
 \begin{tabular}[t]{llrrlll}
 \toprule
@@ -1780,9 +1786,12 @@ Now it is fitted a log-linear model whose response is price and whose covariates
 The plot in figure \ref{fig:TieFighterPlot} has the purpose to demonstrate how monthly price is affected by covariates conditioned to their respective square meter footage. The interpretation of the plot starts by fixing a focus point on 0, which is the null effect highlighted by the red dashed line. Then the second focus is on house surface effect (i.e.~House Surface (doubling) in the plot, the term \(\log_{2}(abs\_price)\) has been converted to more familiar House Surface (doubling)), which contributes to increase the price of an estimated coefficient of \(\approx .6\) for each doubling of the square meter footage. Then what it can be noticed with respect to the two focus points are the unusual effects provoked by the other predictors to the right of the doubling effect and to the far left below 0. ``2 bagni'', 3 bagni" and 3+ bagni" are unusually expensive with respect to the square meter footage increment, on the other hand ``al piano rialzato'' and ``al piano terra'' are undervalued with respect to their surface. The fact that 2 and 3 bathrooms can guarantee a monthly extra check is probably caused to a minimum rent plateau requested for each occupant. the number of bathrooms are a proxy to both house extension since normally for each sleeping room there also exist at least 1 bathroom as well as prestigious houses dispose of more than 1 toilette services. So the more are the occupants regardless of the square meter footage dedicated to them, the more the house monthly returns.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/TieFighterPlot-1.pdf}
-\caption{\label{fig:TieFighterPlot}Tie fighter coefficient plot for the log-linear model}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/TieFighterPlot-1} 
+
+}
+
+\caption{Tie fighter coefficient plot for the log-linear model}\label{fig:TieFighterPlot}
 \end{figure}
 
 \hypertarget{missassimp}{%
@@ -1811,18 +1820,24 @@ This MNAR case is difficult to detect since the missing process and details are 
 Patterns are visible through a statistical tool whose typical application is found in detecting collinearity in predictors i.e.~\emph{heat map}. The plot in fig.~\ref{fig:Heatmap} assign \(1\) when data is present and \(0\) otherwise. Gray background signifies data presence, black absence.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/Heatmap-1.pdf}
-\caption{\label{fig:Heatmap}Heatmap of missing observations where gray implies data presence otherwise black, author's source}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/Heatmap-1} 
+
+}
+
+\caption{Heatmap of missing observations where gray implies data presence otherwise black, author's source}\label{fig:Heatmap}
 \end{figure}
 
 Looking at the top of the heat map plot, the first tree split divides predictors into two sub-trees. The left branch considers from \emph{camereletto} to \emph{ac} and there are no evident patterns except for a small portion of the group from \emph{constitution} to \emph{commercial surface}. In the former group the missing pattern can be traced back to MAR and covariate imputation for \emph{condom}, \emph{photosnum} and \emph{price} is scheduled (response and relevant continuous covariate). In the latter group a further inspection in the scraping code suggests that missing pattern are traced back to an improperly parsed json object in the source code, that is the case of NMAR and observations needs to be left out (covariate are not assumed to be important, therefore are not included in the model). From \emph{cucina} to \emph{post\_auto} a relevant pattern is evident for \emph{cucina} and \emph{altro}, that is because they come from the same predictor from which have been feature engineered two separated and different covariates. As a result the observations that are missing for the one are also missing for the other. Nonetheless the entire group of covariates is dropped due to rarity (percentages of missing are found in tab. \ref{tab:}).
 In the far right side of figure \ref{fig:Heatmap} \emph{enclass}, \emph{catastinfo} and \emph{disp} data are completely missing (NMAR), the pattern suggests some problem in gathering the respective values. A further assessement of the API totally absent covariates scraping is strongly advised. From \emph{total\_commercial\_surface} to \emph{date}, as in cooccurrence plot in figure \ref{fig:cooccurrence}, they are missing in combination for a total of 196 out of 250 cases, therefore are dropped, even though the pattern is NMAR, suggesting that are strongly tied in the scraping process.
 
 \begin{figure}
-\centering
-\includegraphics{06-exploratory_files/figure-latex/cooccurrence-1.pdf}
-\caption{\label{fig:cooccurrence}Missingness co-occurrence plot}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/cooccurrence-1} 
+
+}
+
+\caption{Missingness co-occurrence plot}\label{fig:cooccurrence}
 \end{figure}
 
 \hypertarget{missing-imputation}{%
@@ -1832,10 +1847,10 @@ A relatively simple approach to front MAR is to build a regression model to expl
 Since the response is not missing, indeed it does \emph{condominium}, imputation is pursued for it. The output below reports the corresponding data indexes for missing observations in \emph{condominium}.
 
 \begin{lstlisting}
-## [1]  83 109 132 167
+#> [1]  83 109 132 167
 \end{lstlisting}
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.\(condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore\). In addition to the formula in the inla function a further specification has to be provided with the command \passthrough{\lstinline!compute = TRUE!} in the argument control.predictor. The command \passthrough{\lstinline!compute!} estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table @red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.\(condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore\). In addition to the formula in the inla function a further specification has to be provided with the command \passthrough{\lstinline!compute = TRUE!} in the argument control.predictor. The command \passthrough{\lstinline!compute!} estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table @red(tab:condomimputation).
 
 \begin{table}
 
@@ -1861,9 +1876,12 @@ In this chapter it is applied all the theory seen so far through the lenses of R
 In order to make the distribution of the response i.e.~price (per month in €) approximately Normal it is applied a \(log_{10}\) transformation (further transformation would have better Normalized data i.e.~Box-Cox \citep{boxcox} and Yeo-Johnson \citep{yeojohnson} however they over complicate interpretability). Moreover all of the numerical covariates e.g.~\emph{condominium}, \emph{sqmeter} and \emph{photosnum} have already been prepared in \ref{prep} and are further standardized and scaled. The Locations are represented in map plot \ref{fig:ggmap} within the borders of the Municipality of Milan. At first the borders shapefile is imported from \href{https://geoportale.comune.milano.it/sit/open-data/}{GeoPortale Milano}. The corresponding CRS is in UTM (i.e.~Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \ref{fig:ggmap}.
 
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/ggmap-1.pdf}
-\caption{\label{fig:ggmap}Milan Real Estate data within the Municpality borders, 4 points of interest}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/ggmap-1} 
+
+}
+
+\caption{Milan Real Estate data within the Municpality borders, 4 points of interest}\label{fig:ggmap}
 \end{figure}
 
 \hypertarget{modelspecandmesh}{%
@@ -1888,11 +1906,11 @@ Then the latent field is composed by \(\boldsymbol{\theta}=\{\boldsymbol{\xi}, \
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 \]
 Priors are assigned as Gaussian vagues ones for the \(\boldsymbol\beta\) coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process \(\tilde{\boldsymbol\xi}\) as Penalized in Complexity.
-Thus following the steps and notation marked in sec.~\ref{LGM}. the \emph{higher} level eq. \eqref{eq:higher} is constituted by the \textbf{likelihood}, depending on hyper parameters \(\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)\):
+Thus following the steps and notation marked in sec.~\ref{LGM}. the \emph{higher} level eq. \eqref{eq:higher} is constituted by the \textbf{likelihood}, depending on hyper parameters \(\boldsymbol\psi_1 = \{\sigma_{\varepsilon}^2\}\):
 
 \[\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)\]
 
-At the \emph{medium} level eq. \eqref{eq:medium} there exists the \textbf{latent field} \(\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)\), conditioned to the hyper parameter \(\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}\), whose only component is the measurement error precision,
+At the \emph{medium} level eq. \eqref{eq:medium} there exists the \textbf{latent field} \(\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)\), conditioned to the hyper parameter , whose only component is the measurement error precision, \(\boldsymbol\psi_2 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)\):
 
 \[  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)\]
 
@@ -1909,9 +1927,12 @@ Then once again the objectives of bayesian inference are the posterior marginal 
 SPDE requires to triangulate the domain space \(\mathscr{D}\) as intuited in \ref{spdeapproach}. The function \passthrough{\lstinline!inla.mesh.2d!} together with the \passthrough{\lstinline!inla.nonconvex.hull!} are able to define a good triangulation since no proper boundaries are provided. Four meshes are produced, whose figures are in \ref{fig:meshes}. Triangles appears to be thoroughly smooth and equilateral. The extra offset prevents the model to be affected by boundary effects. However the maximum accessible number of vertices is in \(\operatorname{mesh}_3\) , it seems to have the most potential for this dataset. Critical parameters for meshes are \passthrough{\lstinline!max.edge=c(0.01, 0.02)!} and \passthrough{\lstinline!offset=c(0.0475, 0.0625))!} which in fact mold their sophistication. Further trials have shown that below the lower bound of max.edge of \(0.01\) the function is not able to produce the triangulation.
 
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/meshes-1.pdf}
-\caption{\label{fig:meshes}Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/meshes-1} 
+
+}
+
+\caption{Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices}\label{fig:meshes}
 \end{figure}
 
 The SPDE model object is built with the function \passthrough{\lstinline!inla.spde2.pcmatern()!} which needs as arguments the mesh triangulation, i.e.~\(\operatorname{mesh}_3\) and the PC priors \ref{priorsspec}, satisfying the following probability statements: \(\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01\) where \(\sigma_{\varepsilon}^2\) is the spatial range desumed in \ref{fig:semivariogram}. And \(\operatorname{Prob}(\tau> 0.9)< 0.05\) where \(\tau\) is the marginal standard deviation (on the log scale) of the field \ref{spatassess}.
@@ -1924,7 +1945,7 @@ Since covariates are many they arouse also many possible combinations of predict
 Consequently a Forward Stepwise Selection \citep{guyon2003introduction} algorithm is designed within the inla function call. One at a time predictors are introduced into the model then results are stored into a dataframe. In the end the most satisfying combination based on DIC is sorted out.
 
 \begin{lstlisting}
-## [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
+#> [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
 \end{lstlisting}
 
 \hypertarget{fit}{%
@@ -1961,22 +1982,30 @@ Unsurprisingly the covariate condominium is positively correlated with the respo
 Moreover one feature strongly requested and paid is having a floor heating system, regardless of it is autonomous or centralized.
 INLA is able to output the mean and the standard deviation of measurement precision error in \(\psi_2\) i.e.~\(1 / \sigma_{\varepsilon}^{2}\), note that the interpretation is different from variance. In figure \ref{fig:summhyper} are plotted the respective marginal hyper parameter distributions for \(\boldsymbol\psi\).
 
-\begin{tabular}{l|r|r}
-\hline
+\textbackslash begin\{table\}
+
+\textbackslash caption\{(\#tab:table\_hyper)Summary statistics for Hyper Parameters\}
+\centering
+
+\begin{tabular}[t]{lrr}
+\toprule
 hyper-param & sd & mode\\
-\hline
+\midrule
 Precision for the Gaussian observations & 4.3460742 & 30.350547\\
-\hline
 Theta1 for site & 0.3729812 & -3.570613\\
-\hline
 Theta2 for site & 0.4993020 & 3.913943\\
-\hline
+\bottomrule
 \end{tabular}
 
+\textbackslash end\{table\}
+
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/summhyper-1.pdf}
-\caption{\label{fig:summhyper}Marginal Hyper Parameter distributions for each element of Psi}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/summhyper-1} 
+
+}
+
+\caption{Marginal Hyper Parameter distributions for each element of Psi}\label{fig:summhyper}
 \end{figure}
 
 \hypertarget{plot-gmrf}{%
@@ -1985,9 +2014,12 @@ Theta2 for site & 0.4993020 & 3.913943\\
 Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e.~how much variance the predictors are not able to capture in the response variable. From plot \ref{fig:pltgmrf}, for which it is chosen a grid of \(150 \times 150\) points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.
 
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/pltgmrf-1.pdf}
-\caption{\label{fig:pltgmrf}Gaussian Markov Random field of the final model projected onto the spatial field}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/pltgmrf-1} 
+
+}
+
+\caption{Gaussian Markov Random field of the final model projected onto the spatial field}\label{fig:pltgmrf}
 \end{figure}
 
 \hypertarget{spatial-model-criticism}{%
@@ -1996,9 +2028,12 @@ Finally, it might be of interest to look at the latent field into the spatial fi
 The model on the basis of the PIT \ref{predbase} does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e.~\$fails = \$ 8 outliers. The fact that the distribution is seemingly Uniform \ref{fig:modelcpo} tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681.
 
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/modelcpo-1.pdf}
-\caption{\label{fig:modelcpo}PIT cross validation statistics on \(model_final\)}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/modelcpo-1} 
+
+}
+
+\caption{PIT cross validation statistics on $model_final$}\label{fig:modelcpo}
 \end{figure}
 
 \hypertarget{spatial-prediction-on-a-grid}{%
@@ -2008,9 +2043,12 @@ A gridded object is required in order to project the posterior mean onto the dom
 Higher prices in \ref{fig:predgrid} are observed nearby the points of interest in \ref{ggmap}, however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense.
 
 \begin{figure}
-\centering
-\includegraphics{07-model_fitting_files/figure-latex/predgrid-1.pdf}
-\caption{\label{fig:predgrid}Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/predgrid-1} 
+
+}
+
+\caption{Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}\label{fig:predgrid}
 \end{figure}
 
 \hypertarget{conclusions}{%
@@ -2135,10 +2173,17 @@ finally,
 Assuming \(k = 8, 16\) degrees of freedom \(\chi^{2}\) densities against their Laplace approximation, the figure \ref{fig:laplacevisual} displays how the approximations fits the real density. Integrals are computed in the case of \(k = 8\) in the interval \((5, 7)\), leading to a very good Normal approximation that slightly differ from the orginal CHisquared. The same has been done for the \(k = 16\) case, whose interval is \((12, 17)\) showing other very good approximations. Note that the more are the degrees of freedom the more the chi-squared approximates the Normal leading to better approximations.
 
 \begin{figure}
-\centering
-\includegraphics{98-appendix_files/figure-latex/laplacevisual-1.pdf}
-\caption{\label{fig:laplacevisual}Chisquared density function with parameter \(k = 8\) (top) and \(k = 16\) (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method}
+
+{\centering \includegraphics{98-appendix_files/figure-latex/laplacevisual-1} 
+
+}
+
+\caption{Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method}\label{fig:laplacevisual}
 \end{figure}
+
+\[
+\pi(\boldsymbol{\psi}) \quad \boldsymbol{\psi}= \boldsymbol{\psi_1}, \boldsymbol{\psi_2}
+\]
 
   \bibliography{refs.bib,Rpackages.bib}
 

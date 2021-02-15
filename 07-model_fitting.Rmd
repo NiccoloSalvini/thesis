@@ -3,17 +3,7 @@
 In this chapter it is applied all the theory seen so far through the lenses of R-INLA package on the scraped data. The hierarchical Latent Gaussian model to-be-fitted sets against the response monthly price with the other predictors scraped. As a consequence on top of the hierarchy i.e. the higher level the model places the likelihood of data for which a Normal distribution is specified. At the medium level the GMRF containing the latent components and distributed as a Multivariate Normal (centered in zero and with "markov" properties encoded in the precision matrix). In the end priors are specified both for measurement error precision and for the latent field (penalized in complexity) i.e. the variance of the spatial process and the Matérn hyper parameters. The SPDE approach trinagularize the spatial domain and makes possible to pass from a discrete surface to a continuous representation of the own process. This requires a series of steps ranging from mesh building, passing the mesh inside the Matérn obtaining the spde object and then reprojecting through the stack function. In the end the model is fitted integrating the spatial random field. Posterior distributions for parameters and hyper parameters are then evaluated and summarized.
 
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
-
-# libraries are in libs.R
-# source(here::here("libs.R"))
+```{r libs, include=FALSE}
 
 library(geoR, warn.conflicts = F, quietly = T )
 library(brinla, warn.conflicts = F, quietly = T )
@@ -34,21 +24,6 @@ library(ggregplot, warn.conflicts = F, quietly = T)
 library(readr, warn.conflicts = F, quietly = T)
 library(forcats, warn.conflicts = F, quietly = T)
 library(patchwork, warn.conflicts = F, quietly = T)
-
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
-
 
 ```
 
@@ -156,11 +131,11 @@ $$
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 $$
 Priors are assigned as Gaussian vagues ones for the $\boldsymbol\beta$ coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process $\tilde{\boldsymbol\xi}$ as Penalized in Complexity.
-Thus following the steps and notation marked in sec. \@ref(LGM). the _higher_ level eq. \@ref(eq:higher) is constituted by the **likelihood**, depending on hyper parameters $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)$:
+Thus following the steps and notation marked in sec. \@ref(LGM). the _higher_ level eq. \@ref(eq:higher) is constituted by the **likelihood**, depending on hyper parameters $\boldsymbol\psi_1 = \{\sigma_{\varepsilon}^2\}$:
 
 $$\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)$$
 
-At the _medium_ level eq. \@ref(eq:medium) there exists the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, conditioned to the hyper parameter $\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}$, whose only component is the measurement error precision, 
+At the _medium_ level eq. \@ref(eq:medium) there exists the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, conditioned to the hyper parameter , whose only component is the measurement error precision, $\boldsymbol\psi_2 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)$:
 
 
 $$  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)$$
@@ -438,8 +413,9 @@ INLA is able to output the mean and the standard deviation of measurement precis
 summary_hyperpar <- tibble::rownames_to_column(model_final$summary.hyperpar, "hyper-param") %>%
   as_tibble() %>%
   dplyr::select(-mean, -"0.975quant", -"0.5quant", -"0.025quant")
-summary_hyperpar %>%
-  kable()
+summary_hyperpar %>% 
+    kbl(caption = "Summary statistics for Hyper Parameters", booktabs = T) %>%
+  kable_minimal()
 
 ```
 

@@ -18,3 +18,4 @@ language:
     edit: "Edit "
 delete_merged_file: true
 output_dir: "docs"
+before_chapter_script: "_common.R"

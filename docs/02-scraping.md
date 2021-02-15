@@ -147,8 +147,8 @@ With that said a custom function caches the results of robotstxt into a variable
 
 
 ```
-## Memoised Function:
-## [1] TRUE
+#> Memoised Function:
+#> [1] TRUE
 ```
 
 `polite_permission` is then reused to check, if any, the server suggestion on crawl relay. In this particular context no delays are kindly advised. As a default polite selection delay request rates are set equal to 2.5 seconds. Delayed are managed through the `purrr` stack. At first a `rate` object is initialized based on polite_permission results, as a consequence a `rate_sleep` delay is defined and iterated together with any request sent, as in @rate_delay. 
@@ -156,25 +156,21 @@ With that said a custom function caches the results of robotstxt into a variable
 
 ```r
 get_delay = function(memoised_robot, domain) {
-    
-    message(glue("Refreshing robots.txt data for %s... {domain}"))
-    temp = memoised_robot$crawl_delay
-    
-    if (length(temp) > 0 && !is.na(temp[1, ]$value)) {
-        star = dplyr::filter(temp, useragent == "*")
-        if (nrow(star) == 0) 
-            star = temp[1, ]
-        as.numeric(star$value[1])
-    } else {
-        2.5
-    }
-    
+  
+  message(glue("Refreshing robots.txt data for %s... {domain}"))
+  temp  = memoised_robot$crawl_delay
+  
+  if (length(temp) > 0 && !is.na(temp[1,]$value)) {
+    star = dplyr::filter(temp, useragent=="*")
+    if (nrow(star) == 0) star = temp[1,]
+    as.numeric(star$value[1])
+  } else {
+    2.5L
+  }
+  
 }
 get_delay(rbtxt_memoised, domain = dom)
-```
-
-```
-## [1] 2.5
+#> [1] 2.5
 ```
 
 
@@ -214,7 +210,7 @@ In the HTTP identification headers the UA string is often considered as _content
 UA is a dense content string that includes many User details: the user application or software, the operating system (and versions), the web client, the web client’s version, as well as the web engine responsible for content displaying (e.g. AppleWebKit). When the request is sent from an application software as R (no web browser), the default UA is set as: 
 
 ```
-## [1] "libcurl/7.64.1 r-curl/4.3 httr/1.4.2"
+#> [1] "libcurl/7.64.1 r-curl/4.3 httr/1.4.2"
 ```
 
 Indeed when a request comes from a web browser a full UA example and further components breakdown is (current machine): 
@@ -233,13 +229,12 @@ The UA string is also one of the main responsible according to which Web crawler
 ```r
 set.seed(27)
 url = "https://user-agents.net/"
-agents = read_html(url) %>% html_nodes(css = ".agents_list li") %>% html_text()
+agents = read_html(url) %>%
+  html_nodes(css = ".agents_list li") %>% 
+  html_text()
 
 agents[sample(1)]
-```
-
-```
-## [1] "AppleCoreMedia/1.0.0.18A393 (iPod touch; U; CPU OS 14_0_1 like Mac OS X; es_es)"
+#> [1] "Mozilla/5.0 (Linux; Android 8.1.0; INE-LX2 Build/HUAWEIINE-LX2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.152 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/305.1.0.40.120;]"
 ```
 
 The same procedure has been applied to the From identification header attached to the request. E-mails, that are randomly generated from a website, are scraped and subsequently stored into a variable. A further way to imagine what this is considering low level API calls to dedicated servers nested into a more general higher level API.
@@ -296,10 +291,7 @@ Parallel execution heavily depends on hardware and software choice. Linux enviro
 
 ```r
 future::supportsMulticore()
-```
-
-```
-## [1] FALSE
+#> [1] FALSE
 ```
 
 _Cluster processing_ is an alternative to multi-core processing, where parallelization takes place through a collection of separate processes running in the background. The parent R session instructs the dependencies that needs to be sent to the children sessions.

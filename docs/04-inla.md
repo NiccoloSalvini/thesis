@@ -58,7 +58,7 @@ At the _medium_ level it is specified on the latent field $\boldsymbol\theta$ a 
 \end{equation}
 
 where $\boldsymbol{Q(\psi_2)}$ denotes positive definite matrix and $|\cdot|$ its determinant. $\prime$ is the transpose operator. The matrix $\boldsymbol{Q(\psi_2)}$ is called the _precision matrix_ that outlines the underlying dependence structure of the data, and its inverse $\boldsymbol{Q(\cdot)}^{-1}$ is the covariance matrix [@wang2018bayesian]. In the spatial setting this would be critical since by a specifying a multivariate Normal distribution of eq. \@ref(eq:medium) it will become a GMRF. Due to conditional independence GMRF precision matrices are sparse and through linear algebra and numerical method for sparse matrices model fitting time is saved [@GMRFRue].
-In the _lower_ level priors are collected togheter $\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}$ for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors. 
+In the _lower_ level priors are collected togheter $\boldsymbol\psi_ =\{ \boldsymbol\psi_1\ , \boldsymbol\psi_2\}$ for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors. 
 Since the end goal is to find the joint posterior for $\boldsymbol\theta$ and $\boldsymbol\psi$, then given priors $\boldsymbol\psi$ it possible to combine expression \@ref(eq:higher) with \@ref(eq:medium) obtaining: 
 
 \begin{equation}
@@ -145,8 +145,12 @@ For which the conditional density of $\eta_2$ does only depend on its preceding 
 Therefore ultimately it is possible to produce a rather formal definition of a GMRF:
 
 \BeginKnitrBlock{definition}\iffalse{-91-71-77-82-70-93-}\fi{}
-<span class="definition" id="def:gmrf"><strong>(\#def:gmrf)  \iffalse (GMRF) \fi{} </strong></span>A latent gaussian random field (LGRM) e.g. $\boldsymbol\eta$ is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the “Markov property”) [@wang2018bayesian].
+<span class="definition" id="def:gmrf"><strong>(\#def:gmrf)  \iffalse (GMRF) \fi{} </strong></span>A latent gaussian random field (LGRM) e.g. $\boldsymbol\eta = \boldsymbol\theta$ (when $\mathscr{g}(\cdot)$ is identity) is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the “Markov property”) [@wang2018bayesian].
 \EndKnitrBlock{definition}
+
+$$
+\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}_2) = \operatorname{MVN}(0, \boldsymbol{Q(\psi_2}))
+$$
 
 
 <!-- <!-- PROVA DA QUA  -->
@@ -258,7 +262,7 @@ $$
 and the _lower_, where it is specified a joint prior distribution for $\boldsymbol\psi = (\tau, \rho)$, which is $\pi(\boldsymbol\psi)$. Following eq.\@ref(eq:formallgm) then: 
 
 \begin{equation}
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {LGRM}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
 (\#eq:poissonlgm)
 \end{equation}
 
@@ -470,7 +474,14 @@ Inla output objects are inla.dataframe summary-lists-type containing the results
 
 SPDEtoy dataset $\mathbf{y}$ are two random variables that simulates points location in two coordinates $s_1$ and $s_2$.
 
-![(\#fig:spatplot)SPDEtoy bubble plot, author's source](04-inla_files/figure-latex/spatplot-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{04-inla_files/figure-latex/spatplot-1} 
+
+}
+
+\caption{SPDEtoy bubble plot, author's source}(\#fig:spatplot)
+\end{figure}
 
 
 <!-- ![(#fig:SPDEplot)SPDEtoy plot, author's source](images/cotour_toy.png) -->
@@ -520,7 +531,14 @@ s2 & -1.5836768 & 0.4293757\\
 
 
 
-![(\#fig:postplot)Linear predictor marginals, plot recoded in `ggplot2`, author's source](04-inla_files/figure-latex/postplot-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{04-inla_files/figure-latex/postplot-1} 
+
+}
+
+\caption{Linear predictor marginals, plot recoded in `ggplot2`, author's source}(\#fig:postplot)
+\end{figure}
 
 
 <!-- ![(#fig:marginalsplot)Linear predictor marginals, plot recoded in `ggplot2`, author's source](images/marginal_distr.png) -->

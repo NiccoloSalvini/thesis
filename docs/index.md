@@ -2,10 +2,10 @@
 title: "RESTful Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA"
 author: 
 - "Candidate: [Niccolò Salvini](https://niccolosalvini.netlify.app/)"
-- "Supervisor: [Phd Marco L. Della Vedova](https://mldv.it/home/)"
+- "Supervisor: [PhD Marco L. Della Vedova](https://mldv.it/home/)"
 - "Assistant Supervisor: [PhD Vincenzo Nardelli](https://github.com/vincnardelli)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Lastest book build: 02 febbraio, 2021"
+date: "Lastest book build: 15 febbraio, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

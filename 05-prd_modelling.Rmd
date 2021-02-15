@@ -1,17 +1,7 @@
 # Geostatistical Data Analysis {#prdm}
 
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
-
-# libraries are in libs.R
-# source(here::here("libs.R"))
+```{r libs, include=FALSE}
 
 library(geoR, warn.conflicts = F, quietly = T )
 library(raster, warn.conflicts = F, quietly = T )
@@ -23,19 +13,6 @@ library(faraway, quietly = T, warn.conflicts = F)
 library(patchwork, warn.conflicts = F, quietly = T)
 library(INLA, warn.conflicts = F, quietly = T)
 
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
 ```
 
 Geostatistical or equivalently point reference data are a collection of samples indexed by coordinates pertaining to a spatially continuous surface [@Moraga2019]. Coordinates might be in the form of Latitude and Longitude or Eastings and Northings, moreover they can be also unprojected with respect to a Coordinate Reference Systems (CRS e.g. lat and log), or projected (e.g. East. and North.).  Data as such can monitor a vast range of phenomena, e.g. accidental fisheries bycatch for endangered species [@CosandeyGodin2015], COVID19 severity and case fatality rates in Spain [@Moragacovid2020], PM10 pollution concentration in a North-Italian region Piemonte [@Cameletti2012]. Moreover a large geostatistical application takes place on Real Estate e.g. Boston house prices lattice data [@mass] are ingested by several spatial models [@rubiorealestate], or spatio-temporal modeling for apartment transaction prices in Corsica (FR) [@Ling]. All the examples taken before have implied inla and might have documented a spatial nature of data according to which closer observations were displaying similar values. This phenomenon is named spatial autocorrelation. Spatial autocorrelation conceptually stems from geographer Waldo Tobler whose famous quote, known as first law of geography, inspires geostatisticians:

@@ -11,7 +11,14 @@ In this chapter it is applied all the theory seen so far through the lenses of R
 In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a $log_{10}$ transformation (further transformation would have better Normalized data i.e. Box-Cox [@boxcox] and Yeo-Johnson [@yeojohnson] however they over complicate interpretability). Moreover all of the numerical covariates e.g. _condominium_, _sqmeter_ and _photosnum_ have already been prepared in \@ref(prep) and are further standardized and scaled. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the borders shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \@ref(fig:ggmap).
 
 
-![(\#fig:ggmap)Milan Real Estate data within the Municpality borders, 4 points of interest](07-model_fitting_files/figure-latex/ggmap-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/ggmap-1} 
+
+}
+
+\caption{Milan Real Estate data within the Municpality borders, 4 points of interest}(\#fig:ggmap)
+\end{figure}
 
 
 ## Model Specification & Mesh Assessement {#modelspecandmesh}
@@ -35,11 +42,11 @@ $$
 \boldsymbol{\mathbf{y}}=\boldsymbol{z} \boldsymbol{\beta}+\boldsymbol{\xi}+\boldsymbol{\varepsilon}, \quad \boldsymbol{\varepsilon} \sim N\left(\mathbf{0},  \sigma^2_{\varepsilon} I_{d}\right)
 $$
 Priors are assigned as Gaussian vagues ones for the $\boldsymbol\beta$ coefficients with fixed precision, indeed for the GMRF priors are assigned to the matérn process $\tilde{\boldsymbol\xi}$ as Penalized in Complexity.
-Thus following the steps and notation marked in sec. \@ref(LGM). the _higher_ level eq. \@ref(eq:higher) is constituted by the **likelihood**, depending on hyper parameters $\boldsymbol\psi_1 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)$:
+Thus following the steps and notation marked in sec. \@ref(LGM). the _higher_ level eq. \@ref(eq:higher) is constituted by the **likelihood**, depending on hyper parameters $\boldsymbol\psi_1 = \{\sigma_{\varepsilon}^2\}$:
 
 $$\pi(\boldsymbol{\mathbf{y}} \mid \boldsymbol{\theta}, \boldsymbol{\psi_1})=\prod_{i\ = 1}^{\mathbf{192}} \pi\left(y_{i} \mid \theta_{i}, \boldsymbol{\psi_1}\right)$$
 
-At the _medium_ level eq. \@ref(eq:medium) there exists the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, conditioned to the hyper parameter $\boldsymbol\psi_2 = \{\sigma_{\varepsilon}^2\}$, whose only component is the measurement error precision, 
+At the _medium_ level eq. \@ref(eq:medium) there exists the **latent field** $\pi(\boldsymbol{\theta} \mid \boldsymbol\psi_2)$, conditioned to the hyper parameter , whose only component is the measurement error precision, $\boldsymbol\psi_2 = \left(\sigma_{\mathscr{\xi}}^{2}, \phi, \nu\right)$:
 
 
 $$  \pi(\boldsymbol{\theta} \mid \boldsymbol{\psi_2})=(2 \pi)^{-n / 2}| \boldsymbol{Q_{\mathscr{C}}(\psi_2)}|^{1 / 2} \exp \left(-\frac{1}{2} \boldsymbol{\theta}^{\prime} \boldsymbol{Q_{\mathscr{C}}(\psi_2)} \boldsymbol{\theta}\right)$$
@@ -60,7 +67,14 @@ Then once again the objectives of bayesian inference are the posterior marginal 
 
 SPDE requires to triangulate the domain space $\mathscr{D}$ as intuited in \@ref(spdeapproach). The function `inla.mesh.2d` together with the `inla.nonconvex.hull` are able to define a good triangulation since no proper boundaries are provided. Four meshes are produced, whose figures are in \@ref(fig:meshes). Triangles appears to be thoroughly smooth and equilateral. The extra offset prevents the model to be affected by boundary effects. However the maximum accessible number of vertices is in $\operatorname{mesh}_3$ , it seems to have the most potential for this dataset. Critical parameters for meshes are `max.edge=c(0.01, 0.02)` and  `offset=c(0.0475, 0.0625))` which in fact mold their sophistication. Further trials have shown that below the lower bound of max.edge of $0.01$ the function is not able to produce the triangulation.
 
-![(\#fig:meshes)Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices](07-model_fitting_files/figure-latex/meshes-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/meshes-1} 
+
+}
+
+\caption{Left: mesh traingulation for 156 vertices, Right: mesh traingulation for 324 vertices}(\#fig:meshes)
+\end{figure}
 
 The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation, i.e. $\operatorname{mesh}_3$ and the PC priors \@ref(priorsspec), satisfying the following probability statements: $\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01$ where $\sigma_{\varepsilon}^2$ is the spatial range desumed in \@ref(fig:semivariogram). And  $\operatorname{Prob}(\tau> 0.9)< 0.05$ where $\tau$ is the marginal standard deviation (on the log scale) of the field \@ref(spatassess).
 As model complexity increases, for instance, a lot of random effects may be discovered in the linear predictor and chances are that SPDE object may get into trouble. As a result the `inla.stack` function recreates the linear predictor as a combination of the elements of the old linear predictor and the matrix of observations. Further mathematical details about the stack are in @Blangiardo-Cameletti, but are beyond the scope of the analysis.
@@ -78,7 +92,7 @@ Consequently a Forward Stepwise Selection [@guyon2003introduction] algorithm is 
 
 
 ```
-## [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
+#> [1] "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata WAIC  = -7.532 DIC =-9.001"
 ```
 
 
@@ -118,21 +132,30 @@ INLA is able to output the mean and the standard deviation of measurement precis
 <!-- With a combination of `inla.tmarginal()` and  `inla.emarginal()`, refer to \@ref(rinla), it is possible to compute the mean and the sd for the error, see TAB (...) below.  -->
 
 
+\begin{table}
 
-\begin{tabular}{l|r|r}
-\hline
+\caption{(\#tab:table_hyper)Summary statistics for Hyper Parameters}
+\centering
+\begin{tabular}[t]{lrr}
+\toprule
 hyper-param & sd & mode\\
-\hline
+\midrule
 Precision for the Gaussian observations & 4.3460742 & 30.350547\\
-\hline
 Theta1 for site & 0.3729812 & -3.570613\\
-\hline
 Theta2 for site & 0.4993020 & 3.913943\\
-\hline
+\bottomrule
 \end{tabular}
+\end{table}
 
 
-![(\#fig:summhyper)Marginal Hyper Parameter distributions for each element of Psi](07-model_fitting_files/figure-latex/summhyper-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/summhyper-1} 
+
+}
+
+\caption{Marginal Hyper Parameter distributions for each element of Psi}(\#fig:summhyper)
+\end{figure}
 
 
 
@@ -142,7 +165,14 @@ Theta2 for site & 0.4993020 & 3.913943\\
 
 Finally, it might be of interest to look at the latent field into the spatial field. The investigation can inform about possible omitted variables, i.e. how much variance the predictors are not able to capture in the response variable. From plot \@ref(fig:pltgmrf), for which it is chosen a grid of $150 \times 150$ points, seems that the variance is correctly explained evidencing also three distinctive darker and relatively cheaper areas.
 
-![(\#fig:pltgmrf)Gaussian Markov Random field of the final model projected onto the spatial field](07-model_fitting_files/figure-latex/pltgmrf-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/pltgmrf-1} 
+
+}
+
+\caption{Gaussian Markov Random field of the final model projected onto the spatial field}(\#fig:pltgmrf)
+\end{figure}
 
 
 <!-- a further trial  --> <!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  -->
@@ -152,7 +182,14 @@ Finally, it might be of interest to look at the latent field into the spatial fi
 
 The model on the basis of the PIT \@ref(predbase) does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ 8 outliers. The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681. 
 
-![(\#fig:modelcpo)PIT cross validation statistics on $model_final$](07-model_fitting_files/figure-latex/modelcpo-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/modelcpo-1} 
+
+}
+
+\caption{PIT cross validation statistics on $model_final$}(\#fig:modelcpo)
+\end{figure}
 
 
 
@@ -162,6 +199,13 @@ A gridded object is required in order to project the posterior mean onto the dom
 Higher prices in \@ref(fig:predgrid) are observed nearby the points of interest in \@ref(ggmap), however the north-ovest displays lower monthly prices. The variance is ostensibly considerable within the domain and unsurprisingly decreases where data is more dense. 
 
 
-![(\#fig:predgrid)Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3](07-model_fitting_files/figure-latex/predgrid-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{07-model_fitting_files/figure-latex/predgrid-1} 
+
+}
+
+\caption{Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}(\#fig:predgrid)
+\end{figure}
 
 

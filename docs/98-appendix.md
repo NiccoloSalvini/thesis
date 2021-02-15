@@ -220,13 +220,22 @@ $$
 Assuming $k = 8, 16$ degrees of freedom $\chi^{2}$ densities against their Laplace approximation, the figure \@ref(fig:laplacevisual) displays how the approximations fits the real density. Integrals are computed in the case of $k = 8$ in the interval $(5, 7)$, leading to a very good Normal approximation that slightly differ from the orginal CHisquared. The same has been done for the $k = 16$ case, whose interval is $(12, 17)$ showing other very good approximations. Note that the more are the degrees of freedom the more the chi-squared approximates the Normal leading to better approximations.
 
 
-![(\#fig:laplacevisual)Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method](98-appendix_files/figure-latex/laplacevisual-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{98-appendix_files/figure-latex/laplacevisual-1} 
+
+}
+
+\caption{Chisquared density function with parameter $k = 8$ (top) and $k = 16$ (down) solid line. The point line refers to the corresponding Normal approximation obtained using the Laplace method}(\#fig:laplacevisual)
+\end{figure}
 
 
 
 
 
 
-
+$$
+\pi(\boldsymbol{\psi}) \quad \boldsymbol{\psi}= \boldsymbol{\psi_1}, \boldsymbol{\psi_2}
+$$
 
 

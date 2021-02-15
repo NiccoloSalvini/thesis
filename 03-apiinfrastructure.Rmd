@@ -65,12 +65,12 @@ Rendered files are ultimately pushed to a [Github repository](https://github.com
 
 ## RESTful API 
 
-```{definition, api, name ="API"}
+```{definition, api, name ="API", echo =T}
 API stands for application programming interface and it is a set of definitions and protocols for building and integrating application software. Most importantly APIs let a product or a service communicate with other products and services without having to know how they’re implemented.
 ```
 API may be considered as a mediator between users or clients sending a request, left part figure \@ref(fig:apigenstru) and the web resource or services they want (returning back a response) middle part figure \@ref(fig:apigenstru). It also acts as means of exchanging resources and knowledge with an entity, as databases left part figure \@ref(fig:apigenstru) preserving protection, control and authentication, such as who gets access to what.
 There are many types of APIs that exploit different media and architectures to communicate with apps or services.
-```{definition, rest,name = "REST"}
+```{definition, rest,name = "REST", echo= T}
 The specification REST stands for **RE**presentational **S**tate **T**ransfer and is a set of _architectural principles_. 
 ```
 
@@ -200,7 +200,7 @@ An API call might look like the following for both of the endpoint, further deta
 ## Docker{#docker}
 
 The API up to this point needs a dedicated lightweight software environment that minimizes dependencies both improving performances and enabling _cloud computing_ coverage. A fast growing technology known as _Docker_ might extend these capabilities.
-```{definition,docker,name = "Docker and Containers"}
+```{definition,docker,name = "Docker and Containers", echo = T}
 _Docker_ [@docker] is a software technology to create and deploy applications using containers.
 _Docker containers_ are a standard unit of software (i.e. software boxes) where everything needed for applications, such as libraries or dependencies can be run reliably and quickly. Containers are also portable, in the sense that they can be taken from one computing environment to the following without further adaptations.
 ```
@@ -300,7 +300,7 @@ From a port communication point of view at first NGINX container listens to on p
 ## AWS EC2 instance{#aws}
 
 From henceforth the software container environment can be reproduced regardless of the mounted OS. Scalability and accessibility is worked out by exporting orchestrated containers on a web server. There are many hosting services options that varies primary on the budget and consequently on the API audience. A flexible cloud provider combined with NGINX load balancing _ceteris paribus_ may offer a stable and reliable service for a reasonable price, even considering a bad-case scenario where requests are many and insistent.
-```{definition,aws, name = "AWS EC2"}
+```{definition,aws, name = "AWS EC2", echo = T}
 Amazon Elastic Compute Cloud (EC2) is a web service that contributes to a secure, flexible computing capacity in the AWS cloud. EC2 allows to rent as many virtual servers as needed with customized capacity, security and storage.
 
 ```

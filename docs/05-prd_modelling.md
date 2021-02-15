@@ -82,7 +82,14 @@ Looking at the functions in figure \@ref(fig:matern) and their interception with
 
 <!-- ![(#fig:matern)Matérn function with 4 different values of $\nu$ (upper right legend), kept $\phi$ fixed, author's source](images/matern.png) -->
 
-![(\#fig:matern)Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1](05-prd_modelling_files/figure-latex/matern-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/matern-1} 
+
+}
+
+\caption{Matérn covariance function for 4 different phi values and fixed nu = .5, dashed red horizontal line when covariance is .1}(\#fig:matern)
+\end{figure}
 
 
 In the end summarizing the result obtained (abuse of notation with $(s)$ to make it clear that is a spatial process) in chapter \@ref(inla) with what it has been seen so far, the Gaussian process $y(s)$ assumes the following measurement equation, where $\xi_{i}$ is the latent field, $\varepsilon_{t} \sim N\left(\mathbf{0}, \sigma_{\varepsilon}^{2} I_{d}\right)$ is the white noise error and $I_{d}$ is an identity matrix and $\xi(\boldsymbol{s})\sim N\left(\mathbf{0}, \boldsymbol{Q^{-1}}=\sigma_{\xi}^{2} \mathscr{C}( \Delta_{i j})\right)$.
@@ -167,7 +174,14 @@ For example assume to have data from a 1970's study on the relationship between 
 Then the resulting LPML is: -20.6402106
 Furthermore in left panel of fig. \@ref(fig:pitcpo) the resulting cross-validated PIT resembles a Uniform distribution which is also highlighted whose density is highlighted in tone in the lower part. In the right side a Quantile-Quantile for a Uniform (whose parameter are mean 0 and std 1) plot evidences how much the points are attached to the diagonal, confirming the well behaved model.
 
-![(\#fig:pitcpo)Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)](05-prd_modelling_files/figure-latex/pitcpo-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/pitcpo-1} 
+
+}
+
+\caption{Left: histogram of cross-validated PIT, Right: QQ plot for Unif(0,1)}(\#fig:pitcpo)
+\end{figure}
 
 
 Posterior Predictive checking methods [@gelman1996posterior] exploit a full cross-validation where $\boldsymbol{y}_{A} = \boldsymbol{y}_{V}$, operating on the full set of observation. The statistics capitalized below are quite commonly used in practice, but they are high context dependent:
@@ -218,7 +232,14 @@ PC priors are natively implemented in INLA and are shown to be well suited for t
 Fig. \@ref(fig:priorfun) indicates various PC priors using several $\alpha$ values for the precision $\tau$. Note that increasing $\alpha$'s values contribute to a stronger prior belief for $U$ which then leads to a higher conviction of $\tau$.
 
 <!-- PROVA A METTERE ESEMPIO SPDETOY -->
-![(\#fig:priorfun)PC priors for the precision by varying alpha values and fixing $U$](05-prd_modelling_files/figure-latex/priorfun-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{05-prd_modelling_files/figure-latex/priorfun-1} 
+
+}
+
+\caption{PC priors for the precision by varying alpha values and fixing $U$}(\#fig:priorfun)
+\end{figure}
 
 
 

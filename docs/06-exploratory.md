@@ -6,7 +6,7 @@
 
 To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
 <!-- As a further data source is available a mondgoDB ATLAS cluster which, because of the scheduler, stocks daily .csv information from Milan real estate. Credentials have to be supplied. For run time reasons also related to the bookdown files continuous building the API endpoint is not called and code chunks outputs are cached due to heavy computation. Instead data is extracted from the MongoDB cluster.  -->
-Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \@ref(tab:covartable), involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second `/completescrape` endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. 2021-02-02 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
+Data emerging from the RESTful API response is not in its tidiest format. Yet data undergoes to a series of pre-processing steps during scraping, after which still requires to clear up unnecessary character and to separate columns containing more than one information. Therefore a summary table of the covariates, tab. \@ref(tab:covartable), involved into the analysis is presented with the goal to familiarize with incoming API data. Data gathered from the second `/completescrape` endpoint contains geostatistical components and consequently a map representation of Real Estate rental maket at the gitbook building time  i.e. 2021-02-15 is given. A further plot assess spatial dependence highlighting that coordinates are non-linearly related \@ref(fig:NonLinearSpatialRel) to the y-response monthlyprice variable. Exploration starts with factor counts evidencing a "Bilocale" prevalence. This implies some critical Milan real estate market demand information and consequently reflections on the offer. Data displays bimodality in prices distribution for different n-roomed accommodations and the model should take account of the behavior. Then a piece-wise linear regression is fitted for each household type accommodation factor, whose single predictor is the square meter footage. The analysis emphasize some valuable economic consequences both for investors interested into property expansions and for tenants that are planning to partition single properties into rentable sub-units. The previous analysis brings along a major question which addresses the most valuable properties per single square meter surface and an answer based on data is given. Then a log-linear model is fitted on some presumably important covariates to evaluate each single house characteristic contribution to the price. A Tie Fighter plot displays for which coefficient, associated to each dummy predictor, are encountered surprisingly high monthly prices, compared to the effect of the square meter footage expansion. A partial conclusion is that disposing of 2 or 3+ bathrooms truly pays back an extra monthly return, also due to the number of tentants the accomodations could host. Text mining techniques are applied on real estate agency reviews and a network graph can help to distinguish topics. Then Missing assessement and imputation takes place. At first is made a brief a revision on randomness in missing by @Little which may help to figure out if data is missing due to API failures or for other reasons. Theory is applied by visualizing missingness in combination with heat-map and co-occurrence plot. Combined missing observation test is able to detect whether data is missing because of inner scraping faiilures or simple low prevalence in appereance. Then for each of the covariate that pass the exam, then imputation is made through INLA posterior expectation. This is the case of missing data in predictors, so the missing covariates ( _condominium_ ) are brought into a model as response variable where this time predictors are the explanatory ones. Through a method specified within the INLA function the posterior statistics are computed and then finally imputed in the place of missing ones.
 
 <!-- [gebstionale immobiliare](https://www.gestionaleimmobiliare.it/export/docs/GI_XML_attributi_v.1.11.pdf) -->
 
@@ -83,7 +83,12 @@ Data needs to undergo to many previous cleaning preprocess steps, which mainly r
 The previous steps lead to have a 250 data points per 64 covariates. Ultimately exploiting the spatial component, data can be represented through a map, as in fig. \@ref(fig:LeafletVisuals). Maps (not properly a "spatial" visualization) must determine the regularity of the arrangement of points and also if the maximum gap between points is much greater in some directions than others (symptomps of anisotropy, not detected). 
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{images/leaflet_prezzi} \caption{Leaflet Map}(\#fig:LeafletVisuals)
+
+{\centering \includegraphics[width=1\linewidth]{images/leaflet_prezzi} 
+
+}
+
+\caption{Leaflet Map}(\#fig:LeafletVisuals)
 \end{figure}
 
 
@@ -99,7 +104,14 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 By visual inspection, even though is assumed, the distribution of price seems to suffer for spatial dependence. In order to measure the range of spatial dependency and get an idea about the sill and nugget (seen in section \@ref(GP) of previous chapter), further research is urged through a variogram analysis. The assessment continues by fitting an isotropical semivariogram with Matérn covariance \@ref(fig:matern) on residuals due to the assumption made before. Residuals are extracted from a regression model whose formula relates price with other presumably important covariates i.e. $\text{price} \sim \text{totlocali} + \text{condominium}+  \text{sqmeter}$. The model is also computed through inla and by taking advantage of `INLAtools` and Pearson residuals [@pearson] are extracted, i.e. $\operatorname{Pearson}_{i}=\frac{y_{i}-\hat{y}_{i}}{\sqrt{M S E}}$. Moreover variogram from package `gstat` is versatile enough to allow to specify a regression model within the variogram function. The range parameter initial value is set equal to the maximum pair points distance registered.
 
 
-![(\#fig:semivariogram)Semivariogram on a linear model Pearson residuals](06-exploratory_files/figure-latex/semivariogram-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/semivariogram-1} 
+
+}
+
+\caption{Semivariogram on a linear model Pearson residuals}(\#fig:semivariogram)
+\end{figure}
 
 
 
@@ -129,7 +141,14 @@ By visual inspection, even though is assumed, the distribution of price seems to
 
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictors and which factor is relevant to the analysis. The left panel in figure \@ref(fig:fctCounts) offers the rearranged factor count fot the covariate *TOTLOCALI*.  "Bilocale" are the most common option for rent, then "Trilocale" follows. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This comes natural since Milan is both a vivid study and working area, so temporary accommodations are warmly welcomed. Right in figure \@ref(fig:fctCounts) it can be seen that building are generally old and mostly built either at the start of the 20th century or in the middle. Further investigation might assess how this fact can affect the overall city status.
 
-![(\#fig:fctCounts)Left: Count plot for each housedolds category, Right: count plot for building age](06-exploratory_files/figure-latex/fctCounts-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/fctCounts-1} 
+
+}
+
+\caption{Left: Count plot for each housedolds category, Right: count plot for building age}(\#fig:fctCounts)
+\end{figure}
 
 Two of the most requested features for comfort and livability in rents are the heating/cooling systems. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients expectation. In this sense accommodation coming with the newest and the most technologically advanced systems are naturally preferred. 
 x-axis in figure \@ref(fig:PricePerAc) represents $\log_{10}$ price for both of the upper and lower panel. Logarithmic scale is needed to smooth distributions and the resulting price interpretation have to considered into relative percent changes. Furthermore factors are reordered with respect to decreasing price.  
@@ -138,7 +157,14 @@ The top plot displays the most prevalent heating systems categories, among which
 Then in bottom plot Jitters point out the number of outliers outside the IQR (Inter Quantile Range) .25 and their impact on the distribution. A first conclusion is that outliers are mainly located in autonomous systems, which leads of course to believe that the most expensive houses are heated by autonomoius heating systems. Indeed in any case this fact that does not affect monthly price. The overlapping IQR signifies that the covariates levels do not impact the response variable.
 
 
-![(\#fig:PricePerAc)Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings](06-exploratory_files/figure-latex/PricePerAc-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/PricePerAc-1} 
+
+}
+
+\caption{Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings}(\#fig:PricePerAc)
+\end{figure}
 
 
 
@@ -183,13 +209,20 @@ Answering to the previous question implies also knowing how properties should be
 A further example may regard the economic convenience for those who need to enlarge new properties (construction firms). Some of the potential enlargements are economically justified, some of the other are not.
 The plot \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y (sqfeet) axis, the former is once again $log_{10}$ scaled. Coloration discretizes points for each of $j_{th}$ totlocali. A sort of overlapping  piece-wise linear regression (log-linear due to the transformation) is fitted on each totlocali group, whose response variable is price and whose only predictor is the square footage surface (i.e.  $\log_{10}(\text{price}_j) \sim +\beta_{0,j}+\beta_{1,j}\, \text{sqfeet}_j$). Five different regression models are proposed in the top left. The interesting part regards the models slopes $\hat\beta_{1,j}$. The highest corresponds to "Monolocale" for which the enlargement of a 10 square meters in surface enriches the apartment of a 0.1819524% monthly price addition. Almost the same is witnessed in "Bilocale" for which a 10 square meters extension gains a 0.1194379% value. One more major thing to notice is the "ensamble" regression line obtained as the interpolation of the 6 plotted ones. The line suggests a clear logarithmic pattern from Pentalocale and beyond whose assumption is strengthened by looking at the decreasing trend in the $\hat\beta_1$ predictor slopes coefficients. Furthermore investing into an extension for "Quadrilocale" and "Trilocale" is _coeteris paribus_ an interchangeable economic choice.
 
-![(\#fig:GlmPriceSq)Monthly Prices change wrt square meters footage in different n-roomed apt](06-exploratory_files/figure-latex/GlmPriceSq-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/GlmPriceSq-1} 
+
+}
+
+\caption{Monthly Prices change wrt square meters footage in different n-roomed apt}(\#fig:GlmPriceSq)
+\end{figure}
 
 Furthermore in table \@ref(tab:TopAbsPrice) resides the answer to the question "which are the most profitable properties per square meter footage". The covariate floor together with the address are not part of this simple regression model, indeed they can help explaining the behavior. First and third position are unsurprisingly "Bilocale". The second stands out for its ridiculous price per month. The other are all located nearby the city center.
 
 \begin{table}
 
-\caption{(\#tab:TopAbsPrice)The most profitable properties per single square meter footage at the date of2021-02-02}
+\caption{(\#tab:TopAbsPrice)The most profitable properties per single square meter footage at the date of2021-02-15}
 \centering
 \begin{tabular}[t]{llrrlll}
 \toprule
@@ -230,7 +263,14 @@ The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how 
 <!-- # ``` -->
 
 
-![(\#fig:TieFighterPlot)Tie fighter coefficient plot for the log-linear model](06-exploratory_files/figure-latex/TieFighterPlot-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/TieFighterPlot-1} 
+
+}
+
+\caption{Tie fighter coefficient plot for the log-linear model}(\#fig:TieFighterPlot)
+\end{figure}
 
 
 <!-- ## Text Mining in estate Review{#textmining} -->
@@ -330,12 +370,26 @@ Categories are three:
 This MNAR case is difficult to detect since the missing process and details are not available. An example of MNAR is the case of daily monitoring clinical studies [-@Kuhn], when patient might drop out the experiment because of death, as a result all the subsequent data starting from the death time +1 are lost.
 Patterns are visible through a statistical tool whose typical application is found in detecting collinearity in predictors i.e.  _heat map_. The plot in fig. \@ref(fig:Heatmap) assign $1$ when data is present and $0$ otherwise. Gray background signifies data presence, black absence. 
 
-![(\#fig:Heatmap)Heatmap of missing observations where gray implies data presence otherwise black, author's source](06-exploratory_files/figure-latex/Heatmap-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/Heatmap-1} 
+
+}
+
+\caption{Heatmap of missing observations where gray implies data presence otherwise black, author's source}(\#fig:Heatmap)
+\end{figure}
 
 Looking at the top of the heat map plot, the first tree split divides predictors into two sub-trees. The left branch considers from *camereletto* to *ac* and there are no evident patterns except for a small portion of the group from *constitution* to _commercial surface_. In the former group the missing pattern can be traced back to MAR and covariate imputation for *condom*, *photosnum* and *price* is scheduled (response and relevant continuous covariate). In the latter group a further inspection in the scraping code suggests that missing pattern are traced back to an improperly parsed json object in the source code, that is the case of NMAR and observations needs to be left out (covariate are not assumed to be important, therefore are not included in the model). From *cucina* to *post_auto* a relevant pattern is evident for *cucina* and *altro*, that is because they come from the same predictor from which have been feature engineered two separated and different covariates. As a result the observations that are missing for the one are also missing for the other. Nonetheless the entire group of covariates is dropped due to rarity (percentages of missing are found in tab. \@ref(tab:)).
 In the far right side of figure \@ref(fig:Heatmap) *enclass*, *catastinfo* and *disp* data are completely missing (NMAR), the pattern suggests some problem in gathering the respective values. A further assessement of the API totally absent covariates scraping is strongly advised. From *total_commercial_surface* to _date_, as in cooccurrence plot in figure \@ref(fig:cooccurrence), they are missing in combination for a total of 196 out of 250 cases, therefore are dropped, even though the pattern is NMAR, suggesting that are strongly tied in the scraping process. 
 
-![(\#fig:cooccurrence)Missingness co-occurrence plot](06-exploratory_files/figure-latex/cooccurrence-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics{06-exploratory_files/figure-latex/cooccurrence-1} 
+
+}
+
+\caption{Missingness co-occurrence plot}(\#fig:cooccurrence)
+\end{figure}
 
 ### Missing Imputation
 
@@ -345,7 +399,7 @@ Since the response is not missing, indeed it does _condominium_,  imputation is 
 
 
 ```
-## [1]  83 109 132 167
+#> [1]  83 109 132 167
 ```
 
 
@@ -373,7 +427,7 @@ Since the response is not missing, indeed it does _condominium_,  imputation is 
 <!-- ``` -->
 
 
-A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:CondomImputation).
+A model is fitted based on missing data for which the response variable is condominium and predictors are other important explanatory ones, i.e.$condom ~ 1 + sqfeet + totlocali + floor + heating + ascensore$. In addition to the formula in the inla function a further specification has to be provided with the command `compute = TRUE` in the argument control.predictor. The command `compute` estimates the posterior means of the predictive distribution in the response variable for the missing points. The estimated posterior mean quantities are then imputed in place of the missing indexes. Results are in table \@red(tab:condomimputation).
 
 \begin{table}
 

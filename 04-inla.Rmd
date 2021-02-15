@@ -5,17 +5,7 @@ output:
 ---
 # INLA {#inla}
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
-
-# libraries are in libs.R
-# source(here::here("libs.R"))
+```{r libs, include=FALSE}
 
 library(INLA, warn.conflicts = F, quietly = T)
 library(brinla, warn.conflicts = F, quietly = T)
@@ -27,44 +17,6 @@ library(ggplot2, warn.conflicts = F, quietly = T)
 library(patchwork, warn.conflicts = F, quietly = T)
 library(tidyverse, warn.conflicts = F, quietly = T)
 
-theme_nicco2 = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = ggplot2::element_text(size = 18, colour = "#454545",hjust = 0.5, margin = ggplot2::margin(b = 10)),
-      panel.background  = element_blank(),
-      panel.grid.major = ggplot2::element_line(linetype = "dotted",colour = "#454545",size = 0.3),
-      panel.grid.minor = ggplot2::element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      axis.line = ggplot2::element_line(color = "#454545", size = 0.3),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA),
-      strip.background = ggplot2::element_rect(fill = "transparent",colour = NA),
-      axis.title = ggplot2::element_text(size = 13, colour = "#454545",hjust = 0.95),
-      axis.text = ggplot2::element_text(size = 10, colour = "#212121"),
-      strip.text = ggplot2::element_text(size = 12, colour = "#454545", 
-                                         margin = ggplot2::margin(10, 10, 
-                                                                  10, 10, 
-                                                                  "pt"))
-    )
-}
-
-
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace% 
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
 ```
 
 Bayesian estimation methods - by MCMC [@mcmc] and MC simulation techniques - are usually much harder than Frequentist calculations [@wang2018bayesian]. This unfortunately is also more critical for spatial and spatio-temporal model settings [@Cameletti2012] where matrices dimensions and densities (in the sense of prevalence of values throughout the matrix) start becoming unfeasible. 
@@ -118,7 +70,7 @@ At the _medium_ level it is specified on the latent field $\boldsymbol\theta$ a 
 \end{equation}
 
 where $\boldsymbol{Q(\psi_2)}$ denotes positive definite matrix and $|\cdot|$ its determinant. $\prime$ is the transpose operator. The matrix $\boldsymbol{Q(\psi_2)}$ is called the _precision matrix_ that outlines the underlying dependence structure of the data, and its inverse $\boldsymbol{Q(\cdot)}^{-1}$ is the covariance matrix [@wang2018bayesian]. In the spatial setting this would be critical since by a specifying a multivariate Normal distribution of eq. \@ref(eq:medium) it will become a GMRF. Due to conditional independence GMRF precision matrices are sparse and through linear algebra and numerical method for sparse matrices model fitting time is saved [@GMRFRue].
-In the _lower_ level priors are collected togheter $\boldsymbol\psi_ =\{ \boldsymbol\psi_1\, \boldsymbol\psi_2\}$ for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors. 
+In the _lower_ level priors are collected togheter $\boldsymbol\psi_ =\{ \boldsymbol\psi_1\ , \boldsymbol\psi_2\}$ for which are specified either a single prior distribution or a joint prior distribution as the product of its independent priors. 
 Since the end goal is to find the joint posterior for $\boldsymbol\theta$ and $\boldsymbol\psi$, then given priors $\boldsymbol\psi$ it possible to combine expression \@ref(eq:higher) with \@ref(eq:medium) obtaining: 
 
 \begin{equation}
@@ -205,8 +157,12 @@ For which the conditional density of $\eta_2$ does only depend on its preceding 
 Therefore ultimately it is possible to produce a rather formal definition of a GMRF:
 
 ```{definition, gmrf, name ="GMRF", echo = TRUE}
-A latent gaussian random field (LGRM) e.g. $\boldsymbol\eta$ is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the “Markov property”) [@wang2018bayesian].
+A latent gaussian random field (LGRM) e.g. $\boldsymbol\eta = \boldsymbol\theta$ (when $\mathscr{g}(\cdot)$ is identity) is said a GMRF if it has a multivariate Normal density with additional conditional independence (also called the “Markov property”) [@wang2018bayesian].
 ```
+
+$$
+\pi(\boldsymbol{\theta} \mid \boldsymbol{\psi}_2) = \operatorname{MVN}(0, \boldsymbol{Q(\psi_2}))
+$$
 
 
 <!-- <!-- PROVA DA QUA  -->
@@ -318,7 +274,7 @@ $$
 and the _lower_, where it is specified a joint prior distribution for $\boldsymbol\psi = (\tau, \rho)$, which is $\pi(\boldsymbol\psi)$. Following eq.\@ref(eq:formallgm) then: 
 
 \begin{equation}
-\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {LGRM}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
+\pi(\boldsymbol{\theta}, \boldsymbol{\psi} \mid \mathbf{y})\propto  \underbrace{\pi(\boldsymbol{\psi})}_{\text {priors}} \times \underbrace{\pi(\boldsymbol\theta \mid \boldsymbol\rho)}_{\text {GMRF}} \times \underbrace{\prod_{i=1}^{\mathbf{I}} \pi\left(\mathbf{y} \mid \boldsymbol\theta, \boldsymbol{\tau}\right)}_{\text {likelihood }}
 (\#eq:poissonlgm)
 \end{equation}
 

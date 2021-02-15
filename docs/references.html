@@ -22,7 +22,7 @@
   <meta name="twitter:image" content="https://niccolosalvini.github.io/Thesis/images/logo/spatial_logo.png" />
 
 <meta name="author" content="Candidate: Niccolò Salvini" />
-<meta name="author" content="Supervisor: Phd Marco L. Della Vedova" />
+<meta name="author" content="Supervisor: PhD Marco L. Della Vedova" />
 <meta name="author" content="Assistant Supervisor: PhD Vincenzo Nardelli" />
 
 
@@ -34,6 +34,7 @@
   <link rel="shortcut icon" href="images/logo/spatial_logo.ico" type="image/x-icon" />
 <link rel="prev" href="appendix.html"/>
 
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,7 +51,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
@@ -91,18 +91,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -122,7 +121,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -170,37 +169,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="./"><img src="images/logo/spatial_logo.png"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preliminary Content</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a><ul>
+<li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="scraping.html"><a href="scraping.html#reverse"><i class="fa fa-check"></i><b>2.1</b> A Gentle Introduction on Web Scraping</a></li>
-<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#anatomy-of-a-url-and-reverse-engineering"><i class="fa fa-check"></i><b>2.2</b> Anatomy of a url and reverse engineering</a><ul>
+<li class="chapter" data-level="2.2" data-path="scraping.html"><a href="scraping.html#anatomy-of-a-url-and-reverse-engineering"><i class="fa fa-check"></i><b>2.2</b> Anatomy of a url and reverse engineering</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="scraping.html"><a href="scraping.html#scraping-with-rvest"><i class="fa fa-check"></i><b>2.2.1</b> Scraping with <code id="ContentArchitecture">rvest</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="scraping.html"><a href="scraping.html#ProperScraping"><i class="fa fa-check"></i><b>2.3</b> Searching Technique for Scraping</a></li>
 <li class="chapter" data-level="2.4" data-path="scraping.html"><a href="scraping.html#best-practices"><i class="fa fa-check"></i><b>2.4</b> Scraping Best Practices and Security provisions</a></li>
-<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#HTTPmethod"><i class="fa fa-check"></i><b>2.5</b> HTTP overview</a><ul>
+<li class="chapter" data-level="2.5" data-path="scraping.html"><a href="scraping.html#HTTPmethod"><i class="fa fa-check"></i><b>2.5</b> HTTP overview</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="scraping.html"><a href="scraping.html#spoofing"><i class="fa fa-check"></i><b>2.5.1</b> User Agent and further Identification Headers Spoofing</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="scraping.html"><a href="scraping.html#possibly"><i class="fa fa-check"></i><b>2.6</b> Dealing with failure</a></li>
-<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.7</b> Parallel Scraping</a><ul>
+<li class="chapter" data-level="2.7" data-path="scraping.html"><a href="scraping.html#parallelscraping"><i class="fa fa-check"></i><b>2.7</b> Parallel Scraping</a>
+<ul>
 <li class="chapter" data-level="2.7.1" data-path="scraping.html"><a href="scraping.html#parallel-furrrfuture"><i class="fa fa-check"></i><b>2.7.1</b> Parallel furrr+future</a></li>
 <li class="chapter" data-level="2.7.2" data-path="scraping.html"><a href="scraping.html#parallel-foreachdofuture"><i class="fa fa-check"></i><b>2.7.2</b> Parallel foreach+doFuture</a></li>
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="scraping.html"><a href="scraping.html#legal"><i class="fa fa-check"></i><b>2.8</b> Legal Profiles</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a><ul>
-<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#restful-api"><i class="fa fa-check"></i><b>3.1</b> RESTful API</a><ul>
+<li class="chapter" data-level="3" data-path="Infrastructure.html"><a href="Infrastructure.html"><i class="fa fa-check"></i><b>3</b> API Technology Stack</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="Infrastructure.html"><a href="Infrastructure.html#restful-api"><i class="fa fa-check"></i><b>3.1</b> RESTful API</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="Infrastructure.html"><a href="Infrastructure.html#plumberapi"><i class="fa fa-check"></i><b>3.1.1</b> Plumber HTTP API</a></li>
 <li class="chapter" data-level="3.1.2" data-path="Infrastructure.html"><a href="Infrastructure.html#sanitize"><i class="fa fa-check"></i><b>3.1.2</b> Sanitization</a></li>
 <li class="chapter" data-level="3.1.3" data-path="Infrastructure.html"><a href="Infrastructure.html#DoS"><i class="fa fa-check"></i><b>3.1.3</b> Denial Of Service (DoS)</a></li>
 <li class="chapter" data-level="3.1.4" data-path="Infrastructure.html"><a href="Infrastructure.html#logging"><i class="fa fa-check"></i><b>3.1.4</b> Logging</a></li>
 <li class="chapter" data-level="3.1.5" data-path="Infrastructure.html"><a href="Infrastructure.html#docs"><i class="fa fa-check"></i><b>3.1.5</b> RESTful API docs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a><ul>
+<li class="chapter" data-level="3.2" data-path="Infrastructure.html"><a href="Infrastructure.html#docker"><i class="fa fa-check"></i><b>3.2</b> Docker</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="Infrastructure.html"><a href="Infrastructure.html#dockerfile"><i class="fa fa-check"></i><b>3.2.1</b> REST-API container</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="Infrastructure.html"><a href="Infrastructure.html#nginx"><i class="fa fa-check"></i><b>3.3</b> NGINX reverse Proxy Server and Authorization</a></li>
@@ -210,34 +217,40 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="Infrastructure.html"><a href="Infrastructure.html#sdwf"><i class="fa fa-check"></i><b>3.7</b> Software CI/CD Workflow</a></li>
 <li class="chapter" data-level="3.8" data-path="Infrastructure.html"><a href="Infrastructure.html#further-sf-integrations"><i class="fa fa-check"></i><b>3.8</b> Further SF Integrations</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a><ul>
+<li class="chapter" data-level="4" data-path="inla.html"><a href="inla.html"><i class="fa fa-check"></i><b>4</b> INLA</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="inla.html"><a href="inla.html#LGM"><i class="fa fa-check"></i><b>4.1</b> The class of Latent Gaussian Models (LGM)</a></li>
 <li class="chapter" data-level="4.2" data-path="inla.html"><a href="inla.html#gmrf"><i class="fa fa-check"></i><b>4.2</b> Gaussian Markov Random Field (GMRF)</a></li>
 <li class="chapter" data-level="4.3" data-path="inla.html"><a href="inla.html#approx"><i class="fa fa-check"></i><b>4.3</b> INLA Laplace Approximations</a></li>
 <li class="chapter" data-level="4.4" data-path="inla.html"><a href="inla.html#rinla"><i class="fa fa-check"></i><b>4.4</b> R-INLA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a><ul>
+<li class="chapter" data-level="5" data-path="prdm.html"><a href="prdm.html"><i class="fa fa-check"></i><b>5</b> Geostatistical Data Analysis</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="prdm.html"><a href="prdm.html#GP"><i class="fa fa-check"></i><b>5.1</b> Gaussian Process (GP)</a></li>
 <li class="chapter" data-level="5.2" data-path="prdm.html"><a href="prdm.html#spdeapproach"><i class="fa fa-check"></i><b>5.2</b> The Stochastic Partial Differential Equation (SPDE) approach</a></li>
 <li class="chapter" data-level="5.3" data-path="prdm.html"><a href="prdm.html#hedonic-rental-price-models"><i class="fa fa-check"></i><b>5.3</b> Hedonic (rental) Price Models</a></li>
-<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#criticism"><i class="fa fa-check"></i><b>5.4</b> Model Criticism</a><ul>
+<li class="chapter" data-level="5.4" data-path="prdm.html"><a href="prdm.html#criticism"><i class="fa fa-check"></i><b>5.4</b> Model Criticism</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="prdm.html"><a href="prdm.html#predbase"><i class="fa fa-check"></i><b>5.4.1</b> Methods based on the predictive distribution</a></li>
 <li class="chapter" data-level="5.4.2" data-path="prdm.html"><a href="prdm.html#devbased"><i class="fa fa-check"></i><b>5.4.2</b> Deviance-based Criteria</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="prdm.html"><a href="prdm.html#priorsspec"><i class="fa fa-check"></i><b>5.5</b> Penalized Complexity Priors</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a><ul>
+<li class="chapter" data-level="6" data-path="exploratory.html"><a href="exploratory.html"><i class="fa fa-check"></i><b>6</b> Exploratory Analysis</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="exploratory.html"><a href="exploratory.html#prep"><i class="fa fa-check"></i><b>6.1</b> Preprocessing and Feature Engineering</a></li>
 <li class="chapter" data-level="6.2" data-path="exploratory.html"><a href="exploratory.html#spatassess"><i class="fa fa-check"></i><b>6.2</b> Spatial Dependece Assessement</a></li>
 <li class="chapter" data-level="6.3" data-path="exploratory.html"><a href="exploratory.html#factor-counts"><i class="fa fa-check"></i><b>6.3</b> Factor Counts</a></li>
 <li class="chapter" data-level="6.4" data-path="exploratory.html"><a href="exploratory.html#mvp"><i class="fa fa-check"></i><b>6.4</b> Assessing the most valuable properties</a></li>
 <li class="chapter" data-level="6.5" data-path="exploratory.html"><a href="exploratory.html#assessing-relevant-predictors"><i class="fa fa-check"></i><b>6.5</b> Assessing relevant predictors</a></li>
-<li class="chapter" data-level="6.6" data-path="exploratory.html"><a href="exploratory.html#missassimp"><i class="fa fa-check"></i><b>6.6</b> Missing Assessement and Imputation</a><ul>
+<li class="chapter" data-level="6.6" data-path="exploratory.html"><a href="exploratory.html#missassimp"><i class="fa fa-check"></i><b>6.6</b> Missing Assessement and Imputation</a>
+<ul>
 <li class="chapter" data-level="6.6.1" data-path="exploratory.html"><a href="exploratory.html#missing-assessement"><i class="fa fa-check"></i><b>6.6.1</b> Missing Assessement</a></li>
 <li class="chapter" data-level="6.6.2" data-path="exploratory.html"><a href="exploratory.html#missing-imputation"><i class="fa fa-check"></i><b>6.6.2</b> Missing Imputation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a><ul>
+<li class="chapter" data-level="7" data-path="modelspec.html"><a href="modelspec.html"><i class="fa fa-check"></i><b>7</b> Model Selection &amp; Fitting</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="modelspec.html"><a href="modelspec.html#modelspecandmesh"><i class="fa fa-check"></i><b>7.1</b> Model Specification &amp; Mesh Assessement</a></li>
 <li class="chapter" data-level="7.2" data-path="modelspec.html"><a href="modelspec.html#spdemodeol"><i class="fa fa-check"></i><b>7.2</b> Building the SPDE object</a></li>
 <li class="chapter" data-level="7.3" data-path="modelspec.html"><a href="modelspec.html#model-selection"><i class="fa fa-check"></i><b>7.3</b> Model Selection</a></li>
@@ -247,7 +260,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7" data-path="modelspec.html"><a href="modelspec.html#spatial-prediction-on-a-grid"><i class="fa fa-check"></i><b>7.7</b> Spatial Prediction on a Grid</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>8</b> Conclusions</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="appendix.html"><a href="appendix.html#triangular"><i class="fa fa-check"></i><b>8.1</b> SPDE and Triangulation</a></li>
 <li class="chapter" data-level="8.2" data-path="appendix.html"><a href="appendix.html#laplaceapprox"><i class="fa fa-check"></i><b>8.2</b> Laplace Approximation</a></li>
 </ul></li>
@@ -277,420 +291,420 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references">
-<div>
-<p>Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-what_is_a_rest_api" class="csl-entry">
+2018. <em>What Is a REST API?</em> Red Hat. <a href="https://www.redhat.com/en/topics/api/what-is-a-rest-api">https://www.redhat.com/en/topics/api/what-is-a-rest-api</a>.
 </div>
-<div>
-<p>Anselin, Luc. 2010. “Thirty Years of Spatial Econometrics.” <em>Papers in Regional Science</em> 89 (1): 3–25. <a href="https://doi.org/https://doi.org/10.1111/j.1435-5957.2010.00279.x">https://doi.org/https://doi.org/10.1111/j.1435-5957.2010.00279.x</a>.</p>
+<div id="ref-rmarkdown1" class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
 </div>
-<div>
-<p>Arbia, Giuseppe, and Vincenzo Nardelli. 2020. “On Spatial Lag Models Estimated Using Crowdsourcing, Web-Scraping or Other Unconventionally Collected Data.” <a href="http://arxiv.org/abs/2010.05287">http://arxiv.org/abs/2010.05287</a>.</p>
+<div id="ref-spateconanslein" class="csl-entry">
+Anselin, Luc. 2010. <span>“Thirty Years of Spatial Econometrics.”</span> <em>Papers in Regional Science</em> 89 (1): 3–25. https://doi.org/<a href="https://doi.org/10.1111/j.1435-5957.2010.00279.x">https://doi.org/10.1111/j.1435-5957.2010.00279.x</a>.
 </div>
-<div>
-<p>Arbia, Giuseppe, Gloria Solano-Hermosilla, Fabio Micale, Vincenzo Nardelli, and Giampiero Genovese. 2020. “Post-Sampling Crowdsourced Data to Allow Reliable Statistical Inference: The Case of Food Price Indices in Nigeria.” <a href="http://arxiv.org/abs/2003.12542">http://arxiv.org/abs/2003.12542</a>.</p>
+<div id="ref-arbia2020spatial" class="csl-entry">
+Arbia, Giuseppe, and Vincenzo Nardelli. 2020. <span>“On Spatial Lag Models Estimated Using Crowdsourcing, Web-Scraping or Other Unconventionally Collected Data.”</span> <a href="http://arxiv.org/abs/2010.05287">http://arxiv.org/abs/2010.05287</a>.
 </div>
-<div>
-<p>“Authors Guild V. Google, Inc., 804 F.3d 202.” 2015. <a href="https://casetext.com/case/guild-v-google-inc-1">https://casetext.com/case/guild-v-google-inc-1</a>.</p>
+<div id="ref-arbia2020postsampling" class="csl-entry">
+Arbia, Giuseppe, Gloria Solano-Hermosilla, Fabio Micale, Vincenzo Nardelli, and Giampiero Genovese. 2020. <span>“Post-Sampling Crowdsourced Data to Allow Reliable Statistical Inference: The Case of Food Price Indices in Nigeria.”</span> <a href="http://arxiv.org/abs/2003.12542">http://arxiv.org/abs/2003.12542</a>.
 </div>
-<div>
-<p>Baker, Henry C., and Carl Hewitt. 1977. “The Incremental Garbage Collection of Processes.” <em>SIGPLAN Not.</em> 12 (8): 55–59. <a href="https://doi.org/10.1145/872734.806932">https://doi.org/10.1145/872734.806932</a>.</p>
+<div id="ref-AuthorsG59" class="csl-entry">
+<span>“Authors Guild v. Google, Inc., 804 f.3d 202.”</span> 2015. <a href="https://casetext.com/case/guild-v-google-inc-1">https://casetext.com/case/guild-v-google-inc-1</a>.
 </div>
-<div>
-<p>Baltagi, Badi H., Georges Bresson, and Jean-Michel Etienne. 2015. “Hedonic Housing Prices in Paris: An Unbalanced Spatial Lag Pseudo-Panel Model with Nested Random Effects.” <em>Journal of Applied Econometrics</em> 30 (3): 509–28. <a href="https://doi.org/https://doi.org/10.1002/jae.2377">https://doi.org/https://doi.org/10.1002/jae.2377</a>.</p>
+<div id="ref-BakerFuture" class="csl-entry">
+Baker, Henry C., and Carl Hewitt. 1977. <span>“The Incremental Garbage Collection of Processes.”</span> <em>SIGPLAN Not.</em> 12 (8): 55–59. <a href="https://doi.org/10.1145/872734.806932">https://doi.org/10.1145/872734.806932</a>.
 </div>
-<div>
-<p>Banerjee, Sudipto, Bradley P. Carlin, and Alan E. Gelfand. 2014. <em>Hierarchical Modeling and Analysis for Spatial Data</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/b17115">https://doi.org/10.1201/b17115</a>.</p>
+<div id="ref-baltagiparis" class="csl-entry">
+Baltagi, Badi H., Georges Bresson, and Jean-Michel Etienne. 2015. <span>“Hedonic Housing Prices in Paris: An Unbalanced Spatial Lag Pseudo-Panel Model with Nested Random Effects.”</span> <em>Journal of Applied Econometrics</em> 30 (3): 509–28. https://doi.org/<a href="https://doi.org/10.1002/jae.2377">https://doi.org/10.1002/jae.2377</a>.
 </div>
-<div>
-<p>Barney, Blaise. 2020. “Introduction to Parallel Computing.” <em>Introduction to Parallel Computing</em>. U.S. Department of Energy by Lawrence Livermore National Laborator. <a href="https://computing.llnl.gov/tutorials/parallel_comp/">https://computing.llnl.gov/tutorials/parallel_comp/</a>.</p>
+<div id="ref-Banerjee-Gelfand" class="csl-entry">
+Banerjee, Sudipto, Bradley P. Carlin, and Alan E. Gelfand. 2014. <em>Hierarchical Modeling and Analysis for Spatial Data</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/b17115">https://doi.org/10.1201/b17115</a>.
 </div>
-<div>
-<p>Basile, Roberto, Luigi Benfratello, and Davide Castellani. 2013. “Geoadditive Models for Regional Count Data: An Application to Industrial Location.” <em>Geographical Analysis</em> 45 (1): 28–48. <a href="https://doi.org/https://doi.org/10.1111/gean.12001">https://doi.org/https://doi.org/10.1111/gean.12001</a>.</p>
+<div id="ref-barney" class="csl-entry">
+Barney, Blaise. 2020. <span>“Introduction to Parallel Computing.”</span> <em>Introduction to Parallel Computing</em>. U.S. Department of Energy by Lawrence Livermore National Laborator. <a href="https://computing.llnl.gov/tutorials/parallel_comp/">https://computing.llnl.gov/tutorials/parallel_comp/</a>.
 </div>
-<div>
-<p>Bengtsson, Henrik. 2020a. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
+<div id="ref-basilebenfratmcast" class="csl-entry">
+Basile, Roberto, Luigi Benfratello, and Davide Castellani. 2013. <span>“Geoadditive Models for Regional Count Data: An Application to Industrial Location.”</span> <em>Geographical Analysis</em> 45 (1): 28–48. https://doi.org/<a href="https://doi.org/10.1111/gean.12001">https://doi.org/10.1111/gean.12001</a>.
 </div>
-<div>
-<p>———. 2020b. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
+<div id="ref-bengtsson_2017" class="csl-entry">
+Bengtsson, Henrik. 2020c. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
 </div>
-<div>
-<p>———. 2020c. “A Unifying Framework for Parallel and Distributed Processing in R Using Futures.” <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.</p>
+<div id="ref-future" class="csl-entry">
+———. 2020a. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
 </div>
-<div>
-<p>Besag, Julian, and Charles Kooperberg. 1995. “On Conditional and Intrinsic Autoregressions.” <em>Biometrika</em> 82 (4): 733–46.</p>
+<div id="ref-doFuture" class="csl-entry">
+———. 2020b. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
 </div>
-<div>
-<p>Bivand, Roger, Virgilio Gómez Rubio, and Håvard Rue. 2015. “Spatial Data Analysis with R-Inla with Some Extensions.” <em>Journal of Statistical Software</em> 63 (February): 1–31. <a href="https://doi.org/10.18637/jss.v063.i20">https://doi.org/10.18637/jss.v063.i20</a>.</p>
+<div id="ref-besag1995conditional" class="csl-entry">
+Besag, Julian, and Charles Kooperberg. 1995. <span>“On Conditional and Intrinsic Autoregressions.”</span> <em>Biometrika</em> 82 (4): 733–46.
 </div>
-<div>
-<p>Blanchet-Scalliet, Christophette, Céline Helbert, Mélina Ribaud, and Céline Vial. 2019. “Four algorithms to construct a sparse kriging kernel for dimensionality reduction.” <em>Computational Statistics</em>, 1–21. <a href="https://hal.archives-ouvertes.fr/hal-01496521">https://hal.archives-ouvertes.fr/hal-01496521</a>.</p>
+<div id="ref-rubiorealestate" class="csl-entry">
+Bivand, Roger, Virgilio Gómez Rubio, and Håvard Rue. 2015. <span>“Spatial Data Analysis with r-INLA with Some Extensions.”</span> <em>Journal of Statistical Software</em> 63 (February): 1–31. <a href="https://doi.org/10.18637/jss.v063.i20">https://doi.org/10.18637/jss.v063.i20</a>.
 </div>
-<div>
-<p>Blangiardo, Marta, Michela Cameletti, Gianluca Baio, and Håvard Rue. 2013. “Spatial and Spatio-Temporal Models with R-Inla.” <em>Spatial and Spatio-Temporal Epidemiology</em> 7: 39–55. <a href="https://doi.org/https://doi.org/10.1016/j.sste.2013.07.003">https://doi.org/https://doi.org/10.1016/j.sste.2013.07.003</a>.</p>
+<div id="ref-blanchetscalliet" class="csl-entry">
+Blanchet-Scalliet, Christophette, Céline Helbert, Mélina Ribaud, and Céline Vial. 2019. <span>“<span class="nocase">Four algorithms to construct a sparse kriging kernel for dimensionality reduction</span>.”</span> <em><span>Computational Statistics</span></em>, 1–21. <a href="https://hal.archives-ouvertes.fr/hal-01496521">https://hal.archives-ouvertes.fr/hal-01496521</a>.
 </div>
-<div>
-<p>Blangiardo, Michela, Marta; Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with R-Inla</em>. Wiley.</p>
+<div id="ref-BLANGIARDO201339" class="csl-entry">
+Blangiardo, Marta, Michela Cameletti, Gianluca Baio, and Håvard Rue. 2013. <span>“Spatial and Spatio-Temporal Models with r-INLA.”</span> <em>Spatial and Spatio-Temporal Epidemiology</em> 7: 39–55. https://doi.org/<a href="https://doi.org/10.1016/j.sste.2013.07.003">https://doi.org/10.1016/j.sste.2013.07.003</a>.
 </div>
-<div>
-<p>Box, G. E. P., and D. R. Cox. 1964. “An Analysis of Transformations.” <em>Journal of the Royal Statistical Society. Series B (Methodological)</em> 26 (2): 211–52. <a href="http://www.jstor.org/stable/2984418">http://www.jstor.org/stable/2984418</a>.</p>
+<div id="ref-Blangiardo-Cameletti" class="csl-entry">
+Blangiardo, Michela, Marta; Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. Wiley.
 </div>
-<div>
-<p>Brooks, S., A. Gelman, G. L. Jones, and X.-L Meng. 2011. <em>Handbook of Markov Chain Monte Carlo</em>. <em>Handbook of Markov Chain Monte Carlo</em>.</p>
+<div id="ref-boxcox" class="csl-entry">
+Box, G. E. P., and D. R. Cox. 1964. <span>“An Analysis of Transformations.”</span> <em>Journal of the Royal Statistical Society. Series B (Methodological)</em> 26 (2): 211–52. <a href="http://www.jstor.org/stable/2984418">http://www.jstor.org/stable/2984418</a>.
 </div>
-<div>
-<p>Buja, Andreas, Trevor Hastie, and Robert Tibshirani. 1989. “Linear Smoothers and Additive Models.” <em>Ann. Statist.</em> 17 (2): 453–510. <a href="https://doi.org/10.1214/aos/1176347115">https://doi.org/10.1214/aos/1176347115</a>.</p>
+<div id="ref-mcmc" class="csl-entry">
+Brooks, S., A. Gelman, G. L. Jones, and X.-L Meng. 2011. <em>Handbook of Markov Chain Monte Carlo</em>. <em>Handbook of Markov Chain Monte Carlo</em>.
 </div>
-<div>
-<p>Cameletti, Michela, Finn Lindgren, Daniel Simpson, and Håvard Rue. 2012. “Spatio-Temporal Modeling of Particulate Matter Concentration Through the SPDE Approach.” <em>AStA Advances in Statistical Analysis</em> 97 (2): 109–31. <a href="https://doi.org/10.1007/s10182-012-0196-3">https://doi.org/10.1007/s10182-012-0196-3</a>.</p>
+<div id="ref-buja1989" class="csl-entry">
+Buja, Andreas, Trevor Hastie, and Robert Tibshirani. 1989. <span>“Linear Smoothers and Additive Models.”</span> <em>Ann. Statist.</em> 17 (2): 453–510. <a href="https://doi.org/10.1214/aos/1176347115">https://doi.org/10.1214/aos/1176347115</a>.
 </div>
-<div>
-<p>Cantino, Andrew, and Kyle Maxwell. 2013. “SelectorGadget: Point and Click Css Selectors.” <a href="https://selectorgadget.com/">https://selectorgadget.com/</a>.</p>
+<div id="ref-Cameletti2012" class="csl-entry">
+Cameletti, Michela, Finn Lindgren, Daniel Simpson, and Håvard Rue. 2012. <span>“Spatio-Temporal Modeling of Particulate Matter Concentration Through the <span>SPDE</span> Approach.”</span> <em><span>AStA</span> Advances in Statistical Analysis</em> 97 (2): 109–31. <a href="https://doi.org/10.1007/s10182-012-0196-3">https://doi.org/10.1007/s10182-012-0196-3</a>.
 </div>
-<div>
-<p>Capozza, Dennis, and Paul Seguin. 1996. “Expectations, Efficiency, and Euphoria in the Housing Market.” <em>Regional Science and Urban Economics</em> 26 (February): 369–86. <a href="https://doi.org/10.1016/0166-0462(95)02120-5">https://doi.org/10.1016/0166-0462(95)02120-5</a>.</p>
+<div id="ref-Selectorgadget" class="csl-entry">
+Cantino, Andrew, and Kyle Maxwell. 2013. <span>“SelectorGadget: Point and Click CSS Selectors.”</span> <a href="https://selectorgadget.com/">https://selectorgadget.com/</a>.
 </div>
-<div>
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2019. <em>Leaflet: Create Interactive Web Maps with the Javascript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet">https://CRAN.R-project.org/package=leaflet</a>.</p>
+<div id="ref-Capozza_Seguin_1996" class="csl-entry">
+Capozza, Dennis, and Paul Seguin. 1996. <span>“Expectations, Efficiency, and Euphoria in the Housing Market.”</span> <em>Regional Science and Urban Economics</em> 26 (February): 369–86. <a href="https://doi.org/10.1016/0166-0462(95)02120-5">https://doi.org/10.1016/0166-0462(95)02120-5</a>.
 </div>
-<div>
-<p>Cisco, White Paper -. 2020. “Cisco Annual Internet Report - Cisco Annual Internet Report (2018–2023).” <a href="https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html">https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html</a>.</p>
+<div id="ref-leaflet" class="csl-entry">
+Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2019. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet">https://CRAN.R-project.org/package=leaflet</a>.
 </div>
-<div>
-<p>Clapp, John M. 2003. “A Semiparametric Method for Valuing Residential Locations: Application to Automated Valuation.” <em>The Journal of Real Estate Finance and Economics</em> 27 (3): 303–20. <a href="https://doi.org/https://doi.org/10.1023/A:1025838007297">https://doi.org/https://doi.org/10.1023/A:1025838007297</a>.</p>
+<div id="ref-ciscooutlook" class="csl-entry">
+Cisco, White Paper -. 2020. <span>“Cisco Annual Internet Report - Cisco Annual Internet Report (2018–2023).”</span> <a href="https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html">https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html</a>.
 </div>
-<div>
-<p>Clark, Todd E. 1995. “Rents and prices of housing across areas of the United States. A cross-section examination of the present value model.” <em>Regional Science and Urban Economics</em> 25 (2): 237–47. <a href="https://ideas.repec.org/a/eee/regeco/v25y1995i2p237-247.html">https://ideas.repec.org/a/eee/regeco/v25y1995i2p237-247.html</a>.</p>
+<div id="ref-clapp" class="csl-entry">
+Clapp, John M. 2003. <span>“<span class="nocase">A Semiparametric Method for Valuing Residential Locations: Application to Automated Valuation</span>.”</span> <em>The Journal of Real Estate Finance and Economics</em> 27 (3): 303–20. https://doi.org/<a href="https://doi.org/10.1023/A:1025838007297">https://doi.org/10.1023/A:1025838007297</a>.
 </div>
-<div>
-<p>Colin Fay, Sébastien Rochette. 2020. <em>Engineering Production-Grade Shiny Apps</em>. <a href="https://engineering-shiny.org/">https://engineering-shiny.org/</a>.</p>
+<div id="ref-Clark_1995" class="csl-entry">
+Clark, Todd E. 1995. <span>“<span class="nocase">Rents and prices of housing across areas of the United States. A cross-section examination of the present value model</span>.”</span> <em>Regional Science and Urban Economics</em> 25 (2): 237–47.
 </div>
-<div>
-<p>Contributors. 2004. “Beautiful Soup: We Called Him Tortoise Because He Taught Us.” <a href="https://www.crummy.com/software/BeautifulSoup/">https://www.crummy.com/software/BeautifulSoup/</a>.</p>
+<div id="ref-colin_fay_2020" class="csl-entry">
+Colin Fay, Sébastien Rochette. 2020. <em>Engineering Production-Grade Shiny Apps</em>. <a href="https://engineering-shiny.org/">https://engineering-shiny.org/</a>.
 </div>
-<div>
-<p>contributors, Wikipedia. 2020a. “Clean Url — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878">https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878</a>.</p>
+<div id="ref-Beautifulsoup" class="csl-entry">
+Contributors. 2004. <span>“Beautiful Soup: We Called Him Tortoise Because He Taught Us.”</span> <a href="https://www.crummy.com/software/BeautifulSoup/">https://www.crummy.com/software/BeautifulSoup/</a>.
 </div>
-<div>
-<p>———. 2020b. “Denial-of-Service Attack — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165">https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165</a>.</p>
+<div id="ref-wiki:cleanurl" class="csl-entry">
+contributors, Wikipedia. 2020a. <span>“Clean URL — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878">https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878</a>.
 </div>
-<div>
-<p>———. 2020c. “Fork (System Call) — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307">https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307</a>.</p>
+<div id="ref-wiki:DOS" class="csl-entry">
+———. 2020b. <span>“Denial-of-Service Attack — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165">https://en.wikipedia.org/w/index.php?title=Denial-of-service_attack&amp;oldid=991730165</a>.
 </div>
-<div>
-<p>———. 2020d. “HiQ Labs V. LinkedIn — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HiQ_Labs_v._LinkedIn&amp;oldid=960556303">https://en.wikipedia.org/w/index.php?title=HiQ_Labs_v._LinkedIn&amp;oldid=960556303</a>.</p>
+<div id="ref-wiki:forking" class="csl-entry">
+———. 2020c. <span>“Fork (System Call) — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307">https://en.wikipedia.org/w/index.php?title=Fork_(system_call)&amp;oldid=989449307</a>.
 </div>
-<div>
-<p>———. 2020e. “HTTP Client Hints — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.</p>
+<div id="ref-wiki:HiQvsLinkedIn" class="csl-entry">
+———. 2020d. <span>“HiQ Labs v. LinkedIn — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=HiQ_Labs_v._LinkedIn&amp;oldid=960556303">https://en.wikipedia.org/w/index.php?title=HiQ_Labs_v._LinkedIn&amp;oldid=960556303</a>.
 </div>
-<div>
-<p>———. 2020f. “JavaScript — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=JavaScript&amp;oldid=996480090">https://en.wikipedia.org/w/index.php?title=JavaScript&amp;oldid=996480090</a>.</p>
+<div id="ref-wiki:UserAgentHints" class="csl-entry">
+———. 2020e. <span>“HTTP Client Hints — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401">https://en.wikipedia.org/w/index.php?title=HTTP_Client_Hints&amp;oldid=972093401</a>.
 </div>
-<div>
-<p>———. 2020g. “JSON — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=JSON&amp;oldid=996681350">https://en.wikipedia.org/w/index.php?title=JSON&amp;oldid=996681350</a>.</p>
+<div id="ref-wiki:Javascript" class="csl-entry">
+———. 2020f. <span>“JavaScript — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=JavaScript&amp;oldid=996480090">https://en.wikipedia.org/w/index.php?title=JavaScript&amp;oldid=996480090</a>.
 </div>
-<div>
-<p>———. 2020h. “URL — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641">https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641</a>.</p>
+<div id="ref-wiki:JSON" class="csl-entry">
+———. 2020g. <span>“JSON — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=JSON&amp;oldid=996681350">https://en.wikipedia.org/w/index.php?title=JSON&amp;oldid=996681350</a>.
 </div>
-<div>
-<p>———. 2020i. “User Agent — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.</p>
+<div id="ref-wiki:url" class="csl-entry">
+———. 2020h. <span>“URL — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641">https://en.wikipedia.org/w/index.php?title=URL&amp;oldid=993575641</a>.
 </div>
-<div>
-<p>———. 2020j. “XML — Wikipedia, the Free Encyclopedia.” <a href="https://en.wikipedia.org/w/index.php?title=XML&amp;oldid=996126068">https://en.wikipedia.org/w/index.php?title=XML&amp;oldid=996126068</a>.</p>
+<div id="ref-wiki:UserAgent" class="csl-entry">
+———. 2020i. <span>“User Agent — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962">https://en.wikipedia.org/w/index.php?title=User_agent&amp;oldid=992080962</a>.
 </div>
-<div>
-<p>Cordeiro, Gauss. 2004. “On Pearson’s Residuals in Generalized Linear Models.” <em>Statistics &amp; Probability Letters</em> 66 (February): 213–19. <a href="https://doi.org/10.1016/j.spl.2003.09.004">https://doi.org/10.1016/j.spl.2003.09.004</a>.</p>
+<div id="ref-wiki:XML" class="csl-entry">
+———. 2020j. <span>“XML — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=XML&amp;oldid=996126068">https://en.wikipedia.org/w/index.php?title=XML&amp;oldid=996126068</a>.
 </div>
-<div>
-<p>Corporation, LinkedIn. 2017. “Letter from Linkedin to Hiq Labs.” <a href="https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1">https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1</a>.</p>
+<div id="ref-pearson" class="csl-entry">
+Cordeiro, Gauss. 2004. <span>“On Pearson’s Residuals in Generalized Linear Models.”</span> <em>Statistics &amp; Probability Letters</em> 66 (February): 213–19. <a href="https://doi.org/10.1016/j.spl.2003.09.004">https://doi.org/10.1016/j.spl.2003.09.004</a>.
 </div>
-<div>
-<p>Corporation, Microsoft, and Steve Weston. 2020. <em>DoParallel: Foreach Parallel Adaptor for the ’Parallel’ Package</em>. <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.</p>
+<div id="ref-Letterfr71" class="csl-entry">
+Corporation, LinkedIn. 2017. <span>“Letter from LinkedIn to HiQ Labs.”</span> <a href="https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1">https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1</a>.
 </div>
-<div>
-<p>Cosandey-Godin, Aurelie, Elias Teixeira Krainski, Boris Worm, and Joanna Mills Flemming. 2015. “Applying Bayesian Spatiotemporal Models to Fisheries Bycatch in the Canadian Arctic.” <em>Canadian Journal of Fisheries and Aquatic Sciences</em> 72 (2): 186–97. <a href="https://doi.org/10.1139/cjfas-2014-0159">https://doi.org/10.1139/cjfas-2014-0159</a>.</p>
+<div id="ref-doParallel" class="csl-entry">
+Corporation, Microsoft, and Steve Weston. 2020. <em>doParallel: Foreach Parallel Adaptor for the ’Parallel’ Package</em>. <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.
 </div>
-<div>
-<p>“CSS.” 2020. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/CSS">https://en.wikipedia.org/wiki/CSS</a>.</p>
+<div id="ref-CosandeyGodin2015" class="csl-entry">
+Cosandey-Godin, Aurelie, Elias Teixeira Krainski, Boris Worm, and Joanna Mills Flemming. 2015. <span>“Applying Bayesian Spatiotemporal Models to Fisheries Bycatch in the Canadian Arctic.”</span> <em>Canadian Journal of Fisheries and Aquatic Sciences</em> 72 (2): 186–97. <a href="https://doi.org/10.1139/cjfas-2014-0159">https://doi.org/10.1139/cjfas-2014-0159</a>.
 </div>
-<div>
-<p>Densmore, James. 2019. “Ethics in Web Scraping.” <em>Medium</em>. Towards Data Science. <a href="https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01">https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01</a>.</p>
+<div id="ref-css_2020" class="csl-entry">
+<span>“CSS.”</span> 2020. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/CSS">https://en.wikipedia.org/wiki/CSS</a>.
 </div>
-<div>
-<p>Dey, S, T Mukhopadhyay, and S Adhikari. 2017. “Metamodel Based High-Fidelity Stochastic Analysis of Composite Laminates: A Concise Review with Critical Comparative Assessment.” <em>Composite Structures</em> 171: 227–50.</p>
+<div id="ref-densmore_2019" class="csl-entry">
+Densmore, James. 2019. <span>“Ethics in Web Scraping.”</span> <em>Medium</em>. Towards Data Science. <a href="https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01">https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01</a>.
 </div>
-<div>
-<p>Doepud. 2010. “Anatomy of a Url.” <a href="https://doepud.co.uk/blog/anatomy-of-a-url">https://doepud.co.uk/blog/anatomy-of-a-url</a>.</p>
+<div id="ref-dey2017metamodel" class="csl-entry">
+Dey, S, T Mukhopadhyay, and S Adhikari. 2017. <span>“Metamodel Based High-Fidelity Stochastic Analysis of Composite Laminates: A Concise Review with Critical Comparative Assessment.”</span> <em>Composite Structures</em> 171: 227–50.
 </div>
-<div>
-<p>Dogucu, Mine, and Mine Cetinkaya. 2020. “Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities.” <em>Journal of Statistics Education</em>, July, 1–24. <a href="https://doi.org/10.1080/10691898.2020.1787116">https://doi.org/10.1080/10691898.2020.1787116</a>.</p>
+<div id="ref-Anatomyo72" class="csl-entry">
+Doepud. 2010. <span>“Anatomy of a URL.”</span> <a href="https://doepud.co.uk/blog/anatomy-of-a-url">https://doepud.co.uk/blog/anatomy-of-a-url</a>.
 </div>
-<div>
-<p>Dubé, Jean, and Diègo Legros. 2013. “A Spatio-Temporal Measure of Spatial Dependence: An Example Using Real Estate Data*.” <em>Papers in Regional Science</em> 92 (1): 19–30. <a href="https://doi.org/https://doi.org/10.1111/j.1435-5957.2011.00402.x">https://doi.org/https://doi.org/10.1111/j.1435-5957.2011.00402.x</a>.</p>
+<div id="ref-wsstatistics" class="csl-entry">
+Dogucu, Mine, and Mine Cetinkaya. 2020. <span>“Web Scraping in the Statistics and Data Science Curriculum: Challenges and Opportunities.”</span> <em>Journal of Statistics Education</em>, July, 1–24. <a href="https://doi.org/10.1080/10691898.2020.1787116">https://doi.org/10.1080/10691898.2020.1787116</a>.
 </div>
-<div>
-<p>Eddelbuettel, Dirk. 2020. “Parallel Computing with R: A Brief Review.” <a href="http://arxiv.org/abs/1912.11144">http://arxiv.org/abs/1912.11144</a>.</p>
+<div id="ref-dubelegros" class="csl-entry">
+Dubé, Jean, and Diègo Legros. 2013. <span>“A Spatio-Temporal Measure of Spatial Dependence: An Example Using Real Estate Data*.”</span> <em>Papers in Regional Science</em> 92 (1): 19–30. https://doi.org/<a href="https://doi.org/10.1111/j.1435-5957.2011.00402.x">https://doi.org/10.1111/j.1435-5957.2011.00402.x</a>.
 </div>
-<div>
-<p>Edward G. Black, Patrick J. Reinikainen. 2017. “HiQ Labs, Inc. V. LinkedIn Corp.: a Federal Court Weighs in on Web Scraping, Free Speech Rights, and the Computer Fraud and Abuse Act | Casetext.” <a href="https://casetext.com/analysis/hiq-labs-inc-v-linkedin-corp-a-federal-court-weighs-in-on-web-scraping-free-speech-rights-and-the-computer-fraud-and-abuse-act-1?sort=relevance&amp;resultsNav=false">https://casetext.com/analysis/hiq-labs-inc-v-linkedin-corp-a-federal-court-weighs-in-on-web-scraping-free-speech-rights-and-the-computer-fraud-and-abuse-act-1?sort=relevance&amp;resultsNav=false</a>.</p>
+<div id="ref-eddelbuettel2020parallel" class="csl-entry">
+Eddelbuettel, Dirk. 2020. <span>“Parallel Computing with r: A Brief Review.”</span> <a href="http://arxiv.org/abs/1912.11144">http://arxiv.org/abs/1912.11144</a>.
 </div>
-<div>
-<p>Faraway, Julian, Ryan Yue, and Xiaofeng Wang. 2021. <em>Brinla: Bayesian Regression with Inla</em>. <a href="http://github.com/julianfaraway/brinla">http://github.com/julianfaraway/brinla</a>.</p>
+<div id="ref-hiQLabsI66" class="csl-entry">
+Edward G. Black, Patrick J. Reinikainen. 2017. <span>“hiQ Labs, Inc. V. LinkedIn Corp.: A Federal Court Weighs in on Web Scraping, Free Speech Rights, and the Computer Fraud and Abuse Act | Casetext.”</span> <a href="https://casetext.com/analysis/hiq-labs-inc-v-linkedin-corp-a-federal-court-weighs-in-on-web-scraping-free-speech-rights-and-the-computer-fraud-and-abuse-act-1?sort=relevance&amp;resultsNav=false">https://casetext.com/analysis/hiq-labs-inc-v-linkedin-corp-a-federal-court-weighs-in-on-web-scraping-free-speech-rights-and-the-computer-fraud-and-abuse-act-1?sort=relevance&amp;resultsNav=false</a>.
 </div>
-<div>
-<p>Fosso-Tande, Jacob. 2008. “Applications of Taylor Series.”</p>
+<div id="ref-brinla" class="csl-entry">
+Faraway, Julian, Ryan Yue, and Xiaofeng Wang. 2021. <em>Brinla: Bayesian Regression with INLA</em>. <a href="http://github.com/julianfaraway/brinla">http://github.com/julianfaraway/brinla</a>.
 </div>
-<div>
-<p>Geisser, Seymour, and William F. Eddy. 1979. “A Predictive Approach to Model Selection.” <em>Journal of the American Statistical Association</em> 74 (365): 153–60. <a href="http://www.jstor.org/stable/2286745">http://www.jstor.org/stable/2286745</a>.</p>
+<div id="ref-taylorseries" class="csl-entry">
+Fosso-Tande, Jacob. 2008. <span>“Applications of Taylor Series.”</span>
 </div>
-<div>
-<p>Gelfand, Alan E, and Adrian FM Smith. 1990. “Sampling-Based Approaches to Calculating Marginal Densities.” <em>Journal of the American Statistical Association</em> 85 (410): 398–409.</p>
+<div id="ref-lpml" class="csl-entry">
+Geisser, Seymour, and William F. Eddy. 1979. <span>“A Predictive Approach to Model Selection.”</span> <em>Journal of the American Statistical Association</em> 74 (365): 153–60. <a href="http://www.jstor.org/stable/2286745">http://www.jstor.org/stable/2286745</a>.
 </div>
-<div>
-<p>Gelman, Andrew, Jessica Hwang, and Aki Vehtari. 2014. “Understanding Predictive Information Criteria for Bayesian Models.” <em>Statistics and Computing</em> 24 (6): 997–1016.</p>
+<div id="ref-gelfand1990sampling" class="csl-entry">
+Gelfand, Alan E, and Adrian FM Smith. 1990. <span>“Sampling-Based Approaches to Calculating Marginal Densities.”</span> <em>Journal of the American Statistical Association</em> 85 (410): 398–409.
 </div>
-<div>
-<p>Gelman, Andrew, Xiao-Li Meng, and Hal Stern. 1996. “Posterior Predictive Assessment of Model Fitness via Realized Discrepancies.” <em>Statistica Sinica</em>, 733–60.</p>
+<div id="ref-gelman2014understanding" class="csl-entry">
+Gelman, Andrew, Jessica Hwang, and Aki Vehtari. 2014. <span>“Understanding Predictive Information Criteria for Bayesian Models.”</span> <em>Statistics and Computing</em> 24 (6): 997–1016.
 </div>
-<div>
-<p>Gneiting, Tilmann, Marc G Genton, and Peter Guttorp. 2006. “Geostatistical Space-Time Models, Stationarity, Separability, and Full Symmetry.” <em>Monographs on Statistics and Applied Probability</em> 107: 151.</p>
+<div id="ref-gelman1996posterior" class="csl-entry">
+Gelman, Andrew, Xiao-Li Meng, and Hal Stern. 1996. <span>“Posterior Predictive Assessment of Model Fitness via Realized Discrepancies.”</span> <em>Statistica Sinica</em>, 733–60.
 </div>
-<div>
-<p>Google. 2020. “Presentazione Dei File Robots.txt - Guida Di Search Console.” <em>Google</em>. Google. <a href="https://support.google.com/webmasters/answer/6062608?hl=it">https://support.google.com/webmasters/answer/6062608?hl=it</a>.</p>
+<div id="ref-gneiting2006geostatistical" class="csl-entry">
+Gneiting, Tilmann, Marc G Genton, and Peter Guttorp. 2006. <span>“Geostatistical Space-Time Models, Stationarity, Separability, and Full Symmetry.”</span> <em>Monographs On Statistics and Applied Probability</em> 107: 151.
 </div>
-<div>
-<p>Gómez Rubio, Virgilio. 2020. <em>Bayesian Inference with Inla</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781315175584">https://doi.org/10.1201/9781315175584</a>.</p>
+<div id="ref-google:robottxt" class="csl-entry">
+Google. 2020. <span>“Presentazione Dei File Robots.txt - Guida Di Search Console.”</span> <em>Google</em>. Google. <a href="https://support.google.com/webmasters/answer/6062608?hl=it">https://support.google.com/webmasters/answer/6062608?hl=it</a>.
 </div>
-<div>
-<p>Guyon, Isabelle, and André Elisseeff. 2003. “An Introduction to Variable and Feature Selection.” <em>Journal of Machine Learning Research</em> 3 (Mar): 1157–82.</p>
+<div id="ref-Bayesian_INLA_Rubio" class="csl-entry">
+Gómez Rubio, Virgilio. 2020. <em>Bayesian Inference with INLA</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781315175584">https://doi.org/10.1201/9781315175584</a>.
 </div>
-<div>
-<p>Hadley Wickham, Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. 1st ed. O’Reilly Media.</p>
+<div id="ref-guyon2003introduction" class="csl-entry">
+Guyon, Isabelle, and André Elisseeff. 2003. <span>“An Introduction to Variable and Feature Selection.”</span> <em>Journal of Machine Learning Research</em> 3 (Mar): 1157–82.
 </div>
-<div>
-<p>Hastings, W. K. 1970. “Monte Carlo sampling methods using Markov chains and their applications.” <em>Biometrika</em> 57 (1): 97–109. <a href="https://doi.org/10.1093/biomet/57.1.97">https://doi.org/10.1093/biomet/57.1.97</a>.</p>
+<div id="ref-Rdatascience" class="csl-entry">
+Hadley Wickham, Garrett Grolemund. 2017. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. 1st ed. O’Reilly Media.
 </div>
-<div>
-<p>Herath, Shanaka, and Gunther Maier. 2011. “Hedonic House Prices in the Presence of Spatial and Temporal Dynamics.” <em>Territorio Italia - Land Administration Cadastre, Real Estate</em> 1 (January): 39–49.</p>
+<div id="ref-hastings" class="csl-entry">
+Hastings, W. K. 1970. <span>“<span class="nocase">Monte Carlo sampling methods using Markov chains and their applications</span>.”</span> <em>Biometrika</em> 57 (1): 97–109. <a href="https://doi.org/10.1093/biomet/57.1.97">https://doi.org/10.1093/biomet/57.1.97</a>.
 </div>
-<div>
-<p>“HTML.” 2020. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/HTML">https://en.wikipedia.org/wiki/HTML</a>.</p>
+<div id="ref-Herath_Maier_2011" class="csl-entry">
+Herath, Shanaka, and Gunther Maier. 2011. <span>“Hedonic House Prices in the Presence of Spatial and Temporal Dynamics.”</span> <em>Territorio Italia - Land Administration Cadastre, Real Estate</em> 1 (January): 39–49.
 </div>
-<div>
-<p>Inc., Docker. 2020a. “Get Docker.” <em>Docker Documentation</em>. <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>.</p>
+<div id="ref-html_2020" class="csl-entry">
+<span>“HTML.”</span> 2020. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/HTML">https://en.wikipedia.org/wiki/HTML</a>.
 </div>
-<div>
-<p>———. 2020b. “Use Volumes | Docker Documentation.” <a href="https://docs.docker.com/storage/volumes/">https://docs.docker.com/storage/volumes/</a>.</p>
+<div id="ref-docker_documentation_2020" class="csl-entry">
+Inc., Docker. 2020a. <span>“Get Docker.”</span> <em>Docker Documentation</em>. <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>.
 </div>
-<div>
-<p>Kammann, E. E., and M. P. Wand. 2003. “Geoadditive Models.” <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 52 (1): 1–18. <a href="https://doi.org/https://doi.org/10.1111/1467-9876.00385">https://doi.org/https://doi.org/10.1111/1467-9876.00385</a>.</p>
+<div id="ref-dockervolumes" class="csl-entry">
+———. 2020b. <span>“Use Volumes | Docker Documentation.”</span> <a href="https://docs.docker.com/storage/volumes/">https://docs.docker.com/storage/volumes/</a>.
 </div>
-<div>
-<p>Krainski, Elias, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and INLA</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429031892">https://doi.org/10.1201/9780429031892</a>.</p>
+<div id="ref-kammanwand" class="csl-entry">
+Kammann, E. E., and M. P. Wand. 2003. <span>“Geoadditive Models.”</span> <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 52 (1): 1–18. https://doi.org/<a href="https://doi.org/10.1111/1467-9876.00385">https://doi.org/10.1111/1467-9876.00385</a>.
 </div>
-<div>
-<p>Krainski, Elias T. 2019. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and Inla</em>. Chapman; Hall/CRC.</p>
+<div id="ref-Krainski-Rubio" class="csl-entry">
+Krainski, Elias T. 2019. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using r and INLA</em>. Chapman; Hall/<span>CRC</span>.
 </div>
-<div>
-<p>Krotov, Vlad, and Leiser Silva. 2018. “Legality and Ethics of Web Scraping.” In.</p>
+<div id="ref-Krainski2018" class="csl-entry">
+Krainski, Elias, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using r and <span>INLA</span></em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9780429031892">https://doi.org/10.1201/9780429031892</a>.
 </div>
-<div>
-<p>Krotov, Vlad, and Matthew Tennyson. 2018. “Tutorial: Web Scraping in the R Language,” October.</p>
+<div id="ref-LegalityEthicsWS" class="csl-entry">
+Krotov, Vlad, and Leiser Silva. 2018. <span>“Legality and Ethics of Web Scraping.”</span> In.
 </div>
-<div>
-<p>Kuhn, Max, and Kjell Johnson. 2019. <em>Feature Engineering and Selection</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781315108230">https://doi.org/10.1201/9781315108230</a>.</p>
+<div id="ref-krotovtennyson" class="csl-entry">
+Krotov, Vlad, and Matthew Tennyson. 2018. <span>“Tutorial: Web Scraping in the r Language,”</span> October.
 </div>
-<div>
-<p>LaFrance, Adrienne. 2017. “The Internet Is Mostly Bots - the Atlantic.” <a href="https://www.theatlantic.com/technology/archive/2017/01/bots-bots-bots/515043/">https://www.theatlantic.com/technology/archive/2017/01/bots-bots-bots/515043/</a>.</p>
+<div id="ref-Kuhn" class="csl-entry">
+Kuhn, Max, and Kjell Johnson. 2019. <em>Feature Engineering and Selection</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781315108230">https://doi.org/10.1201/9781315108230</a>.
 </div>
-<div>
-<p>Lancaster, Kelvin J. 1966. “A New Approach to Consumer Theory.” <em>Journal of Political Economy</em> 74 (2): 132–57. <a href="http://www.jstor.org/stable/1828835">http://www.jstor.org/stable/1828835</a>.</p>
+<div id="ref-TheInter5" class="csl-entry">
+LaFrance, Adrienne. 2017. <span>“The Internet Is Mostly Bots - the Atlantic.”</span> <a href="https://www.theatlantic.com/technology/archive/2017/01/bots-bots-bots/515043/">https://www.theatlantic.com/technology/archive/2017/01/bots-bots-bots/515043/</a>.
 </div>
-<div>
-<p>Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. “An Explicit Link Between Gaussian Fields and Gaussian Markov Random Fields: The Stochastic Partial Differential Equation Approach.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 73 (4): 423–98. <a href="https://doi.org/10.1111/j.1467-9868.2011.00777.x">https://doi.org/10.1111/j.1467-9868.2011.00777.x</a>.</p>
+<div id="ref-Lancaster" class="csl-entry">
+Lancaster, Kelvin J. 1966. <span>“A New Approach to Consumer Theory.”</span> <em>Journal of Political Economy</em> 74 (2): 132–57. <a href="http://www.jstor.org/stable/1828835">http://www.jstor.org/stable/1828835</a>.
 </div>
-<div>
-<p>Ling, Yuheng. 2019. “Time, Space and Hedonic Prediction Accuracy Evidence from the Corsican Apartment Market.” <em>The Annals of Regional Science</em>, April, 28. <a href="https://doi.org/10.1007/s00168-019-00967-2">https://doi.org/10.1007/s00168-019-00967-2</a>.</p>
+<div id="ref-Lindgren2011" class="csl-entry">
+Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. <span>“An Explicit Link Between Gaussian Fields and Gaussian Markov Random Fields: The Stochastic Partial Differential Equation Approach.”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 73 (4): 423–98. <a href="https://doi.org/10.1111/j.1467-9868.2011.00777.x">https://doi.org/10.1111/j.1467-9868.2011.00777.x</a>.
 </div>
-<div>
-<p>Lionel Henry RStudio, Hadley Wickham RStudio. 2020a. “Capture Side Effects. — Safely • Purrr.” <a href="https://purrr.tidyverse.org/reference/safely.html">https://purrr.tidyverse.org/reference/safely.html</a>.</p>
+<div id="ref-Ling" class="csl-entry">
+Ling, Yuheng. 2019. <span>“Time, Space and Hedonic Prediction Accuracy Evidence from the Corsican Apartment Market.”</span> <em>The Annals of Regional Science</em>, April, 28. <a href="https://doi.org/10.1007/s00168-019-00967-2">https://doi.org/10.1007/s00168-019-00967-2</a>.
 </div>
-<div>
-<p>———. 2020b. “Create Delaying Rate Settings - Rate-Helpers.” <em>Rate-Helpers, Purrr</em>. Lionel Henry, Hadley Wickham. <a href="https://purrr.tidyverse.org/refeence/rate-helpers.html">https://purrr.tidyverse.org/refeence/rate-helpers.html</a>.</p>
+<div id="ref-possibly" class="csl-entry">
+Lionel Henry RStudio, Hadley Wickham RStudio. 2020a. <span>“Capture Side Effects. — Safely • Purrr.”</span> <a href="https://purrr.tidyverse.org/reference/safely.html">https://purrr.tidyverse.org/reference/safely.html</a>.
 </div>
-<div>
-<p>Little, Roderick, and Donald Rubin. 2014. “Statistical Analysis with Missing Data, Second Edition.” In, 200–220. <a href="https://doi.org/10.1002/9781119013563.ch10">https://doi.org/10.1002/9781119013563.ch10</a>.</p>
+<div id="ref-rate_delay" class="csl-entry">
+———. 2020b. <span>“Create Delaying Rate Settings - Rate-Helpers.”</span> <em>Rate-Helpers, Purrr</em>. Lionel Henry, Hadley Wickham. <a href="https://purrr.tidyverse.org/refeence/rate-helpers.html">https://purrr.tidyverse.org/refeence/rate-helpers.html</a>.
 </div>
-<div>
-<p>Maheedharan, Vimal. 2016. “A Detailed Overview of Web Crawlers.” <a href="https://www.cabotsolutions.com/a-detailed-overview-of-web-crawlers/">https://www.cabotsolutions.com/a-detailed-overview-of-web-crawlers/</a>.</p>
+<div id="ref-Little" class="csl-entry">
+Little, Roderick, and Donald Rubin. 2014. <span>“Statistical Analysis with Missing Data, Second Edition.”</span> In, 200–220. <a href="https://doi.org/10.1002/9781119013563.ch10">https://doi.org/10.1002/9781119013563.ch10</a>.
 </div>
-<div>
-<p>Malpezzi, Stephen. 2008. “Hedonic Pricing Models: A Selective and Applied Review.” In, 67–89. <a href="https://doi.org/10.1002/9780470690680.ch5">https://doi.org/10.1002/9780470690680.ch5</a>.</p>
+<div id="ref-ADetaile90" class="csl-entry">
+Maheedharan, Vimal. 2016. <span>“A Detailed Overview of Web Crawlers.”</span> <a href="https://www.cabotsolutions.com/a-detailed-overview-of-web-crawlers/">https://www.cabotsolutions.com/a-detailed-overview-of-web-crawlers/</a>.
 </div>
-<div>
-<p>Manganelli, Benedetto, Pierluigi Morano, and Francesco Tajani. 2013. “Economic Relationships Between Selling and Rental Prices in the Italian Housing Market.” In.</p>
+<div id="ref-Malpezzi" class="csl-entry">
+Malpezzi, Stephen. 2008. <span>“Hedonic Pricing Models: A Selective and Applied Review.”</span> In, 67–89. <a href="https://doi.org/10.1002/9780470690680.ch5">https://doi.org/10.1002/9780470690680.ch5</a>.
 </div>
-<div>
-<p>Marshall, E. C., and D. J. Spiegelhalter. 2007. “Identifying Outliers in Bayesian Hierarchical Models: A Simulation-Based Approach.” <em>Bayesian Anal.</em> 2 (2): 409–44. <a href="https://doi.org/10.1214/07-BA218">https://doi.org/10.1214/07-BA218</a>.</p>
+<div id="ref-sellingVSrental" class="csl-entry">
+Manganelli, Benedetto, Pierluigi Morano, and Francesco Tajani. 2013. <span>“Economic Relationships Between Selling and Rental Prices in the Italian Housing Market.”</span> In.
 </div>
-<div>
-<p>Media, ALM. 2017. “What Courts Have Said About the Legality of Data Scraping.” <a href="https://finance.yahoo.com/news/courts-said-legality-data-scraping-090000366.html">https://finance.yahoo.com/news/courts-said-legality-data-scraping-090000366.html</a>.</p>
+<div id="ref-marshall2007" class="csl-entry">
+Marshall, E. C., and D. J. Spiegelhalter. 2007. <span>“Identifying Outliers in Bayesian Hierarchical Models: A Simulation-Based Approach.”</span> <em>Bayesian Anal.</em> 2 (2): 409–44. <a href="https://doi.org/10.1214/07-BA218">https://doi.org/10.1214/07-BA218</a>.
 </div>
-<div>
-<p>Meissner, Peter. 2020. <em>Using Robotstxt</em>. <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html</a>.</p>
+<div id="ref-WhatCour57" class="csl-entry">
+Media, ALM. 2017. <span>“What Courts Have Said about the Legality of Data Scraping.”</span> <a href="https://finance.yahoo.com/news/courts-said-legality-data-scraping-090000366.html">https://finance.yahoo.com/news/courts-said-legality-data-scraping-090000366.html</a>.
 </div>
-<div>
-<p>Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A ’Robots.txt’ Parser and ’Webbot’/’Spider’/’Crawler’ Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.</p>
+<div id="ref-meissner_2020" class="csl-entry">
+Meissner, Peter. 2020. <em>Using Robotstxt</em>. <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html</a>.
 </div>
-<div>
-<p>Merkel, Dirk. 2014. “Docker: Lightweight Linux Containers for Consistent Development and Deployment.” <em>Linux Journal</em> 2014 (239): 2.</p>
+<div id="ref-robotstxt" class="csl-entry">
+Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A ’Robots.txt’ Parser and ’Webbot’/’Spider’/’Crawler’ Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.
 </div>
-<div>
-<p>Metropolis, Nicholas, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. 1953. “Equation of State Calculations by Fast Computing Machines” 21 (6): 1087–92. <a href="https://doi.org/10.1063/1.1699114">https://doi.org/10.1063/1.1699114</a>.</p>
+<div id="ref-docker" class="csl-entry">
+Merkel, Dirk. 2014. <span>“Docker: Lightweight Linux Containers for Consistent Development and Deployment.”</span> <em>Linux Journal</em> 2014 (239): 2.
 </div>
-<div>
-<p>Microsoft. 2018. “Gateway Api - Azure Architecture Center | Microsoft Docs.” <a href="https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway">https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway</a>.</p>
+<div id="ref-metropolis" class="csl-entry">
+Metropolis, Nicholas, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller. 1953. <span>“<span class="nocase">Equation of State Calculations by Fast Computing Machines</span>”</span> 21 (6): 1087–92. <a href="https://doi.org/10.1063/1.1699114">https://doi.org/10.1063/1.1699114</a>.
 </div>
-<div>
-<p>Microsoft, and Steve Weston. 2020. <em>Foreach: Provides Foreach Looping Construct</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.</p>
+<div id="ref-azureNGINX" class="csl-entry">
+Microsoft. 2018. <span>“Gateway API - Azure Architecture Center | Microsoft Docs.”</span> <a href="https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway">https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway</a>.
 </div>
-<div>
-<p>Moraga, Paula. 2020. “Spatial Modeling and Interactive Visualization with the R-Inla Package.” <a href="https://www.youtube.com/watch?v=Tdb5EPczE9E&amp;t=5094s">https://www.youtube.com/watch?v=Tdb5EPczE9E&amp;t=5094s</a>.</p>
+<div id="ref-foreach" class="csl-entry">
+Microsoft, and Steve Weston. 2020. <em>Foreach: Provides Foreach Looping Construct</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.
 </div>
-<div>
-<p>———. 2019. <em>Geospatial Health Data</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429341823">https://doi.org/10.1201/9780429341823</a>.</p>
+<div id="ref-Moraga2019" class="csl-entry">
+Moraga, Paula. 2019. <em>Geospatial Health Data</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9780429341823">https://doi.org/10.1201/9780429341823</a>.
 </div>
-<div>
-<p>Moraga, Paula, David I. Ketcheson, Hernando C. Ombao, and Carlos M. Duarte. 2020. “Assessing the Age- and Gender-Dependence of the Severity and Case Fatality Rates of COVID-19 Disease in Spain.” <em>Wellcome Open Research</em> 5 (June): 117. <a href="https://doi.org/10.12688/wellcomeopenres.15996.1">https://doi.org/10.12688/wellcomeopenres.15996.1</a>.</p>
+<div id="ref-YT:paumoraga" class="csl-entry">
+———. 2020. <span>“Spatial Modeling and Interactive Visualization with the r-INLA Package.”</span> <a href="https://www.youtube.com/watch?v=Tdb5EPczE9E&amp;t=5094s">https://www.youtube.com/watch?v=Tdb5EPczE9E&amp;t=5094s</a>.
 </div>
-<div>
-<p>Morgan-Wall, Tyler. 2020. <em>Rayshader: Create Maps and Visualize Data in 2D and 3D</em>. <a href="https://CRAN.R-project.org/package=rayshader">https://CRAN.R-project.org/package=rayshader</a>.</p>
+<div id="ref-Moragacovid2020" class="csl-entry">
+Moraga, Paula, David I. Ketcheson, Hernando C. Ombao, and Carlos M. Duarte. 2020. <span>“Assessing the Age- and Gender-Dependence of the Severity and Case Fatality Rates of <span>COVID</span>-19 Disease in Spain.”</span> <em>Wellcome Open Research</em> 5 (June): 117. <a href="https://doi.org/10.12688/wellcomeopenres.15996.1">https://doi.org/10.12688/wellcomeopenres.15996.1</a>.
 </div>
-<div>
-<p>NGINX. 2014. “What Is a Reverse Proxy Server? | Nginx.” <a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">https://www.nginx.com/resources/glossary/reverse-proxy-server/</a>.</p>
+<div id="ref-rayshader" class="csl-entry">
+Morgan-Wall, Tyler. 2020. <em>Rayshader: Create Maps and Visualize Data in 2d and 3d</em>. <a href="https://CRAN.R-project.org/package=rayshader">https://CRAN.R-project.org/package=rayshader</a>.
 </div>
-<div>
-<p>Nolis, Jacqueline. 2020. “R Docker Faster. Suddenly R Docker Images Build Much… | Medium.” Medium. <a href="https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d">https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d</a>.</p>
+<div id="ref-nginxDocs" class="csl-entry">
+NGINX. 2014. <span>“What Is a Reverse Proxy Server? | NGINX.”</span> <a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">https://www.nginx.com/resources/glossary/reverse-proxy-server/</a>.
 </div>
-<div>
-<p>Paci, Lucia. 2020. “Statistical Models for High Dimensional and Spatio-Temporal Data.” Università Cattolica del Sacro Cuore, Milano (UCSC).</p>
+<div id="ref-nolispmanager" class="csl-entry">
+Nolis, Jacqueline. 2020. <span>“R Docker Faster. Suddenly r Docker Images Build Much… | Medium.”</span> Medium. <a href="https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d">https://medium.com/@skyetetra/r-docker-faster-28e13a6d241d</a>.
 </div>
-<div>
-<p>Paci, Lucia, María Asunción Beamonte, Alan E. Gelfand, Pilar Gargallo, and Manuel Salvador. 2017. “Analysis of Residential Property Sales Using Space–Time Point Patterns.” <em>Spatial Statistics</em> 21: 149–65. <a href="https://doi.org/https://doi.org/10.1016/j.spasta.2017.06.007">https://doi.org/https://doi.org/10.1016/j.spasta.2017.06.007</a>.</p>
+<div id="ref-LecturePaci" class="csl-entry">
+Paci, Lucia. 2020. <span>“Statistical Models for High Dimensional and Spatio-Temporal Data.”</span> Università Cattolica del Sacro Cuore, Milano (UCSC).
 </div>
-<div>
-<p>Perepolkin, Dmytro. 2019. <em>Polite: Be Nice on the Web</em>. <a href="https://CRAN.R-project.org/package=polite">https://CRAN.R-project.org/package=polite</a>.</p>
+<div id="ref-PACI2017149" class="csl-entry">
+Paci, Lucia, María Asunción Beamonte, Alan E. Gelfand, Pilar Gargallo, and Manuel Salvador. 2017. <span>“Analysis of Residential Property Sales Using Space–Time Point Patterns.”</span> <em>Spatial Statistics</em> 21: 149–65. https://doi.org/<a href="https://doi.org/10.1016/j.spasta.2017.06.007">https://doi.org/10.1016/j.spasta.2017.06.007</a>.
 </div>
-<div>
-<p>Peterson, Robert A, and Maria C Merino. 2003. “Consumer Information Search Behavior and the Internet.” <em>Psychology &amp; Marketing</em> 20 (2): 99–121.</p>
+<div id="ref-polite" class="csl-entry">
+Perepolkin, Dmytro. 2019. <em>Polite: Be Nice on the Web</em>. <a href="https://CRAN.R-project.org/package=polite">https://CRAN.R-project.org/package=polite</a>.
 </div>
-<div>
-<p>Pettit, L. I. 1990. “The Conditional Predictive Ordinate for the Normal Distribution.” <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 52 (1): 175–84. <a href="https://doi.org/https://doi.org/10.1111/j.2517-6161.1990.tb01780.x">https://doi.org/https://doi.org/10.1111/j.2517-6161.1990.tb01780.x</a>.</p>
+<div id="ref-peterson2003consumer" class="csl-entry">
+Peterson, Robert A, and Maria C Merino. 2003. <span>“Consumer Information Search Behavior and the Internet.”</span> <em>Psychology &amp; Marketing</em> 20 (2): 99–121.
 </div>
-<div>
-<p>“Register.com, Inc., Plaintiff-Appellee, V. Verio, Inc., Defendant.” 2004. <a href="https://law.justia.com/cases/federal/appellate-courts/F3/356/393/539823/">https://law.justia.com/cases/federal/appellate-courts/F3/356/393/539823/</a>.</p>
+<div id="ref-petit1990" class="csl-entry">
+Pettit, L. I. 1990. <span>“The Conditional Predictive Ordinate for the Normal Distribution.”</span> <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 52 (1): 175–84. https://doi.org/<a href="https://doi.org/10.1111/j.2517-6161.1990.tb01780.x">https://doi.org/10.1111/j.2517-6161.1990.tb01780.x</a>.
 </div>
-<div>
-<p>Rencontres Mathématiques, Centre International de. 2018. “Håvard Rue: Bayesian Computation with Inla.” Youtube. <a href="https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s">https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s</a>.</p>
+<div id="ref-Register77" class="csl-entry">
+<span>“Register.com, Inc., Plaintiff-Appellee, v. Verio, Inc., Defendant.”</span> 2004. <a href="https://law.justia.com/cases/federal/appellate-courts/F3/356/393/539823/">https://law.justia.com/cases/federal/appellate-courts/F3/356/393/539823/</a>.
 </div>
-<div>
-<p>Rosen, Sherwin. 1974. “Hedonic Prices and Implicit Markets: Product Differentiation in Pure Competition.” <em>Journal of Political Economy</em> 82 (1): 34–55. <a href="http://www.jstor.org/stable/1830899">http://www.jstor.org/stable/1830899</a>.</p>
+<div id="ref-YT:Rue" class="csl-entry">
+Rencontres Mathématiques, Centre International de. 2018. <span>“Håvard Rue: Bayesian Computation with INLA.”</span> Youtube. <a href="https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s">https://www.youtube.com/watch?v=a8QvxCjWieg&amp;t=2538s</a>.
 </div>
-<div>
-<p>Rue, Havard, and Leonhard Held. 2005. <em>Gaussian Markov Random Fields</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780203492024">https://doi.org/10.1201/9780203492024</a>.</p>
+<div id="ref-Rosen" class="csl-entry">
+Rosen, Sherwin. 1974. <span>“Hedonic Prices and Implicit Markets: Product Differentiation in Pure Competition.”</span> <em>Journal of Political Economy</em> 82 (1): 34–55. <a href="http://www.jstor.org/stable/1830899">http://www.jstor.org/stable/1830899</a>.
 </div>
-<div>
-<p>Rue, Håvard, Sara Martino, and Nicolas Chopin. 2009. “Approximate Bayesian Inference for Latent Gaussian Models by Using Integrated Nested Laplace Approximations.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 71 (2): 319–92. <a href="https://doi.org/10.1111/j.1467-9868.2008.00700.x">https://doi.org/10.1111/j.1467-9868.2008.00700.x</a>.</p>
+<div id="ref-GMRFRue" class="csl-entry">
+Rue, Havard, and Leonhard Held. 2005. <em>Gaussian Markov Random Fields</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9780203492024">https://doi.org/10.1201/9780203492024</a>.
 </div>
-<div>
-<p>Rue, Håvard, Andrea Riebler, Sigrunn H. Sørbye, Janine B. Illian, Daniel P. Simpson, and Finn K. Lindgren. 2017. “Bayesian Computing with Inla: A Review.” <em>Annual Review of Statistics and Its Application</em> 4 (1): 395–421. <a href="https://doi.org/10.1146/annurev-statistics-060116-054045">https://doi.org/10.1146/annurev-statistics-060116-054045</a>.</p>
+<div id="ref-Rue2009" class="csl-entry">
+Rue, Håvard, Sara Martino, and Nicolas Chopin. 2009. <span>“Approximate Bayesian Inference for Latent Gaussian Models by Using Integrated Nested Laplace Approximations.”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 71 (2): 319–92. <a href="https://doi.org/10.1111/j.1467-9868.2008.00700.x">https://doi.org/10.1111/j.1467-9868.2008.00700.x</a>.
 </div>
-<div>
-<p>Salvini, Niccolò. 2021. “Dockerized-Plumber-Api: Containerized Plumber Rest Api Offering Scraping Immbiliare.it Data.” <a href="https://github.com/NiccoloSalvini/Dockerized-Plumber-API">https://github.com/NiccoloSalvini/Dockerized-Plumber-API</a>.</p>
+<div id="ref-Rue2017" class="csl-entry">
+Rue, Håvard, Andrea Riebler, Sigrunn H. Sørbye, Janine B. Illian, Daniel P. Simpson, and Finn K. Lindgren. 2017. <span>“Bayesian Computing with INLA: A Review.”</span> <em>Annual Review of Statistics and Its Application</em> 4 (1): 395–421. <a href="https://doi.org/10.1146/annurev-statistics-060116-054045">https://doi.org/10.1146/annurev-statistics-060116-054045</a>.
 </div>
-<div>
-<p>Santiago, Joao. 2020. <em>Plungr: Opinionated Framework for Developing Plumber Apis</em>. <a href="https://github.com/ozean12/plungr">https://github.com/ozean12/plungr</a>.</p>
+<div id="ref-NiccoloS11" class="csl-entry">
+Salvini, Niccolò. 2021. <span>“Dockerized-Plumber-API: Containerized Plumber REST API Offering Scraping Immbiliare.it Data.”</span> <a href="https://github.com/NiccoloSalvini/Dockerized-Plumber-API">https://github.com/NiccoloSalvini/Dockerized-Plumber-API</a>.
 </div>
-<div>
-<p>“Scraping the Web.” 2014. In <em>Automated Data Collection with R</em>, 219–94. John Wiley &amp; Sons Ltd. <a href="https://doi.org/https://doi.org/10.1002/9781118834732.ch9">https://doi.org/https://doi.org/10.1002/9781118834732.ch9</a>.</p>
+<div id="ref-plungr" class="csl-entry">
+Santiago, Joao. 2020. <em>Plungr: Opinionated Framework for Developing Plumber APIs</em>. <a href="https://github.com/ozean12/plungr">https://github.com/ozean12/plungr</a>.
 </div>
-<div>
-<p>Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for R</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.</p>
+<div id="ref-automateddatacollection" class="csl-entry">
+<span>“Scraping the Web.”</span> 2014. In <em>Automated Data Collection with r</em>, 219–94. John Wiley &amp; Sons Ltd. https://doi.org/<a href="https://doi.org/10.1002/9781118834732.ch9">https://doi.org/10.1002/9781118834732.ch9</a>.
 </div>
-<div>
-<p>Sheppard, Stephen. 1999. “Chapter 41 Hedonic Analysis of Housing Markets.” In <em>Applied Urban Economics</em>, 3:1595–1635. Handbook of Regional and Urban Economics. Elsevier. <a href="https://doi.org/https://doi.org/10.1016/S1574-0080(99)80010-8">https://doi.org/https://doi.org/10.1016/S1574-0080(99)80010-8</a>.</p>
+<div id="ref-ratelimitr" class="csl-entry">
+Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for r</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.
 </div>
-<div>
-<p>Shi, Wei, and Lung-fei Lee. 2017. “A Spatial Panel Data Model with Time Varying Endogenous Weights Matrices and Common Factors.” <em>Regional Science and Urban Economics</em> 72 (April). <a href="https://doi.org/10.1016/j.regsciurbeco.2017.03.007">https://doi.org/10.1016/j.regsciurbeco.2017.03.007</a>.</p>
+<div id="ref-SHEPPARD19991595" class="csl-entry">
+Sheppard, Stephen. 1999. <span>“Chapter 41 Hedonic Analysis of Housing Markets.”</span> In <em>Applied Urban Economics</em>, 3:1595–635. Handbook of Regional and Urban Economics. Elsevier. https://doi.org/<a href="https://doi.org/10.1016/S1574-0080(99)80010-8">https://doi.org/10.1016/S1574-0080(99)80010-8</a>.
 </div>
-<div>
-<p>Simpson, Daniel, Håvard Rue, Andrea Riebler, Thiago G. Martins, and Sigrunn H. Sørbye. 2017. “Penalising Model Component Complexity: A Principled, Practical Approach to Constructing Priors.” <em>Statist. Sci.</em> 32 (1): 1–28. <a href="https://doi.org/10.1214/16-STS576">https://doi.org/10.1214/16-STS576</a>.</p>
+<div id="ref-spateconomshifei" class="csl-entry">
+Shi, Wei, and Lung-fei Lee. 2017. <span>“A Spatial Panel Data Model with Time Varying Endogenous Weights Matrices and Common Factors.”</span> <em>Regional Science and Urban Economics</em> 72 (April). <a href="https://doi.org/10.1016/j.regsciurbeco.2017.03.007">https://doi.org/10.1016/j.regsciurbeco.2017.03.007</a>.
 </div>
-<div>
-<p>SMARTBEAR. 2019. “REST Api Documentation Tool | Swagger Ui.” <a href="https://swagger.io/tools/swagger-ui/">https://swagger.io/tools/swagger-ui/</a>.</p>
+<div id="ref-simpson2017" class="csl-entry">
+Simpson, Daniel, Håvard Rue, Andrea Riebler, Thiago G. Martins, and Sigrunn H. Sørbye. 2017. <span>“Penalising Model Component Complexity: A Principled, Practical Approach to Constructing Priors.”</span> <em>Statist. Sci.</em> 32 (1): 1–28. <a href="https://doi.org/10.1214/16-STS576">https://doi.org/10.1214/16-STS576</a>.
 </div>
-<div>
-<p>Spiegelhalter, David J, Nicola G Best, Bradley P Carlin, and Angelika Van Der Linde. 2002. “Bayesian Measures of Model Complexity and Fit.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 64 (4): 583–639.</p>
+<div id="ref-swaggerUI" class="csl-entry">
+SMARTBEAR. 2019. <span>“REST API Documentation Tool | Swagger UI.”</span> <a href="https://swagger.io/tools/swagger-ui/">https://swagger.io/tools/swagger-ui/</a>.
 </div>
-<div>
-<p>Spiegelhalter, David J, Nicola G Best, Bradley P Carlin, and Angelika Van der Linde. 2014. “The Deviance Information Criterion: 12 Years on.” <em>Journal of the Royal Statistical Society: Series B: Statistical Methodology</em>, 485–93.</p>
+<div id="ref-spiegelhalter2014deviance" class="csl-entry">
+Spiegelhalter, David J, Nicola G Best, Bradley P Carlin, and Angelika Van der Linde. 2014. <span>“The Deviance Information Criterion: 12 Years On.”</span> <em>Journal of the Royal Statistical Society: Series B: Statistical Methodology</em>, 485–93.
 </div>
-<div>
-<p>“Test Driven Development.” 2004. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/Test_driven_development">https://en.wikipedia.org/wiki/Test_driven_development</a>.</p>
+<div id="ref-spiegelhalter2002bayesian" class="csl-entry">
+Spiegelhalter, David J, Nicola G Best, Bradley P Carlin, and Angelika Van Der Linde. 2002. <span>“Bayesian Measures of Model Complexity and Fit.”</span> <em>Journal of the Royal Statistical Society: Series b (Statistical Methodology)</em> 64 (4): 583–639.
 </div>
-<div>
-<p>Trestle Technology, LLC. 2018. <em>Plumber: An Api Generator for R</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.</p>
+<div id="ref-TDD_2004" class="csl-entry">
+<span>“Test Driven Development.”</span> 2004. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/Test_driven_development">https://en.wikipedia.org/wiki/Test_driven_development</a>.
 </div>
-<div>
-<p>“United States V. Nosal, 676 F.3d 854.” 2012. <a href="https://casetext.com/case/united-states-v-nosal-2">https://casetext.com/case/united-states-v-nosal-2</a>.</p>
+<div id="ref-plumber" class="csl-entry">
+Trestle Technology, LLC. 2018. <em>Plumber: An API Generator for r</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.
 </div>
-<div>
-<p>UserAgentString.com. 1999. “UserAgentString.com - Chrome Version 81.0.4044.110.” <a href="http://useragentstring.com/index.php">http://useragentstring.com/index.php</a>.</p>
+<div id="ref-UnitedSt65" class="csl-entry">
+<span>“United States v. Nosal, 676 f.3d 854.”</span> 2012. <a href="https://casetext.com/case/united-states-v-nosal-2">https://casetext.com/case/united-states-v-nosal-2</a>.
 </div>
-<div>
-<p>User:Jallan. 2011. “Definition of User Agent - Wai Ua Wiki.” <a href="https://www.w3.org/WAI/UA/work/wiki/Definition_of_User_Agent">https://www.w3.org/WAI/UA/work/wiki/Definition_of_User_Agent</a>.</p>
+<div id="ref-UaDef" class="csl-entry">
+User:Jallan. 2011. <span>“Definition of User Agent - WAI UA Wiki.”</span> <a href="https://www.w3.org/WAI/UA/work/wiki/Definition_of_User_Agent">https://www.w3.org/WAI/UA/work/wiki/Definition_of_User_Agent</a>.
 </div>
-<div>
-<p>Vaughan, Davis, and Matt Dancho. 2018. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://CRAN.R-project.org/package=furrr">https://CRAN.R-project.org/package=furrr</a>.</p>
+<div id="ref-UserAgen23" class="csl-entry">
+UserAgentString.com. 1999. <span>“UserAgentString.com - Chrome Version 81.0.4044.110.”</span> <a href="http://useragentstring.com/index.php">http://useragentstring.com/index.php</a>.
 </div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4/">http://www.stats.ox.ac.uk/pub/MASS4/</a>.</p>
+<div id="ref-furrr" class="csl-entry">
+Vaughan, Davis, and Matt Dancho. 2018. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://CRAN.R-project.org/package=furrr">https://CRAN.R-project.org/package=furrr</a>.
 </div>
-<div>
-<p>Wang, Xiaofeng, Yu Ryan Yue, and Julian J Faraway. 2018. <em>Bayesian Regression Modeling with Inla</em>. CRC Press.</p>
+<div id="ref-mass" class="csl-entry">
+Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with s</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4/">http://www.stats.ox.ac.uk/pub/MASS4/</a>.
 </div>
-<div>
-<p>“What Is Parallel Computing.” 2020. <em>ParallelR</em>. parallelr. <a href="http://www.parallelr.com/r-with-parallel-computing/">http://www.parallelr.com/r-with-parallel-computing/</a>.</p>
+<div id="ref-wang2018bayesian" class="csl-entry">
+Wang, Xiaofeng, Yu Ryan Yue, and Julian J Faraway. 2018. <em>Bayesian Regression Modeling with INLA</em>. CRC Press.
 </div>
-<div>
-<p>WhoIsHostingThis.com. 2020. “User Agent: Learn Your Web Browsers User Agent Now.” <em>WhoIsHostingThis.com</em>. <a href="https://www.whoishostingthis.com/tools/user-agent/">https://www.whoishostingthis.com/tools/user-agent/</a>.</p>
+<div id="ref-parallelr" class="csl-entry">
+<span>“What Is Parallel Computing.”</span> 2020. <em>ParallelR</em>. parallelr. <a href="http://www.parallelr.com/r-with-parallel-computing/">http://www.parallelr.com/r-with-parallel-computing/</a>.
 </div>
-<div>
-<p>Wickham, Hadley. 2011. “Testthat: Get Started with Testing.” <em>The R Journal</em> 3: 5–10. <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</p>
+<div id="ref-whoishostingthis.com" class="csl-entry">
+WhoIsHostingThis.com. 2020. <span>“User Agent: Learn Your Web Browsers User Agent Now.”</span> <em>WhoIsHostingThis.com</em>. <a href="https://www.whoishostingthis.com/tools/user-agent/">https://www.whoishostingthis.com/tools/user-agent/</a>.
 </div>
-<div>
-<p>———. 2019. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.</p>
+<div id="ref-testthat" class="csl-entry">
+Wickham, Hadley. 2011. <span>“Testthat: Get Started with Testing.”</span> <em>The R Journal</em> 3: 5–10. <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.
 </div>
-<div>
-<p>Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain Fran?ois, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.</p>
+<div id="ref-rvest" class="csl-entry">
+———. 2019. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
 </div>
-<div>
-<p>Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://CRAN.R-project.org/package=memoise">https://CRAN.R-project.org/package=memoise</a>.</p>
+<div id="ref-tidyverse" class="csl-entry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain Fran?ois, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
-<div>
-<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
+<div id="ref-memoise" class="csl-entry">
+Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://CRAN.R-project.org/package=memoise">https://CRAN.R-project.org/package=memoise</a>.
 </div>
-<div>
-<p>Yaşar, Banu Yılmaz, and Mehmet Ali Özarslan. 2016. “Unified Bessel, Modified Bessel, Spherical Bessel and Bessel-Clifford Functions.” <a href="http://arxiv.org/abs/1604.05163">http://arxiv.org/abs/1604.05163</a>.</p>
+<div id="ref-bookdown2" class="csl-entry">
+Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with <span>R</span> Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
 </div>
-<div>
-<p>Yeo, In-Kwon, and Richard Johnson. 2000. “A New Family of Power Transformations to Improve Normality or Symmetry.” <em>Biometrika</em> 87 (December). <a href="https://doi.org/10.1093/biomet/87.4.954">https://doi.org/10.1093/biomet/87.4.954</a>.</p>
+<div id="ref-yaşar2016unified" class="csl-entry">
+Yaşar, Banu Yılmaz, and Mehmet Ali Özarslan. 2016. <span>“Unified Bessel, Modified Bessel, Spherical Bessel and Bessel-Clifford Functions.”</span> <a href="http://arxiv.org/abs/1604.05163">http://arxiv.org/abs/1604.05163</a>.
 </div>
-<div>
-<p>Zamora, Amber. 2019. “Making Room for Big Data: Web Scraping and an Affirmative Right to Access Publicly Available Information Online.” <em>J. Bus. Entrepreneurship &amp; L.</em> 12: 203.</p>
+<div id="ref-yeojohnson" class="csl-entry">
+Yeo, In-Kwon, and Richard Johnson. 2000. <span>“A New Family of Power Transformations to Improve Normality or Symmetry.”</span> <em>Biometrika</em> 87 (December). <a href="https://doi.org/10.1093/biomet/87.4.954">https://doi.org/10.1093/biomet/87.4.954</a>.
 </div>
-<div>
-<p>2018. <em>What Is a REST API?</em> Red Hat. <a href="https://www.redhat.com/en/topics/api/what-is-a-rest-api">https://www.redhat.com/en/topics/api/what-is-a-rest-api</a>.</p>
+<div id="ref-zamora2019making" class="csl-entry">
+Zamora, Amber. 2019. <span>“Making Room for Big Data: Web Scraping and an Affirmative Right to Access Publicly Available Information Online.”</span> <em>J. Bus. Entrepreneurship &amp; L.</em> 12: 203.
 </div>
 </div>
 </div>

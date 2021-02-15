@@ -2,21 +2,7 @@
 
 <!--  You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(Scraping). Figure cross referencing follows this syntax: \@ref(fig:plot) when matched in the markdown figure insertion syntax ![(#fig:plot)a generic plot](images/a_generic_plot.png) -->
 
-```{r global.options, include=FALSE}
-knitr::opts_chunk$set(
-  tidy.opts=list(width.cutoff=80),
-  tidy=TRUE,
-  warning = FALSE,  
-  strip.white = TRUE,
-  message = FALSE,
-  cache = FALSE,
-  echo = FALSE
-)
-
-# libraries are in the libs.R file
-# source(here::here("libs.R"))
-
-
+```{r libs, include=FALSE}
 library(furrr, warn.conflicts = F, quietly = F)
 library(robotstxt, warn.conflicts = F, quietly = F)
 library(magrittr, warn.conflicts = F, quietly = F)
