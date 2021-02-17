@@ -1,31 +1,102 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
 
 Il seguente lavoro ha l'obiettivo di mettere inpiedi un servizio di API robusto, scalabile e sicuro per estrarre dati che riguardano immobili italiani e non (il caso studio è Milano) e successivamente applicare tecniche di geostatistica Bayesiana attraverso una conveniente alternativa di stima chiamata INLA.
-I dati originano da una popolare piattaforma internet di affitti e vendite, immobiliare.it, e sono estratti tramite delle funzioni di web scraping costruite apposistamente sul sito. Lo scraper è ottimizzato sia sul lato server richiedendo _gentilemente_ il permesso e imponendo un cadenza di richiesta fissa, sia sul lato cliente finale garantendo continuità di flusso di dati tramite la rotazione degli headers della richiesta e con scappatoie in caso di fallimento delle funzioni. le funzioni di scraping sfruttano un workflow che combina un reverse engineer degli della mappa degli url e una ricerca ottimizzata per parole chiave. Il Miglioramento rispetto a servizi analoghi passa attrverso la posibilità di selezione quali url sono da scrappare, e di consequenza quali dati si ricerca. Un ulteriore spinta è offerta dal parallelismo tramite cui vengono eseguite le funzioni applicando gli ultimi paradigmi dfi parallelismo e back end. Alcuni test dimostrano la velocità della API per più configurazioni di scraping per più backend, oper più iteratori.
-Il sietma di scraping è quindi avvolto attraverso un framework in R di API chiamato Plumber che permette di convertire il codice in http API decorandolo con speciali commenti. La sicurezza è un tema di grande importanza per ogni interlocutore, pertanto semplici strategie di antidossing, comunicazione https e igiene dell'input del client sono trattatere e singolaremente applicate.  
-Docker è in grado di impacchettare software in unità standardizzate per sviluppo portabilità e messa in produzione del servizio. Quindi il servizio complessivo di API è containerizzato attraverso 3 diverse unità di servizi per cui dockerfiles su misura sono importati da una stessa matrice afferente ad una collabrazione open source tra docker e Rstudio, [Rocker](https://www.rocker-project.org/). Le unità di servizi sono orchestrate da un'altra tecnologia di docker chiamata Compose attraverso un file di sitruzione .yaml. Un server amazon EC2 è un prodotto cloud stabile scalabile che opsita l'infrastruttura software sopra descritta. La scelta per criteri di economicità ed ispirazione open source ricade su una macchina server free-tier, cioò gratuia entro certi limiti di memoria e traffico. All'interno dell'infratturura server l'api opita NGINX che opera come un autenticatore e centro di distribzione del traffico dell'api. La capacità di oad balacing permette di amministrare diverse richieste simultanee non perdendo i requisiti di prestazione. 
+I dati originano da una popolare piattaforma internet di affitti e vendite, immobiliare.it, e sono estratti tramite delle funzioni di web scraping costruite apposistamente sul sito.
+Lo scraper è ottimizzato sia sul lato server richiedendo *gentilemente* il permesso e imponendo un cadenza di richiesta fissa, sia sul lato cliente finale garantendo continuità di flusso di dati tramite la rotazione degli headers della richiesta e con scappatoie in caso di fallimento delle funzioni.
+le funzioni di scraping sfruttano un workflow che combina un reverse engineer degli della mappa degli url e una ricerca ottimizzata per parole chiave.
+Il Miglioramento rispetto a servizi analoghi passa attrverso la posibilità di selezione quali url sono da scrappare, e di consequenza quali dati si ricerca.
+Un ulteriore spinta è offerta dal parallelismo tramite cui vengono eseguite le funzioni applicando gli ultimi paradigmi dfi parallelismo e back end.
+Alcuni test dimostrano la velocità della API per più configurazioni di scraping per più backend, oper più iteratori.
+Il sietma di scraping è quindi avvolto attraverso un framework in R di API chiamato Plumber che permette di convertire il codice in http API decorandolo con speciali commenti.
+La sicurezza è un tema di grande importanza per ogni interlocutore, pertanto semplici strategie di antidossing, comunicazione https e igiene dell'input del client sono trattatere e singolaremente applicate.\
+Docker è in grado di impacchettare software in unità standardizzate per sviluppo portabilità e messa in produzione del servizio.
+Quindi il servizio complessivo di API è containerizzato attraverso 3 diverse unità di servizi per cui dockerfiles su misura sono importati da una stessa matrice afferente ad una collabrazione open source tra docker e Rstudio, [Rocker](https://www.rocker-project.org/).
+Le unità di servizi sono orchestrate da un'altra tecnologia di docker chiamata Compose attraverso un file di sitruzione .yaml.
+Un server amazon EC2 è un prodotto cloud stabile scalabile che opsita l'infrastruttura software sopra descritta.
+La scelta per criteri di economicità ed ispirazione open source ricade su una macchina server free-tier, cioò gratuia entro certi limiti di memoria e traffico.
+All'interno dell'infratturura server l'api opita NGINX che opera come un autenticatore e centro di distribzione del traffico dell'api.
+La capacità di oad balacing permette di amministrare diverse richieste simultanee non perdendo i requisiti di prestazione.
 I principi architetturali di software applicati all'api da http la elevano ad essere RESTful.
-la api rispetto all'obiettivo fissato non è altro che un mezzo di comunicazione tra due servizi inteernet tale per cui nessuno dei due attori, il cliente ed il server richiesto, debba sapere cosa è necessario (lo scraping) per ottenere i dati. In altre parole ogni stakeholder può estrarre dati freschi da una comoda interfaccia che permette di flettere la richiesta solamente al tipo di dati richiesti e che rispetta la lista dei _desiderata_ di sicurezza e prestaszione. L'architettura software è amministrata tramite un workflow di sontinuo sviluppo e continua distribuzione (CI/CD) che sfrutta guithub e Dockerhub. I cambiamenti nella cartella di github nel ramo master innescano il building dei contanitori tramite compose nella cartella di dockerhub. Successivamente il nuovo softwrae viene tirato dentro il server EC2 e aggiornato. 
-il
+la api rispetto all'obiettivo fissato non è altro che un mezzo di comunicazione tra due servizi inteernet tale per cui nessuno dei due attori, il cliente ed il server richiesto, debba sapere cosa è necessario (lo scraping) per ottenere i dati.
+In altre parole ogni stakeholder può estrarre dati freschi da una comoda interfaccia che permette di flettere la richiesta solamente al tipo di dati richiesti e che rispetta la lista dei *desiderata* di sicurezza e prestaszione.
+L'architettura software è amministrata tramite un workflow di sontinuo sviluppo e continua distribuzione (CI/CD) che sfrutta guithub e Dockerhub.
+I cambiamenti nella cartella di github nel ramo master innescano il building dei contenitori tramite compose nella cartella cloud di dockerhub.
+Successivamente il softwrae viene spinto dentro il server EC2 e quindi man mano aggiornato.
+Quando la struttura è in piedi ogni dato disponibilr su immobiliare di ogni città, come da documentazione, può essere accesso; nel caso della seguente analisi i dati vengono in maniera asincrona da il mercato immobiliare delgi affitti a milano , restringendosi ai confini comunali.
+I dati estratti contengono una componente gesospaziale nella forma di latitudine e longitudine, pertanto specifiche tecniche di analisi spaziale nel contesto bayesiano vengono utilizzate.
+Tradizionalemente i methodi bayesiani nei contesti spaziali con big data sono lenti per motivi riconducibili all'invesrioni di gradi e dense matrici ceh impiegano un tempo cubico.
+A proposito INLA, il cui acronimo sta per Integrated nested Laplace approximation è un algoritmo deterrministico che costituisce un 'alternativa più veloce e relativamente accurata di stima applicabile ad un tipo di modello detto LGM latent gaussian model.
 
- Once the RESTful API endpoint is invoked, data, in this case Milan rental market within the municipality borders, is asynchronously scraped and collected into a JSON format.
-Traditional spatial bayesian methods have been generally slow in the context of spatial big data since covariance matrices are dense and their inversions scale to a cubic order. Therefore Integrated Nested Laplace approximation (INLA) is applied constituting a faster computational alternative on a special type of models called Latent Gaussian models (LGM). _INLA_ shorten computations through analytics approximations with Laplace and numerical methods for space matrices with the aim to obtain an approximated posterior distribution of the parameters.
-Hedonic Price Models (HPM) constitutes the economic theoretical foundation of the model according to which the linear predictor is set. As a matter of fact house prices are related to the value of the property by their demand-offer price equilibra for each single characteristic (including the spatial ones). A further aspects addresses the fact that prices are considered as a proxy value for rents since they are both interchangeable economic actions satisfying the same need. However the critical part of studying house characteristics in geostatistics is the _estimation_ for the reason already anticipates.
-LGMs are defined into a hierarchical bayesian modeling framework, distinguishing three nested hierarchy levels: the likelihood of the data (generally an exponential family), the latent Gaussian Markov Random Field GRMF (where the linear predictor is) and the hyper parameter distribution for which priors are specified. GMRF are suitable since they provide a sparse precision matrix due to conditional assumption, marking matrices tridiagonal. The spatial component of the data is considered as a discrete realization of an underlying unobserved and continuous Gaussian Process (GP) to be estimated, completely characterized by a mean structure and a covariance matrix. For the Gaussian Process are made two major assumptions: stationarity and isotropy, which let specifying a flexible covariance function i.e. Matérn.
-The Stochastic Partial Differential Equations (SPDE) solutions can provide a GMRF representation of the GP whose covariance matrix is Matérn. This happens through a triangulation of the domain of the study said mesh. The model is then fitted and cross validated with R-INLA and inference on parameter posterior distribution is given. 
+Inla permette di ridurre il tempo di stima del modello grazie a approssiamzioni con laplace e ,metodi numerici per matrici sparse con lo scopo di avere le distrribuzioni a posteriori dei parametri e degli iper parametri.
+I modelli edonici di prezzo costituiscono invece le basi teopriche sotto il profilo economico che sostengono la dinamica con cui i prezzi delle case, degli affitti in questo caso dipendono dalle covariate estratte, quindi la costruzione del predittore lineare.
+Come da letteratura in materia i prezzi sono relazionalti al porezzo risultate dall'incontro tra domanda ed offerta di ogni caratteristica afferete alla casa, comprese quelle di natura gestostatistica.
+Un aspetto ulteriore della question riguarda la non perfetta sovrapponibilità delle dinamiche che reegolano il prezzo delkl'immobili contro il prezo dell'affitto dello stesso, Gli accademici contestano questa assunzione, cionosotasnte l'evidenza emprica suggerisce che nel lungo periodo corrano di pari passo.
+Tuttavia il nodo critico della questione spaziale non risiede nell'aspetto tecorico d'impostazione del modello, quanto nella stima come preannunciato.
+quindi i modelli latenti gaussiani LGM vengono definiti e introdotti in un contesto gerarchico bayesiano con l'obiettivo di applicare inla.
+Rispettivamente tre diffrentui livelli gerarchici sono individuati, il primo è la funzione di verosimiglianza dei dati (generalemnte una funzione pappartenente alla famiglia degli esponmenziali), un secondo livello detto GMRF, stante per gassuain mark9v random field ( doive risiedono gli obiettivi dell'inferenza), un terzo dove infine vengono attribuiti delle distribuzioni a priori per gli hyper parametri e per i parametri.
+Il GMRF è un costrutto relativamente semplice, essendo una distribuzione multi normale centrata in 0 con matrice di precisone dipendende da qualche iper paramentro.
+Cioò ceh lo rende markoviano è la sua struttura sparsa, tridiagonale, dovuta ad una assunzione di indipendenza condizioale sui parametri.
+La componejnte spaziale dei dati è considerata come una realizzazione discreta di un porcesso Gaussiano GP non osservabile e continuo da stimare.
+IL processo è comletamente caratterizzato da una struttura di media e da una matrice di covariaza, o analogamente una matrice di precisione .
+Per il suddetto processo gaussiano sono fatte due importanti assunzioni: la staz\<inarietà e la isotropia, per le quali è possibile specificare una conveniente e flessbilee funzione di covariana detta Matèrn tipica degl ambti spaziali, della ecologia e della epidemiologia.
+le soluzioni alle equazioni stocastiche e differenziali SPDE suggerisocno un rappresentazione gmrf di un processo spaziale gp la cui matrice di covaraianza è matern.
+Questo succede grazie ad una rappresentazione trangolkarizzata della regione di studio detta mesh.
+il modello è quinmdi fittato e cross validato con il pacchetto \>R-iNLA e due nuovi progetti open souce legati allo stesso BRINLA e inlabru a cuyra di ... Vengono quindi tirate le file estraendo i dati tramite l'api concernenti MIlano e fittato il modello tramite l'algoritmo inla.
+I risulati sia delle performance e dell'ultizzo dell'api che del modello sono infine discussi.
 
-## Acknowledgements {-}
+## Ringraziamenti {.unnumbered}
 
-First of all I acknowledge a special debt to **Professor Della Vedova** who has patently followed me during this 6 months long journey, he has encouraged me and let me try things never done before. Our communication through this process has always been transparent and each moment spent was a lesson to learn. I came to his office desk with strong ideas and he let me shape my dissertation giving me carte blanche. Most of all when something was not working he has always been keen to solve and suggest a better approach. I owe a lot also to Dr. **Vincenzo Nardelli**, he is one of the kindest and most talented guys I have ever met. I took a big inspiration by its works. He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics. Sometimes I feel like I am copying him, but then I realize that it is just inspiration. I owe also a huge thanks to **Professor Lucia Paci**. She has been one of the top teacher in my master course to me by far. She has the capability to explain very hard stuff and to transpose it in the easiest way possible. She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got. The bayesian statistical intuition relies on her thoughts and on her experience on the subject. 
-I will not for sure miss to thank my beautiful girlfriend **Elisabetta**, She has seen my darkest times and my deepest insecurities, she did not even blink and she kept helping me like day one. Without her really anything would not have been even possible. She is so smart and she know me so well that when I had downs, even though she had had her own issues, she carried the weights and broght the only medicine I know: "Sciacchiata o Gelato". I would love to thank my father **Muzio** to be such a big milestone both in my career and private life, he has always encouraged me pursuing my dream by never setting any sort of limit. Its life could be compressed into a Frank Sinatra song "My Way" and observing him, working speakly, I wish the future would bless me with its same independence and freedom. Special thanks are dedicated also to my beloved uncles, zia **Jolanda** and zio **Luciano**.  They put a stake on me, they always make me feel special and talented even though university has never given me the chance to truly express myself. Me and Zio Luciano conversations are inspirational, he knows all the ropes, he is the most talented business man I am ever going to see in my entire life, I wish I could have a tenth of its talent. What I do is mainly because of its enormous successes and sacrifices. Memory is just for people that have to rely on past to act in the present. You take care of today so that tomorrow you can shape the future. Zia Jolanda you gave me back the most important thing, family, you have never missed special and difficult moments. You supported me and my mother throughout our exhausting journey I would never find the words to express much gratitude for what you did. You are an angel. 
-To all my friend thanks for each of your unspecified, different but vital support. Unfortunately this is becoming too long, a party is going to be thrown and with sincere tears and a piece of a paper I will do justice.
+Prima di tutto è mio dovere ripagare il debito di fiducia alèprofessore della vedova, il quale paziente,mente mi ha seguit durante questo progetto lungo 6 mesi.
+Mi ha incoraggiato a spingere il cuore oltre l'ostacolo alzando l'asticella sia sui temi che sulle tecnologie utilizzartye, rilanciando sempre le mie proposte e offerndomi nuovi spunti o metodi di approccio.
+La nostra comunicazione seppur saltuaria è sempre stata trasparente e dirtta al punto, e effiettivamet ogni monento speso è statop per me una lezione da cui imparare.
+Sono giunto alla sua scrivania con idee forti e decise e ha avuto la mano e il polso di lasciarmi plasmare l'argomento come più ritenessi opportuno sotto il profilo della maotivazione personale e sotto il profilo enlle mie natruali inclinazioni per l'oggetto., In più seppur osassi più di quello che ci promettessimo di voltra in volta lui sai è sempre dimostrato aperto e felice doi aiutarmi a risolvbere novi problemi.
 
-## Dedication {-}
+Devo tanto anceh al dottor nardelli , lui è realemtne una delle persone più \tex
 
-To my beloved mother, Maria Cristina. She has done so much for me you would not even know. We have been facing fires and flames for God knows how long, and now look where we are. You can not imagine how strong she is and if you do, please try to explain me then. I have always thought that mothers have this type of superpowers, but believe me my mother exaggerates.
-Our relationship has never been easy, we have both of us strong attitudes, nevertheless we keep on persisting and the reason is that we can not be set apart. Never.
-The most I have done since I remember is for her and for her satisfaction. I do not and I would never regret it. She is my inspiration, and I hope someday that I will live up to you mamma. she went "all in" sending me in Milan.
+I owe a lot also to Dr. **Vincenzo Nardelli**, he is one of the kindest and most talented guys I have ever met.
+I took a big inspiration by its works.
+He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics.
+Sometimes I feel like I am copying him, but then I realize that it is just inspiration.
+I owe also a huge thanks to **Professor Lucia Paci**.
+She has been one of the top teacher in my master course to me by far.
+She has the capability to explain very hard stuff and to transpose it in the easiest way possible.
+She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got.
+The bayesian statistical intuition relies on her thoughts and on her experience on the subject.
+I will not for sure miss to thank my beautiful girlfriend **Elisabetta**, She has seen my darkest times and my deepest insecurities, she did not even blink and she kept helping me like day one.
+Without her really anything would not have been even possible.
+She is so smart and she know me so well that when I had downs, even though she had had her own issues, she carried the weights and broght the only medicine I know: "Sciacchiata o Gelato".
+I would love to thank my father **Muzio** to be such a big milestone both in my career and private life, he has always encouraged me pursuing my dream by never setting any sort of limit.
+Its life could be compressed into a Frank Sinatra song "My Way" and observing him, working speakly, I wish the future would bless me with its same independence and freedom.
+Special thanks are dedicated also to my beloved uncles, zia **Jolanda** and zio **Luciano**.
+They put a stake on me, they always make me feel special and talented even though university has never given me the chance to truly express myself.
+Me and Zio Luciano conversations are inspirational, he knows all the ropes, he is the most talented business man I am ever going to see in my entire life, I wish I could have a tenth of its talent.
+What I do is mainly because of its enormous successes and sacrifices.
+Memory is just for people that have to rely on past to act in the present.
+You take care of today so that tomorrow you can shape the future.
+Zia Jolanda you gave me back the most important thing, family, you have never missed special and difficult moments.
+You supported me and my mother throughout our exhausting journey I would never find the words to express much gratitude for what you did.
+You are an angel.
+To all my friend thanks for each of your unspecified, different but vital support.
+Unfortunately this is becoming too long, a party is going to be thrown and with sincere tears and a piece of a paper I will do justice.
+
+## Dedication {.unnumbered}
+
+To my beloved mother, Maria Cristina.
+She has done so much for me you would not even know.
+We have been facing fires and flames for God knows how long, and now look where we are.
+You can not imagine how strong she is and if you do, please try to explain me then.
+I have always thought that mothers have this type of superpowers, but believe me my mother exaggerates.
+Our relationship has never been easy, we have both of us strong attitudes, nevertheless we keep on persisting and the reason is that we can not be set apart.
+Never.
+The most I have done since I remember is for her and for her satisfaction.
+I do not and I would never regret it.
+She is my inspiration, and I hope someday that I will live up to you mamma.
+she went "all in" sending me in Milan.
 She did right.
 Mum's always right.
 
-_keywords_ : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, Web Scraping, Parallel Computing, Hierarchical models.
-
+*keywords* : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, Web Scraping, Parallel Computing, Hierarchical models.
