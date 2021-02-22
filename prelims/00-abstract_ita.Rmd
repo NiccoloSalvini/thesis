@@ -55,48 +55,50 @@ Mi ha incoraggiato a spingere il cuore oltre l'ostacolo alzando l'asticella sia 
 La nostra comunicazione seppur saltuaria è sempre stata trasparente e dirtta al punto, e effiettivamet ogni monento speso è statop per me una lezione da cui imparare.
 Sono giunto alla sua scrivania con idee forti e decise e ha avuto la mano e il polso di lasciarmi plasmare l'argomento come più ritenessi opportuno sotto il profilo della maotivazione personale e sotto il profilo enlle mie natruali inclinazioni per l'oggetto., In più seppur osassi più di quello che ci promettessimo di voltra in volta lui sai è sempre dimostrato aperto e felice doi aiutarmi a risolvbere novi problemi.
 
-Devo tanto anceh al dottor nardelli , lui è realemtne una delle persone più \tex
+Devo tanto anche al dottor nardelli , è una delle persone più piavcevoli e preparate con cui abbia avuto la fortuna di collaborare.
+Non posso negare di aver preso una grande ispirazione dal suo lavoro.
+In tutta sincerità Vincenzo per me è stato apripista per tante cose, web scraping, la nostra nuova piattaforma Data Network, e infine la statistica spaziale.
+I due pilastri su cui poggia la tesi si ispirano e poggiano sul suo lavoro, e per questo la sensazione è che lo stia indirettamente plagiando, ma ad un'analisi più seria non sfugge che sia soltanto ispirazione.
 
-I owe a lot also to Dr. **Vincenzo Nardelli**, he is one of the kindest and most talented guys I have ever met.
-I took a big inspiration by its works.
-He has been a true street opener to me, he introduced me to web scraping, then to our newly born social platform Data Network and then to the Spatial Statistics.
-Sometimes I feel like I am copying him, but then I realize that it is just inspiration.
-I owe also a huge thanks to **Professor Lucia Paci**.
-She has been one of the top teacher in my master course to me by far.
-She has the capability to explain very hard stuff and to transpose it in the easiest way possible.
-She narrowed my path through bayesian methods for spatial statistics, since she was co-author of one of the main book references that I got.
-The bayesian statistical intuition relies on her thoughts and on her experience on the subject.
-I will not for sure miss to thank my beautiful girlfriend **Elisabetta**, She has seen my darkest times and my deepest insecurities, she did not even blink and she kept helping me like day one.
-Without her really anything would not have been even possible.
-She is so smart and she know me so well that when I had downs, even though she had had her own issues, she carried the weights and broght the only medicine I know: "Sciacchiata o Gelato".
-I would love to thank my father **Muzio** to be such a big milestone both in my career and private life, he has always encouraged me pursuing my dream by never setting any sort of limit.
-Its life could be compressed into a Frank Sinatra song "My Way" and observing him, working speakly, I wish the future would bless me with its same independence and freedom.
-Special thanks are dedicated also to my beloved uncles, zia **Jolanda** and zio **Luciano**.
-They put a stake on me, they always make me feel special and talented even though university has never given me the chance to truly express myself.
-Me and Zio Luciano conversations are inspirational, he knows all the ropes, he is the most talented business man I am ever going to see in my entire life, I wish I could have a tenth of its talent.
-What I do is mainly because of its enormous successes and sacrifices.
-Memory is just for people that have to rely on past to act in the present.
-You take care of today so that tomorrow you can shape the future.
-Zia Jolanda you gave me back the most important thing, family, you have never missed special and difficult moments.
-You supported me and my mother throughout our exhausting journey I would never find the words to express much gratitude for what you did.
-You are an angel.
-To all my friend thanks for each of your unspecified, different but vital support.
-Unfortunately this is becoming too long, a party is going to be thrown and with sincere tears and a piece of a paper I will do justice.
+Devo molto anche alla professoressa lucia paci.
+E' stata una delle migliori professoresse che abbia avuto il privilegio di incontrare.
+Ha la straoridnaria capacità di decodificare concetti complessi e scomporli con precisione in semplici.
+oltretutto le basi teroriche su cui ho costruito la tesi stanno in equulibrio sopra il suo lavoro e il suo materiale, uno dei quali lei è coautrice e costtiuisce è la maggiore referenza per questa analisi.
 
-## Dedication {.unnumbered}
+Non perderò l'occasione di ringraziare la mia fantastica ragazza elisabetta, è stata presente nei momenti più bui e ha visto le mie più nascoste insicurezza.
+Tuttavia non ha esistato ad aiutarmi fin dal primo giorno che ci siamo conosciuti.
+Con tutta certezza senza di lei niente di questo sarebbe stato possibile; è così intelligente e sensibile, e mi conosce così bene che quando ho avuto i miei momenti di sconforto, lei ha preso in mano la situazione nonostante le i suoi di problemi e loi ha risolti con l'unico trattamento sanitario obbligatorio che funziona con me, la schiacciata o il gelato.
 
-To my beloved mother, Maria Cristina.
-She has done so much for me you would not even know.
-We have been facing fires and flames for God knows how long, and now look where we are.
-You can not imagine how strong she is and if you do, please try to explain me then.
-I have always thought that mothers have this type of superpowers, but believe me my mother exaggerates.
-Our relationship has never been easy, we have both of us strong attitudes, nevertheless we keep on persisting and the reason is that we can not be set apart.
-Never.
-The most I have done since I remember is for her and for her satisfaction.
-I do not and I would never regret it.
-She is my inspiration, and I hope someday that I will live up to you mamma.
-she went "all in" sending me in Milan.
-She did right.
-Mum's always right.
+Ringrazio anche mio babbo per essere una pietra miliare sia nella carriera che nella vita privata.
+Mi ha sepmpre spinto ad insiguire i miei sogni e il mio inutito nonostante tutto, compreso il suo parere.
+Il modo in cui ha condotto e conduce la sua vita è compimibile nella canzone di frank sinatra My way, e osservandolo nel suo lavoro, spero che il destino mi benedica con la sua indipendenza e libertà.
+
+Speciali ringraziamenti sono dedicati ai miei zii, la zia iolanda e lo zio luciano.
+Entrambi mi hanno sempre appoggiato facendomi sentire speciale e telntuoso nonostante l'università non mi abbia mai permesso di esprimere le mie velleità.
+Il rapporto tra me e lo zio luciano è intenso e le nostre conversazioni sono sempre ispirazionali, per me è una stella polare, è qualcuno verso cui tendere, una bussola che indica la via da seguire, ma allo stesso tempo un astro luminoso da osservare, con tanto rispetto e timore reverenziale.
+Lo zio è il più talentuoso businessman che ritengo avrò mai la fortuna di incotnrare, non passa un solo giorno in cui non speri di essere benedetto da 1 decimo del suo talento.
+Non mi stancherò di dire che quello che ho fatto e che faccio èè uyna diretta conseguenza del suo successo, dei suoi sacrifici che ho avuto la fortuna di ascoltare e della sua guida.
+
+Zia iolanda mi ha reso indietro una delle cose più importani che ci sono, la famiglia, Tu zia non hai mai amncato i momenti difficili, quelli che contano per davvero.
+Hai sostenuto la mia mamma durante tutto il nostro esauriente percorso e noin finirò mai di ringraziarti per questo.
+Sei davvero un angelo.
+
+A tutti i miei anmici un grazie indistinto ma vitale per la vostra spinta.
+Sfortunbatamente mi sto dilungando ma confido che in tempi milgiori una festa mi permetta di condividere il mio tragurdo con tutti voi, e in quel momento un pezzo di carta e tante lacrime faranno giustizia alla ia mancanza.
+
+## Dedica {.unnumbered}
+
+Alla mia amata mamma cristina, Lei ha fatto così tanto per me che nessuno se lo può immaginare.
+Abbiamo affroinatnto momenti oggettivamente molto duri, fuoco e fiamme per un pop' di tempo er guarda dove siamo mamma, guada dovbe siamo arrivati.
+E davvero faccio fatica a spiegare la sua forza, e se ... Ho senmpre penszato che le ,mamma avessero dei super poteri, ma credimi lettore mia mamma esagera.
+Il nostro rapporto fatto di due caratteri molto forti e simili per la natura delle cose non è mai stato semplice e banale.
+Quello che ci distringue dal resto del mondo credo sia la capacità di perseverare nel trovare un punto di equilibrio, un baricentro di sentimenti che sembra non poter stare in piedi, ma francamente mamma, a noi non interessa, noi persistiamo, siamo abituati a provarci, sempre.
+Questo tratto ci rende inseparabili, perchè nonostante il mondo possa crollare tu sei sicura che farò quello ceh è nelle mie possibilità e oltre per avvicinarmi, e tu farai lo stesso.
+
+Ripensando a tutto quello che ho fatto fin da quando ho una coscienza è tutto orientato a te alla tua soddisfazione, e in tutta onestà non me ne pento e non me ne pentirò.
+tu sei la mia ispirazione e mi auguro un giorno di essere alla tua altezza.
+Mamma sei andata all in in tutti sensi mandandomi a Milano e hai avuto ragione, le mamme hanno sempre ragione.
+
+Tuo Niccolò.
 
 *keywords* : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, Web Scraping, Parallel Computing, Hierarchical models.
