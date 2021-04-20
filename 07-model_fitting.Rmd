@@ -5,108 +5,99 @@ In this chapter it is applied all the theory seen so far through the lenses of R
 
 ```{r libs, include=FALSE}
 
-library(geoR, warn.conflicts = F, quietly = T )
-library(brinla, warn.conflicts = F, quietly = T )
-library(ggplot2, warn.conflicts = F, quietly = T )
-library(tibble, warn.conflicts = F, quietly = T )
-library(knitr, warn.conflicts = F, quietly = T)
-library(latex2exp, warn.conflicts = F, quietly = T)
+library(geoR, warn.conflicts = F, quietly = T)
+library(brinla, warn.conflicts = F, quietly = T)
 library(faraway, quietly = T, warn.conflicts = F)
-library(patchwork, warn.conflicts = F, quietly = T)
 library(kableExtra, warn.conflicts = F, quietly = T)
-library(tidyverse, warn.conflicts = F, quietly = T)
 library(INLA, warn.conflicts = F, quietly = T)
 library(inlabru, warn.conflicts = F, quietly = T)
 library(rgdal, warn.conflicts = F, quietly = T)
 library(ggthemes, warn.conflicts = F, quietly = T)
 library(sf, warn.conflicts = F, quietly = T)
 library(ggregplot, warn.conflicts = F, quietly = T)
-library(readr, warn.conflicts = F, quietly = T)
-library(forcats, warn.conflicts = F, quietly = T)
-library(patchwork, warn.conflicts = F, quietly = T)
-
+library(ggspatial, warn.conflicts = F, quietly = T)
+library(RColorBrewer, warn.conflicts = F, quietly = T)
+library(ggrepel, warn.conflicts = F, quietly = T)
 ```
 
 
 ```{r loadpreprocess}
 ## qui leggi gli ultimi dati e li chiami finali
-final_data = read_csv("data/prova_finale.csv") %>%
+final_data <- read_csv("data/prova_finale.csv") %>%
   # converti tutto a fattore
   mutate((across(where(is.character), ~ forcats::as_factor(.)))) %>%
   # droppi le variabili  che non ti servono
   dplyr::select(lat, long, condom, totlocali, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato) %>%
   # conversione dataframe
-  as.data.frame() %>%  
-  #togli gli na
-  na.omit() 
+  as.data.frame() %>%
+  # togli gli na
+  na.omit()
 
 # qui sistemi il processo gaussiano sulle coordinate
-coordinate = final_data %>% dplyr::select(lat, long) %>%  as.data.frame()
-coordinates(coordinate) = c("long", "lat")
-proj4string(coordinate) <- CRS("+init=epsg:28992")## qui era 28992 ora metto 3003
-final_data2 = final_data %>% 
+coordinate <- final_data %>%
+  dplyr::select(lat, long) %>%
+  as.data.frame()
+coordinates(coordinate) <- c("long", "lat")
+proj4string(coordinate) <- CRS("+init=epsg:28992") ## qui era 28992 ora metto 3003
+final_data2 <- final_data %>%
   dplyr::select(-lat, -long)
 
 
 
-confini = readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
-
-
+confini <- readOGR(dsn = "data/confini/A090101_ComuneMilano.shp", verbose = F)
 ```
 
 In order to make the distribution of the response i.e. price (per month in €) approximately Normal it is applied a $log_{10}$ transformation (further transformation would have better Normalized data i.e. Box-Cox [@boxcox] and Yeo-Johnson [@yeojohnson] however they over complicate interpretability). Moreover all of the numerical covariates e.g. _condominium_, _sqmeter_ and _photosnum_ have already been prepared in \@ref(prep) and are further standardized and scaled. The Locations are represented in map plot \@ref(fig:ggmap) within the borders of the Municipality of Milan. At first the borders shapefile is imported from [GeoPortale Milano](https://geoportale.comune.milano.it/sit/open-data/). The corresponding CRS is in UTM (i.e. Eastings and Northings) which differs from the spatial covariates extracted (lat and long). Therefore the spatial entity needs to be rescaled and reprojected to the new CRS. In the end the latitude and the longitude points are overlayed to the borders as in figure \@ref(fig:ggmap).
 
 
 ```{r ggmap, fig.cap="Milan Real Estate data within the Municpality borders, 4 points of interest" }
-library(sf, warn.conflicts = F, quietly = T)
-library(ggspatial, warn.conflicts = F, quietly = T)
-library(RColorBrewer)
-library(ggrepel, warn.conflicts = F, quietly = T)
 
-confini_st = st_read( "data/confini/A090101_ComuneMilano.shp", quiet = T)
-confini = st_transform(confini_st, "+proj=longlat +datum=WGS84") %>%
+confini_st <- st_read("data/confini/A090101_ComuneMilano.shp", quiet = T)
+confini <- st_transform(confini_st, "+proj=longlat +datum=WGS84") %>%
   st_as_sf()
 
-# coordinate = datiprep2 %>%  select(lat, long) %>% as.data.frame(lat = coordinate$lat , long = coordinate$long) 
+# coordinate = datiprep2 %>%  select(lat, long) %>% as.data.frame(lat = coordinate$lat , long = coordinate$long)
 # coordinates(coordinate) <- c("long", "lat")
 # coordinate_proj <- spTransform(coordinate, CRS())
 # coordinates
-# 
+#
 # ### qui migliorare la scala di colori ## #
 
-poi = tribble(
-    ~poi,~lat,~long,
-  "Milan Dome",45.464211,9.191383,
-  "Generali Tower",45.4783,9.1552,
-  "Meazza Stadium",45.478489,9.122150,
-  "Porta Venezia",45.47438,9.20501
-) 
+poi <- tribble(
+  ~poi, ~lat, ~long,
+  "Milan Dome", 45.464211, 9.191383,
+  "Generali Tower", 45.4783, 9.1552,
+  "Meazza Stadium", 45.478489, 9.122150,
+  "Porta Venezia", 45.47438, 9.20501
+)
 
 # coordinates(poi) = c("long", "lat")
 # proj4string(poi) = CRS("+proj=longlat +datum=WGS84")
-poi_sf  = poi %>% 
-  st_as_sf(coords = c("long", "lat")) %>% 
-  st_set_crs("+proj=longlat +datum=WGS84") 
-  
+poi_sf <- poi %>%
+  st_as_sf(coords = c("long", "lat")) %>%
+  st_set_crs("+proj=longlat +datum=WGS84")
+
 ggplot(final_data) +
-  geom_sf(data = confini,fill = "antiquewhite1") +
+  geom_sf(data = confini, fill = "antiquewhite1") +
   geom_sf(data = poi_sf, colour = "red", size = 6, alpha = .4) +
   annotation_scale(location = "bl", width_hint = 0.4) +
   geom_point(aes(x = long, y = lat, colour = price), size = 3, shape = 16) +
-  geom_text_repel(data = poi, aes(x = long, y = lat, label = poi),fontface = "bold", box.padding = 0.5,min.segment.length = 1.8, nudge_x = .9,nudge_y = 1,
-                  segment.curvature = -0.4, arrow = arrow(length = unit(0.015, "npc"))) + 
-  coord_sf()+
-  scale_colour_continuous(name = 'Price (€)\n', type = "viridis",alpha = .8, limits=c(200,5000))+
-  # scale_colour_gradient(name = 'Price (€)\n', 
-  #                       limits=c(200, 5000), 
+  geom_text_repel(
+    data = poi, aes(x = long, y = lat, label = poi), fontface = "bold", box.padding = 0.5, min.segment.length = 1.8, nudge_x = .9, nudge_y = 1,
+    segment.curvature = -0.4, arrow = arrow(length = unit(0.015, "npc"))
+  ) +
+  coord_sf() +
+  scale_colour_continuous(name = "Price (€)\n", type = "viridis", alpha = .8, limits = c(200, 5000)) +
+  # scale_colour_gradient(name = 'Price (€)\n',
+  #                       limits=c(200, 5000),
   #                       low="#FCB9B2", high="#B23A48") +
-  annotation_north_arrow(location = "bl", which_north = "true", 
-        pad_x = unit(0.95, "in"), pad_y = unit(0.5, "in"),
-        style = north_arrow_fancy_orienteering) +
+  annotation_north_arrow(
+    location = "bl", which_north = "true",
+    pad_x = unit(0.95, "in"), pad_y = unit(0.5, "in"),
+    style = north_arrow_fancy_orienteering
+  ) +
   theme_map() +
-  theme(legend.position="right", legend.box = "horizontal")
-
-
+  theme(legend.position = "right", legend.box = "horizontal")
 ```
 
 
@@ -160,41 +151,48 @@ SPDE requires to triangulate the domain space $\mathscr{D}$ as intuited in \@ref
 ## Build boundary information:
 ## (fmesher supports SpatialPolygons, but this app is not (yet) intelligent enough for that.)
 boundary.loc <- coordinate
-bnd = inla.nonconvex.hull(coordinate, convex = 1, concave = 10)
+bnd <- inla.nonconvex.hull(coordinate, convex = 1, concave = 10)
 boundary <- list(
-list(inla.nonconvex.hull(coordinates(boundary.loc), 0.0475),
-    bnd),
-    inla.nonconvex.hull(coordinates(boundary.loc), 0.0625))
+  list(
+    inla.nonconvex.hull(coordinates(boundary.loc), 0.0475),
+    bnd
+  ),
+  inla.nonconvex.hull(coordinates(boundary.loc), 0.0625)
+)
 
 
-mesh1 <- inla.mesh.2d(boundary=boundary,
-                      max.edge=c(0.025, 0.048),
-                     min.angle=c(30, 21),
-                     max.n=c(48000, 16000), ## Safeguard against large meshes.
-                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
-                     cutoff=0.01, ## Filter away adjacent points.
-                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+mesh1 <- inla.mesh.2d(
+  boundary = boundary,
+  max.edge = c(0.025, 0.048),
+  min.angle = c(30, 21),
+  max.n = c(48000, 16000), ## Safeguard against large meshes.
+  max.n.strict = c(128000, 128000), ## Don't build a huge mesh!
+  cutoff = 0.01, ## Filter away adjacent points.
+  offset = c(0.0475, 0.0625)
+) ## Offset for extra boundaries, if needed.
 
-plt_mesh1 = ggplot(st_as_sf(coordinate)) +
+plt_mesh1 <- ggplot(st_as_sf(coordinate)) +
   gg(mesh1) +
-  geom_sf(colour = "red", alpha = .4)+
-  ggtitle(paste("Vertices: ", mesh1$n),  subtitle = TeX("$Mesh_1$")) +
+  geom_sf(colour = "red", alpha = .4) +
+  ggtitle(paste("Vertices: ", mesh1$n), subtitle = TeX("$Mesh_1$")) +
   coord_equal() +
   coord_sf() +
   theme_map()
 
 
-mesh2 <- inla.mesh.2d(boundary=boundary,
-                     max.edge=c(0.017, 0.019), ## con max edge più ampio
-                     min.angle=c(30, 21),
-                     max.n=c(48000, 16000), ## Safeguard against large meshes.
-                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
-                     cutoff=0.01, ## Filter away adjacent points.
-                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+mesh2 <- inla.mesh.2d(
+  boundary = boundary,
+  max.edge = c(0.017, 0.019), ## con max edge più ampio
+  min.angle = c(30, 21),
+  max.n = c(48000, 16000), ## Safeguard against large meshes.
+  max.n.strict = c(128000, 128000), ## Don't build a huge mesh!
+  cutoff = 0.01, ## Filter away adjacent points.
+  offset = c(0.0475, 0.0625)
+) ## Offset for extra boundaries, if needed.
 
-plt_mesh2 = ggplot(st_as_sf(coordinate)) +
+plt_mesh2 <- ggplot(st_as_sf(coordinate)) +
   gg(mesh2) +
-  geom_sf(colour = "red", alpha = .4)+
+  geom_sf(colour = "red", alpha = .4) +
   ggtitle(paste("Vertices: ", mesh2$n), subtitle = TeX("$Mesh_2$")) +
   coord_equal() +
   coord_sf() +
@@ -204,33 +202,37 @@ plt_mesh2 = ggplot(st_as_sf(coordinate)) +
 
 
 
-mesh3 <- inla.mesh.2d(boundary=boundary,
-                     max.edge=c(0.01, 0.02), 
-                     min.angle=c(30, 21),
-                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
-                     cutoff=0.001, ## Filter away adjacent points.
-                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+mesh3 <- inla.mesh.2d(
+  boundary = boundary,
+  max.edge = c(0.01, 0.02),
+  min.angle = c(30, 21),
+  max.n.strict = c(128000, 128000), ## Don't build a huge mesh!
+  cutoff = 0.001, ## Filter away adjacent points.
+  offset = c(0.0475, 0.0625)
+) ## Offset for extra boundaries, if needed.
 
-plt_mesh3 = ggplot(st_as_sf(coordinate)) +
+plt_mesh3 <- ggplot(st_as_sf(coordinate)) +
   gg(mesh3) +
-  geom_sf(colour = "red", alpha = .4)+
-  ggtitle(paste("Vertices: ", mesh3$n),  subtitle = TeX("$Mesh_3$")) +
+  geom_sf(colour = "red", alpha = .4) +
+  ggtitle(paste("Vertices: ", mesh3$n), subtitle = TeX("$Mesh_3$")) +
   coord_equal() +
   coord_sf() +
   theme_map()
 
 
-mesh4 <- inla.mesh.2d(boundary=boundary,
-                     max.edge=c(0.012, 0.014), 
-                     min.angle=c(30, 21),
-                     max.n.strict=c(128000, 128000), ## Don't build a huge mesh!
-                     cutoff=0.001, ## Filter away adjacent points.
-                     offset=c(0.0475, 0.0625)) ## Offset for extra boundaries, if needed.
+mesh4 <- inla.mesh.2d(
+  boundary = boundary,
+  max.edge = c(0.012, 0.014),
+  min.angle = c(30, 21),
+  max.n.strict = c(128000, 128000), ## Don't build a huge mesh!
+  cutoff = 0.001, ## Filter away adjacent points.
+  offset = c(0.0475, 0.0625)
+) ## Offset for extra boundaries, if needed.
 
-plt_mesh4 = ggplot(st_as_sf(coordinate)) +
+plt_mesh4 <- ggplot(st_as_sf(coordinate)) +
   gg(mesh4) +
-  geom_sf(colour = "red", alpha = .4)+
-  ggtitle(paste("Vertices: ", mesh4$n),  subtitle = TeX("$Mesh_4$")) +
+  geom_sf(colour = "red", alpha = .4) +
+  ggtitle(paste("Vertices: ", mesh4$n), subtitle = TeX("$Mesh_4$")) +
   coord_equal() +
   coord_sf() +
   theme_map()
@@ -239,9 +241,7 @@ plt_mesh4 = ggplot(st_as_sf(coordinate)) +
 
 
 
-plt_mesh1 +plt_mesh2 +plt_mesh3+plt_mesh4
-  
-
+plt_mesh1 + plt_mesh2 + plt_mesh3 + plt_mesh4
 ```
 
 The SPDE model object is built with the function `inla.spde2.pcmatern()` which needs as arguments the mesh triangulation, i.e. $\operatorname{mesh}_3$ and the PC priors \@ref(priorsspec), satisfying the following probability statements: $\operatorname{Prob}(\sigma_{\varepsilon}^2<3060)< 0.01$ where $\sigma_{\varepsilon}^2$ is the spatial range desumed in \@ref(fig:semivariogram). And  $\operatorname{Prob}(\tau> 0.9)< 0.05$ where $\tau$ is the marginal standard deviation (on the log scale) of the field \@ref(spatassess).
@@ -251,18 +251,20 @@ As model complexity increases, for instance, a lot of random effects may be disc
 ```{r spde_matern}
 
 ## QUESTO FUNZIONA
-# spde1 = inla.spde2.pcmatern(mesh1, prior.range = c(3060, 0.01), 
+# spde1 = inla.spde2.pcmatern(mesh1, prior.range = c(3060, 0.01),
 #                              prior.sigma = c(0.9, 0.05))
-spde2 = inla.spde2.pcmatern(mesh3, prior.range = c(3060, 0.01), 
-                             prior.sigma = c(0.9, 0.05))
+spde2 <- inla.spde2.pcmatern(mesh3,
+  prior.range = c(3060, 0.01),
+  prior.sigma = c(0.9, 0.05)
+)
 
 
 ## default ones
-spde3 = inla.spde2.matern(mesh3)
+spde3 <- inla.spde2.matern(mesh3)
 
 
-# ### se volessi fare conla staaxck seguendo INLA dovrei allora fare 
-# ### 
+# ### se volessi fare conla staaxck seguendo INLA dovrei allora fare
+# ###
 # A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
 # stack1 <- inla.stack(
 #   tag = "estimation", ## tag
@@ -275,8 +277,6 @@ spde3 = inla.spde2.matern(mesh3)
 #       transmute(Intercept = 1, totlocali,condom) ## fixed effect covariates
 #   )
 # )
-
-
 ```
 
 ## Model Selection
@@ -297,35 +297,37 @@ stack1 <- inla.stack(
     list(site = seq_len(spde3$n.spde)), ## random field index
     final_data2 %>%
       as.data.frame() %>%
-      transmute(Intercept = 1,condom, totlocali,altro, bagno, cucina, heating,
-                photosnum, floor, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme,
-                reception, porta_blindata,esposizione_esterna,cancello_elettrico, portiere_intera_giornata,
-                balcone, arredato, impianto_tv_centralizzato, armadio_a_muro, portiere_mezza_giornata,
-                caminetto, esposizione_interna,  mansarda, parzialmente_arredato, taverna, idromassaggio,
-                terrazza, esposizione_doppia, giardino_comune, giardino_privato ) ## fixed effect covariates
+      transmute(
+        Intercept = 1, condom, totlocali, altro, bagno, cucina, heating,
+        photosnum, floor, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme,
+        reception, porta_blindata, esposizione_esterna, cancello_elettrico, portiere_intera_giornata,
+        balcone, arredato, impianto_tv_centralizzato, armadio_a_muro, portiere_mezza_giornata,
+        caminetto, esposizione_interna, mansarda, parzialmente_arredato, taverna, idromassaggio,
+        terrazza, esposizione_doppia, giardino_comune, giardino_privato
+      ) ## fixed effect covariates
   )
 )
 
 
-covs_df = final_data %>%  
-  dplyr::select(-lat, -long, -altro,-price)%>% 
-  na.omit() %>% 
+covs_df <- final_data %>%
+  dplyr::select(-lat, -long, -altro, -price) %>%
+  na.omit() %>%
   as.data.frame()
 
-for(i in 1:16){
-  
-  f1= as.formula(paste0("log(price) ~ -1 + Intercept + f(site, model = spde3) + ", paste0(colnames(covs_df)[1:i], collapse = " + ")))
-  
-  model1 = inla(f1, family = "normal", data = inla.stack.data(stack1),
-                    control.predictor = list(A = inla.stack.A(stack1)),
-                    control.compute = list(waic = TRUE, dic = TRUE))
-  
-  model_selection <- if(i==1){
-    rbind(c(model = paste(colnames(covs_df)[1:i]),waic = model1$waic$waic, dic = model1$dic$dic))
-    }else{
-      rbind(model_selection,c(model = paste(colnames(covs_df)[1:i],collapse = " + "),waic = model1$waic$waic, dic = model1$dic$dic))
-  }
+for (i in 1:16) {
+  f1 <- as.formula(paste0("log(price) ~ -1 + Intercept + f(site, model = spde3) + ", paste0(colnames(covs_df)[1:i], collapse = " + ")))
 
+  model1 <- inla(f1,
+    family = "normal", data = inla.stack.data(stack1),
+    control.predictor = list(A = inla.stack.A(stack1)),
+    control.compute = list(waic = TRUE, dic = TRUE)
+  )
+
+  model_selection <- if (i == 1) {
+    rbind(c(model = paste(colnames(covs_df)[1:i]), waic = model1$waic$waic, dic = model1$dic$dic))
+  } else {
+    rbind(model_selection, c(model = paste(colnames(covs_df)[1:i], collapse = " + "), waic = model1$waic$waic, dic = model1$dic$dic))
+  }
 }
 
 # model_selection2 =data.frame(model_selection)
@@ -337,20 +339,19 @@ for(i in 1:16){
 #   geom_line(show.legend = F) +
 #   geom_point(show.legend = F) +
 #   facet_wrap(~ statistic, scales = "free")
-# 
+#
 
-model_selection[13,3]
+model_selection[13, 3]
 
 ## il candidato perfetto è il modello humero 13
 ## quello che contiene i seguenti predittori
-## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata" 
-## 
+## "condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata"
+##
 ```
 
 
 ```{r}
 print(paste("condom + totlocali + bagno + cucina + heating + photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme + reception + porta_blindata", "WAIC  = -7.532", "DIC =-9.001"))
-
 ```
 
 
@@ -362,7 +363,7 @@ Now the candidate statistical model is fitted rebuilding the stack and calling i
 ```{r modelfitting}
 
 ## rebuilt the stack based on stepwise forward
-## 
+##
 
 A1 <- inla.spde.make.A(mesh = mesh3, loc = coordinate)
 stack_fin <- inla.stack(
@@ -373,32 +374,33 @@ stack_fin <- inla.stack(
     list(site = seq_len(spde3$n.spde)), ## random field index
     final_data2 %>%
       as.data.frame() %>%
-      transmute(Intercept = 1,condom, totlocali,altro, bagno, cucina, heating,
-                photosnum, floor, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme,
-                reception, porta_blindata ) ## fixed effect covariates
+      transmute(
+        Intercept = 1, condom, totlocali, altro, bagno, cucina, heating,
+        photosnum, floor, sqfeet, fibra_ottica, videocitofono, impianto_di_allarme,
+        reception, porta_blindata
+      ) ## fixed effect covariates
   )
 )
 
-model_final = inla(log(price) ~ 0 + Intercept + condom + totlocali+ altro+ bagno+ cucina +heating +
-                photosnum +floor + sqfeet +fibra_ottica +videocitofono + impianto_di_allarme +
-                reception +porta_blindata + f(site, model = spde3), 
-                    family = "normal", data = inla.stack.data(stack_fin),
-                    control.predictor = list(A = inla.stack.A(stack_fin)),
-                    control.compute = list(waic = TRUE, cpo = TRUE)
-                  )
+model_final <- inla(log(price) ~ 0 + Intercept + condom + totlocali + altro + bagno + cucina + heating +
+  photosnum + floor + sqfeet + fibra_ottica + videocitofono + impianto_di_allarme +
+  reception + porta_blindata + f(site, model = spde3),
+family = "normal", data = inla.stack.data(stack_fin),
+control.predictor = list(A = inla.stack.A(stack_fin)),
+control.compute = list(waic = TRUE, cpo = TRUE)
+)
 
-summ_fin = model_final$summary.fixed %>%  
-  tibble::rownames_to_column("coefficients") %>% 
-  dplyr::select(-mode, -kld)  %>%
-  mutate(across(where(is.numeric), round, 2)) %>% 
-  arrange(desc(mean)) 
-  
+summ_fin <- model_final$summary.fixed %>%
+  tibble::rownames_to_column("coefficients") %>%
+  dplyr::select(-mode, -kld) %>%
+  mutate(across(where(is.numeric), round, 2)) %>%
+  arrange(desc(mean))
 
-summ_fin %>% 
-  head(10) %>% 
+
+summ_fin %>%
+  head(10) %>%
   kbl(caption = "Summary statistics for the top 10 coefficients arranged by descending mean", booktabs = T) %>%
   kable_minimal()
-
 ```
 
 Since the models coefficients are many i.e.`r dim(summ_fin)[1]` the analysis will concentrate on the most interesting ones. Looking at table \@ref(tab:modelfitting) where coefficients are arranged by descending mean, the posterior mean for the intercept, rescaled back from log, is truly quite lofty, affirming that the average house price is `r paste(round(exp(summ_fin[1,2]),2),"€", sep = " ")`.
@@ -413,35 +415,28 @@ INLA is able to output the mean and the standard deviation of measurement precis
 summary_hyperpar <- tibble::rownames_to_column(model_final$summary.hyperpar, "hyper-param") %>%
   as_tibble() %>%
   dplyr::select(-mean, -"0.975quant", -"0.5quant", -"0.025quant")
-summary_hyperpar %>% 
-    kbl(caption = "Summary statistics for Hyper Parameters", booktabs = T) %>%
+summary_hyperpar %>%
+  kbl(caption = "Summary statistics for Hyper Parameters", booktabs = T) %>%
   kable_minimal()
-
 ```
 
 
 ```{r summhyper, fig.cap="Marginal Hyper Parameter distributions for each element of Psi"}
-plot_sigma2 = ggplot(as.data.frame(model_final$marginals.hyperpar$`Precision for the Gaussian observations` )) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\sigma^2_{e} \\,|\\, \\mathbf{y}\\,)$")) + 
-  xlab (TeX("$\\sigma^2_{e}$")) +
-  theme_nicco()
 
-plot_kappa = ggplot(as.data.frame(model_final$marginals.hyperpar$`Theta1 for site` )) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\kappa \\,|\\, \\mathbf{y}\\,)$")) + 
-  xlab (TeX("$\\kappa$")) +
-  theme_nicco()
+plot_sigma2 <- post_plot(model_final, quantity = "marginals.hyperpar", coef = "Precision for the Gaussian observations") +
+  ylab(TeX("$\\pi(\\,\\sigma^2_{e} \\,|\\, \\mathbf{y}\\,)$")) +
+  xlab(TeX("$\\sigma^2_{e}$"))
+
+plot_kappa <- post_plot(model_final, quantity = "marginals.hyperpar", coef = "Theta1 for site") +
+  ylab(TeX("$\\pi(\\,\\kappa \\,|\\, \\mathbf{y}\\,)$")) +
+  xlab(TeX("$\\kappa$"))
+
+plot_nu <- post_plot(model_final, quantity = "marginals.hyperpar", coef = "Theta2 for site") +
+  ylab(TeX("$\\pi(\\,\\nu \\,|\\, \\mathbf{y}\\,)$")) +
+  xlab(TeX("$\\nu$"))
 
 
-plot_nu = ggplot(as.data.frame(model_final$marginals.hyperpar$`Theta2 for site` )) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\nu \\,|\\, \\mathbf{y}\\,)$")) + 
-  xlab (TeX("$\\nu$")) +
-  theme_nicco()
-
-( plot_nu+ plot_kappa)/ plot_sigma2
-
+(plot_nu + plot_kappa) / plot_sigma2
 ```
 
 
@@ -454,32 +449,27 @@ Finally, it might be of interest to look at the latent field into the spatial fi
 
 ```{r pltgmrf, fig.cap="Gaussian Markov Random field of the final model projected onto the spatial field"}
 
-A1.grid = inla.mesh.projector(mesh3, dims = c(150, 150)) ## c(41, 41)
+A1.grid <- inla.mesh.projector(mesh3, dims = c(150, 150)) ## c(41, 41)
 inla.mesh.project(A1.grid, model_final$summary.random$site) %>%
   as.matrix() %>%
   as.data.frame() %>%
   bind_cols(
-  expand.grid(x = A1.grid$x, y = A1.grid$y)
+    expand.grid(x = A1.grid$x, y = A1.grid$y)
   ) %>%
   filter(!is.na(ID)) -> eta_spde
 
 ggplot(final_data) +
-   # geom_sf(data = confini,fill = "antiquewhite1") +
+  # geom_sf(data = confini,fill = "antiquewhite1") +
   geom_tile(data = eta_spde, aes(x = x, y = y, fill = mean)) +
   geom_point(aes(x = long, y = lat, colour = price), size = 3, shape = 16) +
-  scale_colour_continuous(name = 'Price (€)\n', type = "viridis",alpha = 1, limits=c(200,5000)) +
+  scale_colour_continuous(name = "Price (€)\n", type = "viridis", alpha = 1, limits = c(200, 5000)) +
   labs(
     x = "",
-    y = ""    
-  )+
-  scale_fill_viridis_c(alpha  = .8) +
+    y = ""
+  ) +
+  scale_fill_viridis_c(alpha = .8) +
   theme_nicco()
-
-  
 ```
-
-
-<!-- a further trial  --> <!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  -->
 
 
 ## Spatial Model Criticism 
@@ -487,17 +477,20 @@ ggplot(final_data) +
 The model on the basis of the PIT \@ref(predbase) does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ `r sum(model_final$cpo$failure)` outliers. The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining `r -sum(log(model_final$cpo$cpo)) %>% round(3) `. 
 
 ```{r modelcpo, fig.cap="PIT cross validation statistics on $model_final$"}
-ggplot(data = NULL, aes(x = model_final$cpo$pit)) + 
-  geom_histogram(binwidth = 0.1,
-                 boundary = 2, 
-                 # col="red", 
-                 fill="lightblue", 
-                 alpha=.5) +
-  geom_density(col=5) +
-  labs(x = "PIT",
-       y = " ") +
+ggplot(data = NULL, aes(x = model_final$cpo$pit)) +
+  geom_histogram(
+    binwidth = 0.1,
+    boundary = 2,
+    # col="red",
+    fill = "lightblue",
+    alpha = .5
+  ) +
+  geom_density(col = 5) +
+  labs(
+    x = "PIT",
+    y = " "
+  ) +
   theme_nicco()
-
 ```
 
 
@@ -519,80 +512,83 @@ stack1_grid <- inla.stack(
   A = list(A1.grid$proj$A, 1), ## projector matrices (SPDE and fixed effects)
   effects = list(
     list(site = seq_len(spde3$n.spde)), ## random field index
-    grid_data  ## covariates at grid locations
+    grid_data ## covariates at grid locations
   )
 )
 stack_all <- inla.stack(stack_fin, stack1_grid)
-model_grid <- inla(log(price) ~ 0 + Intercept + X + Y + f(site, model = spde3), 
-                   family = "normal", data = inla.stack.data(stack_all),
-                   control.predictor = list(A = inla.stack.A(stack_all), 
-                                            link = 1),
-                   control.compute = list(waic = TRUE),
-                   control.mode = list(theta = model_final$mode$theta, 
-                                       restart = FALSE),
-                   control.results = list(return.marginals.random = FALSE,
-                                          return.marginals.predictor = FALSE)
-                   )
+model_grid <- inla(log(price) ~ 0 + Intercept + X + Y + f(site, model = spde3),
+  family = "normal", data = inla.stack.data(stack_all),
+  control.predictor = list(
+    A = inla.stack.A(stack_all),
+    link = 1
+  ),
+  control.compute = list(waic = TRUE),
+  control.mode = list(
+    theta = model_final$mode$theta,
+    restart = FALSE
+  ),
+  control.results = list(
+    return.marginals.random = FALSE,
+    return.marginals.predictor = FALSE
+  )
+)
 
 
 si <- inla.stack.index(stack_all, "grid")$data
 grid_data %>%
   bind_cols(model_grid$summary.fitted.values[si, ]) %>%
-  `coordinates<-`(~X + Y) %>%
+  `coordinates<-`(~ X + Y) %>%
   `proj4string<-`(CRS(SRS_string = "EPSG:3003")) -> gd
 
-mean = gd[!is.na(gd), ] %>%
+mean <- gd[!is.na(gd), ] %>%
   as.data.frame() %>%
-  ggplot() + 
+  ggplot() +
   geom_sf(data = confini) +
   geom_tile(aes(x = X, y = Y, fill = mean)) +
-  scale_fill_viridis_c(alpha  = .8) +# , limits=c(0,5000)
+  scale_fill_viridis_c(alpha = .8) + # , limits=c(0,5000)
   # scale_colour_brewer(palette = "Greens")+
-  coord_fixed()+
-  coord_sf()+
+  coord_fixed() +
+  coord_sf() +
   # geom_point(data = final_data, aes(x = long, y = lat), colour = "red", alpha = .3)+
   labs(
     x = "",
     y = ""
-  )+
+  ) +
   # gg(mesh3,alpha = .2, int.color = "red") +
   theme_nicco() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-sd= gd[!is.na(gd), ] %>%
+sd <- gd[!is.na(gd), ] %>%
   as.data.frame() %>%
-  ggplot() + 
+  ggplot() +
   geom_sf(data = confini) +
   geom_tile(aes(x = X, y = Y, fill = sd)) +
-  scale_fill_viridis_c(alpha  = .8) +# , limits=c(0,5000)
+  scale_fill_viridis_c(alpha = .8) + # , limits=c(0,5000)
   # scale_colour_brewer(palette = "Greens")+
-  coord_fixed()+
-  coord_sf()+
+  coord_fixed() +
+  coord_sf() +
   # geom_point(data = final_data, aes(x = long, y = lat), colour = "red", alpha = .3)+
   labs(
     x = "",
     y = ""
-  )+
+  ) +
   # gg(mesh3,alpha = .2, int.color = "red") +
-  theme_nicco()+
+  theme_nicco() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-mean +sd
+mean + sd
 
-# 
-# boundary = bnd$loc %>%  
-#   as_tibble() %>% 
-#   rename("lat" = "V1","long" = "V2") %>% 
+#
+# boundary = bnd$loc %>%
+#   as_tibble() %>%
+#   rename("lat" = "V1","long" = "V2") %>%
 #   as.data.frame()
-# 
+#
 # spTransform(boundary, CRS(SRS_string = "EPSG:3003")) -> boundary
-# SpatialPointsDataFrame(boundary, data, coords.nrs = numeric(0), 
+# SpatialPointsDataFrame(boundary, data, coords.nrs = numeric(0),
 #       proj4string = CRS(as.character(NA)),bbox = NULL)
-# 
+#
 # boundary = SpatialPoints(boundary, proj4string=CRS(SRS_string = "EPSG:3003"), bbox = NULL)
 # plot(boundary)
 # coordinate
-
 ```
-
-

@@ -175,9 +175,6 @@ Finally, it might be of interest to look at the latent field into the spatial fi
 \end{figure}
 
 
-<!-- a further trial  --> <!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  --><!-- a further trial  -->
-
-
 ## Spatial Model Criticism 
 
 The model on the basis of the PIT \@ref(predbase) does not seems to show consistent residual trend nor failures (meaning bizarre values in relation to the others) i.e. $fails = $ 8 outliers. The fact that the distribution is seemingly Uniform \@ref(fig:modelcpo) tells that the model is correctly specified. This is summarized by the LPML statistics which accounts for the negative log sum of each cross validate CPO, obtaining 6.681. 
@@ -207,5 +204,3 @@ Higher prices in \@ref(fig:predgrid) are observed nearby the points of interest 
 
 \caption{Prediction on predictive posterior mean a 122X122 grid overlapped with the Mesh3}(\#fig:predgrid)
 \end{figure}
-
-

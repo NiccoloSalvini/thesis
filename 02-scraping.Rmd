@@ -5,13 +5,10 @@
 ```{r libs, include=FALSE}
 library(furrr, warn.conflicts = F, quietly = F)
 library(robotstxt, warn.conflicts = F, quietly = F)
-library(magrittr, warn.conflicts = F, quietly = F)
 library(rvest, warn.conflicts = F, quietly = F)
 library(parallel, warn.conflicts = F, quietly = F)
 library(memoise, warn.conflicts = F, quietly = F)
-library(knitr, warn.conflicts = F, quietly = F)
 library(glue, warn.conflicts = F, quietly = F)
-library(purrr, warn.conflicts = F, quietly = F)
 ```
 
 The following chapter covers a modern technique with the latest libraries for web scraping in R and related challenges with a focus on the immobiliare.it case. The easiest way of collecting information from websites involves inspecting and manipulating URLs. While browsing web pages urls under the hood compose themselves in the navigation bar according to a certain encoded semantic, specifying domain, url paths and url parameters. As a matter of fact websites can be regarded as a complex system of nested folders where urls are the relative file path to access to the content desired. That implies if a function can mimic the url semantic by providing decoded, human-readable arguments, then any content in the website can be filtered out and later accessed. 

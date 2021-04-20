@@ -24,5 +24,6 @@ The most I have done since I remember is for her and for her satisfaction. I do 
 She did right.
 Mum's always right.
 
+
 _keywords_ : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, Web Scraping, Parallel Computing, Hierarchical models.
 

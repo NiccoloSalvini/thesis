@@ -1,0 +1,31 @@
+## Colophon {-}
+
+This book was written in [bookdown](https://bookdown.org/) inside RStudio. The website [niccolosalvini.github.io/thesis/](https://niccolosalvini.github.io/thesis/) is hosted with [GH pages](https://pages.github.com/), and automatically updated after every commit inside its own repo. The complete source code is available from GitHub at the bottom of the left panel to the button "See Github repository". A detailed explanation on how this is made possible is refered in the API technology stack at the end of the chapter's introductory part.
+
+The logo is a freely available image whose source got lost and the book style is taken from the Rstudio [rstudio4edu](https://rstudio4edu.github.io/rstudio4edu-book/book-dress.html) website, so thanks to [Desirée De Leon](https://github.com/dcossyleon) for her contribution. 
+
+This version of the book was built with:
+
+```{r platform}
+
+library(here, quietly = T, warn.conflicts = F)
+
+all_pkgs <- readLines(here("requirements.txt"))
+# write_bib(all_pkgs, file = here("Rpackages.bib"))
+session <- devtools::session_info(pkgs = all_pkgs)
+session$platform
+
+```
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+library(DT, quietly = T, warn.conflicts = F)
+session$packages %>% 
+  dplyr::select(package, loadedversion, date, source) %>% 
+  DT::datatable(rownames = FALSE,
+                class = 'cell-border stripe',
+                filter = list(position = 'top'),
+                options = list(pageLength = nrow(session$packages), 
+                           autoWidth = TRUE,
+                           bInfo = FALSE,
+                           paging = FALSE))
+```

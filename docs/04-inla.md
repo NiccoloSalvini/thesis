@@ -7,6 +7,7 @@ output:
 
 
 
+
 Bayesian estimation methods - by MCMC [@mcmc] and MC simulation techniques - are usually much harder than Frequentist calculations [@wang2018bayesian]. This unfortunately is also more critical for spatial and spatio-temporal model settings [@Cameletti2012] where matrices dimensions and densities (in the sense of prevalence of values throughout the matrix) start becoming unfeasible. 
 The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices that in aforementioned settings scale to the order $\mathcal{O}(n^3)$.
 INLA [@Rue2009; @Rue2017] stands for Integrated Nested Laplace Approximation and constitutes a faster and accurate deterministic algorithm whose performance in time indeed scale to the order $\mathcal{O}(n)$. INLA is alternative and by no means substitute [@YT:Rue] to traditional Bayesian Inference methods. INLA focuses on Latent Gaussian Models LGM [-@wang2018bayesian], which are a rich class including many regressions models, as well as support for spatial and spatio-temporal.
@@ -505,8 +506,8 @@ Then the model is fitted within `inla()` call, specifying the formula, data and 
 
 
 ```r
-formula = y ~ s1 + s2
-m0 = inla(formula, data = SPDEtoy, family = "gaussian")
+formula <- y ~ s1 + s2
+m0 <- inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
 Table \@ref(tab:tableINLA) offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
@@ -526,8 +527,6 @@ s2 & -1.5836768 & 0.4293757\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-
 
 
 
@@ -559,5 +558,3 @@ level:0.9 & -2.291268 & -0.879445\\
 \end{table}
 
 Note that the interpretation is more convoluted [-@wang2018bayesian] than the traditional frequentist approach: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.  
-
-

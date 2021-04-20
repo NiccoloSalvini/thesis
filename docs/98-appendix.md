@@ -1,7 +1,5 @@
 # Appendix {-}
 
-
-
 <!-- ## Gaussian Process{#gpbasics} -->
 
 <!-- Let assume ti have cloud of points represented by two variables $X_1$ and $X_2$, figure \@ref(fig:gpcloud). The cloud of points are observation taken from a realization of two variables e.g. height and weight, What it might be observed is: -->
@@ -237,5 +235,3 @@ Assuming $k = 8, 16$ degrees of freedom $\chi^{2}$ densities against their Lapla
 $$
 \pi(\boldsymbol{\psi}) \quad \boldsymbol{\psi}= \boldsymbol{\psi_1}, \boldsymbol{\psi_2}
 $$
-
-

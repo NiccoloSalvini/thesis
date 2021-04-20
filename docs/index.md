@@ -5,7 +5,7 @@ author:
 - "Supervisor: [PhD Marco L. Della Vedova](https://mldv.it/home/)"
 - "Assistant Supervisor: [PhD Vincenzo Nardelli](https://github.com/vincnardelli)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Lastest book build: 15 febbraio, 2021"
+date: "Lastest book build: 20 aprile, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -67,7 +67,11 @@ The most I have done since I remember is for her and for her satisfaction. I do 
 She did right.
 Mum's always right.
 
+
 _keywords_ : Bayesian Statistics, RESTful API, Docker, AWS, INLA, Real Estate, Web Scraping, Parallel Computing, Hierarchical models.
+
+
+
 
 
 

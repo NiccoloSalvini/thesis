@@ -4,16 +4,11 @@
 
 ```{r libs, include=FALSE}
 
-library(drake, quietly = F, warn.conflicts = F)
-library(readr, quietly = F, warn.conflicts = F)
 library(kableExtra, quietly = F, warn.conflicts = F)
-library(tidyverse, quietly = F, warn.conflicts = F)
 library(broom, quietly = F, warn.conflicts = F)
 library(future, quietly = F, warn.conflicts = F)
 library(viridis, quietly = F, warn.conflicts = F)
-library(kableExtra, warn.conflicts = F, quietly = T)
 library(leaflet, quietly = F, warn.conflicts = F)
-library(magrittr, quietly = F, warn.conflicts = F)
 library(sp, quietly = F, warn.conflicts = F)
 library(sf, quietly = F, warn.conflicts = F)
 library(glue, quietly = F, warn.conflicts = F)
@@ -30,19 +25,13 @@ library(igraph, quietly = F, warn.conflicts = F)
 library(ggraph, quietly = F, warn.conflicts = F)
 ## missing, profil, warn.conflicts = F)
 library(caret, quietly = F, warn.conflicts = F)
-library(tidyverse, quietly = F, warn.conflicts = F)
 library(naniar, quietly = F, warn.conflicts = F)
-library(forcats, quietly = F, warn.conflicts = F)
 library(visdat, quietly = F, warn.conflicts = F)
 library(ComplexHeatmap, quietly = , warn.conflicts = F)
-library(patchwork, quietly = F, warn.conflicts = F)
 library(ggridges, quietly = F, warn.conflicts = F)
-library(latex2exp, quietly = F, warn.conflicts = F)
 ## html widget, warn.conflicts = F)
 library(reactable, quietly = F, warn.conflicts = F)
 library(crosstalk, quietly = F, warn.conflicts = F)
-
-
 ```
 
 To the analysis extent data should be constrained to the same geographic area and then saved otherwise the analysis would not be neither comparable nor reproducible since each time the API is called data gets updated. As a consequence the API is invoked with fixed request parameters by securing to the API the `.thesis` option, section \@ref(docs). In other words the (mandatory) argument option guarantees to specify to the API an already pre-composed url to be passed to the scraping endpoint. The choice for this analysis is submitting the url corresponds to the properties restricted to a fixed set of micro-zones inside the _circonvallazione_ i.e.  beltway of Milan ( _Municipality of Milan_ ). On the other side the resulting data is locally stored to be able to have consistent inference. (api parameters, number of covariates and number of observations)
@@ -54,221 +43,143 @@ Data emerging from the RESTful API response is not in its tidiest format. Yet da
 ```{r dati_2}
 ## metti drake plan
 ##
-dati2 = read_csv("data/data2021.csv", locale = readr::locale(encoding = "latin1")) %>%
+dati2 <- read_csv("data/data2021.csv", locale = readr::locale(encoding = "latin1")) %>%
   dplyr::select(-X1) %>%
-  rename(nroom = nrooms) %>% 
+  rename(nroom = nrooms) %>%
   janitor::clean_names()
 
 ## prep data
-  datiprep2 = dati2 %>% 
-    select(-propcat) %>% 
-    ## price
-    mutate(price  = parse_number(price, locale = locale(decimal_mark = ","))) %>% 
-    replace_na(list(price = "Prezzo su richiesta"))  %>% 
-    mutate(price = as.numeric(price)) %>% 
-    ## condominio
-    mutate(condom = if_else(condom== "Nessuna spesa condominiale","0", condom )) %>% 
-    mutate(condom  = parse_number(condom,locale = locale(decimal_mark = ","))) %>% 
-    ## sqfeet
-    mutate(sqfeet = parse_number(sqfeet)) %>%  
-    mutate(sqfeet = as.numeric(sqfeet))  %>% 
-    ## floor
-    separate(floor, c("drop", "floor"), convert = T, fill = "left") %>%
-    select(-drop) %>% 
-    mutate( floor = recode(floor, "Terra" = "Piano Terra", "Rialzato" = "Piano Rialzato", "Piano" = "Piano Terra", "Ultimo" = "Ultimo Piano")) %>% 
-    ## TOTPIANI
-    # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
-    ## LOCALI
-    mutate(locali = if_else(substr(locali,start = 1,stop = 1) == 1, "1", locali)) %>% 
-    separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>% 
-    separate(other, c("camereletto","altro","bagno", "cucina"), sep = ", ", convert = T, fill = "left")  %>% 
-    ## CAMERALETTO
-    mutate(camereletto = if_else(totlocali== 1, "(1 camera da letto", camereletto)) %>% 
-    mutate(camereletto = if_else(is.na(camereletto),altro , camereletto)) %>% 
-    mutate(camereletto = if_else(camereletto== "locali",NA_character_ , camereletto)) %>% 
-    mutate(camereletto = if_else(camereletto== "camere da letto", paste0(totlocali," camere da letto"), camereletto)) %>% 
-    mutate(camereletto = str_remove(camereletto, "\\(")) %>% 
-    ## altro
-    mutate(altro = if_else(bagno== "1 altro)","1 altro)" , altro)) %>% 
-    replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>% 
-    mutate(altro = str_remove(altro, "\\)")) %>% 
-    ## bagno
-    mutate(bagno = if_else(cucina== "1 bagno", "1 bagno", bagno)) %>% 
-    replace_with_na(replace = list(bagno = "1 altro)")) %>% 
-    mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
-    ## cucina (ne ho perse qualcuna)
-    replace_with_na(replace = list(cucina = "1 bagno")) %>% 
-    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale","5+" = "Multilocale")) %>% ## non proviene più di sei locali 
-    ## aptchar
-    mutate(aptchar = str_remove_all(aptchar,"-"),
-           aptchar = str_trim(aptchar)) %>%
-    mutate(fibra_ottica = if_else(stri_detect_fixed(aptchar,"fibra ottica"), "yes", "no"),
-           videocitofono = if_else(stri_detect_fixed(aptchar,"videocitofono"), "yes", "no"),
-           impianto_di_allarme = if_else(stri_detect_fixed(aptchar,"impianto di allarme"), "yes", "no"),
-           reception = if_else(stri_detect_fixed(aptchar,"reception"), "yes", "no"),
-           porta_blindata = if_else(stri_detect_fixed(aptchar,"porta blindata"), "yes", "no"),
-           esposizione_esterna = if_else(stri_detect_fixed(aptchar,"esposizione esterna"), "yes", "no"),
-           cancello_elettrico = if_else(stri_detect_fixed(aptchar,"cancello elettrico"), "yes", "no"),
-           portiere_intera_giornata = if_else(stri_detect_fixed(aptchar,"portiere intera giornata"), "yes", "no"),
-           balcone = if_else(stri_detect_fixed(aptchar,"balcone"), "yes", "no"),
-           arredato = if_else(stri_detect_fixed(aptchar,"arredato"), "yes", "no"),
-           impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar,"impianto tv centralizzato"), "yes", "no"),
-           armadio_a_muro = if_else(stri_detect_fixed(aptchar,"armadio a muro"), "yes", "no"),
-           portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar,"portiere mezza giornata"), "yes", "no"),
-           caminetto = if_else(stri_detect_fixed(aptchar,"caminetto"), "yes", "no"),
-           esposizione_interna = if_else(stri_detect_fixed(aptchar,"esposizione interna"), "yes", "no"),
-           mansarda = if_else(stri_detect_fixed(aptchar,"mansarda"), "yes", "no"),
-           parzialmente_arredato = if_else(stri_detect_fixed(aptchar,"parzialmente arredato"), "yes", "no"),
-           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no"),
-           idromassaggio = if_else(stri_detect_fixed(aptchar,"idromassaggio"), "yes", "no"),
-           terrazza = if_else(stri_detect_fixed(aptchar,"terrazza"), "yes", "no"),
-           esposizione_doppia = if_else(stri_detect_fixed(aptchar,"esposizione doppia"), "yes", "no"),
-           giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
-           giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
-           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
-           ) %>% 
-    select(-aptchar)
-
+datiprep2 <- dati2 %>%
+  select(-propcat) %>%
+  ## price
+  mutate(price = parse_number(price, locale = locale(decimal_mark = ","))) %>%
+  replace_na(list(price = "Prezzo su richiesta")) %>%
+  mutate(price = as.numeric(price)) %>%
+  ## condominio
+  mutate(condom = if_else(condom == "Nessuna spesa condominiale", "0", condom)) %>%
+  mutate(condom = parse_number(condom, locale = locale(decimal_mark = ","))) %>%
+  ## sqfeet
+  mutate(sqfeet = parse_number(sqfeet)) %>%
+  mutate(sqfeet = as.numeric(sqfeet)) %>%
+  ## floor
+  separate(floor, c("drop", "floor"), convert = T, fill = "left") %>%
+  select(-drop) %>%
+  mutate(floor = recode(floor, "Terra" = "Piano Terra", "Rialzato" = "Piano Rialzato", "Piano" = "Piano Terra", "Ultimo" = "Ultimo Piano")) %>%
+  ## TOTPIANI
+  # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>%
+  ## LOCALI
+  mutate(locali = if_else(substr(locali, start = 1, stop = 1) == 1, "1", locali)) %>%
+  separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>%
+  separate(other, c("camereletto", "altro", "bagno", "cucina"), sep = ", ", convert = T, fill = "left") %>%
+  ## CAMERALETTO
+  mutate(camereletto = if_else(totlocali == 1, "(1 camera da letto", camereletto)) %>%
+  mutate(camereletto = if_else(is.na(camereletto), altro, camereletto)) %>%
+  mutate(camereletto = if_else(camereletto == "locali", NA_character_, camereletto)) %>%
+  mutate(camereletto = if_else(camereletto == "camere da letto", paste0(totlocali, " camere da letto"), camereletto)) %>%
+  mutate(camereletto = str_remove(camereletto, "\\(")) %>%
+  ## altro
+  mutate(altro = if_else(bagno == "1 altro)", "1 altro)", altro)) %>%
+  replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>%
+  mutate(altro = str_remove(altro, "\\)")) %>%
+  ## bagno
+  mutate(bagno = if_else(cucina == "1 bagno", "1 bagno", bagno)) %>%
+  replace_with_na(replace = list(bagno = "1 altro)")) %>%
+  mutate(bagno = if_else(totlocali == "1", "1 bagno", bagno)) %>%
+  ## cucina (ne ho perse qualcuna)
+  replace_with_na(replace = list(cucina = "1 bagno")) %>%
+  mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale", "5+" = "Multilocale")) %>% ## non proviene più di sei locali
+  ## aptchar
+  mutate(
+    aptchar = str_remove_all(aptchar, "-"),
+    aptchar = str_trim(aptchar)
+  ) %>%
+  mutate(
+    fibra_ottica = if_else(stri_detect_fixed(aptchar, "fibra ottica"), "yes", "no"),
+    videocitofono = if_else(stri_detect_fixed(aptchar, "videocitofono"), "yes", "no"),
+    impianto_di_allarme = if_else(stri_detect_fixed(aptchar, "impianto di allarme"), "yes", "no"),
+    reception = if_else(stri_detect_fixed(aptchar, "reception"), "yes", "no"),
+    porta_blindata = if_else(stri_detect_fixed(aptchar, "porta blindata"), "yes", "no"),
+    esposizione_esterna = if_else(stri_detect_fixed(aptchar, "esposizione esterna"), "yes", "no"),
+    cancello_elettrico = if_else(stri_detect_fixed(aptchar, "cancello elettrico"), "yes", "no"),
+    portiere_intera_giornata = if_else(stri_detect_fixed(aptchar, "portiere intera giornata"), "yes", "no"),
+    balcone = if_else(stri_detect_fixed(aptchar, "balcone"), "yes", "no"),
+    arredato = if_else(stri_detect_fixed(aptchar, "arredato"), "yes", "no"),
+    impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar, "impianto tv centralizzato"), "yes", "no"),
+    armadio_a_muro = if_else(stri_detect_fixed(aptchar, "armadio a muro"), "yes", "no"),
+    portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar, "portiere mezza giornata"), "yes", "no"),
+    caminetto = if_else(stri_detect_fixed(aptchar, "caminetto"), "yes", "no"),
+    esposizione_interna = if_else(stri_detect_fixed(aptchar, "esposizione interna"), "yes", "no"),
+    mansarda = if_else(stri_detect_fixed(aptchar, "mansarda"), "yes", "no"),
+    parzialmente_arredato = if_else(stri_detect_fixed(aptchar, "parzialmente arredato"), "yes", "no"),
+    taverna = if_else(stri_detect_fixed(aptchar, "taverna"), "yes", "no"),
+    idromassaggio = if_else(stri_detect_fixed(aptchar, "idromassaggio"), "yes", "no"),
+    terrazza = if_else(stri_detect_fixed(aptchar, "terrazza"), "yes", "no"),
+    esposizione_doppia = if_else(stri_detect_fixed(aptchar, "esposizione doppia"), "yes", "no"),
+    giardino_comune = if_else(stri_detect_fixed(aptchar, "giardino comune"), "yes", "no"),
+    giardino_privato = if_else(stri_detect_fixed(aptchar, "giardino privato"), "yes", "no"),
+    taverna = if_else(stri_detect_fixed(aptchar, "taverna"), "yes", "no")
+  ) %>%
+  select(-aptchar)
 ```
-
-```{r drake_plan_data, eval=F}
-
-tasks = drake::drake_plan(
-  ## load data
-  dati = read_csv("data/data.csv", locale = readr::locale(encoding = "latin1")) %>%
-    dplyr::select(-X1) %>%  
-    janitor::clean_names(),
-
-  ## prep data
-  datiprep = dati %>% 
-    select(-tpprop) %>% 
-    ## floor
-    mutate(floor = str_remove_all(floor, "°")) %>% 
-    separate(floor, c("floor", "ascensore","accdisabili"), sep = ", ", convert = T) %>%
-    replace_na(list(ascensore = "no", accdisabili = "no")) %>% 
-    mutate(ascensore = recode(ascensore,"con accesso disabili" = "no")) %>%  
-    mutate(floor = recode(floor, "1" = "1 piano", "2" = "2 piano", "3" = "2 piano", "4" = "4 piano", "5" = "5 piano", "6" = "6 piano", "7" = "7 piano", "8" = "8 piano", "9" = "9 piano")) %>% 
-    ## TOTPIANI
-    # mutate(TOTPIANI = str_remove_all(TOTPIANI, " piani")) %>% 
-    ## LOCALI
-    mutate(locali = if_else(substr(locali,start = 1,stop = 1) == 1, "1", locali)) %>% 
-    separate(locali, c("totlocali", "other"), sep = "\\s", extra = "merge") %>% 
-    separate(other, c("camereletto","altro","bagno", "cucina"), sep = ", ", convert = T, fill = "left")  %>% 
-    ## CAMERALETTO
-    mutate(camereletto = if_else(totlocali== 1, "(1 camera da letto", camereletto)) %>% 
-    mutate(camereletto = if_else(is.na(camereletto),altro , camereletto)) %>% 
-    mutate(camereletto = if_else(camereletto== "locali",NA_character_ , camereletto)) %>%  
-    mutate(camereletto = if_else(camereletto== "camere da letto", paste0(totlocali," camere da letto"), camereletto)) %>% 
-    mutate(camereletto = str_remove(camereletto, "\\(")) %>% 
-    ## altro
-    mutate(altro = if_else(bagno== "1 altro)","1 altro)" , altro)) %>% 
-    replace_with_na(replace = list(altro = c("camere da letto", "locali"))) %>% 
-    mutate(altro = str_remove(altro, "\\)")) %>% 
-    ## bagno
-    mutate(bagno = if_else(cucina== "1 bagno", "1 bagno", bagno)) %>% 
-    replace_with_na(replace = list(bagno = "1 altro)")) %>% 
-    mutate(bagno = if_else(totlocali== "1", "1 bagno", bagno)) %>% 
-    ## cucina (ne ho perse qualcuna)
-    replace_with_na(replace = list(cucina = "1 bagno")) %>% 
-    mutate(totlocali = recode(totlocali, "1" = "Monolocale", "2" = "Bilocale", "3" = "Trilocale", "4" = "Quadrilocale", "5" = "Pentalocale", "5+" = "Multilocale")) %>% 
-    ## aptchar
-    mutate(aptchar = str_remove_all(aptchar,"-"),
-           aptchar = str_trim(aptchar)) %>%
-    mutate(fibra_ottica = if_else(stri_detect_fixed(aptchar,"fibra ottica"), "yes", "no"),
-           videocitofono = if_else(stri_detect_fixed(aptchar,"videocitofono"), "yes", "no"),
-           impianto_di_allarme = if_else(stri_detect_fixed(aptchar,"impianto di allarme"), "yes", "no"),
-           reception = if_else(stri_detect_fixed(aptchar,"reception"), "yes", "no"),
-           porta_blindata = if_else(stri_detect_fixed(aptchar,"porta blindata"), "yes", "no"),
-           esposizione_esterna = if_else(stri_detect_fixed(aptchar,"esposizione esterna"), "yes", "no"),
-           cancello_elettrico = if_else(stri_detect_fixed(aptchar,"cancello elettrico"), "yes", "no"),
-           portiere_intera_giornata = if_else(stri_detect_fixed(aptchar,"portiere intera giornata"), "yes", "no"),
-           balcone = if_else(stri_detect_fixed(aptchar,"balcone"), "yes", "no"),
-           arredato = if_else(stri_detect_fixed(aptchar,"arredato"), "yes", "no"),
-           impianto_tv_centralizzato = if_else(stri_detect_fixed(aptchar,"impianto tv centralizzato"), "yes", "no"),
-           armadio_a_muro = if_else(stri_detect_fixed(aptchar,"armadio a muro"), "yes", "no"),
-           portiere_mezza_giornata = if_else(stri_detect_fixed(aptchar,"portiere mezza giornata"), "yes", "no"),
-           caminetto = if_else(stri_detect_fixed(aptchar,"caminetto"), "yes", "no"),
-           esposizione_interna = if_else(stri_detect_fixed(aptchar,"esposizione interna"), "yes", "no"),
-           mansarda = if_else(stri_detect_fixed(aptchar,"mansarda"), "yes", "no"),
-           parzialmente_arredato = if_else(stri_detect_fixed(aptchar,"parzialmente arredato"), "yes", "no"),
-           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no"),
-           idromassaggio = if_else(stri_detect_fixed(aptchar,"idromassaggio"), "yes", "no"),
-           terrazza = if_else(stri_detect_fixed(aptchar,"terrazza"), "yes", "no"),
-           esposizione_doppia = if_else(stri_detect_fixed(aptchar,"esposizione doppia"), "yes", "no"),
-           giardino_comune = if_else(stri_detect_fixed(aptchar,"giardino comune"), "yes", "no"),
-           giardino_privato = if_else(stri_detect_fixed(aptchar,"giardino privato"), "yes", "no"),
-           taverna = if_else(stri_detect_fixed(aptchar,"taverna"), "yes", "no")
-           )
-
-)
-
-## make drake plan
-## 
-make(tasks, parallelism = "future", jobs = round(0.5 * availableCores()), verbose = 2)
-dati = readd(dati)
-datiprep = readd(datiprep)
-
-```
-
 
 ```{r covartable}
 
 ### fai la tabella delle colonne
-### 
-ref = c(
-"ID of the apartements",
-"latitude coordinate",
-"longitude coordinate",
-"property address: street name and eventual number",
-"condominium monthly expenses",
-"age in which the building was contructed",
-"indipendent property type versus apartement type",
-"type and number of rooms",
-"property category",
-"maintenance status of the house, ristrutturato, nuovo, abitabile",
-"heating system",
-"air conditioning",
-"land registry information",
-"apartement characteristics",
-"number of photos displayed in the advertisement",
-"real estate agency name",
-"energy class",
-"contract type proposed",
-"availability or already rented",
-"total number of building floors",
-"number of parking box or garages",
-"estate agency review (long chr string)",
-"total apartement surface area",
-"total commercial surface area",
-"covered and uncovered surface areas type",
-"the property floor for each covered and uncovered area",
-"square meter footage for each covered and uncovered type", 
-"contribution percentage for each element to the total surface",
-"appliances or princpal category surface ",
-"square meter footage for each commercial surface area",
-"it if has multimedia option, (3D house ristualization home experience and videos)",
-"If the price is lowered it flags the starting price",
-"If the price is lowered it flags the current price",
-"If the price is lowered marks the number of days passed by since the price change",
-"the date of publication of the advertisement",
-"number of rooms (int)",
-"monthly price € (response)",
-"total square meters footage surface area (int)",
-"title of advertisement"
+###
+ref <- c(
+  "ID of the apartements",
+  "latitude coordinate",
+  "longitude coordinate",
+  "property address: street name and eventual number",
+  "condominium monthly expenses",
+  "age in which the building was contructed",
+  "indipendent property type versus apartement type",
+  "type and number of rooms",
+  "property category",
+  "maintenance status of the house, ristrutturato, nuovo, abitabile",
+  "heating system",
+  "air conditioning",
+  "land registry information",
+  "apartement characteristics",
+  "number of photos displayed in the advertisement",
+  "real estate agency name",
+  "energy class",
+  "contract type proposed",
+  "availability or already rented",
+  "total number of building floors",
+  "number of parking box or garages",
+  "estate agency review (long chr string)",
+  "total apartement surface area",
+  "total commercial surface area",
+  "covered and uncovered surface areas type",
+  "the property floor for each covered and uncovered area",
+  "square meter footage for each covered and uncovered type",
+  "contribution percentage for each element to the total surface",
+  "appliances or princpal category surface ",
+  "square meter footage for each commercial surface area",
+  "it if has multimedia option, (3D house ristualization home experience and videos)",
+  "If the price is lowered it flags the starting price",
+  "If the price is lowered it flags the current price",
+  "If the price is lowered marks the number of days passed by since the price change",
+  "the date of publication of the advertisement",
+  "number of rooms (int)",
+  "monthly price € (response)",
+  "total square meters footage surface area (int)",
+  "title of advertisement"
 )
 
-names = dati2 %>%  names
+names <- dati2 %>% names()
 tibble(
   name = names,
-  descrition  = ref 
+  descrition = ref
 ) %>%
   kbl(caption = "Covariates extracted on a general API call", booktabs = T, longtable = T) %>%
   kable_minimal()
 
-  # kbl(booktabs = T, longtable = T) %>%
-  # kable_styling(full_width = F,font_size = 8) %>%
-  # column_spec(1, bold = T) %>%
-  # column_spec(2, width = "20em")
+# kbl(booktabs = T, longtable = T) %>%
+# kable_styling(full_width = F,font_size = 8) %>%
+# column_spec(1, bold = T) %>%
+# column_spec(2, width = "20em")
 ```
 
 
@@ -285,44 +196,47 @@ The previous steps lead to have a 250 data points per 64 covariates. Ultimately 
 
 ```{r LeafletVisuals, out.width="100%", fig.cap="Leaflet Map"}
 
-if(knitr::is_latex_output()){
-    knitr::include_graphics("images/leaflet_prezzi.jpg")
-} else if(knitr::is_html_output()){  
-  dati_2 = datiprep2 %>%
-    dplyr::select(price, long, lat, location, nroom, condom , sqfeet)
-  pal = colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
-  
-dati_sp = SharedData$new(dati_2, group = "houses")
+if (knitr::is_latex_output()) {
+  knitr::include_graphics("images/leaflet_prezzi.jpg")
+} else if (knitr::is_html_output()) {
+  dati_2 <- datiprep2 %>%
+    dplyr::select(price, long, lat, location, nroom, condom, sqfeet)
+  pal <- colorBin("viridis", bins = c(1000, 1500, 2000, 2500, 5000))
 
-# A regular data frame (without coordinates) for the table.
-# Use the same group name as the map data.
-dati_table = dati_2 %>%
-  select(-lat, -long) %>%
-  SharedData$new(group = "houses")
-  
-  map = leaflet(dati_sp) %>%
+  dati_sp <- SharedData$new(dati_2, group = "houses")
+
+  # A regular data frame (without coordinates) for the table.
+  # Use the same group name as the map data.
+  dati_table <- dati_2 %>%
+    select(-lat, -long) %>%
+    SharedData$new(group = "houses")
+
+  map <- leaflet(dati_sp) %>%
     # addProviderTiles(providers$CartoDB.Positron) %>% bug in Lealfet while caching
     setView(lat = 45.474211, lng = 9.191383, zoom = 13) %>%
-    addMiniMap() %>% 
-    addTiles() %>% 
-    addCircles(lng = ~long, 
-               lat = ~lat, 
-               color = ~ pal(price),
-               weight = 10,
-               radius = ~log(price)) %>%
+    addMiniMap() %>%
+    addTiles() %>%
+    addCircles(
+      lng = ~long,
+      lat = ~lat,
+      color = ~ pal(price),
+      weight = 10,
+      radius = ~ log(price)
+    ) %>%
     addLegend("bottomright",
       pal = pal, values = ~price,
-      title = "Prices") %>%
+      title = "Prices"
+    ) %>%
     addScaleBar(position = c("bottomleft"))
-  
-  tbl = reactable(
-  dati_table,
-  selection = "multiple",
-  onClick = "select",
-  rowStyle = list(cursor = "pointer"),
-  minRows = 10
+
+  tbl <- reactable(
+    dati_table,
+    selection = "multiple",
+    onClick = "select",
+    rowStyle = list(cursor = "pointer"),
+    minRows = 10
   )
-htmltools::tagList(map, tbl) 
+  htmltools::tagList(map, tbl)
 }
 
 # mapshot(map, file = "images/leaflet_prezzi.jpg")
@@ -336,22 +250,23 @@ Spatial continuous data, as Waldo Tobler's first law suggests, may be split spli
 ![(#fig:3dmap)3D Rayshader @rayshader Perspective scatterplot with Price elevation](images/3d_map2.png)
 
 ```{r 3dsurface, eval=FALSE}
- 
+
 # library(rayshader)
 
-est = ggplot(datiprep2) +
-  geom_point(aes(x=lat, y=long, color= price),size=2) +
-  scale_colour_gradient(name = 'Price (€)\n', 
-                        limits=c(200, 5000), 
-                        low="#FCB9B2", high="#B23A48") +
+est <- ggplot(datiprep2) +
+  geom_point(aes(x = lat, y = long, color = price), size = 2) +
+  scale_colour_gradient(
+    name = "Price (€)\n",
+    limits = c(200, 5000),
+    low = "#FCB9B2", high = "#B23A48"
+  ) +
   # scale_y_continuous(labels = dollar_format(suffix = "€", prefix = "")) +
-  xlab(NULL) + 
+  xlab(NULL) +
   ylab(NULL)
 
 # plot_gg(est,  multicore = TRUE, width=5,height=5,scale=300,windowsize=c(1400,866), zoom = 0.55, phi = 30)
 # render_camera()
 # render_snapshot(clear = TRUE, filename = "images/3d_map2.png")
-
 ```
 
 
@@ -367,31 +282,36 @@ By visual inspection, even though is assumed, the distribution of price seems to
 
 library(inlatools, warn.conflicts = F, quietly = T)
 
-coordinate_var =  datiprep2 %>%  select(lat, long, price, condom, totlocali, sqfeet) %>%  na.omit() %>%  as.data.frame()
-st_as_sf(coordinate_var, coords = c("long", "lat")) %>% #crs = 3003
+coordinate_var <- datiprep2 %>%
+  select(lat, long, price, condom, totlocali, sqfeet) %>%
+  na.omit() %>%
+  as.data.frame()
+st_as_sf(coordinate_var, coords = c("long", "lat")) %>% # crs = 3003
   st_set_crs("+proj=longlat +datum=WGS84") %>%
   st_transform(crs = "+proj=longlat +datum=WGS84") -> coordinate_var
 
 
 coordinate_var %>%
   bind_cols(st_coordinates(coordinate_var) %>%
-  as.data.frame()) -> coordinate_var
+    as.data.frame()) -> coordinate_var
 
-model_iid <- inla(log(price) ~  condom + sqfeet + totlocali, family = "normal", data = coordinate_var, control.compute = list(waic = TRUE))
+model_iid <- inla(log(price) ~ condom + sqfeet + totlocali, family = "normal", data = coordinate_var, control.compute = list(waic = TRUE))
 
 coordinate_var %>%
   mutate(
     mu = model_iid$summary.fitted.values$mean,
-    sigma2 = mu ^ 2 / model_iid$summary.hyperpar[1, "mean"],
+    sigma2 = mu^2 / model_iid$summary.hyperpar[1, "mean"],
     Pearson_iid = (price - mu) / sqrt(sigma2)
-) -> coordinate_var
+  ) -> coordinate_var
 
 
-vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y, 
-                        data = as.data.frame(coordinate_var), cressie = TRUE)
+vg_default <- variogram(Pearson_iid ~ 1,
+  locations = ~ X + Y,
+  data = as.data.frame(coordinate_var), cressie = TRUE
+)
 
 
-vgm(psill=400000, model = "Mat", range = 3060, nugget = .35) %>%
+vgm(psill = 400000, model = "Mat", range = 3060, nugget = .35) %>%
   fit.variogram(object = vg_default) -> vgm_default
 
 vgl_default <- variogramLine(vgm_default, maxdist = max(vg_default$dist))
@@ -407,7 +327,7 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
 # vgm_default$range[2]
 # vgm_default$kappa[2]
 # vgm_default$psill[2]
-# 
+#
 # characteristics <- tribble(
 #   ~id, ~label, ~x, ~xend, ~y, ~yend,
 #   1, "range", 0, 3 * vgm_default$range[2] / 1000, 0.25, 0.25,
@@ -415,8 +335,8 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
 #   2, "sill", 10, 10, 0, sum(vgm_default$psill),
 #   4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
 # )
-# 
-# 
+#
+#
 # ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
 #   geom_line(data = vgl_default) +
 #   geom_point() +
@@ -428,8 +348,6 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
 #              aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
 #   scale_x_continuous("distance (km)", limits = c(0, NA)) +
 #   scale_y_continuous("variance", limits = c(0, NA))
-
-
 ```
 
 
@@ -461,31 +379,34 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
 Arranged Counts for categorical columns can give a sense of the distribution of categories across the dataset suggesting also which predictors and which factor is relevant to the analysis. The left panel in figure \@ref(fig:fctCounts) offers the rearranged factor count fot the covariate *TOTLOCALI*.  "Bilocale" are the most common option for rent, then "Trilocale" follows. The intuition behind suggests that Milan rental market is oriented to "lighter" accommodations in terms of space and squarefootage. This comes natural since Milan is both a vivid study and working area, so temporary accommodations are warmly welcomed. Right in figure \@ref(fig:fctCounts) it can be seen that building are generally old and mostly built either at the start of the 20th century or in the middle. Further investigation might assess how this fact can affect the overall city status.
 
 ```{r fctCounts, fig.cap="Left: Count plot for each housedolds category, Right: count plot for building age"} 
-hc = datiprep2 %>%
-  mutate(totlocali = as_factor(totlocali)) %>% 
-  count(totlocali, sort = TRUE) %>% 
+hc <- datiprep2 %>%
+  mutate(totlocali = as_factor(totlocali)) %>%
+  count(totlocali, sort = TRUE) %>%
   mutate(totlocali = fct_reorder(totlocali, n)) %>%
   ggplot(aes(n, totlocali)) +
   geom_col() +
-  labs(x = "",
-       y = "") +
+  labs(
+    x = "",
+    y = ""
+  ) +
   theme_nicco()
 
-year = datiprep2 %>%
+year <- datiprep2 %>%
   filter(!is.na(buildage)) %>%
-  mutate(buildage = as_factor(buildage)) %>% 
+  mutate(buildage = as_factor(buildage)) %>%
   mutate(buildage = fct_lump(buildage, 10)) %>%
   filter(buildage != "Other") %>%
-  count(buildage, sort = TRUE) %>% 
+  count(buildage, sort = TRUE) %>%
   mutate(buildage = fct_reorder(buildage, n)) %>%
   ggplot(aes(n, buildage)) +
   geom_col() +
-  labs(x = "",
-       y = "") +
+  labs(
+    x = "",
+    y = ""
+  ) +
   theme_nicco()
 
-(hc+ year) 
-
+(hc + year)
 ```
 
 Two of the most requested features for comfort and livability in rents are the heating/cooling systems. Moreover rental market demand, regardless of the rent duration, strives for a ready-to-accomodate offer to meet clients expectation. In this sense accommodation coming with the newest and the most technologically advanced systems are naturally preferred. 
@@ -497,43 +418,52 @@ Then in bottom plot Jitters point out the number of outliers outside the IQR (In
 
 ```{r PricePerAc, fig.cap="Log Monthly Prices box-plots for the most common factor levels in Heating systems and Air Conditionings"}
 
-pph =datiprep2 %>%
+pph <- datiprep2 %>%
   mutate(heating = fct_lump(heating, 4)) %>%
   filter(heating != "Other") %>%
-  filter(heating != is.na(heating)) %>% 
-  mutate(heating = recode(heating,"Centralizzato, a radiatori" = "Cen_Rad",
-                          "Centralizzato, a radiatori, alimentato a gas" = "Cen_Rad_Gas",
-                          "Centralizzato, a radiatori, alimentato a metano" = "Cen_Rad_Met",
-                          "Autonomo, a radiatori, alimentato a metano" = "Aut_Rad_Met",
-                          "Autonomo, a radiatori, alimentato a gas" = "Aut_Rad_Gas")) %>% 
-  add_count(heating, name = "heating_count") %>% 
-  mutate(heating = glue("{ heating } ({ heating_count })"),
-         heating  = fct_reorder(heating, price)) %>%
+  filter(heating != is.na(heating)) %>%
+  mutate(heating = recode(heating,
+    "Centralizzato, a radiatori" = "Cen_Rad",
+    "Centralizzato, a radiatori, alimentato a gas" = "Cen_Rad_Gas",
+    "Centralizzato, a radiatori, alimentato a metano" = "Cen_Rad_Met",
+    "Autonomo, a radiatori, alimentato a metano" = "Aut_Rad_Met",
+    "Autonomo, a radiatori, alimentato a gas" = "Aut_Rad_Gas"
+  )) %>%
+  add_count(heating, name = "heating_count") %>%
+  mutate(
+    heating = glue("{ heating } ({ heating_count })"),
+    heating = fct_reorder(heating, price)
+  ) %>%
   ggplot(aes(price, heating)) +
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
-  labs(y = "",
-       x = "") +
+  labs(
+    y = "",
+    x = ""
+  ) +
   theme_nicco()
 
-ppa =datiprep2 %>%
+ppa <- datiprep2 %>%
   mutate(ac = fct_lump(ac, 4)) %>%
   # filter(ac != "Other") %>%
-  filter(ac != is.na(ac)) %>% 
-  add_count(ac, name = "ac_count") %>% 
-  mutate(ac = glue("{ ac } ({ ac_count })"),
-         ac  = fct_reorder(ac, price)) %>%
+  filter(ac != is.na(ac)) %>%
+  add_count(ac, name = "ac_count") %>%
+  mutate(
+    ac = glue("{ ac } ({ ac_count })"),
+    ac = fct_reorder(ac, price)
+  ) %>%
   ggplot(aes(price, ac)) +
   geom_boxplot() +
   geom_jitter(width = 0, height = .1, alpha = .25) +
   scale_x_log10(labels = dollar_format(suffix = "€", prefix = "")) +
-  labs(x = "Price (EUR)",
-       y = "") +
+  labs(
+    x = "Price (EUR)",
+    y = ""
+  ) +
   theme_nicco()
 
 pph / ppa
-
 ```
 
 
@@ -581,32 +511,38 @@ The plot \@ref(fig:GlmPriceSq) has two continuous variables for x (price) and y 
 
 ```{r GlmPriceSq, fig.cap="Monthly Prices change wrt square meters footage in different n-roomed apt"}
 
-my_formula = y ~ x
+my_formula <- y ~ x
 
-datiprep_sq = datiprep2 %>%
-  filter(!is.na(sqfeet),
-         sqfeet >= .001) %>%
+datiprep_sq <- datiprep2 %>%
+  filter(
+    !is.na(sqfeet),
+    sqfeet >= .001
+  ) %>%
   arrange(desc(sqfeet)) %>%
-  add_count(totlocali, name = "totlocali_count") %>% 
-  mutate(abs_price = price / sqfeet) 
+  add_count(totlocali, name = "totlocali_count") %>%
+  mutate(abs_price = price / sqfeet)
 
 datiprep_sq %>%
   dplyr::filter(!is.na(totlocali)) %>%
   mutate(totlocali = fct_lump(totlocali, 5)) %>%
   ggplot(aes(sqfeet, price, color = totlocali)) +
-  geom_smooth(method = "lm",se = FALSE, formula = my_formula) +
-  stat_poly_eq(formula = my_formula, 
-               eq.with.lhs = "italic(hat(y))~`=`~",
-               aes(label = paste(..eq.label.., sep = "~~~")), 
-               parse = TRUE,
-               # label.x = 200,
-               label.x = 10) +
-  geom_point( alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, formula = my_formula) +
+  stat_poly_eq(
+    formula = my_formula,
+    eq.with.lhs = "italic(hat(y))~`=`~",
+    aes(label = paste(..eq.label.., sep = "~~~")),
+    parse = TRUE,
+    # label.x = 200,
+    label.x = 10
+  ) +
+  geom_point(alpha = 0.6) +
   scale_y_log10(labels = dollar_format(suffix = "€", prefix = "")) +
   scale_x_continuous(labels = unit_format(suffix = "m^2", prefix = "")) +
   # scale_colour_brewer(TeX("Household Type")) +
-  labs(y = "price (EUR)",
-       x = "") +
+  labs(
+    y = "price (EUR)",
+    x = ""
+  ) +
   theme_nicco()
 ```
 
@@ -614,11 +550,13 @@ Furthermore in table \@ref(tab:TopAbsPrice) resides the answer to the question "
 
 ```{r TopAbsPrice, fig.cap="prima tabella"}
 datiprep_sq %>%
-  arrange(desc(abs_price)) %>% 
-  select(location,totlocali, price, sqfeet,floor, totpiani,abs_price) %>%
-  slice(3:8) %>%  
-  mutate(abs_price = round(abs_price,2),
-         abs_price = glue("{abs_price}€")) %>%
+  arrange(desc(abs_price)) %>%
+  select(location, totlocali, price, sqfeet, floor, totpiani, abs_price) %>%
+  slice(3:8) %>%
+  mutate(
+    abs_price = round(abs_price, 2),
+    abs_price = glue("{abs_price}€")
+  ) %>%
   kbl(caption = paste0("The most profitable properties per single square meter footage at the date of", Sys.Date(), collapse = " "), booktabs = T) %>%
   kable_minimal()
 ```
@@ -650,27 +588,33 @@ The plot in figure \@ref(fig:TieFighterPlot) has the purpose to demonstrate how 
 ```{r TieFighterPlot, fig.cap="Tie fighter coefficient plot for the log-linear model"}
 
 datiprep_sq %>%
-  mutate(totpiani = fct_lump(totpiani, 5),
-         floor = fct_lump(floor,10)) %>% 
-  filter(floor != "Other") %>%  
-  filter(totpiani != "Other")  %>% 
-  lm(log2(price) ~ log2(abs_price) + bagno + floor + totpiani,  data = .)  %>% 
-  tidy(conf.int = TRUE) %>%    
+  mutate(
+    totpiani = fct_lump(totpiani, 5),
+    floor = fct_lump(floor, 10)
+  ) %>%
+  filter(floor != "Other") %>%
+  filter(totpiani != "Other") %>%
+  lm(log2(price) ~ log2(abs_price) + bagno + floor + totpiani, data = .) %>%
+  tidy(conf.int = TRUE) %>%
   filter(term != "(Intercept)") %>%
-  mutate(term = ifelse(term == "log2(abs_price)", "House Surface (doubling)", term), 
-         term = ifelse(str_detect(term,"totpiani"), glue("{term} totali"), term), 
-         term = str_remove(term, "^bagno"),
-         term = str_remove(term, "^totpiani"),
-         term = ifelse(str_detect(term,"floor"), glue("al {term}"), term), 
-         term = str_remove(term, "floor")) %>% 
-         # term = str_remove(term, "^floor") 
+  mutate(
+    term = ifelse(term == "log2(abs_price)", "House Surface (doubling)", term),
+    term = ifelse(str_detect(term, "totpiani"), glue("{term} totali"), term),
+    term = str_remove(term, "^bagno"),
+    term = str_remove(term, "^totpiani"),
+    term = ifelse(str_detect(term, "floor"), glue("al {term}"), term),
+    term = str_remove(term, "floor")
+  ) %>%
+  # term = str_remove(term, "^floor")
   mutate(term = fct_reorder(term, estimate)) %>%
   ggplot(aes(estimate, term)) +
   geom_point() +
   geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = .1) +
   geom_vline(xintercept = 0, color = "red", lty = 2) +
-  labs(x = "Coefficient",
-       y = "") +
+  labs(
+    x = "Coefficient",
+    y = ""
+  ) +
   theme_nicco()
 ```
 
@@ -773,15 +717,16 @@ This MNAR case is difficult to detect since the missing process and details are 
 Patterns are visible through a statistical tool whose typical application is found in detecting collinearity in predictors i.e.  _heat map_. The plot in fig. \@ref(fig:Heatmap) assign $1$ when data is present and $0$ otherwise. Gray background signifies data presence, black absence. 
 
 ```{r Heatmap, fig.cap="Heatmap of missing observations where gray implies data presence otherwise black, author's source"}
-data1 = datiprep2 %>% select(-which(colMeans(is.na(.)) < 0.001)) ## % of missing
-convert_missing = function(x) ifelse(is.na(x), 0, 1)
-scat_missing = apply(data1, 2, convert_missing)
+data1 <- datiprep2 %>% select(-which(colMeans(is.na(.)) < 0.001)) ## % of missing
+
+convert_missing <- function(x) ifelse(is.na(x), 0, 1)
+scat_missing <- apply(data1, 2, convert_missing)
 
 Heatmap(
-  scat_missing, 
-  name = "Miss-Pres", #title of legend
+  scat_missing,
+  name = "Miss-Pres", # title of legend
   column_title = "Predictors", row_title = "Samples",
-  col = c("black","lightgrey"),
+  col = c("black", "lightgrey"),
   show_heatmap_legend = FALSE,
   row_names_gp = gpar(fontsize = 0) # Text size for row names
 )
@@ -797,15 +742,13 @@ gg_miss_upset(datiprep2, nsets = 9)
 ### Missing Imputation
 ```{r ImputationData}
 ## conversion to dataframe
-# data_miss = datiprep %>%  
-#   select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice_original_price,-lowrdprice_current_price, -lowrdprice_passed_days,-lowrdprice_date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>% 
+# data_miss = datiprep %>%
+#   select(-id,-lat,-long,-location, -buildage, -cucina, -altro, -ac,-pub_date, -catastinfo, -aptchar, -age,-lowrdprice_original_price,-lowrdprice_current_price, -lowrdprice_passed_days,-lowrdprice_date,-enclass,-contr ,-disp, -pauto,-review,  -hasmulti,-title) %>%
 #   as.data.frame()
 
-data_miss2 = datiprep2 %>%  
-  select(condom, totlocali,price, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato) %>% 
+data_miss2 <- datiprep2 %>%
+  select(condom, totlocali, price, altro, bagno, cucina, heating, photosnum, floor, price, sqfeet, fibra_ottica:giardino_privato) %>%
   as.data.frame()
-
-
 ```
 
 A relatively simple approach to front MAR is to build a regression model to explain the covariates that contain missings and plug-back-in the respective posterior estimates (e.g. posterior means) from their predictive distributions @Little. This approach is available in INLA and it is fast and easy to implement in most of the cases, indeed it ignores the uncertainty behind the imputed values [@Bayesian_INLA_Rubio]. However it has the benefit to be a more than a reasonable choice with respect to the number of imputation needed. There are two approaches to follow, the former that considers the imputation of the response, the latter it has been designed for covariates.
@@ -813,24 +756,19 @@ Since the response is not missing, indeed it does _condominium_,  imputation is 
 
 ```{r IndexCondominium}
 ##  missing data index
-condom_na = which(is.na(data_miss2$condom)) ## 19  74  77  90  99 113 116 120 179 249
+condom_na <- which(is.na(data_miss2$condom)) ## 19  74  77  90  99 113 116 120 179 249
 condom_na
-price_na = which(is.na(data_miss2$price))
-
+price_na <- which(is.na(data_miss2$price))
 ```
 
 
-
-
-
 ```{r see_how_much_miss, eval=F}
-library(finalfit, warn.conflicts = F, quietly = T) 
-ff =data_miss2 %>% 
-  mutate((across(where(is.character), ~ forcats::as_factor(.)))) %>% 
+library(finalfit, warn.conflicts = F, quietly = T)
+ff <- data_miss2 %>%
+  mutate((across(where(is.character), ~ forcats::as_factor(.)))) %>%
   ff_glimpse()
 
 ff$Continuous
-
 ```
 
 
@@ -856,16 +794,17 @@ A model is fitted based on missing data for which the response variable is condo
 
 ```{r condomimputation, fig.cap="Posterior Means imputation"}
 ## condom model fitted
-condo_imputation = inla(condom ~ 1 + sqfeet + totlocali, data = data_miss2,
-                      control.predictor = list(compute = TRUE),
-                      control.compute = list(config = TRUE))
+condo_imputation <- inla(condom ~ 1 + sqfeet + totlocali,
+  data = data_miss2,
+  control.predictor = list(compute = TRUE),
+  control.compute = list(config = TRUE)
+)
 
-data_imputed = data.frame(data_miss2) 
-data_imputed$condom[condom_na] = condo_imputation$summary.fitted.values[condom_na, "mean"]
-condo_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>% 
-  kbl(caption = "Estimated Posterior mean quantities imputed at the place of the missing index",  booktabs = T) %>%
+data_imputed <- data.frame(data_miss2)
+data_imputed$condom[condom_na] <- condo_imputation$summary.fitted.values[condom_na, "mean"]
+condo_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>%
+  kbl(caption = "Estimated Posterior mean quantities imputed at the place of the missing index", booktabs = T) %>%
   kable_minimal()
-
 ```
 
 
@@ -888,6 +827,3 @@ condo_imputation$summary.fitted.values[condom_na, c("mean", "sd")] %>%
 <!-- ``` -->
 
  
-
-
-

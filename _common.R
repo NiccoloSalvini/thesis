@@ -11,6 +11,14 @@
 
 ### gen.options ###
 
+suppressPackageStartupMessages(library(tidyverse, quietly = T))
+library(latex2exp, warn.conflicts = F, quietly = T)
+library(patchwork, warn.conflicts = F, quietly = T)
+library(knitr, warn.conflicts = F, quietly = T)
+options(crayon.enabled = FALSE)
+
+
+
 knitr::opts_chunk$set(
   tidy.opts=list(width.cutoff=80),
   tidy=TRUE,
@@ -24,8 +32,45 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+## wrapper to plot inla object posteriors quantities
+
+post_plot = function(inla_obj, quantity, coef) {
+
+  if(!inherits(inla_obj, "inla")){
+    stop("argument 'inla_obj' should be class 'inla'")
+
+  }
+
+  if(str_detect(coef, "(?i)\\bintercept\\b")) {
+    coef = paste0("(",str_to_title(coef),")")
+  }
+
+  inla_obj %>%
+    pluck(quantity, coef) %>%
+    as_tibble() %>%
+    ggplot(aes(x, y)) +
+    geom_line(aes(x, y)) +
+    theme_nicco()
+
+}
 
 
+theme_nicco = function (base_size = 11, base_family = "") {
+  theme_bw() %+replace%
+    theme(
+      text = element_text(family = "sans", size = 12),
+      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
+      panel.background  = element_blank(),
+      axis.ticks = element_line(colour = "grey70", size = 0.2),
+      plot.background = element_rect(fill="white", colour=NA),
+      panel.border = element_rect(linetype = "blank", fill = NA),
+      legend.background = element_rect(fill="transparent", colour=NA),
+      legend.key = element_rect(fill="transparent", colour=NA)
+    )
+}
+
+
+## alt theme
 theme_nicco2 = function (base_size = 11, base_family = "") {
   theme_bw() %+replace%
     theme(
@@ -51,22 +96,5 @@ theme_nicco2 = function (base_size = 11, base_family = "") {
 }
 
 
-theme_nicco = function (base_size = 11, base_family = "") {
-  theme_bw() %+replace%
-    theme(
-      text = element_text(family = "sans", size = 12),
-      plot.title = element_text(face = "bold", size = 14, margin=margin(0,0,30,0)),
-      panel.background  = element_blank(),
-      axis.ticks = element_line(colour = "grey70", size = 0.2),
-      plot.background = element_rect(fill="white", colour=NA),
-      panel.border = element_rect(linetype = "blank", fill = NA),
-      legend.background = element_rect(fill="transparent", colour=NA),
-      legend.key = element_rect(fill="transparent", colour=NA)
-    )
-}
 
-library(ggplot2,warn.conflicts = F,quietly = T)
-library(latex2exp, warn.conflicts = F, quietly = T)
-latex2exp_supported(plot=TRUE)
-options(crayon.enabled = FALSE)
-suppressPackageStartupMessages(library(tidyverse))
+

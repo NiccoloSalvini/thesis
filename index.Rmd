@@ -40,6 +40,10 @@ lof: true
 ```{r, child=here::here("prelims", "00-abstract.Rmd")}
 ```
 
+```{r, child=here::here("prelims", "00-colophon.Rmd"), eval=!knitr::is_latex_output()}
+```
+
+
 
 ```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
 suppressMessages(source("hooks_mod/wrap_lines.R"))

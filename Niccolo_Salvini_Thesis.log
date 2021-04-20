@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.2.15)  15 FEB 2021 15:39
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.2.15)  20 APR 2021 01:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1236,6 +1236,10 @@ Underfull \hbox (badness 1603) in paragraph at lines 38--38
 
  []
 
+
+Package natbib Warning: Citation `rayshader' on page 6 undefined on input line 
+44.
+
 [6])
 \tf@lof=\write6
 \openout6 = `Niccolo_Salvini_Thesis.lof'.
@@ -1248,6 +1252,22 @@ Chapter 1.
 
 ] [14] [15] [16]
 Chapter 2.
+
+Package natbib Warning: Citation `Beautifulsoup' on page 17 undefined on input 
+line 248.
+
+
+Package natbib Warning: Citation `polite' on page 17 undefined on input line 25
+0.
+
+
+Package natbib Warning: Citation `doParallel' on page 17 undefined on input lin
+e 251.
+
+
+Package natbib Warning: Citation `foreach' on page 17 undefined on input line 2
+51.
+
 [17
 
 ] [18]
@@ -1284,11 +1304,28 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 5.00046pt on input line 415.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 415.
-[30] [31] [32]
+[30] [31]
+
+Package natbib Warning: Citation `polite' on page 32 undefined on input line 42
+9.
+
+
+Package natbib Warning: Citation `ratelimitr' on page 32 undefined on input lin
+e 429.
+
+
+Package natbib Warning: Citation `ratelimitr' on page 32 undefined on input lin
+e 429.
+
+[32]
 
 LaTeX Warning: Reference `@' on page 33 undefined on input line 439.
 
-[33]
+
+Package natbib Warning: Citation `rate_delay' on page 33 undefined on input lin
+e 447.
+
+
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.
 sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -1300,7 +1337,7 @@ File: lstlang2.sty 2020/03/24 1.8d listings language file
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstlang3.
 sty
 File: lstlang3.sty 2020/03/24 1.8d listings language file
-) [34]
+) [33] [34]
 File: images/http_schema.jpg Graphic file (type bmp)
 <images/http_schema.jpg>
 [35] [36]
@@ -1311,6 +1348,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 520--521
 [37] [38]
 File: images/proxy_schema.jpg Graphic file (type bmp)
 <images/proxy_schema.jpg>
+
+Package natbib Warning: Citation `possibly' on page 39 undefined on input line 
+588.
+
 [39]
 File: images/pseudocode_latex/pseudocode_possibly.jpg Graphic file (type bmp)
 <images/pseudocode_latex/pseudocode_possibly.jpg>
@@ -1323,7 +1364,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 608--608
 
 File: images/parallel_problem.jpg Graphic file (type bmp)
 <images/parallel_problem.jpg>
-[41] [42] [43]
+[41]
+
+Package natbib Warning: Citation `doFuture' on page 42 undefined on input line 
+625.
+
+
+Package natbib Warning: Citation `doFuture' on page 42 undefined on input line 
+626.
+
+
+Package natbib Warning: Citation `foreach' on page 42 undefined on input line 6
+26.
+
+
+Package natbib Warning: Citation `doParallel' on page 42 undefined on input lin
+e 626.
+
+[42] [43]
 File: images/divideconquer.png Graphic file (type bmp)
 <images/divideconquer.png>
 [44] [45]
@@ -1331,6 +1389,14 @@ File: images/simulations/final_furrr_future.png Graphic file (type bmp)
 <images/simulations/final_furrr_future.png>
 File: images/parallel_computing.jpg Graphic file (type bmp)
 <images/parallel_computing.jpg>
+
+Package natbib Warning: Citation `foreach' on page 46 undefined on input line 6
+63.
+
+
+Package natbib Warning: Citation `doFuture' on page 46 undefined on input line 
+663.
+
 [46] [47]
 File: images/simulations/final_foreach_dofuture.png Graphic file (type bmp)
 <images/simulations/final_foreach_dofuture.png>
@@ -1348,6 +1414,14 @@ Chapter 3.
 File: images/software_arch.jpg.png Graphic file (type bmp)
 <images/software_arch.jpg.png>
 
+Package natbib Warning: Citation `rmarkdown1' on page 52 undefined on input lin
+e 727.
+
+
+Package natbib Warning: Citation `bookdown2' on page 52 undefined on input line
+ 727.
+
+
 Package natbib Warning: Citation `link' on page 52 undefined on input line 728.
 
 
@@ -1355,69 +1429,79 @@ Package natbib Warning: Citation `link' on page 52 undefined on input line 728.
 File: images/api_stru.png Graphic file (type bmp)
 <images/api_stru.png>
 [54]
+
+Package natbib Warning: Citation `plumber' on page 55 undefined on input line 7
+77.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 777--777
 [][][][]$[][][][][] [] [] [] [][][][] [] [][][] [] [][][][][][] [] [][][] [] []
 [] [] [][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][][][][][][
 ][] [] [][][][] [][] [][][] [][] [][] [][]
  []
 
-[55] [56] [57] [58]
-Underfull \hbox (badness 1184) in paragraph at lines 857--858
+[55]
+
+Package natbib Warning: Citation `plumber' on page 56 undefined on input line 7
+95.
+
+[56] [57] [58]
+
+Package natbib Warning: Citation `plumber' on page 59 undefined on input line 8
+59.
+
+
+Underfull \hbox (badness 1184) in paragraph at lines 859--860
 []\TU/lmr/m/n/12 The above filter parses the request through the default reques
 t argu-
- []
-
-
-Underfull \hbox (badness 7238) in paragraph at lines 857--858
-\TU/lmr/m/n/12 (i.e. [][][][]) (section []2.5.1[]), the [][][][]
  []
 
 [59]
 File: images/swagger.PNG Graphic file (type bmp)
 <images/swagger.PNG>
-[60]
 File: images/endpoint1and2.jpg Graphic file (type bmp)
 <images/endpoint1and2.jpg>
-[61] [62]
+[60] [61]
 File: images/dockerfile2.PNG.jpg Graphic file (type bmp)
 <images/dockerfile2.PNG.jpg>
-
-Underfull \hbox (badness 2478) in paragraph at lines 912--914
+[62]
+Underfull \hbox (badness 2478) in paragraph at lines 914--916
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] \TU/lmr/m/n/12 : The
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 914--916
+Underfull \hbox (badness 10000) in paragraph at lines 916--918
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][]
  []
 
 
-Underfull \hbox (badness 2384) in paragraph at lines 914--916
+Underfull \hbox (badness 2384) in paragraph at lines 916--918
 [][][][][][][][][] \TU/lmr/m/n/12 : The command update and install remaining
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 916--918
+Underfull \hbox (badness 10000) in paragraph at lines 918--920
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ]
  []
 
-[63] [64]
+[63]
 
-LaTeX Warning: Reference `Dos' on page 65 undefined on input line 938.
+LaTeX Warning: Reference `Dos' on page 64 undefined on input line 940.
 
+[64]
 File: images/nginx_gateway.png Graphic file (type bmp)
 <images/nginx_gateway.png>
-[65] [66]
+[65]
 File: images/docker-compose.jpg Graphic file (type bmp)
 <images/docker-compose.jpg>
-[67]
+[66] [67]
 File: images/https_method.jpg Graphic file (type bmp)
 <images/https_method.jpg>
 
-Underfull \hbox (badness 1584) in paragraph at lines 989--990
+Underfull \hbox (badness 1584) in paragraph at lines 991--992
 []\TU/lmr/m/n/12 From a port communication point of view at first NGINX contain
 er
  []
@@ -1425,46 +1509,54 @@ er
 [68] [69]
 File: images/SoftwareDevWF.jpg Graphic file (type bmp)
 <images/SoftwareDevWF.jpg>
+
+Package natbib Warning: Citation `plungr' on page 70 undefined on input line 10
+20.
+
+
+Package natbib Warning: Citation `testthat' on page 70 undefined on input line 
+1020.
+
 [70] [71]
 Chapter 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1029.
+(Font)              scaled to size 12.0pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1029.
+(Font)              scaled to size 8.4pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1029.
+(Font)              scaled to size 6.0pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1029.
+(Font)              scaled to size 12.0011pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1029.
+(Font)              scaled to size 8.40076pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1029.
+(Font)              scaled to size 6.00055pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1029.
+(Font)              scaled to size 11.99872pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1029.
+(Font)              scaled to size 8.3991pt on input line 1031.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1029.
+(Font)              scaled to size 5.99936pt on input line 1031.
 [72
 
 ]
-Underfull \hbox (badness 1831) in paragraph at lines 1033--1033
+Underfull \hbox (badness 1831) in paragraph at lines 1035--1035
 []\TU/lmr/bx/n/17.28 The class of Latent Gaussian Models
  []
 
 [73]
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-048.
+050.
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [74] [75]
-Overfull \hbox (2.8808pt too wide) detected at line 1090
+Overfull \hbox (2.8808pt too wide) detected at line 1092
 [][][]
  []
 
 [76] [77]
 
-LaTeX Warning: Reference `def:gp' on page 78 undefined on input line 1135.
+LaTeX Warning: Reference `def:gp' on page 78 undefined on input line 1137.
 
 [78]
 File: images/precvscov.jpg Graphic file (type bmp)
@@ -1480,6 +1572,10 @@ File: 04-inla_files/figure-latex/postplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/postplot-1.pdf>
 [85] [86]
 Chapter 5.
+
+Package natbib Warning: Citation `mass' on page 87 undefined on input line 1333
+.
+
 [87
 
 ]
@@ -1525,20 +1621,20 @@ File: 05-prd_modelling_files/figure-latex/pitcpo-1.pdf Graphic file (type pdf)
 <use 05-prd_modelling_files/figure-latex/pitcpo-1.pdf>
 [102]
 
-LaTeX Warning: Reference `example' on page 103 undefined on input line 1557.
+LaTeX Warning: Reference `example' on page 103 undefined on input line 1542.
 
 
 Package natbib Warning: Citation `Blangiaro-Cameletti' on page 103 undefined on
- input line 1568.
+ input line 1553.
 
 
 Package natbib Warning: Citation `Blangiaro-Cameletti' on page 103 undefined on
- input line 1568.
+ input line 1553.
 
 [103] [104] [105]
 
 Package natbib Warning: Citation `slides' on page 106 undefined on input line 1
-591.
+573.
 
 File: 05-prd_modelling_files/figure-latex/priorfun-1.pdf Graphic file (type pdf
 )
@@ -1547,22 +1643,22 @@ File: 05-prd_modelling_files/figure-latex/priorfun-1.pdf Graphic file (type pdf
 Chapter 6.
 
 LaTeX Warning: Reference `fig:NonLinearSpatialRel' on page 108 undefined on inp
-ut line 1609.
+ut line 1590.
 
 [108
 
 ]
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1611--1637
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1592--1618
  [] [] 
  []
 
 [109]
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1637--1661
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1618--1642
  [] [] 
  []
 
 
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1661--1663
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1642--1644
  [] [] 
  []
 
@@ -1572,6 +1668,10 @@ File: images/leaflet_prezzi.jpg Graphic file (type bmp)
 [112]
 File: images/3d_map2.png Graphic file (type bmp)
 <images/3d_map2.png>
+
+Package natbib Warning: Citation `rayshader' on page 113 undefined on input lin
+e 1682.
+
 [113]
 File: 06-exploratory_files/figure-latex/semivariogram-1.pdf Graphic file (type 
 pdf)
@@ -1589,7 +1689,7 @@ File: 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
 [117]
-Overfull \hbox (72.69743pt too wide) in paragraph at lines 1767--1780
+Overfull \hbox (72.69743pt too wide) in paragraph at lines 1748--1761
  [][] 
  []
 
@@ -1601,7 +1701,7 @@ File: 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
 File: 06-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
 <use 06-exploratory_files/figure-latex/Heatmap-1.pdf>
 
-LaTeX Warning: Reference `tab:' on page 121 undefined on input line 1831.
+LaTeX Warning: Reference `tab:' on page 121 undefined on input line 1812.
 
 [121]
 File: 06-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
@@ -1615,13 +1715,13 @@ Chapter 7.
 File: 07-model_fitting_files/figure-latex/ggmap-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/ggmap-1.pdf>
 [126]
-Underfull \hbox (badness 2635) in paragraph at lines 1900--1904
+Underfull \hbox (badness 2635) in paragraph at lines 1881--1885
 \TU/lmr/m/n/12 dom effect assigned to the function $[][][][]$, for the set of c
 oviarates
  []
 
 [127]
-Underfull \hbox (badness 3746) in paragraph at lines 1917--1918
+Underfull \hbox (badness 3746) in paragraph at lines 1898--1899
 []\TU/lmr/m/n/12 In the lower level priors are considered as their joint distri
 bution
  []
@@ -1629,7 +1729,7 @@ bution
 File: 07-model_fitting_files/figure-latex/meshes-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/meshes-1.pdf>
 [128] [129]
-Overfull \hbox (218.90544pt too wide) in paragraph at lines 1960--1977
+Overfull \hbox (218.90544pt too wide) in paragraph at lines 1941--1958
  [][] 
  []
 
@@ -1645,7 +1745,7 @@ File: 07-model_fitting_files/figure-latex/modelcpo-1.pdf Graphic file (type pdf
 )
 <use 07-model_fitting_files/figure-latex/modelcpo-1.pdf>
 
-LaTeX Warning: Reference `ggmap' on page 133 undefined on input line 2043.
+LaTeX Warning: Reference `ggmap' on page 133 undefined on input line 2024.
 
 [133]
 File: 07-model_fitting_files/figure-latex/predgrid-1.pdf Graphic file (type pdf
@@ -1672,17 +1772,17 @@ File: 98-appendix_files/figure-latex/laplacevisual-1.pdf Graphic file (type pdf
 <use 98-appendix_files/figure-latex/laplacevisual-1.pdf>
 (./Niccolo_Salvini_Thesis.bbl [145] [146
 
-] [147] [148] [149] [150] [151] [152] [153] [154] [155]
-Underfull \hbox (badness 5022) in paragraph at lines 661--664
+] [147] [148] [149] [150] [151] [152] [153] [154]
+Underfull \hbox (badness 5022) in paragraph at lines 600--603
 []\TU/lmr/m/n/12 UserAgentString.com (1999).  Useragentstring.com - chrome vers
 ion
  []
 
-[156])
+[155])
 
 Package natbib Warning: There were undefined citations.
 
-[157] (./Niccolo_Salvini_Thesis.aux)
+[156] (./Niccolo_Salvini_Thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1694,12 +1794,12 @@ Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: DD713B18D5E9677815290B62C3CCFFD5;11928.
  ) 
 Here is how much of TeX's memory you used:
- 23836 strings out of 479210
- 419047 string characters out of 5873258
- 1129340 words of memory out of 5000000
- 42951 multiletter control sequences out of 15000+600000
+ 23792 strings out of 479210
+ 418319 string characters out of 5873258
+ 1127179 words of memory out of 5000000
+ 42907 multiletter control sequences out of 15000+600000
  419550 words of font info for 105 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 98i,19n,122p,3291b,1678s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 98i,19n,122p,5269b,1678s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (159 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (158 pages).

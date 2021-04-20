@@ -51,9 +51,20 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -68,8 +79,6 @@
 <script src="libs/leaflet-locationfilter2-0.1.1/locationfilter.js"></script>
 <script src="libs/leaflet-locationfilter2-0.1.1/locationfilter-bindings.js"></script>
 <link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
 <script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
 <script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
@@ -173,6 +182,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#dedication"><i class="fa fa-check"></i>Dedication</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#colophon"><i class="fa fa-check"></i>Colophon</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="scraping.html"><a href="scraping.html"><i class="fa fa-check"></i><b>2</b> Web Scraping</a>
@@ -295,9 +305,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="ref-what_is_a_rest_api" class="csl-entry">
 2018. <em>What Is a REST API?</em> Red Hat. <a href="https://www.redhat.com/en/topics/api/what-is-a-rest-api">https://www.redhat.com/en/topics/api/what-is-a-rest-api</a>.
 </div>
-<div id="ref-rmarkdown1" class="csl-entry">
-Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2020. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
-</div>
 <div id="ref-spateconanslein" class="csl-entry">
 Anselin, Luc. 2010. <span>“Thirty Years of Spatial Econometrics.”</span> <em>Papers in Regional Science</em> 89 (1): 3–25. https://doi.org/<a href="https://doi.org/10.1111/j.1435-5957.2010.00279.x">https://doi.org/10.1111/j.1435-5957.2010.00279.x</a>.
 </div>
@@ -325,13 +332,10 @@ Barney, Blaise. 2020. <span>“Introduction to Parallel Computing.”</span> <em
 <div id="ref-basilebenfratmcast" class="csl-entry">
 Basile, Roberto, Luigi Benfratello, and Davide Castellani. 2013. <span>“Geoadditive Models for Regional Count Data: An Application to Industrial Location.”</span> <em>Geographical Analysis</em> 45 (1): 28–48. https://doi.org/<a href="https://doi.org/10.1111/gean.12001">https://doi.org/10.1111/gean.12001</a>.
 </div>
-<div id="ref-bengtsson_2017" class="csl-entry">
-Bengtsson, Henrik. 2020c. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
-</div>
 <div id="ref-future" class="csl-entry">
-———. 2020a. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
+Bengtsson, Henrik. 2020a. <em>Future: Unified Parallel and Distributed Processing in r for Everyone</em>. <a href="https://github.com/HenrikBengtsson/future">https://github.com/HenrikBengtsson/future</a>.
 </div>
-<div id="ref-doFuture" class="csl-entry">
+<div id="ref-bengtsson_2017" class="csl-entry">
 ———. 2020b. <span>“A Unifying Framework for Parallel and Distributed Processing in r Using Futures.”</span> <a href="https://arxiv.org/abs/2008.00553">https://arxiv.org/abs/2008.00553</a>.
 </div>
 <div id="ref-besag1995conditional" class="csl-entry">
@@ -368,7 +372,7 @@ Cantino, Andrew, and Kyle Maxwell. 2013. <span>“SelectorGadget: Point and Clic
 Capozza, Dennis, and Paul Seguin. 1996. <span>“Expectations, Efficiency, and Euphoria in the Housing Market.”</span> <em>Regional Science and Urban Economics</em> 26 (February): 369–86. <a href="https://doi.org/10.1016/0166-0462(95)02120-5">https://doi.org/10.1016/0166-0462(95)02120-5</a>.
 </div>
 <div id="ref-leaflet" class="csl-entry">
-Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2019. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet">https://CRAN.R-project.org/package=leaflet</a>.
+Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2019. <em>Leaflet: Create Interactive Web Maps with the JavaScript Leaflet Library</em>. <a href="http://rstudio.github.io/leaflet/">http://rstudio.github.io/leaflet/</a>.
 </div>
 <div id="ref-ciscooutlook" class="csl-entry">
 Cisco, White Paper -. 2020. <span>“Cisco Annual Internet Report - Cisco Annual Internet Report (2018–2023).”</span> <a href="https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html">https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html</a>.
@@ -381,9 +385,6 @@ Clark, Todd E. 1995. <span>“<span class="nocase">Rents and prices of housing a
 </div>
 <div id="ref-colin_fay_2020" class="csl-entry">
 Colin Fay, Sébastien Rochette. 2020. <em>Engineering Production-Grade Shiny Apps</em>. <a href="https://engineering-shiny.org/">https://engineering-shiny.org/</a>.
-</div>
-<div id="ref-Beautifulsoup" class="csl-entry">
-Contributors. 2004. <span>“Beautiful Soup: We Called Him Tortoise Because He Taught Us.”</span> <a href="https://www.crummy.com/software/BeautifulSoup/">https://www.crummy.com/software/BeautifulSoup/</a>.
 </div>
 <div id="ref-wiki:cleanurl" class="csl-entry">
 contributors, Wikipedia. 2020a. <span>“Clean URL — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878">https://en.wikipedia.org/w/index.php?title=Clean_URL&amp;oldid=993040878</a>.
@@ -420,9 +421,6 @@ Cordeiro, Gauss. 2004. <span>“On Pearson’s Residuals in Generalized Linear M
 </div>
 <div id="ref-Letterfr71" class="csl-entry">
 Corporation, LinkedIn. 2017. <span>“Letter from LinkedIn to HiQ Labs.”</span> <a href="https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1">https://static1.squarespace.com/static/5803b57737c581885cbd0667/t/59721e45725e2539a60bb195/1</a>.
-</div>
-<div id="ref-doParallel" class="csl-entry">
-Corporation, Microsoft, and Steve Weston. 2020. <em>doParallel: Foreach Parallel Adaptor for the ’Parallel’ Package</em>. <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.
 </div>
 <div id="ref-CosandeyGodin2015" class="csl-entry">
 Cosandey-Godin, Aurelie, Elias Teixeira Krainski, Boris Worm, and Joanna Mills Flemming. 2015. <span>“Applying Bayesian Spatiotemporal Models to Fisheries Bycatch in the Canadian Arctic.”</span> <em>Canadian Journal of Fisheries and Aquatic Sciences</em> 72 (2): 186–97. <a href="https://doi.org/10.1139/cjfas-2014-0159">https://doi.org/10.1139/cjfas-2014-0159</a>.
@@ -529,12 +527,6 @@ Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. <span>“An Explicit Li
 <div id="ref-Ling" class="csl-entry">
 Ling, Yuheng. 2019. <span>“Time, Space and Hedonic Prediction Accuracy Evidence from the Corsican Apartment Market.”</span> <em>The Annals of Regional Science</em>, April, 28. <a href="https://doi.org/10.1007/s00168-019-00967-2">https://doi.org/10.1007/s00168-019-00967-2</a>.
 </div>
-<div id="ref-possibly" class="csl-entry">
-Lionel Henry RStudio, Hadley Wickham RStudio. 2020a. <span>“Capture Side Effects. — Safely • Purrr.”</span> <a href="https://purrr.tidyverse.org/reference/safely.html">https://purrr.tidyverse.org/reference/safely.html</a>.
-</div>
-<div id="ref-rate_delay" class="csl-entry">
-———. 2020b. <span>“Create Delaying Rate Settings - Rate-Helpers.”</span> <em>Rate-Helpers, Purrr</em>. Lionel Henry, Hadley Wickham. <a href="https://purrr.tidyverse.org/refeence/rate-helpers.html">https://purrr.tidyverse.org/refeence/rate-helpers.html</a>.
-</div>
 <div id="ref-Little" class="csl-entry">
 Little, Roderick, and Donald Rubin. 2014. <span>“Statistical Analysis with Missing Data, Second Edition.”</span> In, 200–220. <a href="https://doi.org/10.1002/9781119013563.ch10">https://doi.org/10.1002/9781119013563.ch10</a>.
 </div>
@@ -557,7 +549,7 @@ Media, ALM. 2017. <span>“What Courts Have Said about the Legality of Data Scra
 Meissner, Peter. 2020. <em>Using Robotstxt</em>. <a href="https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html">https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html</a>.
 </div>
 <div id="ref-robotstxt" class="csl-entry">
-Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A ’Robots.txt’ Parser and ’Webbot’/’Spider’/’Crawler’ Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.
+Meissner, Peter, and Kun Ren. 2020. <em>Robotstxt: A Robots.txt Parser and Webbot/’Spider’/Crawler Permissions Checker</em>. <a href="https://CRAN.R-project.org/package=robotstxt">https://CRAN.R-project.org/package=robotstxt</a>.
 </div>
 <div id="ref-docker" class="csl-entry">
 Merkel, Dirk. 2014. <span>“Docker: Lightweight Linux Containers for Consistent Development and Deployment.”</span> <em>Linux Journal</em> 2014 (239): 2.
@@ -568,9 +560,6 @@ Metropolis, Nicholas, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. 
 <div id="ref-azureNGINX" class="csl-entry">
 Microsoft. 2018. <span>“Gateway API - Azure Architecture Center | Microsoft Docs.”</span> <a href="https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway">https://docs.microsoft.com/it-it/azure/architecture/microservices/design/gateway</a>.
 </div>
-<div id="ref-foreach" class="csl-entry">
-Microsoft, and Steve Weston. 2020. <em>Foreach: Provides Foreach Looping Construct</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.
-</div>
 <div id="ref-Moraga2019" class="csl-entry">
 Moraga, Paula. 2019. <em>Geospatial Health Data</em>. Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9780429341823">https://doi.org/10.1201/9780429341823</a>.
 </div>
@@ -579,9 +568,6 @@ Moraga, Paula. 2019. <em>Geospatial Health Data</em>. Chapman; Hall/<span>CRC</s
 </div>
 <div id="ref-Moragacovid2020" class="csl-entry">
 Moraga, Paula, David I. Ketcheson, Hernando C. Ombao, and Carlos M. Duarte. 2020. <span>“Assessing the Age- and Gender-Dependence of the Severity and Case Fatality Rates of <span>COVID</span>-19 Disease in Spain.”</span> <em>Wellcome Open Research</em> 5 (June): 117. <a href="https://doi.org/10.12688/wellcomeopenres.15996.1">https://doi.org/10.12688/wellcomeopenres.15996.1</a>.
-</div>
-<div id="ref-rayshader" class="csl-entry">
-Morgan-Wall, Tyler. 2020. <em>Rayshader: Create Maps and Visualize Data in 2d and 3d</em>. <a href="https://CRAN.R-project.org/package=rayshader">https://CRAN.R-project.org/package=rayshader</a>.
 </div>
 <div id="ref-nginxDocs" class="csl-entry">
 NGINX. 2014. <span>“What Is a Reverse Proxy Server? | NGINX.”</span> <a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">https://www.nginx.com/resources/glossary/reverse-proxy-server/</a>.
@@ -594,9 +580,6 @@ Paci, Lucia. 2020. <span>“Statistical Models for High Dimensional and Spatio-T
 </div>
 <div id="ref-PACI2017149" class="csl-entry">
 Paci, Lucia, María Asunción Beamonte, Alan E. Gelfand, Pilar Gargallo, and Manuel Salvador. 2017. <span>“Analysis of Residential Property Sales Using Space–Time Point Patterns.”</span> <em>Spatial Statistics</em> 21: 149–65. https://doi.org/<a href="https://doi.org/10.1016/j.spasta.2017.06.007">https://doi.org/10.1016/j.spasta.2017.06.007</a>.
-</div>
-<div id="ref-polite" class="csl-entry">
-Perepolkin, Dmytro. 2019. <em>Polite: Be Nice on the Web</em>. <a href="https://CRAN.R-project.org/package=polite">https://CRAN.R-project.org/package=polite</a>.
 </div>
 <div id="ref-peterson2003consumer" class="csl-entry">
 Peterson, Robert A, and Maria C Merino. 2003. <span>“Consumer Information Search Behavior and the Internet.”</span> <em>Psychology &amp; Marketing</em> 20 (2): 99–121.
@@ -625,14 +608,8 @@ Rue, Håvard, Andrea Riebler, Sigrunn H. Sørbye, Janine B. Illian, Daniel P. Si
 <div id="ref-NiccoloS11" class="csl-entry">
 Salvini, Niccolò. 2021. <span>“Dockerized-Plumber-API: Containerized Plumber REST API Offering Scraping Immbiliare.it Data.”</span> <a href="https://github.com/NiccoloSalvini/Dockerized-Plumber-API">https://github.com/NiccoloSalvini/Dockerized-Plumber-API</a>.
 </div>
-<div id="ref-plungr" class="csl-entry">
-Santiago, Joao. 2020. <em>Plungr: Opinionated Framework for Developing Plumber APIs</em>. <a href="https://github.com/ozean12/plungr">https://github.com/ozean12/plungr</a>.
-</div>
 <div id="ref-automateddatacollection" class="csl-entry">
 <span>“Scraping the Web.”</span> 2014. In <em>Automated Data Collection with r</em>, 219–94. John Wiley &amp; Sons Ltd. https://doi.org/<a href="https://doi.org/10.1002/9781118834732.ch9">https://doi.org/10.1002/9781118834732.ch9</a>.
-</div>
-<div id="ref-ratelimitr" class="csl-entry">
-Shah, Tarak. 2018. <em>Ratelimitr: Rate Limiting for r</em>. <a href="https://CRAN.R-project.org/package=ratelimitr">https://CRAN.R-project.org/package=ratelimitr</a>.
 </div>
 <div id="ref-SHEPPARD19991595" class="csl-entry">
 Sheppard, Stephen. 1999. <span>“Chapter 41 Hedonic Analysis of Housing Markets.”</span> In <em>Applied Urban Economics</em>, 3:1595–635. Handbook of Regional and Urban Economics. Elsevier. https://doi.org/<a href="https://doi.org/10.1016/S1574-0080(99)80010-8">https://doi.org/10.1016/S1574-0080(99)80010-8</a>.
@@ -655,9 +632,6 @@ Spiegelhalter, David J, Nicola G Best, Bradley P Carlin, and Angelika Van Der Li
 <div id="ref-TDD_2004" class="csl-entry">
 <span>“Test Driven Development.”</span> 2004. <em>Wikipedia</em>. Wikimedia Foundation. <a href="https://en.wikipedia.org/wiki/Test_driven_development">https://en.wikipedia.org/wiki/Test_driven_development</a>.
 </div>
-<div id="ref-plumber" class="csl-entry">
-Trestle Technology, LLC. 2018. <em>Plumber: An API Generator for r</em>. <a href="https://CRAN.R-project.org/package=plumber">https://CRAN.R-project.org/package=plumber</a>.
-</div>
 <div id="ref-UnitedSt65" class="csl-entry">
 <span>“United States v. Nosal, 676 f.3d 854.”</span> 2012. <a href="https://casetext.com/case/united-states-v-nosal-2">https://casetext.com/case/united-states-v-nosal-2</a>.
 </div>
@@ -668,10 +642,7 @@ User:Jallan. 2011. <span>“Definition of User Agent - WAI UA Wiki.”</span> <a
 UserAgentString.com. 1999. <span>“UserAgentString.com - Chrome Version 81.0.4044.110.”</span> <a href="http://useragentstring.com/index.php">http://useragentstring.com/index.php</a>.
 </div>
 <div id="ref-furrr" class="csl-entry">
-Vaughan, Davis, and Matt Dancho. 2018. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://CRAN.R-project.org/package=furrr">https://CRAN.R-project.org/package=furrr</a>.
-</div>
-<div id="ref-mass" class="csl-entry">
-Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with s</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4/">http://www.stats.ox.ac.uk/pub/MASS4/</a>.
+Vaughan, Davis, and Matt Dancho. 2020. <em>Furrr: Apply Mapping Functions in Parallel Using Futures</em>. <a href="https://github.com/DavisVaughan/furrr">https://github.com/DavisVaughan/furrr</a>.
 </div>
 <div id="ref-wang2018bayesian" class="csl-entry">
 Wang, Xiaofeng, Yu Ryan Yue, and Julian J Faraway. 2018. <em>Bayesian Regression Modeling with INLA</em>. CRC Press.
@@ -682,20 +653,14 @@ Wang, Xiaofeng, Yu Ryan Yue, and Julian J Faraway. 2018. <em>Bayesian Regression
 <div id="ref-whoishostingthis.com" class="csl-entry">
 WhoIsHostingThis.com. 2020. <span>“User Agent: Learn Your Web Browsers User Agent Now.”</span> <em>WhoIsHostingThis.com</em>. <a href="https://www.whoishostingthis.com/tools/user-agent/">https://www.whoishostingthis.com/tools/user-agent/</a>.
 </div>
-<div id="ref-testthat" class="csl-entry">
-Wickham, Hadley. 2011. <span>“Testthat: Get Started with Testing.”</span> <em>The R Journal</em> 3: 5–10. <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.
+<div id="ref-tidyverse" class="csl-entry">
+Wickham, Hadley. 2019. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
 </div>
 <div id="ref-rvest" class="csl-entry">
-———. 2019. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
-</div>
-<div id="ref-tidyverse" class="csl-entry">
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain Fran?ois, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+———. 2021. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
 </div>
 <div id="ref-memoise" class="csl-entry">
-Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://CRAN.R-project.org/package=memoise">https://CRAN.R-project.org/package=memoise</a>.
-</div>
-<div id="ref-bookdown2" class="csl-entry">
-Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with <span>R</span> Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
+Wickham, Hadley, Jim Hester, Kirill Müller, and Daniel Cook. 2017. <em>Memoise: Memoisation of Functions</em>. <a href="https://github.com/hadley/memoise">https://github.com/hadley/memoise</a>.
 </div>
 <div id="ref-yaşar2016unified" class="csl-entry">
 Yaşar, Banu Yılmaz, and Mehmet Ali Özarslan. 2016. <span>“Unified Bessel, Modified Bessel, Spherical Bessel and Bessel-Clifford Functions.”</span> <a href="http://arxiv.org/abs/1604.05163">http://arxiv.org/abs/1604.05163</a>.

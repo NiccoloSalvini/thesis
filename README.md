@@ -1,18 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
 
-<img src="images/logo/logo.png" align="right" height="80" />
+<img src="images/logo/logo.png" align="right" height="80"/>
 
 # REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA
 
-*author*: **[Niccolò Salvini](https://niccolosalvini.netlify.app/)**
-*date*: 01 marzo, 2021
+*author*: [**Niccolò Salvini**](https://niccolosalvini.netlify.app/)
+*date*: 19 aprile, 2021
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
-<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis">
+<img src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis" alt="GitHub issues"/>
 [![Generic
 badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg)](https://shields.io/)
 [![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
+<a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."/>
+</a>
 
 <br> <br>
 
@@ -94,7 +96,7 @@ an underlying unobserved and continuous Gaussian Process (GP) to be
 estimated, completely characterized by a mean structure and a covariance
 matrix. For the Gaussian Process are made two major assumptions:
 stationarity and isotropy, which let specifying a flexible covariance
-function i.e. Matérn. The Stochastic Partial Differential Equations
+function i.e. Matérn. The Stochastic Partial Differential Equations
 (SPDE) solutions can provide a GMRF representation of the GP whose
 covariance matrix is Matérn. This happens through a triangulation of the
 domain of the study said mesh. The model is then fitted and cross
@@ -104,13 +106,13 @@ is given.
 ### Deployment:
 
 You can PR, explore and download (pdf version) to the
-**\[@address\](<https://niccolosalvini.github.io/thesis/>)**. Deployment
+[**@address**](https://niccolosalvini.github.io/thesis/). Deployment
 happens through
 [gh-pages](https://medium.com/@delucmat/how-to-publish-bookdown-projects-with-github-actions-on-github-pages-6e6aecc7331e).
 
 ### License:
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licenza Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Quest’opera
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Licenza Creative Commons" style="border-width:0"/></a><br />Quest’opera
 è distribuita con Licenza
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
 Commons Attribuzione 4.0 Internazionale</a>.

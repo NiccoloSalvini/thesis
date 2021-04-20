@@ -118,9 +118,9 @@ Whenever APIs accept input from a random user this is directly injected into fun
 
 
 ```r
-tipo = tolower(type) %>% str_trim()
-citta = tolower(city) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
-macroozone = tolower(macrozone) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
+tipo <- tolower(type) %>% str_trim()
+citta <- tolower(city) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
+macroozone <- tolower(macrozone) %>% iconv(to = "ASCII//TRANSLIT") %>% str_trim()
 ```
 
 Inputs make their entrance into functions through arguments "type", "city" and "macrozone" and are immediately preprocessed. They are in sequence converted to lower cases, then extra spaces are trimmed, in the end accents are flattened. 
@@ -132,11 +132,11 @@ A simple but effective approach tries to limit and stop the number of request se
 
 
 ```r
- if (npages > 300 & npages > 0){
-                        msg = "Don't DoS me!"
-                        res$status = 500 # code num: Bad request
-                        stop(list(error=jsonlite::unbox(msg)))     
-            }
+if (npages > 300 & npages > 0) {
+  msg <- "Don't DoS me!"
+  res$status <- 500 # code num: Bad request
+  stop(list(error = jsonlite::unbox(msg)))
+}
 ```
 
 The code chunk above intercepts DoS attacks by limiting to 300 the number of pages to be server to the API. Furthermore it converts outputs error messages printed on console into JSON format and then pass them as output. This simplify distinguishing malicious attacks from a type errors. DDoS attacks are secured by SSL certificates and Authentication covered later in the chapter.
@@ -150,12 +150,14 @@ A request log filter might have this appearance:
 ```r
 #* Log information
 #* @filter logging
-function(req){
-            cat(as.character(Sys.time()), "-",
-                req$HTTP_USER_AGENT, "@", 
-                req$REMOTE_ADDR, "\n",
-                req$QUERY_STRING, "\n")
-            plumber::forward()
+function(req) {
+  cat(
+    as.character(Sys.time()), "-",
+    req$HTTP_USER_AGENT, "@",
+    req$REMOTE_ADDR, "\n",
+    req$QUERY_STRING, "\n"
+  )
+  plumber::forward()
 }
 ```
 
@@ -302,7 +304,3 @@ When newer images are available they can be pulled from the EC2 server and rerun
 
 A more robust code can be obtained embedding recent R software development frameworks as `Golem` @colin_fay_2020 into the existing structure, anyway this requires a complete restyle of the existing code architecture. The framework stimulates the usage of _modules_ to enhance reusable codes. In addition for the way it is done it forces through automatic actions, articulated into a sequence of rules to follow, to organize code and dependencies aimed at saving time to DevOps teams. It has also a labour-saving function to build custom dockerfiles based on the dependecies organized throughout the building framework. 
 Moreover according to the latest R-API literature, code should be veveloped as R packages as in @plungr, allowing to use inner **TDD** (i.e.Test-Driven Development @TDD_2004) mechanism with @testthat as pointed out in @colin_fay_2020 section 4.2.
-
-
-
-

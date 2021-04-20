@@ -9,15 +9,9 @@ output:
 
 library(INLA, warn.conflicts = F, quietly = T)
 library(brinla, warn.conflicts = F, quietly = T)
-library(magrittr, warn.conflicts = F, quietly = T)
-library(knitr, warn.conflicts = F, quietly = T)
 library(kableExtra, warn.conflicts = F, quietly = T)
-library(latex2exp, warn.conflicts = F, quietly = T)
-library(ggplot2, warn.conflicts = F, quietly = T)
-library(patchwork, warn.conflicts = F, quietly = T)
-library(tidyverse, warn.conflicts = F, quietly = T)
-
 ```
+
 
 Bayesian estimation methods - by MCMC [@mcmc] and MC simulation techniques - are usually much harder than Frequentist calculations [@wang2018bayesian]. This unfortunately is also more critical for spatial and spatio-temporal model settings [@Cameletti2012] where matrices dimensions and densities (in the sense of prevalence of values throughout the matrix) start becoming unfeasible. 
 The computational aspect refers in particular to the ineffectiveness of linear algebra operations with large dense covariance matrices that in aforementioned settings scale to the order $\mathcal{O}(n^3)$.
@@ -488,18 +482,16 @@ SPDEtoy dataset $\mathbf{y}$ are two random variables that simulates points loca
 
 ```{r spatplot, fig.cap="SPDEtoy bubble plot, author's source"}
 data("SPDEtoy")
-library(latex2exp)
-sp1 = ggplot(SPDEtoy, aes(x=s1, y=s2, color = y)) +
-  geom_point(aes(size=y), alpha = 0.7,show.legend = F) +
+
+ggplot(SPDEtoy, aes(x = s1, y = s2, color = y)) +
+  geom_point(aes(size = y), alpha = 0.7, show.legend = F) +
   geom_density_2d(show.legend = F) +
   ## inserisci scale colour
-  labs(x = TeX("$\\s_1$"),
-       y = TeX("$\\s_2$")
-       )+
+  labs(
+    x = TeX("$\\s_1$"),
+    y = TeX("$\\s_2$")
+  ) +
   theme_nicco2()
-sp1
-
-
 ```
 
 
@@ -523,57 +515,46 @@ y_{i} & \sim N\left(\mu_{i}, \tau^{-1}\right), i=1, \ldots, 200 \\
 Then the model is fitted within `inla()` call, specifying the formula, data and the exponential family distribution.
 
 ```{r comput_INLA, echo=TRUE}
-formula = y ~ s1 + s2
-m0 = inla(formula, data = SPDEtoy, family = "gaussian")
+formula <- y ~ s1 + s2
+m0 <- inla(formula, data = SPDEtoy, family = "gaussian")
 ```
 
 Table \@ref(tab:tableINLA) offers summary of the posterior marginal values for intercept and covariates' coefficients, as well as precision. Marginals distributions both for parameters and hyper-parameters can be conveniently plotted as in figure \@ref(fig:postplot). From the table it can also be seen that the mean for $s_2$ is negative, so the Norther the y-coordinate, the less is response. That is factual looking at the SPDEtoy contour plot in figure \@ref(fig:spatplot) where bigger bubbles are concentrated around the origin.
 
 
 ```{r tableINLA, results='asis'}
-m0$summary.fixed %>%  
-  tibble::rownames_to_column("coefficients")  %>% 
-  as_tibble() %>% 
-  select(coefficients, mean, sd) %>% 
+m0$summary.fixed %>%
+  tibble::rownames_to_column("coefficients") %>%
+  as_tibble() %>%
+  select(coefficients, mean, sd) %>%
   kbl(caption = "Summary Posterior quantiles for coefficients", booktabs = T) %>%
   kable_minimal()
-  
 ```
-
-
 
 
 
 ```{r postplot, fig.cap="Linear predictor marginals, plot recoded in `ggplot2`, author's source"}
 
-plot_s1 = ggplot(as.data.frame(m0$marginals.fixed$s1)) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\beta_1 \\, |\\,  \\mathbf{y})\\,$")) +
-  xlab (TeX("$\\beta_1$")) +
-  theme_nicco()
+## 'post_plot()' defined in _common.R
+plot_s1 <- post_plot(m0, quantity = "marginals.fixed", coef = "s1") +
+  ylab(TeX("$\\pi(\\,\\beta_1 \\, |\\,  \\mathbf{y})\\,$")) +
+  xlab(TeX("$\\beta_1$"))
 
-plot_s2 = ggplot(as.data.frame(m0$marginals.fixed$s2)) +
-  geom_line(aes(x = x, y = y)) +
+plot_s2 <- post_plot(m0, quantity = "marginals.fixed", coef = "s2") +
   ylab(TeX("$\\pi(\\,\\beta_2 \\, | \\, \\mathbf{y}\\,$)")) +
-  xlab(TeX("$\\beta_2$"))+
-  theme_nicco()
+  xlab(TeX("$\\beta_2$"))
 
-plot_beta0 = ggplot(as.data.frame(m0$marginals.fixed$`(Intercept)`)) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\beta_0 \\,|\\, \\mathbf{y}\\,)$")) + 
-  xlab (TeX("$\\beta_0$")) +
-  theme_nicco()
+plot_beta0 <- post_plot(m0, quantity = "marginals.fixed", coef = "intercept") +
+  ylab(TeX("$\\pi(\\,\\beta_0 \\,|\\, \\mathbf{y}\\,)$")) +
+  xlab(TeX("$\\beta_0$"))
 
-plot_tau = ggplot(as.data.frame(m0$marginals.hyperpar$`Precision for the Gaussian observations` )) +
-  geom_line(aes(x = x, y = y)) +
-  ylab (TeX("$\\pi(\\,\\tau \\,|\\, \\mathbf{y}\\,)$")) + 
-  xlab (TeX("$\\tau$")) +
-  theme_nicco()
+plot_tau <- post_plot(m0, quantity = "marginals.hyperpar", coef = "Precision for the Gaussian observations") +
+  ylab(TeX("$\\pi(\\,\\tau \\,|\\, \\mathbf{y}\\,)$")) +
+  xlab(TeX("$\\tau$"))
 
 
-(plot_s1 + plot_s2)  /
-(plot_beta0 + plot_tau)
-
+(plot_s1 + plot_s2) /
+  (plot_beta0 + plot_tau)
 ```
 
 
@@ -582,11 +563,9 @@ plot_tau = ggplot(as.data.frame(m0$marginals.hyperpar$`Precision for the Gaussia
 In the end R-INLA enables also r-base fashion function to compute statistics on marginal posterior distributions for the density, distribution as well as the quantile function respectively with `inla.dmarginal`, `inla.pmarginal` and `inla.qmarginal`. One option which allows to compute the higher posterior density credibility interval `inla.hpdmarginal` for a given covariate's coefficient i.e, $\beta_2$, such that $\int_{q_{1}}^{q_{2}} \tilde{\pi}\left(\beta_{2} \mid \boldsymbol{y}\right) \mathrm{d} \beta_{2}=0.90$ (90% credibility), whose result is in table below.
 
 ```{r higerPosteriorDensityInterval, results="asis"}
-inla.hpdmarginal(0.90,m0$marginals.fixed$s2) %>% 
+inla.hpdmarginal(0.90, m0$marginals.fixed$s2) %>%
   kbl(caption = "Higer Posterior Density Interval for s2 coefficient", booktabs = T) %>%
   kable_minimal()
 ```
 
 Note that the interpretation is more convoluted [-@wang2018bayesian] than the traditional frequentist approach: in Bayesian statistics $\beta_{j}$ comes from probability distribution, while frequenstists considers $\beta_{j}$ as fixed unknown quantity whose estimator (random variable conditioned to data) is used to infer the value -@Blangiardo-Cameletti.  
-
-
