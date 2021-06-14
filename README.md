@@ -14,8 +14,8 @@
 badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg)](https://shields.io/)
 [![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
 <a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."/>
-</a>
-[![R-CMD-check](https://github.com/NiccoloSalvini/tesi-prova/workflows/R-CMD-check/badge.svg)](https://github.com/NiccoloSalvini/tesi-prova/actions)
+</a> [![Netlify
+Status](https://api.netlify.com/api/v1/badges/6d5dad0e-716a-4995-ac8f-bcbf35a4bfe6/deploy-status)](https://app.netlify.com/sites/nsmasterthesis/deploys)
 
 <br> <br>
 
@@ -97,23 +97,19 @@ an underlying unobserved and continuous Gaussian Process (GP) to be
 estimated, completely characterized by a mean structure and a covariance
 matrix. For the Gaussian Process are made two major assumptions:
 stationarity and isotropy, which let specifying a flexible covariance
-function i.e. Matérn. The Stochastic Partial Differential Equations
+function i.e. Matérn. The Stochastic Partial Differential Equations
 (SPDE) solutions can provide a GMRF representation of the GP whose
 covariance matrix is Matérn. This happens through a triangulation of the
-domain of the study said mesh. The model is then fitted and cross
+domain of the study, i.e. mesh. The model is then fitted and cross
 validated with R-INLA and inference on parameter posterior distribution
 is given.
 
 ### Deployment:
 
-You can PR, explore and download (pdf version) to the
-[**@address**](https://niccolosalvini.github.io/thesis/). Deployment
-happens through
-[gh-pages](https://medium.com/@delucmat/how-to-publish-bookdown-projects-with-github-actions-on-github-pages-6e6aecc7331e).
+The deployment of the project is made through Netlify + GitHub + GitHub
+actions (CI environement).
 
 ### License:
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Licenza Creative Commons" style="border-width:0"/></a><br />Quest’opera
-è distribuita con Licenza
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
-Commons Attribuzione 4.0 Internazionale</a>.
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
