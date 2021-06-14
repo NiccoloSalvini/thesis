@@ -1,30 +1,30 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.2.15)  20 APR 2021 01:47
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.5.17)  14 JUN 2021 22:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Niccolo_Salvini_Thesis.tex
 (./Niccolo_Salvini_Thesis.tex
 LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-02-06> (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf
+L3 programming layer <2021-05-11> (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/base/book.cls
 Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk12.clo
 File: bk12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count173
-\c@chapter=\count174
-\c@section=\count175
-\c@subsection=\count176
-\c@subsubsection=\count177
-\c@paragraph=\count178
-\c@subparagraph=\count179
-\c@figure=\count180
-\c@table=\count181
+\c@part=\count175
+\c@chapter=\count176
+\c@section=\count177
+\c@subsection=\count178
+\c@subsubsection=\count179
+\c@paragraph=\count180
+\c@subparagraph=\count181
+\c@figure=\count182
+\c@table=\count183
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
-Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
@@ -84,13 +84,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count182
+\inf@bad=\count184
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count183
-\leftroot@=\count184
+\uproot@=\count185
+\leftroot@=\count186
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count185
-\DOTSCASE@=\count186
+\classnum@=\count187
+\DOTSCASE@=\count188
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -99,15 +99,15 @@ LaTeX Info: Redefining \cdots on input line 620.
 \big@size=\dimen141
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count187
-\c@MaxMatrixCols=\count188
+\macc@depth=\count189
+\c@MaxMatrixCols=\count190
 \dotsspace@=\muskip16
-\c@parentequation=\count189
-\dspbrk@lvl=\count190
+\c@parentequation=\count191
+\dspbrk@lvl=\count192
 \tag@help=\toks16
-\row@=\count191
-\column@=\count192
-\maxfields@=\count193
+\row@=\count193
+\column@=\count194
+\maxfields@=\count195
 \andhelp@=\toks17
 \eqnshift@=\dimen142
 \alignsep@=\dimen143
@@ -135,20 +135,20 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/unicode-math/unico
 de-math.sty
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2021-02-06 L3 programming layer (loader) 
+Package: expl3 2021-05-11 L3 programming layer (loader) 
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
 d-xetex.def
-File: l3backend-xetex.def 2021-02-06 L3 backend support: XeTeX
+File: l3backend-xetex.def 2021-05-07 L3 backend support: XeTeX
 (|extractbb --version)
-\c__kernel_sys_dvipdfmx_version_int=\count194
-\l__color_backend_stack_int=\count195
-\g__color_backend_stack_int=\count196
-\g__graphics_track_int=\count197
+\c__kernel_sys_dvipdfmx_version_int=\count196
+\l__color_backend_stack_int=\count197
+\g__color_backend_stack_int=\count198
+\g__graphics_track_int=\count199
 \l__pdf_internal_box=\box49
-\g__pdf_backend_object_int=\count198
-\g__pdf_backend_annotation_int=\count199
-\g__pdf_backend_link_int=\count266
+\g__pdf_backend_object_int=\count266
+\g__pdf_backend_annotation_int=\count267
+\g__pdf_backend_link_int=\count268
 ))
 Package: unicode-math 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
 
@@ -165,7 +165,7 @@ xparse-2020-10-01.sty
 xparse-generic.tex)))
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2
 e/l3keys2e.sty
-Package: l3keys2e 2021-02-02 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2021-05-07 LaTeX2e option processing using LaTeX3 keys
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.
 sty
@@ -175,17 +175,17 @@ Package: fontspec 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
 xetex.sty
 Package: fontspec-xetex 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count267
-\l__fontspec_language_int=\count268
-\l__fontspec_strnum_int=\count269
-\l__fontspec_tmp_int=\count270
-\l__fontspec_tmpa_int=\count271
-\l__fontspec_tmpb_int=\count272
-\l__fontspec_tmpc_int=\count273
-\l__fontspec_em_int=\count274
-\l__fontspec_emdef_int=\count275
-\l__fontspec_strong_int=\count276
-\l__fontspec_strongdef_int=\count277
+\l__fontspec_script_int=\count269
+\l__fontspec_language_int=\count270
+\l__fontspec_strnum_int=\count271
+\l__fontspec_tmp_int=\count272
+\l__fontspec_tmpa_int=\count273
+\l__fontspec_tmpb_int=\count274
+\l__fontspec_tmpc_int=\count275
+\l__fontspec_em_int=\count276
+\l__fontspec_emdef_int=\count277
+\l__fontspec_strong_int=\count278
+\l__fontspec_strongdef_int=\count279
 \l__fontspec_tmpa_dim=\dimen148
 \l__fontspec_tmpb_dim=\dimen149
 \l__fontspec_tmpc_dim=\dimen150
@@ -200,9 +200,9 @@ Package: fix-cm 2015/01/14 v1.1t fixes to LaTeX
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
 ))
-\g__um_fam_int=\count278
-\g__um_fonts_used_int=\count279
-\l__um_primecount_int=\count280
+\g__um_fam_int=\count280
+\g__um_fonts_used_int=\count281
+\l__um_primecount_int=\count282
 \g__um_primekern_muskip=\muskip17
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/unicode-math/unico
@@ -218,7 +218,7 @@ Package xcolor Info: Driver file: xetex.def on input line 225.
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex
 .def
-File: xetex.def 2020/08/26 v5.0i Graphics/color driver for xetex
+File: xetex.def 2021/03/18 v5.0k Graphics/color driver for xetex
 )
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
 Package xcolor Info: Model `RGB' extended on input line 1364.
@@ -231,7 +231,7 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.
 sty
-Package: hyperref 2021-02-10 v7.00j Hypertext links for LaTeX
+Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.
 sty
@@ -284,16 +284,16 @@ s.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
 \@linkdim=\dimen151
-\Hy@linkcounter=\count281
-\Hy@pagecounter=\count282
+\Hy@linkcounter=\count283
+\Hy@pagecounter=\count284
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.de
 f
-File: pd1enc.def 2021-02-10 v7.00j Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref-
 langpatches.def
-File: hyperref-langpatches.def 2021-02-10 v7.00j Hyperref: patches for babel la
+File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel la
 nguages
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.
@@ -304,10 +304,10 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 s.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count283
+\Hy@SavedSpaceFactor=\count285
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2021-02-10 v7.00j Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
 )
 Package hyperref Info: Option `unicode' set `true' on input line 4073.
 Package hyperref Info: Hyper figures OFF on input line 4192.
@@ -317,7 +317,7 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count284
+\c@Hy@tempcnt=\count286
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -334,7 +334,7 @@ tcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count285
+\Fld@menulength=\count287
 \Field@Width=\dimen153
 \Fld@charsize=\dimen154
 Package hyperref Info: Hyper figures OFF on input line 6075.
@@ -353,15 +353,15 @@ Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
 ge
 with kernel methods
 )
-\Hy@abspage=\count286
-\c@Item=\count287
-\c@Hfootnote=\count288
+\Hy@abspage=\count288
+\c@Item=\count289
+\c@Hfootnote=\count290
 )
 Package hyperref Info: Driver (autodetected): hxetex.
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.de
 f
-File: hxetex.def 2021-02-10 v7.00j Hyperref driver for XeTeX
+File: hxetex.def 2021-02-27 v7.00k Hyperref driver for XeTeX
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/stringenc/string
 enc.sty
@@ -369,10 +369,10 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
 \pdfm@box=\box50
-\c@Hy@AnnotLevel=\count289
-\HyField@AnnotCount=\count290
-\Fld@listcount=\count291
-\c@bookmark@seq@number=\count292
+\c@Hy@AnnotLevel=\count291
+\HyField@AnnotCount=\count292
+\Fld@listcount=\count293
+\c@bookmark@seq@number=\count294
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rer
 unfilecheck.sty
@@ -400,9 +400,9 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count293
-\Gm@cntv=\count294
-\c@Gm@tempcnt=\count295
+\Gm@cnth=\count295
+\Gm@cntv=\count296
+\c@Gm@tempcnt=\count297
 \Gm@bindingoffset=\dimen155
 \Gm@wd@mp=\dimen156
 \Gm@odd@mp=\dimen157
@@ -415,24 +415,24 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.
 sty
-\lst@mode=\count296
+\lst@mode=\count298
 \lst@gtempboxa=\box51
 \lst@token=\toks22
-\lst@length=\count297
+\lst@length=\count299
 \lst@currlwidth=\dimen163
-\lst@column=\count298
-\lst@pos=\count299
+\lst@column=\count300
+\lst@pos=\count301
 \lst@lostspace=\dimen164
 \lst@width=\dimen165
-\lst@newlines=\count300
-\lst@lineno=\count301
+\lst@newlines=\count302
+\lst@lineno=\count303
 \lst@maxwidth=\dimen166
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.s
 ty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count302
-\lst@skipnumbers=\count303
+\c@lstnumber=\count304
+\lst@skipnumbers=\count305
 \lst@framebox=\box52
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.
@@ -448,16 +448,16 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTright=\skip54
 \LTpre=\skip55
 \LTpost=\skip56
-\LTchunksize=\count304
+\LTchunksize=\count306
 \LTcapwidth=\dimen167
 \LT@head=\box53
 \LT@firsthead=\box54
 \LT@foot=\box55
 \LT@lastfoot=\box56
-\LT@cols=\count305
-\LT@rows=\count306
-\c@LT@tables=\count307
-\c@LT@chunks=\count308
+\LT@cols=\count307
+\LT@rows=\count308
+\c@LT@tables=\count309
+\c@LT@chunks=\count310
 \LT@p@ftn=\toks23
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.
@@ -473,30 +473,30 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen175
 \cmidrulekern=\dimen176
 \defaultaddspace=\dimen177
-\@cmidla=\count309
-\@cmidlb=\count310
+\@cmidla=\count311
+\@cmidlb=\count312
 \@aboverulesep=\dimen178
 \@belowrulesep=\dimen179
-\@thisruleclass=\count311
-\@lastruleclass=\count312
+\@thisruleclass=\count313
+\@lastruleclass=\count314
 \@thisrulewidth=\dimen180
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count313
-\calc@Bcount=\count314
+\calc@Acount=\count315
+\calc@Bcount=\count316
 \calc@Adimen=\dimen181
 \calc@Bdimen=\dimen182
 \calc@Askip=\skip57
 \calc@Bskip=\skip58
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count315
+\calc@Ccount=\count317
 \calc@Cskip=\skip59
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.
 sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count316
+\etb@tempcnta=\count318
 )
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.
 sty
@@ -527,7 +527,7 @@ LaTeX Info: Redefining \href on input line 77.
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfpages.
 sty
-Package: pdfpages 2021/02/05 v0.5s Insert pages of external PDF documents (AM)
+Package: pdfpages 2021/03/06 v0.5t Insert pages of external PDF documents (AM)
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
@@ -543,14 +543,14 @@ Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/ppxetex.d
 ef
-File: ppxetex.def 2021/02/05 v0.5s Pdfpages driver for XeTeX (AM)
+File: ppxetex.def 2021/03/06 v0.5t Pdfpages driver for XeTeX (AM)
 )
-\pdfpages@includegraphics@status=\count317
+\pdfpages@includegraphics@status=\count319
 \AM@pagebox=\box58
 \AM@global@opts=\toks24
-\AM@pagecnt=\count318
+\AM@pagecnt=\count320
 \AM@toc@title=\toks25
-\c@AM@survey=\count319
+\c@AM@survey=\count321
 \AM@templatesizebox=\box59
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.st
 y
@@ -580,16 +580,16 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box62
-\sift@deathcycles=\count320
+\sift@deathcycles=\count322
 \@vwid@loff=\dimen193
 \@vwid@roff=\dimen194
 )
-\c@taburow=\count321
-\tabu@nbcols=\count322
-\tabu@cnt=\count323
-\tabu@Xcol=\count324
-\tabu@alloc=\count325
-\tabu@nested=\count326
+\c@taburow=\count323
+\tabu@nbcols=\count324
+\tabu@cnt=\count325
+\tabu@Xcol=\count326
+\tabu@alloc=\count327
+\tabu@nested=\count328
 \tabu@target=\dimen195
 \tabu@spreadtarget=\dimen196
 \tabu@naturalX=\dimen197
@@ -623,8 +623,8 @@ Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
 \caption@hangindent=\dimen266
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count327
-\c@continuedfloat=\count328
+\c@caption@flags=\count329
+\c@continuedfloat=\count330
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
@@ -635,9 +635,9 @@ Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
 ))
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.
 sty
-Package: multirow 2021/01/29 v2.7 Span multiple rows of a table
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip66
-\multirow@cntb=\count329
+\multirow@cntb=\count331
 \multirow@dima=\skip67
 \bigstrutjot=\dimen267
 )
@@ -645,13 +645,13 @@ Package: multirow 2021/01/29 v2.7 Span multiple rows of a table
 y
 \wrapoverhang=\dimen268
 \WF@size=\dimen269
-\c@WF@wrappedlines=\count330
+\c@WF@wrappedlines=\count332
 \WF@box=\box67
 \WF@everypar=\toks35
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count331
+\c@float@type=\count333
 \float@exts=\toks36
 \float@box=\box68
 \@float@everytoks=\toks37
@@ -680,13 +680,13 @@ Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count332
+\c@AlgoLine=\count334
 \algocf@hangindent=\skip69
 
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpag
 e.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count333
+\c@checkoddpage=\count335
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
@@ -724,9 +724,9 @@ Package: relsize 2013/03/29 ver 4.1
 \algoheightrule=\skip85
 \algotitleheightruledefault=\skip86
 \algotitleheightrule=\skip87
-\c@algocfline=\count334
-\c@algocfproc=\count335
-\c@algocf=\count336
+\c@algocfline=\count336
+\c@algocfproc=\count337
+\c@algocf=\count338
 \algocf@algoframe=\box76
 \algocf@algobox=\box77
 )
@@ -754,7 +754,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \UL@skip=\skip89
 \UL@hook=\toks39
 \UL@height=\dimen276
-\UL@pe=\count337
+\UL@pe=\count339
 \UL@pixel=\dimen277
 \ULC@box=\box81
 Package: ulem 2019/11/18
@@ -764,7 +764,7 @@ Package: ulem 2019/11/18
 sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen279
-\c@nlinenum=\count338
+\c@nlinenum=\count340
 \TeXr@lab=\toks40
 ) (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/natbib/natbib.st
 y
@@ -772,16 +772,16 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip90
 \bibsep=\skip91
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count339
+\c@NAT@ctr=\count341
 )
-\c@theorem=\count340
-\c@lemma=\count341
-\c@corollary=\count342
-\c@proposition=\count343
-\c@conjecture=\count344
-\c@definition=\count345
-\c@example=\count346
-\c@exercise=\count347
+\c@theorem=\count342
+\c@lemma=\count343
+\c@corollary=\count344
+\c@proposition=\count345
+\c@conjecture=\count346
+\c@definition=\count347
+\c@example=\count348
+\c@exercise=\count349
 (./Niccolo_Salvini_Thesis.aux
 
 LaTeX Warning: Label `fig:urlanatomy' multiply defined.
@@ -1090,7 +1090,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count348
+\c@section@level=\count350
 )
 LaTeX Info: Redefining \ref on input line 175.
 LaTeX Info: Redefining \pageref on input line 175.
@@ -1133,7 +1133,7 @@ LaTeX Info: Redefining \nameref on input line 175.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count349
+\c@lstlisting=\count351
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: threeparttable package is loaded.
@@ -1165,7 +1165,7 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
 83.
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
 (Font)              scaled to size 14.4013pt on input line 183.
@@ -1222,23 +1222,28 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 
 [4
 
-] (./Niccolo_Salvini_Thesis.lof [5
+] (./Niccolo_Salvini_Thesis.lof
+
+Package natbib Warning: Citation `rmarkdown1' on page 5 undefined on input line
+ 20.
+
+[5
 
 ]
-Underfull \hbox (badness 2772) in paragraph at lines 36--36
+Underfull \hbox (badness 2772) in paragraph at lines 37--37
  [][] [][]\TU/lmr/m/n/12 Left: anisotropical concentric decaying contours, Righ
 t: 
  []
 
 
-Underfull \hbox (badness 1603) in paragraph at lines 38--38
+Underfull \hbox (badness 1603) in paragraph at lines 39--39
  [][] [][]\TU/lmr/m/n/12 Left: monitoring stations in Piemonte region for PM10 
 
  []
 
 
 Package natbib Warning: Citation `rayshader' on page 6 undefined on input line 
-44.
+45.
 
 [6])
 \tf@lof=\write6
@@ -1415,26 +1420,29 @@ File: images/software_arch.jpg.png Graphic file (type bmp)
 <images/software_arch.jpg.png>
 
 Package natbib Warning: Citation `rmarkdown1' on page 52 undefined on input lin
-e 727.
+e 728.
 
 
 Package natbib Warning: Citation `bookdown2' on page 52 undefined on input line
- 727.
+ 729.
 
+[52]
+File: images/rmarkdown_dynamics.PNG Graphic file (type bmp)
+<images/rmarkdown_dynamics.PNG>
 
-Package natbib Warning: Citation `link' on page 52 undefined on input line 728.
+Package natbib Warning: Citation `rmarkdown1' on page 53 undefined on input lin
+e 735.
 
-
-[52] [53]
+[53]
 File: images/api_stru.png Graphic file (type bmp)
 <images/api_stru.png>
 [54]
 
 Package natbib Warning: Citation `plumber' on page 55 undefined on input line 7
-77.
+85.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 777--777
+Underfull \hbox (badness 10000) in paragraph at lines 785--785
 [][][][]$[][][][][] [] [] [] [][][][] [] [][][] [] [][][][][][] [] [][][] [] []
 [] [] [][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][][][][][][
 ][] [] [][][][] [][] [][][] [][] [][] [][]
@@ -1442,16 +1450,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 777--777
 
 [55]
 
-Package natbib Warning: Citation `plumber' on page 56 undefined on input line 7
-95.
+Package natbib Warning: Citation `plumber' on page 56 undefined on input line 8
+03.
 
 [56] [57] [58]
 
 Package natbib Warning: Citation `plumber' on page 59 undefined on input line 8
-59.
+67.
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 859--860
+Underfull \hbox (badness 1184) in paragraph at lines 867--868
 []\TU/lmr/m/n/12 The above filter parses the request through the default reques
 t argu-
  []
@@ -1461,328 +1469,329 @@ File: images/swagger.PNG Graphic file (type bmp)
 <images/swagger.PNG>
 File: images/endpoint1and2.jpg Graphic file (type bmp)
 <images/endpoint1and2.jpg>
-[60] [61]
+[60] [61] [62]
 File: images/dockerfile2.PNG.jpg Graphic file (type bmp)
 <images/dockerfile2.PNG.jpg>
-[62]
-Underfull \hbox (badness 2478) in paragraph at lines 914--916
+[63]
+Underfull \hbox (badness 2478) in paragraph at lines 922--924
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] \TU/lmr/m/n/12 : The
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 916--918
+Underfull \hbox (badness 10000) in paragraph at lines 924--926
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][]
  []
 
 
-Underfull \hbox (badness 2384) in paragraph at lines 916--918
+Underfull \hbox (badness 2384) in paragraph at lines 924--926
 [][][][][][][][][] \TU/lmr/m/n/12 : The command update and install remaining
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 918--920
+Underfull \hbox (badness 10000) in paragraph at lines 926--928
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ]
  []
 
-[63]
-
-LaTeX Warning: Reference `Dos' on page 64 undefined on input line 940.
-
 [64]
+
+LaTeX Warning: Reference `Dos' on page 65 undefined on input line 948.
+
 File: images/nginx_gateway.png Graphic file (type bmp)
 <images/nginx_gateway.png>
-[65]
+[65] [66]
 File: images/docker-compose.jpg Graphic file (type bmp)
 <images/docker-compose.jpg>
-[66] [67]
+[67]
 File: images/https_method.jpg Graphic file (type bmp)
 <images/https_method.jpg>
 
-Underfull \hbox (badness 1584) in paragraph at lines 991--992
+Underfull \hbox (badness 1584) in paragraph at lines 999--1000
 []\TU/lmr/m/n/12 From a port communication point of view at first NGINX contain
 er
  []
 
-[68] [69]
+[68] [69] [70]
 File: images/SoftwareDevWF.jpg Graphic file (type bmp)
 <images/SoftwareDevWF.jpg>
 
-Package natbib Warning: Citation `plungr' on page 70 undefined on input line 10
-20.
+Package natbib Warning: Citation `plungr' on page 71 undefined on input line 10
+28.
 
 
-Package natbib Warning: Citation `testthat' on page 70 undefined on input line 
-1020.
+Package natbib Warning: Citation `testthat' on page 71 undefined on input line 
+1028.
 
-[70] [71]
+[71] [72]
 Chapter 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1031.
+(Font)              scaled to size 12.0pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 8.4pt on input line 1031.
+(Font)              scaled to size 8.4pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 1031.
+(Font)              scaled to size 6.0pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 12.0011pt on input line 1031.
+(Font)              scaled to size 12.0011pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 8.40076pt on input line 1031.
+(Font)              scaled to size 8.40076pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 6.00055pt on input line 1031.
+(Font)              scaled to size 6.00055pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 11.99872pt on input line 1031.
+(Font)              scaled to size 11.99872pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 8.3991pt on input line 1031.
+(Font)              scaled to size 8.3991pt on input line 1039.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.99936pt on input line 1031.
-[72
+(Font)              scaled to size 5.99936pt on input line 1039.
+[73
 
 ]
-Underfull \hbox (badness 1831) in paragraph at lines 1035--1035
+Underfull \hbox (badness 1831) in paragraph at lines 1043--1043
 []\TU/lmr/bx/n/17.28 The class of Latent Gaussian Models
  []
 
-[73]
+[74]
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-050.
+058.
 (c:/Users/nicco/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [74] [75]
-Overfull \hbox (2.8808pt too wide) detected at line 1092
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [75] [76]
+Overfull \hbox (2.8808pt too wide) detected at line 1100
 [][][]
  []
 
-[76] [77]
+[77] [78]
 
-LaTeX Warning: Reference `def:gp' on page 78 undefined on input line 1137.
+LaTeX Warning: Reference `def:gp' on page 79 undefined on input line 1145.
 
-[78]
+[79]
 File: images/precvscov.jpg Graphic file (type bmp)
 <images/precvscov.jpg>
-[79] [80] [81] [82]
+[80] [81] [82] [83]
 File: images/summarytable.PNG Graphic file (type bmp)
 <images/summarytable.PNG>
 File: 04-inla_files/figure-latex/spatplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/spatplot-1.pdf>
-Missing character: There is no 𝜂 in font [lmroman12-regular]:mapping=tex-text;!
-[83] [84]
+Missing character: There is no 𝜂 (U+1D702) in font [lmroman12-regular]:mapping=
+tex-text;!
+[84] [85]
 File: 04-inla_files/figure-latex/postplot-1.pdf Graphic file (type pdf)
 <use 04-inla_files/figure-latex/postplot-1.pdf>
-[85] [86]
+[86] [87]
 Chapter 5.
 
-Package natbib Warning: Citation `mass' on page 87 undefined on input line 1333
+Package natbib Warning: Citation `mass' on page 88 undefined on input line 1341
 .
 
-[87
+[88
 
 ]
 File: images/map.png Graphic file (type bmp)
 <images/map.png>
-[88] [89]
+[89] [90]
 File: images/prdprocess.png Graphic file (type bmp)
 <images/prdprocess.png>
-[90]
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx8!
-Missing character: There is no 𝜉 in font rm-lmbx6!
+[91]
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx8!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx6!
 File: images/isotropyVSanisotropy.png Graphic file (type bmp)
 <images/isotropyVSanisotropy.png>
-[91]
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx8!
-Missing character: There is no 𝜉 in font rm-lmbx6!
 [92]
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx12!
-Missing character: There is no 𝜉 in font rm-lmbx8!
-Missing character: There is no 𝜉 in font rm-lmbx6!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx8!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx6!
+[93]
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx12!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx8!
+Missing character: There is no 𝜉 ("1D709) in font rm-lmbx6!
 File: 05-prd_modelling_files/figure-latex/matern-1.pdf Graphic file (type pdf)
 <use 05-prd_modelling_files/figure-latex/matern-1.pdf>
-[93] [94] [95]
+[94] [95] [96]
 File: images/piemonte_pm10.jpg Graphic file (type bmp)
 <images/piemonte_pm10.jpg>
 File: images/spde_indexedsurface.jpg Graphic file (type bmp)
 <images/spde_indexedsurface.jpg>
-[96] [97]
-Missing character: There is no ‒ in font [lmroman12-regular]:mapping=tex-text;!
-[98] [99] [100] [101]
+[97] [98]
+Missing character: There is no ‒ (U+2012) in font [lmroman12-regular]:mapping=t
+ex-text;!
+[99] [100] [101] [102]
 File: 05-prd_modelling_files/figure-latex/pitcpo-1.pdf Graphic file (type pdf)
 <use 05-prd_modelling_files/figure-latex/pitcpo-1.pdf>
-[102]
+[103]
 
-LaTeX Warning: Reference `example' on page 103 undefined on input line 1542.
-
-
-Package natbib Warning: Citation `Blangiaro-Cameletti' on page 103 undefined on
- input line 1553.
+LaTeX Warning: Reference `example' on page 104 undefined on input line 1550.
 
 
-Package natbib Warning: Citation `Blangiaro-Cameletti' on page 103 undefined on
- input line 1553.
+Package natbib Warning: Citation `Blangiaro-Cameletti' on page 104 undefined on
+ input line 1561.
 
-[103] [104] [105]
 
-Package natbib Warning: Citation `slides' on page 106 undefined on input line 1
-573.
+Package natbib Warning: Citation `Blangiaro-Cameletti' on page 104 undefined on
+ input line 1561.
+
+[104] [105] [106]
+
+Package natbib Warning: Citation `slides' on page 107 undefined on input line 1
+581.
 
 File: 05-prd_modelling_files/figure-latex/priorfun-1.pdf Graphic file (type pdf
 )
 <use 05-prd_modelling_files/figure-latex/priorfun-1.pdf>
-[106] [107]
+[107] [108]
 Chapter 6.
 
-LaTeX Warning: Reference `fig:NonLinearSpatialRel' on page 108 undefined on inp
-ut line 1590.
+LaTeX Warning: Reference `fig:NonLinearSpatialRel' on page 109 undefined on inp
+ut line 1598.
 
-[108
+[109
 
 ]
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1592--1618
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1600--1626
  [] [] 
  []
 
-[109]
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1618--1642
+[110]
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1626--1650
  [] [] 
  []
 
 
-Overfull \hbox (181.35745pt too wide) in alignment at lines 1642--1644
+Overfull \hbox (181.35745pt too wide) in alignment at lines 1650--1652
  [] [] 
  []
 
-[110] [111]
+[111] [112]
 File: images/leaflet_prezzi.jpg Graphic file (type bmp)
 <images/leaflet_prezzi.jpg>
-[112]
+[113]
 File: images/3d_map2.png Graphic file (type bmp)
 <images/3d_map2.png>
 
-Package natbib Warning: Citation `rayshader' on page 113 undefined on input lin
-e 1682.
+Package natbib Warning: Citation `rayshader' on page 114 undefined on input lin
+e 1690.
 
-[113]
+[114]
 File: 06-exploratory_files/figure-latex/semivariogram-1.pdf Graphic file (type 
 pdf)
 <use 06-exploratory_files/figure-latex/semivariogram-1.pdf>
-[114]
+[115]
 File: 06-exploratory_files/figure-latex/fctCounts-1.pdf Graphic file (type pdf)
 
 <use 06-exploratory_files/figure-latex/fctCounts-1.pdf>
-[115]
+[116]
 File: 06-exploratory_files/figure-latex/PricePerAc-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/PricePerAc-1.pdf>
-[116]
+[117]
 File: 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf Graphic file (type pdf
 )
 <use 06-exploratory_files/figure-latex/GlmPriceSq-1.pdf>
-[117]
-Overfull \hbox (72.69743pt too wide) in paragraph at lines 1748--1761
+[118]
+Overfull \hbox (72.69743pt too wide) in paragraph at lines 1756--1769
  [][] 
  []
 
-[118]
+[119]
 File: 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf Graphic file (type
  pdf)
 <use 06-exploratory_files/figure-latex/TieFighterPlot-1.pdf>
-[119] [120]
+[120] [121]
 File: 06-exploratory_files/figure-latex/Heatmap-1.pdf Graphic file (type pdf)
 <use 06-exploratory_files/figure-latex/Heatmap-1.pdf>
 
-LaTeX Warning: Reference `tab:' on page 121 undefined on input line 1812.
+LaTeX Warning: Reference `tab:' on page 122 undefined on input line 1820.
 
-[121]
+[122]
 File: 06-exploratory_files/figure-latex/cooccurrence-1.pdf Graphic file (type p
 df)
 <use 06-exploratory_files/figure-latex/cooccurrence-1.pdf>
-[122] [123] [124]
+[123] [124] [125]
 Chapter 7.
-[125
+[126
 
 ]
 File: 07-model_fitting_files/figure-latex/ggmap-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/ggmap-1.pdf>
-[126]
-Underfull \hbox (badness 2635) in paragraph at lines 1881--1885
+[127]
+Underfull \hbox (badness 2635) in paragraph at lines 1889--1893
 \TU/lmr/m/n/12 dom effect assigned to the function $[][][][]$, for the set of c
 oviarates
  []
 
-[127]
-Underfull \hbox (badness 3746) in paragraph at lines 1898--1899
+[128]
+Underfull \hbox (badness 3746) in paragraph at lines 1906--1907
 []\TU/lmr/m/n/12 In the lower level priors are considered as their joint distri
 bution
  []
 
 File: 07-model_fitting_files/figure-latex/meshes-1.pdf Graphic file (type pdf)
 <use 07-model_fitting_files/figure-latex/meshes-1.pdf>
-[128] [129]
-Overfull \hbox (218.90544pt too wide) in paragraph at lines 1941--1958
+[129] [130]
+Overfull \hbox (218.90544pt too wide) in paragraph at lines 1949--1966
  [][] 
  []
 
-[130]
+[131]
 File: 07-model_fitting_files/figure-latex/summhyper-1.pdf Graphic file (type pd
 f)
 <use 07-model_fitting_files/figure-latex/summhyper-1.pdf>
 File: 07-model_fitting_files/figure-latex/pltgmrf-1.pdf Graphic file (type pdf)
 
 <use 07-model_fitting_files/figure-latex/pltgmrf-1.pdf>
-[131] [132]
+[132] [133]
 File: 07-model_fitting_files/figure-latex/modelcpo-1.pdf Graphic file (type pdf
 )
 <use 07-model_fitting_files/figure-latex/modelcpo-1.pdf>
 
-LaTeX Warning: Reference `ggmap' on page 133 undefined on input line 2024.
+LaTeX Warning: Reference `ggmap' on page 134 undefined on input line 2032.
 
-[133]
+[134]
 File: 07-model_fitting_files/figure-latex/predgrid-1.pdf Graphic file (type pdf
 )
 <use 07-model_fitting_files/figure-latex/predgrid-1.pdf>
-[134]
+[135]
 Chapter 8.
-[135
+[136
 
-] [136]
+] [137]
 File: images/analytics_dashbboard.jpg Graphic file (type bmp)
 <images/analytics_dashbboard.jpg>
-[137] [138]
+[138] [139]
 File: appendix_images/appendix_triangularization.jpg Graphic file (type bmp)
 <appendix_images/appendix_triangularization.jpg>
-[139
+[140
 
-] [140]
+] [141]
 File: appendix_images/appendix_proj.jpg Graphic file (type bmp)
 <appendix_images/appendix_proj.jpg>
-[141] [142] [143] [144]
+[142] [143] [144] [145]
 File: 98-appendix_files/figure-latex/laplacevisual-1.pdf Graphic file (type pdf
 )
 <use 98-appendix_files/figure-latex/laplacevisual-1.pdf>
-(./Niccolo_Salvini_Thesis.bbl [145] [146
+(./Niccolo_Salvini_Thesis.bbl [146] [147
 
-] [147] [148] [149] [150] [151] [152] [153] [154]
-Underfull \hbox (badness 5022) in paragraph at lines 600--603
+] [148] [149] [150] [151] [152] [153] [154] [155]
+Underfull \hbox (badness 5022) in paragraph at lines 605--608
 []\TU/lmr/m/n/12 UserAgentString.com (1999).  Useragentstring.com - chrome vers
 ion
  []
 
-[155])
+[156])
 
 Package natbib Warning: There were undefined citations.
 
-[156] (./Niccolo_Salvini_Thesis.aux)
+[157] (./Niccolo_Salvini_Thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1791,15 +1800,15 @@ LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Niccolo_Salvini_Thesis.out' has not changed.
 
-(rerunfilecheck)             Checksum: DD713B18D5E9677815290B62C3CCFFD5;11928.
+(rerunfilecheck)             Checksum: 316EF72A0806C9C623035A96CD834C58;11928.
  ) 
 Here is how much of TeX's memory you used:
- 23792 strings out of 479210
- 418319 string characters out of 5873258
- 1127179 words of memory out of 5000000
- 42907 multiletter control sequences out of 15000+600000
+ 24045 strings out of 478764
+ 427855 string characters out of 5862279
+ 1127050 words of memory out of 5000000
+ 43597 multiletter control sequences out of 15000+600000
  419550 words of font info for 105 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 98i,19n,122p,5269b,1678s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,19n,121p,5269b,1678s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Niccolo_Salvini_Thesis.pdf (158 pages).
+Output written on Niccolo_Salvini_Thesis.pdf (159 pages).

@@ -5,7 +5,7 @@ author:
 - "Supervisor: [PhD Marco L. Della Vedova](https://mldv.it/home/)"
 - "Assistant Supervisor: [PhD Vincenzo Nardelli](https://github.com/vincnardelli)"
 url: 'https://niccolosalvini.github.io/Thesis/'
-date: "Lastest book build: 20 aprile, 2021"
+date: "Lastest book build: 14 June, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
