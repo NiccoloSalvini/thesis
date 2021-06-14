@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA | README.utf8</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA | README.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA | README.utf8" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171723874-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171723874-1');
+</script>
+<script src="js/1book.js"></script>
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="images/logo/spatial_logo.png"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#rest-scraping-api-for-real-estate-data-a-spatial-bayesian-modeling-perspective-with-inla"><i class="fa fa-check"></i><b>1</b> REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path=""><a href="#abstract"><i class="fa fa-check"></i><b>1.0.1</b> Abstract:</a></li>
+<li class="chapter" data-level="1.0.2" data-path=""><a href="#deployment"><i class="fa fa-check"></i><b>1.0.2</b> Deployment:</a></li>
+<li class="chapter" data-level="1.0.3" data-path=""><a href="#license"><i class="fa fa-check"></i><b>1.0.3</b> License:</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/NiccoloSalvini/tesi-prova" target="blank"> See Github Repository</a></li>
+<li><a href="https://niccolosalvini.netlify.app/">About The Author</a></li>
+<li><a Proudly published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="rest-scraping-api-for-real-estate-data-a-spatial-bayesian-modeling-perspective-with-inla" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA</h1>
+<p><em>author</em>: <a href="https://niccolosalvini.netlify.app/"><strong>Niccolò Salvini</strong></a>
+<em>date</em>: 14 June, 2021</p>
+<p><a href="http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis"><img src="http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg" alt="HitCount" /></a>
+<img src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis" alt="GitHub issues"/>
+<a href="https://shields.io/"><img src="https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg" alt="Generic badge" /></a>
+<a href="https://niccolosalvini.github.io/Thesis/"><img src="https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg" alt="Website" /></a>
+<a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."/>
+</a>
+<a href="https://github.com/NiccoloSalvini/tesi-prova/actions"><img src="https://github.com/NiccoloSalvini/tesi-prova/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a></p>
+<p><br> <br></p>
+<div class="figure">
+<img src="images/logo/spatial_logo.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
+<p class="caption">
+Spatial Data Analysis
+</p>
+</div>
+<div id="abstract" class="section level3" number="1.0.1">
+<h3><span class="header-section-number">1.0.1</span> Abstract:</h3>
+<p>The following work has the aim to build a robust Scraping API service to
+extract Real Estate rental data (Milan, IT) and applying <em>geostatistics</em>
+spatial modeling through a convenient computing alternative called INLA.
+Data originates from immobiliare.it database and it is extracted through
+a <em>scraper</em> built on top of the website. The scraper is <em>optimized</em> with
+respect to both the server side <em>kindly requesting</em> permission and
+imposing <em>delayed-request rates</em>, and the client side by granting
+continuity through <em>fail dealers</em> and request’s <em>headers rotation</em>.
+Scraping functions exploit a custom workflow that combines url reverse
+engineering and optimal search strategies within the website. Speed
+comes from the fact that differently from spiders and derivatives which
+operate a full crawling down of the web site, the workflow concentrates
+only on a restricted set of urls. A further critical speed boost is
+offered by parallelism through the latest <em>Future</em> back-end, and a run
+time benchmark demonstrates the scraper rapidity for two recent parallel
+with two configurations. The scraper is then wrapped into a http API
+through an R framework, namely <em>Plumber</em>. Security is a major focus and
+anti dossing strategies, HTTPS and sanitization are singularly treated.
+Docker can offer a lightweight environment where dependencies are
+conveniently organized making the software portable. As a result the
+whole API service is <em>containerized</em> and built upon custom Dockerfiles,
+which are orchestrated by <em>Compose</em> through a .yml file. Amazon EC2 is
+an AWS web service providing a stable, scalable cloud computing
+capability in which the system is hosted. The service choice is a free
+tier one. Along with the server it comes the need of a reverse proxy
+service and the choice falls on <em>NGINX</em> reverse proxy server for
+authentication and load balancing. The architecture principles stacked
+on top of the http API elevates it to being RESTful. RESTful APIs are a
+mean of communication among internet services that allows to perform any
+kind of action without having both parts to know how they are
+implemented. In other words, if the client wants to interact with a web
+service with the aim to retrieve information or perform a function, a
+RESTful API land a hand by communicating the <em>desiderata</em> to that system
+so it can understand and fulfill the request in a secured and structured
+way. Software CI/CD is managed through automatic workflow that exploits
+GitHub and DockerHub, which ultimately allows containers to be pulled
+into the EC2. Once the RESTful API endpoint is invoked, data, in this
+case Milan rental market within the municipality borders, is
+asynchronously scraped and collected into a JSON format. Traditional
+spatial bayesian methods have been generally slow in the context of
+spatial big data since covariance matrices are dense and their
+inversions scale to a cubic order. Therefore Integrated Nested Laplace
+approximation (INLA) is applied constituting a faster computational
+alternative on a special type of models called Latent Gaussian models
+(LGM). <em>INLA</em> shorten computations through analytics approximations with
+Laplace and numerical methods for space matrices with the aim to obtain
+an approximated posterior distribution of the parameters. Hedonic Price
+Models (HPM) constitutes the economic theoretical foundation of the
+model according to which the linear predictor is set. As a matter of
+fact house prices are related to the value of the property by their
+demand-offer price equilibra for each single characteristic (including
+the spatial ones). A further aspects addresses the fact that prices are
+considered as a proxy value for rents since they are both
+interchangeable economic actions satisfying the same need. However the
+critical part of studying house characteristics in geostatistics is the
+<em>estimation</em> for the reason already anticipates. LGMs are defined into a
+hierarchical bayesian modeling framework, distinguishing three nested
+hierarchy levels: the likelihood of the data (generally an exponential
+family), the latent Gaussian Markov Random Field GRMF (where the linear
+predictor is) and the hyper parameter distribution for which priors are
+specified. GMRF are suitable since they provide a sparse precision
+matrix due to conditional assumption, marking matrices tridiagonal. The
+spatial component of the data is considered as a discrete realization of
+an underlying unobserved and continuous Gaussian Process (GP) to be
+estimated, completely characterized by a mean structure and a covariance
+matrix. For the Gaussian Process are made two major assumptions:
+stationarity and isotropy, which let specifying a flexible covariance
+function i.e. Matérn. The Stochastic Partial Differential Equations
+(SPDE) solutions can provide a GMRF representation of the GP whose
+covariance matrix is Matérn. This happens through a triangulation of the
+domain of the study said mesh. The model is then fitted and cross
+validated with R-INLA and inference on parameter posterior distribution
+is given.</p>
+</div>
+<div id="deployment" class="section level3" number="1.0.2">
+<h3><span class="header-section-number">1.0.2</span> Deployment:</h3>
+<p>You can PR, explore and download (pdf version) to the
+<a href="https://niccolosalvini.github.io/thesis/"><strong><span class="citation">@address</span></strong></a>. Deployment
+happens through
+<a href="https://medium.com/@delucmat/how-to-publish-bookdown-projects-with-github-actions-on-github-pages-6e6aecc7331e">gh-pages</a>.</p>
+</div>
+<div id="license" class="section level3" number="1.0.3">
+<h3><span class="header-section-number">1.0.3</span> License:</h3>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Licenza Creative Commons" style="border-width:0"/></a><br />Quest’opera
+è distribuita con Licenza
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+Commons Attribuzione 4.0 Internazionale</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false,
+"google": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/NiccoloSalvini/thesis/edit/master/%s",
+"text": "Suggest an edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>

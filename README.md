@@ -6,7 +6,7 @@
 # REST Scraping API for Real Estate data, a Spatial Bayesian modeling perspective with INLA
 
 *author*: [**Niccolò Salvini**](https://niccolosalvini.netlify.app/)
-*date*: 19 aprile, 2021
+*date*: 14 June, 2021
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis)
 <img src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis" alt="GitHub issues"/>
@@ -15,6 +15,7 @@ badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.
 [![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/)
 <a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."/>
 </a>
+[![R-CMD-check](https://github.com/NiccoloSalvini/tesi-prova/workflows/R-CMD-check/badge.svg)](https://github.com/NiccoloSalvini/tesi-prova/actions)
 
 <br> <br>
 

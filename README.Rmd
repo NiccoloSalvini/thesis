@@ -12,6 +12,7 @@ editor_options:
 
 <!-- README.md is generated from README.Rmd. Please edit that file - rmarkdown::render('README.Rmd', output_format = 'github_document', output_file = 'README.md') -->
 
+
 ```{r global.options, include=FALSE}
 knitr::opts_chunk$set(
   warning = FALSE,  
@@ -41,6 +42,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){  # to center
 
 [![HitCount](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis.svg)](http://hits.dwyl.com/NiccoloSalvini/NiccoloSalvini%20/%20Thesis) <img src="https://img.shields.io/github/issues-raw/NiccoloSalvini/thesis" alt="GitHub issues"/> [![Generic badge](https://img.shields.io/badge/Github%20Pages%20Deploy-PASSING-%3CCOLOR%3E.svg)](https://shields.io/) [![Website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://niccolosalvini.github.io/Thesis/) <a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."/>
 </a>
+ [![R-CMD-check](https://github.com/NiccoloSalvini/tesi-prova/workflows/R-CMD-check/badge.svg)](https://github.com/NiccoloSalvini/tesi-prova/actions)
 
 <br> <br>
 
