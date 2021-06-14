@@ -1,2 +1,6 @@
+^renv$
+^renv\.lock$
+^requirements\.txt$
 ^\.travis\.yml$
 ^\.github$
+^LICENSE\.md$
