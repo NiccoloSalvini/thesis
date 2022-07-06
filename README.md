@@ -19,15 +19,6 @@ Status](https://api.netlify.com/api/v1/badges/6d5dad0e-716a-4995-ac8f-bcbf35a4bf
 
 <br> <br>
 
-<div class="figure">
-
-<img src="images/logo/spatial_logo.png" alt="Spatial Data Analysis" width="50%" /><img src="images/spatial_visualization.gif" alt="Spatial Data Analysis" width="50%" />
-<p class="caption">
-Spatial Data Analysis
-</p>
-
-</div>
-
 ### Abstract:
 
 The following work has the aim to build a robust Scraping API service to
